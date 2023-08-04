@@ -1,19 +1,13 @@
 import { lazy } from 'react';
 const Index = lazy(() => import('../pages/Index'));
-const Analytics = lazy(() => import('../pages/Analytics'));
-const Finance = lazy(() => import('../pages/Finance'));
-const Crypto = lazy(() => import('../pages/Crypto'));
-const Todolist = lazy(() => import('../pages/Apps/Todolist'));
-const Mailbox = lazy(() => import('../pages/Apps/Mailbox'));
-const Notes = lazy(() => import('../pages/Apps/Notes'));
-const Contacts = lazy(() => import('../pages/Apps/Contacts'));
-const Chat = lazy(() => import('../pages/Apps/Chat'));
-const Scrumboard = lazy(() => import('../pages/Apps/Scrumboard'));
-const Calendar = lazy(() => import('../pages/Apps/Calendar'));
-const List = lazy(() => import('../pages/Apps/Invoice/List'));
-const Preview = lazy(() => import('../pages/Apps/Invoice/Preview'));
-const Add = lazy(() => import('../pages/Apps/Invoice/Add'));
-const Edit = lazy(() => import('../pages/Apps/Invoice/Edit'));
+const Todolist = lazy(() => import('../pages/Todolist'));
+
+const Contacts = lazy(() => import('../pages/Contacts'));
+
+const List = lazy(() => import('../pages/Invoice/Index'));
+const Preview = lazy(() => import('../pages/Invoice/Preview'));
+const Add = lazy(() => import('../pages/Invoice/Add'));
+const Edit = lazy(() => import('../pages/Invoice/Edit'));
 const Tabs = lazy(() => import('../pages/Components/Tabs'));
 const Accordians = lazy(() => import('../pages/Components/Accordians'));
 const Modals = lazy(() => import('../pages/Components/Modals'));
@@ -104,69 +98,36 @@ const routes = [
         path: '/',
         element: <Index />,
     },
-    // {
-    //     path: '/index',
-    //     element: <Index />,
-    // },
-    // analytics page
     {
-        path: '/analytics',
-        element: <Analytics />,
+        path: '/index',
+        element: <Index />,
     },
-    // finance page
+
     {
-        path: '/finance',
-        element: <Finance />,
-    },
-    // crypto page
-    {
-        path: '/crypto',
-        element: <Crypto />,
-    },
-    {
-        path: '/apps/todolist',
-        element: <Todolist />,
-    },
-    {
-        path: '/apps/notes',
-        element: <Notes />,
-    },
-    {
-        path: '/apps/contacts',
+        path: '/contacts',
         element: <Contacts />,
     },
     {
-        path: '/apps/mailbox',
-        element: <Mailbox />,
+        path: '/todolist',
+        element: <Todolist />,
     },
+    
     {
-        path: '/apps/invoice/list',
+        path: '/invoice/list',
         element: <List />,
     },
-    // Apps page
-    {
-        path: '/apps/chat',
-        element: <Chat />,
-    },
-    {
-        path: '/apps/scrumboard',
-        element: <Scrumboard />,
-    },
-    {
-        path: '/apps/calendar',
-        element: <Calendar />,
-    },
+
     // preview page
     {
-        path: '/apps/invoice/preview',
+        path: '/invoice/preview',
         element: <Preview />,
     },
     {
-        path: '/apps/invoice/add',
+        path: '/invoice/add',
         element: <Add />,
     },
     {
-        path: '/apps/invoice/edit',
+        path: '/invoice/edit',
         element: <Edit />,
     },
     // components page

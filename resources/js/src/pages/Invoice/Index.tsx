@@ -3,8 +3,8 @@ import { DataTable, DataTableSortStatus } from 'mantine-datatable';
 import { useState, useEffect } from 'react';
 import sortBy from 'lodash/sortBy';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../../../store';
-import { setPageTitle } from '../../../store/themeConfigSlice';
+import { IRootState } from '../../store';
+import { setPageTitle } from '../../store/themeConfigSlice';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -229,7 +229,7 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-                        <Link to="/apps/invoice/add" className="btn btn-primary gap-2">
+                        <Link to="/invoice/add" className="btn btn-primary gap-2">
                             <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -251,7 +251,7 @@ const List = () => {
                                 accessor: 'invoice',
                                 sortable: true,
                                 render: ({ invoice }) => (
-                                    <NavLink to="/apps/invoice/preview">
+                                    <NavLink to="/invoice/preview">
                                         <div className="text-primary underline hover:no-underline font-semibold">{`#${invoice}`}</div>
                                     </NavLink>
                                 ),
@@ -294,7 +294,7 @@ const List = () => {
                                 textAlignment: 'center',
                                 render: ({ id }) => (
                                     <div className="flex gap-4 items-center w-max mx-auto">
-                                        <NavLink to="/apps/invoice/edit" className="flex hover:text-info">
+                                        <NavLink to="/invoice/edit" className="flex hover:text-info">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                 <path
                                                     opacity="0.5"
@@ -316,7 +316,7 @@ const List = () => {
                                                 ></path>
                                             </svg>
                                         </NavLink>
-                                        <NavLink to="/apps/invoice/preview" className="flex hover:text-primary">
+                                        <NavLink to="/invoice/preview" className="flex hover:text-primary">
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     opacity="0.5"

@@ -626,8 +626,9 @@ const Header = () => {
 
                 {/* horizontal menu */}
                 <ul className="horizontal-menu hidden py-1.5 font-semibold px-6 lg:space-x-1.5 xl:space-x-8 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
+                    
                     <li className="menu nav-item relative">
-                        <button type="button" className="nav-link">
+                        <NavLink to="/"className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -642,31 +643,35 @@ const Header = () => {
                                 </svg>
                                 <span className="px-1">{t('dashboard')}</span>
                             </div>
-                            <div className="right_arrow">
-                                <svg className="rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
-                        </button>
-                        <ul className="sub-menu">
-                            <li>
-                                <NavLink to="/">{t('sales')}</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/analytics">{t('analytics')}</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/finance">{t('finance')}</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/crypto">{t('crypto')}</NavLink>
-                            </li>
-                        </ul>
+                           
+                        </NavLink>
+                    
                     </li>
+
                     <li className="menu nav-item relative">
-                        <button type="button" className="nav-link">
+                        <NavLink to="/contacts" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        opacity="0.5"
+                                        d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
+                                        fill="currentColor"
+                                    />
+                                    <path
+                                        d="M9 17.25C8.58579 17.25 8.25 17.5858 8.25 18C8.25 18.4142 8.58579 18.75 9 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18C15.75 17.5858 15.4142 17.25 15 17.25H9Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                                <span className="px-1">{t('contacts')}</span>
+                            </div>
+                           
+                        </NavLink>
+                    
+                    </li>
+                    <li className="menu nav-item relative"> 
+                        <NavLink to="/invoice/list" className="nav-link">
+                            <div className="flex items-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g opacity="0.5">
                                         <path
                                             d="M14 2.75C15.9068 2.75 17.2615 2.75159 18.2892 2.88976C19.2952 3.02503 19.8749 3.27869 20.2981 3.7019C20.7213 4.12511 20.975 4.70476 21.1102 5.71085C21.2484 6.73851 21.25 8.09318 21.25 10C21.25 10.4142 21.5858 10.75 22 10.75C22.4142 10.75 22.75 10.4142 22.75 10V9.94359C22.75 8.10583 22.75 6.65019 22.5969 5.51098C22.4392 4.33856 22.1071 3.38961 21.3588 2.64124C20.6104 1.89288 19.6614 1.56076 18.489 1.40314C17.3498 1.24997 15.8942 1.24998 14.0564 1.25H14C13.5858 1.25 13.25 1.58579 13.25 2C13.25 2.41421 13.5858 2.75 14 2.75Z"
@@ -702,62 +707,45 @@ const Header = () => {
                                         fill="currentColor"
                                     />
                                 </svg>
-                                <span className="px-1">{t('apps')}</span>
+                                <span className="px-1">{t('invoice')}</span>
                             </div>
-                            <div className="right_arrow">
-                                <svg className="rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
-                        </button>
-                        <ul className="sub-menu">
+                           
+                        </NavLink>
+                        <ul className="rounded absolute top-0 ltr:left-[95%] rtl:right-[95%] min-w-[180px] bg-white z-[10] text-dark dark:text-white-dark dark:bg-[#1b2e4b] shadow p-0 py-2 hidden">
                             <li>
-                                <NavLink to="/apps/chat">{t('chat')}</NavLink>
+                                <NavLink to="/invoice/list">{t('list')}</NavLink>
                             </li>
+                           
                             <li>
-                                <NavLink to="/apps/mailbox">{t('mailbox')}</NavLink>
+                                <NavLink to="/invoice/add">{t('add')}</NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/apps/todolist">{t('todo_list')}</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/apps/notes">{t('notes')}</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/apps/scrumboard">{t('scrumboard')}</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/apps/contacts">{t('contacts')}</NavLink>
-                            </li>
-                            <li className="relative">
-                                <button type="button">
-                                    {t('invoice')}
-                                    <div className="ltr:ml-auto rtl:mr-auto rtl:rotate-180">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </div>
-                                </button>
-                                <ul className="rounded absolute top-0 ltr:left-[95%] rtl:right-[95%] min-w-[180px] bg-white z-[10] text-dark dark:text-white-dark dark:bg-[#1b2e4b] shadow p-0 py-2 hidden">
-                                    <li>
-                                        <NavLink to="/apps/invoice/list">{t('list')}</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/apps/invoice/preview">{t('preview')}</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/apps/invoice/add">{t('add')}</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/apps/invoice/edit">{t('edit')}</NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <NavLink to="/apps/calendar">{t('calendar')}</NavLink>
-                            </li>
+                            
                         </ul>
+                    
                     </li>
+                   
+
+                    <li className="menu nav-item relative">
+                        <NavLink to="/todolist" className="nav-link">
+                            <div className="flex items-center">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        opacity="0.5"
+                                        d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
+                                        fill="currentColor"
+                                    />
+                                    <path
+                                        d="M9 17.25C8.58579 17.25 8.25 17.5858 8.25 18C8.25 18.4142 8.58579 18.75 9 18.75H15C15.4142 18.75 15.75 18.4142 15.75 18C15.75 17.5858 15.4142 17.25 15 17.25H9Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                                <span className="px-1">{t('todolist')}</span>
+                            </div>
+                           
+                        </NavLink>
+                    
+                    </li>
+                   
                     <li className="menu nav-item relative">
                         <button type="button" className="nav-link">
                             <div className="flex items-center">
