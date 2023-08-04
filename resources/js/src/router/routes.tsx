@@ -8,6 +8,7 @@ const List = lazy(() => import('../pages/Invoice/Index'));
 const Preview = lazy(() => import('../pages/Invoice/Preview'));
 const Add = lazy(() => import('../pages/Invoice/Add'));
 const Edit = lazy(() => import('../pages/Invoice/Edit'));
+const Leads = lazy(() => import('../pages/Leads'));
 
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
@@ -40,7 +41,10 @@ const routes = [
         path: '/index',
         element: <Index />,
     },
-
+    {
+        path: '/leads',
+        element: <Leads />,
+    },
     {
         path: '/contacts',
         element: <Contacts />,
