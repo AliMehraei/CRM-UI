@@ -4,12 +4,12 @@ import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../store/themeConfigSlice';
 
-const Contacts = () => {
+const Contracts = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('Contacts'));
+        dispatch(setPageTitle('Contracts'));
     });
-    const [addContactModal, setAddContactModal] = useState<any>(false);
+    const [addContractModal, setAddContractModal] = useState<any>(false);
 
     const [value, setValue] = useState<any>('list');
     const [defaultParams] = useState({
@@ -29,7 +29,7 @@ const Contacts = () => {
     };
 
     const [search, setSearch] = useState<any>('');
-    const [contactList] = useState<any>([
+    const [contractList] = useState<any>([
         {
             id: 1,
             path: 'profile-35.png',
@@ -176,15 +176,15 @@ const Contacts = () => {
         },
     ]);
 
-    const [filteredItems, setFilteredItems] = useState<any>(contactList);
+    const [filteredItems, setFilteredItems] = useState<any>(contractList);
 
     useEffect(() => {
         setFilteredItems(() => {
-            return contactList.filter((item: any) => {
+            return contractList.filter((item: any) => {
                 return item.name.toLowerCase().includes(search.toLowerCase());
             });
         });
-    }, [search, contactList]);
+    }, [search, contractList]);
 
     const saveUser = () => {
         if (!params.name) {
@@ -229,11 +229,11 @@ const Contacts = () => {
                 following: 500,
             };
             filteredItems.splice(0, 0, user);
-            //   searchContacts();
+            //   searchContracts();
         }
 
         showMessage('User has been saved successfully.');
-        setAddContactModal(false);
+        setAddContractModal(false);
     };
 
     const editUser = (user: any = null) => {
@@ -243,7 +243,7 @@ const Contacts = () => {
             let json1 = JSON.parse(JSON.stringify(user));
             setParams(json1);
         }
-        setAddContactModal(true);
+        setAddContractModal(true);
     };
 
     const deleteUser = (user: any = null) => {
@@ -269,7 +269,7 @@ const Contacts = () => {
     return (
         <div>
             <div className="flex items-center justify-between flex-wrap gap-4">
-                <h2 className="text-xl">Contacts</h2>
+                <h2 className="text-xl">Contracts</h2>
                 <div className="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
                     <div className="flex gap-3">
                         <div>
@@ -284,7 +284,7 @@ const Contacts = () => {
                                     />
                                     <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                                 </svg>
-                                Add Contact
+                                Add Contract
                             </button>
                         </div>
                         <div>
@@ -329,7 +329,7 @@ const Contacts = () => {
                         </div>
                     </div>
                     <div className="relative">
-                        <input type="text" placeholder="Search Contacts" className="form-input py-2 ltr:pr-11 rtl:pl-11 peer" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <input type="text" placeholder="Search Contracts" className="form-input py-2 ltr:pr-11 rtl:pl-11 peer" value={search} onChange={(e) => setSearch(e.target.value)} />
                         <button type="button" className="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" strokeWidth="1.5" opacity="0.5"></circle>
@@ -353,20 +353,20 @@ const Contacts = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredItems.map((contact: any) => {
+                                {filteredItems.map((contract: any) => {
                                     return (
-                                        <tr key={contact.id}>
+                                        <tr key={contract.id}>
                                             <td>
                                                 <div className="flex items-center w-max">
-                                                    {contact.path && (
+                                                    {contract.path && (
                                                         <div className="w-max">
-                                                            <img src={`/assets/images/${contact.path}`} className="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2" alt="avatar" />
+                                                            <img src={`/assets/images/${contract.path}`} className="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2" alt="avatar" />
                                                         </div>
                                                     )}
-                                                    {!contact.path && contact.name && (
+                                                    {!contract.path && contract.name && (
                                                         <div className="grid place-content-center h-8 w-8 ltr:mr-2 rtl:ml-2 rounded-full bg-primary text-white text-sm font-semibold"></div>
                                                     )}
-                                                    {!contact.path && !contact.name && (
+                                                    {!contract.path && !contract.name && (
                                                         <div className="border border-gray-300 dark:border-gray-800 rounded-full p-2 ltr:mr-2 rtl:ml-2">
                                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
@@ -374,18 +374,18 @@ const Contacts = () => {
                                                             </svg>
                                                         </div>
                                                     )}
-                                                    <div>{contact.name}</div>
+                                                    <div>{contract.name}</div>
                                                 </div>
                                             </td>
-                                            <td>{contact.email}</td>
-                                            <td className="whitespace-nowrap">{contact.location}</td>
-                                            <td className="whitespace-nowrap">{contact.phone}</td>
+                                            <td>{contract.email}</td>
+                                            <td className="whitespace-nowrap">{contract.location}</td>
+                                            <td className="whitespace-nowrap">{contract.phone}</td>
                                             <td>
                                                 <div className="flex gap-4 items-center justify-center">
-                                                    <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(contact)}>
+                                                    <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(contract)}>
                                                         Edit
                                                     </button>
-                                                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => deleteUser(contact)}>
+                                                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => deleteUser(contract)}>
                                                         Delete
                                                     </button>
                                                 </div>
@@ -401,9 +401,9 @@ const Contacts = () => {
 
             {value === 'grid' && (
                 <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 mt-5 w-full">
-                    {filteredItems.map((contact: any) => {
+                    {filteredItems.map((contract: any) => {
                         return (
-                            <div className="bg-white dark:bg-[#1c232f] rounded-md overflow-hidden text-center shadow relative" key={contact.id}>
+                            <div className="bg-white dark:bg-[#1c232f] rounded-md overflow-hidden text-center shadow relative" key={contract.id}>
                                 <div className="bg-white dark:bg-[#1c232f] rounded-md overflow-hidden text-center shadow relative">
                                     <div
                                         className="bg-white/40 rounded-t-md bg-center bg-cover p-6 pb-0 bg-"
@@ -414,23 +414,23 @@ const Contacts = () => {
                                             height: '100%',
                                         }}
                                     >
-                                        <img className="object-contain w-4/5 max-h-40 mx-auto" src={`/assets/images/${contact.path}`} alt="contact_image" />
+                                        <img className="object-contain w-4/5 max-h-40 mx-auto" src={`/assets/images/${contract.path}`} alt="contract_image" />
                                     </div>
                                     <div className="px-6 pb-24 -mt-10 relative">
                                         <div className="shadow-md bg-white dark:bg-gray-900 rounded-md px-2 py-4">
-                                            <div className="text-xl">{contact.name}</div>
-                                            <div className="text-white-dark">{contact.role}</div>
+                                            <div className="text-xl">{contract.name}</div>
+                                            <div className="text-white-dark">{contract.role}</div>
                                             <div className="flex items-center justify-between flex-wrap mt-6 gap-3">
                                                 <div className="flex-auto">
-                                                    <div className="text-info">{contact.posts}</div>
+                                                    <div className="text-info">{contract.posts}</div>
                                                     <div>Posts</div>
                                                 </div>
                                                 <div className="flex-auto">
-                                                    <div className="text-info">{contact.following}</div>
+                                                    <div className="text-info">{contract.following}</div>
                                                     <div>Following</div>
                                                 </div>
                                                 <div className="flex-auto">
-                                                    <div className="text-info">{contact.followers}</div>
+                                                    <div className="text-info">{contract.followers}</div>
                                                     <div>Followers</div>
                                                 </div>
                                             </div>
@@ -518,23 +518,23 @@ const Contacts = () => {
                                         <div className="mt-6 grid grid-cols-1 gap-4 ltr:text-left rtl:text-right">
                                             <div className="flex items-center">
                                                 <div className="flex-none ltr:mr-2 rtl:ml-2">Email :</div>
-                                                <div className="truncate text-white-dark">{contact.email}</div>
+                                                <div className="truncate text-white-dark">{contract.email}</div>
                                             </div>
                                             <div className="flex items-center">
                                                 <div className="flex-none ltr:mr-2 rtl:ml-2">Phone :</div>
-                                                <div className="text-white-dark">{contact.phone}</div>
+                                                <div className="text-white-dark">{contract.phone}</div>
                                             </div>
                                             <div className="flex items-center">
                                                 <div className="flex-none ltr:mr-2 rtl:ml-2">Address :</div>
-                                                <div className="text-white-dark">{contact.location}</div>
+                                                <div className="text-white-dark">{contract.location}</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                                        <button type="button" className="btn btn-outline-primary w-1/2" onClick={() => editUser(contact)}>
+                                        <button type="button" className="btn btn-outline-primary w-1/2" onClick={() => editUser(contract)}>
                                             Edit
                                         </button>
-                                        <button type="button" className="btn btn-outline-danger w-1/2" onClick={() => deleteUser(contact)}>
+                                        <button type="button" className="btn btn-outline-danger w-1/2" onClick={() => deleteUser(contract)}>
                                             Delete
                                         </button>
                                     </div>
@@ -545,8 +545,8 @@ const Contacts = () => {
                 </div>
             )}
 
-            <Transition appear show={addContactModal} as={Fragment}>
-                <Dialog as="div" open={addContactModal} onClose={() => setAddContactModal(false)} className="relative z-50">
+            <Transition appear show={addContractModal} as={Fragment}>
+                <Dialog as="div" open={addContractModal} onClose={() => setAddContractModal(false)} className="relative z-50">
                     <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
                         <div className="fixed inset-0 bg-[black]/60" />
                     </Transition.Child>
@@ -564,7 +564,7 @@ const Contacts = () => {
                                 <Dialog.Panel className="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg text-black dark:text-white-dark">
                                     <button
                                         type="button"
-                                        onClick={() => setAddContactModal(false)}
+                                        onClick={() => setAddContractModal(false)}
                                         className="absolute top-4 ltr:right-4 rtl:left-4 text-gray-400 hover:text-gray-800 dark:hover:text-gray-600 outline-none"
                                     >
                                         <svg
@@ -583,7 +583,7 @@ const Contacts = () => {
                                         </svg>
                                     </button>
                                     <div className="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]">
-                                        {params.id ? 'Edit Contact' : 'Add Contact'}
+                                        {params.id ? 'Edit Contract' : 'Add Contract'}
                                     </div>
                                     <div className="p-5">
                                         <form>
@@ -615,7 +615,7 @@ const Contacts = () => {
                                                 ></textarea>
                                             </div>
                                             <div className="flex justify-end items-center mt-8">
-                                                <button type="button" className="btn btn-outline-danger" onClick={() => setAddContactModal(false)}>
+                                                <button type="button" className="btn btn-outline-danger" onClick={() => setAddContractModal(false)}>
                                                     Cancel
                                                 </button>
                                                 <button type="button" className="btn btn-primary ltr:ml-4 rtl:mr-4" onClick={saveUser}>
@@ -634,4 +634,4 @@ const Contacts = () => {
     );
 };
 
-export default Contacts;
+export default Contracts;

@@ -636,7 +636,7 @@ const Header = () => {
                                         fill="currentColor"
                                     />
                                 </svg>
-                                <span className="px-1">{t('leads')}</span>
+                                <span className="px-1">{t('Leads')}</span>
                             </div>
                            
                         </NavLink>
@@ -677,7 +677,7 @@ const Header = () => {
                                         fill="currentColor"
                                     />
                                 </svg>
-                                <span className="px-1">{t('contracts')}</span>
+                                <span className="px-1">{t('Contracts')}</span>
                             </div>
                            
                         </NavLink>
