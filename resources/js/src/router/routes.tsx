@@ -27,7 +27,6 @@ const LoginCover = lazy(() => import('../pages/Authentication/LoginCover'));
 const RegisterCover = lazy(() => import('../pages/Authentication/RegisterCover'));
 const RecoverIdCover = lazy(() => import('../pages/Authentication/RecoverIdCover'));
 const UnlockCover = lazy(() => import('../pages/Authentication/UnlockCover'));
-const About = lazy(() => import('../pages/About'));
 const Error = lazy(() => import('../components/Error'));
 
 
@@ -160,11 +159,7 @@ const routes = [
         layout: 'blank',
     },
     
-    {
-        path: '/about',
-        element: <About />,
-        layout: 'blank',
-    },
+  
     {
         path: '*',
         element: <Error />,
