@@ -5,6 +5,7 @@ const Leads = lazy(() => import('../pages/Leads'));
 const Contacts = lazy(() => import('../pages/Contacts'));
 const Contracts = lazy(() => import('../pages/Contracts'));
 const Sales = lazy(() => import('../pages/Sales'));
+const Setting = lazy(() => import('../pages/App/Index'));
 const List = lazy(() => import('../pages/Invoice/Index'));
 const Preview = lazy(() => import('../pages/Invoice/Preview'));
 const Add = lazy(() => import('../pages/Invoice/Add'));
@@ -81,7 +82,10 @@ const routes = [
         path: '/invoice/edit',
         element: <Edit />,
     },
-   
+    {
+        path: '/app/setting',
+        element: <Setting />,
+    },
     // Users page
     {
         path: '/users/profile',
