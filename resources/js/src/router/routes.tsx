@@ -1,14 +1,15 @@
 import { lazy } from 'react';
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
-
+const Leads = lazy(() => import('../pages/Leads'));
 const Contacts = lazy(() => import('../pages/Contacts'));
-
+const Contracts = lazy(() => import('../pages/Contracts'));
+const Sales = lazy(() => import('../pages/Sales'));
 const List = lazy(() => import('../pages/Invoice/Index'));
 const Preview = lazy(() => import('../pages/Invoice/Preview'));
 const Add = lazy(() => import('../pages/Invoice/Add'));
 const Edit = lazy(() => import('../pages/Invoice/Edit'));
-const Leads = lazy(() => import('../pages/Leads'));
+
 
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
@@ -48,6 +49,14 @@ const routes = [
     {
         path: '/contacts',
         element: <Contacts />,
+    },
+    {
+        path: '/sales',
+        element: <Sales />,
+    },
+    {
+        path: '/contracts',
+        element: <Contracts />,
     },
     {
         path: '/todolist',
