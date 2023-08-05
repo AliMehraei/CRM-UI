@@ -7,10 +7,16 @@ const Contracts = lazy(() => import('../pages/Contracts'));
 const Support = lazy(() => import('../pages/Support/Supports'));
 const Sales = lazy(() => import('../pages/Sales'));
 const Setting = lazy(() => import('../pages/App/Index'));
-const List = lazy(() => import('../pages/Invoice/Index'));
-const Preview = lazy(() => import('../pages/Invoice/Preview'));
-const Add = lazy(() => import('../pages/Invoice/Add'));
-const Edit = lazy(() => import('../pages/Invoice/Edit'));
+
+const ListAccount = lazy(() => import('../pages/Account/Index'));
+const PreviewAccount = lazy(() => import('../pages/Account/Preview'));
+const AddAccount = lazy(() => import('../pages/Account/Add'));
+const EditAccount = lazy(() => import('../pages/Account/Edit'));
+
+const ListInvoice = lazy(() => import('../pages/Invoice/Index'));
+const PreviewInvoice = lazy(() => import('../pages/Invoice/Preview'));
+const AddInvoice = lazy(() => import('../pages/Invoice/Add'));
+const EditInvoice = lazy(() => import('../pages/Invoice/Edit'));
 
 
 const Profile = lazy(() => import('../pages/Users/Profile'));
@@ -40,9 +46,26 @@ const routes = [
         path: '/',
         element: <Index />,
     },
+    
     {
         path: '/index',
         element: <Index />,
+    },
+    {
+        path: '/account/list',
+        element: <ListAccount />,
+    },
+    {
+        path: '/account/preview',
+        element: <PreviewAccount />,
+    },
+    {
+        path: '/account/add',
+        element: <AddAccount />,
+    },
+    {
+        path: '/account/edit',
+        element: <EditAccount />,
     },
     {
         path: '/leads',
@@ -70,21 +93,21 @@ const routes = [
     },
     {
         path: '/invoice/list',
-        element: <List />,
+        element: <ListInvoice />,
     },
 
     // preview page
     {
         path: '/invoice/preview',
-        element: <Preview />,
+        element: <PreviewInvoice />,
     },
     {
         path: '/invoice/add',
-        element: <Add />,
+        element: <AddInvoice />,
     },
     {
         path: '/invoice/edit',
-        element: <Edit />,
+        element: <EditInvoice />,
     },
     {
         path: '/app/setting',
