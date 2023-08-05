@@ -13,6 +13,46 @@ const PreviewAccount = lazy(() => import('../pages/Account/Preview'));
 const AddAccount = lazy(() => import('../pages/Account/Add'));
 const EditAccount = lazy(() => import('../pages/Account/Edit'));
 
+const ListAvailability = lazy(() => import('../pages/Availability/Index'));
+const PreviewAvailability = lazy(() => import('../pages/Availability/Preview'));
+const AddAvailability = lazy(() => import('../pages/Availability/Add'));
+const EditAvailability = lazy(() => import('../pages/Availability/Edit'));
+
+const ListExcess = lazy(() => import('../pages/Excess/Index'));
+const PreviewExcess= lazy(() => import('../pages/Excess/Preview'));
+const AddExcess= lazy(() => import('../pages/Excess/Add'));
+const EditExcess = lazy(() => import('../pages/Excess/Edit'));
+
+const ListManufacture= lazy(() => import('../pages/Manufacture/Index'));
+const PreviewManufacture = lazy(() => import('../pages/Manufacture/Preview'));
+const AddManufacture = lazy(() => import('../pages/Manufacture/Add'));
+const EditManufacture = lazy(() => import('../pages/Manufacture/Edit'));
+
+const ListProduct = lazy(() => import('../pages/Product/Index'));
+const PreviewProduct= lazy(() => import('../pages/Product/Preview'));
+const AddProduct = lazy(() => import('../pages/Product/Add'));
+const EditProduct= lazy(() => import('../pages/Product/Edit'));
+
+const ListQuotes = lazy(() => import('../pages/Quotes/Index'));
+const PreviewQuotes = lazy(() => import('../pages/Quotes/Preview'));
+const AddQuotes = lazy(() => import('../pages/Quotes/Add'));
+const EditQuotes = lazy(() => import('../pages/Quotes/Edit'));
+
+const ListRFQ = lazy(() => import('../pages/RFQ/Index'));
+const PreviewRFQ = lazy(() => import('../pages/RFQ/Preview'));
+const AddRFQ = lazy(() => import('../pages/RFQ/Add'));
+const EditRFQ = lazy(() => import('../pages/RFQ/Edit'));
+
+const ListVendorRFQ = lazy(() => import('../pages/VendorRFQ/Index'));
+const PreviewVendorRFQ = lazy(() => import('../pages/VendorRFQ/Preview'));
+const AddVendorRFQ = lazy(() => import('../pages/VendorRFQ/Add'));
+const EditVendorRFQ = lazy(() => import('../pages/VendorRFQ/Edit'));
+
+const ListVendor = lazy(() => import('../pages/Vendor/Index'));
+const PreviewVendor = lazy(() => import('../pages/Vendor/Preview'));
+const AddVendor = lazy(() => import('../pages/Vendor/Add'));
+const EditVendor = lazy(() => import('../pages/Vendor/Edit'));
+
 const ListInvoice = lazy(() => import('../pages/Invoice/Index'));
 const PreviewInvoice = lazy(() => import('../pages/Invoice/Preview'));
 const AddInvoice = lazy(() => import('../pages/Invoice/Add'));
@@ -51,6 +91,7 @@ const routes = [
         path: '/index',
         element: <Index />,
     },
+
     {
         path: '/account/list',
         element: <ListAccount />,
@@ -67,6 +108,9 @@ const routes = [
         path: '/account/edit',
         element: <EditAccount />,
     },
+
+    
+
     {
         path: '/leads',
         element: <Leads />,
@@ -201,6 +245,162 @@ const routes = [
         path: '/auth/cover-password-reset',
         element: <RecoverIdCover />,
         layout: 'blank',
+    },
+
+
+
+
+
+
+    {
+        path: '/availability/list',
+        element: <ListAvailability />,
+    },
+    {
+        path: '/availability/preview',
+        element: <PreviewAvailability />,
+    },
+    {
+        path: '/availability/add',
+        element: <AddAvailability />,
+    },
+    {
+        path: '/availability/edit',
+        element: <EditAvailability />,
+    },
+
+
+
+    {
+        path: '/excess/list',
+        element: <ListExcess />,
+    },
+    {
+        path: '/excess/preview',
+        element: <PreviewExcess />,
+    },
+    {
+        path: '/excess/add',
+        element: <AddExcess />,
+    },
+    {
+        path: '/excess/edit',
+        element: <EditExcess />,
+    },
+
+
+
+    {
+        path: '/manufacture/list',
+        element: <ListManufacture />,
+    },
+    {
+        path: '/manufacture/preview',
+        element: <PreviewManufacture />,
+    },
+    {
+        path: '/manufacture/add',
+        element: <AddManufacture />,
+    },
+    {
+        path: '/manufacture/edit',
+        element: <EditManufacture />,
+    },
+
+
+
+    {
+        path: '/product/list',
+        element: <ListProduct />,
+    },
+    {
+        path: '/product/preview',
+        element: <PreviewProduct />,
+    },
+    {
+        path: '/product/add',
+        element: <AddProduct />,
+    },
+    {
+        path: '/product/edit',
+        element: <EditProduct />,
+    },
+
+
+
+    {
+        path: '/quotes/list',
+        element: <ListQuotes />,
+    },
+    {
+        path: '/quotes/preview',
+        element: <PreviewQuotes />,
+    },
+    {
+        path: '/quotes/add',
+        element: <AddQuotes />,
+    },
+    {
+        path: '/quotes/edit',
+        element: <EditQuotes />,
+    },
+
+
+
+
+    {
+        path: '/rfq/list',
+        element: <ListRFQ />,
+    },
+    {
+        path: '/rfq/preview',
+        element: <PreviewRFQ />,
+    },
+    {
+        path: '/rfq/add',
+        element: <AddRFQ />,
+    },
+    {
+        path: '/rfq/edit',
+        element: <EditRFQ />,
+    },
+
+
+
+    {
+        path: '/vendor_rfq/list',
+        element: <ListVendorRFQ />,
+    },
+    {
+        path: '/vendor_rfq/preview',
+        element: <PreviewVendorRFQ />,
+    },
+    {
+        path: '/vendor_rfq/add',
+        element: <AddVendorRFQ />,
+    },
+    {
+        path: '/vendor_rfq/edit',
+        element: <EditVendorRFQ />,
+    },
+
+
+
+    {
+        path: '/vendor/list',
+        element: <ListVendor />,
+    },
+    {
+        path: '/vendor/preview',
+        element: <PreviewVendor />,
+    },
+    {
+        path: '/vendor/add',
+        element: <AddVendor />,
+    },
+    {
+        path: '/vendor/edit',
+        element: <EditVendor />,
     },
 
 
