@@ -694,7 +694,7 @@ const Supports = () => {
                         },
                         { accessor: 'action', title: 'Action', sortable: true,render:({id})=>
                         <div className="flex gap-4 items-center justify-center">
-                        <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(support)}>
+                        <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(id)}>
                             Edit
                         </button>
                         <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => deleteRow(id)}>
@@ -716,73 +716,7 @@ const Supports = () => {
             </div>
         </div>
 
-                    <div className="table-responsive">
-                        <table className="table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Subjct</th>
-                                    <th>Client</th>
-                                    <th>Date</th>
-                                    <th>Priority</th>
-                                    <th>Activity</th>
-                                    <th>Status</th>
-                                    <th className="!text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredItems.map((support: any) => {
-                                    return (
-                                        <tr key={support.id}>
-                                            <td>#{support.id}</td>
-                                            <td><div>{support.role}</div></td>
-                                      
-                                            
-                                            <td>
-                                                <div className="flex items-center w-max">
-                                                    {support.path && (
-                                                        <div className="w-max">
-                                                            <img src={`/assets/images/${support.path}`} className="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2" alt="avatar" />
-                                                        </div>
-                                                    )}
-                                                    {!support.path && support.name && (
-                                                        <div className="grid place-content-center h-8 w-8 ltr:mr-2 rtl:ml-2 rounded-full bg-primary text-white text-sm font-semibold"></div>
-                                                    )}
-                                                    {!support.path && !support.name && (
-                                                        <div className="border border-gray-300 dark:border-gray-800 rounded-full p-2 ltr:mr-2 rtl:ml-2">
-                                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
-                                                                <ellipse opacity="0.5" cx="12" cy="17" rx="7" ry="4" stroke="currentColor" strokeWidth="1.5" />
-                                                            </svg>
-                                                        </div>
-                                                    )}
-                                                    <div>{support.name}</div>
-                                                </div>
-                                            </td>
-                                            <td>01 Mar, 2024</td>
-                                            <td className="whitespace-nowrap">
-                                            <span className="badge bg-primary shadow-md dark:group-hover:bg-transparent">Urgent</span>
-                                            </td>
-                                            <td className="whitespace-nowrap">1 year ago</td>
-                                            <td>
-                                            <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Answered</span>
-                                        </td>
-                                            <td>
-                                                <div className="flex gap-4 items-center justify-center">
-                                                    <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(support)}>
-                                                        Edit
-                                                    </button>
-                                                    <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => deleteUser(support)}>
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
+                    
                 </div>
             )}
 
