@@ -1,5 +1,10 @@
 import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import ReactQuill from 'react-quill';
+import Select from 'react-select';
+import 'react-quill/dist/quill.snow.css';
+import 'file-upload-with-preview/dist/file-upload-with-preview.min.css';
+import ImageUploading, { ImageListType } from 'react-images-uploading';
 
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,16 +22,47 @@ const Supports = () => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     const [addsupportModal, setAddsupportModal] = useState<any>(false);
-
+    const [images2, setImages2] = useState<any>([]);
+    const maxNumber = 69;
+    
+    const onChange2 = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+        setImages2(imageList as never[]);
+    };
     const [value, setValue] = useState<any>('list');
     const [defaultParams] = useState({
         id: null,
-        name: '',
+        subject: '',
         email: '',
         phone: '',
         role: '',
         location: '',
     });
+
+    const departmantOptions = [
+        { value: 'orange', label: 'Orange' },
+        { value: 'white', label: 'White' },
+        { value: 'purple', label: 'Purple' },
+    ];
+
+    const projectOptions = [
+        { value: 'project1', label: 'project1' },
+        { value: 'project2', label: 'project2' },
+        { value: 'project3', label: 'project3' },
+    ];
+
+
+    const statusOptions = [
+        { value: 'open', label: 'open' },
+        { value: 'on-hold', label: 'on-hold' },
+        { value: 'answered', label: 'answered' },
+        { value: 'close', label: 'close' },
+    ];
+    
+    const priorityOptions = [
+        { value: 'noraml', label: 'noraml' },
+        { value: 'high', label: 'high' },
+        { value: 'urgent', label: 'urgent' },
+    ];
 
     const [params, setParams] = useState<any>(JSON.parse(JSON.stringify(defaultParams)));
 
@@ -34,7 +70,10 @@ const Supports = () => {
         const { value, id } = e.target;
         setParams({ ...params, [id]: value });
     };
-
+    const [ticketMsg, setTicketMsg] = useState(
+        '<h1>This is a heading text...</h1><br /><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dui arcu, pellentesque id mattis sed, mattis semper erat. Etiam commodo arcu a mollis consequat. Curabitur pretium auctor tortor, bibendum placerat elit feugiat et. Ut ac turpis nec dui ullamcorper ornare. Vestibulum finibus quis magna at accumsan. Praesent a purus vitae tortor fringilla tempus vel non purus. Suspendisse eleifend nibh porta dolor ullamcorper laoreet. Ut sit amet ipsum vitae lectus pharetra tincidunt. In ipsum quam, iaculis at erat ut, fermentum efficitur ipsum. Nunc odio diam, fringilla in auctor et, scelerisque at lorem. Sed convallis tempor dolor eu dictum. Cras ornare ornare imperdiet. Pellentesque sagittis lacus non libero fringilla faucibus. Aenean ullamcorper enim et metus vestibulum, eu aliquam nunc placerat. Praesent fringilla dolor sit amet leo pulvinar semper. </p><br /><p> Curabitur vel tincidunt dui. Duis vestibulum eget velit sit amet aliquet. Curabitur vitae cursus ex. Aliquam pulvinar vulputate ullamcorper. Maecenas luctus in eros et aliquet. Cras auctor luctus nisl a consectetur. Morbi hendrerit nisi nunc, quis egestas nibh consectetur nec. Aliquam vel lorem enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc placerat, enim quis varius luctus, enim arcu tincidunt purus, in vulputate tortor mi a tortor. Praesent porta ornare fermentum. Praesent sed ligula at ante tempor posuere a at lorem. </p><br /><p> Curabitur vel tincidunt dui. Duis vestibulum eget velit sit amet aliquet. Curabitur vitae cursus ex. Aliquam pulvinar vulputate ullamcorper. Maecenas luctus in eros et aliquet. Cras auctor luctus nisl a consectetur. Morbi hendrerit nisi nunc, quis egestas nibh consectetur nec. Aliquam vel lorem enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc placerat, enim quis varius luctus, enim arcu tincidunt purus, in vulputate tortor mi a tortor. Praesent porta ornare fermentum. Praesent sed ligula at ante tempor posuere a at lorem. </p><br /><p> Aliquam diam felis, vehicula ut ipsum eu, consectetur tincidunt ipsum. Vestibulum sed metus ac nisi tincidunt mollis sed non urna. Vivamus lacinia ullamcorper interdum. Sed sed erat vel leo venenatis pretium. Sed aliquet sem nunc, ut iaculis dolor consectetur et. Vivamus ligula sapien, maximus nec pellentesque ut, imperdiet at libero. Vivamus semper nulla lectus, id dapibus nulla convallis id. Quisque elementum lectus ac dui gravida, ut molestie nunc convallis. Pellentesque et odio non dolor convallis commodo sit amet a ante. </p>'
+    );
+    
     const [search, setSearch] = useState<any>('');
     const [supportList] = useState<any>([
         {
@@ -540,10 +579,13 @@ const Supports = () => {
                         <table className="table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Location</th>
-                                    <th>Phone</th>
+                                    <th>ID</th>
+                                    <th>Subjct</th>
+                                    <th>Client</th>
+                                    <th>Date</th>
+                                    <th>Priority</th>
+                                    <th>Activity</th>
+                                    <th>Status</th>
                                     <th className="!text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -551,6 +593,10 @@ const Supports = () => {
                                 {filteredItems.map((support: any) => {
                                     return (
                                         <tr key={support.id}>
+                                            <td>{support.id}</td>
+                                            <td><div>{support.role}</div></td>
+                                      
+                                            
                                             <td>
                                                 <div className="flex items-center w-max">
                                                     {support.path && (
@@ -783,32 +829,75 @@ const Supports = () => {
                                     <div className="p-5">
                                         <form>
                                             <div className="mb-5">
-                                                <label htmlFor="name">Name</label>
-                                                <input id="name" type="text" placeholder="Enter Name" className="form-input" value={params.name} onChange={(e) => changeValue(e)} />
+                                                <label htmlFor="subject" className='requierd'>Subject*</label>
+                                                <input id="subject" type="text" placeholder="Enter Subject" className="form-input" value={params.subjct} onChange={(e) => changeValue(e)} />
+                                            </div>
+               
+                                            <div className="mb-5">
+                                            <label htmlFor="departmant">Departmant*</label>
+                                            <Select defaultValue={departmantOptions[0]} options={departmantOptions} isSearchable={false} />
                                             </div>
                                             <div className="mb-5">
-                                                <label htmlFor="email">Email</label>
-                                                <input id="email" type="email" placeholder="Enter Email" className="form-input" value={params.email} onChange={(e) => changeValue(e)} />
+                                            <label htmlFor="project">Project*</label>
+                                            <Select defaultValue={projectOptions[0]} options={projectOptions} isSearchable={false} />
                                             </div>
                                             <div className="mb-5">
-                                                <label htmlFor="number">Phone Number</label>
-                                                <input id="phone" type="text" placeholder="Enter Phone Number" className="form-input" value={params.phone} onChange={(e) => changeValue(e)} />
+                                            <label htmlFor="status">Status*</label>
+                                            <Select defaultValue={statusOptions[0]} options={statusOptions} isSearchable={false} />
                                             </div>
                                             <div className="mb-5">
-                                                <label htmlFor="occupation">Occupation</label>
-                                                <input id="role" type="text" placeholder="Enter Occupation" className="form-input" value={params.role} onChange={(e) => changeValue(e)} />
+                                            <label htmlFor="priority">Priority*</label>
+                                            <Select defaultValue={priorityOptions[0]} options={priorityOptions} isSearchable={false} />
                                             </div>
                                             <div className="mb-5">
-                                                <label htmlFor="address">Address</label>
-                                                <textarea
-                                                    id="location"
-                                                    rows={3}
-                                                    placeholder="Enter Address"
-                                                    className="form-textarea resize-none min-h-[130px]"
-                                                    value={params.location}
-                                                    onChange={(e) => changeValue(e)}
-                                                ></textarea>
+                                            <label htmlFor="ticketMsg">Massage*</label>
+                                                <ReactQuill theme="snow" value={ticketMsg} onChange={setTicketMsg} />
                                             </div>
+                                            <div className="custom-file-container" data-upload-id="mySecondImage">
+                                                    <div className="label-container ">
+                                                    <label htmlFor="upload" style={{ color: 'var(--tw-text-dark)' }}>Upload</label>
+                                                        <button
+                                                            type="button"
+                                                            className="custom-file-container__image-clear"
+                                                            title="Clear Image"
+                                                            onClick={() => {
+                                                                setImages2([]);
+                                                            }}
+                                                        >
+                                                            ×
+                                                        </button>
+                                                    </div>
+                                                    <label className="custom-file-container__custom-file"></label>
+                                                    <input type="file" className="custom-file-container__custom-file__custom-file-input" accept="image/*" />
+                                                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                                    <ImageUploading multiple value={images2} onChange={onChange2} maxNumber={maxNumber}>
+                                                        {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
+                                                            <div className="upload__image-wrapper">
+                                                                <button className="custom-file-container__custom-file__custom-file-control" onClick={onImageUpload}>
+                                                                    Choose File...
+                                                                </button>
+                                                                &nbsp;
+                                                                <div className="grid gap-4 sm:grid-cols-3 grid-cols-1">
+                                                                    {imageList.map((image, index) => (
+                                                                        <div key={index} className="custom-file-container__image-preview relative">
+                                                                            <button
+                                                                                type="button"
+                                                                                className="custom-file-container__image-clear bg-dark-light dark:bg-dark dark:text-white-dark rounded-full block w-fit p-0.5 absolute top-0 left-0"
+                                                                                title="Clear Image"
+                                                                                onClick={() => onImageRemove(index)}
+                                                                            >
+                                                                                <svg>...</svg>
+                                                                            </button>
+                                                                            <img src={image.dataURL} alt="img" className="object-cover shadow rounded w-full !max-h-32" />
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </ImageUploading>
+                                                    {images2.length === 0 ? <img src="/assets/images/file-preview.svg" className="max-w-md w-full max-h-36 m-auto" alt="" /> : ''}
+                                                </div>
+
                                             <div className="flex justify-end items-center mt-8">
                                                 <button type="button" className="btn btn-outline-danger" onClick={() => setAddsupportModal(false)}>
                                                     Cancel
