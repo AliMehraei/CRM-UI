@@ -1,5 +1,6 @@
 import { useState, Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { DataTable, DataTableSortStatus } from 'mantine-datatable';
 import ReactQuill from 'react-quill';
 import Select from 'react-select';
 import 'react-quill/dist/quill.snow.css';
@@ -8,6 +9,7 @@ import ImageUploading, { ImageListType } from 'react-images-uploading';
 
 import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
+import sortBy from 'lodash/sortBy';
 
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Dropdown from '../../components/Dropdown';
@@ -28,53 +30,7 @@ const Supports = () => {
     const onChange2 = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         setImages2(imageList as never[]);
     };
-    const [value, setValue] = useState<any>('list');
-    const [defaultParams] = useState({
-        id: null,
-        subject: '',
-        email: '',
-        phone: '',
-        role: '',
-        location: '',
-    });
-
-    const departmantOptions = [
-        { value: 'orange', label: 'Orange' },
-        { value: 'white', label: 'White' },
-        { value: 'purple', label: 'Purple' },
-    ];
-
-    const projectOptions = [
-        { value: 'project1', label: 'project1' },
-        { value: 'project2', label: 'project2' },
-        { value: 'project3', label: 'project3' },
-    ];
-
-
-    const statusOptions = [
-        { value: 'open', label: 'open' },
-        { value: 'on-hold', label: 'on-hold' },
-        { value: 'answered', label: 'answered' },
-        { value: 'close', label: 'close' },
-    ];
-    
-    const priorityOptions = [
-        { value: 'noraml', label: 'noraml' },
-        { value: 'high', label: 'high' },
-        { value: 'urgent', label: 'urgent' },
-    ];
-
-    const [params, setParams] = useState<any>(JSON.parse(JSON.stringify(defaultParams)));
-
-    const changeValue = (e: any) => {
-        const { value, id } = e.target;
-        setParams({ ...params, [id]: value });
-    };
-    const [ticketMsg, setTicketMsg] = useState(
-        '<h1>This is a heading text...</h1><br /><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dui arcu, pellentesque id mattis sed, mattis semper erat. Etiam commodo arcu a mollis consequat. Curabitur pretium auctor tortor, bibendum placerat elit feugiat et. Ut ac turpis nec dui ullamcorper ornare. Vestibulum finibus quis magna at accumsan. Praesent a purus vitae tortor fringilla tempus vel non purus. Suspendisse eleifend nibh porta dolor ullamcorper laoreet. Ut sit amet ipsum vitae lectus pharetra tincidunt. In ipsum quam, iaculis at erat ut, fermentum efficitur ipsum. Nunc odio diam, fringilla in auctor et, scelerisque at lorem. Sed convallis tempor dolor eu dictum. Cras ornare ornare imperdiet. Pellentesque sagittis lacus non libero fringilla faucibus. Aenean ullamcorper enim et metus vestibulum, eu aliquam nunc placerat. Praesent fringilla dolor sit amet leo pulvinar semper. </p><br /><p> Curabitur vel tincidunt dui. Duis vestibulum eget velit sit amet aliquet. Curabitur vitae cursus ex. Aliquam pulvinar vulputate ullamcorper. Maecenas luctus in eros et aliquet. Cras auctor luctus nisl a consectetur. Morbi hendrerit nisi nunc, quis egestas nibh consectetur nec. Aliquam vel lorem enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc placerat, enim quis varius luctus, enim arcu tincidunt purus, in vulputate tortor mi a tortor. Praesent porta ornare fermentum. Praesent sed ligula at ante tempor posuere a at lorem. </p><br /><p> Curabitur vel tincidunt dui. Duis vestibulum eget velit sit amet aliquet. Curabitur vitae cursus ex. Aliquam pulvinar vulputate ullamcorper. Maecenas luctus in eros et aliquet. Cras auctor luctus nisl a consectetur. Morbi hendrerit nisi nunc, quis egestas nibh consectetur nec. Aliquam vel lorem enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc placerat, enim quis varius luctus, enim arcu tincidunt purus, in vulputate tortor mi a tortor. Praesent porta ornare fermentum. Praesent sed ligula at ante tempor posuere a at lorem. </p><br /><p> Aliquam diam felis, vehicula ut ipsum eu, consectetur tincidunt ipsum. Vestibulum sed metus ac nisi tincidunt mollis sed non urna. Vivamus lacinia ullamcorper interdum. Sed sed erat vel leo venenatis pretium. Sed aliquet sem nunc, ut iaculis dolor consectetur et. Vivamus ligula sapien, maximus nec pellentesque ut, imperdiet at libero. Vivamus semper nulla lectus, id dapibus nulla convallis id. Quisque elementum lectus ac dui gravida, ut molestie nunc convallis. Pellentesque et odio non dolor convallis commodo sit amet a ante. </p>'
-    );
-    
-    const [search, setSearch] = useState<any>('');
+    const [search, setSearch] = useState('');
     const [supportList] = useState<any>([
         {
             id: 1,
@@ -221,17 +177,110 @@ const Supports = () => {
             following: 200,
         },
     ]);
+    const [page, setPage] = useState(1);
+    const PAGE_SIZES = [10, 20, 30, 50, 100];
+    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    const [initialRecords, setInitialRecords] = useState(sortBy(supportList, 'id'));
+    const [recordsData, setRecordsData] = useState(initialRecords);
 
-    const [filteredItems, setFilteredItems] = useState<any>(supportList);
-
+    const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({ columnAccessor: 'id', direction: 'asc' });
     useEffect(() => {
-        setFilteredItems(() => {
-            return supportList.filter((item: any) => {
-                return item.name.toLowerCase().includes(search.toLowerCase());
+        setPage(1);
+    }, [pageSize]);
+    useEffect(() => {
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize;
+        setRecordsData([...initialRecords.slice(from, to)]);
+    }, [page, pageSize, initialRecords]);
+    useEffect(() => {
+        setInitialRecords(() => {
+            return supportList.filter((item) => {
+                return (
+                    item.id.toString().includes(search.toLowerCase()) ||
+                    item.name.toLowerCase().includes(search.toLowerCase()) ||
+                    item.role.toLowerCase().includes(search.toLowerCase()) ||
+                    item.phone.toLowerCase().includes(search.toLowerCase())
+                );
             });
         });
-    }, [search, supportList]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search]);
 
+    useEffect(() => {
+        const data = sortBy(initialRecords, sortStatus.columnAccessor);
+        setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
+        setPage(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortStatus]);
+
+
+    const [value, setValue] = useState<any>('list');
+    const [defaultParams] = useState({
+        id: null,
+        subject: '',
+        email: '',
+        phone: '',
+        role: '',
+        location: '',
+    });
+
+    const departmantOptions = [
+        { value: 'orange', label: 'Orange' },
+        { value: 'white', label: 'White' },
+        { value: 'purple', label: 'Purple' },
+    ];
+    const projectOptions = [
+        { value: 'project1', label: 'project1' },
+        { value: 'project2', label: 'project2' },
+        { value: 'project3', label: 'project3' },
+    ];
+    const statusOptions = [
+        { value: 'open', label: 'open' },
+        { value: 'on-hold', label: 'on hold' },
+        { value: 'answered', label: 'answered' },
+        { value: 'close', label: 'close' },
+    ];
+    const priorityOptions = [
+        { value: 'noraml', label: 'noraml' },
+        { value: 'high', label: 'high' },
+        { value: 'urgent', label: 'urgent' },
+    ];
+    const [params, setParams] = useState<any>(JSON.parse(JSON.stringify(defaultParams)));
+    const changeValue = (e: any) => {
+        const { value, id } = e.target;
+        setParams({ ...params, [id]: value });
+    };
+    const [ticketMsg, setTicketMsg] = useState(
+        '<h1>This is a heading text...</h1><br /><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dui arcu, pellentesque id mattis sed, mattis semper erat. Etiam commodo arcu a mollis consequat. Curabitur pretium auctor tortor, bibendum placerat elit feugiat et. Ut ac turpis nec dui ullamcorper ornare. Vestibulum finibus quis magna at accumsan. Praesent a purus vitae tortor fringilla tempus vel non purus. Suspendisse eleifend nibh porta dolor ullamcorper laoreet. Ut sit amet ipsum vitae lectus pharetra tincidunt. In ipsum quam, iaculis at erat ut, fermentum efficitur ipsum. Nunc odio diam, fringilla in auctor et, scelerisque at lorem. Sed convallis tempor dolor eu dictum. Cras ornare ornare imperdiet. Pellentesque sagittis lacus non libero fringilla faucibus. Aenean ullamcorper enim et metus vestibulum, eu aliquam nunc placerat. Praesent fringilla dolor sit amet leo pulvinar semper. </p><br /><p> Curabitur vel tincidunt dui. Duis vestibulum eget velit sit amet aliquet. Curabitur vitae cursus ex. Aliquam pulvinar vulputate ullamcorper. Maecenas luctus in eros et aliquet. Cras auctor luctus nisl a consectetur. Morbi hendrerit nisi nunc, quis egestas nibh consectetur nec. Aliquam vel lorem enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc placerat, enim quis varius luctus, enim arcu tincidunt purus, in vulputate tortor mi a tortor. Praesent porta ornare fermentum. Praesent sed ligula at ante tempor posuere a at lorem. </p><br /><p> Curabitur vel tincidunt dui. Duis vestibulum eget velit sit amet aliquet. Curabitur vitae cursus ex. Aliquam pulvinar vulputate ullamcorper. Maecenas luctus in eros et aliquet. Cras auctor luctus nisl a consectetur. Morbi hendrerit nisi nunc, quis egestas nibh consectetur nec. Aliquam vel lorem enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc placerat, enim quis varius luctus, enim arcu tincidunt purus, in vulputate tortor mi a tortor. Praesent porta ornare fermentum. Praesent sed ligula at ante tempor posuere a at lorem. </p><br /><p> Aliquam diam felis, vehicula ut ipsum eu, consectetur tincidunt ipsum. Vestibulum sed metus ac nisi tincidunt mollis sed non urna. Vivamus lacinia ullamcorper interdum. Sed sed erat vel leo venenatis pretium. Sed aliquet sem nunc, ut iaculis dolor consectetur et. Vivamus ligula sapien, maximus nec pellentesque ut, imperdiet at libero. Vivamus semper nulla lectus, id dapibus nulla convallis id. Quisque elementum lectus ac dui gravida, ut molestie nunc convallis. Pellentesque et odio non dolor convallis commodo sit amet a ante. </p>'
+    );
+
+    const randomColor = () => {
+        const color = ['#4361ee', '#805dca', '#00ab55', '#e7515a', '#e2a03f', '#2196f3'];
+        const random = Math.floor(Math.random() * color.length);
+        return color[random];
+    };
+
+    const randomStatusColor = () => {
+        const color = ['primary', 'secondary', 'success', 'close', 'warning', 'info'];
+        const random = Math.floor(Math.random() * color.length);
+        return color[random];
+    };
+
+    const randomStatus = () => {
+        const status = ['Open', 'On Hold', 'Answered', 'CANCEL', 'Close'];
+        const random = Math.floor(Math.random() * status.length);
+        return status[random];
+    };
+    const randomPriority = () => {
+        const status = ['Noraml', 'Urgent', 'High'];
+        const random = Math.floor(Math.random() * status.length);
+        return status[random];
+    };
+    const getRandomNumber = (min: number, max: number) => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    const [filteredItems, setFilteredItems] = useState<any>(supportList);
     const saveUser = () => {
         if (!params.name) {
             showMessage('Name is required.', 'error');
@@ -297,6 +346,33 @@ const Supports = () => {
         showMessage('User has been deleted successfully.');
     };
 
+    const deleteRow = (id: any = null) => {
+        if (window.confirm('Are you sure want to delete selected row ?')) {
+            if (id) {
+                setRecordsData(supportList.filter((user) => user.id !== id));
+                setInitialRecords(supportList.filter((user) => user.id !== id));
+                setFilteredItems(supportList.filter((user) => user.id !== id));
+                setSearch('');
+               // setSelectedRecords([]);
+               showMessage('User has been deleted successfully.');
+
+            } else {
+                let selectedRows = selectedRecords || [];
+                const ids = selectedRows.map((d: any) => {
+                    return d.id;
+                });
+                const result = supportList.filter((d) => !ids.includes(d.id as never));
+                setRecordsData(result);
+                setInitialRecords(result);
+                setFilteredItems(result);
+                setSearch('');
+               // setSelectedRecords([]);
+                setPage(1);
+                showMessage('User has been deleted successfully.');
+
+            }
+        }
+    };
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -330,7 +406,7 @@ const Supports = () => {
                                     />
                                     <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                                 </svg>
-                                Add support
+                                Add Ticket
                             </button>
                         </div>
                         <div>
@@ -575,6 +651,71 @@ const Supports = () => {
             </div>
             {value === 'list' && (
                 <div className="mt-5 panel p-0 border-0 overflow-hidden">
+
+
+        <div className="panel">
+            <div className="flex md:items-center md:flex-row flex-col mb-5 gap-5">
+                <h5 className="font-semibold text-lg dark:text-white-light">Order Sorting</h5>
+                <div className="ltr:ml-auto rtl:mr-auto">
+                    <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                </div>
+            </div>
+            <div className="datatables">
+                <DataTable
+                    highlightOnHover
+                    className={`${isRtl ? 'whitespace-nowrap table-hover' : 'whitespace-nowrap table-hover !text-center'}`}
+                    records={recordsData}
+                    columns={[
+                        { accessor: 'id', title: 'ID', sortable: true, render: ({ id }) => <strong className="text-info">#{id}</strong> },
+                        {
+                            accessor: 'firstName',
+                            title: 'Clinet',
+                            sortable: true,
+                            render: ({ name }) => (
+                                <div className="flex items-center gap-2">
+                                    <img src={`/assets/images/profile-${getRandomNumber(1, 34)}.jpeg`} className="w-9 h-9 rounded-full max-w-none" alt="user-profile" />
+                                    <div className="font-semibold">{name}</div>
+                                </div>
+                            ),
+                        },
+                        { accessor: 'Subject', title: 'Subject', sortable: true ,
+                        render: ({ role }) => (
+                            <div className="flex items-center gap-2">
+                                <div className="font-semibold">{role}</div>
+                            </div>
+                        ),},
+                        { accessor: 'date', title: 'Date', sortable: true, render: () => <strong>22/04/06</strong> },
+
+                        { accessor: 'priority', title: 'Prioritye', sortable: true,render:()=>
+                        <span className="badge bg-primary shadow-md dark:group-hover:bg-transparent">Urgent</span>
+                         },
+                         { accessor: 'status', title: 'Status', sortable: true,render:()=>
+                         <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Answered</span>
+                        },
+                        { accessor: 'action', title: 'Action', sortable: true,render:({id})=>
+                        <div className="flex gap-4 items-center justify-center">
+                        <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(support)}>
+                            Edit
+                        </button>
+                        <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => deleteRow(id)}>
+                            Delete
+                        </button>
+                    </div>                       },
+                    ]}
+                    totalRecords={initialRecords.length}
+                    recordsPerPage={pageSize}
+                    page={page}
+                    onPageChange={(p) => setPage(p)}
+                    recordsPerPageOptions={PAGE_SIZES}
+                    onRecordsPerPageChange={setPageSize}
+                    sortStatus={sortStatus}
+                    onSortStatusChange={setSortStatus}
+                    minHeight={200}
+                    paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
+                />
+            </div>
+        </div>
+
                     <div className="table-responsive">
                         <table className="table-striped table-hover">
                             <thead>
@@ -593,7 +734,7 @@ const Supports = () => {
                                 {filteredItems.map((support: any) => {
                                     return (
                                         <tr key={support.id}>
-                                            <td>{support.id}</td>
+                                            <td>#{support.id}</td>
                                             <td><div>{support.role}</div></td>
                                       
                                             
@@ -618,9 +759,14 @@ const Supports = () => {
                                                     <div>{support.name}</div>
                                                 </div>
                                             </td>
-                                            <td>{support.email}</td>
-                                            <td className="whitespace-nowrap">{support.location}</td>
-                                            <td className="whitespace-nowrap">{support.phone}</td>
+                                            <td>01 Mar, 2024</td>
+                                            <td className="whitespace-nowrap">
+                                            <span className="badge bg-primary shadow-md dark:group-hover:bg-transparent">Urgent</span>
+                                            </td>
+                                            <td className="whitespace-nowrap">1 year ago</td>
+                                            <td>
+                                            <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Answered</span>
+                                        </td>
                                             <td>
                                                 <div className="flex gap-4 items-center justify-center">
                                                     <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => editUser(support)}>
@@ -824,7 +970,7 @@ const Supports = () => {
                                         </svg>
                                     </button>
                                     <div className="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]">
-                                        {params.id ? 'Edit support' : 'Add support'}
+                                        {params.id ? 'Edit Ticket' : 'Add Ticket'}
                                     </div>
                                     <div className="p-5">
                                         <form>
