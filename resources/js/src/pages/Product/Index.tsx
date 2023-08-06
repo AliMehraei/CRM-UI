@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../store';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
+import axios from 'axios';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -13,129 +14,23 @@ const List = () => {
         dispatch(setPageTitle('Product List'));
     });
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
-    const [items, setItems] = useState([
-        {
-            id: 1,
-            product: '081451',
-            name: 'Laurie Fox',
-            email: 'lauriefox@company.com',
-            date: '15 Dec 2020',
-            amount: '2275.45',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 2,
-            product: '081452',
-            name: 'Alexander Gray',
-            email: 'alexGray3188@gmail.com',
-            date: '20 Dec 2020',
-            amount: '1044.00',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 3,
-            product: '081681',
-            name: 'James Taylor',
-            email: 'jamestaylor468@gmail.com',
-            date: '27 Dec 2020',
-            amount: '20.00',
-            status: { tooltip: 'Pending', color: 'danger' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 4,
-            product: '082693',
-            name: 'Grace Roberts',
-            email: 'graceRoberts@company.com',
-            date: '31 Dec 2020',
-            amount: '344.00',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 5,
-            product: '084743',
-            name: 'Donna Rogers',
-            email: 'donnaRogers@hotmail.com',
-            date: '03 Jan 2021',
-            amount: '405.15',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 6,
-            product: '086643',
-            name: 'Amy Diaz',
-            email: 'amy968@gmail.com',
-            date: '14 Jan 2020',
-            amount: '100.00',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 7,
-            product: '086773',
-            name: 'Nia Hillyer',
-            email: 'niahillyer666@comapny.com',
-            date: '20 Jan 2021',
-            amount: '59.21',
-            status: { tooltip: 'Pending', color: 'danger' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 8,
-            product: '087916',
-            name: 'Mary McDonald',
-            email: 'maryDonald007@gamil.com',
-            date: '25 Jan 2021',
-            amount: '79.00',
-            status: { tooltip: 'Pending', color: 'danger' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 9,
-            product: '089472',
-            name: 'Andy King',
-            email: 'kingandy07@company.com',
-            date: '28 Jan 2021',
-            amount: '149.00',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 10,
-            product: '091768',
-            name: 'Vincent Carpenter',
-            email: 'vincentcarpenter@gmail.com',
-            date: '30 Jan 2021',
-            amount: '400',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 11,
-            product: '095841',
-            name: 'Kelly Young',
-            email: 'youngkelly@hotmail.com',
-            date: '06 Feb 2021',
-            amount: '49.00',
-            status: { tooltip: 'Pending', color: 'danger' },
-            profile: 'profile-1.jpeg',
-        },
-        {
-            id: 12,
-            product: '098424',
-            name: 'Alma Clarke',
-            email: 'alma.clarke@gmail.com',
-            date: '10 Feb 2021',
-            amount: '234.40',
-            status: { tooltip: 'Paid', color: 'success' },
-            profile: 'profile-1.jpeg',
-        },
-    ]);
-    const [fields, setFields] = useState([]);
+    const [items, setItems] = useState([]);
+    const fetchData = async () => {
+        try {
+          const response = await axios.get('http://127.0.0.1:8001/api/product/list');
+          const data = response.data.data;
+          
+
+          setItems(data);
+          console.log(items);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+    useEffect(() => {
+    // Fetch the data when the component mounts
+    fetchData();
+    }, []);
   const [selectedFields, setSelectedFields] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // State for search input
 
@@ -195,7 +90,7 @@ const List = () => {
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(items, 'product'));
+    const [initialRecords, setInitialRecords] = useState(sortBy(items, 'product_name'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
 
@@ -220,12 +115,12 @@ const List = () => {
         setInitialRecords(() => {
             return items.filter((item) => {
                 return (
-                    item.product.toLowerCase().includes(search.toLowerCase()) ||
-                    item.name.toLowerCase().includes(search.toLowerCase()) ||
-                    item.email.toLowerCase().includes(search.toLowerCase()) ||
-                    item.date.toLowerCase().includes(search.toLowerCase()) ||
-                    item.amount.toLowerCase().includes(search.toLowerCase()) ||
-                    item.status.tooltip.toLowerCase().includes(search.toLowerCase())
+                    item.product_name.toLowerCase().includes(search.toLowerCase()) ||
+                    item.manufacture.toLowerCase().includes(search.toLowerCase()) ||
+                    item.package.toLowerCase().includes(search.toLowerCase()) ||
+                    item.created_at.toLowerCase().includes(search.toLowerCase()) ||
+                    item.weight.toLowerCase().includes(search.toLowerCase()) ||
+                    item.product_active.toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
