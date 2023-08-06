@@ -62,12 +62,12 @@ const Add = () => {
                     </div>
                    
                     <div className="mt-4">
-                        <label htmlFor="payment-method">Accept Payment Via</label>
-                        <select id="payment-method" name="payment-method" className="form-select">
-                            <option value=" ">Select Payment</option>
-                            <option value="bank">Bank Account</option>
-                            <option value="paypal">Paypal</option>
-                            <option value="upi">UPI Transfer</option>
+                        <label htmlFor="payment-method">Priority</label>
+                        <select id="priority" name="priority" className="form-select">
+                            <option value=" ">Select Priority</option>
+                            <option value="normal">Noraml</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
                         </select>
                     </div>
                 </div>
@@ -100,123 +100,19 @@ const Add = () => {
             <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
             <div className="mt-8 px-4">
                     <div className="flex justify-between lg:flex-row flex-col">
-                        <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
-                            <div className="text-lg">Bill To :-</div>
+                        <div className=" w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                             <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Name
-                                </label>
-                                <input id="reciever-name" type="text" name="reciever-name" className="form-input flex-1" placeholder="Enter Name" />
+                             
+                                <input id="subject" type="text" name="subject" className="form-input flex-1" placeholder="Enter Subject" />
                             </div>
                             <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-email" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Email
-                                </label>
-                                <input id="reciever-email" type="email" name="reciever-email" className="form-input flex-1" placeholder="Enter Email" />
-                            </div>
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-address" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Address
-                                </label>
-                                <input id="reciever-address" type="text" name="reciever-address" className="form-input flex-1" placeholder="Enter Address" />
-                            </div>
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-number" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Phone Number
-                                </label>
-                                <input id="reciever-number" type="text" name="reciever-number" className="form-input flex-1" placeholder="Enter Phone number" />
+                                
                             </div>
                         </div>
-                        <div className="lg:w-1/2 w-full">
-                            <div className="text-lg">Payment Details:</div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="acno" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Account Number
-                                </label>
-                                <input id="acno" type="text" name="acno" className="form-input flex-1" placeholder="Enter Account Number" />
-                            </div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="bank-name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Bank Name
-                                </label>
-                                <input id="bank-name" type="text" name="bank-name" className="form-input flex-1" placeholder="Enter Bank Name" />
-                            </div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="swift-code" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    SWIFT Number
-                                </label>
-                                <input id="swift-code" type="text" name="swift-code" className="form-input flex-1" placeholder="Enter SWIFT Number" />
-                            </div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="iban-code" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    IBAN Number
-                                </label>
-                                <input id="iban-code" type="text" name="iban-code" className="form-input flex-1" placeholder="Enter IBAN Number" />
-                            </div>
-                          
-                        </div>
+                        
                     </div>
                 </div>
-                <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                <div className="mt-8 px-4">
-                    <div className="flex justify-between lg:flex-row flex-col">
-                        <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
-                            <div className="text-lg">Bill To :-</div>
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Name
-                                </label>
-                                <input id="reciever-name" type="text" name="reciever-name" className="form-input flex-1" placeholder="Enter Name" />
-                            </div>
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-email" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Email
-                                </label>
-                                <input id="reciever-email" type="email" name="reciever-email" className="form-input flex-1" placeholder="Enter Email" />
-                            </div>
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-address" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Address
-                                </label>
-                                <input id="reciever-address" type="text" name="reciever-address" className="form-input flex-1" placeholder="Enter Address" />
-                            </div>
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="reciever-number" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Phone Number
-                                </label>
-                                <input id="reciever-number" type="text" name="reciever-number" className="form-input flex-1" placeholder="Enter Phone number" />
-                            </div>
-                        </div>
-                        <div className="lg:w-1/2 w-full">
-                            <div className="text-lg">Payment Details:</div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="acno" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Account Number
-                                </label>
-                                <input id="acno" type="text" name="acno" className="form-input flex-1" placeholder="Enter Account Number" />
-                            </div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="bank-name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Bank Name
-                                </label>
-                                <input id="bank-name" type="text" name="bank-name" className="form-input flex-1" placeholder="Enter Bank Name" />
-                            </div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="swift-code" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    SWIFT Number
-                                </label>
-                                <input id="swift-code" type="text" name="swift-code" className="form-input flex-1" placeholder="Enter SWIFT Number" />
-                            </div>
-                            <div className="flex items-center mt-4">
-                                <label htmlFor="iban-code" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    IBAN Number
-                                </label>
-                                <input id="iban-code" type="text" name="iban-code" className="form-input flex-1" placeholder="Enter IBAN Number" />
-                            </div>
-                         
-                        </div>
-                    </div>
-                </div>
+           
             
               
             </div>
