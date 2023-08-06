@@ -4,7 +4,6 @@ const Todolist = lazy(() => import('../pages/Todolist'));
 const Leads = lazy(() => import('../pages/Leads'));
 const Contacts = lazy(() => import('../pages/Contacts'));
 const Contracts = lazy(() => import('../pages/Contracts'));
-const Support = lazy(() => import('../pages/Support/Supports'));
 const Sales = lazy(() => import('../pages/Sales'));
 const Setting = lazy(() => import('../pages/App/Index'));
 
@@ -135,10 +134,6 @@ const routes = [
     {
         path: '/todolist',
         element: <Todolist />,
-    },
-    {
-        path: '/support',
-        element: <Support />,
     },
     {
         path: '/invoice/list',
