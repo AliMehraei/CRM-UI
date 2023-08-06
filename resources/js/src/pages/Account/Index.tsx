@@ -135,12 +135,22 @@ const List = () => {
             profile: 'profile-1.jpeg',
         },
     ]);
+    const [fields, setFields] = useState([]);
+  const [selectedFields, setSelectedFields] = useState([]);
 
     const optionsFilter = [
         { value: 'name', label: 'name' },
         { value: 'email', label: 'email' },
         { value: 'phone', label: 'phone' },
     ];
+    const handleFieldChange = (event) => {
+        const { value, checked } = event.target;
+        if (checked) {
+          setFields((prevFields) => [...prevFields, value]);
+        } else {
+          setFields((prevFields) => prevFields.filter((field) => field !== value));
+        }
+      };
 
     const optionsConditionFilter = [
         { value: 'is', label: 'is' },
@@ -257,35 +267,48 @@ const List = () => {
                     </div>
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
-                    <div className="panel col-span-1 ">
-                        <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
-                        {/* Filter by options */}
-                        <div className="mb-4">
-                        <label className="block font-semibold">Filter by:</label>
-                        <Select placeholder="Select an Filter" options={optionsFilter} />
-                        </div>
+                <div className="panel col-span-1">
+      <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
+      {/* Filter by options */}
+      <div className="mb-4">
+        <label className="block font-semibold">Filter by:</label>
+        {optionsFilter.map((option) => (
+          <div key={option.value} className="mb-2">
+            <input
+              type="checkbox"
+              value={option.value}
+              onChange={handleFieldChange}
+            />
+            <span className="ml-2">{option.label}</span>
+          </div>
+        ))}
+      </div>
 
-                        {/* Search options */}
-                        <div className="mb-4">
-                        <label className="block font-semibold">Search include:</label>
-                        <Select placeholder="Select an include" options={optionsConditionFilter} />
-                        </div>
+      {/* Search options and Input text for each field */}
+      {fields.map((field) => (
+        <div key={field} className="mb-4">
+           <div className="mb-4">
+            <label className="block font-semibold">Search include for {field}:</label>
+            <Select placeholder="Select an include" options={optionsConditionFilter} />
+            </div>
+          <div className="mb-4">
+            <label className="block font-semibold">Value:</label>
+            <input
+              type="text"
+              placeholder={`Search value for ${field}`}
+              className="border p-2 w-full"
+            />
+          </div>
+        </div>
+      ))}
 
-                        {/* Input text for each field */}
-                        <div className="mb-4">
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder="Search value"
-                            className="border p-2 w-full"
-                        />
-                        </div>
-
-                        {/* Apply filter button */}
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                        Apply Filter
-                        </button>
-                    </div>
+      {/* Apply filter button */}
+      {fields.length > 0 && (
+        <button className="bg-blue-500 text-white px-4 py-2 rounded">
+          Apply Filter
+        </button>
+      )}
+    </div>
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding">
                             <DataTable
