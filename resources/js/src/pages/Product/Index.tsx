@@ -15,22 +15,21 @@ const List = () => {
     });
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
+    
     const fetchData = async () => {
         try {
-          const response = await axios.get('http://127.0.0.1:8001/api/product/list');
-          const data = response.data.data;
-          
-
-          setItems(data);
-          console.log(items);
+            const response = await axios.get('http://127.0.0.1:8001/api/product/list');
+            setItems(response.data.data);
         } catch (error) {
-          console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error);
         }
-      };
+    };
     useEffect(() => {
-    // Fetch the data when the component mounts
-    fetchData();
+        fetchData();
     }, []);
+    
+
+
   const [selectedFields, setSelectedFields] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // State for search input
 
@@ -99,7 +98,10 @@ const List = () => {
         columnAccessor: 'firstName',
         direction: 'asc',
     });
-
+    useEffect(() => {
+        setInitialRecords(sortBy(items, 'product_name'));
+    }, [items]);
+    
     useEffect(() => {
         setPage(1);
         /* eslint-disable react-hooks/exhaustive-deps */
@@ -117,10 +119,8 @@ const List = () => {
                 return (
                     item.product_name.toLowerCase().includes(search.toLowerCase()) ||
                     item.manufacture.toLowerCase().includes(search.toLowerCase()) ||
-                    item.package.toLowerCase().includes(search.toLowerCase()) ||
-                    item.created_at.toLowerCase().includes(search.toLowerCase()) ||
-                    item.weight.toLowerCase().includes(search.toLowerCase()) ||
-                    item.product_active.toLowerCase().includes(search.toLowerCase())
+                    item.product_type.toLowerCase().includes(search.toLowerCase()) ||
+                    item.product_owner.toLowerCase().includes(search.toLowerCase()) 
                 );
             });
         });
@@ -249,42 +249,30 @@ const List = () => {
                                     {
                                         accessor: 'product',
                                         sortable: true,
-                                        render: ({ product }) => (
+                                        render: ({ product_name }) => (
                                             <NavLink to="/product/preview">
-                                                <div className="text-primary underline hover:no-underline font-semibold">{`#${product}`}</div>
+                                                <div className="text-primary underline hover:no-underline font-semibold">{`#${product_name}`}</div>
                                             </NavLink>
                                         ),
                                     },
                                     {
-                                        accessor: 'name',
+                                        accessor: 'manufacture',
                                         sortable: true,
-                                        render: ({ name, id }) => (
+                                        render: ({ manufacture  }) => (
                                             <div className="flex items-center font-semibold">
-                                                <div className="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
-                                                    <img className="h-8 w-8 rounded-full object-cover" src={`/assets/images/profile-${id}.jpeg`} alt="" />
-                                                </div>
-                                                <div>{name}</div>
+                                                {manufacture}
                                             </div>
                                         ),
                                     },
                                     {
-                                        accessor: 'email',
+                                        accessor: 'product_owner',
                                         sortable: true,
+                                        render: ({ product_owner}) => <div className="font-semibold">{product_owner}</div>,
                                     },
                                     {
-                                        accessor: 'date',
+                                        accessor: 'Product Type',
                                         sortable: true,
-                                    },
-                                    {
-                                        accessor: 'amount',
-                                        sortable: true,
-                                        titleClassName: 'text-right',
-                                        render: ({ amount, id }) => <div className="text-right font-semibold">{`$${amount}`}</div>,
-                                    },
-                                    {
-                                        accessor: 'status',
-                                        sortable: true,
-                                        render: ({ status }) => <span className={`badge badge-outline-${status.color} `}>{status.tooltip}</span>,
+                                        render: ({ product_type }) => <div className="font-semibold">{product_type}</div>,
                                     },
                                     {
                                         accessor: 'action',
