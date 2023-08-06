@@ -135,10 +135,10 @@ const Preview = () => {
             <button type="button" onClick={() => setModal5(true)} className="btn btn-info">
                 Reply           
             </button>
-            <Link to="/support/list" className="btn btn-danger gap-2">
-                Back            
-            </Link>
             <Link to="/support/edit" className="btn btn-warning gap-2">
+                 Edit            
+            </Link>
+            <Link to="/support/list" className="btn btn-danger gap-2">
                 Back            
             </Link>
             </div>
@@ -264,12 +264,13 @@ const Preview = () => {
             <button type="button" onClick={() => setModal5(true)} className="btn btn-info">
                 Reply           
             </button>
+            <Link to="/support/edit" className="btn btn-warning gap-2">
+                 Edit            
+            </Link>
             <Link to="/support/list" className="btn btn-danger gap-2">
                 Back            
             </Link>
-            <Link to="/support/edit" className="btn btn-warning gap-2">
-                Back            
-            </Link>
+         
             </div>
 
           
