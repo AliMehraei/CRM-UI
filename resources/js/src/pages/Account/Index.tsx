@@ -137,6 +137,7 @@ const List = () => {
     ]);
     const [fields, setFields] = useState([]);
   const [selectedFields, setSelectedFields] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); // State for search input
 
     const optionsFilter = [
         { value: 'name', label: 'name' },
@@ -152,13 +153,7 @@ const List = () => {
             prevSelectedFields.filter((field) => field !== value)
           );
         }
-        console.log(selectedFields.includes('name'));
-        // Update the 'fields' state based on the selected checkboxes
-        setFields(
-          optionsFilter.filter((option) =>
-            checked ? option.value === value : !selectedFields.includes(option.value)
-          )
-        );
+        
       };
 
     const optionsConditionFilter = [
@@ -169,6 +164,10 @@ const List = () => {
         { value: 'contains', label: 'contains' },
         { value: 'does_not_contains', label: "doesn't contains" },
     ];
+     // Filter the options based on search query
+    const filteredOptions = optionsFilter.filter((option) =>
+        option.label.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     const deleteRow = (id: any = null) => {
         if (window.confirm('Are you sure want to delete selected row ?')) {
             if (id) {
@@ -278,11 +277,22 @@ const List = () => {
                 <div className="grid grid-cols-5 gap-6 mb-6">
                 <div className="panel col-span-1">
       <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
+
+      {/* Search input */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search fields..."
+          className="border p-2 w-full"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
       {/* Filter by options */}
       <div className="mb-4">
         <label className="block font-semibold">Filter by:</label>
-        {optionsFilter.map((option) => (
-        <div>
+        {filteredOptions.map((option) => (
           <div key={option.value} className="mb-2">
             <input
               type="checkbox"
@@ -292,44 +302,42 @@ const List = () => {
             />
             <span className="ml-2">{option.label}</span>
           </div>
- {/* Search options and Input text for selected fields */}
- {selectedFields.length > 0 && (
-    
-        <>
-          {selectedFields.includes(option.value) && (
-            <div>
-                <h3 className="text-lg font-semibold mt-4">Search Options</h3>
-                <div key={option.value} className="mb-4">
-                <div className="mb-2">
-                    <label className="block font-semibold">Search include for {option.value}:</label>
-                    <select className="border p-2 w-full">
-                    {optionsConditionFilter.map((option) => (
-                        <option key={option.value} value={option.value}>
-                        {option.label}
-                        </option>
-                    ))}
-                    </select>
-                </div>
-                <div className="mb-2">
-                    <label className="block font-semibold">Value:</label>
-                    <input
-                    type="text"
-                    placeholder={`Search value for ${option.value}`}
-                    className="border p-2 w-full"
-                    />
-                </div>
-                </div>
-            </div>
-            
-          )}
-        </>
-      )}
-          </div>
-
         ))}
       </div>
 
-    
+      {/* Search options and Input text for selected fields */}
+      {selectedFields.length > 0 && (
+        <>
+          {filteredOptions.map((option) =>
+            selectedFields.includes(option.value) ? (
+              <div key={option.value}>
+                <h3 className="text-lg font-semibold mt-4">Search Options</h3>
+                <div className="mb-4">
+                  <div className="mb-2">
+                    <label className="block font-semibold">Search include for {option.value}:</label>
+                    <select className="border p-2 w-full">
+                      {optionsConditionFilter.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-2">
+                    <label className="block font-semibold">Value:</label>
+                    <input
+                      type="text"
+                      placeholder={`Search value for ${option.value}`}
+                      className="border p-2 w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : null
+          )}
+        </>
+      )}
+
       {/* Apply filter button */}
       {selectedFields.length > 0 && (
         <button className="bg-blue-500 text-white px-4 py-2 rounded">
