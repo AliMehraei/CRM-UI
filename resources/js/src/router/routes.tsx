@@ -18,6 +18,11 @@ const PreviewAvailability = lazy(() => import('../pages/Availability/Preview'));
 const AddAvailability = lazy(() => import('../pages/Availability/Add'));
 const EditAvailability = lazy(() => import('../pages/Availability/Edit'));
 
+const ListSupport = lazy(() => import('../pages/Support/Index'));
+const PreviewSupport = lazy(() => import('../pages/Support/Preview'));
+const AddSupport = lazy(() => import('../pages/Support/Add'));
+const EditSupport = lazy(() => import('../pages/Support/Edit'));
+
 const ListExcess = lazy(() => import('../pages/Excess/Index'));
 const PreviewExcess= lazy(() => import('../pages/Excess/Preview'));
 const AddExcess= lazy(() => import('../pages/Excess/Add'));
@@ -269,7 +274,22 @@ const routes = [
         element: <EditAvailability />,
     },
 
-
+    {
+        path: '/support/list',
+        element: <ListSupport />,
+    },
+    {
+        path: '/support/preview',
+        element: <PreviewSupport />,
+    },
+    {
+        path: '/support/add',
+        element: <AddSupport />,
+    },
+    {
+        path: '/support/edit',
+        element: <EditSupport />,
+    },
 
     {
         path: '/excess/list',
