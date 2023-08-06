@@ -15,19 +15,7 @@ const List = () => {
     });
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
-    
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('http://127.0.0.1:8001/api/product/list');
-            setItems(response.data.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-    useEffect(() => {
-        fetchData();
-    }, []);
-    
+
 
 
   const [selectedFields, setSelectedFields] = useState([]);
@@ -87,20 +75,36 @@ const List = () => {
     };
 
     const [page, setPage] = useState(1);
-    const PAGE_SIZES = [10, 20, 30, 50, 100];
+    const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [initialRecords, setInitialRecords] = useState(sortBy(items, 'product_name'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
+    const [totalItems, setTotalItems] = useState(0);
 
     const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'firstName',
         direction: 'asc',
     });
+
+        
+    const fetchData = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8001/api/product/list?page=${page}&pageSize=${pageSize}`);
+            setItems(response.data.data.data);
+            setTotalItems(response.data.data.total); // Set the total count
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    
     useEffect(() => {
+        fetchData(page, pageSize);
         setInitialRecords(sortBy(items, 'product_name'));
-    }, [items]);
+
+    }, [page, pageSize]); // Added page and pageSize as dependencies
     
     useEffect(() => {
         setPage(1);
@@ -126,11 +130,11 @@ const List = () => {
         });
     }, [search]);
 
+
     useEffect(() => {
-        const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
-        setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
-        setPage(1);
-    }, [sortStatus]);
+        setInitialRecords(sortBy(items));
+      //  setPage(1);
+    }, [items]);
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
@@ -247,6 +251,11 @@ const List = () => {
                                 records={records}
                                 columns={[
                                     {
+                                        accessor: 'ID',
+                                        sortable: true,
+                                        render: ({ id}) => <div className="font-semibold">{id}</div>,
+                                    },
+                                    {
                                         accessor: 'product',
                                         sortable: true,
                                         render: ({ product_name }) => (
@@ -344,7 +353,7 @@ const List = () => {
                                     },
                                 ]}
                                 highlightOnHover
-                                totalRecords={initialRecords.length}
+                                totalRecords={totalItems}
                                 recordsPerPage={pageSize}
                                 page={page}
                                 onPageChange={(p) => setPage(p)}
