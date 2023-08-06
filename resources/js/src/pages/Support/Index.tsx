@@ -342,7 +342,7 @@ const List = () => {
                                         textAlignment: 'center',
                                         render: ({ id }) => (
                                             <div className="flex gap-4 items-center w-max mx-auto">
-                                                <NavLink to="/account/edit" className="flex hover:text-info">
+                                                <NavLink to="/support/edit" className="flex hover:text-info">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                         <path
                                                             opacity="0.5"
@@ -364,7 +364,7 @@ const List = () => {
                                                         ></path>
                                                     </svg>
                                                 </NavLink>
-                                                <NavLink to="/account/preview" className="flex hover:text-primary">
+                                                <NavLink to="/support/preview" className="flex hover:text-primary">
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             opacity="0.5"

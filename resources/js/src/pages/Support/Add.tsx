@@ -23,41 +23,10 @@ const Add = () => {
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         setImages(imageList as never[]);
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            title: '',
-            description: '',
-            rate: 0,
-            quantity: 0,
-            amount: 0,
-        },
-    ]);
     const [value, setValue] = useState(
         ''
     );
-    const addItem = () => {
-        let maxId = 0;
-        maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
 
-        setItems([...items, { id: maxId + 1, title: '', description: '', rate: 0, quantity: 0, amount: 0 }]);
-    };
-
-    const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
-    };
-
-    const changeQuantityPrice = (type: string, value: string, id: number) => {
-        const list = items;
-        const item = list.find((d: any) => d.id === id);
-        if (type === 'quantity') {
-            item.quantity = Number(value);
-        }
-        if (type === 'price') {
-            item.amount = Number(value);
-        }
-        setItems([...list]);
-    };
     return (
         <>             
         <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
