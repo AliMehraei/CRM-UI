@@ -152,7 +152,7 @@ const List = () => {
             prevSelectedFields.filter((field) => field !== value)
           );
         }
-    
+        console.log(selectedFields.includes('name'));
         // Update the 'fields' state based on the selected checkboxes
         setFields(
           optionsFilter.filter((option) =>
@@ -282,6 +282,7 @@ const List = () => {
       <div className="mb-4">
         <label className="block font-semibold">Filter by:</label>
         {optionsFilter.map((option) => (
+        <div>
           <div key={option.value} className="mb-2">
             <input
               type="checkbox"
@@ -291,38 +292,44 @@ const List = () => {
             />
             <span className="ml-2">{option.label}</span>
           </div>
+ {/* Search options and Input text for selected fields */}
+ {selectedFields.length > 0 && (
+    
+        <>
+          {selectedFields.includes(option.value) && (
+            <div>
+                <h3 className="text-lg font-semibold mt-4">Search Options</h3>
+                <div key={option.value} className="mb-4">
+                <div className="mb-2">
+                    <label className="block font-semibold">Search include for {option.value}:</label>
+                    <select className="border p-2 w-full">
+                    {optionsConditionFilter.map((option) => (
+                        <option key={option.value} value={option.value}>
+                        {option.label}
+                        </option>
+                    ))}
+                    </select>
+                </div>
+                <div className="mb-2">
+                    <label className="block font-semibold">Value:</label>
+                    <input
+                    type="text"
+                    placeholder={`Search value for ${option.value}`}
+                    className="border p-2 w-full"
+                    />
+                </div>
+                </div>
+            </div>
+            
+          )}
+        </>
+      )}
+          </div>
+
         ))}
       </div>
 
-      {/* Search options and Input text for selected fields */}
-      {selectedFields.length > 0 && (
-        <>
-          <h3 className="text-lg font-semibold mt-4">Search Options</h3>
-          {selectedFields.map((field) => (
-            <div key={field} className="mb-4">
-              <div className="mb-2">
-                <label className="block font-semibold">Search include for {field}:</label>
-                <select className="border p-2 w-full">
-                  {optionsConditionFilter.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-2">
-                <label className="block font-semibold">Value:</label>
-                <input
-                  type="text"
-                  placeholder={`Search value for ${field}`}
-                  className="border p-2 w-full"
-                />
-              </div>
-            </div>
-          ))}
-        </>
-      )}
-
+    
       {/* Apply filter button */}
       {selectedFields.length > 0 && (
         <button className="bg-blue-500 text-white px-4 py-2 rounded">
