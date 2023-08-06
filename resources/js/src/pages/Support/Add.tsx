@@ -29,7 +29,7 @@ const Add = () => {
 
     return (
         <>             
-        <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
+    <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
         <div className="flex items-center gap-2">
              <Link to="/support/list" className="btn btn-danger gap-2">
                  Cancel            
