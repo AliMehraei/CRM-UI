@@ -15,13 +15,21 @@ const List = () => {
     });
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
+    const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
-    const optionsFilter = [
-        { value: 'name', label: 'name' },
-        { value: 'email', label: 'email' },
-        { value: 'phone', label: 'phone' },
-    ];
+    const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+        try {
+            const response = await axios.get(`http://saascrmproduct.localhost/api/product/filter_option`);
+            setOptionsFilter(response.data.data);
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    useEffect(() => {
+        fetchDataFilterOption();
+    }, []); 
     const handleFieldChange = (event) => {
         const { value, checked } = event.target;
         if (checked) {
@@ -42,9 +50,16 @@ const List = () => {
         { value: 'does_not_contains', label: "doesn't contains" },
     ];
      // Filter the options based on search query
-    const filteredOptions = optionsFilter.filter((option) =>
-        option.label.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+     let filteredOptions = [];
+     if (optionsFilter && optionsFilter.length > 0) {
+         filteredOptions = optionsFilter.filter((option) =>
+             option.label.toLowerCase().includes(searchQuery.toLowerCase())
+         );
+     }
+ 
+    // const filteredOptions = optionsFilter.filter((option) =>
+    //     option.label.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
     const deleteRow = (id: any = null) => {
         if (window.confirm('Are you sure want to delete selected row ?')) {
             if (id) {
@@ -81,9 +96,9 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
-    const fetchData = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+    const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0]) => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8001/api/product/list?page=${page}&pageSize=${pageSize}`);
+            const response = await axios.get(`http://saascrmproduct.localhost/api/product/list?page=${page}&pageSize=${pageSize}`);
             setItems(response.data.data.data);
             setTotalItems(response.data.data.total); // Set the total count
 
@@ -91,8 +106,9 @@ const List = () => {
             console.error('Error fetching data:', error);
         }
     };
+   
     useEffect(() => {
-        fetchData(page, pageSize);
+        fetchDataProduct(page, pageSize);
         setInitialRecords(sortBy(items, 'id'));
 
     }, [page, pageSize]); // Added page and pageSize as dependencies
