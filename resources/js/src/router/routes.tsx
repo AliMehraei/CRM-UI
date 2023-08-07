@@ -1,16 +1,39 @@
 import { lazy } from 'react';
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
-const Leads = lazy(() => import('../pages/Leads'));
-const Contacts = lazy(() => import('../pages/Contacts'));
 const Contracts = lazy(() => import('../pages/Contracts'));
-const Sales = lazy(() => import('../pages/Sales'));
 const Setting = lazy(() => import('../pages/App/Index'));
 
 const ListAccount = lazy(() => import('../pages/Account/Index'));
 const PreviewAccount = lazy(() => import('../pages/Account/Preview'));
 const AddAccount = lazy(() => import('../pages/Account/Add'));
 const EditAccount = lazy(() => import('../pages/Account/Edit'));
+
+const ListContact = lazy(() => import('../pages/Contact/Index'));
+const PreviewContact = lazy(() => import('../pages/Contact/Preview'));
+const AddContact = lazy(() => import('../pages/Contact/Add'));
+const EditContact = lazy(() => import('../pages/Contact/Edit'));
+
+const ListDeal = lazy(() => import('../pages/Deal/Index'));
+const PreviewDeal = lazy(() => import('../pages/Deal/Preview'));
+const AddDeal = lazy(() => import('../pages/Deal/Add'));
+const EditDeal = lazy(() => import('../pages/Deal/Edit'));
+
+const ListLead = lazy(() => import('../pages/Lead/Index'));
+const PreviewLead = lazy(() => import('../pages/Lead/Preview'));
+const AddLead = lazy(() => import('../pages/Lead/Add'));
+const EditLead = lazy(() => import('../pages/Lead/Edit'));
+
+const ListSales = lazy(() => import('../pages/Sales/Index'));
+const PreviewSales = lazy(() => import('../pages/Sales/Preview'));
+const AddSales = lazy(() => import('../pages/Sales/Add'));
+const EditSales = lazy(() => import('../pages/Sales/Edit'));
+
+const ListPurchase = lazy(() => import('../pages/Purchase/Index'));
+const PreviewPurchase = lazy(() => import('../pages/Purchase/Preview'));
+const AddPurchase = lazy(() => import('../pages/Purchase/Add'));
+const EditPurchase = lazy(() => import('../pages/Purchase/Edit'));
+
 
 const ListAvailability = lazy(() => import('../pages/Availability/Index'));
 const PreviewAvailability = lazy(() => import('../pages/Availability/Preview'));
@@ -113,20 +136,7 @@ const routes = [
         element: <EditAccount />,
     },
 
-    
 
-    {
-        path: '/leads',
-        element: <Leads />,
-    },
-    {
-        path: '/contacts',
-        element: <Contacts />,
-    },
-    {
-        path: '/sales',
-        element: <Sales />,
-    },
     {
         path: '/contracts',
         element: <Contracts />,
@@ -416,6 +426,102 @@ const routes = [
     {
         path: '/vendor/edit',
         element: <EditVendor />,
+    },
+
+
+
+    {
+        path: '/contact/list',
+        element: <ListContact />,
+    },
+    {
+        path: '/contact/preview',
+        element: <PreviewContact />,
+    },
+    {
+        path: '/contact/add',
+        element: <AddContact/>,
+    },
+    {
+        path: '/contact/edit',
+        element: <EditContact />,
+    },
+
+
+
+    {
+        path: '/deal/list',
+        element: <ListDeal />,
+    },
+    {
+        path: '/deal/preview',
+        element: <PreviewDeal />,
+    },
+    {
+        path: '/deal/add',
+        element: <AddDeal />,
+    },
+    {
+        path: '/deal/edit',
+        element: <EditDeal />,
+    },
+
+
+
+
+    {
+        path: '/lead/list',
+        element: <ListLead />,
+    },
+    {
+        path: '/lead/preview',
+        element: <PreviewLead />,
+    },
+    {
+        path: '/lead/add',
+        element: <AddLead />,
+    },
+    {
+        path: '/lead/edit',
+        element: <EditLead />,
+    },
+
+
+
+    {
+        path: '/purchase/list',
+        element: <ListPurchase />,
+    },
+    {
+        path: '/purchase/preview',
+        element: <PreviewPurchase />,
+    },
+    {
+        path: '/purchase/add',
+        element: <AddPurchase />,
+    },
+    {
+        path: '/purchase/edit',
+        element: <EditPurchase />,
+    },
+
+
+
+    {
+        path: '/sales/list',
+        element: <ListSales />,
+    },
+    {
+        path: '/sales/preview',
+        element: <PreviewSales />,
+    },
+    {
+        path: '/sales/add',
+        element: <AddSales />,
+    },
+    {
+        path: '/sales/edit',
+        element: <EditSales />,
     },
 
 
