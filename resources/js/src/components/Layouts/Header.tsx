@@ -682,7 +682,7 @@ const Header = () => {
                     
                     </li>
                     <li className="menu nav-item relative">
-                        <NavLink to="/leads" className="nav-link">
+                        <NavLink to="/lead/list" className="nav-link">
                             <div className="flex items-center">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path opacity="0.5" d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path opacity="0.5" d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><ellipse cx="12" cy="17" rx="6" ry="4" stroke="currentColor" stroke-width="1.5"></ellipse><path opacity="0.5" d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path opacity="0.5" d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -695,7 +695,7 @@ const Header = () => {
                     </li>
 
                     <li className="menu nav-item relative">
-                        <NavLink to="/contacts" className="nav-link">
+                        <NavLink to="/contact/list" className="nav-link">
                             <div className="flex items-center">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
                             </svg>
@@ -716,7 +716,7 @@ const Header = () => {
                     
                     </li>
                     <li className="menu nav-item relative">
-                        <NavLink to="/sales" className="nav-link">
+                        <NavLink to="/sales/list" className="nav-link">
                             <div className="flex items-center">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 7L14.6203 14.3347C13.6227 15.3263 13.1238 15.822 12.5051 15.822C11.8864 15.8219 11.3876 15.326 10.3902 14.3342L10.1509 14.0962C9.15254 13.1035 8.65338 12.6071 8.03422 12.6074C7.41506 12.6076 6.91626 13.1043 5.91867 14.0977L2 18M22 7V12.5458M22 7H16.4179" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                 <span className="px-1">{t('Sales')}</span>
@@ -904,6 +904,12 @@ const Header = () => {
                             </li>
                             <li>
                                 <NavLink to="/vendor/list">{t('Vendor')}</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/purchase/list">{t('Purchase')}</NavLink>
+                            </li>
+                             <li>
+                                <NavLink to="/deal/list">{t('Deal')}</NavLink>
                             </li>
                         </ul>
                     </li>
