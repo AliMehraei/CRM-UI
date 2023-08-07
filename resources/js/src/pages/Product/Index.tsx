@@ -112,9 +112,8 @@ const List = () => {
     }, [pageSize]);
 
     useEffect(() => {
-        const from = (page - 1) * pageSize;
-        const to = from + pageSize;
-        setRecords([...initialRecords.slice(from, to)]);
+        const to = pageSize;
+        setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
