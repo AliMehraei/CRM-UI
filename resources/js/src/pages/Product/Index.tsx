@@ -45,8 +45,41 @@ const List = () => {
             prevSelectedFields.filter((field) => field !== value)
           );
         }
+        console.log(selectedFields);
         
       };
+
+      const [filterConditions, setFilterConditions] = useState({});
+    // Function to handle the change in the condition for a field
+    const handleConditionChange = (field, condition) => {
+        setFilterConditions((prevConditions) => ({
+        ...prevConditions,
+        [field]: { ...prevConditions[field], condition },
+        }));
+    };
+
+    // Function to handle the change in the value for a field
+    const handleValueChange = (field, value) => {
+        setFilterConditions((prevConditions) => ({
+        ...prevConditions,
+        [field]: { ...prevConditions[field], value },
+        }));
+    };
+
+  const applyFilters = () => {
+    // Convert filterConditions object to array format
+    const filters = Object.keys(filterConditions).map((field) => ({
+      field,
+      condition: filterConditions[field].condition,
+      value: filterConditions[field].value,
+    }));
+
+    // Invoke fetchDataProduct with the selected filters
+    fetchDataProduct(page, pageSize, filters);
+  };
+
+
+
     const optionsConditionFilter = [
         { value: 'is', label: 'is' },
         { value: 'is_not', label: "isn't" },
@@ -128,19 +161,23 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
-    const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+    const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = []) => {
         setLoading(true);
+      
+        // Prepare the filter parameter for the API call
+        const filterParam = encodeURIComponent(JSON.stringify(filters));
+      
         try {
-            const response = await axios.get(`http://saascrmproduct.localhost/api/product/list?page=${page}&pageSize=${pageSize}`);
-            setItems(response.data.data.data);
-            setTotalItems(response.data.data.total); // Set the total count
-
+          const response = await axios.get(`http://saascrmproduct.localhost/api/product/list?page=${page}&pageSize=${pageSize}&filters=${filterParam}`);
+          setItems(response.data.data.data);
+          setTotalItems(response.data.data.total); // Set the total count
+      
         } catch (error) {
-            console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error);
         }
         setLoading(false);
-
-    };
+      };
+      
    
     useEffect(() => {
         fetchDataProduct(page, pageSize);
@@ -211,77 +248,79 @@ const List = () => {
                     </div> */}
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
-                <div className="panel col-span-1">
-      <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
+                    <div className="panel col-span-1">
+                        <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
-      {/* Search input */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search fields..."
-          className="border p-2 w-full"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
+                        {/* Search input */}
+                        <div className="mb-4">
+                            <input
+                            type="text"
+                            placeholder="Search fields..."
+                            className="border p-2 w-full"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
 
-      {/* Filter by options */}
-      <div className="mb-4">
-        <label className="block font-semibold">Filter by:</label>
-        {filteredOptions.map((option) => (
-          <div key={option.value} className="mb-2">
-            <input
-              type="checkbox"
-              value={option.value}
-              onChange={handleFieldChange}
-              checked={selectedFields.includes(option.value)}
-            />
-            <span className="ml-2">{option.label}</span>
-          </div>
-        ))}
-      </div>
+                        {/* Filter by options */}
+                        <div className="mb-4">
+                            <label className="block font-semibold">Filter by:</label>
+                            {filteredOptions.map((option) => (
+                                <div>
+                                    <div key={option.value} className="mb-2">
+                                        <input
+                                        type="checkbox"
+                                            value={option.value}
+                                            onChange={handleFieldChange}
+                                            checked={selectedFields.includes(option.value)}
+                                            />
+                                            <span className="ml-2">{option.label}</span>
+                                    </div>
+                                    {/* Search options and Input text for selected fields */}
+                        {selectedFields.length > 0 && (
+                            <>
+                            {
+                                selectedFields.includes(option.value) ? (
+                                <div key={option.value}>
+                                    <h3 className="text-lg font-semibold mt-4">Search Options</h3>
+                                    <div className="mb-4">
+                                    <div className="mb-2">
+                                        <label className="block font-semibold">Search include for {option.value}:</label>
+                                        <select className="border p-2 w-full">
+                                        {optionsConditionFilter.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                            {option.label}
+                                            </option>
+                                        ))}
+                                        </select>
+                                    </div>
+                                    <div className="mb-2">
+                                        <label className="block font-semibold">Value:</label>
+                                        <input
+                                        type="text"
+                                        placeholder={`Search value for ${option.value}`}
+                                        className="border p-2 w-full"
+                                        />
+                                    </div>
+                                    </div>
+                                </div>
+                                ) : null
+                            }
+                            </>
+                        )}
+                            </div>
+                            ))}
+                        </div>
 
-      {/* Search options and Input text for selected fields */}
-      {selectedFields.length > 0 && (
-        <>
-          {filteredOptions.map((option) =>
-            selectedFields.includes(option.value) ? (
-              <div key={option.value}>
-                <h3 className="text-lg font-semibold mt-4">Search Options</h3>
-                <div className="mb-4">
-                  <div className="mb-2">
-                    <label className="block font-semibold">Search include for {option.value}:</label>
-                    <select className="border p-2 w-full">
-                      {optionsConditionFilter.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="mb-2">
-                    <label className="block font-semibold">Value:</label>
-                    <input
-                      type="text"
-                      placeholder={`Search value for ${option.value}`}
-                      className="border p-2 w-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            ) : null
-          )}
-        </>
-      )}
+                        
 
-      {/* Apply filter button */}
-      {selectedFields.length > 0 && (
-        <button className="bg-blue-500 text-white px-4 py-2 rounded">
-          Apply Filter
-        </button>
-      )}
-    </div>
-
+                        {/* Apply filter button */}
+                        {selectedFields.length > 0 && (
+                            <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                            Apply Filter
+                            </button>
+                        )}
+                    </div>
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding">
                         {loading ? (
