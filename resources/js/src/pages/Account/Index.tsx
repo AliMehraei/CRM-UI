@@ -293,22 +293,20 @@ const List = () => {
       <div className="mb-4">
         <label className="block font-semibold">Filter by:</label>
         {filteredOptions.map((option) => (
-          <div key={option.value} className="mb-2">
-            <input
-              type="checkbox"
-              value={option.value}
-              onChange={handleFieldChange}
-              checked={selectedFields.includes(option.value)}
-            />
-            <span className="ml-2">{option.label}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Search options and Input text for selected fields */}
+            <div>
+                <div key={option.value} className="mb-2">
+                    <input
+                    type="checkbox"
+                        value={option.value}
+                        onChange={handleFieldChange}
+                        checked={selectedFields.includes(option.value)}
+                        />
+                        <span className="ml-2">{option.label}</span>
+                </div>
+                 {/* Search options and Input text for selected fields */}
       {selectedFields.length > 0 && (
         <>
-          {filteredOptions.map((option) =>
+          {
             selectedFields.includes(option.value) ? (
               <div key={option.value}>
                 <h3 className="text-lg font-semibold mt-4">Search Options</h3>
@@ -334,9 +332,14 @@ const List = () => {
                 </div>
               </div>
             ) : null
-          )}
+          }
         </>
       )}
+          </div>
+        ))}
+      </div>
+
+     
 
       {/* Apply filter button */}
       {selectedFields.length > 0 && (
