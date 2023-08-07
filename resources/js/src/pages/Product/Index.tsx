@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../store';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const List = () => {
@@ -65,29 +66,55 @@ const List = () => {
     // const filteredOptions = optionsFilter.filter((option) =>
     //     option.label.toLowerCase().includes(searchQuery.toLowerCase())
     // );
+    const showMessage = (msg = '', type = 'success') => {
+        const toast: any = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+            customClass: { container: 'toast' },
+        });
+        toast.fire({
+            icon: type,
+            title: msg,
+            padding: '10px 20px',
+        });
+    };
+
     const deleteRow = (id: any = null) => {
         if (window.confirm('Are you sure want to delete selected row ?')) {
+            const deleteSingleRow = async (rowId: number) => {
+                try {
+                    const response = await fetch(`http://saascrmproduct.localhost/api/product/${rowId}`, {
+                        method: 'DELETE',
+                    });
+                    const result = await response.json();
+                    if (result.status) {
+                        setRecords(items.filter((user) => user.id !== rowId));
+                        setInitialRecords(items.filter((user) => user.id !== rowId));
+                        setItems(items.filter((user) => user.id !== rowId));
+                    } else {
+                        console.error('Error deleting the product', result.message);
+                    }
+                } catch (error) {
+                    console.error('Error making delete request', error);
+                }
+            };
             if (id) {
-                setRecords(items.filter((user) => user.id !== id));
-                setInitialRecords(items.filter((user) => user.id !== id));
-                setItems(items.filter((user) => user.id !== id));
-                setSearch('');
+                deleteSingleRow(id);
                 setSelectedRecords([]);
+                showMessage('Product has been deleted successfully.');
             } else {
                 let selectedRows = selectedRecords || [];
-                const ids = selectedRows.map((d: any) => {
-                    return d.id;
-                });
-                const result = items.filter((d) => !ids.includes(d.id as never));
-                setRecords(result);
-                setInitialRecords(result);
-                setItems(result);
-                setSearch('');
+                const ids = selectedRows.map((d: any) => d.id);
+                ids.forEach((rowId) => deleteSingleRow(rowId));
                 setSelectedRecords([]);
+                showMessage('Product has been deleted successfully.');
                 setPage(1);
             }
         }
     };
+    
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -96,7 +123,7 @@ const List = () => {
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
 
-    const [search, setSearch] = useState('');
+    //const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'id',
         direction: 'asc',
@@ -130,18 +157,18 @@ const List = () => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-    useEffect(() => {
-        setInitialRecords(() => {
-            return items.filter((item) => {
-                return (
-                    item.product_name.toLowerCase().includes(search.toLowerCase()) ||
-                    item.manufacture.toLowerCase().includes(search.toLowerCase()) ||
-                    item.product_type.toLowerCase().includes(search.toLowerCase()) ||
-                    item.product_owner.toLowerCase().includes(search.toLowerCase()) 
-                );
-            });
-        });
-    }, [search]);
+    // useEffect(() => {
+    //     setInitialRecords(() => {
+    //         return items.filter((item) => {
+    //             return (
+    //                 item.product_name.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.manufacture.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.product_type.toLowerCase().includes(search.toLowerCase()) ||
+    //                 item.product_owner.toLowerCase().includes(search.toLowerCase()) 
+    //             );
+    //         });
+    //     });
+    // }, [search]);
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
@@ -179,9 +206,9 @@ const List = () => {
                             Add New
                         </Link>
                     </div>
-                    <div className="ltr:ml-auto rtl:mr-auto">
+                    {/* <div className="ltr:ml-auto rtl:mr-auto">
                         <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
                 <div className="panel col-span-1">
