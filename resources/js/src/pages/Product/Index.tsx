@@ -15,12 +15,8 @@ const List = () => {
     });
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
-
-
-
-  const [selectedFields, setSelectedFields] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(''); // State for search input
-
+    const [selectedFields, setSelectedFields] = useState([]);
+    const [searchQuery, setSearchQuery] = useState(''); // State for search input
     const optionsFilter = [
         { value: 'name', label: 'name' },
         { value: 'email', label: 'email' },
@@ -37,7 +33,6 @@ const List = () => {
         }
         
       };
-
     const optionsConditionFilter = [
         { value: 'is', label: 'is' },
         { value: 'is_not', label: "isn't" },
@@ -73,22 +68,19 @@ const List = () => {
             }
         }
     };
-
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(items, 'product_name'));
+    const [initialRecords, setInitialRecords] = useState(sortBy(items, 'id'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
 
     const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: 'firstName',
+        columnAccessor: 'id',
         direction: 'asc',
     });
-
-        
     const fetchData = async (page = 1, pageSize = PAGE_SIZES[0]) => {
         try {
             const response = await axios.get(`http://127.0.0.1:8001/api/product/list?page=${page}&pageSize=${pageSize}`);
@@ -99,10 +91,9 @@ const List = () => {
             console.error('Error fetching data:', error);
         }
     };
-    
     useEffect(() => {
         fetchData(page, pageSize);
-        setInitialRecords(sortBy(items, 'product_name'));
+        setInitialRecords(sortBy(items, 'id'));
 
     }, [page, pageSize]); // Added page and pageSize as dependencies
     
@@ -115,7 +106,6 @@ const List = () => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-
     useEffect(() => {
         setInitialRecords(() => {
             return items.filter((item) => {
@@ -128,13 +118,10 @@ const List = () => {
             });
         });
     }, [search]);
-
-
     useEffect(() => {
-        setInitialRecords(sortBy(items));
-      //  setPage(1);
-    }, [items]);
-
+        const data = sortBy(items, sortStatus.columnAccessor);
+        setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
+    }, [items, sortStatus]);
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="product-table">
