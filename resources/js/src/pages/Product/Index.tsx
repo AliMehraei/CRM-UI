@@ -21,6 +21,7 @@ const List = () => {
     const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
+    const [filters, setFilters] = useState([]);
     const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
         setLoading(true);
         try {
@@ -39,46 +40,50 @@ const List = () => {
     const handleFieldChange = (event) => {
         const { value, checked } = event.target;
         if (checked) {
-          setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
+            setFilters((prevFilters) => [...prevFilters, { field: value, condition: '', value: '' }]);
+
+            setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
         } else {
-          setSelectedFields((prevSelectedFields) =>
-            prevSelectedFields.filter((field) => field !== value)
-          );
+            setFilters((prevFilters) => prevFilters.filter((filter) => filter.field !== value));
+
+            setSelectedFields((prevSelectedFields) =>
+                prevSelectedFields.filter((field) => field !== value)
+            );
         }
-        console.log(selectedFields);
-        
       };
+  
 
-      const [filterConditions, setFilterConditions] = useState({});
-    // Function to handle the change in the condition for a field
-    const handleConditionChange = (field, condition) => {
-        setFilterConditions((prevConditions) => ({
-        ...prevConditions,
-        [field]: { ...prevConditions[field], condition },
-        }));
-    };
-
-    // Function to handle the change in the value for a field
-    const handleValueChange = (field, value) => {
-        setFilterConditions((prevConditions) => ({
-        ...prevConditions,
-        [field]: { ...prevConditions[field], value },
-        }));
-    };
-
+      const handleConditionChange = (field, event) => {
+    
+        const updatedFilters = filters.map(filter => {
+          if (filter.field === field) {
+            return { ...filter, condition: event.value };
+          }
+          return filter;
+        });
+      
+      
+        setFilters(updatedFilters);
+      };
+      
+      
+      const handleValueChange = (field, event) => {
+        
+        const updatedFilters = filters.map(filter => {
+          if (filter.field === field) {
+            return { ...filter, value: event.target.value };
+          }
+          return filter;
+        });
+        setFilters(updatedFilters);
+      };
+      
   const applyFilters = () => {
-    // Convert filterConditions object to array format
-    const filters = Object.keys(filterConditions).map((field) => ({
-      field,
-      condition: filterConditions[field].condition,
-      value: filterConditions[field].value,
-    }));
-
+    console.log(filters);
+    
     // Invoke fetchDataProduct with the selected filters
     fetchDataProduct(page, pageSize, filters);
   };
-
-
 
     const optionsConditionFilter = [
         { value: 'is', label: 'is' },
@@ -210,6 +215,7 @@ const List = () => {
         const data = sortBy(items, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
     }, [items, sortStatus]);
+
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="product-table">
@@ -277,37 +283,35 @@ const List = () => {
                                             <span className="ml-2">{option.label}</span>
                                     </div>
                                     {/* Search options and Input text for selected fields */}
-                        {selectedFields.length > 0 && (
-                            <>
-                            {
-                                selectedFields.includes(option.value) ? (
-                                <div key={option.value}>
-                                    <h3 className="text-lg font-semibold mt-4">Search Options</h3>
-                                    <div className="mb-4">
-                                    <div className="mb-2">
-                                        <label className="block font-semibold">Search include for {option.value}:</label>
-                                        <select className="border p-2 w-full">
-                                        {optionsConditionFilter.map((option) => (
-                                            <option key={option.value} value={option.value}>
-                                            {option.label}
-                                            </option>
-                                        ))}
-                                        </select>
-                                    </div>
-                                    <div className="mb-2">
-                                        <label className="block font-semibold">Value:</label>
-                                        <input
-                                        type="text"
-                                        placeholder={`Search value for ${option.value}`}
-                                        className="border p-2 w-full"
-                                        />
-                                    </div>
-                                    </div>
-                                </div>
-                                ) : null
-                            }
-                            </>
-                        )}
+                                    {selectedFields.length > 0 && (
+                                        <>
+                                        {
+                                            selectedFields.includes(option.value) ? (
+                                            <div key={option.value}>
+                                                <h3 className="text-lg font-semibold mt-4">Search Options</h3>
+                                                <div className="mb-4">
+                                                <div className="mb-2">
+                                                    <label className="block font-semibold">Search include for {option.value}:</label>
+                                                    <Select
+                                                    onChange={(e) => handleConditionChange(option.value, e)}
+                                                    placeholder="Select an include" 
+                                                    options={optionsConditionFilter} />
+                                                </div>
+                                                <div className="mb-2">
+                                                    <label className="block font-semibold">Value:</label>
+                                                    <input
+                                                    type="text"
+                                                    placeholder={`Search value for ${option.value}`}
+                                                    className="border p-2 w-full"
+                                                    onChange={(e) => handleValueChange(option.value, e)}
+                                                    />
+                                                </div>
+                                                </div>
+                                            </div>
+                                            ) : null
+                                        }
+                                        </>
+                                    )}
                             </div>
                             ))}
                         </div>
@@ -316,7 +320,7 @@ const List = () => {
 
                         {/* Apply filter button */}
                         {selectedFields.length > 0 && (
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                            <button className="bg-blue-500 text-white px-4 py-2 rounded"  onClick={(e) => applyFilters()}>
                             Apply Filter
                             </button>
                         )}
