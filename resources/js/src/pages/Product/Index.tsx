@@ -13,12 +13,15 @@ const List = () => {
     useEffect(() => {
         dispatch(setPageTitle('Product List'));
     });
+    const [loading, setLoading] = useState(false);
+
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
     const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
     const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+        setLoading(true);
         try {
             const response = await axios.get(`http://saascrmproduct.localhost/api/product/filter_option`);
             setOptionsFilter(response.data.data);
@@ -26,6 +29,8 @@ const List = () => {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+        setLoading(false);
+
     };
     useEffect(() => {
         fetchDataFilterOption();
@@ -97,6 +102,7 @@ const List = () => {
         direction: 'asc',
     });
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+        setLoading(true);
         try {
             const response = await axios.get(`http://saascrmproduct.localhost/api/product/list?page=${page}&pageSize=${pageSize}`);
             setItems(response.data.data.data);
@@ -105,6 +111,8 @@ const List = () => {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
+        setLoading(false);
+
     };
    
     useEffect(() => {
@@ -246,8 +254,15 @@ const List = () => {
         </button>
       )}
     </div>
+
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding">
+                        {loading ? (
+                            <div className='flex justify-center'>
+                            <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
+                            </div>            
+                                            ) : (
+
                             <DataTable
                                 className={`${isDark} whitespace-nowrap table-hover`}
                                 records={records}
@@ -367,6 +382,8 @@ const List = () => {
                                 onSelectedRecordsChange={setSelectedRecords}
                                 paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
                             />
+                            )}
+
                         </div>
                     
                     </div>
