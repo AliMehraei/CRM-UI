@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const Edit = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('Invoice Edit'));
+        dispatch(setPageTitle('Product Edit'));
     });
     const { id } = useParams();
     const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
@@ -16,7 +16,7 @@ const Edit = () => {
         part_description: '',
         manufacture: '',
         datasheet_url: '',
-        product_active: '',
+        product_active: false, 
         product_type: ''
     });
 
