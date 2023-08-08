@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -8,6 +8,11 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Invoice Edit'));
     });
+    const { id } = useParams();
+    const API_URL_PRODUCT = window.env.REACT_APP_API_URL_PRODUCT;
+
+    console.log(1111,API_URL_PRODUCT);
+    
     const currencyList = ['USD - US Dollar', 'GBP - British Pound', 'IDR - Indonesian Rupiah', 'INR - Indian Rupee', 'BRL - Brazilian Real', 'EUR - Germany (Euro)', 'TRY - Turkish Lira'];
     const [tax, setTax] = useState<any>(0);
     const [discount, setDiscount] = useState<any>(0);
