@@ -127,38 +127,52 @@ const List = () => {
     };
 
     const deleteRow = (id: any = null) => {
-        if (window.confirm('Are you sure want to delete selected row ?')) {
-            const deleteSingleRow = async (rowId: number) => {
-                try {
-                    const response = await fetch(`${API_URL_PRODUCT}/api/product/${rowId}`, {
-                        method: 'DELETE',
-                    });
-                    const result = await response.json();
-                    if (result.status) {
-                        setRecords(items.filter((user) => user.id !== rowId));
-                        setInitialRecords(items.filter((user) => user.id !== rowId));
-                        setItems(items.filter((user) => user.id !== rowId));
-                    } else {
-                        console.error('Error deleting the product', result.message);
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            padding: '2em',
+            customClass: 'sweet-alerts',
+        }).then((result) => {
+            if (result.value) {
+                const deleteSingleRow = async (rowId: number) => {
+                    try {
+                        const response = await fetch(`${API_URL_PRODUCT}/api/product/${rowId}`, {
+                            method: 'DELETE',
+                        });
+                        const result = await response.json();
+                        if (result.status) {
+                            setRecords(items.filter((user) => user.id !== rowId));
+                            setInitialRecords(items.filter((user) => user.id !== rowId));
+                            setItems(items.filter((user) => user.id !== rowId));
+                        } else {
+                            console.error('Error deleting the product', result.message);
+                        }
+                    } catch (error) {
+                        console.error('Error making delete request', error);
                     }
-                } catch (error) {
-                    console.error('Error making delete request', error);
+                };
+                if (id) {
+                    setLoading(true);
+                    deleteSingleRow(id);
+                    setSelectedRecords([]);
+                    setLoading(false);
+                } else {
+                    setLoading(true);
+                    let selectedRows = selectedRecords || [];
+                    const ids = selectedRows.map((d: any) => d.id);
+                    ids.forEach((rowId) => deleteSingleRow(rowId));
+                    setSelectedRecords([]);
+                    setPage(1);
+                    setLoading(false);
                 }
-            };
-            if (id) {
-                deleteSingleRow(id);
-                setSelectedRecords([]);
-                showMessage('Product has been deleted successfully.');
-            } else {
-                let selectedRows = selectedRecords || [];
-                const ids = selectedRows.map((d: any) => d.id);
-                ids.forEach((rowId) => deleteSingleRow(rowId));
-                setSelectedRecords([]);
-                showMessage('Product has been deleted successfully.');
-                setPage(1);
+                Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success', customClass: 'sweet-alerts' });
             }
-        }
+        });
     };
+    
     
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
