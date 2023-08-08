@@ -23,6 +23,13 @@
     </noscript>
 
     <div id="root"></div>
+
+    <script>
+        window.env = {
+            REACT_APP_API_URL_PRODUCT: '{{ env('API_URL_PRODUCT') }}',
+            // Add more variables as needed
+        };
+    </script>
 </body>
 
 </html>
