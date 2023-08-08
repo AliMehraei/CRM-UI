@@ -347,7 +347,7 @@ const routes = [
         element: <AddProduct />,
     },
     {
-        path: '/product/edit',
+        path: '/product/edit/:id',
         element: <EditProduct />,
     },
 
