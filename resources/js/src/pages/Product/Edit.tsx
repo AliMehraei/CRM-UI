@@ -86,7 +86,7 @@ const Edit = () => {
             <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
             <div className="flex items-center gap-2">
              <Link to="/product/list" className="btn btn-danger gap-2">
-                 Cancel            
+                 Back            
             </Link>
             <Link to="/product/add" className="btn btn-primary gap-2">
                 Save and new
