@@ -9,9 +9,8 @@ const Edit = () => {
         dispatch(setPageTitle('Invoice Edit'));
     });
     const { id } = useParams();
-    const API_URL_PRODUCT = window.env.REACT_APP_API_URL_PRODUCT;
+    const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
 
-    console.log(1111,API_URL_PRODUCT);
     
     const currencyList = ['USD - US Dollar', 'GBP - British Pound', 'IDR - Indonesian Rupiah', 'INR - Indian Rupee', 'BRL - Brazilian Real', 'EUR - Germany (Euro)', 'TRY - Turkish Lira'];
     const [tax, setTax] = useState<any>(0);

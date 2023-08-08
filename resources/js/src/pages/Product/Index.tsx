@@ -258,10 +258,13 @@ const List = () => {
                         <Link to="/product/add" className="btn btn-primary gap-2">
                             <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <line x1="5" y1="12" x2="19" y2en="12"></line>
                             </svg>
                             Add New
+
                         </Link>
+                        <p>API URL: {import.meta.env.VITE_API_PUBLIC_KEY}</p>
+
                     </div>
                     {/* <div className="ltr:ml-auto rtl:mr-auto">
                         <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
