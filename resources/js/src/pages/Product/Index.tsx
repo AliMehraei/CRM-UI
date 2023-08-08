@@ -189,25 +189,30 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
-    const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = []) => {
+    const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
       
-        // Prepare the filter parameter for the API call
+        const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
       
         try {
-          const response = await axios.get(`${API_URL_PRODUCT}/api/product/list?page=${page}&pageSize=${pageSize}&filters=${filterParam}`);
-          setItems(response.data.data.data);
-          setTotalItems(response.data.data.total); // Set the total count
-      
+            const response = await axios.get(`${API_URL_PRODUCT}/api/product/list?page=${page}&pageSize=${pageSize}&sortField=${sortField}&sortDirection=${sortDirection}&filters=${filterParam}`);
+            setItems(response.data.data.data);
+            setTotalItems(response.data.data.total);
         } catch (error) {
-            showMessage('Error fetching product data.', 'error'); // Added this line
-          console.error('Error fetching data:', error);
+            showMessage('Error fetching product data.', 'error');
+            console.error('Error fetching data:', error);
         }
+      
         setLoading(false);
       };
       
-   
+    useEffect(() => {
+        const data = sortBy(items, sortStatus.columnAccessor);
+        setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
+    }, [items, sortStatus]);
+    
+    
     useEffect(() => {
         fetchDataProduct(page, pageSize);
         setInitialRecords(sortBy(items, 'id'));
@@ -235,16 +240,25 @@ const List = () => {
     //         });
     //     });
     // }, [search]);
-    useEffect(() => {
-        const data = sortBy(items, sortStatus.columnAccessor);
-        setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
-    }, [items, sortStatus]);
+    // useEffect(() => {
+    //     const data = sortBy(items, sortStatus.columnAccessor);
+    //     setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
+    // }, [items, sortStatus]);
 
+    useEffect(() => {
+        fetchDataProduct(page, pageSize, filters, sortStatus);
+    }, [page, pageSize, filters, sortStatus]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Assuming you have a setFilters function
         setSearchQuery(''); // Reset search query
         // Add any other state reset logic here
+      };
+
+      const handleSortChange = (sortStatus) => {
+        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
+        setSortStatus({ columnAccessor, direction });
+        fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
       };
       
 
@@ -379,7 +393,7 @@ const List = () => {
                                         render: ({ id}) => <div className="font-semibold">{id}</div>,
                                     },
                                     {
-                                        accessor: 'product',
+                                        accessor: 'product_name',
                                         sortable: true,
                                         render: ({ product_name }) => (
                                             <NavLink to="/product/preview">
@@ -483,7 +497,7 @@ const List = () => {
                                 recordsPerPageOptions={PAGE_SIZES}
                                 onRecordsPerPageChange={setPageSize}
                                 sortStatus={sortStatus}
-                                onSortStatusChange={setSortStatus}
+                                onSortStatusChange={handleSortChange}
                                 selectedRecords={selectedRecords}
                                 onSelectedRecordsChange={setSelectedRecords}
                                 paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
