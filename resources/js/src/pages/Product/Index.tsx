@@ -7,7 +7,7 @@ import { IRootState } from '../../store';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import api from '../../config/api';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -15,8 +15,7 @@ const List = () => {
         dispatch(setPageTitle('Product List'));
     });
     const [loading, setLoading] = useState(false);
-    const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
-
+    const api_instance = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
     const [optionsFilter, setOptionsFilter] = useState([]);
@@ -26,8 +25,9 @@ const List = () => {
     const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
         setLoading(true);
         try {
-            const response = await axios.get(`${API_URL_PRODUCT}/api/product/filter_option`);
-            setOptionsFilter(response.data.data);
+            api_instance.filter_option().then((res) => {
+                setOptionsFilter(res.data.data);
+            });
         } catch (error) {
             showMessage('Error fetching filter options.', 'error'); // Added this line
             console.error('Error fetching data:', error);
@@ -139,22 +139,24 @@ const List = () => {
             if (result.value) {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
-                        const response = await fetch(`${API_URL_PRODUCT}/api/product/${rowId}`, {
-                            method: 'DELETE',
+                        api_instance.delete_single_product(rowId).then((res) => {
+                            const result = res.data;
+                            if (result.status) {
+                                const filteredItems = items.filter((user) => user.id !== rowId);
+                                setRecords(filteredItems);
+                                setInitialRecords(filteredItems);
+                                setItems(filteredItems);
+                            } else {
+                                showMessage('Error deleting the product: ' + result.message, 'error');
+                                console.error('Error deleting the product', result.message);
+                            }
                         });
-                        const result = await response.json();
-                        if (result.status) {
-                            setRecords(items.filter((user) => user.id !== rowId));
-                            setInitialRecords(items.filter((user) => user.id !== rowId));
-                            setItems(items.filter((user) => user.id !== rowId));
-                        } else {
-                            showMessage('Error deleting the product: ', 'error'); 
-                            console.error('Error deleting the product', result.message);
-                        }
+                        
                     } catch (error) {
-                        showMessage('Error making delete request', 'error'); 
+                        showMessage('Error making delete request', 'error');
                         console.error('Error making delete request', error);
                     }
+                    
                 };
                 if (id) {
                     setLoading(true);
@@ -196,9 +198,17 @@ const List = () => {
         const filterParam = encodeURIComponent(JSON.stringify(filters));
       
         try {
-            const response = await axios.get(`${API_URL_PRODUCT}/api/product/list?page=${page}&pageSize=${pageSize}&sortField=${sortField}&sortDirection=${sortDirection}&filters=${filterParam}`);
-            setItems(response.data.data.data);
-            setTotalItems(response.data.data.total);
+            api_instance.fetch_data_product({
+                page:page,
+                pageSize:pageSize,
+                sortField:sortField,
+                sortDirection:sortDirection,
+                filterParam:filterParam
+            }).then((res) => {
+                setItems(res.data.data.data);
+                setTotalItems(res.data.data.total);
+
+            });            
         } catch (error) {
             showMessage('Error fetching product data.', 'error');
             console.error('Error fetching data:', error);

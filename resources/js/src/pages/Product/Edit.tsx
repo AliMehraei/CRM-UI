@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Swal from 'sweetalert2';
+import api from '../../config/api';
 
 const Edit = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Product Edit'));
     });
+    const api_instance = new api();
+
     const { id } = useParams();
     const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
     const [params, setParams] = useState({
@@ -22,19 +25,19 @@ const Edit = () => {
 
     const fetchProductData = async () => {
         try {
-            const response = await fetch(`${API_URL_PRODUCT}/api/product/${id}`);
-            const productData = await response.json();
-            if (productData.status) {
-                setParams(productData.data); // Assuming the API returns the product data in `data` field
+            const response = await api_instance.fetch_single_product(id);
+            if (response.data.status) {
+                setParams(response.data.data); 
             } else {
-                showMessage('Error fetching product: ', 'error'); // Calling showMessage with an error message and error type
-                console.error('Error fetching product', productData.message);
+                showMessage('Error fetching product: ', 'error'); 
+                console.error('Error fetching product', response.data.message);
             }
         } catch (error) {
-            showMessage('Error fetching product: Network error', 'error'); // Calling showMessage with an error message and error type
+            showMessage('Error fetching product: Network error', 'error'); 
             console.error('Error fetching product', error);
         }
     };
+    
     
     useEffect(() => {
         fetchProductData();
@@ -49,25 +52,19 @@ const Edit = () => {
     }
     const handleSave = async () => {
         try {
-            const response = await fetch(`${API_URL_PRODUCT}/api/product/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(params),
-            });
-            const result = await response.json();
-            if (result.status) {
+            const response = await api_instance.update_single_product(id, params);
+            if (response.data.status) {
                 showMessage('Product successfully updated'); // Calling showMessage with the success message
             } else {
                 showMessage('Error updating the product', 'error'); // Calling showMessage with an error message and error type
-                console.error('Error updating the product', result.message);
+                console.error('Error updating the product', response.data.message);
             }
         } catch (error) {
             showMessage('Error making update request', 'error'); // Calling showMessage with an error message and error type
             console.error('Error making update request', error);
         }
     };
+    
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,

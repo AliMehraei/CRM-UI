@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Swal from 'sweetalert2';
+import api from '../../config/api';
 
 const Add = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Product Add'));
     });
+    const api_instance = new api();
 
     const API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT;
     const [params, setParams] = useState({
@@ -30,25 +32,19 @@ const Add = () => {
 
     const handleSave = async () => {
         try {
-            const response = await fetch(`${API_URL_PRODUCT}/api/product`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(params),
-            });
-            const result = await response.json();
-            if (result.status) {
-                showMessage('Product successfully added');
+            const response = await api_instance.create_single_product(params);
+            if (response.data.status) {
+                showMessage('Product successfully added'); // Calling showMessage with the success message
             } else {
-                showMessage('Error adding the product', 'error');
-                console.error('Error adding the product', result.message);
+                showMessage('Error adding the product', 'error'); // Calling showMessage with an error message and error type
+                console.error('Error adding the product', response.data.message);
             }
         } catch (error) {
-            showMessage('Error making create request', 'error');
+            showMessage('Error making create request', 'error'); // Calling showMessage with an error message and error type
             console.error('Error making create request', error);
         }
     };
+    
 
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
