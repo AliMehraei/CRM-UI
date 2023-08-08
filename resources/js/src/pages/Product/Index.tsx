@@ -28,13 +28,13 @@ const List = () => {
         try {
             const response = await axios.get(`${API_URL_PRODUCT}/api/product/filter_option`);
             setOptionsFilter(response.data.data);
-
         } catch (error) {
+            showMessage('Error fetching filter options.', 'error'); // Added this line
             console.error('Error fetching data:', error);
         }
         setLoading(false);
-
     };
+    
     useEffect(() => {
         fetchDataFilterOption();
     }, []); 
@@ -148,9 +148,11 @@ const List = () => {
                             setInitialRecords(items.filter((user) => user.id !== rowId));
                             setItems(items.filter((user) => user.id !== rowId));
                         } else {
+                            showMessage('Error deleting the product: ', 'error'); 
                             console.error('Error deleting the product', result.message);
                         }
                     } catch (error) {
+                        showMessage('Error making delete request', 'error'); 
                         console.error('Error making delete request', error);
                     }
                 };
@@ -199,6 +201,7 @@ const List = () => {
           setTotalItems(response.data.data.total); // Set the total count
       
         } catch (error) {
+            showMessage('Error fetching product data.', 'error'); // Added this line
           console.error('Error fetching data:', error);
         }
         setLoading(false);
