@@ -15,6 +15,7 @@ const List = () => {
         dispatch(setPageTitle('Product List'));
     });
     const [loading, setLoading] = useState(false);
+    const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
 
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
@@ -25,7 +26,7 @@ const List = () => {
     const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://saascrmproduct.localhost/api/product/filter_option`);
+            const response = await axios.get(`${API_URL_PRODUCT}/api/product/filter_option`);
             setOptionsFilter(response.data.data);
 
         } catch (error) {
@@ -129,7 +130,7 @@ const List = () => {
         if (window.confirm('Are you sure want to delete selected row ?')) {
             const deleteSingleRow = async (rowId: number) => {
                 try {
-                    const response = await fetch(`http://saascrmproduct.localhost/api/product/${rowId}`, {
+                    const response = await fetch(`${API_URL_PRODUCT}/api/product/${rowId}`, {
                         method: 'DELETE',
                     });
                     const result = await response.json();
@@ -179,7 +180,7 @@ const List = () => {
         const filterParam = encodeURIComponent(JSON.stringify(filters));
       
         try {
-          const response = await axios.get(`http://saascrmproduct.localhost/api/product/list?page=${page}&pageSize=${pageSize}&filters=${filterParam}`);
+          const response = await axios.get(`${API_URL_PRODUCT}/api/product/list?page=${page}&pageSize=${pageSize}&filters=${filterParam}`);
           setItems(response.data.data.data);
           setTotalItems(response.data.data.total); // Set the total count
       
@@ -263,7 +264,6 @@ const List = () => {
                             Add New
 
                         </Link>
-                        <p>API URL: {import.meta.env.VITE_API_PUBLIC_KEY}</p>
 
                     </div>
                     {/* <div className="ltr:ml-auto rtl:mr-auto">
