@@ -215,7 +215,12 @@ const List = () => {
         const data = sortBy(items, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
     }, [items, sortStatus]);
-
+    const resetFilters = () => {
+        setSelectedFields([]); // Reset selected fields
+        setFilters([]); // Assuming you have a setFilters function
+        setSearchQuery(''); // Reset search query
+        // Add any other state reset logic here
+      };
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="product-table">
@@ -320,9 +325,16 @@ const List = () => {
 
                         {/* Apply filter button */}
                         {selectedFields.length > 0 && (
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded"  onClick={(e) => applyFilters()}>
-                            Apply Filter
-                            </button>
+                            <div className="flex flex-wrap justify-between space-x-2 md:space-x-4">
+                                <button onClick={(e) => applyFilters()} className="btn btn-sm btn-primary">
+                                    Apply Filter
+                                </button>
+                                
+                                <button onClick={resetFilters} className="btn btn-sm btn-outline-primary">
+                                    Reset
+                                </button>
+                            </div>
+                    
                         )}
                     </div>
                     <div className="panel col-span-4">
