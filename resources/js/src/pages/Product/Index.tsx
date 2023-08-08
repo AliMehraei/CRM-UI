@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { useState, useEffect } from 'react';
+import { useState, useEffect  } from 'react';
 import sortBy from 'lodash/sortBy';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../../store';
@@ -78,12 +78,18 @@ const List = () => {
         setFilters(updatedFilters);
       };
       
-  const applyFilters = () => {
-    console.log(filters);
-    
-    // Invoke fetchDataProduct with the selected filters
-    fetchDataProduct(page, pageSize, filters);
-  };
+      const scrollToTop = () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+      };
+      const applyFilters = () => {
+        scrollToTop();
+        fetchDataProduct(page, pageSize, filters);
+
+      };
 
     const optionsConditionFilter = [
         { value: 'is', label: 'is' },
@@ -215,14 +221,17 @@ const List = () => {
         const data = sortBy(items, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
     }, [items, sortStatus]);
+
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Assuming you have a setFilters function
         setSearchQuery(''); // Reset search query
         // Add any other state reset logic here
       };
+      
+
     return (
-        <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
+        <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
@@ -338,7 +347,7 @@ const List = () => {
                         )}
                     </div>
                     <div className="panel col-span-4">
-                        <div className="datatables pagination-padding">
+                        <div className="datatables pagination-padding" >
                         {loading ? (
                             <div className='flex justify-center'>
                             <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
