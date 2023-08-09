@@ -867,7 +867,7 @@ const Header = () => {
                             <li>
                                 <NavLink to="/invoice/list">{t('Invoice')}</NavLink>
                             </li>
-                            <li className="relative">
+                            {/* <li className="relative">
                                 <button type="button">
                                     {t('VendorRFQ')}
                                     <div className="ltr:ml-auto rtl:mr-auto rtl:rotate-180">
@@ -888,9 +888,12 @@ const Header = () => {
                                     </li>
                                    
                                 </ul>
-                            </li>
+                            </li> */}
                             <li>
                                 <NavLink to="/vendor/list">{t('Vendor')}</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/vendor_rfq/list">{t('VendorRFQ')}</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/purchase/list">{t('Purchase')}</NavLink>
