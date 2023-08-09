@@ -286,7 +286,7 @@ const List = () => {
 
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, filters, sortStatus]);
+    }, [page, pageSize, sortStatus]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Assuming you have a setFilters function
