@@ -356,13 +356,15 @@ const List = () => {
                             {filteredOptions.map((option) => (
                                 <div>
                                     <div key={option.value} className="mb-2">
-                                        <input
-                                        type="checkbox"
+                                        <label className="flex items-center cursor-pointer">
+                                            <input type="checkbox" 
                                             value={option.value}
                                             onChange={handleFieldChange}
                                             checked={selectedFields.includes(option.value)}
-                                            />
-                                            <span className="ml-2">{option.label}</span>
+                                            className="form-checkbox"  />
+                                            <span className=" text-dark">{option.label}</span>
+                                        </label>
+                                       
                                     </div>
                                     {/* Search options and Input text for selected fields */}
                                     {selectedFields.length > 0 && (
