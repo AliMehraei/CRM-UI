@@ -22,18 +22,47 @@ const List = () => {
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
     const [filters, setFilters] = useState([]);
-    const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+    // const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
+    //     setLoading(true);
+    //     try {
+    //         api_instance.filter_option().then((res) => {
+    //             setOptionsFilter(res.data.data);
+    //         });
+    //     } catch (error) {
+    //         showMessage('Error fetching filter options.', 'error'); // Added this line
+    //         console.error('Error fetching data:', error);
+    //     }
+    //     setLoading(false);
+    // };
+    const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            api_instance.filter_option().then((res) => {
-                setOptionsFilter(res.data.data);
+            const res = await api_instance.filter_option();
+            // Transform the data
+            const transformedData = res.data.data.map((item) => {
+                const conditions = JSON.parse(item.condition);
+                return {
+                    ...item,
+                    conditions: Object.entries(conditions).map(([key, condition]) => ({
+                        value: key,
+                        label: condition.value, // or any other property to use as the label
+                        input: condition.input,
+                        type: condition.type
+                    }))
+                };
             });
+            setOptionsFilter(transformedData);
+            console.log(optionsFilter);
+            
         } catch (error) {
-            showMessage('Error fetching filter options.', 'error'); // Added this line
+            showMessage('Error fetching filter options.', 'error');
             console.error('Error fetching data:', error);
         }
         setLoading(false);
     };
+    
+
+
     
     useEffect(() => {
         fetchDataFilterOption();
@@ -348,7 +377,7 @@ const List = () => {
                                                     <Select
                                                     onChange={(e) => handleConditionChange(option.value, e)}
                                                     placeholder="Select an include" 
-                                                    options={optionsConditionFilter} />
+                                                    options={option.conditions} />
                                                 </div>
                                                 <div className="mb-2">
                                                     <label className="block font-semibold">Value:</label>
