@@ -80,56 +80,6 @@ const List = () => {
     useEffect(() => {
         fetchDataFilterOption();
     }, []);
-    const handleFieldChange = (event) => {
-        const { value, checked } = event.target;
-
-        if (checked) {
-            setFilters((prevFilters) => ({
-                ...prevFilters,
-                [value]: { field: value, condition: '', value: '' },
-            }));
-
-            setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
-        } else {
-            setFilters((prevFilters) => {
-                const updatedFilters = { ...prevFilters };
-                delete updatedFilters[value];
-                return updatedFilters;
-            });
-
-            setSelectedFields((prevSelectedFields) =>
-                prevSelectedFields.filter((field) => field !== value)
-            );
-        }
-        // const { value, checked } = event.target;
-        // let newFilters = filters;
-        // if (checked) {
-        //     newFilters[value] = { field: value, condition: '', value: '' };
-        //     setFilters(newFilters);
-        //     setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
-        // } else {
-        //     newFilters[value]  = null;
-        //     setFilters(newFilters);
-        //     setSelectedFields((prevSelectedFields) =>
-        //         prevSelectedFields.filter((field) => field !== value)
-        //     );
-        // }
-        console.log(111, filters);
-
-    };
-
-
-    const handleConditionChange = (field, event) => {
-        const updatedFilters = {
-            ...filters,
-            [field]: { ...filters[field], condition: event.value }
-        };
-
-        console.log(2222, updatedFilters);
-
-        setFilters(updatedFilters);
-    };
-
     const scrollToTop = () => {
 
         window.scrollTo({
@@ -143,8 +93,7 @@ const List = () => {
         fetchDataProduct(page, pageSize, filters);
 
     };
-
-    
+  
     // Filter the options based on search query
     let filteredOptions = [];
     if (optionsFilter && optionsFilter.length > 0) {
@@ -220,8 +169,6 @@ const List = () => {
         });
     };
 
-
-   
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
 
@@ -254,7 +201,6 @@ const List = () => {
         const data = sortBy(items, sortStatus.columnAccessor);
         setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
     }, [items, sortStatus]);
-
 
     useEffect(() => {
         fetchDataProduct(page, pageSize);
@@ -304,12 +250,62 @@ const List = () => {
         setResetFilter(true);
         // fetchDataProduct(page, pageSize, filters, sortStatus);
     };
-    
+    const handleFieldChange = (event) => {
+        const { value, checked } = event.target;
 
+        if (checked) {
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                [value]: { field: value, condition: '', value: '' },
+            }));
+
+            setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
+        } else {
+            setFilters((prevFilters) => {
+                const updatedFilters = { ...prevFilters };
+                delete updatedFilters[value];
+                return updatedFilters;
+            });
+
+            setSelectedFields((prevSelectedFields) =>
+                prevSelectedFields.filter((field) => field !== value)
+            );
+        }
+        // const { value, checked } = event.target;
+        // let newFilters = filters;
+        // if (checked) {
+        //     newFilters[value] = { field: value, condition: '', value: '' };
+        //     setFilters(newFilters);
+        //     setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
+        // } else {
+        //     newFilters[value]  = null;
+        //     setFilters(newFilters);
+        //     setSelectedFields((prevSelectedFields) =>
+        //         prevSelectedFields.filter((field) => field !== value)
+        //     );
+        // }
+        console.log(111, filters);
+
+    };
+    
     const handleSortChange = (sortStatus) => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
         setSortStatus({ columnAccessor, direction });
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
+    };
+
+    const handleConditionChange = (field, event) => {
+        const conditionsToClear = ['between', 'in_the_last', 'due_in'];
+        let updatedFilterValue = { ...filters[field], condition: event.value };
+        if (conditionsToClear.includes(updatedFilterValue.condition)) {
+            updatedFilterValue.value = '';
+        }
+        const updatedFilters = {
+            ...filters,
+            [field]: updatedFilterValue
+        };
+        console.log(2222, updatedFilters);
+        setFilters(updatedFilters);
     };
 
     const handleValueChange = (field, value) => {
