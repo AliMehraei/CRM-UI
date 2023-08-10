@@ -15,6 +15,7 @@ const List = () => {
         dispatch(setPageTitle('Product List'));
     });
     const [loading, setLoading] = useState(false);
+    const [resetFilter, setResetFilter] = useState(false);
     const api_instance = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const [items, setItems] = useState([]);
@@ -22,6 +23,19 @@ const List = () => {
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
     const [filters, setFilters] = useState([]);
+    const [page, setPage] = useState(1);
+    const PAGE_SIZES = [50, 100];
+    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    const [initialRecords, setInitialRecords] = useState(sortBy(items, 'id'));
+    const [records, setRecords] = useState(initialRecords);
+    const [selectedRecords, setSelectedRecords] = useState<any>([]);
+    const [totalItems, setTotalItems] = useState(0);
+
+    //const [search, setSearch] = useState('');
+    const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
+        columnAccessor: 'id',
+        direction: 'asc',
+    });
     // const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
     //     setLoading(true);
     //     try {
@@ -124,6 +138,7 @@ const List = () => {
         });
     };
     const applyFilters = () => {
+        setResetFilter(false);
         scrollToTop();
         fetchDataProduct(page, pageSize, filters);
 
@@ -169,6 +184,7 @@ const List = () => {
             if (result.value) {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
+                        setLoading(true);
                         api_instance.delete_single_product(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
@@ -181,26 +197,23 @@ const List = () => {
                                 console.error('Error deleting the product', result.message);
                             }
                         });
-
+                        setLoading(false);
                     } catch (error) {
                         showMessage('Error making delete request', 'error');
                         console.error('Error making delete request', error);
+                        setLoading(false);
                     }
 
                 };
                 if (id) {
-                    setLoading(true);
                     deleteSingleRow(id);
                     setSelectedRecords([]);
-                    setLoading(false);
                 } else {
-                    setLoading(true);
                     let selectedRows = selectedRecords || [];
                     const ids = selectedRows.map((d: any) => d.id);
                     ids.forEach((rowId) => deleteSingleRow(rowId));
                     setSelectedRecords([]);
                     setPage(1);
-                    setLoading(false);
                 }
                 Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success', customClass: 'sweet-alerts' });
             }
@@ -208,19 +221,7 @@ const List = () => {
     };
 
 
-    const [page, setPage] = useState(1);
-    const PAGE_SIZES = [50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(items, 'id'));
-    const [records, setRecords] = useState(initialRecords);
-    const [selectedRecords, setSelectedRecords] = useState<any>([]);
-    const [totalItems, setTotalItems] = useState(0);
-
-    //const [search, setSearch] = useState('');
-    const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: 'id',
-        direction: 'asc',
-    });
+   
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
 
@@ -237,14 +238,16 @@ const List = () => {
             }).then((res) => {
                 setItems(res.data.data.data);
                 setTotalItems(res.data.data.total);
+                setLoading(false);
 
             });
         } catch (error) {
             showMessage('Error fetching product data.', 'error');
             console.error('Error fetching data:', error);
+            setLoading(false);
         }
 
-        setLoading(false);
+       
     };
 
     useEffect(() => {
@@ -287,13 +290,19 @@ const List = () => {
 
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-
+    }, [page, pageSize,sortStatus]);
+    useEffect(() => {
+        if(resetFilter)
+            fetchDataProduct(page, pageSize, filters, sortStatus);
+    }, [resetFilter]);
     
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
-        setFilters({}); // Reset filters
+        setFilters([]); // Reset filters
         setSearchQuery(''); // Reset search query
+        setPage(1);
+        setResetFilter(true);
+        // fetchDataProduct(page, pageSize, filters, sortStatus);
     };
     
 
