@@ -346,8 +346,11 @@ const List = () => {
 
     const renderValueFiled = (filterSelect,option) => {
         const condition=filterSelect.condition;
-        console.log(11, filterSelect);
-        
+        console.log(667, filterSelect);
+        if(!option.condition[condition])  return null;
+        if (!option.condition[condition].input) {
+            return null;
+        }
         switch (condition) {
             case 'between':
                 return (   
