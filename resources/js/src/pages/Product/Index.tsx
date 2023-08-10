@@ -52,7 +52,6 @@ const List = () => {
                 };
             });
             setOptionsFilter(transformedData);
-            console.log(optionsFilter);
 
         } catch (error) {
             showMessage('Error fetching filter options.', 'error');
@@ -122,14 +121,14 @@ const List = () => {
     const handleValueChange = (field, event) => {
 
         const updatedFilters = filters.map(filter => {
-            if (filter.field === field) {
-                return { ...filter, value: event.target.value };
+          if (filter.field === field) {
+              return { ...filter, value: event.target.value };
             }
-            return filter;
+          return filter;
         });
         setFilters(updatedFilters);
-    };
-
+      };
+      
     const scrollToTop = () => {
 
         window.scrollTo({
@@ -143,14 +142,7 @@ const List = () => {
 
     };
 
-    const optionsConditionFilter = [
-        { value: 'is', label: 'is' },
-        { value: 'is_not', label: "isn't" },
-        { value: 'is_empty', label: "is empty" },
-        { value: 'is_not_empty', label: "isn't empty" },
-        { value: 'contains', label: 'contains' },
-        { value: 'does_not_contains', label: "doesn't contains" },
-    ];
+    
     // Filter the options based on search query
     let filteredOptions = [];
     if (optionsFilter && optionsFilter.length > 0) {
@@ -325,39 +317,64 @@ const List = () => {
     const renderValueFiled = (filterSelect,option) => {
         const condition=filterSelect.condition;
         console.log(11, filterSelect);
-
+        
         switch (condition) {
-            case 'contains':
-                return (
-                    <input
-                        type="text"
-                        placeholder={`Search value that contains`}
-                        className="border p-2 w-full"
-                        onChange={(e) => handleValueChange(option.value, e)}
-                    />
-                );
-
-            case 'is':
-                return (
-                    <input
-                        type="number"
-                        placeholder={`Search value that contains`}
-                        className="border p-2 w-full"
-                        onChange={(e) => handleValueChange(option.value, e)}
-                    />
-                );
             case 'between':
-                // Render specific content for 'between' condition
+                return (   
+               <>
+      <label className="block text-sm text-gray-600">From:</label>
+      <input type="date" name="from" className="border p-2 w-full" onChange={(e) => handleValueChange(option.value, e)} />
+      <label className="block text-sm text-gray-600">To:</label>
+      <input type="date" name="to" className="border p-2 w-full" onChange={(e) => handleValueChange(option.value, e)} />
+    </>)
                 break;
-            // Add more cases for other conditions
+            case 'is_empty':
+            case 'is_not_empty':
+
+                break;
+            case 'in_the_last':
+            case 'due_in':
+                      return (
+                        <>
+                          <div className="flex">
+                            <input
+                              type="number"
+                              defaultValue="2"
+                              className="border p-2 w-1/2"
+                              min="1"
+                            />
+                            <select className="border p-2 w-1/2">
+                              <option value="days">Days</option>
+                              <option value="weeks">Weeks</option>
+                              <option value="months">Months</option>
+                            </select>
+                          </div>
+                        </>
+                      );
+            case 'on':
+            case 'before':
+            case 'after':
+                    return (
+                    <>
+                        <input
+                        type="date"
+                        className="border p-2 w-full"
+                        onChange={(e) => handleValueChange(option.value, e)}
+                        />
+                    </>
+                    );
+            
             default:
                 return (
+                    <>
+                    <label className="block font-semibold">Value:</label>
                     <input
                         type="text"
-                        placeholder={`Search value`}
+                        placeholder={`Search value that contains`}
                         className="border p-2 w-full"
                         onChange={(e) => handleValueChange(option.value, e)}
                     />
+                    </>
                 );
         }
     }
@@ -444,7 +461,6 @@ const List = () => {
                                                             {filters[option.value] != null && (
                                                                 <>
                                                                     <div className="mb-2">
-                                                                        <label className="block font-semibold">Value:</label>
                                                                         {renderValueFiled(filters[option.value],option)}
                                                                     </div>
                                                                 </>
