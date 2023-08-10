@@ -118,16 +118,7 @@ const List = () => {
 
 
 
-    const handleValueChange = (field, event) => {
 
-        const updatedFilters = filters.map(filter => {
-          if (filter.field === field) {
-              return { ...filter, value: event.target.value };
-            }
-          return filter;
-        });
-        setFilters(updatedFilters);
-      };
       
     const scrollToTop = () => {
 
@@ -313,7 +304,20 @@ const List = () => {
         setSortStatus({ columnAccessor, direction });
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
     };
+    const handleValueChange = (field, event) => {
 
+        const updatedFilters = filters.map(filter => {
+          if (filter.field === field) {
+              return { ...filter, value: event.target.value };
+            }
+          return filter;
+        });
+        setFilters(updatedFilters);
+      };
+     
+    const handelBetween = (field, event) => {
+   
+      };  
     const renderValueFiled = (filterSelect,option) => {
         const condition=filterSelect.condition;
         console.log(11, filterSelect);
@@ -322,11 +326,12 @@ const List = () => {
             case 'between':
                 return (   
                <>
-      <label className="block text-sm text-gray-600">From:</label>
-      <input type="date" name="from" className="border p-2 w-full" onChange={(e) => handleValueChange(option.value, e)} />
-      <label className="block text-sm text-gray-600">To:</label>
-      <input type="date" name="to" className="border p-2 w-full" onChange={(e) => handleValueChange(option.value, e)} />
-    </>)
+                <label className="block text-sm text-gray-600">From:</label>
+                <input type="date" name="from" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
+                <label className="block text-sm text-gray-600">To:</label>
+                <input type="date" name="to" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
+                </>
+                )
                 break;
             case 'is_empty':
             case 'is_not_empty':
