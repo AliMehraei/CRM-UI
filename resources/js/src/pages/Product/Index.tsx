@@ -311,16 +311,6 @@ const List = () => {
         setSortStatus({ columnAccessor, direction });
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
     };
-    // const handleValueChange = (field, event) => {
-
-    //     const updatedFilters = filters.map(filter => {
-    //       if (filter.field === field) {
-    //           return { ...filter, value: event.target.value };
-    //         }
-    //       return filter;
-    //     });
-    //     setFilters(updatedFilters);
-    //   };
 
     const handleValueChange = (field, value) => {
         const updatedFilters = { ...filters };
@@ -342,6 +332,21 @@ const List = () => {
         const combinedValue = newFrom + '_' + newTo;
         handleValueChange(field, combinedValue);
       };
+
+      const handelDueIn = (field, event) => {
+        const { name, value } = event.target;
+        const existingFilter = filters[field];
+        const existingValue = existingFilter ? existingFilter.value : '2_days';
+        const [existingVal = '2', existingPeriod = 'days'] = existingValue.split('_');
+        let newVal = name === 'period_val' ? value : existingVal;
+        const newPeriod = name === 'period' ? value : existingPeriod;
+        if (!newVal) {
+          newVal = '2';
+        }
+        const combinedValue = newVal + '_' + newPeriod;
+        handleValueChange(field, combinedValue);
+      };
+      
 
     const renderValueFiled = (filterSelect,option) => {
         const condition=filterSelect.condition;
@@ -366,21 +371,28 @@ const List = () => {
             case 'due_in':
                       return (
                         <>
-                          <div className="flex">
-                            <input
-                              type="number"
-                              defaultValue="2"
-                              className="border p-2 w-1/2"
-                              min="1"
-                            />
-                            <select className="border p-2 w-1/2">
-                              <option value="days">Days</option>
-                              <option value="weeks">Weeks</option>
-                              <option value="months">Months</option>
-                            </select>
-                          </div>
-                        </>
-                      );
+                        <div className="flex">
+                          <input
+                            type="number"
+                            placeholder='2'
+                            className="border p-2 w-1/2"
+                            min="1"
+                            name='period_val'
+                            onChange={(event) => handelDueIn(option.value, event)}
+                          />
+                          <select
+                            name='period'
+                            className="border p-2 w-1/2"
+                            defaultValue="days"
+                            onChange={(event) => handelDueIn(option.value, event)}
+                          >
+                            <option value="days">Days</option>
+                            <option value="weeks">Weeks</option>
+                            <option value="months">Months</option>
+                          </select>
+                        </div>
+                      </>
+                    );
             case 'on':
             case 'before':
             case 'after':
