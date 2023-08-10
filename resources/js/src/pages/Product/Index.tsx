@@ -116,10 +116,6 @@ const List = () => {
         setFilters(updatedFilters);
     };
 
-
-
-
-      
     const scrollToTop = () => {
 
         window.scrollTo({
@@ -292,32 +288,52 @@ const List = () => {
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus]);
+
+    
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
-        setFilters([]); // Assuming you have a setFilters function
+        setFilters({}); // Reset filters
         setSearchQuery(''); // Reset search query
-        // Add any other state reset logic here
     };
+    
 
     const handleSortChange = (sortStatus) => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
         setSortStatus({ columnAccessor, direction });
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
     };
-    const handleValueChange = (field, event) => {
+    // const handleValueChange = (field, event) => {
 
-        const updatedFilters = filters.map(filter => {
-          if (filter.field === field) {
-              return { ...filter, value: event.target.value };
-            }
-          return filter;
-        });
+    //     const updatedFilters = filters.map(filter => {
+    //       if (filter.field === field) {
+    //           return { ...filter, value: event.target.value };
+    //         }
+    //       return filter;
+    //     });
+    //     setFilters(updatedFilters);
+    //   };
+
+    const handleValueChange = (field, value) => {
+        const updatedFilters = { ...filters };
+        updatedFilters[field] = { ...updatedFilters[field], value };
         setFilters(updatedFilters);
       };
-     
-    const handelBetween = (field, event) => {
-   
-      };  
+      
+      const handleInputValueChange = (field, event) => {
+        handleValueChange(field, event.target.value);
+      };
+      
+      const handelBetween = (field, event) => {
+        const { name, value } = event.target;
+        const existingFilter = filters[field];
+        const existingValue = existingFilter ? existingFilter.value : '';
+        const [existingFrom = '', existingTo = ''] = existingValue.split('_');
+        const newFrom = name === 'from' ? value : existingFrom;
+        const newTo = name === 'to' ? value : existingTo;
+        const combinedValue = newFrom + '_' + newTo;
+        handleValueChange(field, combinedValue);
+      };
+
     const renderValueFiled = (filterSelect,option) => {
         const condition=filterSelect.condition;
         console.log(11, filterSelect);
@@ -364,7 +380,7 @@ const List = () => {
                         <input
                         type="date"
                         className="border p-2 w-full"
-                        onChange={(e) => handleValueChange(option.value, e)}
+                        onChange={(e) => handleInputValueChange(option.value, e)}
                         />
                     </>
                     );
@@ -377,8 +393,8 @@ const List = () => {
                         type="text"
                         placeholder={`Search value that contains`}
                         className="border p-2 w-full"
-                        onChange={(e) => handleValueChange(option.value, e)}
-                    />
+                        onChange={(e) => handleInputValueChange(option.value, e)}
+                        />
                     </>
                 );
         }
