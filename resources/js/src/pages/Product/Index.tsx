@@ -400,7 +400,7 @@ const List = () => {
                                                             {filters[option.value] != null && (
                                                                 <>
                                                                     <div className="mb-2">
-                                                                        {renderFilterValueFiled(filters[option.value], option)}
+                                                                        {renderFilterValueFiled(filters[option.value], option,setFilters,filters)}
                                                                     </div>
                                                                 </>
                                                             )}

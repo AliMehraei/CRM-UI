@@ -1,43 +1,43 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { usePopper } from 'react-popper';
-const handleValueChange = (field, value) => {
-    const updatedFilters = { ...filters };
-    updatedFilters[field] = { ...updatedFilters[field], value };
-    console.log(33333,value);
+
+
+export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) => {
+    const handleValueChange = (field, value) => {
+        const updatedFilters = { ...filters };
+        updatedFilters[field] = { ...updatedFilters[field], value };
+        console.log(33333,value);
+        
+        setFilters(updatedFilters);
+    };
     
-    setFilters(updatedFilters);
-};
-
-const handleInputValueChange = (field, event) => {
-    handleValueChange(field, event.target.value);
-};
-
-const handelBetween = (field, event) => {
-    const { name, value } = event.target;
-    const existingFilter = filters[field];
-    const existingValue = existingFilter ? existingFilter.value : '';
-    const [existingFrom = '', existingTo = ''] = existingValue.split('_');
-    const newFrom = name === 'from' ? value : existingFrom;
-    const newTo = name === 'to' ? value : existingTo;
-    const combinedValue = newFrom + '_' + newTo;
-    handleValueChange(field, combinedValue);
-};
-
-const handelDueIn = (field, event) => {
-    const { name, value } = event.target;
-    const existingFilter = filters[field];
-    const existingValue = existingFilter ? existingFilter.value : '2_days';
-    const [existingVal = '2', existingPeriod = 'days'] = existingValue.split('_');
-    let newVal = name === 'period_val' ? value : existingVal;
-    const newPeriod = name === 'period' ? value : existingPeriod;
-    if (!newVal) {
-        newVal = '2';
-    }
-    const combinedValue = newVal + '_' + newPeriod;
-    handleValueChange(field, combinedValue);
-};
-
-export const renderFilterValueFiled = (filterSelect, option) => {
+    const handleInputValueChange = (field, event) => {
+        handleValueChange(field, event.target.value);
+    };
+    
+    const handelBetween = (field, event) => {
+        const { name, value } = event.target;
+        const existingFilter = filters[field];
+        const existingValue = existingFilter ? existingFilter.value : '';
+        const [existingFrom = '', existingTo = ''] = existingValue.split('_');
+        const newFrom = name === 'from' ? value : existingFrom;
+        const newTo = name === 'to' ? value : existingTo;
+        const combinedValue = newFrom + '_' + newTo;
+        handleValueChange(field, combinedValue);
+    };
+    
+    const handelDueIn = (field, event) => {
+        const { name, value } = event.target;
+        const existingFilter = filters[field];
+        const existingValue = existingFilter ? existingFilter.value : '2_days';
+        const [existingVal = '2', existingPeriod = 'days'] = existingValue.split('_');
+        let newVal = name === 'period_val' ? value : existingVal;
+        const newPeriod = name === 'period' ? value : existingPeriod;
+        if (!newVal) {
+            newVal = '2';
+        }
+        const combinedValue = newVal + '_' + newPeriod;
+        handleValueChange(field, combinedValue);
+    };
+    
     const condition = filterSelect.condition;
     const type_condition = option.type;
     if (!option.condition[condition]) return null;
