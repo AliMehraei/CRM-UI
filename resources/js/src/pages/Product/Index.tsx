@@ -8,7 +8,7 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-
+import {renderFilterValueFiled} from '../../components/FilterValueFiled'
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -22,7 +22,8 @@ const List = () => {
     const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
-    const [filters, setFilters] = useState([]);
+     const [filters, setFilters] = useState([]);
+
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -93,7 +94,7 @@ const List = () => {
         fetchDataProduct(page, pageSize, filters);
 
     };
-  
+
     // Filter the options based on search query
     let filteredOptions = [];
     if (optionsFilter && optionsFilter.length > 0) {
@@ -187,6 +188,10 @@ const List = () => {
                 setTotalItems(res.data.data.total);
                 setLoading(false);
 
+            }).catch((error)=>{
+                console.error('Error fetching data:', error);
+                setLoading(false);
+                showMessage('Error fetching product data.', 'error');
             });
         } catch (error) {
             showMessage('Error fetching product data.', 'error');
@@ -194,7 +199,7 @@ const List = () => {
             setLoading(false);
         }
 
-       
+
     };
 
     useEffect(() => {
@@ -236,18 +241,19 @@ const List = () => {
 
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
-    }, [page, pageSize,sortStatus]);
+    }, [page, pageSize, sortStatus]);
     useEffect(() => {
-        if(resetFilter)
+        if (resetFilter)
             fetchDataProduct(page, pageSize, filters, sortStatus);
     }, [resetFilter]);
-    
+
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
         setSearchQuery(''); // Reset search query
         setPage(1);
         setResetFilter(true);
+        scrollToTop();
         // fetchDataProduct(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event) => {
@@ -287,7 +293,7 @@ const List = () => {
         console.log(111, filters);
 
     };
-    
+
     const handleSortChange = (sortStatus) => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
         setSortStatus({ columnAccessor, direction });
@@ -308,117 +314,9 @@ const List = () => {
         setFilters(updatedFilters);
     };
 
-    const handleValueChange = (field, value) => {
-        const updatedFilters = { ...filters };
-        updatedFilters[field] = { ...updatedFilters[field], value };
-        setFilters(updatedFilters);
-      };
-      
-      const handleInputValueChange = (field, event) => {
-        handleValueChange(field, event.target.value);
-      };
-      
-      const handelBetween = (field, event) => {
-        const { name, value } = event.target;
-        const existingFilter = filters[field];
-        const existingValue = existingFilter ? existingFilter.value : '';
-        const [existingFrom = '', existingTo = ''] = existingValue.split('_');
-        const newFrom = name === 'from' ? value : existingFrom;
-        const newTo = name === 'to' ? value : existingTo;
-        const combinedValue = newFrom + '_' + newTo;
-        handleValueChange(field, combinedValue);
-      };
+    
 
-      const handelDueIn = (field, event) => {
-        const { name, value } = event.target;
-        const existingFilter = filters[field];
-        const existingValue = existingFilter ? existingFilter.value : '2_days';
-        const [existingVal = '2', existingPeriod = 'days'] = existingValue.split('_');
-        let newVal = name === 'period_val' ? value : existingVal;
-        const newPeriod = name === 'period' ? value : existingPeriod;
-        if (!newVal) {
-          newVal = '2';
-        }
-        const combinedValue = newVal + '_' + newPeriod;
-        handleValueChange(field, combinedValue);
-      };
-      
-
-    const renderValueFiled = (filterSelect,option) => {
-        const condition=filterSelect.condition;
-        console.log(667, filterSelect);
-        if(!option.condition[condition])  return null;
-        if (!option.condition[condition].input) {
-            return null;
-        }
-        switch (condition) {
-            case 'between':
-                return (   
-               <>
-                <label className="block text-sm text-gray-600">From:</label>
-                <input type="date" name="from" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
-                <label className="block text-sm text-gray-600">To:</label>
-                <input type="date" name="to" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
-                </>
-                )
-                break;
-            case 'is_empty':
-            case 'is_not_empty':
-
-                break;
-            case 'in_the_last':
-            case 'due_in':
-                      return (
-                        <>
-                        <div className="flex">
-                          <input
-                            type="number"
-                            placeholder='2'
-                            className="border p-2 w-1/2"
-                            min="1"
-                            name='period_val'
-                            onChange={(event) => handelDueIn(option.value, event)}
-                          />
-                          <select
-                            name='period'
-                            className="border p-2 w-1/2"
-                            defaultValue="days"
-                            onChange={(event) => handelDueIn(option.value, event)}
-                          >
-                            <option value="days">Days</option>
-                            <option value="weeks">Weeks</option>
-                            <option value="months">Months</option>
-                          </select>
-                        </div>
-                      </>
-                    );
-            case 'on':
-            case 'before':
-            case 'after':
-                    return (
-                    <>
-                        <input
-                        type="date"
-                        className="border p-2 w-full"
-                        onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                    );
-            
-            default:
-                return (
-                    <>
-                    <label className="block font-semibold">Value:</label>
-                    <input
-                        type="text"
-                        placeholder={`Search value that contains`}
-                        className="border p-2 w-full"
-                        onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    }
+    
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">
@@ -502,7 +400,7 @@ const List = () => {
                                                             {filters[option.value] != null && (
                                                                 <>
                                                                     <div className="mb-2">
-                                                                        {renderValueFiled(filters[option.value],option)}
+                                                                        {renderFilterValueFiled(filters[option.value], option)}
                                                                     </div>
                                                                 </>
                                                             )}
