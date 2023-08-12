@@ -2,6 +2,7 @@
 import axios from 'axios';
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
+import AsyncSelect from 'react-select/async';
 
 export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) => {
     const handleValueChange = (field, value) => {
@@ -62,25 +63,31 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         handleValueChange(field, userIds);
     };
   
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.post('/admin-users/search', { status: 'all' });
-      return response.data.map((user) => ({
-        value: user.id,
-        label: (
-          <>
-            <img src={user.avatar} alt="avatar" style={{ width: '30px', height: '30px', marginRight: '10px' }} />
-            <span>{user.name}</span>
-            <br />
-            <small>{user.email}</small>
-          </>
-        ),
-      }));
-    } catch (error) {
-      console.error('An error occurred while fetching users:', error);
-    }
-  };
-
+    const loadUsers = async (inputValue) => {
+        if (inputValue.length < 2) return [];
+        try {
+        const response = await axios.post('http://saascrmuser.localhost/api/admin-users/search', {
+            search: inputValue,
+            // status: 'all' // if you want to search by status too
+        });
+        const options = response.data.map((user) => ({
+            value: user.id,
+            label: (
+            <div className="flex items-center">
+                <img src={user.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                <div>
+                <div className="text-sm font-bold">{user.name}</div>
+                <div className="text-xs text-gray-500">{user.email}</div>
+                </div>
+            </div>
+            ),
+        }));      
+        return options; 
+        } catch (error) {
+        console.error('An error occurred while fetching users:', error);
+        return [];
+        }
+    };
     const condition = filterSelect.condition;
     const type_condition = option.type;
     if (!option.condition[condition]) return null;
@@ -296,12 +303,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
     }
     else if (type_condition == "select2_multiple_api_user") {
-     const [type_condition_ops_formed, setTypeConditionOpsFormed] = useState([]);
-        useEffect(() => {
-            fetchUsers().then((users) => setTypeConditionOpsFormed(users));
-        }, []);
-
-
+        
         switch (condition) {
             case 'is_empty':
             case 'is_not_empty':
@@ -310,13 +312,14 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
             case 'is':
                 return(
                     <>
-                        <Select placeholder="Select an option"
-                            onChange={(e) => handleSelectMultipleUser(option.value, e )}
-                            options={type_condition_ops_formed} isMulti />
-                    </>
-                    
+                 <AsyncSelect
+                        placeholder="Type at least 2 characters to search..."
+                        loadOptions={loadUsers}
+                        onChange={(e) => handleSelectMultipleUser(option.value, e)}
+                        isMulti
+                    />
+                </>  
                 );
-                      
             default:
                 return (
                     <>
