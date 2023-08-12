@@ -5,7 +5,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
     const handleValueChange = (field, value) => {
         const updatedFilters = { ...filters };
         updatedFilters[field] = { ...updatedFilters[field], value };
-        console.log(33333,value);
+        console.log('updatedFilters : ',updatedFilters[field]);
         
         setFilters(updatedFilters);
     };
@@ -39,6 +39,17 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         handleValueChange(field, combinedValue);
     };
 
+    const handleSelectMultipleDuration = (field, selectedOptions,condtion = 'is_not') => {
+        let combinedValue = '';
+        if(condtion === 'is_not'){
+             combinedValue = selectedOptions.map(option => option.value).join(',');
+        }
+        else if(condtion === 'is')
+        {
+            
+        }
+        handleValueChange(field, combinedValue);
+    };
     const handleSelectMultiple = (field, selectedOptions) => {
         const combinedValue = selectedOptions.map(option => option.value).join(',');
         handleValueChange(field, combinedValue);
@@ -157,28 +168,93 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
     }
     else if (type_condition == "select2_multiple_duration") {
-      
+        const type_condition_ops = option.options;
+        const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
+            value: key,
+            label: type_condition_ops[key],
+          }));
 
         switch (condition) {
             case 'is_empty':
             case 'is_not_empty':
                 break;
             case 'is_not':
-                const type_condition_ops = option.options;
-                const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
-                    value: key,
-                    label: type_condition_ops[key],
-                  }));
-
                 return(
                     <>
                         <Select placeholder="Select an option"
-                            onChange={(e) => handleSelectMultiple(option.value, e)}
+                            onChange={(e) => handleSelectMultipleDuration(option.value, e , 'is_not')}
                             options={type_condition_ops_formed} isMulti />
-                    
                     </>
                     
                 );
+            case 'is':
+              
+                return(
+                    <>
+                        <Select placeholder="Select an option"
+                            onChange={(e) => handleSelectMultipleDuration(option.value, e ,'is')}
+                            options={type_condition_ops_formed} isMulti />
+                        <div className="flex mt-4">
+                                <input
+                                    type="number"
+                                    placeholder='Days'
+                                    className="border p-2 w-1/2"
+                                    min="1"
+                                    name='duration'
+                                    onChange={(event) => handleSelectMultipleDuration(option.value, event ,'is')}
+                                />
+                               <select
+                                name='duration_condtion'
+                                className="border p-2 w-1/2"
+                                placeholder='Select a Condition'
+                                onChange={(event) => handleSelectMultipleDuration(option.value, event ,'is')}
+                                >
+                                <option value="=">=</option>
+                                <option value="<">&lt;</option>
+                                <option value=">">&gt;</option>
+                                <option value="<=">&lt;=</option>
+                                <option value=">=">&gt;=</option>
+                                </select>
+
+                        </div>
+                    </>
+                );                
+            default:
+                return (
+                    <>
+                        <label className="block font-semibold">Value:</label>
+                        <input
+                            type="text"
+                            placeholder={`Search value that contains`}
+                            className="border p-2 w-full"
+                            onChange={(e) => handleInputValueChange(option.value, e)}
+                        />
+                    </>
+                );
+        }
+    }
+    else if (type_condition == "select2_multiple") {
+        const type_condition_ops = option.options;
+        const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
+            value: key,
+            label: type_condition_ops[key],
+          }));
+
+        switch (condition) {
+            case 'is_empty':
+            case 'is_not_empty':
+                break;
+            case 'is_not':
+            case 'is':
+                return(
+                    <>
+                        <Select placeholder="Select an option"
+                            onChange={(e) => handleSelectMultiple(option.value, e )}
+                            options={type_condition_ops_formed} isMulti />
+                    </>
+                    
+                );
+                      
             default:
                 return (
                     <>
