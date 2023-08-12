@@ -1,5 +1,7 @@
 
+import axios from 'axios';
 import Select from 'react-select';
+import { useState, useEffect } from 'react';
 
 export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) => {
     const handleValueChange = (field, value) => {
@@ -54,7 +56,31 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         const combinedValue = selectedOptions.map(option => option.value).join(',');
         handleValueChange(field, combinedValue);
     };
-    
+
+    const handleSelectMultipleUser = (field, selectedOptions) => {
+        const userIds = selectedOptions.map((option) => option.value).join(',');
+        handleValueChange(field, userIds);
+    };
+  
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.post('/admin-users/search', { status: 'all' });
+      return response.data.map((user) => ({
+        value: user.id,
+        label: (
+          <>
+            <img src={user.avatar} alt="avatar" style={{ width: '30px', height: '30px', marginRight: '10px' }} />
+            <span>{user.name}</span>
+            <br />
+            <small>{user.email}</small>
+          </>
+        ),
+      }));
+    } catch (error) {
+      console.error('An error occurred while fetching users:', error);
+    }
+  };
+
     const condition = filterSelect.condition;
     const type_condition = option.type;
     if (!option.condition[condition]) return null;
@@ -250,6 +276,42 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                     <>
                         <Select placeholder="Select an option"
                             onChange={(e) => handleSelectMultiple(option.value, e )}
+                            options={type_condition_ops_formed} isMulti />
+                    </>
+                    
+                );
+                      
+            default:
+                return (
+                    <>
+                        <label className="block font-semibold">Value:</label>
+                        <input
+                            type="text"
+                            placeholder={`Search value that contains`}
+                            className="border p-2 w-full"
+                            onChange={(e) => handleInputValueChange(option.value, e)}
+                        />
+                    </>
+                );
+        }
+    }
+    else if (type_condition == "select2_multiple_api_user") {
+     const [type_condition_ops_formed, setTypeConditionOpsFormed] = useState([]);
+        useEffect(() => {
+            fetchUsers().then((users) => setTypeConditionOpsFormed(users));
+        }, []);
+
+
+        switch (condition) {
+            case 'is_empty':
+            case 'is_not_empty':
+                break;
+            case 'is_not':
+            case 'is':
+                return(
+                    <>
+                        <Select placeholder="Select an option"
+                            onChange={(e) => handleSelectMultipleUser(option.value, e )}
                             options={type_condition_ops_formed} isMulti />
                     </>
                     
