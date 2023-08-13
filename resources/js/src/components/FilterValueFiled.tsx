@@ -3,6 +3,8 @@ import axios from 'axios';
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
+import api from '../config/api';
+const api_instance = new api();
 
 export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) => {
     const handleValueChange = (field, value) => {
@@ -63,21 +65,48 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         handleValueChange(field, userIds);
     };
   
-    const loadUsers = async (inputValue) => {
+    const loadAdminUsers = async (inputValue, option) => {
+        const apiUrl = option.type_info.api;
+        if (inputValue.length < 2) return [];
+      
+        try {
+            const result = await api_instance.loadAdminUsers(inputValue, apiUrl);
+          if (result.status) {
+            const options = result.data.map((user) => ({
+              value: user.id,
+              label: (
+                <div className="flex items-center">
+                  <img src={user.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                  <div>
+                    <div className="text-sm font-bold">{user.name}</div>
+                    <div className="text-xs text-gray-500">{user.email}</div>
+                  </div>
+                </div>
+              ),
+            }));
+            return options;
+          } else {
+            console.error('An error occurred while fetching users', result.message);
+            return [];
+          }
+        } catch (error) {
+          console.error('An error occurred while fetching users:', error);
+          return [];
+        }
+      };
+      
+    const loadModels = async (inputValue ) => {
         if (inputValue.length < 2) return [];
         try {
-        const response = await axios.post('http://saascrmuser.localhost/api/admin-users/search', {
+        const response = await axios.post('testapi', {
             search: inputValue,
-            // status: 'all' // if you want to search by status too
         });
         const options = response.data.map((user) => ({
             value: user.id,
             label: (
             <div className="flex items-center">
-                <img src={user.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                 <div>
                 <div className="text-sm font-bold">{user.name}</div>
-                <div className="text-xs text-gray-500">{user.email}</div>
                 </div>
             </div>
             ),
@@ -314,7 +343,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                     <>
                  <AsyncSelect
                         placeholder="Type at least 2 characters to search..."
-                        loadOptions={loadUsers}
+                        loadOptions={(e) => loadAdminUsers(e, option)}
                         onChange={(e) => handleSelectMultipleUser(option.value, e)}
                         isMulti
                     />
@@ -334,6 +363,39 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                 );
         }
     }
+    else if (type_condition == "select2_multiple_api") {
+        
+        switch (condition) {
+            case 'is_empty':
+            case 'is_not_empty':
+                break;
+            case 'is_not':
+            case 'is':
+                return(
+                    <>
+                 <AsyncSelect
+                        placeholder="Type at least 2 characters to search..."
+                        loadOptions={loadModels}
+                        onChange={(e) => handleSelectMultiple(option.value, e)}
+                        isMulti
+                    />
+                </>  
+                );
+            default:
+                return (
+                    <>
+                        <label className="block font-semibold">Value:</label>
+                        <input
+                            type="text"
+                            placeholder={`Search value that contains`}
+                            className="border p-2 w-full"
+                            onChange={(e) => handleInputValueChange(option.value, e)}
+                        />
+                    </>
+                );
+        }
+    }
+    
     else if (type_condition == "text") {
         switch (condition) {
             case 'between':

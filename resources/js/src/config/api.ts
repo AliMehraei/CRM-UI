@@ -37,7 +37,9 @@ class api {
     async create_single_product(data) {
         return await _axios.post(`${API_URL_PRODUCT}/api/product`, data, { headers: Headers });
     }
-        
+    async loadAdminUsers(data,url) {
+        return await _axios.post(`${url}`, data, { headers: Headers });
+    }   
 
     async login (data: any) {
         return await _axios.post(`${URL}/login`, data,{headers: Headers});
