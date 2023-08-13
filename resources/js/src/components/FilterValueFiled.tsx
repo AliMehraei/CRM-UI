@@ -66,20 +66,23 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
     };
   
     const loadAdminUsers = async (inputValue, option) => {
-        const apiUrl = option.type_info.api;
         if (inputValue.length < 2) return [];
-      
+        const apiUrl = option.type_info.api;
+        const valField ='id';
+        const nameField ='name';
+        const avatarField ='avatar';
+        const emailField ='email';
         try {
             const result = await api_instance.loadAdminUsers(inputValue, apiUrl);
           if (result.status) {
             const options = result.data.map((user) => ({
-              value: user.id,
+              value: user[valField],
               label: (
                 <div className="flex items-center">
-                  <img src={user.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                  <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                   <div>
-                    <div className="text-sm font-bold">{user.name}</div>
-                    <div className="text-xs text-gray-500">{user.email}</div>
+                    <div className="text-sm font-bold">{user[nameField]}</div>
+                    <div className="text-xs text-gray-500">{user[emailField]}</div>
                   </div>
                 </div>
               ),
@@ -95,26 +98,34 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
       };
       
-    const loadModels = async (inputValue ) => {
+    const loadModels = async (inputValue ,option) => {
+
         if (inputValue.length < 2) return [];
+        const apiUrl = option.type_info.api;
+        const valField =option.type_info.value_flield;
+        const labelField =option.type_info.lable_filed;
+
         try {
-        const response = await axios.post('testapi', {
-            search: inputValue,
-        });
-        const options = response.data.map((user) => ({
-            value: user.id,
-            label: (
-            <div className="flex items-center">
-                <div>
-                <div className="text-sm font-bold">{user.name}</div>
+            const result = await api_instance.loadApiModelsPost(inputValue, apiUrl);
+          if (result.status) {
+            const options = result.data.map((model) => ({
+              value: modle[valField],
+              label: (
+                <div className="flex items-center">
+                  <div>
+                    <div className="text-sm font-bold">{modle[labelField]}</div>
+                  </div>
                 </div>
-            </div>
-            ),
-        }));      
-        return options; 
+              ),
+            }));
+            return options;
+          } else {
+            console.error('An error occurred while fetching users', result.message);
+            return [];
+          }
         } catch (error) {
-        console.error('An error occurred while fetching users:', error);
-        return [];
+          console.error('An error occurred while fetching users:', error);
+          return [];
         }
     };
     const condition = filterSelect.condition;
@@ -375,7 +386,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                     <>
                  <AsyncSelect
                         placeholder="Type at least 2 characters to search..."
-                        loadOptions={loadModels}
+                        loadOptions={(e)=>loadModels(e,option)}
                         onChange={(e) => handleSelectMultiple(option.value, e)}
                         isMulti
                     />

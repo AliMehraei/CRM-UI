@@ -40,7 +40,9 @@ class api {
     async loadAdminUsers(data,url) {
         return await _axios.post(`${url}`, data, { headers: Headers });
     }   
-
+    async loadApiModelsPost(data,url) {
+        return await _axios.post(`${url}`, data, { headers: Headers });
+    }  
     async login (data: any) {
         return await _axios.post(`${URL}/login`, data,{headers: Headers});
     }
