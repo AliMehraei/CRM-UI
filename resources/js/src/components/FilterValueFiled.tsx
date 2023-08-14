@@ -10,7 +10,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
     const handleValueChange = (field, value) => {
         const updatedFilters = { ...filters };
         updatedFilters[field] = { ...updatedFilters[field], value };
-        console.log('updatedFilters : ',updatedFilters[field]);
+        // console.log('updatedFilters : ',updatedFilters[field]);
         
         setFilters(updatedFilters);
     };
@@ -134,8 +134,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
     if (!option.condition[condition].input) {
         return null;
     }
-    console.log(2222, option);
-    console.log(1111222, type_condition);
+
     if (type_condition == "number") {
         switch (condition) {
             

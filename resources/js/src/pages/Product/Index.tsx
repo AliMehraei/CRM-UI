@@ -56,13 +56,16 @@ const List = () => {
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
+                // console.log('condition.model',item);
+                
                 return {
                     ...item,
                     conditions: Object.entries(conditions).map(([key, condition]) => ({
                         value: key,
                         label: condition.value, // or any other property to use as the label
                         input: condition.input,
-                        type: condition.type
+                        type: condition.type,
+                        model: item.model,
                     }))
                 };
             });
@@ -172,7 +175,9 @@ const List = () => {
 
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-
+       console.log('filters',filters);
+       
+        
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
@@ -256,13 +261,14 @@ const List = () => {
         scrollToTop();
         // fetchDataProduct(page, pageSize, filters, sortStatus);
     };
-    const handleFieldChange = (event) => {
+    const handleFieldChange = (event,option) => {
         const { value, checked } = event.target;
-
+        
+        
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                [value]: { field: value, condition: '', value: '' },
+                [value]: { field: value, condition: '', value: '',model: option.model,type:option.type },
             }));
 
             setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
@@ -290,7 +296,7 @@ const List = () => {
         //         prevSelectedFields.filter((field) => field !== value)
         //     );
         // }
-        console.log(111, filters);
+        // console.log(111, filters);
 
     };
 
@@ -310,7 +316,7 @@ const List = () => {
             ...filters,
             [field]: updatedFilterValue
         };
-        console.log(2222, updatedFilters);
+
         setFilters(updatedFilters);
     };
 
@@ -375,7 +381,7 @@ const List = () => {
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
                                                 value={option.value}
-                                                onChange={handleFieldChange}
+                                                onChange={(e) => handleFieldChange(e,option)}
                                                 checked={selectedFields.includes(option.value)}
                                                 className="form-checkbox" />
                                             <span className=" text-dark">{option.label}</span>
