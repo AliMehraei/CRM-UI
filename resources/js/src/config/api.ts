@@ -4,7 +4,7 @@ import { setToken,getToken,removeToken } from './config';
 let URL:any;
 let Headers:any;
 let API_URL_PRODUCT :any;
-
+let API_URL_USER :any;
 class api {
 
     constructor(props: any) {
@@ -12,6 +12,7 @@ class api {
         // URL = `${process.env.MIX_API_BASE_URL}/${userLocale}/v1`;
         URL = `/api/v1`;
         API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
+        API_URL_USER = import.meta.env.VITE_API_URL_USER;
         Headers = {
             Authorization: `Bearer ${getToken('token')}`
         }
@@ -38,6 +39,9 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/product`, data, { headers: Headers });
     }
     async loadAdminUsers(data,url) {
+        if(!url){
+            url = `${API_URL_USER}/api/admin-users/search`;
+        }
         return await _axios.post(`${url}`, data, { headers: Headers });
     }   
     async loadApiModelsPost(data,url) {

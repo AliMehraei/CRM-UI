@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-
 const Add = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -12,7 +13,6 @@ const Add = () => {
     });
     const api_instance = new api();
 
-    const API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT;
     const [params, setParams] = useState({
         product_name: '',
         part_description: '',
@@ -60,6 +60,56 @@ const Add = () => {
             padding: '10px 20px',
         });
     };
+    const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
+
+    const handleSelectUser = (selectedOption) => {
+        setSelectedAporvedBy(selectedOption);
+        setParams({
+            ...params,
+            approved_by: selectedOption ? selectedOption.value : null,
+        });
+    };
+    
+    const clearSelectedUser = () => {
+        setSelectedAporvedBy(null);
+        setParams({
+            ...params,
+            approved_by: null,
+        });
+    };
+
+    const loadAdminUsers = async (inputValue) => {
+        if (inputValue.length < 2) return [];
+        const valField ='id';
+        const nameField ='name';
+        const avatarField ='avatar';
+        const emailField ='email';
+        try {
+            const result = await api_instance.loadAdminUsers(inputValue);
+          if (result.status) {
+            const options = result.data.map((user) => ({
+              value: user[valField],
+              label: (
+                <div className="flex items-center">
+                  <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                  <div>
+                    <div className="text-sm font-bold">{user[nameField]}</div>
+                    <div className="text-xs text-gray-500">{user[emailField]}</div>
+                  </div>
+                </div>
+              ),
+            }));
+            return options;
+          } else {
+            console.error('An error occurred while fetching users', result.message);
+            return [];
+          }
+        } catch (error) {
+          console.error('An error occurred while fetching users:', error);
+          return [];
+        }
+      };
+      
 
     return (
         <>            
@@ -100,7 +150,33 @@ const Add = () => {
                                 </label>
                                 <input id="manufacture" type="text" name="manufacture" className="form-input flex-1" value={params.manufacture} onChange={handleInputChange}  placeholder="Enter Manufacture" />
                             </div>
-                       
+                            <div className="flex items-center mt-4">
+                                <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Bussiness Product
+                                </label>
+                                <label  htmlFor="business_product" className="flex items-center cursor-pointer">
+                                <input type="checkbox" name="business_product" className="form-checkbox" checked={params.product_active} onChange={handleInputChange} />
+                                    <span className=" text-white-dark"> Bussiness Product</span>
+                                </label>
+                            </div>
+                            <div className="flex items-center mt-4">
+                                <label htmlFor="approved_by" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Approved By
+                                </label>
+                                <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={(e) => loadAdminUsers(e)}
+                                        onChange={(e) => handleSelectUser(e)}
+                                        isMulti={false}
+                                        value={selectedAporvedBy}
+                                    />
+                                </div>
+                                <button onClick={clearSelectedUser} className="btn  btn-clear ltr:ml-2 rtl:mr-2">
+                                    Clear
+                                </button>
+                            </div>
+
                         </div>
                         <div className="lg:w-1/2 w-full md:mt-6">
                             <div className="flex items-center mt-4">
@@ -125,6 +201,7 @@ const Add = () => {
                                 <input id="product_type" type="text" name="product_type" className="form-input flex-1" value={params.product_type} onChange={handleInputChange} placeholder="Enter SWIFT Number" />
                             </div>
                            
+                                                    
                         </div>
                     </div>
                 </div>
