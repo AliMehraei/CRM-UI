@@ -61,21 +61,41 @@ const Add = () => {
         });
     };
     const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
+    const [selectedProductOwner, setSelectedProductOwner] = useState([]);
 
-    const handleSelectUser = (selectedOption) => {
+    const handleSelectUser = (selectedOption,type) => {
+        if(type==='approved_by'){
+
         setSelectedAporvedBy(selectedOption);
         setParams({
             ...params,
             approved_by: selectedOption ? selectedOption.value : null,
-        });
+            });
+        }
+        else if(type==='product_owner'){
+            setSelectedProductOwner(selectedOption);
+            setParams({
+                ...params,
+                product_owner: selectedOption ? selectedOption.value : null,
+
+            });
+        }
     };
-    
-    const clearSelectedUser = () => {
+    const clearSelectedUser = (type) => {
+        if(type==='approved_by'){
         setSelectedAporvedBy(null);
         setParams({
             ...params,
             approved_by: null,
         });
+     }
+     else if(type==='product_owner'){
+        setSelectedProductOwner(null);
+        setParams({
+            ...params,
+            product_owner: null,
+        });
+     }
     };
 
     const loadAdminUsers = async (inputValue) => {
@@ -167,12 +187,12 @@ const Add = () => {
                                     <AsyncSelect
                                         placeholder="Type at least 2 characters to search..."
                                         loadOptions={(e) => loadAdminUsers(e)}
-                                        onChange={(e) => handleSelectUser(e)}
+                                        onChange={(e) => handleSelectUser(e, 'approved_by')}
                                         isMulti={false}
                                         value={selectedAporvedBy}
                                     />
                                 </div>
-                                <button onClick={clearSelectedUser} className="btn  btn-clear ltr:ml-2 rtl:mr-2">
+                                <button onClick={() => clearSelectedUser('approved_by')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                     Clear
                                 </button>
                             </div>
@@ -200,7 +220,23 @@ const Add = () => {
                                 </label>
                                 <input id="product_type" type="text" name="product_type" className="form-input flex-1" value={params.product_type} onChange={handleInputChange} placeholder="Enter SWIFT Number" />
                             </div>
-                           
+                            <div className="flex items-center mt-4">
+                                <label htmlFor="product_owner" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Product Owner
+                                </label>
+                                <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={(e) => loadAdminUsers(e)}
+                                        onChange={(e) => handleSelectUser(e, 'product_owner')}
+                                        isMulti={false}
+                                        value={selectedProductOwner}
+                                    />
+                                </div>
+                                <button onClick={() => clearSelectedUser('product_owner')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
+                                    Clear
+                                </button>
+                            </div>
                                                     
                         </div>
                     </div>
