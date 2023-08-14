@@ -13,16 +13,23 @@ const Add = () => {
     });
     const api_instance = new api();
     const [params, setParams] = useState({
-        product_name: '',
-        part_description: '',
-        manufacture: '',
-        datasheet_url: '',
+        product_name: null,
+        part_description: null,
+        manufacture: null,
+        datasheet_url: null,
         product_active: false,
         approved_by : null,
         product_owner: null,
         product_type: null,
-        manufacture_name : '',
-        lifecycle_status :null
+        manufacture_name : null,
+        lifecycle_status :null,
+        package : null,
+        case_package: null,
+        packaging:null,
+        number_of_pins: null,
+        weight: null,
+        case_code_imperial: null,
+        case_code_metric: null,
     });
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -88,7 +95,23 @@ const Add = () => {
               ...params,
               lifecycle_status: selectedOption ? selectedOption.value : '',
             });
-     };      
+     };
+     
+     const [selectedPackage , setSelectedPackage] = useState({ label: '-None-', value: null });
+     const  packageOptions= [
+         { label: '-None-', value: null },
+         { label: 'SMD', value: 'smd' },
+         { label: 'THT', value: 'tht' },
+         { label: 'Peripheral', value: 'peripheral' },
+         { label: 'Other', value: 'other' },
+         ];
+     const handlePackageChange = (selectedOption) => {
+         setSelectedPackage(selectedOption);
+             setParams({
+               ...params,
+               package: selectedOption ? selectedOption.value : '',
+             });
+      };   
     const handleSelectUser = (selectedOption,type) => {
         if(type==='approved_by'){
         setSelectedAporvedBy(selectedOption);
@@ -311,8 +334,58 @@ const Add = () => {
                     <div className="flex justify-between lg:flex-row flex-col">
                         <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                             <div className="text-lg">Physical Properties :</div>
+                            <div className="flex items-center mt-4">
+                                <label htmlFor="package" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                Package  
+                                 </label>
+                                <div className="flex-1">
+                                    <Select
+                                    placeholder="Select Product Type..."
+                                    options={packageOptions}
+                                    onChange={handlePackageChange}
+                                    value={selectedPackage}
+                                    />
+                                </div>
+                            </div> 
+                            <div className="mt-4 flex items-center">
+                                    <label htmlFor="case_package" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Case/Package 
+                                    </label>
+                                    <input id="case_package" type="text" name="case_package" className="form-input flex-1" value={params.case_package} onChange={handleInputChange}  placeholder="Enter Case/Package" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="packaging" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Packaging 
+                                    </label>
+                                    <input id="packaging" type="text" name="packaging" className="form-input flex-1" value={params.packaging} onChange={handleInputChange}  placeholder="Enter Packaging" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="number_of_pins" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Number of Pins 
+                                    </label>
+                                    <input id="number_of_pins" type="text" name="number_of_pins" className="form-input flex-1" value={params.number_of_pins} onChange={handleInputChange}  placeholder="Enter Number of Pins " />
+                                </div>
+
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
+                            <div className="mt-4 flex items-center">
+                                    <label htmlFor="weight" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Weight
+                                    </label>
+                                    <input id="weight" type="text" name="weight" className="form-input flex-1" value={params.weight} onChange={handleInputChange}  placeholder="Enter weight" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="case_code_imperial" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Case Code (Imperial) 
+                                    </label>
+                                    <input id="case_code_imperial" type="text" name="case_code_imperial" className="form-input flex-1" value={params.case_code_imperial} onChange={handleInputChange}  placeholder="Enter case code (imperial) " />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="case_code_metric" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Case Code (Metric)  
+                                    </label>
+                                    <input id="case_code_metric" type="text" name="case_code_metric" className="form-input flex-1" value={params.case_code_metric} onChange={handleInputChange}  placeholder="Enter Case Code (Metric)" />
+                                </div>
                             </div>
 
                     </div>
