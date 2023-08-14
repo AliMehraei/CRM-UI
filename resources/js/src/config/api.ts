@@ -43,7 +43,10 @@ class api {
             url = `${API_URL_USER}/api/admin-users/search`;
         }
         return await _axios.post(`${url}`, data, { headers: Headers });
-    }   
+    }
+    async loadCategory() {
+        return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
+    }    
     async loadApiModelsPost(data,url) {
         return await _axios.post(`${url}`, data, { headers: Headers });
     }  
