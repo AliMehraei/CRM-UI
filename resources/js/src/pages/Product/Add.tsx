@@ -12,7 +12,6 @@ const Add = () => {
         dispatch(setPageTitle('Product Add'));
     });
     const api_instance = new api();
-
     const [params, setParams] = useState({
         product_name: '',
         part_description: '',
@@ -21,7 +20,6 @@ const Add = () => {
         product_active: false,
         product_type: ''
     });
-
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
         setParams({
@@ -29,7 +27,6 @@ const Add = () => {
             [name]: type === 'checkbox' ? checked : value,
         });
     }
-
     const handleSave = async () => {
         try {
             const response = await api_instance.create_single_product(params);
@@ -44,8 +41,6 @@ const Add = () => {
             console.error('Error making create request', error);
         }
     };
-    
-
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -62,10 +57,21 @@ const Add = () => {
     };
     const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
     const [selectedProductOwner, setSelectedProductOwner] = useState([]);
-
+    const [selectedProductType, setSelectedProductType] = useState({ label: '-None-', value: null });
+    const productTypeOptions = [
+    { label: '-None-', value: null },
+    { label: 'Goods', value: 'goods' },
+    { label: 'Service', value: 'service' },
+    ];
+    const handleProductTypeChange = (selectedOption) => {
+        setSelectedProductType(selectedOption);
+        setParams({
+          ...params,
+          product_type: selectedOption ? selectedOption.value : '',
+        });
+      };      
     const handleSelectUser = (selectedOption,type) => {
         if(type==='approved_by'){
-
         setSelectedAporvedBy(selectedOption);
         setParams({
             ...params,
@@ -77,7 +83,6 @@ const Add = () => {
             setParams({
                 ...params,
                 product_owner: selectedOption ? selectedOption.value : null,
-
             });
         }
     };
@@ -97,7 +102,6 @@ const Add = () => {
         });
      }
     };
-
     const loadAdminUsers = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField ='id';
@@ -128,7 +132,7 @@ const Add = () => {
           console.error('An error occurred while fetching users:', error);
           return [];
         }
-      };
+    };
       
 
     return (
@@ -215,12 +219,6 @@ const Add = () => {
                                 </label>
                             </div>
                             <div className="flex items-center mt-4">
-                                <label htmlFor="product_type" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                Product Type
-                                </label>
-                                <input id="product_type" type="text" name="product_type" className="form-input flex-1" value={params.product_type} onChange={handleInputChange} placeholder="Enter SWIFT Number" />
-                            </div>
-                            <div className="flex items-center mt-4">
                                 <label htmlFor="product_owner" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                     Product Owner
                                 </label>
@@ -237,6 +235,20 @@ const Add = () => {
                                     Clear
                                 </button>
                             </div>
+                            <div className="flex items-center mt-4">
+                                <label htmlFor="product_type" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Product Type
+                                </label>
+                                <div className="flex-1">
+                                    <Select
+                                    placeholder="Select Product Type..."
+                                    options={productTypeOptions}
+                                    onChange={handleProductTypeChange}
+                                    value={selectedProductType}
+                                    />
+                                </div>
+                            </div>
+                            
                                                     
                         </div>
                     </div>
