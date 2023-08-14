@@ -18,7 +18,11 @@ const Add = () => {
         manufacture: '',
         datasheet_url: '',
         product_active: false,
-        product_type: ''
+        approved_by : null,
+        product_owner: null,
+        product_type: null,
+        manufacture_name : '',
+        lifecycle_status :null
     });
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -69,7 +73,22 @@ const Add = () => {
           ...params,
           product_type: selectedOption ? selectedOption.value : '',
         });
-      };      
+      }; 
+    const [selectedLifecylceStatus , setSelectedLifecylceStatus] = useState({ label: '-None-', value: null });
+    const  lifecylceStatusOptions= [
+        { label: '-None-', value: null },
+        { label: 'Production', value: 'production' },
+        { label: 'Phase out', value: 'phase_out' },
+        { label: 'EOL', value: 'eol' },
+        { label: 'Unknown', value: 'unknown' },
+        ];
+    const handleLifecylceStatusChange = (selectedOption) => {
+        setSelectedLifecylceStatus(selectedOption);
+            setParams({
+              ...params,
+              lifecycle_status: selectedOption ? selectedOption.value : '',
+            });
+     };      
     const handleSelectUser = (selectedOption,type) => {
         if(type==='approved_by'){
         setSelectedAporvedBy(selectedOption);
@@ -132,8 +151,7 @@ const Add = () => {
           console.error('An error occurred while fetching users:', error);
           return [];
         }
-    };
-      
+    };  
 
     return (
         <>            
@@ -200,7 +218,6 @@ const Add = () => {
                                     Clear
                                 </button>
                             </div>
-
                         </div>
                         <div className="lg:w-1/2 w-full md:mt-6">
                             <div className="flex items-center mt-4">
@@ -242,20 +259,67 @@ const Add = () => {
                                 <div className="flex-1">
                                     <Select
                                     placeholder="Select Product Type..."
-                                    options={productTypeOptions}
-                                    onChange={handleProductTypeChange}
-                                    value={selectedProductType}
+                                    options={lifecylceStatusOptions}
+                                    onChange={handleLifecylceStatusChange}
+                                    value={selectedLifecylceStatus}
                                     />
                                 </div>
-                            </div>
-                            
-                                                    
+                            </div>              
                         </div>
                     </div>
                 </div>
                
             </div>
         </div>
+        <div className="flex xl:flex-row flex-col gap-2.5">
+            <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                <div className="mt-8 px-4">
+                    <div className="flex justify-between lg:flex-row flex-col">
+                        <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                            <div className="text-lg">Supply Chain :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="manufacture_name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Manufacture Name
+                                    </label>
+                                    <input id="manufacture_name" type="text" name="manufacture_name" className="form-input flex-1" value={params.manufacture_name} onChange={handleInputChange}  placeholder="Enter Product Name" />
+                                </div>
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                            <div className="flex items-center mt-4">
+                                <label htmlFor="lifecylce_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                     Lifecylce Status 
+                                 </label>
+                                <div className="flex-1">
+                                    <Select
+                                    placeholder="Select Product Type..."
+                                    options={productTypeOptions}
+                                    onChange={handleProductTypeChange}
+                                    value={selectedProductType}
+                                    />
+                                </div>
+                            </div>   
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="flex xl:flex-row flex-col gap-2.5">
+            <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                <div className="mt-8 px-4">
+                    <div className="flex justify-between lg:flex-row flex-col">
+                        <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                            <div className="text-lg">Physical Properties :</div>
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         </>
     );
 };
