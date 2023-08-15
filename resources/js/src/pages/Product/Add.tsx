@@ -1171,7 +1171,7 @@ const Add = () => {
                                     <textarea id="description"
                                         name="description"
                                         className="form-input flex-1"
-                                        value={params.Description}
+                                        value={params.description}
                                         onChange={handleInputChange}
                                         placeholder="Enter description..."
                                         rows="3"
