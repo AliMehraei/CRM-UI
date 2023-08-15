@@ -58,7 +58,6 @@ const Add = () => {
         ram_size: null,
         material: null,
         usage_unit: null,
-        pcs: null,
         unit_price: null,
         min_operating_temperature: null,
         min_supply_voltage: null,
@@ -136,6 +135,35 @@ const Add = () => {
         setParams({
             ...params,
             lifecycle_status: selectedOption ? selectedOption.value : '',
+        });
+    };
+    const [selectedUsageUnit, setselectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
+    const usageUnitOptions = [
+        { label: 'PCS', value: 'pcs' },
+    ];
+    const handleUsageUnitChange = (selectedOption) => {
+        setselectedUsageUnit(selectedOption);
+        setParams({
+            ...params,
+            usage_unit: selectedOption ? selectedOption.value : '',
+        });
+    };
+    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null});
+    const duplicatedOptions = [
+        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</> ), 
+            value: 'must_be_deleted'},
+        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>), 
+            value: 'must_be_merged'},
+        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>), 
+            value: 'must_be_renamed'},
+        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-green-500 rounded-full"></span>Must be confirmed</>), 
+            value: 'must_be_confirmed'},
+    ];
+    const handleDuplicatedChange = (selectedOption) => {
+        setselectedDuplicated(selectedOption);
+        setParams({
+            ...params,
+            duplicated_status: selectedOption ? selectedOption.value : '',
         });
     };
     const [selectedPackage, setSelectedPackage] = useState({ label: '-None-', value: null });
@@ -246,7 +274,7 @@ const Add = () => {
         loadCategory();
     }, []);
     return (
-        <>
+        <div className='px-4'>
             <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
                 <div className="flex items-center gap-2">
                     <Link to="/product/list" className="btn btn-danger gap-2">
@@ -642,14 +670,16 @@ const Add = () => {
                                     <label htmlFor="usage_unit" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Usage Unit
                                     </label>
-                                    <input id="usage_unit" type="text" name="usage_unit" className="form-input flex-1" value={params.usage_unit} onChange={handleInputChange} placeholder="Enter usage unit" />
-                                </div>
-                                <div className="mt-4 flex items-center">
-                                    <label htmlFor="pcs" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                        pcs
-                                    </label>
-                                    <input id="pcs" type="text" name="pcs" className="form-input flex-1" value={params.pcs} onChange={handleInputChange} placeholder="Enter pcs" />
-                                </div>
+                                    <div className='flex-1'>
+                                    <Select
+                                        placeholder="Select Unit..."
+                                        options={usageUnitOptions}
+                                        onChange={handleUsageUnitChange}
+                                        value={selectedUsageUnit}
+                                    /> 
+                                    </div>                               
+                                    </div>
+                                
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="unit_price" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Unit Price
@@ -720,8 +750,15 @@ const Add = () => {
                                     <label htmlFor="duplicated_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Duplicated Status
                                     </label>
-                                    <input id="duplicated_status" type="text" name="duplicated_status" className="form-input flex-1" value={params.duplicated_status} onChange={handleInputChange} placeholder="Enter duplicated status" />
-                                </div>
+                                    <div className='flex-1'>
+                                    <Select
+                                        placeholder="Select Duplicated Status..."
+                                        options={duplicatedOptions}
+                                        onChange={handleDuplicatedChange}
+                                        value={selectedDuplicated}
+                                    /> 
+                                    </div>
+                                    </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="voltage_rating_dc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Voltage Rating (DC)
@@ -735,7 +772,7 @@ const Add = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
