@@ -204,7 +204,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                 return(
                     <>
                         <Select placeholder="Select an option"
-                            onChange={(e) => handleValueChange(option.value, e )}
+                            onChange={(e) => handleSelectMultiple(option.value, e )}
                             options={type_condition_ops_formed} isMulti={false} />
                     </>
                     
