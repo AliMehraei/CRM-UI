@@ -96,7 +96,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
             const options = result.data.map((user) => ({
               value: user[valField],
               label: (
-                <div className="flex items-center">
+                <div key={user[valField]} className="flex items-center">
                   <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                   <div>
                     <div className="text-sm font-bold">{user[nameField]}</div>
@@ -126,12 +126,12 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         try {
             const result = await api_instance.loadApiModelsPost(inputValue, apiUrl);
           if (result.status) {
-            const options = result.data.map((model) => ({
-              value: modle[valField],
+            const options = result.data.data.map((model) => ({
+              value: model[valField],
               label: (
-                <div className="flex items-center">
+                <div key={model[valField]} className="flex items-center">
                   <div>
-                    <div className="text-sm font-bold">{modle[labelField]}</div>
+                    <div className="text-sm font-bold">{model[labelField]}</div>
                   </div>
                 </div>
               ),
