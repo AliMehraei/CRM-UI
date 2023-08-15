@@ -96,7 +96,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
             const options = result.data.map((user) => ({
               value: user[valField],
               label: (
-                <div className="flex items-center">
+                <div key={user[valField]} className="flex items-center">
                   <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                   <div>
                     <div className="text-sm font-bold">{user[nameField]}</div>
@@ -126,12 +126,12 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         try {
             const result = await api_instance.loadApiModelsPost(inputValue, apiUrl);
           if (result.status) {
-            const options = result.data.map((model) => ({
-              value: modle[valField],
+            const options = result.data.data.map((model) => ({
+              value: model[valField],
               label: (
-                <div className="flex items-center">
+                <div key={model[valField]} className="flex items-center">
                   <div>
-                    <div className="text-sm font-bold">{modle[labelField]}</div>
+                    <div className="text-sm font-bold">{model[labelField]}</div>
                   </div>
                 </div>
               ),
@@ -390,7 +390,6 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                 );
         }
     }
-    
     else if (type_condition == "text") {
         switch (condition) {
             case 'between':
@@ -529,75 +528,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                 );
         }
     }
-    else if (type_condition == "c") {
-        switch (condition) {
-            case 'between':
-                return (
-                    <>
-                        <label className="block text-sm text-gray-600">From:</label>
-                        <input type="date" name="from" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
-                        <label className="block text-sm text-gray-600">To:</label>
-                        <input type="date" name="to" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
-                    </>
-                )
-                break;
-            case 'is_empty':
-            case 'is_not_empty':
-
-                break;
-            case 'in_the_last':
-            case 'due_in':
-                return (
-                    <>
-                        <div className="flex">
-                            <input
-                                type="number"
-                                placeholder='2'
-                                className="border p-2 w-1/2"
-                                min="1"
-                                name='period_val'
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            />
-                            <select
-                                name='period'
-                                className="border p-2 w-1/2"
-                                defaultValue="days"
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            >
-                                <option value="days">Days</option>
-                                <option value="weeks">Weeks</option>
-                                <option value="months">Months</option>
-                            </select>
-                        </div>
-                    </>
-                );
-            case 'on':
-            case 'before':
-            case 'after':
-                return (
-                    <>
-                        <input
-                            type="date"
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    }
+    
 
 
 }
