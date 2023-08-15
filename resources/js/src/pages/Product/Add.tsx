@@ -20,7 +20,7 @@ const Add = () => {
         product_active: false,
         approved_by: null,
         product_owner: null,
-        product_type: null,
+        product_type: 'goods',
         manufacture_name: null,
         lifecycle_status: null,
         package: null,
@@ -30,7 +30,7 @@ const Add = () => {
         weight: null,
         case_code_imperial: null,
         case_code_metric: null,
-        category_id: null,
+        product_category_id: null,
         average_lead_time: null,
         capacitance: null,
         dielectric: null,
@@ -57,7 +57,7 @@ const Add = () => {
         core_architecture: null,
         ram_size: null,
         material: null,
-        usage_unit: null,
+        usage_unit: 'pcs',
         unit_price: null,
         min_operating_temperature: null,
         min_supply_voltage: null,
@@ -340,7 +340,7 @@ const Add = () => {
     const handleCategoryChange = (selectedOption) => {
         setSelectedCategory(selectedOption);
         setParams({
-            ...params, category_id: selectedOption ? selectedOption.value : '',
+            ...params, product_category_id: selectedOption ? selectedOption.value : '',
         });
     };
     useEffect(() => {
@@ -581,7 +581,7 @@ const Add = () => {
                             <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                                 <div className="text-lg">Tech Data :</div>
                                 <div className="flex items-center mt-4">
-                                    <label htmlFor="category_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    <label htmlFor="product_category_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Catagory
                                     </label>
                                     <div className="flex-1">
