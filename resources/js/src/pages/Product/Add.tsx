@@ -287,6 +287,36 @@ const Add = () => {
             return [];
         }
     };
+    const loadManufacturers = async (inputValue) => {
+        if (inputValue.length < 2) return [];
+        const valField = 'id';
+        const nameField = 'name';
+        const ownerByField = 'owner_id';
+        const ModifyByField = 'modified_by';
+
+        try {
+            const result = await api_instance.loadManufacturers(inputValue);
+            if (result.status) {
+                const options = result.data.map((manufacturer) => ({
+                    value: manufacturer[valField],
+                    label: (
+                        <div className="flex items-center">
+                            {manufacturer[logoField] && <img src={manufacturer[logoField]} alt="logo" className="w-8 h-8 mr-2 rounded-full" />}
+                            <div className="text-sm font-bold">{manufacturer[nameField]}</div>
+                        </div>
+                    ),
+                }));
+                return options;
+            } else {
+                console.error('An error occurred while fetching manufacturers', result.message);
+                return [];
+            }
+        } catch (error) {
+            console.error('An error occurred while fetching manufacturers:', error);
+            return [];
+        }
+    };
+    
     const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
     const [categoryOptions, setCategoryOptions] = useState([]);
     const loadCategory = async () => {
@@ -353,7 +383,20 @@ const Add = () => {
                                     <label htmlFor="manufacture" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Manufacture
                                     </label>
-                                    <input id="manufacture" type="text" name="manufacture" className="form-input flex-1" value={params.manufacture} onChange={handleInputChange} placeholder="Enter Manufacture" />
+                                    <div className="flex-1">
+                                        {/* <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={(e) => loadManfacture(e)}
+                                            onChange={(e) => handleMaufacturChange(e)}
+                                            isMulti={false}
+                                            value={selectedManufacture}
+                                        /> */}
+                                    </div>
+                                    <button onClick={() => clearSelectedUser('approved_by')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
+                                    </svg>
+                                    </button>
                                 </div>
                                 <div className="flex items-center mt-4">
                                     <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">

@@ -44,6 +44,10 @@ class api {
         }
         return await _axios.post(`${url}`, data, { headers: Headers });
     }
+    async loadManufacturers(data){
+        return await _axios.get(`${API_URL_PRODUCT}/api/product/search-manufactures`, data, { headers: Headers });
+
+    }
     async loadCategory() {
         return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
     }    
