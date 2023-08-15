@@ -75,7 +75,12 @@ const Add = () => {
         depth: null,
         thickness:null,
         width: null,
-        heaght: null
+        heaght: null,
+        rohs: null,
+        reach:null,
+        rohs_status :null,
+        reach_svhc:null,
+
     });
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -826,7 +831,51 @@ const Add = () => {
                 </div>
             </div>
 
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Complience :</div>
+                                <div className="flex items-center mt-4">
+                                    <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    RoHs 
+                                    </label>
+                                    <label htmlFor="rohhs" className="flex items-center cursor-pointer">
+                                        <input type="checkbox" name="rohhs" className="form-checkbox" checked={params.rohhs} onChange={handleInputChange} />
+                                        <span className=" text-white-dark"> RoHs</span>
+                                    </label>
+                                </div>
+                                <div className="flex items-center mt-4">
+                                    <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Reach  
+                                    </label>
+                                    <label htmlFor="reach" className="flex items-center cursor-pointer">
+                                        <input type="checkbox" name="reach" className="form-checkbox" checked={params.reach} onChange={handleInputChange} />
+                                        <span className=" text-white-dark"> Reach </span>
+                                    </label>
+                                </div>
+                               
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="rohs_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    RoHs Status 
+                                    </label>
+                                    <input id="rohs_status" type="text" name="rohs_status" className="form-input flex-1" value={params.rohs_status} onChange={handleInputChange} placeholder="Enter  RoHs Status " />
+                                </div>
 
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="reach_svhc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    REACH SVHC 
+                                    </label>
+                                    <input id="reach_svhc" type="text" name="reach_svhc" className="form-input flex-1" value={params.reach_svhc} onChange={handleInputChange} placeholder="Enter  REACH SVHC" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
