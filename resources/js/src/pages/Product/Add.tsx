@@ -71,17 +71,42 @@ const Add = () => {
         tolerance: null,
         duplicated_status: null,
         voltage_rating_dc: null,
-        length :null,
+        length: null,
         depth: null,
-        thickness:null,
+        thickness: null,
         width: null,
-        heaght: null,
+        height: null,
         rohs: null,
-        reach:null,
-        rohs_status :null,
-        reach_svhc:null,
-
+        reach: null,
+        rohs_status: null,
+        reach_svhc: null,
+        qty_ordered: null,
+        quantity_in_stock: null,
+        quantity_in_demand: null,
+        alternative_mpn_1: null,
+        alternative_mpn_2: null,
+        alternative_mpn_3: null,
+        alternative_mpn_4: null,
+        tariff_code: null,
+        eccn: null,
+        octopart_id: null,
+        octopart_url: null,
+        update_by_mouser: false,
+        zoho_books_id: null,
+        op_last_update: null,
+        op_failure_message: null,
+        octopart_images: null,
+        octopart_datasheets: null,
+        octopart_compliance_documents: null,
+        mouser_url: null,
+        mouser_id: null,
+        mouser_category: null,
+        m_last_update: null,
+        product_margin: null,
+        description: null,
+        octopart_short_description: null,
     });
+    
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
         setParams({
@@ -930,6 +955,49 @@ const Add = () => {
                                     <input id="quantity_in_demand" type="text" name="quantity_in_demand" className="form-input flex-1" value={params.quantity_in_demand} onChange={handleInputChange} placeholder="Enter Quantity in Demand" />
                                 </div>
                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Alternatives :</div>
+                         
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Export / Import Data :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="tariff_code" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Tariff Code
+                                    </label>
+                                    <input id="tariff_code" type="text" name="tariff_code" className="form-input flex-1" value={params.tariff_code} onChange={handleInputChange} placeholder="Enter tariff code" />
+                                </div>
+
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                            <div className="mt-4 flex items-center">
+                                <label htmlFor="eccn" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    ECCN 
+                                </label>
+                                <input id="eccn" type="text" name="eccn" className="form-input flex-1" value={params.eccn} onChange={handleInputChange} placeholder="Enter ECCN" />
+                            </div>
                             </div>
                         </div>
                     </div>
