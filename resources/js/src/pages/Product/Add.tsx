@@ -71,6 +71,11 @@ const Add = () => {
         tolerance: null,
         duplicated_status: null,
         voltage_rating_dc: null,
+        length :null,
+        depth: null,
+        thickness:null,
+        width: null,
+        heaght: null
     });
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -772,6 +777,56 @@ const Add = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Dimensions :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="length" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Length
+                                    </label>
+                                    <input id="length" type="text" name="length" className="form-input flex-1" value={params.length} onChange={handleInputChange} placeholder="Enter length" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="depth" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Depth
+                                    </label>
+                                    <input id="depth" type="text" name="depth" className="form-input flex-1" value={params.depth} onChange={handleInputChange} placeholder="Enter depth" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="thickness" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Thickness
+                                    </label>
+                                    <input id="thickness" type="text" name="thickness" className="form-input flex-1" value={params.thickness} onChange={handleInputChange} placeholder="Enter thickness" />
+                                </div>
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="width" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Width
+                                    </label>
+                                    <input id="width" type="text" name="width" className="form-input flex-1" value={params.width} onChange={handleInputChange} placeholder="Enter width" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="height" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Height
+                                    </label>
+                                    <input id="height" type="text" name="height" className="form-input flex-1" value={params.height} onChange={handleInputChange} placeholder="Enter height" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     );
 };
