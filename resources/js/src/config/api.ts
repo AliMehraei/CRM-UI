@@ -51,8 +51,11 @@ class api {
     async loadCategory() {
         return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
     }    
-    async loadApiModelsPost(data,url) {
-        return await _axios.post(`${url}`, data, { headers: Headers });
+    async loadApiModelsPost(data,url,apiMethod) {
+        if(apiMethod=='GET')
+            return await _axios.get(`${url}`, data);
+        else
+            return await _axios.post(`${url}`, data, { headers: Headers });
     }  
     async login (data: any) {
         return await _axios.post(`${URL}/login`, data,{headers: Headers});

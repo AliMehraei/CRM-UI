@@ -120,11 +120,12 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
 
         if (inputValue.length < 2) return [];
         const apiUrl = option.type_info.api;
+        const apiMethod = option.type_info.method;
         const valField =option.type_info.value_flield;
         const labelField =option.type_info.lable_filed;
 
         try {
-            const result = await api_instance.loadApiModelsPost(inputValue, apiUrl);
+            const result = await api_instance.loadApiModelsPost(inputValue, apiUrl,apiMethod);
           if (result.status) {
             const options = result.data.data.map((model) => ({
               value: model[valField],
