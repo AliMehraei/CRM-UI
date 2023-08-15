@@ -8,6 +8,8 @@ const api_instance = new api();
 
 export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) => {
     const handleValueChange = (field, value) => {
+        console.log('value',value);
+        
         const updatedFilters = { ...filters };
         updatedFilters[field] = { ...updatedFilters[field], value };
         // console.log('updatedFilters : ',updatedFilters[field]);
@@ -16,38 +18,49 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
     };
     
     const handleInputValueChange = (field, event) => {
-        handleValueChange(field, event.target.value);
+        const filterObject = {
+            value: event.target.value
+        };
+        handleValueChange(field, filterObject);
     };
     
     const handelBetween = (field, event) => {
         const { name, value } = event.target;
         const existingFilter = filters[field];
-        const existingValue = existingFilter ? existingFilter.value : '';
-        const [existingFrom = '', existingTo = ''] = existingValue.split('|');
-        const newFrom = name === 'from' ? value : existingFrom;
-        const newTo = name === 'to' ? value : existingTo;
-        const combinedValue = newFrom + '|' + newTo;
-        handleValueChange(field, combinedValue);
+        const existingValue = existingFilter ? existingFilter.value : {};
+        const newFrom = name === 'from' ? value : existingValue.from || '';
+        const newTo = name === 'to' ? value : existingValue.to || '';
+
+        const filterObject = {
+            from: newFrom,
+            to: newTo
+        };
+
+        handleValueChange(field, filterObject);
     };
     
     const handelDueIn = (field, event) => {
+       
         const { name, value } = event.target;
         const existingFilter = filters[field];
-        const existingValue = existingFilter ? existingFilter.value : '2_days';
-        const [existingVal = '2', existingPeriod = 'days'] = existingValue.split('|');
-        let newVal = name === 'period_val' ? value : existingVal;
-        const newPeriod = name === 'period' ? value : existingPeriod;
-        if (!newVal) {
-            newVal = '2';
-        }
-        const combinedValue = newVal + '_' + newPeriod;
-        handleValueChange(field, combinedValue);
+        const existingValue = existingFilter ? existingFilter.value : {};
+        const newValue= name === 'period_val' ? value : existingValue.value || 2;
+        const newPeriod = name === 'period' ? value : existingValue.period || 'day';
+        
+        const filterObject = {
+            value: newValue,
+            period: newPeriod
+        };
+
+        handleValueChange(field, filterObject);
     };
 
     const handleSelectMultipleDuration = (field, selectedOptions,condtion = 'is_not') => {
-        let combinedValue = '';
+        let combinedValue:any;
         if(condtion === 'is_not'){
-             combinedValue = selectedOptions.map(option => option.value).join(',');
+            combinedValue = {
+                options: selectedOptions.map(item => item.value)
+            };
         }
         else if(condtion === 'is')
         {
@@ -56,12 +69,17 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         handleValueChange(field, combinedValue);
     };
     const handleSelectMultiple = (field, selectedOptions) => {
-        const combinedValue = selectedOptions.map(option => option.value).join(',');
-        handleValueChange(field, combinedValue);
+        const transformedObject = {
+            options: selectedOptions.map(item => item.value)
+        };
+
+        handleValueChange(field, transformedObject);
     };
     
     const handleSelectMultipleUser = (field, selectedOptions) => {
-        const userIds = selectedOptions.map((option) => option.value).join(',');
+        const userIds = {
+            options: selectedOptions.map(item => item.value)
+        };
         handleValueChange(field, userIds);
     };
   
