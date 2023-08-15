@@ -71,6 +71,16 @@ const Add = () => {
         tolerance: null,
         duplicated_status: null,
         voltage_rating_dc: null,
+        length :null,
+        depth: null,
+        thickness:null,
+        width: null,
+        heaght: null,
+        rohs: null,
+        reach:null,
+        rohs_status :null,
+        reach_svhc:null,
+
     });
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -768,6 +778,159 @@ const Add = () => {
 
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Dimensions :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="length" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Length
+                                    </label>
+                                    <input id="length" type="text" name="length" className="form-input flex-1" value={params.length} onChange={handleInputChange} placeholder="Enter length" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="depth" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Depth
+                                    </label>
+                                    <input id="depth" type="text" name="depth" className="form-input flex-1" value={params.depth} onChange={handleInputChange} placeholder="Enter depth" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="thickness" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Thickness
+                                    </label>
+                                    <input id="thickness" type="text" name="thickness" className="form-input flex-1" value={params.thickness} onChange={handleInputChange} placeholder="Enter thickness" />
+                                </div>
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="width" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Width
+                                    </label>
+                                    <input id="width" type="text" name="width" className="form-input flex-1" value={params.width} onChange={handleInputChange} placeholder="Enter width" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="height" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Height
+                                    </label>
+                                    <input id="height" type="text" name="height" className="form-input flex-1" value={params.height} onChange={handleInputChange} placeholder="Enter height" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Complience :</div>
+                                <div className="flex items-center mt-4">
+                                    <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    RoHs 
+                                    </label>
+                                    <label htmlFor="rohhs" className="flex items-center cursor-pointer">
+                                        <input type="checkbox" name="rohhs" className="form-checkbox" checked={params.rohhs} onChange={handleInputChange} />
+                                        <span className=" text-white-dark"> RoHs</span>
+                                    </label>
+                                </div>
+                                <div className="flex items-center mt-4">
+                                    <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Reach  
+                                    </label>
+                                    <label htmlFor="reach" className="flex items-center cursor-pointer">
+                                        <input type="checkbox" name="reach" className="form-checkbox" checked={params.reach} onChange={handleInputChange} />
+                                        <span className=" text-white-dark"> Reach </span>
+                                    </label>
+                                </div>
+                               
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="rohs_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    RoHs Status 
+                                    </label>
+                                    <input id="rohs_status" type="text" name="rohs_status" className="form-input flex-1" value={params.rohs_status} onChange={handleInputChange} placeholder="Enter  RoHs Status " />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="reach_svhc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    REACH SVHC 
+                                    </label>
+                                    <input id="reach_svhc" type="text" name="reach_svhc" className="form-input flex-1" value={params.reach_svhc} onChange={handleInputChange} placeholder="Enter  REACH SVHC" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Stock Information :</div>
+                                <div className="flex items-center mt-4">
+                                    <label htmlFor="quantity_in_stock" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
+                                        Quantity in Stock 
+                                        <span className="ml-2 relative cursor-pointer group">
+                                            <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
+                                                i
+                                            </div>
+                                            <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
+                                                Stock on Hand 
+                                           </div>
+                                        </span>
+                                    </label>
+                                    <input id="quantity_in_stock" type="text" name="quantity_in_stock" className="form-input flex-1" value={params.quantity_in_stock} onChange={handleInputChange} placeholder="Enter Quantity in Stock" />
+                                </div>
+                            </div>
+
+                            
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                            <div className="flex items-center mt-4">
+                                    <label htmlFor="qty_ordered" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
+                                    Qty Ordered 
+                                        <span className="ml-2 relative cursor-pointer group">
+                                            <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
+                                                i
+                                            </div>
+                                            <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
+                                            Committed Stock
+                                            </div>
+                                        </span>
+                                    </label>
+                                    <input id="qty_ordered" type="text" name="qty_ordered" className="form-input flex-1" value={params.qty_ordered} onChange={handleInputChange} placeholder="Enter Qty Ordered" />
+                                </div>
+                                <div className="flex items-center mt-4">
+                                    <label htmlFor="quantity_in_demand" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
+                                    Quantity in Demand
+                                        <span className="ml-2 relative cursor-pointer group">
+                                            <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
+                                                i
+                                            </div>
+                                            <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
+                                            Available for Sale
+                                            </div>
+                                        </span>
+                                    </label>
+                                    <input id="quantity_in_demand" type="text" name="quantity_in_demand" className="form-input flex-1" value={params.quantity_in_demand} onChange={handleInputChange} placeholder="Enter Quantity in Demand" />
+                                </div>
+                               
+                            </div>
                         </div>
                     </div>
                 </div>
