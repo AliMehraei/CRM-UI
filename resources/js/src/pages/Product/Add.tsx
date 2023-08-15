@@ -106,7 +106,7 @@ const Add = () => {
         description: null,
         octopart_short_description: null,
     });
-    
+
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
         setParams({
@@ -183,16 +183,24 @@ const Add = () => {
             usage_unit: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null});
+    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null });
     const duplicatedOptions = [
-        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</> ), 
-            value: 'must_be_deleted'},
-        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>), 
-            value: 'must_be_merged'},
-        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>), 
-            value: 'must_be_renamed'},
-        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>), 
-            value: 'delete_confirmed'},
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
+            value: 'must_be_deleted'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
+            value: 'must_be_merged'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
+            value: 'must_be_renamed'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
+            value: 'delete_confirmed'
+        },
     ];
     const handleDuplicatedChange = (selectedOption) => {
         setselectedDuplicated(selectedOption);
@@ -284,13 +292,13 @@ const Add = () => {
     const loadCategory = async () => {
         try {
             const res = await api_instance.loadCategory();
-            const options = [{ label: '-None-', value: null }]; 
+            const options = [{ label: '-None-', value: null }];
             if (res.status) {
                 const categories = res.data.data.map((category) => ({
                     label: category.name,
                     value: category.id,
                 }));
-                options.push(...categories); 
+                options.push(...categories);
             } else {
                 console.error('Error fetching categories:', res.message);
             }
@@ -302,7 +310,7 @@ const Add = () => {
     const handleCategoryChange = (selectedOption) => {
         setSelectedCategory(selectedOption);
         setParams({
-            ...params,category_id : selectedOption ? selectedOption.value : '',
+            ...params, category_id: selectedOption ? selectedOption.value : '',
         });
     };
     useEffect(() => {
@@ -321,7 +329,7 @@ const Add = () => {
                     <button onClick={handleSave} className="btn btn-success gap-2">
                         Save
                     </button>
-            </div>
+                </div>
             </div>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
@@ -408,7 +416,7 @@ const Add = () => {
                                     </button>
                                 </div>
                                 <div className="flex items-center mt-4">
-                                   <label htmlFor="product_type" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    <label htmlFor="product_type" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Product Type
                                     </label>
                                     <div className="flex-1">
@@ -531,15 +539,15 @@ const Add = () => {
                                 <div className="text-lg">Tech Data :</div>
                                 <div className="flex items-center mt-4">
                                     <label htmlFor="category_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                        Catagory 
+                                        Catagory
                                     </label>
                                     <div className="flex-1">
-                                    <Select
-                                        placeholder="Select Category..."
-                                        options={categoryOptions}
-                                        onChange={handleCategoryChange}
-                                        value={selectedCategory}
-                                    />
+                                        <Select
+                                            placeholder="Select Category..."
+                                            options={categoryOptions}
+                                            onChange={handleCategoryChange}
+                                            value={selectedCategory}
+                                        />
                                     </div>
                                 </div>
                                 <div className="mt-4 flex items-center">
@@ -665,7 +673,7 @@ const Add = () => {
 
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
-                            <div className="mt-4 flex items-center">
+                                <div className="mt-4 flex items-center">
                                     <label htmlFor="spq" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         SPQ
                                     </label>
@@ -706,15 +714,15 @@ const Add = () => {
                                         Usage Unit
                                     </label>
                                     <div className='flex-1'>
-                                    <Select
-                                        placeholder="Select Unit..."
-                                        options={usageUnitOptions}
-                                        onChange={handleUsageUnitChange}
-                                        value={selectedUsageUnit}
-                                    /> 
-                                    </div>                               
+                                        <Select
+                                            placeholder="Select Unit..."
+                                            options={usageUnitOptions}
+                                            onChange={handleUsageUnitChange}
+                                            value={selectedUsageUnit}
+                                        />
                                     </div>
-                                
+                                </div>
+
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="unit_price" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Unit Price
@@ -786,14 +794,14 @@ const Add = () => {
                                         Duplicated Status
                                     </label>
                                     <div className='flex-1'>
-                                    <Select
-                                        placeholder="Select Duplicated Status..."
-                                        options={duplicatedOptions}
-                                        onChange={handleDuplicatedChange}
-                                        value={selectedDuplicated}
-                                    /> 
+                                        <Select
+                                            placeholder="Select Duplicated Status..."
+                                            options={duplicatedOptions}
+                                            onChange={handleDuplicatedChange}
+                                            value={selectedDuplicated}
+                                        />
                                     </div>
-                                    </div>
+                                </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="voltage_rating_dc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Voltage Rating (DC)
@@ -864,7 +872,7 @@ const Add = () => {
                                 <div className="text-lg">Complience :</div>
                                 <div className="flex items-center mt-4">
                                     <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    RoHs 
+                                        RoHs
                                     </label>
                                     <label htmlFor="rohhs" className="flex items-center cursor-pointer">
                                         <input type="checkbox" name="rohhs" className="form-checkbox" checked={params.rohhs} onChange={handleInputChange} />
@@ -873,26 +881,26 @@ const Add = () => {
                                 </div>
                                 <div className="flex items-center mt-4">
                                     <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Reach  
+                                        Reach
                                     </label>
                                     <label htmlFor="reach" className="flex items-center cursor-pointer">
                                         <input type="checkbox" name="reach" className="form-checkbox" checked={params.reach} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> Reach </span>
                                     </label>
                                 </div>
-                               
+
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="rohs_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    RoHs Status 
+                                        RoHs Status
                                     </label>
                                     <input id="rohs_status" type="text" name="rohs_status" className="form-input flex-1" value={params.rohs_status} onChange={handleInputChange} placeholder="Enter  RoHs Status " />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="reach_svhc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    REACH SVHC 
+                                        REACH SVHC
                                     </label>
                                     <input id="reach_svhc" type="text" name="reach_svhc" className="form-input flex-1" value={params.reach_svhc} onChange={handleInputChange} placeholder="Enter  REACH SVHC" />
                                 </div>
@@ -910,31 +918,31 @@ const Add = () => {
                                 <div className="text-lg">Stock Information :</div>
                                 <div className="flex items-center mt-4">
                                     <label htmlFor="quantity_in_stock" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
-                                        Quantity in Stock 
+                                        Quantity in Stock
                                         <span className="ml-2 relative cursor-pointer group">
                                             <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
                                                 i
                                             </div>
                                             <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
-                                                Stock on Hand 
-                                           </div>
+                                                Stock on Hand
+                                            </div>
                                         </span>
                                     </label>
                                     <input id="quantity_in_stock" type="text" name="quantity_in_stock" className="form-input flex-1" value={params.quantity_in_stock} onChange={handleInputChange} placeholder="Enter Quantity in Stock" />
                                 </div>
                             </div>
 
-                            
+
                             <div className="lg:w-1/2 w-full md:mt-6">
-                            <div className="flex items-center mt-4">
+                                <div className="flex items-center mt-4">
                                     <label htmlFor="qty_ordered" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
-                                    Qty Ordered 
+                                        Qty Ordered
                                         <span className="ml-2 relative cursor-pointer group">
                                             <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
                                                 i
                                             </div>
                                             <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
-                                            Committed Stock
+                                                Committed Stock
                                             </div>
                                         </span>
                                     </label>
@@ -942,19 +950,19 @@ const Add = () => {
                                 </div>
                                 <div className="flex items-center mt-4">
                                     <label htmlFor="quantity_in_demand" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
-                                    Quantity in Demand
+                                        Quantity in Demand
                                         <span className="ml-2 relative cursor-pointer group">
                                             <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
                                                 i
                                             </div>
                                             <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
-                                            Available for Sale
+                                                Available for Sale
                                             </div>
                                         </span>
                                     </label>
                                     <input id="quantity_in_demand" type="text" name="quantity_in_demand" className="form-input flex-1" value={params.quantity_in_demand} onChange={handleInputChange} placeholder="Enter Quantity in Demand" />
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -967,10 +975,10 @@ const Add = () => {
                         <div className="flex justify-between lg:flex-row flex-col">
                             <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                                 <div className="text-lg">Alternatives :</div>
-                         
+
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -992,17 +1000,199 @@ const Add = () => {
 
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
-                            <div className="mt-4 flex items-center">
-                                <label htmlFor="eccn" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    ECCN 
-                                </label>
-                                <input id="eccn" type="text" name="eccn" className="form-input flex-1" value={params.eccn} onChange={handleInputChange} placeholder="Enter ECCN" />
-                            </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="eccn" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        ECCN
+                                    </label>
+                                    <input id="eccn" type="text" name="eccn" className="form-input flex-1" value={params.eccn} onChange={handleInputChange} placeholder="Enter ECCN" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">API Data :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="octopart_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Octopart ID
+                                    </label>
+                                    <input id="octopart_id" type="text" name="octopart_id" className="form-input flex-1" value={params.octopart_id} onChange={handleInputChange} placeholder="Enter Octopart ID" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="octopart_url" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Octopart URL
+                                    </label>
+                                    <input id="octopart_url" type="text" name="octopart_url" className="form-input flex-1" value={params.octopart_url} onChange={handleInputChange} placeholder="Enter Octopart URL" />
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Update By Mouser
+                                    </label>
+                                    <label htmlFor="update_by_mouser" className="flex items-center cursor-pointer">
+                                        <input type="checkbox" name="update_by_mouser" className="form-checkbox" checked={params.update_by_mouser} onChange={handleInputChange} />
+                                        <span className=" text-white-dark"> Update By Mouser</span>
+                                    </label>
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="zoho_books_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        ZohoBooks ID
+                                    </label>
+                                    <input id="zoho_books_id" type="text" name="zoho_books_id" className="form-input flex-1" value={params.zoho_books_id} onChange={handleInputChange} placeholder="Enter ZohoBooks ID" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="op_last_update" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        OP Last Update                                     </label>
+                                    <input id="op_last_update" type="date" name="op_last_update" className="form-input flex-1" value={params.op_last_update} onChange={handleInputChange} placeholder="" />
+                                    <button type="button" className="btn btn-clear ltr:ml-2 rtl:mr-2 rounded"
+                                        onClick={() => {
+                                            setParams(prevState => ({ ...prevState, op_last_update: "" }));
+                                        }}>
+                                        Clear
+                                    </button>
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="op_failure_message" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        OP Failure Message
+                                    </label>
+                                    <input id="op_failure_message" type="text" name="op_failure_message" className="form-input flex-1" value={params.op_failure_message} onChange={handleInputChange} placeholder="Enter OP Failure Message" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="octopart_images" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Octopart Images
+                                    </label>
+                                    <textarea id="octopart_images"
+                                        name="octopart_images"
+                                        className="form-input flex-1"
+                                        value={params.octopart_images}
+                                        onChange={handleInputChange}
+                                        placeholder="Enter Octopart images links..."
+                                        rows="3"
+                                    ></textarea>
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="octopart_datasheets" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Octopart Datasheets
+                                    </label>
+                                    <textarea id="octopart_datasheets"
+                                        name="octopart_datasheets"
+                                        className="form-input flex-1"
+                                        value={params.octopart_datasheets}
+                                        onChange={handleInputChange}
+                                        placeholder="Enter Octopart datasheet links..."
+                                        rows="3"
+                                    ></textarea>
+                                </div>
+
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="octopart_compliance_documents" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Octopart Compliance Documents
+                                    </label>
+                                    <textarea id="octopart_compliance_documents"
+                                        name="octopart_compliance_documents"
+                                        className="form-input flex-1"
+                                        value={params.octopart_compliance_documents}
+                                        onChange={handleInputChange}
+                                        placeholder="Enter Octopart compliance document links..."
+                                        rows="3"
+                                    ></textarea>
+                                </div>
+
+
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="mouser_url" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Mouser URL
+                                    </label>
+                                    <input id="mouser_url" type="text" name="mouser_url" className="form-input flex-1" value={params.mouser_url} onChange={handleInputChange} placeholder="Enter Mouser URL" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="mouser_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Mouser ID
+                                    </label>
+                                    <input id="mouser_id" type="text" name="mouser_id" className="form-input flex-1" value={params.mouser_id} onChange={handleInputChange} placeholder="Enter Mouser ID" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="mouser_category" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Mouser Category
+                                    </label>
+                                    <input id="mouser_category" type="text" name="mouser_category" className="form-input flex-1" value={params.mouser_category} onChange={handleInputChange} placeholder="Enter Mouser Category" />
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="m_last_update" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        M Last Update
+                                    </label>
+                                    <input id="m_last_update" type="date" name="m_last_update" className="form-input flex-1" value={params.m_last_update} onChange={handleInputChange} />
+                                    <button type="button" className="btn btn-clear ltr:ml-2 rtl:mr-2 rounded"
+                                        onClick={() => {
+                                            setParams(prevState => ({ ...prevState, m_last_update: "" }));
+                                        }}>
+                                        Clear
+                                    </button>
+                                </div>
+                               
+                                <div className="flex items-center mt-4">
+                                    <label htmlFor="product_margin" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
+                                        Product Margin
+                                        <span className="ml-2 relative cursor-pointer group">
+                                            <div className="w-4 h-4 bg-gray-500 text-white rounded-full flex items-center justify-center text-xs">
+                                                i
+                                            </div>
+                                            <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
+                                            Has more priority than Account Margin
+                                            </div>
+                                        </span>
+                                    </label>
+                                    <input id="product_margin" type="text" name="product_margin" className="form-input flex-1" value={params.product_margin} onChange={handleInputChange} placeholder="Enter Product Margin" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex xl:flex-row flex-col gap-2.5">
+                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
+                    <div className="mt-8 px-4">
+                        <div className="flex justify-between lg:flex-row flex-col">
+                            <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                                <div className="text-lg">Description Information :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                         Description
+                                    </label>
+                                    <textarea id="description"
+                                        name="description"
+                                        className="form-input flex-1"
+                                        value={params.Description}
+                                        onChange={handleInputChange}
+                                        placeholder="Enter description..."
+                                        rows="3"
+                                    ></textarea>                               
+                                     </div>
+
+                            </div>
+                            <div className="lg:w-1/2 w-full md:mt-6">
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="octopart_short_description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Octopart Short Description 
+                                    </label>
+                                    <input id="octopart_short_description" type="text" name="octopart_short_description" className="form-input flex-1" value={params.octopart_short_description} onChange={handleInputChange} placeholder="Enter description" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     );
 };
