@@ -156,8 +156,8 @@ const Add = () => {
             value: 'must_be_merged'},
         { label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>), 
             value: 'must_be_renamed'},
-        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-green-500 rounded-full"></span>Must be confirmed</>), 
-            value: 'must_be_confirmed'},
+        { label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>), 
+            value: 'delete_confirmed'},
     ];
     const handleDuplicatedChange = (selectedOption) => {
         setselectedDuplicated(selectedOption);
