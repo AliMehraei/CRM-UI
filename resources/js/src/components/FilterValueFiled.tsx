@@ -59,7 +59,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         const combinedValue = selectedOptions.map(option => option.value).join(',');
         handleValueChange(field, combinedValue);
     };
-
+    
     const handleSelectMultipleUser = (field, selectedOptions) => {
         const userIds = selectedOptions.map((option) => option.value).join(',');
         handleValueChange(field, userIds);
@@ -171,60 +171,27 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
     }
     else if (type_condition == "select") {
+        const type_condition_ops = option.options;
+        const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
+            value: key,
+            label: type_condition_ops[key],
+          }));
+
         switch (condition) {
-            case 'between':
-                return (
-                    <>
-                        <label className="block text-sm text-gray-600">From:</label>
-                        <input type="date" name="from" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
-                        <label className="block text-sm text-gray-600">To:</label>
-                        <input type="date" name="to" className="border p-2 w-full" onChange={(e) => handelBetween(option.value, e)} />
-                    </>
-                )
-                break;
             case 'is_empty':
             case 'is_not_empty':
-
                 break;
-            case 'in_the_last':
-            case 'due_in':
-                return (
+            case 'is_not':
+            case 'is':
+                return(
                     <>
-                        <div className="flex">
-                            <input
-                                type="number"
-                                placeholder='2'
-                                className="border p-2 w-1/2"
-                                min="1"
-                                name='period_val'
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            />
-                            <select
-                                name='period'
-                                className="border p-2 w-1/2"
-                                defaultValue="days"
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            >
-                                <option value="days">Days</option>
-                                <option value="weeks">Weeks</option>
-                                <option value="months">Months</option>
-                            </select>
-                        </div>
+                        <Select placeholder="Select an option"
+                            onChange={(e) => handleValueChange(option.value, e )}
+                            options={type_condition_ops_formed} isMulti={false} />
                     </>
+                    
                 );
-            case 'on':
-            case 'before':
-            case 'after':
-                return (
-                    <>
-                        <input
-                            type="date"
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-
+                      
             default:
                 return (
                     <>
