@@ -55,17 +55,39 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         handleValueChange(field, filterObject);
     };
 
-    const handleSelectMultipleDuration = (field, selectedOptions,condtion = 'is_not') => {
+    const handleSelectMultipleDuration = (field, event,condtion = 'is_not') => {
         let combinedValue:any;
+        let options:any;
+        let duration:any;
+        let duration_condtion:any;
+        if(event.target!=undefined){
+            
+            
+            const { name, value } = event.target;
+            const existingFilter = filters[field];
+            const existingValue = existingFilter ? existingFilter.value : {};
+            duration = name === 'duration' ? value : existingValue.duration || 2;
+            duration_condtion = name === 'duration_condtion' ? value : existingValue.duration_condtion || '=';
+            options=existingValue.options ?? [] ;
+            console.log('options',options);
+            
+        }
+        else{
+            options=event.map(item => item.value);
+        }
+        
+        
         if(condtion === 'is_not'){
             combinedValue = {
-                options: selectedOptions.map(item => item.value)
+                options: options
             };
         }
         else if(condtion === 'is')
         {
             combinedValue = {
-                options: selectedOptions.map(item => item.value)
+                options: options,
+                duration:duration,
+                duration_condtion:duration_condtion
             };
         }
         handleValueChange(field, combinedValue);
@@ -260,6 +282,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                 return(
                     <>
                         <Select placeholder="Select an option"
+                            
                             onChange={(e) => handleSelectMultipleDuration(option.value, e ,'is')}
                             options={type_condition_ops_formed} isMulti />
                         <div className=" mt-4">
