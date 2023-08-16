@@ -12,7 +12,8 @@ const Add = () => {
         dispatch(setPageTitle('Product Add'));
     });
     const api_instance = new api();
-    const [params, setParams] = useState({
+
+    const getDefaultParams =() =>({
         product_name: null,
         part_description: null,
         manufacture_id: null,
@@ -108,6 +109,7 @@ const Add = () => {
         description: null,
         octopart_short_description: null,
     });
+    const [params, setParams] = useState(getDefaultParams());
 
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -117,19 +119,37 @@ const Add = () => {
         });
     }
     const handleSave = async () => {
+        const errorMessage = validateProduct(params);
+        if (errorMessage) {
+            showMessage(errorMessage, 'error');
+            return;
+        }
         try {
             const response = await api_instance.create_single_product(params);
             if (response.data.status) {
-                showMessage('Product successfully added'); // Calling showMessage with the success message
+                showMessage('Product successfully added');
+                setParams(getDefaultParams());
             } else {
-                showMessage('Error adding the product', 'error'); // Calling showMessage with an error message and error type
+                showMessage('Error adding the product', 'error'); 
                 console.error('Error adding the product', response.data.message);
             }
         } catch (error) {
-            showMessage('Error making create request', 'error'); // Calling showMessage with an error message and error type
+            showMessage('Error making create request', 'error'); 
             console.error('Error making create request', error);
         }
     };
+    const validateProduct = (data) => {
+        if (!data.product_name) {
+            return "Product Name is required.";
+        }
+    
+        if (!data.manufacture_id) {
+            return "Manufacture is required.";
+        }
+    
+        return null;
+    };
+    
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -472,9 +492,9 @@ const Add = () => {
                     <Link to="/product/list" className="btn btn-danger gap-2">
                         Back
                     </Link>
-                    <Link to="/product/add" className="btn btn-primary gap-2">
+                    <button onClick={handleSave} className="btn btn-primary gap-2">
                         Save and new
-                    </Link>
+                    </button>
                     <button onClick={handleSave} className="btn btn-success gap-2">
                         Save
                     </button>
@@ -488,9 +508,9 @@ const Add = () => {
                                 <div className="text-lg">Product Information :</div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="product_name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                        Product Name
+                                        Product Name <span className="text-red-500">*</span>
                                     </label>
-                                    <input id="product_name" type="text" name="product_name" className="form-input flex-1" value={params.product_name} onChange={handleInputChange} placeholder="Enter Product Name" />
+                                    <input id="product_name"  required type="text" name="product_name" className={`form-input flex-1 ${!params.product_name ? 'border-red-500' : ''}`} value={params.product_name} onChange={handleInputChange} placeholder="Enter Product Name" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="part_description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -499,17 +519,26 @@ const Add = () => {
                                     <input id="part_description" type="text" name="part_description" className="form-input flex-1" value={params.part_description} onChange={handleInputChange} placeholder="Enter Part Description" />
                                 </div>
                                 <div className="mt-4 flex items-center">
-                                    <label htmlFor="manufacture" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                        Manufacture
+                                    <label htmlFor="manufacture_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                        Manufacture  <span className="text-red-500">*</span>
                                     </label>
-                                    <div className="flex-1">
+                                    <div className="flex-1 ">
                                     <AsyncSelect
                                         placeholder="Type at least 2 characters to search..."
                                         loadOptions={loadManufacturers}
                                         onChange={(e) => handleMaufacturChange(e,'mpn')}
                                         isMulti={false}
                                         value={selectedManufacture}
+                                        classNamePrefix="async-select"
+                                        styles={{
+                                            control: (base) => ({
+                                                ...base,
+                                                ...(!params.manufacture_id && { borderColor: '#f56565' }), // Equivalent to border-red-500 in Tailwind
+                                                display: 'flex', // Equivalent to flex-1 in Tailwind
+                                            }),
+                                        }}
                                     />
+
 
                                     </div>
                                     <button onClick={() => clearManufacture('mpn')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
