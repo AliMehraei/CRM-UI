@@ -44,9 +44,25 @@ class api {
         }
         return await _axios.post(`${url}`, data, { headers: Headers });
     }
-    async loadManufacturers(data){
-        return await _axios.get(`${API_URL_PRODUCT}/api/product/search-manufactures`, data, { headers: Headers });
-
+    async loadManufacturers(query) {
+        try {
+            const response = await _axios.get(`${API_URL_PRODUCT}/api/search-manufactures`, {
+                headers: Headers,
+                params: {
+                    query: query
+                },
+            });
+            if (response.status !== 200) {
+                throw new Error("Failed to fetch data from server.");
+            }
+            if (!response.data.status) { 
+                throw new Error(response.data.message || "Error retrieving manufacturers.");
+            }
+            return response.data;
+        } catch (error) {
+            console.error("Error loading manufacturers:", error);
+            throw error;
+        }
     }
     async loadCategory() {
         return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
