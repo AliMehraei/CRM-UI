@@ -17,7 +17,9 @@ const Add = () => {
         part_description: null,
         manufacture_id: null,
         datasheet_url: null,
+        rfq: [],
         product_active: false,
+        business_product: false,
         approved_by: null,
         product_owner: null,
         product_type: 'goods',
@@ -292,7 +294,6 @@ const Add = () => {
     const [selectedAltMpn2, setSelectedAltMpn2] = useState([]);
     const [selectedAltMpn3, setSelectedAltMpn3] = useState([]);
     const [selectedAltMpn4, setSelectedAltMpn4] = useState([]);
-
     const loadManufacturers = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
@@ -321,8 +322,48 @@ const Add = () => {
             return [];
         }
     };
-    
-    
+    const [selectedRfq, setSelectedRfq] = useState([]);
+    const loadRfqs = async (inputValue) => {
+        if (inputValue.length < 2) return [];
+        const valField = 'id';
+        const rfqName = 'rfq_name';
+        try {
+            const result = await api_instance.loadRfqs(inputValue);  
+            console.log(result.data);
+                      
+            if (result.status) {
+                const options = result.data.map((rfq) => ({
+                    value: rfq[valField],
+                    label: (
+                        <div className="flex items-center">
+                            <div className="text-sm font-bold">{rfq[rfqName]}</div>
+                        </div>
+                    ),
+                }));
+                return options;
+            } else {
+                console.error('An error occurred while fetching rfq', result.message);
+                return [];
+            }
+        } catch (error) {
+            console.error('An error occurred while fetching rfq:', error);
+            return [];
+        }
+    };
+    const handleRfqChange = (selectedRfqs) => {
+        setSelectedRfq(selectedRfqs);
+        setParams({
+            ...params,
+            rfq: selectedRfqs ? selectedRfqs.map(rfq => rfq.value) : [],
+        });
+    };
+    const clearRfq = () => {
+        setSelectedRfq(null);
+        setParams({
+            ...params,
+            rfq: [],
+        });
+    };
     const handleMaufacturChange = (selectedOption, type) => {
         const typeMap = {
             'mpn': {
@@ -359,7 +400,6 @@ const Add = () => {
             console.error(`Unknown type: ${type}`);
         }
     };
-    
     const clearManufacture = (type) => {
         const typeMap = {
             'mpn': {
@@ -396,7 +436,6 @@ const Add = () => {
             console.error(`Unknown type: ${type}`);
         }
     };
-    
     const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
     const [categoryOptions, setCategoryOptions] = useState([]);
     const loadCategory = async () => {
@@ -478,20 +517,20 @@ const Add = () => {
                                     </button>
                                 </div>
                                 <div className="mt-4 flex items-center">
-                                    <label htmlFor="manufacture" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    <label htmlFor="rfq" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                     RFQ (Alternative) 
                                     </label>
                                     <div className="flex-1">
                                     <AsyncSelect
                                         placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadManufacturers}
-                                        onChange={(e) => handleMaufacturChange(e)}
-                                        isMulti={false}
-                                        value={selectedManufacture}
+                                        loadOptions={loadRfqs}
+                                        onChange={(e) => handleRfqChange(e)}
+                                        isMulti
+                                        value={selectedRfq}
                                     />
 
                                     </div>
-                                    <button onClick={() => clearManufacture()} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <button onClick={() => clearRfq()} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
                                         Clear
                                     </button>
                                 </div>
@@ -500,7 +539,7 @@ const Add = () => {
                                         Bussiness Product
                                     </label>
                                     <label htmlFor="business_product" className="flex items-center cursor-pointer">
-                                        <input type="checkbox" name="business_product" className="form-checkbox" checked={params.product_active} onChange={handleInputChange} />
+                                        <input type="checkbox" name="business_product" className="form-checkbox" checked={params.business_product} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> Bussiness Product</span>
                                     </label>
                                 </div>
