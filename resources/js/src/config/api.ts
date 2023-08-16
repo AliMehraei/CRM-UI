@@ -64,6 +64,26 @@ class api {
             throw error;
         }
     }
+    async loadRfqs(query) {
+        try {
+            const response = await _axios.get(`${API_URL_PRODUCT}/api/search-rfq`, {
+                headers: Headers,
+                params: {
+                    query: query
+                },
+            });
+            if (response.status !== 200) {
+                throw new Error("Failed to fetch data from server.");
+            }
+            if (!response.data.status) { 
+                throw new Error(response.data.message || "Error retrieving rfqs.");
+            }
+            return response.data;
+        } catch (error) {
+            console.error("Error loading rfqs:", error);
+            throw error;
+        }
+    }
     async loadCategory() {
         return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
     }    
