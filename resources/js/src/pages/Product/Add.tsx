@@ -288,6 +288,11 @@ const Add = () => {
         }
     };
     const [selectedManufacture, setSelectedManufacture] = useState([]);
+    const [selectedAltMpn1, setSelectedAltMpn1] = useState([]);
+    const [selectedAltMpn2, setSelectedAltMpn2] = useState([]);
+    const [selectedAltMpn3, setSelectedAltMpn3] = useState([]);
+    const [selectedAltMpn4, setSelectedAltMpn4] = useState([]);
+
     const loadManufacturers = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
@@ -296,9 +301,7 @@ const Add = () => {
         const ModifyByField = 'modified_by';
 
         try {
-            const result = await api_instance.loadManufacturers(inputValue);
-            console.log(result);
-            
+            const result = await api_instance.loadManufacturers(inputValue);            
             if (result.status) {
                 const options = result.data.map((manufacturer) => ({
                     value: manufacturer[valField],
@@ -320,15 +323,78 @@ const Add = () => {
     };
     
     
-    const handleMaufacturChange = (selectedOption) => {
-        setSelectedManufacture(selectedOption);
-        setParams({
-            ...params,
-            manufacture_id: selectedOption ? selectedOption.value : '',
-        });
+    const handleMaufacturChange = (selectedOption, type) => {
+        const typeMap = {
+            'mpn': {
+                setter: setSelectedManufacture,
+                paramKey: 'manufacture_id'
+            },
+            'mpn1': {
+                setter: setSelectedAltMpn1,
+                paramKey: 'alternative_mpn_1'
+            },
+            'mpn2': {
+                setter: setSelectedAltMpn2,
+                paramKey: 'alternative_mpn_2'
+            },
+            'mpn3': {
+                setter: setSelectedAltMpn3,
+                paramKey: 'alternative_mpn_3'
+            },
+            'mpn4': {
+                setter: setSelectedAltMpn4,
+                paramKey: 'alternative_mpn_4'
+            }
+        };
+    
+        if (typeMap[type]) {
+            const { setter, paramKey } = typeMap[type];
+    
+            setter(selectedOption);
+            setParams(prevParams => ({
+                ...prevParams,
+                [paramKey]: selectedOption ? selectedOption.value : ''
+            }));
+        } else {
+            console.error(`Unknown type: ${type}`);
+        }
     };
-    const clearManufacture = () => {
-        setSelectedManufacture(null); // Resetting the state
+    
+    const clearManufacture = (type) => {
+        const typeMap = {
+            'mpn': {
+                setter: setSelectedManufacture,
+                paramKey: 'manufacture_id'
+            },
+            'mpn1': {
+                setter: setSelectedAltMpn1,
+                paramKey: 'alternative_mpn_1'
+            },
+            'mpn2': {
+                setter: setSelectedAltMpn2,
+                paramKey: 'alternative_mpn_2'
+            },
+            'mpn3': {
+                setter: setSelectedAltMpn3,
+                paramKey: 'alternative_mpn_3'
+            },
+            'mpn4': {
+                setter: setSelectedAltMpn4,
+                paramKey: 'alternative_mpn_4'
+            }
+        };
+    
+        if (typeMap[type]) {
+            const { setter, paramKey } = typeMap[type];
+    
+            setter(null); // Resetting the state
+            setParams(prevParams => ({
+                ...prevParams,
+                [paramKey]: null
+            }));
+        } else {
+            console.error(`Unknown type: ${type}`);
+        }
     };
     
     const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
@@ -396,6 +462,24 @@ const Add = () => {
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="manufacture" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Manufacture
+                                    </label>
+                                    <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={loadManufacturers}
+                                        onChange={(e) => handleMaufacturChange(e,'mpn')}
+                                        isMulti={false}
+                                        value={selectedManufacture}
+                                    />
+
+                                    </div>
+                                    <button onClick={() => clearManufacture('mpn')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                        Clear
+                                    </button>
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="manufacture" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    RFQ (Alternative) 
                                     </label>
                                     <div className="flex-1">
                                     <AsyncSelect
@@ -871,7 +955,6 @@ const Add = () => {
                     </div>
                 </div>
             </div>
-
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
                     <div className="mt-8 px-4">
@@ -919,7 +1002,6 @@ const Add = () => {
                     </div>
                 </div>
             </div>
-
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
                     <div className="mt-8 px-4">
@@ -965,7 +1047,6 @@ const Add = () => {
                     </div>
                 </div>
             </div>
-
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
                     <div className="mt-8 px-4">
@@ -1024,17 +1105,86 @@ const Add = () => {
                     </div>
                 </div>
             </div>
-
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
                     <div className="mt-8 px-4">
                         <div className="flex justify-between lg:flex-row flex-col">
                             <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                                 <div className="text-lg">Alternatives :</div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="alternative_mpn_1" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Alternative MPN 1
+                                    </label>
+                                    <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={loadManufacturers}
+                                        onChange={(e) => handleMaufacturChange(e,'mpn1')}
+                                        isMulti={false}
+                                        value={selectedAltMpn1}
+                                    />
 
+                                    </div>
+                                    <button onClick={() => clearManufacture('mpn1')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                        Clear
+                                    </button>
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="alternative_mpn_2" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Alternative MPN 2
+                                    </label>
+                                    <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={loadManufacturers}
+                                        onChange={(e) => handleMaufacturChange(e,'mpn2')}
+                                        isMulti={false}
+                                        value={selectedAltMpn2}
+                                    />
+
+                                    </div>                                    
+                                    <button onClick={() => clearManufacture('mpn2')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                        Clear
+                                    </button>
+                                </div>
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
+                            <div className="mt-4 flex items-center">
+                                    <label htmlFor="alternative_mpn_3" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Alternative MPN 3
+                                    </label>
+                                    <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={loadManufacturers}
+                                        onChange={(e) => handleMaufacturChange(e,'mpn3')}
+                                        isMulti={false}
+                                        value={selectedAltMpn3}
+                                    />
 
+                                    </div>
+                                    <button onClick={() => clearManufacture('mpn3')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                        Clear
+                                    </button>
+                                </div>
+                                <div className="mt-4 flex items-center">
+                                    <label htmlFor="alternative_mpn_4" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
+                                    Alternative MPN 4
+                                    </label>
+                                    <div className="flex-1">
+                                    <AsyncSelect
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={loadManufacturers}
+                                        onChange={(e) => handleMaufacturChange(e,'mpn4')}
+                                        isMulti={false}
+                                        value={selectedAltMpn4}
+                                    />
+
+                                    </div>
+                                    <button onClick={() => clearManufacture('mpn4')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                        Clear
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
