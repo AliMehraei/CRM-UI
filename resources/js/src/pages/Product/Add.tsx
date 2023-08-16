@@ -110,7 +110,23 @@ const Add = () => {
         octopart_short_description: null,
     });
     const [params, setParams] = useState(getDefaultParams());
-
+    const clearForm = () => {
+        setParams(getDefaultParams());
+        setSelectedAporvedBy([]);
+        setSelectedProductOwner([]);
+        setSelectedProductType({ label: '-None-', value: null });
+        setSelectedLifecylceStatus({ label: '-None-', value: null });
+        setselectedUsageUnit({ label: 'PCS', value: 'pcs' });
+        setselectedDuplicated({ label: '-None-', value: null });
+        setSelectedPackage({ label: '-None-', value: null });
+        setSelectedManufacture([]);
+        setSelectedAltMpn1([]);
+        setSelectedAltMpn2([]);
+        setSelectedAltMpn3([]);
+        setSelectedAltMpn4([]);
+        setSelectedRfq([]);
+        setSelectedCategory({ label: '-None-', value: null });
+    };
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
         setParams({
@@ -128,8 +144,9 @@ const Add = () => {
             const response = await api_instance.create_single_product(params);
             if (response.data.status) {
                 showMessage('Product successfully added');
-                setParams(getDefaultParams());
-            } else {
+                console.log(getDefaultParams);
+                clearForm();            
+                } else {
                 showMessage('Error adding the product', 'error'); 
                 console.error('Error adding the product', response.data.message);
             }
@@ -510,13 +527,13 @@ const Add = () => {
                                     <label htmlFor="product_name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Product Name <span className="text-red-500">*</span>
                                     </label>
-                                    <input id="product_name"  required type="text" name="product_name" className={`form-input flex-1 ${!params.product_name ? 'border-red-500' : ''}`} value={params.product_name} onChange={handleInputChange} placeholder="Enter Product Name" />
+                                    <input id="product_name"  required type="text" name="product_name" className={`form-input flex-1 ${!params.product_name ? 'border-red-500' : ''}`} value={params.product_name || ''} onChange={handleInputChange} placeholder="Enter Product Name" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="part_description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Part Description
                                     </label>
-                                    <input id="part_description" type="text" name="part_description" className="form-input flex-1" value={params.part_description} onChange={handleInputChange} placeholder="Enter Part Description" />
+                                    <input id="part_description" type="text" name="part_description" className="form-input flex-1" value={params.part_description || ''} onChange={handleInputChange} placeholder="Enter Part Description" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="manufacture_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -533,8 +550,8 @@ const Add = () => {
                                         styles={{
                                             control: (base) => ({
                                                 ...base,
-                                                ...(!params.manufacture_id && { borderColor: '#f56565' }), // Equivalent to border-red-500 in Tailwind
-                                                display: 'flex', // Equivalent to flex-1 in Tailwind
+                                                ...(!params.manufacture_id && { borderColor: '#f56565' }),
+                                                display: 'flex', 
                                             }),
                                         }}
                                     />
@@ -568,7 +585,7 @@ const Add = () => {
                                         Bussiness Product
                                     </label>
                                     <label htmlFor="business_product" className="flex items-center cursor-pointer">
-                                        <input type="checkbox" name="business_product" className="form-checkbox" checked={params.business_product} onChange={handleInputChange} />
+                                        <input type="checkbox" name="business_product" className="form-checkbox" checked={params.business_product || ''} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> Bussiness Product</span>
                                     </label>
                                 </div>
@@ -595,14 +612,14 @@ const Add = () => {
                                     <label htmlFor="datasheet_url" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Datasheet URL
                                     </label>
-                                    <input id="datasheet_url" type="text" name="datasheet_url" className="form-input flex-1" value={params.datasheet_url} onChange={handleInputChange} placeholder="Enter Datasheet URL" />
+                                    <input id="datasheet_url" type="text" name="datasheet_url" className="form-input flex-1" value={params.datasheet_url || ''} onChange={handleInputChange} placeholder="Enter Datasheet URL" />
                                 </div>
                                 <div className="flex items-center mt-4">
                                     <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Product Active
                                     </label>
                                     <label htmlFor="product_active" className="flex items-center cursor-pointer">
-                                        <input type="checkbox" name="product_active" className="form-checkbox" checked={params.product_active} onChange={handleInputChange} />
+                                        <input type="checkbox" name="product_active" className="form-checkbox" checked={params.product_active || ''} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> Product Active</span>
                                     </label>
                                 </div>
@@ -652,7 +669,7 @@ const Add = () => {
                                     <label htmlFor="manufacture_name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Manufacture Name
                                     </label>
-                                    <input id="manufacture_name" type="text" name="manufacture_name" className="form-input flex-1" value={params.manufacture_name} onChange={handleInputChange} placeholder="Enter Product Name" />
+                                    <input id="manufacture_name" type="text" name="manufacture_name" className="form-input flex-1" value={params.manufacture_name || ''} onChange={handleInputChange} placeholder="Enter Product Name" />
                                 </div>
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
@@ -698,19 +715,19 @@ const Add = () => {
                                     <label htmlFor="case_package" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Case/Package
                                     </label>
-                                    <input id="case_package" type="text" name="case_package" className="form-input flex-1" value={params.case_package} onChange={handleInputChange} placeholder="Enter Case/Package" />
+                                    <input id="case_package" type="text" name="case_package" className="form-input flex-1" value={params.case_package || ''} onChange={handleInputChange} placeholder="Enter Case/Package" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="packaging" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Packaging
                                     </label>
-                                    <input id="packaging" type="text" name="packaging" className="form-input flex-1" value={params.packaging} onChange={handleInputChange} placeholder="Enter Packaging" />
+                                    <input id="packaging" type="text" name="packaging" className="form-input flex-1" value={params.packaging || ''} onChange={handleInputChange} placeholder="Enter Packaging" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_pins" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of Pins
                                     </label>
-                                    <input id="number_of_pins" type="text" name="number_of_pins" className="form-input flex-1" value={params.number_of_pins} onChange={handleInputChange} placeholder="Enter Number of Pins " />
+                                    <input id="number_of_pins" type="text" name="number_of_pins" className="form-input flex-1" value={params.number_of_pins || ''} onChange={handleInputChange} placeholder="Enter Number of Pins " />
                                 </div>
 
                             </div>
@@ -719,19 +736,19 @@ const Add = () => {
                                     <label htmlFor="weight" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Weight
                                     </label>
-                                    <input id="weight" type="text" name="weight" className="form-input flex-1" value={params.weight} onChange={handleInputChange} placeholder="Enter weight" />
+                                    <input id="weight" type="text" name="weight" className="form-input flex-1" value={params.weight || ''} onChange={handleInputChange} placeholder="Enter weight" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="case_code_imperial" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Case Code (Imperial)
                                     </label>
-                                    <input id="case_code_imperial" type="text" name="case_code_imperial" className="form-input flex-1" value={params.case_code_imperial} onChange={handleInputChange} placeholder="Enter case code (imperial) " />
+                                    <input id="case_code_imperial" type="text" name="case_code_imperial" className="form-input flex-1" value={params.case_code_imperial || ''} onChange={handleInputChange} placeholder="Enter case code (imperial) " />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="case_code_metric" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Case Code (Metric)
                                     </label>
-                                    <input id="case_code_metric" type="text" name="case_code_metric" className="form-input flex-1" value={params.case_code_metric} onChange={handleInputChange} placeholder="Enter Case Code (Metric)" />
+                                    <input id="case_code_metric" type="text" name="case_code_metric" className="form-input flex-1" value={params.case_code_metric || ''} onChange={handleInputChange} placeholder="Enter Case Code (Metric)" />
                                 </div>
                             </div>
 
@@ -762,85 +779,85 @@ const Add = () => {
                                     <label htmlFor="average_lead_time" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Average Lead Time
                                     </label>
-                                    <input id="average_lead_time" type="text" name="average_lead_time" className="form-input flex-1" value={params.average_lead_time} onChange={handleInputChange} placeholder="Enter average lead time" />
+                                    <input id="average_lead_time" type="text" name="average_lead_time" className="form-input flex-1" value={params.average_lead_time || ''} onChange={handleInputChange} placeholder="Enter average lead time" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="capacitance" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Capacitance
                                     </label>
-                                    <input id="capacitance" type="text" name="capacitance" className="form-input flex-1" value={params.capacitance} onChange={handleInputChange} placeholder="Enter capacitance" />
+                                    <input id="capacitance" type="text" name="capacitance" className="form-input flex-1" value={params.capacitance || ''} onChange={handleInputChange} placeholder="Enter capacitance" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="dielectric" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Dielectric
                                     </label>
-                                    <input id="dielectric" type="text" name="dielectric" className="form-input flex-1" value={params.dielectric} onChange={handleInputChange} placeholder="Enter dielectric" />
+                                    <input id="dielectric" type="text" name="dielectric" className="form-input flex-1" value={params.dielectric || ''} onChange={handleInputChange} placeholder="Enter dielectric" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="flash_memory_size" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Flash Memory Size
                                     </label>
-                                    <input id="flash_memory_size" type="text" name="flash_memory_size" className="form-input flex-1" value={params.flash_memory_size} onChange={handleInputChange} placeholder="Enter flash memory size" />
+                                    <input id="flash_memory_size" type="text" name="flash_memory_size" className="form-input flex-1" value={params.flash_memory_size || ''} onChange={handleInputChange} placeholder="Enter flash memory size" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="frequency" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Frequency
                                     </label>
-                                    <input id="frequency" type="text" name="frequency" className="form-input flex-1" value={params.frequency} onChange={handleInputChange} placeholder="Enter frequency" />
+                                    <input id="frequency" type="text" name="frequency" className="form-input flex-1" value={params.frequency || ''} onChange={handleInputChange} placeholder="Enter frequency" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="halogen_free" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Halogen Free
                                     </label>
-                                    <input id="halogen_free" type="text" name="halogen_free" className="form-input flex-1" value={params.halogen_free} onChange={handleInputChange} placeholder="Enter halogen free status" />
+                                    <input id="halogen_free" type="text" name="halogen_free" className="form-input flex-1" value={params.halogen_free || ''} onChange={handleInputChange} placeholder="Enter halogen free status" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="lead_free" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Lead Free
                                     </label>
-                                    <input id="lead_free" type="text" name="lead_free" className="form-input flex-1" value={params.lead_free} onChange={handleInputChange} placeholder="Enter lead free status" />
+                                    <input id="lead_free" type="text" name="lead_free" className="form-input flex-1" value={params.lead_free || ''} onChange={handleInputChange} placeholder="Enter lead free status" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="max_operating_temperature" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Max Operating Temperature
                                     </label>
-                                    <input id="max_operating_temperature" type="text" name="max_operating_temperature" className="form-input flex-1" value={params.max_operating_temperature} onChange={handleInputChange} placeholder="Enter max operating temperature" />
+                                    <input id="max_operating_temperature" type="text" name="max_operating_temperature" className="form-input flex-1" value={params.max_operating_temperature || ''} onChange={handleInputChange} placeholder="Enter max operating temperature" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="max_supply_voltage" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Max Supply Voltage
                                     </label>
-                                    <input id="max_supply_voltage" type="text" name="max_supply_voltage" className="form-input flex-1" value={params.max_supply_voltage} onChange={handleInputChange} placeholder="Enter max supply voltage" />
+                                    <input id="max_supply_voltage" type="text" name="max_supply_voltage" className="form-input flex-1" value={params.max_supply_voltage || ''} onChange={handleInputChange} placeholder="Enter max supply voltage" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_ad_converters" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of A/D Converters
                                     </label>
-                                    <input id="number_of_ad_converters" type="text" name="number_of_ad_converters" className="form-input flex-1" value={params.number_of_ad_converters} onChange={handleInputChange} placeholder="Enter number of A/D converters" />
+                                    <input id="number_of_ad_converters" type="text" name="number_of_ad_converters" className="form-input flex-1" value={params.number_of_ad_converters || ''} onChange={handleInputChange} placeholder="Enter number of A/D converters" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_da_converters" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of D/A Converters
                                     </label>
-                                    <input id="number_of_da_converters" type="text" name="number_of_da_converters" className="form-input flex-1" value={params.number_of_da_converters} onChange={handleInputChange} placeholder="Enter number of D/A converters" />
+                                    <input id="number_of_da_converters" type="text" name="number_of_da_converters" className="form-input flex-1" value={params.number_of_da_converters || ''} onChange={handleInputChange} placeholder="Enter number of D/A converters" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_i2c_channels" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of I2C Channels
                                     </label>
-                                    <input id="number_of_i2c_channels" type="text" name="number_of_i2c_channels" className="form-input flex-1" value={params.number_of_i2c_channels} onChange={handleInputChange} placeholder="Enter number of I2C channels" />
+                                    <input id="number_of_i2c_channels" type="text" name="number_of_i2c_channels" className="form-input flex-1" value={params.number_of_i2c_channels || ''} onChange={handleInputChange} placeholder="Enter number of I2C channels" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_timers_counters" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of Timers/Counters
                                     </label>
-                                    <input id="number_of_timers_counters" type="text" name="number_of_timers_counters" className="form-input flex-1" value={params.number_of_timers_counters} onChange={handleInputChange} placeholder="Enter number of timers/counters" />
+                                    <input id="number_of_timers_counters" type="text" name="number_of_timers_counters" className="form-input flex-1" value={params.number_of_timers_counters || ''} onChange={handleInputChange} placeholder="Enter number of timers/counters" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_usart_channels" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of USART Channels
                                     </label>
-                                    <input id="number_of_usart_channels" type="text" name="number_of_usart_channels" className="form-input flex-1" value={params.number_of_usart_channels} onChange={handleInputChange} placeholder="Enter number of USART channels" />
+                                    <input id="number_of_usart_channels" type="text" name="number_of_usart_channels" className="form-input flex-1" value={params.number_of_usart_channels || ''} onChange={handleInputChange} placeholder="Enter number of USART channels" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="mount" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -852,31 +869,31 @@ const Add = () => {
                                     <label htmlFor="radiation_hardening" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Radiation Hardening
                                     </label>
-                                    <input id="radiation_hardening" type="text" name="radiation_hardening" className="form-input flex-1" value={params.radiation_hardening} onChange={handleInputChange} placeholder="Enter radiation hardening" />
+                                    <input id="radiation_hardening" type="text" name="radiation_hardening" className="form-input flex-1" value={params.radiation_hardening || ''} onChange={handleInputChange} placeholder="Enter radiation hardening" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="schedule_b" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Schedule B
                                     </label>
-                                    <input id="schedule_b" type="text" name="schedule_b" className="form-input flex-1" value={params.schedule_b} onChange={handleInputChange} placeholder="Enter schedule B" />
+                                    <input id="schedule_b" type="text" name="schedule_b" className="form-input flex-1" value={params.schedule_b || ''} onChange={handleInputChange} placeholder="Enter schedule B" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="termination" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Termination
                                     </label>
-                                    <input id="termination" type="text" name="termination" className="form-input flex-1" value={params.termination} onChange={handleInputChange} placeholder="Enter termination" />
+                                    <input id="termination" type="text" name="termination" className="form-input flex-1" value={params.termination || ''} onChange={handleInputChange} placeholder="Enter termination" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="voltage" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Voltage
                                     </label>
-                                    <input id="voltage" type="text" name="voltage" className="form-input flex-1" value={params.voltage} onChange={handleInputChange} placeholder="Enter voltage" />
+                                    <input id="voltage" type="text" name="voltage" className="form-input flex-1" value={params.voltage || ''} onChange={handleInputChange} placeholder="Enter voltage" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="voltage_rating" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Voltage Rating
                                     </label>
-                                    <input id="voltage_rating" type="text" name="voltage_rating" className="form-input flex-1" value={params.voltage_rating} onChange={handleInputChange} placeholder="Enter voltage rating" />
+                                    <input id="voltage_rating" type="text" name="voltage_rating" className="form-input flex-1" value={params.voltage_rating || ''}  onChange={handleInputChange} placeholder="Enter voltage rating" />
                                 </div>
 
                             </div>
@@ -885,37 +902,37 @@ const Add = () => {
                                     <label htmlFor="spq" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         SPQ
                                     </label>
-                                    <input id="spq" type="text" name="spq" className="form-input flex-1" value={params.spq} onChange={handleInputChange} placeholder="Enter SPQ" />
+                                    <input id="spq" type="text" name="spq" className="form-input flex-1" value={params.spq || '' } onChange={handleInputChange} placeholder="Enter SPQ" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="weight_in_kg" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Weight in kg
                                     </label>
-                                    <input id="weight_in_kg" type="text" name="weight_in_kg" className="form-input flex-1" value={params.weight_in_kg} onChange={handleInputChange} placeholder="Enter weight in kg" />
+                                    <input id="weight_in_kg" type="text" name="weight_in_kg" className="form-input flex-1" value={params.weight_in_kg || ''} onChange={handleInputChange} placeholder="Enter weight in kg" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="composition" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Composition
                                     </label>
-                                    <input id="composition" type="text" name="composition" className="form-input flex-1" value={params.composition} onChange={handleInputChange} placeholder="Enter composition" />
+                                    <input id="composition" type="text" name="composition" className="form-input flex-1" value={params.composition || ''} onChange={handleInputChange} placeholder="Enter composition" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="core_architecture" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Core Architecture
                                     </label>
-                                    <input id="core_architecture" type="text" name="core_architecture" className="form-input flex-1" value={params.core_architecture} onChange={handleInputChange} placeholder="Enter core architecture" />
+                                    <input id="core_architecture" type="text" name="core_architecture" className="form-input flex-1" value={params.core_architecture || ''} onChange={handleInputChange} placeholder="Enter core architecture" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="ram_size" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         RAM Size
                                     </label>
-                                    <input id="ram_size" type="text" name="ram_size" className="form-input flex-1" value={params.ram_size} onChange={handleInputChange} placeholder="Enter RAM size" />
+                                    <input id="ram_size" type="text" name="ram_size" className="form-input flex-1" value={params.ram_size || ''} onChange={handleInputChange} placeholder="Enter RAM size" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="material" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Material
                                     </label>
-                                    <input id="material" type="text" name="material" className="form-input flex-1" value={params.material} onChange={handleInputChange} placeholder="Enter material" />
+                                    <input id="material" type="text" name="material" className="form-input flex-1" value={params.material || ''} onChange={handleInputChange} placeholder="Enter material" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="usage_unit" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -935,67 +952,67 @@ const Add = () => {
                                     <label htmlFor="unit_price" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Unit Price
                                     </label>
-                                    <input id="unit_price" type="text" name="unit_price" className="form-input flex-1" value={params.unit_price} onChange={handleInputChange} placeholder="Enter unit price" />
+                                    <input id="unit_price" type="text" name="unit_price" className="form-input flex-1" value={params.unit_price || ''} onChange={handleInputChange} placeholder="Enter unit price" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="min_operating_temperature" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Min Operating Temperature
                                     </label>
-                                    <input id="min_operating_temperature" type="text" name="min_operating_temperature" className="form-input flex-1" value={params.min_operating_temperature} onChange={handleInputChange} placeholder="Enter min operating temperature" />
+                                    <input id="min_operating_temperature" type="text" name="min_operating_temperature" className="form-input flex-1" value={params.min_operating_temperature || ''} onChange={handleInputChange} placeholder="Enter min operating temperature" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="min_supply_voltage" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Min Supply Voltage
                                     </label>
-                                    <input id="min_supply_voltage" type="text" name="min_supply_voltage" className="form-input flex-1" value={params.min_supply_voltage} onChange={handleInputChange} placeholder="Enter min supply voltage" />
+                                    <input id="min_supply_voltage" type="text" name="min_supply_voltage" className="form-input flex-1" value={params.min_supply_voltage || ''} onChange={handleInputChange} placeholder="Enter min supply voltage" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="nominal_supply_current" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Nominal Supply Current
                                     </label>
-                                    <input id="nominal_supply_current" type="text" name="nominal_supply_current" className="form-input flex-1" value={params.nominal_supply_current} onChange={handleInputChange} placeholder="Enter nominal supply current" />
+                                    <input id="nominal_supply_current" type="text" name="nominal_supply_current" className="form-input flex-1" value={params.nominal_supply_current || ''} onChange={handleInputChange} placeholder="Enter nominal supply current" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_channels" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of Channels
                                     </label>
-                                    <input id="number_of_channels" type="text" name="number_of_channels" className="form-input flex-1" value={params.number_of_channels} onChange={handleInputChange} placeholder="Enter number of channels" />
+                                    <input id="number_of_channels" type="text" name="number_of_channels" className="form-input flex-1" value={params.number_of_channels || ''} onChange={handleInputChange} placeholder="Enter number of channels" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_ios" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of I/Os
                                     </label>
-                                    <input id="number_of_ios" type="text" name="number_of_ios" className="form-input flex-1" value={params.number_of_ios} onChange={handleInputChange} placeholder="Enter number of I/Os" />
+                                    <input id="number_of_ios" type="text" name="number_of_ios" className="form-input flex-1" value={params.number_of_ios || ''} onChange={handleInputChange} placeholder="Enter number of I/Os" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_spi_channels" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of SPI Channels
                                     </label>
-                                    <input id="number_of_spi_channels" type="text" name="number_of_spi_channels" className="form-input flex-1" value={params.number_of_spi_channels} onChange={handleInputChange} placeholder="Enter number of SPI channels" />
+                                    <input id="number_of_spi_channels" type="text" name="number_of_spi_channels" className="form-input flex-1" value={params.number_of_spi_channels || ''} onChange={handleInputChange} placeholder="Enter number of SPI channels" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="number_of_uart_channels" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Number of UART Channels
                                     </label>
-                                    <input id="number_of_uart_channels" type="text" name="number_of_uart_channels" className="form-input flex-1" value={params.number_of_uart_channels} onChange={handleInputChange} placeholder="Enter number of UART channels" />
+                                    <input id="number_of_uart_channels" type="text" name="number_of_uart_channels" className="form-input flex-1" value={params.number_of_uart_channels || ''} onChange={handleInputChange} placeholder="Enter number of UART channels" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="resistance" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Resistance
                                     </label>
-                                    <input id="resistance" type="text" name="resistance" className="form-input flex-1" value={params.resistance} onChange={handleInputChange} placeholder="Enter resistance" />
+                                    <input id="resistance" type="text" name="resistance" className="form-input flex-1" value={params.resistance || ''} onChange={handleInputChange} placeholder="Enter resistance" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="temperature_coefficient" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Temperature Coefficient
                                     </label>
-                                    <input id="temperature_coefficient" type="text" name="temperature_coefficient" className="form-input flex-1" value={params.temperature_coefficient} onChange={handleInputChange} placeholder="Enter temperature coefficient" />
+                                    <input id="temperature_coefficient" type="text" name="temperature_coefficient" className="form-input flex-1" value={params.temperature_coefficient || ''} onChange={handleInputChange} placeholder="Enter temperature coefficient" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="tolerance" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Tolerance
                                     </label>
-                                    <input id="tolerance" type="text" name="tolerance" className="form-input flex-1" value={params.tolerance} onChange={handleInputChange} placeholder="Enter tolerance" />
+                                    <input id="tolerance" type="text" name="tolerance" className="form-input flex-1" value={params.tolerance || ''} onChange={handleInputChange} placeholder="Enter tolerance" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="duplicated_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -1014,7 +1031,7 @@ const Add = () => {
                                     <label htmlFor="voltage_rating_dc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Voltage Rating (DC)
                                     </label>
-                                    <input id="voltage_rating_dc" type="text" name="voltage_rating_dc" className="form-input flex-1" value={params.voltage_rating_dc} onChange={handleInputChange} placeholder="Enter voltage rating (DC)" />
+                                    <input id="voltage_rating_dc" type="text" name="voltage_rating_dc" className="form-input flex-1" value={params.voltage_rating_dc || ''} onChange={handleInputChange} placeholder="Enter voltage rating (DC)" />
                                 </div>
 
                             </div>
@@ -1033,21 +1050,21 @@ const Add = () => {
                                     <label htmlFor="length" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Length
                                     </label>
-                                    <input id="length" type="text" name="length" className="form-input flex-1" value={params.length} onChange={handleInputChange} placeholder="Enter length" />
+                                    <input id="length" type="text" name="length" className="form-input flex-1" value={params.length || ''} onChange={handleInputChange} placeholder="Enter length" />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="depth" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Depth
                                     </label>
-                                    <input id="depth" type="text" name="depth" className="form-input flex-1" value={params.depth} onChange={handleInputChange} placeholder="Enter depth" />
+                                    <input id="depth" type="text" name="depth" className="form-input flex-1" value={params.depth || ''} onChange={handleInputChange} placeholder="Enter depth" />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="thickness" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Thickness
                                     </label>
-                                    <input id="thickness" type="text" name="thickness" className="form-input flex-1" value={params.thickness} onChange={handleInputChange} placeholder="Enter thickness" />
+                                    <input id="thickness" type="text" name="thickness" className="form-input flex-1" value={params.thickness || ''} onChange={handleInputChange} placeholder="Enter thickness" />
                                 </div>
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
@@ -1055,14 +1072,14 @@ const Add = () => {
                                     <label htmlFor="width" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Width
                                     </label>
-                                    <input id="width" type="text" name="width" className="form-input flex-1" value={params.width} onChange={handleInputChange} placeholder="Enter width" />
+                                    <input id="width" type="text" name="width" className="form-input flex-1" value={params.width || ''} onChange={handleInputChange} placeholder="Enter width" />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="height" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Height
                                     </label>
-                                    <input id="height" type="text" name="height" className="form-input flex-1" value={params.height} onChange={handleInputChange} placeholder="Enter height" />
+                                    <input id="height" type="text" name="height" className="form-input flex-1" value={params.height || ''} onChange={handleInputChange} placeholder="Enter height" />
                                 </div>
                             </div>
 
@@ -1081,7 +1098,7 @@ const Add = () => {
                                         RoHs
                                     </label>
                                     <label htmlFor="rohhs" className="flex items-center cursor-pointer">
-                                        <input type="checkbox" name="rohhs" className="form-checkbox" checked={params.rohhs} onChange={handleInputChange} />
+                                        <input type="checkbox" name="rohhs" className="form-checkbox" checked={params.rohs || ''} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> RoHs</span>
                                     </label>
                                 </div>
@@ -1090,7 +1107,7 @@ const Add = () => {
                                         Reach
                                     </label>
                                     <label htmlFor="reach" className="flex items-center cursor-pointer">
-                                        <input type="checkbox" name="reach" className="form-checkbox" checked={params.reach} onChange={handleInputChange} />
+                                        <input type="checkbox" name="reach" className="form-checkbox" checked={params.reach || ''} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> Reach </span>
                                     </label>
                                 </div>
@@ -1101,14 +1118,14 @@ const Add = () => {
                                     <label htmlFor="rohs_status" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         RoHs Status
                                     </label>
-                                    <input id="rohs_status" type="text" name="rohs_status" className="form-input flex-1" value={params.rohs_status} onChange={handleInputChange} placeholder="Enter  RoHs Status " />
+                                    <input id="rohs_status" type="text" name="rohs_status" className="form-input flex-1" value={params.rohs_status || ''} onChange={handleInputChange} placeholder="Enter  RoHs Status " />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="reach_svhc" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         REACH SVHC
                                     </label>
-                                    <input id="reach_svhc" type="text" name="reach_svhc" className="form-input flex-1" value={params.reach_svhc} onChange={handleInputChange} placeholder="Enter  REACH SVHC" />
+                                    <input id="reach_svhc" type="text" name="reach_svhc" className="form-input flex-1" value={params.reach_svhc || ''} onChange={handleInputChange} placeholder="Enter  REACH SVHC" />
                                 </div>
                             </div>
                         </div>
@@ -1133,7 +1150,7 @@ const Add = () => {
                                             </div>
                                         </span>
                                     </label>
-                                    <input id="quantity_in_stock" type="text" name="quantity_in_stock" className="form-input flex-1" value={params.quantity_in_stock} onChange={handleInputChange} placeholder="Enter Quantity in Stock" />
+                                    <input id="quantity_in_stock" type="text" name="quantity_in_stock" className="form-input flex-1" value={params.quantity_in_stock || ''} onChange={handleInputChange} placeholder="Enter Quantity in Stock" />
                                 </div>
                             </div>
 
@@ -1151,7 +1168,7 @@ const Add = () => {
                                             </div>
                                         </span>
                                     </label>
-                                    <input id="qty_ordered" type="text" name="qty_ordered" className="form-input flex-1" value={params.qty_ordered} onChange={handleInputChange} placeholder="Enter Qty Ordered" />
+                                    <input id="qty_ordered" type="text" name="qty_ordered" className="form-input flex-1" value={params.qty_ordered || ''} onChange={handleInputChange} placeholder="Enter Qty Ordered" />
                                 </div>
                                 <div className="flex items-center mt-4">
                                     <label htmlFor="quantity_in_demand" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
@@ -1165,7 +1182,7 @@ const Add = () => {
                                             </div>
                                         </span>
                                     </label>
-                                    <input id="quantity_in_demand" type="text" name="quantity_in_demand" className="form-input flex-1" value={params.quantity_in_demand} onChange={handleInputChange} placeholder="Enter Quantity in Demand" />
+                                    <input id="quantity_in_demand" type="text" name="quantity_in_demand" className="form-input flex-1" value={params.quantity_in_demand || ''} onChange={handleInputChange} placeholder="Enter Quantity in Demand" />
                                 </div>
 
                             </div>
@@ -1269,7 +1286,7 @@ const Add = () => {
                                     <label htmlFor="tariff_code" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Tariff Code
                                     </label>
-                                    <input id="tariff_code" type="text" name="tariff_code" className="form-input flex-1" value={params.tariff_code} onChange={handleInputChange} placeholder="Enter tariff code" />
+                                    <input id="tariff_code" type="text" name="tariff_code" className="form-input flex-1" value={params.tariff_code || ''} onChange={handleInputChange} placeholder="Enter tariff code" />
                                 </div>
 
                             </div>
@@ -1278,7 +1295,7 @@ const Add = () => {
                                     <label htmlFor="eccn" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         ECCN
                                     </label>
-                                    <input id="eccn" type="text" name="eccn" className="form-input flex-1" value={params.eccn} onChange={handleInputChange} placeholder="Enter ECCN" />
+                                    <input id="eccn" type="text" name="eccn" className="form-input flex-1" value={params.eccn || ''} onChange={handleInputChange} placeholder="Enter ECCN" />
                                 </div>
                             </div>
                         </div>
@@ -1295,14 +1312,14 @@ const Add = () => {
                                     <label htmlFor="octopart_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Octopart ID
                                     </label>
-                                    <input id="octopart_id" type="text" name="octopart_id" className="form-input flex-1" value={params.octopart_id} onChange={handleInputChange} placeholder="Enter Octopart ID" />
+                                    <input id="octopart_id" type="text" name="octopart_id" className="form-input flex-1" value={params.octopart_id || ''} onChange={handleInputChange} placeholder="Enter Octopart ID" />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="octopart_url" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Octopart URL
                                     </label>
-                                    <input id="octopart_url" type="text" name="octopart_url" className="form-input flex-1" value={params.octopart_url} onChange={handleInputChange} placeholder="Enter Octopart URL" />
+                                    <input id="octopart_url" type="text" name="octopart_url" className="form-input flex-1" value={params.octopart_url || ''} onChange={handleInputChange} placeholder="Enter Octopart URL" />
                                 </div>
 
                                 <div className="mt-4 flex items-center">
@@ -1310,7 +1327,7 @@ const Add = () => {
                                         Update By Mouser
                                     </label>
                                     <label htmlFor="update_by_mouser" className="flex items-center cursor-pointer">
-                                        <input type="checkbox" name="update_by_mouser" className="form-checkbox" checked={params.update_by_mouser} onChange={handleInputChange} />
+                                        <input type="checkbox" name="update_by_mouser" className="form-checkbox" checked={params.update_by_mouser || ''} onChange={handleInputChange} />
                                         <span className=" text-white-dark"> Update By Mouser</span>
                                     </label>
                                 </div>
@@ -1319,12 +1336,12 @@ const Add = () => {
                                     <label htmlFor="zoho_books_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         ZohoBooks ID
                                     </label>
-                                    <input id="zoho_books_id" type="text" name="zoho_books_id" className="form-input flex-1" value={params.zoho_books_id} onChange={handleInputChange} placeholder="Enter ZohoBooks ID" />
+                                    <input id="zoho_books_id" type="text" name="zoho_books_id" className="form-input flex-1" value={params.zoho_books_id || ''} onChange={handleInputChange} placeholder="Enter ZohoBooks ID" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="op_last_update" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         OP Last Update                                     </label>
-                                    <input id="op_last_update" type="date" name="op_last_update" className="form-input flex-1" value={params.op_last_update} onChange={handleInputChange} placeholder="" />
+                                    <input id="op_last_update" type="date" name="op_last_update" className="form-input flex-1" value={params.op_last_update || ''} onChange={handleInputChange} placeholder="" />
                                     <button type="button" className="btn btn-clear ltr:ml-2 rtl:mr-2 rounded"
                                         onClick={() => {
                                             setParams(prevState => ({ ...prevState, op_last_update: "" }));
@@ -1336,7 +1353,7 @@ const Add = () => {
                                     <label htmlFor="op_failure_message" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         OP Failure Message
                                     </label>
-                                    <input id="op_failure_message" type="text" name="op_failure_message" className="form-input flex-1" value={params.op_failure_message} onChange={handleInputChange} placeholder="Enter OP Failure Message" />
+                                    <input id="op_failure_message" type="text" name="op_failure_message" className="form-input flex-1" value={params.op_failure_message || ''} onChange={handleInputChange} placeholder="Enter OP Failure Message" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="octopart_images" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -1345,7 +1362,7 @@ const Add = () => {
                                     <textarea id="octopart_images"
                                         name="octopart_images"
                                         className="form-input flex-1"
-                                        value={params.octopart_images}
+                                        value={params.octopart_images || ''}
                                         onChange={handleInputChange}
                                         placeholder="Enter Octopart images links..."
                                         rows="3"
@@ -1358,7 +1375,7 @@ const Add = () => {
                                     <textarea id="octopart_datasheets"
                                         name="octopart_datasheets"
                                         className="form-input flex-1"
-                                        value={params.octopart_datasheets}
+                                        value={params.octopart_datasheets || ''}
                                         onChange={handleInputChange}
                                         placeholder="Enter Octopart datasheet links..."
                                         rows="3"
@@ -1372,7 +1389,7 @@ const Add = () => {
                                     <textarea id="octopart_compliance_documents"
                                         name="octopart_compliance_documents"
                                         className="form-input flex-1"
-                                        value={params.octopart_compliance_documents}
+                                        value={params.octopart_compliance_documents || ''}
                                         onChange={handleInputChange}
                                         placeholder="Enter Octopart compliance document links..."
                                         rows="3"
@@ -1386,25 +1403,25 @@ const Add = () => {
                                     <label htmlFor="mouser_url" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Mouser URL
                                     </label>
-                                    <input id="mouser_url" type="text" name="mouser_url" className="form-input flex-1" value={params.mouser_url} onChange={handleInputChange} placeholder="Enter Mouser URL" />
+                                    <input id="mouser_url" type="text" name="mouser_url" className="form-input flex-1" value={params.mouser_url || ''} onChange={handleInputChange} placeholder="Enter Mouser URL" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="mouser_id" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Mouser ID
                                     </label>
-                                    <input id="mouser_id" type="text" name="mouser_id" className="form-input flex-1" value={params.mouser_id} onChange={handleInputChange} placeholder="Enter Mouser ID" />
+                                    <input id="mouser_id" type="text" name="mouser_id" className="form-input flex-1" value={params.mouser_id || ''} onChange={handleInputChange} placeholder="Enter Mouser ID" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="mouser_category" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Mouser Category
                                     </label>
-                                    <input id="mouser_category" type="text" name="mouser_category" className="form-input flex-1" value={params.mouser_category} onChange={handleInputChange} placeholder="Enter Mouser Category" />
+                                    <input id="mouser_category" type="text" name="mouser_category" className="form-input flex-1" value={params.mouser_category || ''} onChange={handleInputChange} placeholder="Enter Mouser Category" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="m_last_update" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         M Last Update
                                     </label>
-                                    <input id="m_last_update" type="date" name="m_last_update" className="form-input flex-1" value={params.m_last_update} onChange={handleInputChange} />
+                                    <input id="m_last_update" type="date" name="m_last_update" className="form-input flex-1" value={params.m_last_update || ''} onChange={handleInputChange} />
                                     <button type="button" className="btn btn-clear ltr:ml-2 rtl:mr-2 rounded"
                                         onClick={() => {
                                             setParams(prevState => ({ ...prevState, m_last_update: "" }));
@@ -1425,7 +1442,7 @@ const Add = () => {
                                             </div>
                                         </span>
                                     </label>
-                                    <input id="product_margin" type="text" name="product_margin" className="form-input flex-1" value={params.product_margin} onChange={handleInputChange} placeholder="Enter Product Margin" />
+                                    <input id="product_margin" type="text" name="product_margin" className="form-input flex-1" value={params.product_margin || ''} onChange={handleInputChange} placeholder="Enter Product Margin" />
                                 </div>
                             </div>
                         </div>
@@ -1445,7 +1462,7 @@ const Add = () => {
                                     <textarea id="description"
                                         name="description"
                                         className="form-input flex-1"
-                                        value={params.description}
+                                        value={params.description || ''}
                                         onChange={handleInputChange}
                                         placeholder="Enter description..."
                                         rows="3"
@@ -1458,7 +1475,7 @@ const Add = () => {
                                     <label htmlFor="octopart_short_description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                     Octopart Short Description 
                                     </label>
-                                    <input id="octopart_short_description" type="text" name="octopart_short_description" className="form-input flex-1" value={params.octopart_short_description} onChange={handleInputChange} placeholder="Enter description" />
+                                    <input id="octopart_short_description" type="text" name="octopart_short_description" className="form-input flex-1" value={params.octopart_short_description || ''} onChange={handleInputChange} placeholder="Enter description" />
                                 </div>
                             </div>
                         </div>
