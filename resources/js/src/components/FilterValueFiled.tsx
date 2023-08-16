@@ -69,9 +69,17 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         handleValueChange(field, combinedValue);
     };
     const handleSelectMultiple = (field, selectedOptions) => {
-        const transformedObject = {
-            options: selectedOptions.map(item => item.value)
-        };
+        let transformedObject;
+
+        if (Array.isArray(selectedOptions)) {
+            transformedObject = {
+                options: selectedOptions.map(item => item.value)
+            };
+        } else {
+            transformedObject = {
+                options: [selectedOptions.value]
+            };
+        }
 
         handleValueChange(field, transformedObject);
     };
