@@ -64,7 +64,9 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
         else if(condtion === 'is')
         {
-            
+            combinedValue = {
+                options: selectedOptions.map(item => item.value)
+            };
         }
         handleValueChange(field, combinedValue);
     };
@@ -260,7 +262,11 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                         <Select placeholder="Select an option"
                             onChange={(e) => handleSelectMultipleDuration(option.value, e ,'is')}
                             options={type_condition_ops_formed} isMulti />
-                        <div className="flex mt-4">
+                        <div className=" mt-4">
+                            
+                            <label className="block font-semibold">Duration:</label>
+                            
+                            <div className="mb-2">
                                 <input
                                     type="number"
                                     placeholder='Days'
@@ -281,7 +287,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                                 <option value="<=">&lt;=</option>
                                 <option value=">=">&gt;=</option>
                                 </select>
-
+                                </div>
                         </div>
                     </>
                 );                
