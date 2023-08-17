@@ -4,14 +4,18 @@ import {RequiredComponent} from "../../../components/FormFields/RequiredComponen
 import 'flatpickr/dist/flatpickr.css';
 import Header from "../../../components/Layouts/Header";
 import {RFQHeaderSection} from "./HeaderSection";
+import {LineSection} from "./LineSection";
+import React from "react";
 
 
 const RFQFormField = () => {
     return (
         <div className="mt-8 px-4">
-            <div className="flex justify-between lg:flex-row flex-col">
-                <RFQHeaderSection/>
-            </div>
+            <RFQHeaderSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <LineSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
         </div>
     )
 
