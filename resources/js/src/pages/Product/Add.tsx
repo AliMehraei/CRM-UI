@@ -12,7 +12,6 @@ const Add = () => {
         dispatch(setPageTitle('Product Add'));
     });
     const api_instance = new api();
-
     const getDefaultParams =() =>({
         product_name: null,
         part_description: null,
@@ -110,6 +109,61 @@ const Add = () => {
         octopart_short_description: null,
     });
     const [params, setParams] = useState(getDefaultParams());
+    const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
+    const [selectedProductOwner, setSelectedProductOwner] = useState([]);
+    const [selectedProductType, setSelectedProductType] = useState({ label: '-None-', value: null });
+    const productTypeOptions = [
+        { label: '-None-', value: null },
+        { label: 'Goods', value: 'goods' },
+        { label: 'Service', value: 'service' },
+    ];
+    const [selectedLifecylceStatus, setSelectedLifecylceStatus] = useState({ label: '-None-', value: null });
+    const lifecylceStatusOptions = [
+        { label: '-None-', value: null },
+        { label: 'Production', value: 'production' },
+        { label: 'Phase out', value: 'phase_out' },
+        { label: 'EOL', value: 'eol' },
+        { label: 'Unknown', value: 'unknown' },
+    ];
+    const [selectedUsageUnit, setselectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
+    const usageUnitOptions = [
+        { label: 'PCS', value: 'pcs' },
+    ];
+    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null });
+    const duplicatedOptions = [
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
+            value: 'must_be_deleted'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
+            value: 'must_be_merged'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
+            value: 'must_be_renamed'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
+            value: 'delete_confirmed'
+        },
+    ];
+    const [selectedPackage, setSelectedPackage] = useState({ label: '-None-', value: null });
+    const packageOptions = [
+        { label: '-None-', value: null },
+        { label: 'SMD', value: 'smd' },
+        { label: 'THT', value: 'tht' },
+        { label: 'Peripheral', value: 'peripheral' },
+        { label: 'Other', value: 'other' },
+    ];
+    const [selectedManufacture, setSelectedManufacture] = useState([]);
+    const [selectedAltMpn1, setSelectedAltMpn1] = useState([]);
+    const [selectedAltMpn2, setSelectedAltMpn2] = useState([]);
+    const [selectedAltMpn3, setSelectedAltMpn3] = useState([]);
+    const [selectedAltMpn4, setSelectedAltMpn4] = useState([]);
+    const [selectedRfq, setSelectedRfq] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
+    const [categoryOptions, setCategoryOptions] = useState([]);
     const clearForm = () => {
         setParams(getDefaultParams());
         setSelectedAporvedBy([]);
@@ -165,7 +219,6 @@ const Add = () => {
     
         return null;
     };
-    
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -180,14 +233,6 @@ const Add = () => {
             padding: '10px 20px',
         });
     };
-    const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
-    const [selectedProductOwner, setSelectedProductOwner] = useState([]);
-    const [selectedProductType, setSelectedProductType] = useState({ label: '-None-', value: null });
-    const productTypeOptions = [
-        { label: '-None-', value: null },
-        { label: 'Goods', value: 'goods' },
-        { label: 'Service', value: 'service' },
-    ];
     const handleProductTypeChange = (selectedOption) => {
         setSelectedProductType(selectedOption);
         setParams({
@@ -195,14 +240,6 @@ const Add = () => {
             product_type: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedLifecylceStatus, setSelectedLifecylceStatus] = useState({ label: '-None-', value: null });
-    const lifecylceStatusOptions = [
-        { label: '-None-', value: null },
-        { label: 'Production', value: 'production' },
-        { label: 'Phase out', value: 'phase_out' },
-        { label: 'EOL', value: 'eol' },
-        { label: 'Unknown', value: 'unknown' },
-    ];
     const handleLifecylceStatusChange = (selectedOption) => {
         setSelectedLifecylceStatus(selectedOption);
         setParams({
@@ -210,10 +247,6 @@ const Add = () => {
             lifecycle_status: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedUsageUnit, setselectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
-    const usageUnitOptions = [
-        { label: 'PCS', value: 'pcs' },
-    ];
     const handleUsageUnitChange = (selectedOption) => {
         setselectedUsageUnit(selectedOption);
         setParams({
@@ -221,25 +254,6 @@ const Add = () => {
             usage_unit: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null });
-    const duplicatedOptions = [
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
-            value: 'must_be_deleted'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
-            value: 'must_be_merged'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
-            value: 'must_be_renamed'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
-            value: 'delete_confirmed'
-        },
-    ];
     const handleDuplicatedChange = (selectedOption) => {
         setselectedDuplicated(selectedOption);
         setParams({
@@ -247,14 +261,6 @@ const Add = () => {
             duplicated_status: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedPackage, setSelectedPackage] = useState({ label: '-None-', value: null });
-    const packageOptions = [
-        { label: '-None-', value: null },
-        { label: 'SMD', value: 'smd' },
-        { label: 'THT', value: 'tht' },
-        { label: 'Peripheral', value: 'peripheral' },
-        { label: 'Other', value: 'other' },
-    ];
     const handlePackageChange = (selectedOption) => {
         setSelectedPackage(selectedOption);
         setParams({
@@ -325,11 +331,6 @@ const Add = () => {
             return [];
         }
     };
-    const [selectedManufacture, setSelectedManufacture] = useState([]);
-    const [selectedAltMpn1, setSelectedAltMpn1] = useState([]);
-    const [selectedAltMpn2, setSelectedAltMpn2] = useState([]);
-    const [selectedAltMpn3, setSelectedAltMpn3] = useState([]);
-    const [selectedAltMpn4, setSelectedAltMpn4] = useState([]);
     const loadManufacturers = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
@@ -358,7 +359,6 @@ const Add = () => {
             return [];
         }
     };
-    const [selectedRfq, setSelectedRfq] = useState([]);
     const loadRfqs = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
@@ -470,8 +470,6 @@ const Add = () => {
             console.error(`Unknown type: ${type}`);
         }
     };
-    const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
-    const [categoryOptions, setCategoryOptions] = useState([]);
     const loadCategory = async () => {
         try {
             const res = await api_instance.loadCategory();
