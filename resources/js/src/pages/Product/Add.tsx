@@ -144,7 +144,6 @@ const Add = () => {
             const response = await api_instance.create_single_product(params);
             if (response.data.status) {
                 showMessage('Product successfully added');
-                console.log(getDefaultParams);
                 clearForm();            
                 } else {
                 showMessage('Error adding the product', 'error'); 
@@ -365,9 +364,7 @@ const Add = () => {
         const valField = 'id';
         const rfqName = 'rfq_name';
         try {
-            const result = await api_instance.loadRfqs(inputValue);  
-            console.log(result.data);
-                      
+            const result = await api_instance.loadRfqs(inputValue);                        
             if (result.status) {
                 const options = result.data.map((rfq) => ({
                     value: rfq[valField],

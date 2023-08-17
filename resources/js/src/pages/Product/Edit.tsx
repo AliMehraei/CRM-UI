@@ -172,7 +172,8 @@ const Edit = () => {
         try {
             const response = await api_instance.fetch_single_product(id);
             if (response.data.status) {
-                const productData = response.data.data;
+                const productData = response.data.data.product;
+                const productRfqData = response.data.data.old_rfqs;
                 setParams(productData);
                 setParams(prevState => ({
                     ...prevState,
@@ -186,8 +187,8 @@ const Edit = () => {
                 await setInitialManufacturers(productData.alternative_mpn_2 , 'mpn2'); 
                 await setInitialManufacturers(productData.alternative_mpn_3 , 'mpn3'); 
                 await setInitialManufacturers(productData.alternative_mpn_4 , 'mpn4'); 
-
-                setProductData(productData);
+                await setInitialRfq(productRfqData);
+                 setProductData(productData);
             } else {
                 showMessage('Error fetching product: ', 'error'); 
                 console.error('Error fetching product', response.data.message);
@@ -446,7 +447,15 @@ const Edit = () => {
             const result = await api_instance.loadManufacturersById({ id: manId });
             const manufacturer = result.data.data;
             if (manufacturer) {
-                setterFunction(constructManufacturerOption(manufacturer));
+                const constructManufacturerOption = {
+                    value: manufacturer.id,
+                    label: (
+                        <div className="flex items-center">
+                            <div className="text-sm font-bold">{manufacturer.name}</div>
+                        </div>
+                    )
+                };
+                setterFunction(constructManufacturerOption);
             } else {
                 console.error('An error occurred while fetching manufacturer', result.message);
                 setterFunction(null);
@@ -456,25 +465,33 @@ const Edit = () => {
             setterFunction(null);
         }
     };
-    const constructManufacturerOption = (manufacturer) => {
-        return {
-            value: manufacturer.id,
-            label: (
-                <div className="flex items-center">
-                    <div className="text-sm font-bold">{manufacturer.name}</div>
-                </div>
-            )
-        };
+    const setInitialRfq = async (old_rfqs) => {
+        if (!old_rfqs || !Array.isArray(old_rfqs) || old_rfqs.length === 0) {
+            setSelectedRfq(null);  
+            return;
+        }
+        try {
+            const selectedRfqOptions = old_rfqs.map(rfq => ({
+                value: rfq.id,
+                label: (
+                    <div className="flex items-center">
+                        <div className="text-sm font-bold">{rfq.rfq_name}</div>
+                    </div>
+                )
+            }));
+            
+            setSelectedRfq(selectedRfqOptions);
+        } catch (error) {
+            console.error('An error occurred while setting initial RFQs:', error);
+            setSelectedRfq(null);
+        }
     };
-    
     const loadRfqs = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
         const rfqName = 'rfq_name';
         try {
-            const result = await api_instance.loadRfqs(inputValue);  
-            console.log(result.data);
-                      
+            const result = await api_instance.loadRfqs(inputValue);                        
             if (result.status) {
                 const options = result.data.map((rfq) => ({
                     value: rfq[valField],
@@ -496,6 +513,8 @@ const Edit = () => {
     };
     const handleRfqChange = (selectedRfqs) => {
         setSelectedRfq(selectedRfqs);
+        console.log(selectedRfq);
+        
         setParams({
             ...params,
             rfq: selectedRfqs ? selectedRfqs.map(rfq => rfq.value) : [],
@@ -597,7 +616,6 @@ const Edit = () => {
             console.error('Error fetching categories:', error);
         }
     };
-    
     useEffect(() => {
         if (productData && categoryOptions.length > 0) {
             initializeDropdowns(productData);
@@ -613,7 +631,6 @@ const Edit = () => {
     useEffect(() => {
         loadCategory();
     }, []);
-   
     return (<>            
             <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
             <div className="flex items-center gap-2">
