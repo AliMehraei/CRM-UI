@@ -119,9 +119,16 @@ const Edit = () => {
             const response = await api_instance.fetch_single_product(id);
             if (response.data.status) {
                 const productData = response.data.data;
-                setParams(productData); 
-                const lifecycleOption = findLifecycleStatusOption(productData.lifecycle_status);
-                setSelectedLifecylceStatus(lifecycleOption);
+                setParams(productData);
+                setParams(prevState => ({
+                    ...prevState,
+                    m_last_update: formatDate(productData.m_last_update)
+                })); 
+                setParams(prevState => ({
+                    ...prevState,
+                    op_last_update: formatDate(productData.op_last_update)
+                })); 
+                initializeDropdowns(productData);
                 setInitialApprover(productData.approved_by);
                
             } else {
@@ -132,14 +139,26 @@ const Edit = () => {
             showMessage('Error fetching product: Network error', 'error'); 
             console.error('Error fetching product', error);
         }
-    };  
+    };
+    
+    const initializeDropdowns = (productData) => {
+        setSelectedLifecylceStatus(findOption(lifecylceStatusOptions, productData.lifecycle_status));
+        setSelectedPackage(findOption(packageOptions, productData.package));
+        setSelectedProductType(findOption(productTypeOptions, productData.product_type));
+        setSelectedUsageUnit(findOption(usageUnitOptions, productData.usage_unit));
+        setSelectedDuplicated(findOption(duplicatedOptions, productData.duplicated_status));
+    };
+    const findOption = (options, value) => {
+        return options.find(option => option.value === value) || null;
+    };
+    const formatDate = (dateStr) => {
+        const date = new Date(dateStr);
+        return date.toISOString().split('T')[0];
+    };
     useEffect(() => {
         fetchProductData();
     }, [id,API_URL_PRODUCT]);
 
-    const findLifecycleStatusOption = (statusValue) => {
-        return lifecylceStatusOptions.find(option => option.value === statusValue) || null;
-    };
     
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
@@ -222,18 +241,18 @@ const Edit = () => {
             lifecycle_status: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedUsageUnit, setselectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
+    const [selectedUsageUnit, setSelectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
     const usageUnitOptions = [
         { label: 'PCS', value: 'pcs' },
     ];
     const handleUsageUnitChange = (selectedOption) => {
-        setselectedUsageUnit(selectedOption);
+        setSelectedUsageUnit(selectedOption);
         setParams({
             ...params,
             usage_unit: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null });
+    const [selectedDuplicated, setSelectedDuplicated] = useState({ label: '-None-', value: null });
     const duplicatedOptions = [
         {
             label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
@@ -253,7 +272,7 @@ const Edit = () => {
         },
     ];
     const handleDuplicatedChange = (selectedOption) => {
-        setselectedDuplicated(selectedOption);
+        setSelectedDuplicated(selectedOption);
         setParams({
             ...params,
             duplicated_status: selectedOption ? selectedOption.value : '',
