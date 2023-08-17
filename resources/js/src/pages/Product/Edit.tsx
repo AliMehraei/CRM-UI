@@ -1,5 +1,5 @@
 import { Link,useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,6 @@ const Edit = () => {
         dispatch(setPageTitle('Product Edit'));
     });
     const api_instance = new api();
-
     const getDefaultParams =() =>({
         product_name: null,
         part_description: null,
@@ -111,19 +110,85 @@ const Edit = () => {
         octopart_short_description: null,
     });
     const [params, setParams] = useState(getDefaultParams());
-
+    const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
+    const [categoryOptions, setCategoryOptions] = useState([]);
+    const [selectedManufacture, setSelectedManufacture] = useState([]);
+    const [selectedAltMpn1, setSelectedAltMpn1] = useState([]);
+    const [selectedAltMpn2, setSelectedAltMpn2] = useState([]);
+    const [selectedAltMpn3, setSelectedAltMpn3] = useState([]);
+    const [selectedAltMpn4, setSelectedAltMpn4] = useState([]);
+    const [selectedRfq, setSelectedRfq] = useState([]);
+    const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
+    const [selectedProductOwner, setSelectedProductOwner] = useState([]);
+    const [selectedProductType, setSelectedProductType] = useState({ label: '-None-', value: null });
+    const productTypeOptions = [
+        { label: '-None-', value: null },
+        { label: 'Goods', value: 'goods' },
+        { label: 'Service', value: 'service' },
+    ];
+    const [selectedLifecylceStatus, setSelectedLifecylceStatus] = useState({ label: '-None-', value: null });
+    const lifecylceStatusOptions = [
+        { label: '-None-', value: null },
+        { label: 'Production', value: 'production' },
+        { label: 'Phase out', value: 'phase_out' },
+        { label: 'EOL', value: 'eol' },
+        { label: 'Unknown', value: 'unknown' },
+    ];
+    const [selectedUsageUnit, setSelectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
+    const usageUnitOptions = [
+        { label: 'PCS', value: 'pcs' },
+    ];
+    const [selectedDuplicated, setSelectedDuplicated] = useState({ label: '-None-', value: null });
+    const duplicatedOptions = [
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
+            value: 'must_be_deleted'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
+            value: 'must_be_merged'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
+            value: 'must_be_renamed'
+        },
+        {
+            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
+            value: 'delete_confirmed'
+        },
+    ];
+    const [selectedPackage, setSelectedPackage] = useState({ label: '-None-', value: null });
+    const packageOptions = [
+        { label: '-None-', value: null },
+        { label: 'SMD', value: 'smd' },
+        { label: 'THT', value: 'tht' },
+        { label: 'Peripheral', value: 'peripheral' },
+        { label: 'Other', value: 'other' },
+    ];
     const { id } = useParams();
     const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
+    const [productData, setProductData] = useState(null);
     const fetchProductData = async () => {
         try {
             const response = await api_instance.fetch_single_product(id);
             if (response.data.status) {
-                const productData = response.data.data;
-                setParams(productData); 
-                const lifecycleOption = findLifecycleStatusOption(productData.lifecycle_status);
-                setSelectedLifecylceStatus(lifecycleOption);
-                setInitialApprover(productData.approved_by);
-               
+                const productData = response.data.data.product;
+                const productRfqData = response.data.data.old_rfqs;
+                setParams(productData);
+                setParams(prevState => ({
+                    ...prevState,
+                    m_last_update: formatDate(productData.m_last_update),
+                    op_last_update: formatDate(productData.op_last_update)
+                }));
+                await setInitialUser(productData.approved_by, 'approved_by'); 
+                await setInitialUser(productData.product_owner , 'product_owner'); 
+                await setInitialManufacturers(productData.manufacture_id , 'mpn'); 
+                await setInitialManufacturers(productData.alternative_mpn_1 , 'mpn1'); 
+                await setInitialManufacturers(productData.alternative_mpn_2 , 'mpn2'); 
+                await setInitialManufacturers(productData.alternative_mpn_3 , 'mpn3'); 
+                await setInitialManufacturers(productData.alternative_mpn_4 , 'mpn4'); 
+                await setInitialRfq(productRfqData);
+                 setProductData(productData);
             } else {
                 showMessage('Error fetching product: ', 'error'); 
                 console.error('Error fetching product', response.data.message);
@@ -132,15 +197,25 @@ const Edit = () => {
             showMessage('Error fetching product: Network error', 'error'); 
             console.error('Error fetching product', error);
         }
-    };  
+    };
+    const initializeDropdowns = (productData) => {
+        setSelectedLifecylceStatus(findOption(lifecylceStatusOptions, productData.lifecycle_status));
+        setSelectedPackage(findOption(packageOptions, productData.package));
+        setSelectedProductType(findOption(productTypeOptions, productData.product_type));
+        setSelectedUsageUnit(findOption(usageUnitOptions, productData.usage_unit));
+        setSelectedDuplicated(findOption(duplicatedOptions, productData.duplicated_status));
+        setSelectedCategory(findOption(categoryOptions, productData.product_category_id));
+    };
+    const findOption = (options, value) => {
+        return options.find(option => option.value === value) || null;
+    };
+    const formatDate = (dateStr) => {
+        const date = new Date(dateStr);
+        return date.toISOString().split('T')[0];
+    };
     useEffect(() => {
         fetchProductData();
     }, [id,API_URL_PRODUCT]);
-
-    const findLifecycleStatusOption = (statusValue) => {
-        return lifecylceStatusOptions.find(option => option.value === statusValue) || null;
-    };
-    
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
         setParams({
@@ -192,14 +267,6 @@ const Edit = () => {
             padding: '10px 20px',
         });
     };
-    const [selectedAporvedBy, setSelectedAporvedBy] = useState([]);
-    const [selectedProductOwner, setSelectedProductOwner] = useState([]);
-    const [selectedProductType, setSelectedProductType] = useState({ label: '-None-', value: null });
-    const productTypeOptions = [
-        { label: '-None-', value: null },
-        { label: 'Goods', value: 'goods' },
-        { label: 'Service', value: 'service' },
-    ];
     const handleProductTypeChange = (selectedOption) => {
         setSelectedProductType(selectedOption);
         setParams({
@@ -207,14 +274,6 @@ const Edit = () => {
             product_type: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedLifecylceStatus, setSelectedLifecylceStatus] = useState({ label: '-None-', value: null });
-    const lifecylceStatusOptions = [
-        { label: '-None-', value: null },
-        { label: 'Production', value: 'production' },
-        { label: 'Phase out', value: 'phase_out' },
-        { label: 'EOL', value: 'eol' },
-        { label: 'Unknown', value: 'unknown' },
-    ];
     const handleLifecylceStatusChange = (selectedOption) => {
         setSelectedLifecylceStatus(selectedOption);
         setParams({
@@ -222,51 +281,20 @@ const Edit = () => {
             lifecycle_status: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedUsageUnit, setselectedUsageUnit] = useState({ label: 'PCS', value: 'pcs' });
-    const usageUnitOptions = [
-        { label: 'PCS', value: 'pcs' },
-    ];
     const handleUsageUnitChange = (selectedOption) => {
-        setselectedUsageUnit(selectedOption);
+        setSelectedUsageUnit(selectedOption);
         setParams({
             ...params,
             usage_unit: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedDuplicated, setselectedDuplicated] = useState({ label: '-None-', value: null });
-    const duplicatedOptions = [
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
-            value: 'must_be_deleted'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
-            value: 'must_be_merged'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
-            value: 'must_be_renamed'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
-            value: 'delete_confirmed'
-        },
-    ];
     const handleDuplicatedChange = (selectedOption) => {
-        setselectedDuplicated(selectedOption);
+        setSelectedDuplicated(selectedOption);
         setParams({
             ...params,
             duplicated_status: selectedOption ? selectedOption.value : '',
         });
     };
-    const [selectedPackage, setSelectedPackage] = useState({ label: '-None-', value: null });
-    const packageOptions = [
-        { label: '-None-', value: null },
-        { label: 'SMD', value: 'smd' },
-        { label: 'THT', value: 'tht' },
-        { label: 'Peripheral', value: 'peripheral' },
-        { label: 'Other', value: 'other' },
-    ];
     const handlePackageChange = (selectedOption) => {
         setSelectedPackage(selectedOption);
         setParams({
@@ -275,7 +303,7 @@ const Edit = () => {
         });
     };
     const handleSelectUser = (selectedOption, type) => {
-        if (type === 'approved_by') {
+        if (type === 'approved_by') {            
             setSelectedAporvedBy(selectedOption);
             setParams({
                 ...params,
@@ -337,44 +365,43 @@ const Edit = () => {
             return [];
         }
     };
-    const setInitialApprover = async (userId) => {
-        if (!userId) {
-            setSelectedAporvedBy(null);
+    const setInitialUser = async (userId, type) => {
+        let setterFunction;
+        if (type === 'approved_by') {
+            setterFunction = setSelectedAporvedBy;
+        } else if (type === 'product_owner') {
+            setterFunction = setSelectedProductOwner;
+        }
+        if (!setterFunction || !userId) {
+            setterFunction && setterFunction(null);  // If setterFunction exists, set state to null
             return;
         }
-    
         try {
-            const result = await api_instance.loadUserById(userId);
-             // Assuming the function can take an ID and return corresponding user
-            if (result.status && result.data && result.data.length) {
-                const user = result.data[0]; // take the first matched user
-                const approverOption = {
-                    value: user[valField],
+            const result = await api_instance.loadUserById({ id: userId });
+            const user = result.data.data;
+            if (user) {
+                const userOption = {
+                    value: user.id,
                     label: (
                         <div className="flex items-center">
-                            <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                            <img src={user.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                             <div>
-                                <div className="text-sm font-bold">{user[nameField]}</div>
-                                <div className="text-xs text-gray-500">{user[emailField]}</div>
+                                <div className="text-sm font-bold">{user.name}</div>
+                                <div className="text-xs text-gray-500">{user.email}</div>
                             </div>
                         </div>
                     )
                 };
-                setSelectedAporvedBy(approverOption);
+                setterFunction(userOption);
             } else {
-                console.error('An error occurred while fetching approver', result.message);
-                setSelectedAporvedBy(null);
+                console.error('An error occurred while fetching user', result.message);
+                setterFunction(null);
             }
         } catch (error) {
-            console.error('An error occurred while fetching approver:', error);
-            setSelectedAporvedBy(null);
+            console.error('An error occurred while fetching user:', error);
+            setterFunction(null);
         }
     };
-    const [selectedManufacture, setSelectedManufacture] = useState([]);
-    const [selectedAltMpn1, setSelectedAltMpn1] = useState([]);
-    const [selectedAltMpn2, setSelectedAltMpn2] = useState([]);
-    const [selectedAltMpn3, setSelectedAltMpn3] = useState([]);
-    const [selectedAltMpn4, setSelectedAltMpn4] = useState([]);
     const loadManufacturers = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
@@ -403,15 +430,68 @@ const Edit = () => {
             return [];
         }
     };
-    const [selectedRfq, setSelectedRfq] = useState([]);
+    const setInitialManufacturers = async (manId, type) => {
+        const setterMap = {
+            'mpn': setSelectedManufacture,
+            'mpn1': setSelectedAltMpn1,
+            'mpn2': setSelectedAltMpn2,
+            'mpn3': setSelectedAltMpn3,
+            'mpn4': setSelectedAltMpn4,
+        };
+        const setterFunction = setterMap[type];
+        if (!setterFunction || !manId) {
+            setterFunction && setterFunction(null);  
+            return;
+        }
+        try {
+            const result = await api_instance.loadManufacturersById({ id: manId });
+            const manufacturer = result.data.data;
+            if (manufacturer) {
+                const constructManufacturerOption = {
+                    value: manufacturer.id,
+                    label: (
+                        <div className="flex items-center">
+                            <div className="text-sm font-bold">{manufacturer.name}</div>
+                        </div>
+                    )
+                };
+                setterFunction(constructManufacturerOption);
+            } else {
+                console.error('An error occurred while fetching manufacturer', result.message);
+                setterFunction(null);
+            }
+        } catch (error) {
+            console.error('An error occurred while fetching manufacturer:', error);
+            setterFunction(null);
+        }
+    };
+    const setInitialRfq = async (old_rfqs) => {
+        if (!old_rfqs || !Array.isArray(old_rfqs) || old_rfqs.length === 0) {
+            setSelectedRfq(null);  
+            return;
+        }
+        try {
+            const selectedRfqOptions = old_rfqs.map(rfq => ({
+                value: rfq.id,
+                label: (
+                    <div className="flex items-center">
+                        <div className="text-sm font-bold">{rfq.rfq_name}</div>
+                    </div>
+                )
+            }));
+            
+            setSelectedRfq(selectedRfqOptions);
+        } catch (error) {
+            console.error('An error occurred while setting initial RFQs:', error);
+            setSelectedRfq(null);
+        }
+    };
     const loadRfqs = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
         const rfqName = 'rfq_name';
         try {
-            const result = await api_instance.loadRfqs(inputValue);  
-            console.log(result.data);
-                      
+            const result = await api_instance.loadRfqs(inputValue);                        
             if (result.status) {
                 const options = result.data.map((rfq) => ({
                     value: rfq[valField],
@@ -433,6 +513,8 @@ const Edit = () => {
     };
     const handleRfqChange = (selectedRfqs) => {
         setSelectedRfq(selectedRfqs);
+        console.log(selectedRfq);
+        
         setParams({
             ...params,
             rfq: selectedRfqs ? selectedRfqs.map(rfq => rfq.value) : [],
@@ -471,7 +553,6 @@ const Edit = () => {
     
         if (typeMap[type]) {
             const { setter, paramKey } = typeMap[type];
-    
             setter(selectedOption);
             setParams(prevParams => ({
                 ...prevParams,
@@ -517,8 +598,6 @@ const Edit = () => {
             console.error(`Unknown type: ${type}`);
         }
     };
-    const [selectedCategory, setSelectedCategory] = useState({ label: '-None-', value: null });
-    const [categoryOptions, setCategoryOptions] = useState([]);
     const loadCategory = async () => {
         try {
             const res = await api_instance.loadCategory();
@@ -529,14 +608,20 @@ const Edit = () => {
                     value: category.id,
                 }));
                 options.push(...categories);
+                setCategoryOptions(options);
             } else {
                 console.error('Error fetching categories:', res.message);
             }
-            setCategoryOptions(options);
         } catch (error) {
             console.error('Error fetching categories:', error);
         }
     };
+    useEffect(() => {
+        if (productData && categoryOptions.length > 0) {
+            initializeDropdowns(productData);
+        }
+    }, [productData, categoryOptions]);
+    
     const handleCategoryChange = (selectedOption) => {
         setSelectedCategory(selectedOption);
         setParams({
@@ -546,7 +631,6 @@ const Edit = () => {
     useEffect(() => {
         loadCategory();
     }, []);
-   
     return (<>            
             <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
             <div className="flex items-center gap-2">
@@ -641,7 +725,10 @@ const Edit = () => {
                                             loadOptions={(e) => loadAdminUsersX(e)}
                                             onChange={(e) => handleSelectUser(e, 'approved_by')}
                                             isMulti={false}
+                                            key={selectedAporvedBy ? selectedAporvedBy.value : 'empty'}
                                             value={selectedAporvedBy}
+
+                                            // value={e[0]}
                                         />
                                     </div>
                                     <button onClick={() => clearSelectedUser('approved_by')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
