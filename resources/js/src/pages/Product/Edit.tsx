@@ -168,7 +168,6 @@ const Edit = () => {
     const { id } = useParams();
     const API_URL_PRODUCT =import.meta.env.VITE_API_URL_PRODUCT;
     const [productData, setProductData] = useState(null);
-
     const fetchProductData = async () => {
         try {
             const response = await api_instance.fetch_single_product(id);
@@ -180,6 +179,7 @@ const Edit = () => {
                     m_last_update: formatDate(productData.m_last_update),
                     op_last_update: formatDate(productData.op_last_update)
                 }));
+                await setInitialApprover(productData.approved_by); // Initialize the "Approved By" dropdown
                 setProductData(productData);
             } else {
                 showMessage('Error fetching product: ', 'error'); 
@@ -197,8 +197,8 @@ const Edit = () => {
         setSelectedUsageUnit(findOption(usageUnitOptions, productData.usage_unit));
         setSelectedDuplicated(findOption(duplicatedOptions, productData.duplicated_status));
         setSelectedCategory(findOption(categoryOptions, productData.product_category_id));
-        console.log(findOption(categoryOptions, productData.product_category_id));
-        console.log(findOption(duplicatedOptions, productData.duplicated_status)); 
+
+
     };
     const findOption = (options, value) => {
         return options.find(option => option.value === value) || null;
@@ -210,7 +210,6 @@ const Edit = () => {
     useEffect(() => {
         fetchProductData();
     }, [id,API_URL_PRODUCT]);
-
     const handleInputChange = (e) => {
         const { name, type, value, checked } = e.target;
         setParams({
@@ -299,6 +298,8 @@ const Edit = () => {
     };
     const handleSelectUser = (selectedOption, type) => {
         if (type === 'approved_by') {
+            console.log(selectedOption);
+            
             setSelectedAporvedBy(selectedOption);
             setParams({
                 ...params,
@@ -360,29 +361,28 @@ const Edit = () => {
             return [];
         }
     };
-    const setInitialApprover = async (userId) => {
+    const setInitialApprover = async (userId) => {        
         if (!userId) {
             setSelectedAporvedBy(null);
             return;
         }
-    
         try {
-            const result = await api_instance.loadUserById(userId);
-             // Assuming the function can take an ID and return corresponding user
-            if (result.status && result.data && result.data.length) {
-                const user = result.data[0]; // take the first matched user
+            const result = await api_instance.loadUserById({id:userId});
+            const user = result.data.data; 
+            if (user) {
                 const approverOption = {
-                    value: user[valField],
+                    value: user.id,
                     label: (
                         <div className="flex items-center">
-                            <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                            <img src={user.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                             <div>
-                                <div className="text-sm font-bold">{user[nameField]}</div>
-                                <div className="text-xs text-gray-500">{user[emailField]}</div>
+                                <div className="text-sm font-bold">{user.name}</div>
+                                <div className="text-xs text-gray-500">{user.email}</div>
                             </div>
                         </div>
                     )
                 };
+                
                 setSelectedAporvedBy(approverOption);
             } else {
                 console.error('An error occurred while fetching approver', result.message);
@@ -488,7 +488,7 @@ const Edit = () => {
     
         if (typeMap[type]) {
             const { setter, paramKey } = typeMap[type];
-    
+    console.log(selectedOption);
             setter(selectedOption);
             setParams(prevParams => ({
                 ...prevParams,
@@ -663,7 +663,10 @@ const Edit = () => {
                                             loadOptions={(e) => loadAdminUsersX(e)}
                                             onChange={(e) => handleSelectUser(e, 'approved_by')}
                                             isMulti={false}
+                                            key={selectedAporvedBy ? selectedAporvedBy.value : 'empty'}
                                             value={selectedAporvedBy}
+
+                                            // value={e[0]}
                                         />
                                     </div>
                                     <button onClick={() => clearSelectedUser('approved_by')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
