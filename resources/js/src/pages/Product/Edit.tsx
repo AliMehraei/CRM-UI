@@ -179,7 +179,8 @@ const Edit = () => {
                     m_last_update: formatDate(productData.m_last_update),
                     op_last_update: formatDate(productData.op_last_update)
                 }));
-                await setInitialApprover(productData.approved_by); // Initialize the "Approved By" dropdown
+                await setInitialUser(productData.approved_by, 'approved_by'); 
+                await setInitialUser(productData.product_owner , 'product_owner'); 
                 setProductData(productData);
             } else {
                 showMessage('Error fetching product: ', 'error'); 
@@ -197,8 +198,6 @@ const Edit = () => {
         setSelectedUsageUnit(findOption(usageUnitOptions, productData.usage_unit));
         setSelectedDuplicated(findOption(duplicatedOptions, productData.duplicated_status));
         setSelectedCategory(findOption(categoryOptions, productData.product_category_id));
-
-
     };
     const findOption = (options, value) => {
         return options.find(option => option.value === value) || null;
@@ -297,9 +296,7 @@ const Edit = () => {
         });
     };
     const handleSelectUser = (selectedOption, type) => {
-        if (type === 'approved_by') {
-            console.log(selectedOption);
-            
+        if (type === 'approved_by') {            
             setSelectedAporvedBy(selectedOption);
             setParams({
                 ...params,
@@ -361,16 +358,22 @@ const Edit = () => {
             return [];
         }
     };
-    const setInitialApprover = async (userId) => {        
-        if (!userId) {
-            setSelectedAporvedBy(null);
+    const setInitialUser = async (userId, type) => {
+        let setterFunction;
+        if (type === 'approved_by') {
+            setterFunction = setSelectedAporvedBy;
+        } else if (type === 'product_owner') {
+            setterFunction = setSelectedProductOwner;
+        }
+        if (!setterFunction || !userId) {
+            setterFunction && setterFunction(null);  // If setterFunction exists, set state to null
             return;
         }
         try {
-            const result = await api_instance.loadUserById({id:userId});
-            const user = result.data.data; 
+            const result = await api_instance.loadUserById({ id: userId });
+            const user = result.data.data;
             if (user) {
-                const approverOption = {
+                const userOption = {
                     value: user.id,
                     label: (
                         <div className="flex items-center">
@@ -382,15 +385,14 @@ const Edit = () => {
                         </div>
                     )
                 };
-                
-                setSelectedAporvedBy(approverOption);
+                setterFunction(userOption);
             } else {
-                console.error('An error occurred while fetching approver', result.message);
-                setSelectedAporvedBy(null);
+                console.error('An error occurred while fetching user', result.message);
+                setterFunction(null);
             }
         } catch (error) {
-            console.error('An error occurred while fetching approver:', error);
-            setSelectedAporvedBy(null);
+            console.error('An error occurred while fetching user:', error);
+            setterFunction(null);
         }
     };
     const loadManufacturers = async (inputValue) => {
@@ -488,7 +490,6 @@ const Edit = () => {
     
         if (typeMap[type]) {
             const { setter, paramKey } = typeMap[type];
-    console.log(selectedOption);
             setter(selectedOption);
             setParams(prevParams => ({
                 ...prevParams,
