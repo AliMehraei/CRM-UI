@@ -1,11 +1,14 @@
 import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
 import Flatpickr from "react-flatpickr";
+import Tippy from "@tippyjs/react";
 
 const Development = {
     'Development': {
         'Processed for VRFQ round 1':
-            <input id="processed_for_vrfq_round_1" type="checkbox" name="processed_for_vrfq_round_1"
-                   className="form-checkbox"/>,
+            <Tippy content="Please do not change the value" className="red">
+                <input id="processed_for_vrfq_round_1" type="checkbox" name="processed_for_vrfq_round_1"
+                       className="form-checkbox"/>
+            </Tippy>,
         'Processed for VRFQ round 2': <label className="flex items-center cursor-pointer">
             <input id="processed_for_vrfq_round_2" type="checkbox" name="processed_for_vrfq_round_2"
                    className="form-checkbox"/>
