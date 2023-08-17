@@ -16,7 +16,7 @@ import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 
 const Header = {
-    firstHeader: {
+    'Header': {
         'Account Name': <input id="account-name" type="text" name="account_id" className="form-input flex-1 "/>,
         'Contact': <AsyncSelect isMulti={false} id="contact" placeholder="Type at least 2 characters to search..."
                                 loadOptions={loadContacts} onChange={handleContactChange} className="flex-1"/>,
@@ -35,7 +35,7 @@ const Header = {
                                 disabled/>,
         'Portal BOM id': <input id="portal_bom_id" name="portal_bom_id" className="form-input flex-1 "/>,
     },
-    SecondHeader: {
+    '': {
         'RFQ Owner': <AsyncSelect isMulti={false} id="owner_id" placeholder="Type at least 2 characters to search..."
                                   loadOptions={loadOwners} onChange={handleOwnerChange} className="flex-1"/>,
         'Deal Stage': <Select options={DealStages}
@@ -64,22 +64,23 @@ const RFQFormField = () => {
     return (
         <div className="mt-8 px-4">
             <div className="flex justify-between lg:flex-row flex-col">
-                <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
-                    {Object.entries(Header).map(([sectionTitle, sectionContent], index) => (
-                        <div key={sectionTitle} className="mt-8">
-                            <div className="text-lg">{sectionTitle}:</div>
+                {Object.entries(Header).map(([sectionTitle, sectionContent], index) => (
+                    <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                        <div key={sectionTitle} className="">
+                            <div className="text-lg">{sectionTitle ? `${sectionTitle}:` :
+                                <div className="mt-10"></div>}</div>
                             {Object.entries(sectionContent).map(([label, inputComponent], index) => (
                                 <div key={label} className="mt-4 flex items-center">
                                     <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         {label}
-                                        {inputComponent.props.required && <RequiredComponent />}
+                                        {inputComponent.props.required && <RequiredComponent/>}
                                     </label>
                                     {inputComponent}
                                 </div>
                             ))}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     )
