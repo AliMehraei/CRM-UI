@@ -181,6 +181,12 @@ const Edit = () => {
                 }));
                 await setInitialUser(productData.approved_by, 'approved_by'); 
                 await setInitialUser(productData.product_owner , 'product_owner'); 
+                await setInitialManufacturers(productData.manufacture_id , 'mpn'); 
+                await setInitialManufacturers(productData.alternative_mpn_1 , 'mpn1'); 
+                await setInitialManufacturers(productData.alternative_mpn_2 , 'mpn2'); 
+                await setInitialManufacturers(productData.alternative_mpn_3 , 'mpn3'); 
+                await setInitialManufacturers(productData.alternative_mpn_4 , 'mpn4'); 
+
                 setProductData(productData);
             } else {
                 showMessage('Error fetching product: ', 'error'); 
@@ -423,6 +429,44 @@ const Edit = () => {
             return [];
         }
     };
+    const setInitialManufacturers = async (manId, type) => {
+        const setterMap = {
+            'mpn': setSelectedManufacture,
+            'mpn1': setSelectedAltMpn1,
+            'mpn2': setSelectedAltMpn2,
+            'mpn3': setSelectedAltMpn3,
+            'mpn4': setSelectedAltMpn4,
+        };
+        const setterFunction = setterMap[type];
+        if (!setterFunction || !manId) {
+            setterFunction && setterFunction(null);  
+            return;
+        }
+        try {
+            const result = await api_instance.loadManufacturersById({ id: manId });
+            const manufacturer = result.data.data;
+            if (manufacturer) {
+                setterFunction(constructManufacturerOption(manufacturer));
+            } else {
+                console.error('An error occurred while fetching manufacturer', result.message);
+                setterFunction(null);
+            }
+        } catch (error) {
+            console.error('An error occurred while fetching manufacturer:', error);
+            setterFunction(null);
+        }
+    };
+    const constructManufacturerOption = (manufacturer) => {
+        return {
+            value: manufacturer.id,
+            label: (
+                <div className="flex items-center">
+                    <div className="text-sm font-bold">{manufacturer.name}</div>
+                </div>
+            )
+        };
+    };
+    
     const loadRfqs = async (inputValue) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';

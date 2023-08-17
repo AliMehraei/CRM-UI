@@ -47,6 +47,10 @@ class api {
     async loadUserById(id){
         return await _axios.post(`${API_URL_USER}/api/user/admin-users/find-one`, id, { headers: Headers });
     }
+    async loadManufacturersById(id){
+        return await _axios.post(`${API_URL_USER}/api/search-manufactures/find-one`, id, { headers: Headers });
+    }
+    
     async loadManufacturers(query) {
         try {
             const response = await _axios.get(`${API_URL_PRODUCT}/api/search-manufactures`, {
