@@ -44,9 +44,9 @@ const Line = {
                                loadOptions={loadExcess} onChange={handleLoadExcess}
                                className="flex-1"/>,
         'Special Instructions': <textarea id="special_instructions" name="special_instructions" rows={3}
-                                          className="form-textarea"></textarea>,
+                                          className="form-textarea flex-1"></textarea>,
 
-        'comment': <textarea id="comment" rows={3} name="comment" className="form-textarea"
+        'comment': <textarea id="comment" rows={3} name="comment" className="form-textarea flex-1"
                              placeholder=""></textarea>,
 
     }
