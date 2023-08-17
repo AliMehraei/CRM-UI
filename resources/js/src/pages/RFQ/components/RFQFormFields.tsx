@@ -3,7 +3,7 @@ import AsyncSelect from "react-select/async";
 import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
 import 'flatpickr/dist/flatpickr.css';
 import Header from "../../../components/Layouts/Header";
-import {RFQHeaderSection} from "./HeaderFunctions";
+import {RFQHeaderSection} from "./HeaderSection";
 
 
 const RFQFormField = () => {
