@@ -5,7 +5,7 @@ import RFQFormFields from "./components/edit/RFQFormFields";
 import {updateFormData} from "../../store/rfqFormSlice";
 
 const Add = () => {
-    const formData = useSelector((state: any) => state.form);
+    const formData = useSelector((state: any) => state.rfqFormSlice);
     const dispatch = useDispatch();
     const testData = {
         "id": 1,
@@ -53,7 +53,7 @@ const Add = () => {
 
     useEffect(() => {
         dispatch(updateFormData(testData));
-    });
+    },[]);
 
 
     return (
