@@ -151,15 +151,4 @@ const RFQHeaderSection = () => {
     </>)
 }
 
-export {
-    RFQHeaderSection,
-    handleUpload,
-    loadUsers,
-    handleOwnerChange,
-    loadOwners,
-    handleRFQTypeChange,
-    handleStatusChange,
-    loadContacts,
-    handleContactChange,
-    handleRFQSourceChange
-};
+export default RFQHeaderSection;
