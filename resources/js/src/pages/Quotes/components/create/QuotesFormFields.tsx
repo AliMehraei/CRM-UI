@@ -3,8 +3,8 @@ import HeaderSection from "./HeaderSection";
 import StatusSection from "./StatusSection";
 import QuoteLineSection from "./QuoteLineSection";
 import SourceSection from "./SourceSection";
-import AddressInformationSection from "../../../RFQ/components/create/AddressInformationSection";
-import TermsAndConditionsSection from "../../../RFQ/components/create/TermsAndConditionsSection";
+import AddressInformationSection from "./AddressInformationSection";
+import TermsAndConditionsSection from "./TermsAndConditionsSection";
 
 
 const QuotesFormFields = () => {
@@ -22,7 +22,7 @@ const QuotesFormFields = () => {
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <AddressInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-        <TermsAndConditionsSection/>
+            <TermsAndConditionsSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
