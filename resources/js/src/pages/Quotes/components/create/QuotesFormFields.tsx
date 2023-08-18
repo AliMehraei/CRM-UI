@@ -3,6 +3,7 @@ import HeaderSection from "./HeaderSection";
 import StatusSection from "./StatusSection";
 import QuoteLineSection from "./QuoteLineSection";
 import SourceSection from "./SourceSection";
+import AddressInformationSection from "../../../RFQ/components/create/AddressInformationSection";
 
 
 const QuotesFormFields = () => {
@@ -17,6 +18,8 @@ const QuotesFormFields = () => {
             <QuoteLineSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <SourceSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <AddressInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
         </div>
