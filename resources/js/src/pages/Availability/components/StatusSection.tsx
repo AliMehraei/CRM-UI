@@ -27,7 +27,10 @@ const StatusSection = () => {
 
         },
         '': {
+            'Availability Name': <input required id="availability_name" name="availability_name"
+                                        className="form-input flex-1 "/>,
             'Rating': <input id="rating" name="rating" className="form-input flex-1 "/>,
+
         }
 
     }
