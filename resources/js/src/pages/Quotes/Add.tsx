@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import QuotesFormFields from "./components/create/QuotesFormFields";
+import 'flatpickr/dist/flatpickr.css';
 
 const Add = () => {
     const dispatch = useDispatch();
