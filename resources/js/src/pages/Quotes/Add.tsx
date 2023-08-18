@@ -6,7 +6,7 @@ import QuotesFormFields from "./components/create/QuotesFormFields";
 const Add = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('RFQ Add'));
+        dispatch(setPageTitle('Quotes Add'));
     });
 
     return (
