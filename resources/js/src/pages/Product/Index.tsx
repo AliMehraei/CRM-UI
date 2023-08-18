@@ -37,18 +37,7 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
-    // const fetchDataFilterOption = async (page = 1, pageSize = PAGE_SIZES[0]) => {
-    //     setLoading(true);
-    //     try {
-    //         api_instance.filter_option().then((res) => {
-    //             setOptionsFilter(res.data.data);
-    //         });
-    //     } catch (error) {
-    //         showMessage('Error fetching filter options.', 'error'); // Added this line
-    //         console.error('Error fetching data:', error);
-    //     }
-    //     setLoading(false);
-    // };
+ 
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
@@ -106,9 +95,7 @@ const List = () => {
         );
     }
 
-    // const filteredOptions = optionsFilter.filter((option) =>
-    //     option.label.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
+    
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -220,29 +207,13 @@ const List = () => {
 
     useEffect(() => {
         setPage(1);
-        /* eslint-disable react-hooks/exhaustive-deps */
     }, [pageSize]);
 
     useEffect(() => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-    // useEffect(() => {
-    //     setInitialRecords(() => {
-    //         return items.filter((item) => {
-    //             return (
-    //                 item.product_name.toLowerCase().includes(search.toLowerCase()) ||
-    //                 item.manufacture.toLowerCase().includes(search.toLowerCase()) ||
-    //                 item.product_type.toLowerCase().includes(search.toLowerCase()) ||
-    //                 item.product_owner.toLowerCase().includes(search.toLowerCase()) 
-    //             );
-    //         });
-    //     });
-    // }, [search]);
-    // useEffect(() => {
-    //     const data = sortBy(items, sortStatus.columnAccessor);
-    //     setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
-    // }, [items, sortStatus]);
+  
 
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
@@ -283,20 +254,7 @@ const List = () => {
                 prevSelectedFields.filter((field) => field !== value)
             );
         }
-        // const { value, checked } = event.target;
-        // let newFilters = filters;
-        // if (checked) {
-        //     newFilters[value] = { field: value, condition: '', value: '' };
-        //     setFilters(newFilters);
-        //     setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
-        // } else {
-        //     newFilters[value]  = null;
-        //     setFilters(newFilters);
-        //     setSelectedFields((prevSelectedFields) =>
-        //         prevSelectedFields.filter((field) => field !== value)
-        //     );
-        // }
-        // console.log(111, filters);
+       
 
     };
 
@@ -353,9 +311,7 @@ const List = () => {
                         </Link>
 
                     </div>
-                    {/* <div className="ltr:ml-auto rtl:mr-auto">
-                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                    </div> */}
+                    
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
                     <div className="panel col-span-1">
