@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import 'flatpickr/dist/flatpickr.css';
 import AvailabilityFormFields from "./components/AvailabilityFormFields";
+import 'flatpickr/dist/flatpickr.css';
 
 const Add = () => {
     const dispatch = useDispatch();

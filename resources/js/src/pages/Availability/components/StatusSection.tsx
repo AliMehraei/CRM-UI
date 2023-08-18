@@ -1,26 +1,30 @@
 import Select from "react-select";
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import Flatpickr from "react-flatpickr";
 
 const StatusSection = () => {
 
     const handleQuoteValidChange = () => {
 
     };
-    const QuoteValid = [
+    const AvailabilityTypes = [
         {value: 'none', label: '-None-'},
-        {value: '1_day', label: '1 Day'},
-        {value: '3_day', label: '3 Days'},
-        {value: '1_week', label: '1 Week'},
+        {value: 'web_downloaded', label: 'Web Downloaded'},
+        {value: 'cost_saving', label: 'Cost Saving'},
+        {value: 'shortage', label: 'Shortage'},
+        {value: 'proactive', label: 'Proactive'},
+        {value: 'excess', label: 'Excess'},
+        {value: 'not_valid', label: 'Not_valid'},
 
     ];
     const fields = {
         'Status': {
-            'Quote valid': <Select options={QuoteValid} name="quote_valid" id="quote_valid"
-                                   onChange={handleQuoteValidChange} className="flex-1"/>,
-            'Proactive Offer': <label className="flex items-center cursor-pointer">
-                <input id="proactive_offer" type="checkbox" name="proactive_offer"
-                       className="form-checkbox"/>
-            </label>,
+            'Availability Type': <Select options={AvailabilityTypes} name="availability_type" id="availability_type"
+                                         onChange={handleQuoteValidChange} className="flex-1"/>,
+
+            'Valid': <Flatpickr name="valid" id="valid" options={{dateFormat: 'd-m-Y'}} className="form-input flex-1"
+                                placeholder="MM DD YYYY"/>,
+
         },
         '': {
             'Rating': <input id="rating" name="rating" className="form-input flex-1 "/>,
