@@ -3,6 +3,8 @@ import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {formatDate} from "@fullcalendar/core";
 
 
 const loadContacts = async (inputValue: any) => {
@@ -83,15 +85,18 @@ export const Currencies = [
 ]
 
 
-
 const RFQHeaderSection = () => {
-    const formData = useSelector((state: any) => state.form);
+    const formData = useSelector((state: any) => state.rfqFormSlice);
+
+
+
     const Header = {
         'Header': {
             'Account Name': <input id="account-name" type="text" name="account_id" className="form-input flex-1 "/>,
             'Contact': <AsyncSelect isMulti={false} id="contact" placeholder="Type at least 2 characters to search..."
                                     loadOptions={loadContacts} onChange={handleContactChange} className="flex-1"/>,
-            'Customer RFQ No': <input id="customer_rfq_no" name="customer_rfq_no" className="form-input flex-1 "/>,
+            'Customer RFQ No': <input value={formData.customer_rfq_no} id="customer_rfq_no" name="customer_rfq_no"
+                                      className="form-input flex-1 "/>,
             'Project Name / Application': <input id="project_name" name="project_name" className="form-input flex-1 "/>,
             'RFQ Source': <Select required options={RFQSources}
                                   onChange={handleRFQSourceChange} className="flex-1"/>,
@@ -107,7 +112,8 @@ const RFQHeaderSection = () => {
             'Portal BOM id': <input id="portal_bom_id" name="portal_bom_id" className="form-input flex-1 "/>,
         },
         '': {
-            'RFQ Owner': <AsyncSelect isMulti={false} id="owner_id" placeholder="Type at least 2 characters to search..."
+            'RFQ Owner': <AsyncSelect isMulti={false} id="owner_id"
+                                      placeholder="Type at least 2 characters to search..."
                                       loadOptions={loadOwners} onChange={handleOwnerChange} className="flex-1"/>,
             'Deal Stage': <Select options={DealStages}
                                   onChange={handleStatusChange} className="flex-1"/>,
