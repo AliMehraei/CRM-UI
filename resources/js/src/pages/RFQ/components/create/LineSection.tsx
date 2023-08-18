@@ -1,6 +1,5 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import AsyncSelect from "react-select/async";
-import {handleOwnerChange, loadOwners} from "./HeaderSection";
 
 const loadProducts = () => {
 
