@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
-import RFQFormFields from "./components/RFQFormFields";
+import RFQFormFields from "./components/create/RFQFormFields";
 
 const Add = () => {
     const dispatch = useDispatch();

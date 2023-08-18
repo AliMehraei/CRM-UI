@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 
 
 const loadContacts = async (inputValue: any) => {

@@ -1,8 +1,8 @@
 import AsyncSelect from "react-select/async";
 
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import 'flatpickr/dist/flatpickr.css';
-import Header from "../../../components/Layouts/Header";
+import Header from "../../../../components/Layouts/Header";
 import {RFQHeaderSection} from "./HeaderSection";
 import {LineSection} from "./LineSection";
 import React from "react";
