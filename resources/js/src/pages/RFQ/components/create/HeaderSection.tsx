@@ -8,7 +8,7 @@ import {RequiredComponent} from "../../../../components/FormFields/RequiredCompo
 
 
 
-const RFQHeaderSection = () => {
+const HeaderSection = () => {
     const loadContacts = async (inputValue: any) => {
         const fetchedContacts = [
             {key: 1, value: 'contact1', label: 'Contact 1'},
@@ -154,4 +154,4 @@ const RFQHeaderSection = () => {
     </>)
 }
 
-export default RFQHeaderSection;
+export default HeaderSection;
