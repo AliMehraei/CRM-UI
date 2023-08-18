@@ -5,6 +5,7 @@ import QuoteLineSection from "./QuoteLineSection";
 import SourceSection from "./SourceSection";
 import AddressInformationSection from "./AddressInformationSection";
 import TermsAndConditionsSection from "./TermsAndConditionsSection";
+import DescriptionInformationSection from "./DescriptionInformationSection";
 
 
 const QuotesFormFields = () => {
@@ -24,7 +25,7 @@ const QuotesFormFields = () => {
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <TermsAndConditionsSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
+            <DescriptionInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
         </div>
