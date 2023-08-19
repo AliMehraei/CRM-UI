@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderSection from "./HeaderSection";
 import StatusSection from "./StatusSection";
+import QuoteLineSection from "./QuoteLineSection";
 
 
 const AvailabilityFormFields = () => {
@@ -10,6 +11,7 @@ const AvailabilityFormFields = () => {
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <StatusSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <QuoteLineSection/>
         </div>
     )
 
