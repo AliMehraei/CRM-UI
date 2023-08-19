@@ -136,18 +136,18 @@ class api {
     async uploadImage(file: any) {
         try {
             const formData = new FormData();
-            formData.append('image', file);
+            formData.append('file', file);
 
-            const response = await _axios.post('/api/upload', formData, {
+            const response = await _axios.post(`${API_URL_PRODUCT}/api/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
             if (response.status === 200) {
-                return response.data.imageUrl; // Assuming the server returns the URL of the uploaded image
+                return response; // Assuming the server returns the URL of the uploaded image
             } else {
-                throw new Error('Image upload failed');
+                throw new Error('File upload failed');
             }
         } catch (error) {
             console.error('Error uploading image:', error);
