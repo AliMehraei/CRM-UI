@@ -5,6 +5,7 @@ import {RequiredComponent} from "../../../../components/FormFields/RequiredCompo
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {formatDate} from "@fullcalendar/core";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 
 const loadContacts = async (inputValue: any) => {
@@ -90,7 +91,7 @@ const RFQHeaderSection = () => {
 
 
 
-    const Header = {
+    const fields = {
         'Header': {
             'Account Name': <input id="account-name" type="text" name="account_id" className="form-input flex-1 "/>,
             'Contact': <AsyncSelect isMulti={false} id="contact" placeholder="Type at least 2 characters to search..."
@@ -139,23 +140,8 @@ const RFQHeaderSection = () => {
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
-            {Object.entries(Header).map(([sectionTitle, sectionContent], index) => (
-                <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
-                    <div key={sectionTitle} className="">
-                        <div className="text-lg">{sectionTitle ? `${sectionTitle}:` :
-                            <div className="mt-10"></div>}</div>
-                        {Object.entries(sectionContent).map(([label, inputComponent], index) => (
-                            <div key={label} className="mt-4 flex items-center">
-                                <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    {label}
-                                    {inputComponent.props.required && <RequiredComponent/>}
-                                </label>
-                                {inputComponent}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ))}
+            <GenerateFields fields={fields}/>
+
         </div>
     </>)
 }
