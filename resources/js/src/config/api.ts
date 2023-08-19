@@ -155,6 +155,9 @@ class api {
         }
     }
 
+    async loadVendors() {
+        return await _axios.post(`${URL}/api/vendor/search`, {headers: Headers});
+    }
 
 }
 
