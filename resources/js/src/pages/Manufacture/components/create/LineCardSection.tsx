@@ -1,18 +1,30 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import AsyncSelect from "react-select/async";
 import {handleOwnerChange, loadOwners} from "../../../RFQ/components/edit/HeaderSection";
+import {useDispatch, useSelector} from "react-redux";
+import api from "../../../../config/api";
+import {updateFormData} from "../../../../store/manufactureFormSlice";
+import {an} from "@fullcalendar/core/internal-common";
 
 const LineCardSection = () => {
+    const formState = useSelector((state: any) => state.manufactureForm);
+    const dispatch = useDispatch();
+
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({field, value}));
+    };
+
     const loadVendorLineCards = () => {
 
     };
-    const handleChangeVendorLine = () => {
-
+    const handleChangeVendorLine = (e: any) => {
+        console.log(e);
     };
     const loadStrongCards = () => {
 
     };
-    const handleChangeStrongCard = () => {
+    const handleChangeStrongCard = (e: any) => {
+        console.log(e)
 
     };
     const fields = {
