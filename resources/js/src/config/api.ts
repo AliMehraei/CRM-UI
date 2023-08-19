@@ -179,25 +179,25 @@ class api {
         }
     }
     async searchManufacturer(data: any = null) {
-        return await _axios.post(`${URL}/api/manufacturer/search`,data, {headers: Headers});
+        return await _axios.post(`${URL}/api/manufacture/search`,data, {headers: Headers});
     }
     async fetchDataManufacturer(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/api/manufacturer/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
     }
     async deleteSingleManufacturer(data: any = null) {
-        return await _axios.delete(`${API_URL_PRODUCT}/api/manufacturer/${data}`);
+        return await _axios.delete(`${API_URL_PRODUCT}/api/manufacture/${data}`);
     }
 
     async fetchSingleManufacturer(data: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/manufacturer/${data}`);
+        return await _axios.get(`${API_URL_PRODUCT}/api/manufacture/${data}`);
     }
 
-    async updateSingleManufacturer(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/manufacturer/${id}`, data, {headers: Headers});
+    async updateSingleManufacture(id, data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/manufacture/${id}`, data, {headers: Headers});
     }
 
     async createSingleManufacturer(data) {
-        return await _axios.post(`${API_URL_PRODUCT}/api/manufacturer`, data, {headers: Headers});
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture`, data, {headers: Headers});
     }
 
 }
