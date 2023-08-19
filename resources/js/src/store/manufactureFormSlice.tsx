@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 const initState = {
+    api: "createSingleManufacturer",
     image: '',
     manufacture_name: '',
 
