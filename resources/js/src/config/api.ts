@@ -55,31 +55,7 @@ class api {
         return await _axios.post(`${API_URL_USER}/api/user/admin-users/find-one`, id, {headers: Headers});
     }
 
-    async loadManufacturersById(id) {
-        return await _axios.post(`${API_URL_USER}/api/manufacture/search-manufactures/find-one`, id, {headers: Headers});
-    }
-
-    async loadManufacturers(query) {
-        try {
-            const response = await _axios.get(`${API_URL_PRODUCT}/api/manufacture/search-manufactures`, {
-                headers: Headers,
-                params: {
-                    query: query
-                },
-            });
-            if (response.status !== 200) {
-                throw new Error("Failed to fetch data from server.");
-            }
-            if (!response.data.status) {
-                throw new Error(response.data.message || "Error retrieving manufacturers.");
-            }
-            return response.data;
-        } catch (error) {
-            console.error("Error loading manufacturers:", error);
-            throw error;
-        }
-    }
-
+    
     async loadRfqs(query) {
         try {
             const response = await _axios.get(`${API_URL_PRODUCT}/api/rfq/search-rfq`, {
@@ -154,9 +130,74 @@ class api {
             return null;
         }
     }
+    //vendor
+    async searchVendor(data: any = null) {
+        return await _axios.post(`${URL}/api/vendor/search`,data, {headers: Headers});
+    }
+    async fetchDataVendor(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
+    }
+    async deleteSingleVendor(data: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/vendor/${data}`);
+    }
 
-    async loadVendors() {
-        return await _axios.post(`${URL}/api/vendor/search`, {headers: Headers});
+    async fetchSingleVendor(data: any = null) {
+        return await _axios.get(`${API_URL_PRODUCT}/api/vendor/${data}`);
+    }
+
+    async updateSingleVendor(id, data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/vendor/${id}`, data, {headers: Headers});
+    }
+
+    async createSingleVendor(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor`, data, {headers: Headers});
+    }
+
+    //manifacture
+    async loadManufacturersById(id) {
+        return await _axios.post(`${API_URL_USER}/api/manufacture/search-manufactures/find-one`, id, {headers: Headers});
+    }
+
+    async loadManufacturers(query) {
+        try {
+            const response = await _axios.get(`${API_URL_PRODUCT}/api/manufacture/search-manufactures`, {
+                headers: Headers,
+                params: {
+                    query: query
+                },
+            });
+            if (response.status !== 200) {
+                throw new Error("Failed to fetch data from server.");
+            }
+            if (!response.data.status) {
+                throw new Error(response.data.message || "Error retrieving manufacturers.");
+            }
+            return response.data;
+        } catch (error) {
+            console.error("Error loading manufacturers:", error);
+            throw error;
+        }
+    }
+    async searchManufacturer(data: any = null) {
+        return await _axios.post(`${URL}/api/manufacturer/search`,data, {headers: Headers});
+    }
+    async fetchDataManufacturer(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacturer/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
+    }
+    async deleteSingleManufacturer(data: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/manufacturer/${data}`);
+    }
+
+    async fetchSingleManufacturer(data: any = null) {
+        return await _axios.get(`${API_URL_PRODUCT}/api/manufacturer/${data}`);
+    }
+
+    async updateSingleManufacturer(id, data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/manufacturer/${id}`, data, {headers: Headers});
+    }
+
+    async createSingleManufacturer(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacturer`, data, {headers: Headers});
     }
 
 }
