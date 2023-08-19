@@ -4,7 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     image: '',
-    manufacture_id: '',
+    manufacture_name: '',
 
 };
 
@@ -13,9 +13,10 @@ const manufactureFormSlice = createSlice({
     initialState: initState,
     reducers: {
         updateFormData: (state, action) => {
+            const {field, value} = action.payload;
             return {
                 ...state,
-                ...action.payload,
+                [field]: value,
             };
         },
     },
