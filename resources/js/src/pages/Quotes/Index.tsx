@@ -37,7 +37,7 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
- 
+
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
@@ -46,7 +46,7 @@ const List = () => {
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
                 // console.log('condition.model',item);
-                
+
                 return {
                     ...item,
                     conditions: Object.entries(conditions).map(([key, condition]) => ({
@@ -95,7 +95,7 @@ const List = () => {
         );
     }
 
-    
+
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -163,8 +163,8 @@ const List = () => {
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
        console.log('filters',filters);
-       
-        
+
+
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
@@ -213,7 +213,7 @@ const List = () => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-  
+
 
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
@@ -234,8 +234,8 @@ const List = () => {
     };
     const handleFieldChange = (event,option) => {
         const { value, checked } = event.target;
-        
-        
+
+
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
@@ -254,12 +254,12 @@ const List = () => {
                 prevSelectedFields.filter((field) => field !== value)
             );
         }
-       
+
 
     };
 
     const handleSortChange = (sortStatus) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
+        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
     };
@@ -278,9 +278,9 @@ const List = () => {
         setFilters(updatedFilters);
     };
 
-    
 
-    
+
+
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">
@@ -306,12 +306,12 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-                        <Link to="/product/add" className="btn btn-primary gap-2">
+                        <Link to="/quotes/add" className="btn btn-primary gap-2">
                             Add New
                         </Link>
 
                     </div>
-                    
+
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
                     <div className="panel col-span-1">
