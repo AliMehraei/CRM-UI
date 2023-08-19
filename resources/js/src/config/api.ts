@@ -133,7 +133,7 @@ class api {
         return await _axios.get(`${URL}/change-locale/${locale}`);
     }
 
-    async uploadImage(file: any) {
+    async uploadFile(file: any) {
         try {
             const formData = new FormData();
             formData.append('file', file);
