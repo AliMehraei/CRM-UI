@@ -44,7 +44,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/product`, data, {headers: Headers});
     }
 
-    async loadAdminUsers(data, url) {
+    async loadAdminUsers(data, url = null) {
         if (!url) {
             url = `${API_URL_USER}/api/user/admin-users/search`;
         }
