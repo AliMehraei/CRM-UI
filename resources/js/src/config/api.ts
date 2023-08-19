@@ -134,15 +134,18 @@ class api {
     async searchVendor(data: any = null) {
         return await _axios.post(`${URL}/api/vendor/search`,data, {headers: Headers});
     }
+    async filterOptionVendor(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor/filter_option`);
+    }
     async fetchDataVendor(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/api/vendor/list`,data, {headers: Headers});
     }
-    async deleteSingleVendor(data: any = null) {
-        return await _axios.delete(`${API_URL_PRODUCT}/api/vendor/${data}`);
+    async deleteSingleVendor(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/vendor/${id}`);
     }
 
-    async fetchSingleVendor(data: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/vendor/${data}`);
+    async fetchSingleVendor(id: any = null) {
+        return await _axios.get(`${API_URL_PRODUCT}/api/vendor/${id}`);
     }
 
     async updateSingleVendor(id, data) {
@@ -202,6 +205,33 @@ class api {
 
     async createSingleManufacturer(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/api/manufacture`, data, {headers: Headers});
+    }
+
+
+    //RFQ
+    async searchRfq(data: any = null) {
+        return await _axios.post(`${URL}/api/rfq/search`,data, {headers: Headers});
+    }
+    async filterOptionRfq(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/rfq/filter_option`);
+    }
+    async fetchDataRfq(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/rfq/list`,data, {headers: Headers});
+    }
+    async deleteSingleRfq(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/rfq/${id}`);
+    }
+
+    async fetchSingleRfq(id: any = null) {
+        return await _axios.get(`${API_URL_PRODUCT}/api/rfq/${id}`);
+    }
+
+    async updateSingleRfq(id, data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/rfq/${id}`, data, {headers: Headers});
+    }
+
+    async createSingleRfq(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/rfq`, data, {headers: Headers});
     }
 
 }
