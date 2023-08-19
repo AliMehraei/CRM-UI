@@ -73,7 +73,7 @@ class api {
     }
     async loadRfqs(query) {
         try {
-            const response = await _axios.get(`${API_URL_PRODUCT}/api/search-rfq`, {
+            const response = await _axios.get(`${API_URL_PRODUCT}/api/rfq/search-rfq`, {
                 headers: Headers,
                 params: {
                     query: query
