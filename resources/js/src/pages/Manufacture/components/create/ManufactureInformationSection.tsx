@@ -1,15 +1,29 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
+import AsyncSelect from "react-select/async";
+import {handleOwnerChange, loadOwners} from "../../../RFQ/components/edit/HeaderSection";
 
 const ManufactureInformationSection = () => {
 
     const fields = {
-        'Created': {
-            'test': <input id="test" type="checkbox"
-                           name="test"
-                           className="form-checkbox"/>,
-            'Send letter owner': <input id="send_letter_owner" type="checkbox"
-                                        name="send_letter_owner"
-                                        className="form-checkbox"/>,
+        'Manufacture Information': {
+            'Manufacture Image': <input
+                type="file"
+                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                accept="image/*"
+            />,
+            'Manufacture Name': <input id="manufacture_name" required name="manufacture_name"
+                                       className="form-input flex-1 "/>,
+            'octo_api_id': <input id="octo_api_id" name="octo_api_id"
+                                  className="form-input flex-1 "/>,
+            'Alias Names': <textarea id="alias_names" name="alias_names" rows={3}
+                                     className="form-textarea flex-1"></textarea>,
+        },
+        '': {
+            'Active': <input id="active" type="checkbox" name="active"
+                             className="form-checkbox"/>,
+            'Manufacture Owner' : <AsyncSelect isMulti={false} id="owner_id"
+                                               placeholder="Type at least 2 characters to search..."
+                                               loadOptions={loadOwners} onChange={handleOwnerChange} className="flex-1"/>,
         }
     }
     return (<>
