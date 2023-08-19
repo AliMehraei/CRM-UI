@@ -13,7 +13,7 @@ const ManufactureInformationSection = () => {
             />,
             'Manufacture Name': <input id="manufacture_name" required name="manufacture_name"
                                        className="form-input flex-1 "/>,
-            'octo_api_id': <input id="octo_api_id" name="octo_api_id"
+            'Octo Api Id': <input id="octo_api_id" name="octo_api_id"
                                   className="form-input flex-1 "/>,
             'Alias Names': <textarea id="alias_names" name="alias_names" rows={3}
                                      className="form-textarea flex-1"></textarea>,
@@ -21,9 +21,10 @@ const ManufactureInformationSection = () => {
         '': {
             'Active': <input id="active" type="checkbox" name="active"
                              className="form-checkbox"/>,
-            'Manufacture Owner' : <AsyncSelect isMulti={false} id="owner_id"
-                                               placeholder="Type at least 2 characters to search..."
-                                               loadOptions={loadOwners} onChange={handleOwnerChange} className="flex-1"/>,
+            'Manufacture Owner': <AsyncSelect isMulti={false} id="owner_id"
+                                              placeholder="Type at least 2 characters to search..."
+                                              loadOptions={loadOwners} onChange={handleOwnerChange}
+                                              className="flex-1"/>,
         }
     }
     return (<>
