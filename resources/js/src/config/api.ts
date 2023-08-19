@@ -9,7 +9,7 @@ let API_URL_USER: any;
 
 class api {
 
-    constructor(props: any) {
+    constructor(props: any = {}) {
         // userLocale = Cookies.get('current_user_locale');
         // URL = `${process.env.MIX_API_BASE_URL}/${userLocale}/v1`;
         URL = `/api/v1`;
