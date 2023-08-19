@@ -1,4 +1,5 @@
 import React from "react";
+import ManufactureInformationSection from "./ManufactureInformationSection";
 
 const ManufactureFormFields = () => {
     return (
