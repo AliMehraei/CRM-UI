@@ -135,7 +135,7 @@ class api {
         return await _axios.post(`${URL}/api/vendor/search`,data, {headers: Headers});
     }
     async fetchDataVendor(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/api/vendor/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor/list`,data, {headers: Headers});
     }
     async deleteSingleVendor(data: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/api/vendor/${data}`);
@@ -178,25 +178,29 @@ class api {
             throw error;
         }
     }
+
+    async filterOptionManufacturer(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/filter_option`);
+    }
     async searchManufacturer(data: any = null) {
         return await _axios.post(`${URL}/api/manufacture/search`,data, {headers: Headers});
     }
     async fetchDataManufacturer(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/list`,data, {headers: Headers});
     }
-    async deleteSingleManufacturer(data: any = null) {
-        return await _axios.delete(`${API_URL_PRODUCT}/api/manufacture/${data}`);
-    }
-
-    async fetchSingleManufacturer(data: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/manufacture/${data}`);
+    async deleteSingleManufacturer(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/manufacture/${id}`,{headers: Headers});
     }
 
-    async updateSingleManufacture(id, data) {
+    async fetchSingleManufacturer(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/${id}`,{headers: Headers});
+    }
+
+    async updateSingleManufacture(id, data: any = null) {
         return await _axios.put(`${API_URL_PRODUCT}/api/manufacture/${id}`, data, {headers: Headers});
     }
 
-    async createSingleManufacturer(data) {
+    async createSingleManufacturer(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/api/manufacture`, data, {headers: Headers});
     }
 
