@@ -2,11 +2,13 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import themeConfigSlice from './themeConfigSlice';
 import rfqFormSlice from "./rfqFormSlice";
 import manufactureFormSlice from "./manufactureFormSlice";
+import formErrorsSlice from "./formErrorsSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
-    manufactureForm : manufactureFormSlice,
+    manufactureForm: manufactureFormSlice,
+    formErrors: formErrorsSlice,
 });
 
 export default configureStore({
