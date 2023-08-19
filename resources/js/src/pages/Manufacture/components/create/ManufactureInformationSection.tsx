@@ -16,15 +16,35 @@ const ManufactureInformationSection = () => {
 
     const handleUploadImage = (e: any) => {
         if (e.target.files && e.target.files.length > 0) {
-            api_instance.uploadImage(e.target.files[0]).then((response) => {
-                dispatch(updateFormData({ 'manufacture_image': response.data['file_url'] }));
-            });
+            api_instance.uploadFile(e.target.files[0]).then((response) => {
+                dispatch(updateFormData({'manufacture_image': `${response?.data.data.file_url}`}));
+            }).catch();
         }
     };
 
-    const loadOwners = () => {
-
+    const loadOwners = async (e: any) => {
+        const result = await api_instance.loadAdminUsers(e);
+        const valField = 'id';
+        const nameField = 'name';
+        const avatarField = 'avatar';
+        const emailField = 'email';
+        if (result.status) {
+            return result.data.map((user: any) => ({
+                value: user[valField],
+                label: (
+                    <div key={user[valField]} className="flex items-center">
+                        <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                        <div>
+                            <div className="text-sm font-bold">{user[nameField]}</div>
+                            <div className="text-xs text-gray-500">{user[emailField]}</div>
+                        </div>
+                    </div>
+                ),
+            }));
+        }
     };
+
+
     const fields = {
         'Manufacture Information': {
             'Manufacture Image': (<input
@@ -80,7 +100,9 @@ const ManufactureInformationSection = () => {
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     loadOptions={loadOwners}
-                    onChange={(selectedOption) => handleChangeField('owner_id', selectedOption)} // Use 'owner_id' if it's the field name
+                    onChange={({value}: any) => {
+                        handleChangeField('owner_id', value)
+                    }} // Use 'owner_id' if it's the field name
                     className="flex-1"
                 />
             ),
