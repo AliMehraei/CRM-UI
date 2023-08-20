@@ -4,7 +4,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import ManufactureFormFields from "./components/edit/ManufactureFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 
-const Add = () => {
+const Edit = () => {
     const formState = useSelector((state: any) => state.manufactureForm);
     const dispatch = useDispatch();
 
@@ -25,4 +25,4 @@ const Add = () => {
     );
 };
 
-export default Add;
+export default Edit;
