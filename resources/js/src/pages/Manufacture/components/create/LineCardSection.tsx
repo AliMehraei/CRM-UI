@@ -13,39 +13,16 @@ const LineCardSection = () => {
         dispatch(updateFormData({field, value}));
     };
 
-    const handleChangeVendorLine = (e: any) => {
-    };
 
-    const handleChangeStrongCard = (e: any) => {
-    };
 
-    const searchVendor = async () => {
+    const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'name';
-        const testVendors = [
-            {id: '1', name: 'test1'},
-            {id: '2', name: 'test2'},
-            {id: '3', name: 'test3'},
-            {id: '4', name: 'test4'},
-            {id: '5', name: 'test5'},
-            {id: '6', name: 'test6'},
-            {id: '7', name: 'test7'}
+        const nameField = 'vendor_name';
 
-        ];
-        return testVendors.map((data: any) => ({
-            value: data[valField],
-            label: (
-                <div key={data[valField]} className="flex items-center">
-                    <div>
-                        <div className="text-sm font-bold">{data[nameField]}</div>
-                    </div>
-                </div>
-            ),
-        }));
-        const result = await api_instance.searchVendor();
+        const result = await api_instance.searchVendor({query: query});
 
         if (result.status) {
-            return result.data.map((data: any) => ({
+            return result.data.data.map((data: any) => ({
                 value: data[valField],
                 label: (
                     <div key={data[valField]} className="flex items-center">
@@ -60,17 +37,23 @@ const LineCardSection = () => {
 
     const fields = {
         'Line Card': {
-            'Vendor_Line Card': <AsyncSelect isMulti={false} id="line_card_id" name="line_card_id"
+            'Vendor_Line Card': <AsyncSelect isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
                                              placeholder="Type at least 2 characters to search..."
-                                             loadOptions={searchVendor} onChange={handleChangeVendorLine}
+                                             loadOptions={searchVendor}
                                              className="flex-1"
+                                             onChange={({value}: any) => {
+                                                 handleChangeField('vendor_line_card_id', value)
+                                             }}
             />,
         },
         '': {
-            'Vendor_Strong Card': <AsyncSelect isMulti={false} id="strong_card_id" name="strong_card_id"
+            'Vendor_Strong Card': <AsyncSelect isMulti={false} id="vendor_strong_lines_id" name="vendor_strong_lines_id"
                                                placeholder="Type at least 2 characters to search..."
-                                               loadOptions={searchVendor} onChange={handleChangeStrongCard}
+                                               loadOptions={searchVendor}
                                                className="flex-1"
+                                               onChange={({value}: any) => {
+                                                   handleChangeField('vendor_strong_lines_id', value)
+                                               }}
             />,
         }
     }
