@@ -1,10 +1,7 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import AsyncSelect from "react-select/async";
-import {handleOwnerChange, loadOwners} from "../../../RFQ/components/edit/HeaderSection";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
-import {an} from "@fullcalendar/core/internal-common";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const LineCardSection = () => {
@@ -17,11 +14,9 @@ const LineCardSection = () => {
     };
 
     const handleChangeVendorLine = (e: any) => {
-        console.log(e);
     };
 
     const handleChangeStrongCard = (e: any) => {
-        console.log(e)
     };
 
     const searchVendor = async () => {
@@ -68,13 +63,15 @@ const LineCardSection = () => {
             'Vendor_Line Card': <AsyncSelect isMulti={false} id="line_card_id" name="line_card_id"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor} onChange={handleChangeVendorLine}
-                                             className="flex-1"/>,
+                                             className="flex-1"
+            />,
         },
         '': {
             'Vendor_Strong Card': <AsyncSelect isMulti={false} id="strong_card_id" name="strong_card_id"
                                                placeholder="Type at least 2 characters to search..."
                                                loadOptions={searchVendor} onChange={handleChangeStrongCard}
-                                               className="flex-1"/>,
+                                               className="flex-1"
+            />,
         }
     }
     return (<>

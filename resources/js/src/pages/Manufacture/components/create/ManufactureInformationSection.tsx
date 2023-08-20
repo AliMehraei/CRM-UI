@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useEffect} from "react";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
@@ -17,7 +16,8 @@ const ManufactureInformationSection = () => {
     const handleUploadImage = (e: any) => {
         if (e.target.files && e.target.files.length > 0) {
             api_instance.uploadFile(e.target.files[0]).then((response) => {
-                dispatch(updateFormData({'manufacture_image': `${response?.data.data.file_url}`}));
+                console.log(response);
+                dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
             }).catch();
         }
     };
@@ -64,6 +64,7 @@ const ManufactureInformationSection = () => {
                     name="name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    value={formState.name}
                 />
             ),
             'Octo Api Id': (
@@ -72,6 +73,7 @@ const ManufactureInformationSection = () => {
                     name="octo_api_id"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    value={formState.octo_api_id}
                 />
             ),
             'Alias Names': (
@@ -81,6 +83,8 @@ const ManufactureInformationSection = () => {
                     rows={3}
                     className="form-textarea flex-1"
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    value={formState.alias_names}
+
                 ></textarea>
             ),
         },
@@ -92,6 +96,7 @@ const ManufactureInformationSection = () => {
                     name="is_active"
                     className="form-checkbox"
                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    checked={formState.is_active}
                 />
             ),
             'Manufacture Owner': (
