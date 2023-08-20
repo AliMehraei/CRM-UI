@@ -21,5 +21,5 @@ const manufactureFormSlice = createSlice({
     },
 });
 
-export const {updateFormData} = manufactureFormSlice.actions;
+export const {updateFormData,resetForm} = manufactureFormSlice.actions;
 export default manufactureFormSlice.reducer;
