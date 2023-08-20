@@ -10,7 +10,7 @@ const initState = {
     alias_names: '',
     owner_id: '',
     vendor_line_card_id: '',
-    vendor_strong_card_id: '',
+    vendor_strong_lines_id: '',
     image: '',
 
 };
