@@ -20,10 +20,9 @@ const manufactureFormSlice = createSlice({
     initialState: initState,
     reducers: {
         updateFormData: (state, action) => {
-            const {field, value} = action.payload;
             return {
                 ...state,
-                [field]: value,
+                ...action.payload,
             };
         },
         resetForm: () => {

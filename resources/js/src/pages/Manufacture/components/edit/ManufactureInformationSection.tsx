@@ -9,7 +9,7 @@ const ManufactureInformationSection = () => {
     const api_instance = new api();
     const formState = useSelector((state: any) => state.manufactureForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({field, value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
 

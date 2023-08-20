@@ -10,7 +10,7 @@ const LineCardSection = () => {
     const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({field, value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
 
