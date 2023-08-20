@@ -2,7 +2,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
-import ManufactireFormFields from "./components/create/ManufactireFormFields";
+import ManufactireFormFields from "./components/create/ManufactureFormFields";
 import QuotesFormFields from "../Quotes/components/create/QuotesFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 
