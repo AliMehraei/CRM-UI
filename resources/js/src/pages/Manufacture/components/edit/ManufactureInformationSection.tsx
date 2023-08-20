@@ -3,13 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {useEffect} from "react";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.manufactureForm);
+
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
 
@@ -109,6 +111,18 @@ const ManufactureInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
+                    defaultValue={{
+                        value: formState.owner.id,
+                        label: (
+                            <div key={formState.owner.id} className="flex items-center">
+                                <img src={formState.owner.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                                <div>
+                                    <div className="text-sm font-bold">{formState.owner.name}</div>
+                                    <div className="text-xs text-gray-500">{formState.owner.email}</div>
+                                </div>
+                            </div>
+                        ),
+                    }}
                 />
             ),
         }
