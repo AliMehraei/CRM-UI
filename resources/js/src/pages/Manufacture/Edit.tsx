@@ -19,7 +19,6 @@ const Edit = () => {
     });
 
     useEffect(() => {
-        console.log(manufactureId)
         api.fetchSingleManufacturer(manufactureId).then((response) => {
                 if (response.status === 200)
                     dispatch(updateFormData(response.data.data.manufacture))
