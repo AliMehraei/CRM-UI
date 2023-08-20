@@ -3,11 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {useEffect} from "react";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
-
+    const formState = useSelector((state: any) => state.manufactureForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({field, value}));
     };
@@ -58,7 +59,7 @@ const ManufactureInformationSection = () => {
             ),
             'Manufacture Name': (
                 <input
-                    id="manufacture_name"
+                    id="name"
                     required
                     name="name"
                     className="form-input flex-1 "
@@ -98,6 +99,7 @@ const ManufactureInformationSection = () => {
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
+                    name="owner_id"
                     loadOptions={loadOwners}
                     onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
