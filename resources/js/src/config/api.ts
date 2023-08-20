@@ -145,7 +145,7 @@ class api {
     }
 
     async fetchSingleVendor(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/vendor/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor/${id}`);
     }
 
     async updateSingleVendor(id, data) {
