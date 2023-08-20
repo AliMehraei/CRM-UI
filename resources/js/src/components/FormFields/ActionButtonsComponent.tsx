@@ -15,7 +15,7 @@ const ActionButtonsComponent = ({formState}: any) => {
 
     const submitForm = async (action: string = 'save') => {
 
-        dispatch(resetErrors);
+        dispatch(resetErrors());
         const toast = Swal.mixin({
             toast: true,
             position: 'top',
@@ -30,6 +30,7 @@ const ActionButtonsComponent = ({formState}: any) => {
 
         const response = await methodToCall.call(api_instance, formState);
         if (response.isOk) {
+            dispatch(resetForm());
             toast.fire({
                 icon: 'success',
                 timer: 2000,
@@ -37,7 +38,6 @@ const ActionButtonsComponent = ({formState}: any) => {
                 padding: '10px 20px',
 
             }).then(() => {
-                dispatch(resetForm());
                 if (action === 'save') {
                     const pathToNavigate = location.pathname.replace('\/add', `\/edit/${response.data.data.id}`);
                     navigate(pathToNavigate, {replace: true});
@@ -56,10 +56,6 @@ const ActionButtonsComponent = ({formState}: any) => {
             });
         }
     };
-
-    useEffect(() => {
-        dispatch(resetErrors);
-    }, [])
 
     const handlePreviousPage = () => {
         const pathToNavigate = location.pathname.replace('\/add', '\/list');
