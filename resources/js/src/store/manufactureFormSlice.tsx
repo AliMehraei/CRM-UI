@@ -9,8 +9,8 @@ const initState = {
     is_active: false,
     alias_names: '',
     owner_id: '',
-    line_card_id: '',
-    strong_card_id: '',
+    vendor_line_card_id: '',
+    vendor_strong_card_id: '',
     image: '',
 
 };
