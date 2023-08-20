@@ -6,13 +6,13 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const LineCardSection = () => {
     const formState = useSelector((state: any) => state.manufactureForm);
+
     const dispatch = useDispatch();
     const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
-
 
 
     const searchVendor = async (query: string) => {
@@ -44,16 +44,42 @@ const LineCardSection = () => {
                                              onChange={({value}: any) => {
                                                  handleChangeField('vendor_line_card_id', value)
                                              }}
+                // value={defaultLineCard}
+                                             defaultValue={{
+                                                 value: formState.vendor_line_card_id,
+                                                 label: (
+                                                     <div key={formState.vendor_line_card_id}
+                                                          className="flex items-center">
+                                                         <div>
+                                                             <div
+                                                                 className="text-sm font-bold">{formState.vendor_line_card?.vendor_name}</div>
+                                                         </div>
+                                                     </div>
+                                                 )
+                                             }}
             />,
         },
         '': {
-            'Vendor_Strong Card': <AsyncSelect isMulti={false} id="vendor_strong_lines_id" name="vendor_strong_lines_id"
+            'Vendor_Strong Card': <AsyncSelect isMulti={false} id="vendor_strong_card_id" name="vendor_strong_card_id"
                                                placeholder="Type at least 2 characters to search..."
                                                loadOptions={searchVendor}
                                                className="flex-1"
                                                onChange={({value}: any) => {
-                                                   handleChangeField('vendor_strong_lines_id', value)
+                                                   handleChangeField('vendor_strong_card_id', value)
                                                }}
+                                               defaultValue={{
+                                                   value: formState.vendor_line_card_id,
+                                                   label: (
+                                                       <div key={formState.vendor_line_card_id}
+                                                            className="flex items-center">
+                                                           <div>
+                                                               <div
+                                                                   className="text-sm font-bold">{formState.vendor_line_card?.vendor_name}</div>
+                                                           </div>
+                                                       </div>
+                                                   )
+                                               }}
+
             />,
         }
     }
