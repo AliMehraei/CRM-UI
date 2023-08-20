@@ -55,7 +55,7 @@ class api {
         return await _axios.post(`${API_URL_USER}/api/user/admin-users/find-one`, id, {headers: Headers});
     }
 
-    
+
     async loadRfqs(query) {
         try {
             const response = await _axios.get(`${API_URL_PRODUCT}/api/rfq/search-rfq`, {
@@ -132,7 +132,7 @@ class api {
     }
     //vendor
     async searchVendor(data: any = null) {
-        return await _axios.post(`${URL}/api/vendor/search`,data, {headers: Headers});
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor/search`,data, {headers: Headers});
     }
     async filterOptionVendor(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/api/vendor/filter_option`);
