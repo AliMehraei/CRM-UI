@@ -1,9 +1,8 @@
-// redux/formSlice.js
 import {createSlice} from '@reduxjs/toolkit';
 
 
 const initState = {
-
+    hasError: false
 };
 
 const formErrorsSlice = createSlice({
@@ -11,14 +10,15 @@ const formErrorsSlice = createSlice({
     initialState: initState,
     reducers: {
         updateErrors: (state, action) => {
-            const {field, value} = action.payload;
+
             return {
                 ...state,
-                [field]: value,
+                ...action.payload,
             };
         },
+        resetErrors: () => initState, // Reset the errors to initial state
     },
 });
 
-export const {updateErrors} = formErrorsSlice.actions;
+export const {updateErrors , resetErrors} = formErrorsSlice.actions;
 export default formErrorsSlice.reducer;
