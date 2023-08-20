@@ -113,7 +113,7 @@ const routes = [
         path: '/',
         element: <Index />,
     },
-    
+
     {
         path: '/index',
         element: <Index />,
@@ -124,7 +124,7 @@ const routes = [
         element: <ListAccount />,
     },
     {
-        path: '/account/preview',
+        path: '/account/preview/:id',
         element: <PreviewAccount />,
     },
     {
@@ -132,7 +132,7 @@ const routes = [
         element: <AddAccount />,
     },
     {
-        path: '/account/edit',
+        path: '/account/edit/:id',
         element: <EditAccount />,
     },
 
@@ -152,7 +152,7 @@ const routes = [
 
     // preview page
     {
-        path: '/invoice/preview',
+        path: '/invoice/preview/:id',
         element: <PreviewInvoice />,
     },
     {
@@ -160,7 +160,7 @@ const routes = [
         element: <AddInvoice />,
     },
     {
-        path: '/invoice/edit',
+        path: '/invoice/edit/:id',
         element: <EditInvoice />,
     },
     {
@@ -267,7 +267,7 @@ const routes = [
         element: <ListAvailability />,
     },
     {
-        path: '/availability/preview',
+        path: '/availability/preview/:id',
         element: <PreviewAvailability />,
     },
     {
@@ -275,7 +275,7 @@ const routes = [
         element: <AddAvailability />,
     },
     {
-        path: '/availability/edit',
+        path: '/availability/edit/:id',
         element: <EditAvailability />,
     },
 
@@ -284,7 +284,7 @@ const routes = [
         element: <ListSupport />,
     },
     {
-        path: '/support/preview',
+        path: '/support/preview/:id',
         element: <PreviewSupport />,
     },
     {
@@ -292,7 +292,7 @@ const routes = [
         element: <AddSupport />,
     },
     {
-        path: '/support/edit',
+        path: '/support/edit/:id',
         element: <EditSupport />,
     },
 
@@ -301,7 +301,7 @@ const routes = [
         element: <ListExcess />,
     },
     {
-        path: '/excess/preview',
+        path: '/excess/preview/:id',
         element: <PreviewExcess />,
     },
     {
@@ -309,7 +309,7 @@ const routes = [
         element: <AddExcess />,
     },
     {
-        path: '/excess/edit',
+        path: '/excess/edit/:id',
         element: <EditExcess />,
     },
 
@@ -320,7 +320,7 @@ const routes = [
         element: <ListManufacture />,
     },
     {
-        path: '/manufacture/preview',
+        path: '/manufacture/preview/:id',
         element: <PreviewManufacture />,
     },
     {
@@ -328,7 +328,7 @@ const routes = [
         element: <AddManufacture />,
     },
     {
-        path: '/manufacture/edit',
+        path: '/manufacture/edit/:id',
         element: <EditManufacture />,
     },
 
@@ -339,7 +339,7 @@ const routes = [
         element: <ListProduct />,
     },
     {
-        path: '/product/preview',
+        path: '/product/preview/:id',
         element: <PreviewProduct />,
     },
     {
@@ -358,7 +358,7 @@ const routes = [
         element: <ListQuotes />,
     },
     {
-        path: '/quotes/preview',
+        path: '/quotes/preview/:id',
         element: <PreviewQuotes />,
     },
     {
@@ -366,7 +366,7 @@ const routes = [
         element: <AddQuotes />,
     },
     {
-        path: '/quotes/edit',
+        path: '/quotes/edit/:id',
         element: <EditQuotes />,
     },
 
@@ -378,7 +378,7 @@ const routes = [
         element: <ListRFQ />,
     },
     {
-        path: '/rfq/preview',
+        path: '/rfq/preview/:id',
         element: <PreviewRFQ />,
     },
     {
@@ -386,7 +386,7 @@ const routes = [
         element: <AddRFQ />,
     },
     {
-        path: '/rfq/edit',
+        path: '/rfq/edit/:id',
         element: <EditRFQ />,
     },
 
@@ -397,7 +397,7 @@ const routes = [
         element: <ListVendorRFQ />,
     },
     {
-        path: '/vendor_rfq/preview',
+        path: '/vendor_rfq/preview/:id',
         element: <PreviewVendorRFQ />,
     },
     {
@@ -405,7 +405,7 @@ const routes = [
         element: <AddVendorRFQ />,
     },
     {
-        path: '/vendor_rfq/edit',
+        path: '/vendor_rfq/edit/:id',
         element: <EditVendorRFQ />,
     },
 
@@ -416,7 +416,7 @@ const routes = [
         element: <ListVendor />,
     },
     {
-        path: '/vendor/preview',
+        path: '/vendor/preview/:id',
         element: <PreviewVendor />,
     },
     {
@@ -424,7 +424,7 @@ const routes = [
         element: <AddVendor />,
     },
     {
-        path: '/vendor/edit',
+        path: '/vendor/edit/:id',
         element: <EditVendor />,
     },
 
@@ -435,7 +435,7 @@ const routes = [
         element: <ListContact />,
     },
     {
-        path: '/contact/preview',
+        path: '/contact/preview/:id',
         element: <PreviewContact />,
     },
     {
@@ -443,7 +443,7 @@ const routes = [
         element: <AddContact/>,
     },
     {
-        path: '/contact/edit',
+        path: '/contact/edit/:id',
         element: <EditContact />,
     },
 
@@ -454,7 +454,7 @@ const routes = [
         element: <ListDeal />,
     },
     {
-        path: '/deal/preview',
+        path: '/deal/preview/:id',
         element: <PreviewDeal />,
     },
     {
@@ -462,7 +462,7 @@ const routes = [
         element: <AddDeal />,
     },
     {
-        path: '/deal/edit',
+        path: '/deal/edit/:id',
         element: <EditDeal />,
     },
 
@@ -474,7 +474,7 @@ const routes = [
         element: <ListLead />,
     },
     {
-        path: '/lead/preview',
+        path: '/lead/preview/:id',
         element: <PreviewLead />,
     },
     {
@@ -482,7 +482,7 @@ const routes = [
         element: <AddLead />,
     },
     {
-        path: '/lead/edit',
+        path: '/lead/edit/:id',
         element: <EditLead />,
     },
 
@@ -493,7 +493,7 @@ const routes = [
         element: <ListPurchase />,
     },
     {
-        path: '/purchase/preview',
+        path: '/purchase/preview/:id',
         element: <PreviewPurchase />,
     },
     {
@@ -501,7 +501,7 @@ const routes = [
         element: <AddPurchase />,
     },
     {
-        path: '/purchase/edit',
+        path: '/purchase/edit/:id',
         element: <EditPurchase />,
     },
 
@@ -512,7 +512,7 @@ const routes = [
         element: <ListSales />,
     },
     {
-        path: '/sales/preview',
+        path: '/sales/preview/:id',
         element: <PreviewSales />,
     },
     {
@@ -520,7 +520,7 @@ const routes = [
         element: <AddSales />,
     },
     {
-        path: '/sales/edit',
+        path: '/sales/edit/:id',
         element: <EditSales />,
     },
 
