@@ -1,4 +1,3 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
@@ -6,7 +5,6 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const ManufactureInformationSection = () => {
-    const formState = useSelector((state: any) => state.manufactureForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -62,7 +60,7 @@ const ManufactureInformationSection = () => {
                 <input
                     id="manufacture_name"
                     required
-                    name="manufacture_name"
+                    name="name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
@@ -88,9 +86,9 @@ const ManufactureInformationSection = () => {
         '': {
             'Active': (
                 <input
-                    id="active"
+                    id="is_active"
                     type="checkbox"
-                    name="active"
+                    name="is_active"
                     className="form-checkbox"
                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
                 />
