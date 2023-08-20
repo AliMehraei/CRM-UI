@@ -16,7 +16,6 @@ const ManufactureInformationSection = () => {
     const handleUploadImage = (e: any) => {
         if (e.target.files && e.target.files.length > 0) {
             api_instance.uploadFile(e.target.files[0]).then((response) => {
-                console.log(response);
                 dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
             }).catch();
         }
