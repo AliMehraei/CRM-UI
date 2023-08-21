@@ -1,5 +1,5 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AsyncSelect from "react-select/async";
 import {loadProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch} from "react-redux";
@@ -47,6 +47,7 @@ const InvoiceItemSection = () => {
         }]);
     };
 
+
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
     };
@@ -55,7 +56,7 @@ const InvoiceItemSection = () => {
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12">
                 <div key="Quote Items" className="">
                     <div className="text-lg">
-                        Quote Items <RequiredComponent/> :
+                        Invoice Items :
                     </div>
 
                     <div className="mt-8">
