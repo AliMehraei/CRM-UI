@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/vendorFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadImage} from "../../../../components/Functions/CommonFunctions";
+import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const ContactInformationSection = () => {
                     type="file"
                     className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                     accept="image/*"
-                    onChange={(e) => handleUploadImage(e, (response: any) => {
+                    onChange={(e) => handleUploadFile(e, (response: any) => {
                         dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
                     })}
                     name="vendorImage"

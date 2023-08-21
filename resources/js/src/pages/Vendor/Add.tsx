@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import VendorFormFields from "./components/create/VendorFormFields";
-import QuotesFormFields from "../Quotes/components/create/QuotesFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 
 const Add = () => {
