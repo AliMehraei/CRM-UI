@@ -1,9 +1,7 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useEffect, useState} from "react";
 import AsyncSelect from "react-select/async";
 import {loadProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch} from "react-redux";
-import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 
 const InvoiceItemSection = () => {
