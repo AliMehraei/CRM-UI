@@ -6,7 +6,7 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import {updateFormData} from "../../store/manufactureFormSlice";
-
+import LoadingAlpyn from "../../components/LoadingAlpyn"
 const Edit = () => {
     const formState = useSelector((state: any) => state.manufactureForm);
     const [loading, setLoading] = useState(true);
@@ -49,6 +49,7 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
+            
         });
     }, [manufactureId]);
 
@@ -63,7 +64,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return "loading";
+        return  <LoadingAlpyn />
 
     return (
         <div className='px-4'>
