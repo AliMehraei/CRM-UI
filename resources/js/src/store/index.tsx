@@ -5,6 +5,7 @@ import manufactureFormSlice from "./manufactureFormSlice";
 import formErrorsSlice from "./formErrorsSlice";
 import invoiceFormSlice from "./invoiceFormSlice";
 import accountFormSlice from "./accountFormSlice";
+import vendorFormSlice from "./vendorFormSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     formErrors: formErrorsSlice,
     invoiceForm: invoiceFormSlice,
     accountForm: accountFormSlice,
+    vendorForm:vendorFormSlice,
 });
 
 export default configureStore({
