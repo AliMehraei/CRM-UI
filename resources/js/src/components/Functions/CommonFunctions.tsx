@@ -72,3 +72,25 @@ export const Contract = [
     {value: 'other_agreement', label: 'Other Agreement'},
 
 ];
+
+export const loadProducts = async () => {
+    const result = await api_instance.fetch_data_product();
+    if (result.status) {
+        const valField = 'id';
+        const nameField = 'name';
+        const avatarField = 'avatar';
+        const emailField = 'email';
+        return result.data.map((user: any) => ({
+            value: user[valField],
+            label: (
+                <div key={user[valField]} className="flex items-center">
+                    <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <div>
+                        <div className="text-sm font-bold">{user[nameField]}</div>
+                        <div className="text-xs text-gray-500">{user[emailField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+}
