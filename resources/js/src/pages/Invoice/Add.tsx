@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import InvoiceFormFields from "./components/create/InvoiceFormFields";
+import 'flatpickr/dist/flatpickr.css';
 
 const Add = () => {
     const formState = useSelector((state: any) => state.invoiceForm);
