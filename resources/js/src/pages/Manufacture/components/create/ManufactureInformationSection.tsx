@@ -3,23 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {handleUploadImage} from "../../../../components/Functions/CommonFunctions";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.manufactureForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
-
-    const handleUploadImage = (e: any) => {
-        if (e.target.files && e.target.files.length > 0) {
-            api_instance.uploadFile(e.target.files[0]).then((response) => {
-                dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
-            }).catch();
-        }
-    };
 
     const loadOwners = async (e: any) => {
         const result = await api_instance.loadAdminUsers(e);
@@ -52,7 +45,9 @@ const ManufactureInformationSection = () => {
                     type="file"
                     className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                     accept="image/*"
-                    onChange={handleUploadImage}
+                    onChange={(e) => handleUploadImage(e, (response: any) => {
+                        dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
+                    })}
                     name="manufactureImage"
                 />
             ),
