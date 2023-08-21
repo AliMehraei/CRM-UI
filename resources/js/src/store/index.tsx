@@ -3,12 +3,14 @@ import themeConfigSlice from './themeConfigSlice';
 import rfqFormSlice from "./rfqFormSlice";
 import manufactureFormSlice from "./manufactureFormSlice";
 import formErrorsSlice from "./formErrorsSlice";
+import invoiceFormSlice from "./invoiceFormSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
     manufactureForm: manufactureFormSlice,
     formErrors: formErrorsSlice,
+    invoiceForm: invoiceFormSlice,
 });
 
 export default configureStore({
