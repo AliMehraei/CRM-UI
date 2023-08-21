@@ -1,5 +1,10 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
+import AsyncSelect from "react-select/async";
+import {loadProducts} from "../../../../components/Functions/CommonFunctions";
+import {useDispatch} from "react-redux";
+import api from "../../../../config/api";
+import {updateFormData} from "../../../../store/invoiceFormSlice";
 
 const InvoiceItemSection = () => {
     const [items, setItems] = useState<any>([
@@ -16,13 +21,18 @@ const InvoiceItemSection = () => {
             amount: 0,
         },
     ]);
+    const dispatch = useDispatch();
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
+    };
 
     const addItem = () => {
         let maxId = 0;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
 
         setItems([...items, {
-            id: maxId + 1, name: '',
+            id: maxId + 1,
+            name: '',
             part_id: '',
             quantity: 1,
             SPQ: '',
@@ -31,6 +41,9 @@ const InvoiceItemSection = () => {
             date_code: '',
             comment: '',
             amount: 0,
+            discount: 0,
+            tax: 0,
+            total: 0,
         }]);
     };
 
@@ -50,15 +63,14 @@ const InvoiceItemSection = () => {
                             <table className="table-auto overflow-scroll w-full">
                                 <thead>
                                 <tr>
-                                    <th className="w-1">Product Name</th>
-                                    <th className="w-1">Part Id</th>
+                                    <th className="w-1">S.NO</th>
+                                    <th className="w-full">Product Name</th>
                                     <th className="w-1">Quantity</th>
-                                    <th className="w-1">SPQ</th>
                                     <th className="w-1">List Price</th>
-                                    <th className="w-1">Lead Time</th>
-                                    <th className="w-1">Date Code</th>
-                                    <th className="w-1">Comment</th>
                                     <th className="w-1">Amount</th>
+                                    <th className="w-1">Discount</th>
+                                    <th className="w-1">Tax</th>
+                                    <th className="w-1">Total</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -67,53 +79,55 @@ const InvoiceItemSection = () => {
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
-                                                <input type="text" className="form-input min-w-[200px]"
-                                                       placeholder="Enter Item Name" defaultValue={item.title}/>
-                                                <textarea className="form-textarea mt-4" placeholder="Enter Description"
-                                                          defaultValue={item.description}></textarea>
+                                                {item.id}
                                             </td>
                                             <td>
-                                                <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    placeholder="Quantity"
-                                                    min={0}
-                                                    defaultValue={item.quantity}
+                                                <AsyncSelect
+                                                    isMulti={false}
+                                                    placeholder="Type at least 2 characters to search..."
+                                                    name="product_id"
+                                                    loadOptions={loadProducts}
+                                                    onChange={({value}: any) => {
+                                                        handleChangeField('product_id', value)
+                                                    }}
+                                                    className="flex-1"
                                                 />
+                                                <textarea name="description" className="form-textarea mt-4 flex-1"
+                                                          placeholder="Enter Description"
+                                                          defaultValue={item.description}
+                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
                                             </td>
                                             <td>
-                                                <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                <input name="quantity" type="text" className="form-input min-w-[200px]"
+                                                       defaultValue={item.quantity}/>
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
                                                     placeholder="Price"
+                                                    name="list_price"
                                                     min={0}
-                                                    defaultValue={item.amount}
+                                                    defaultValue={item.list_price}
 
                                                 />
                                             </td>
                                             <td>
-                                                <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                <input name="list_price" type="text"
+                                                       className="form-input min-w-[200px]"
+                                                       defaultValue={item.list_price}/>
                                             </td>
                                             <td>
-                                                <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                <input name="amount" type="text" className="form-input min-w-[200px]"
+                                                       value={item.amount}/>
                                             </td>
                                             <td>
-                                                <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                <input name="Discount" type="text" className="form-input min-w-[200px]"
+                                                       value={item.discount}/>
                                             </td>
                                             <td>
-                                                <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                <input name="Tax" type="text" className="form-input min-w-[200px]"
+                                                       value={item.tax}/>
                                             </td>
                                             <td>
                                                 <button type="button" onClick={() => removeItem(item)}>
