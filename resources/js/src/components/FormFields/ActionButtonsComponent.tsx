@@ -30,7 +30,8 @@ const ActionButtonsComponent = ({formState}: any) => {
 
         const response = await methodToCall.call(api_instance, formState);
         if (response.isOk) {
-            dispatch(resetForm());
+            if (formState.action === 'create')
+                dispatch(resetForm());
             toast.fire({
                 icon: 'success',
                 timer: 2000,
@@ -39,7 +40,10 @@ const ActionButtonsComponent = ({formState}: any) => {
 
             }).then(() => {
                 if (action === 'save') {
-                    const pathToNavigate = location.pathname.replace('\/add', `\/edit/${response.data.data.id}`);
+                    const pathToNavigate = formState.redirectTo.replace(':id', `${response.data.data.id}`);
+                    navigate(pathToNavigate, {replace: true});
+                } else if (formState.action !== 'create') {
+                    const pathToNavigate = formState.createRoute;
                     navigate(pathToNavigate, {replace: true});
                 }
             });
