@@ -2,6 +2,7 @@ import React from "react";
 import AccountSection from "./AccountSection";
 import AccountInformationSection from "./AccountInformationSection";
 import TermsAndShippingSection from "./TermsAndShippingSection";
+import AccountItemSection from "./AccountItemSection";
 
 
 const AccountFormFields = () => {
@@ -13,6 +14,7 @@ const AccountFormFields = () => {
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <TermsAndShippingSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <AccountItemSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
