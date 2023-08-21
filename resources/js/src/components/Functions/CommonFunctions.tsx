@@ -2,6 +2,12 @@ import api from "../../config/api";
 
 const api_instance = new api();
 
+export const PortalAccess = [
+    {value: 'none', label: '-None-'},
+    {value: 'waiting', label: 'Waiting'},
+    {value: 'confirmed', label: 'Confirmed'},
+    {value: 'rejected', label: 'Rejected'},
+]
 export const Currencies = [
     {value: 'EUR', label: 'EUR'},
     {value: 'USD', label: 'USD'},
