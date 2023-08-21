@@ -6,29 +6,29 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
 const ContactInformationSection = () => {
+    const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
-    const formState = useSelector((state: any) => state.vendorForm);
+
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
 
-    const loadOwners = async (e: any) => {
-        const result = await api_instance.loadAdminUsers(e);
+
+    const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'name';
-        const avatarField = 'avatar';
-        const emailField = 'email';
+        const nameField = 'vendor_name';
+
+        const result = await api_instance.searchVendor({query: query});
+
         if (result.status) {
-            return result.data.map((user: any) => ({
-                value: user[valField],
+            return result.data.data.map((data: any) => ({
+                value: data[valField],
                 label: (
-                    <div key={user[valField]} className="flex items-center">
-                        <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <div key={data[valField]} className="flex items-center">
                         <div>
-                            <div className="text-sm font-bold">{user[nameField]}</div>
-                            <div className="text-xs text-gray-500">{user[emailField]}</div>
+                            <div className="text-sm font-bold">{data[nameField]}</div>
                         </div>
                     </div>
                 ),
@@ -36,85 +36,36 @@ const ContactInformationSection = () => {
         }
     };
 
-
     const fields = {
-        'Vendor Information': {
-            'Vendor Image': (<input
-                    id="vendor_image"
-                    key="vendor_image"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="image/*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="vendorImage"
-                />
-            ),
-            'Vendor Name': (
-                <input
-                    id="name"
-                    required
-                    name="name"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    value={formState.name}
-                />
-            ),
-            'Octo Api Id': (
-                <input
-                    id="octo_api_id"
-                    name="octo_api_id"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    value={formState.octo_api_id}
-                />
-            ),
-            'Alias Names': (
-                <textarea
-                    id="alias_names"
-                    name="alias_names"
-                    rows={3}
-                    className="form-textarea flex-1"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    value={formState.alias_names}
-
-                ></textarea>
-            ),
+        'Line Card': {
+            'Vendor_Line Card': <AsyncSelect isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
+                                             placeholder="Type at least 2 characters to search..."
+                                             loadOptions={searchVendor}
+                                             className="flex-1"
+                                             onChange={({value}: any) => {
+                                                 handleChangeField('vendor_line_card_id', value)
+                                             }}
+            />,
         },
         '': {
-            'Active': (
-                <input
-                    id="is_active"
-                    type="checkbox"
-                    name="is_active"
-                    className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                    checked={formState.is_active}
-                />
-            ),
-            'Vendor Owner': (
-                <AsyncSelect
-                    isMulti={false}
-                    id="owner_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="owner_id"
-                    loadOptions={loadOwners}
-                    onChange={({value}: any) => {
-                        handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
-                    className="flex-1"
-                />
-            ),
+            'Vendor_Strong Card': <AsyncSelect isMulti={false} id="vendor_strong_lines_id" name="vendor_strong_lines_id"
+                                               placeholder="Type at least 2 characters to search..."
+                                               loadOptions={searchVendor}
+                                               className="flex-1"
+                                               onChange={({value}: any) => {
+                                                   handleChangeField('vendor_strong_lines_id', value)
+                                               }}
+            />,
         }
     }
-    return (
-        <>
+    return (<>
             <div className="flex justify-between lg:flex-row flex-col">
                 <GenerateFields fields={fields}/>
+
             </div>
         </>
     )
+    
 }
 
 export default ContactInformationSection;
