@@ -48,10 +48,27 @@ export const loadOrders = () => {
 
 };
 
-export const handleUploadImage = (e: any, callBack: any) => {
+export const handleUploadFile = (e: any, callBack: any) => {
     if (e.target.files && e.target.files.length > 0) {
         api_instance.uploadFile(e.target.files[0]).then((response) => {
             callBack(response)
         }).catch();
     }
 };
+export const AccountTypes = [
+    {value: 'none', label: '-None-'},
+    {value: 'ems', label: 'EMS'},
+    {value: 'odm', label: 'ODM(EMS + Development)'},
+    {value: 'oem', label: 'OEM'},
+    {value: 'reseller', label: 'Reseller'},
+    {value: 'systemintegrator_it', label: 'System-Integrator It'},
+    {value: 'other', label: 'Other'},
+]
+
+export const Contract = [
+    {value: 'nda', label: 'NDA'},
+    {value: 'quality_agreement', label: 'Quality Agreement'},
+    {value: 'logistic_agreement', label: 'Logistic Agreement'},
+    {value: 'other_agreement', label: 'Other Agreement'},
+
+];
