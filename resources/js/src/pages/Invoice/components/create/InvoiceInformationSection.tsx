@@ -35,7 +35,7 @@ const InvoiceInformationSection = () => {
     };
     const fields = {
         'Invoice Information': {
-            'Invoice Owner': <AsyncSelect isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
+            'Invoice Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
                                           placeholder="Type at least 2 characters to search..."
                                           loadOptions={loadOwners}
                                           className="flex-1"
@@ -76,8 +76,8 @@ const InvoiceInformationSection = () => {
             />,
             'Sales Commission': (
                 <input
-                    id="name"
-                    name="name"
+                    id="sales_commission"
+                    name="sales_commission"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
@@ -109,9 +109,9 @@ const InvoiceInformationSection = () => {
         '': {
             'Sales Order': <AsyncSelect
                 isMulti={false}
-                id="order_id"
+                id="sales_order_id"
                 placeholder="Type at least 2 characters to search..."
-                name="order_id"
+                name="sales_order_id"
                 loadOptions={loadOrders}
                 onChange={({value}: any) => {
                     handleChangeField('order_id', value)
@@ -135,8 +135,8 @@ const InvoiceInformationSection = () => {
             />,
             'Excise Duty': (
                 <input
-                    id="name"
-                    name="name"
+                    id="excise_duty"
+                    name="excise_duty"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
