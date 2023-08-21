@@ -5,6 +5,7 @@ import TermsAndShippingSection from "./TermsAndShippingSection";
 import AccountItemSection from "./AccountItemSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
 import TechnicalInformationSection from "./TechnicalInformationSection";
+import Unused from "./Unused";
 
 
 const AccountFormFields = () => {
@@ -22,7 +23,7 @@ const AccountFormFields = () => {
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <TechnicalInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <Unused/>
 
         </div>
     )
