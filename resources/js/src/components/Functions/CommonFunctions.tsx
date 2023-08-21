@@ -47,3 +47,11 @@ export const loadAccounts = () => {
 export const loadOrders = () => {
 
 };
+
+export const handleUploadImage = (e: any, callBack: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+        api_instance.uploadFile(e.target.files[0]).then((response) => {
+            callBack(response)
+        }).catch();
+    }
+};
