@@ -53,9 +53,13 @@ const Edit = () => {
     }, [manufactureId]);
 
     useEffect(() => {
-        dispatch(updateFormData({['api']: 'updateSingleManufacture'}));
-        dispatch(updateFormData({['redirectTo']: 'updateSingleManufacture'}));
+        const formDataUpdates = {
+            api: 'updateSingleManufacture',
+            redirectTo: 'updateSingleManufacture',
+            action: 'edit'
+        };
 
+        dispatch(updateFormData(formDataUpdates));
     }, []);
 
     if (loading)
