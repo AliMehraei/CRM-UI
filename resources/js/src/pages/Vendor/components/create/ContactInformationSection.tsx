@@ -37,25 +37,63 @@ const ContactInformationSection = () => {
     };
 
     const fields = {
-        'Line Card': {
-            'Vendor_Line Card': <AsyncSelect isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
-                                             placeholder="Type at least 2 characters to search..."
-                                             loadOptions={searchVendor}
-                                             className="flex-1"
-                                             onChange={({value}: any) => {
-                                                 handleChangeField('vendor_line_card_id', value)
-                                             }}
-            />,
+        'Contact Information': {
+            'First Name': (<input
+                id="primary_first_name"
+                name="primary_first_name"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
+
+            'Phone': (
+                <input
+                    id="phone"
+                    required
+                    name="phone"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                />
+            ),
+            
+            'email': (<input
+                id="email"
+                required
+                name="email"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
+            'linkedin': (<input
+                id="linkedin"
+                name="linkedin"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
+
         },
         '': {
-            'Vendor_Strong Card': <AsyncSelect isMulti={false} id="vendor_strong_lines_id" name="vendor_strong_lines_id"
-                                               placeholder="Type at least 2 characters to search..."
-                                               loadOptions={searchVendor}
-                                               className="flex-1"
-                                               onChange={({value}: any) => {
-                                                   handleChangeField('vendor_strong_lines_id', value)
-                                               }}
+            'Last Name': (<input
+                id="primary_last_name"
+                name="primary_last_name"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
+
+            
+            'Mobile':
+                <input
+                    id="mobile"
+                    name="mobile"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                />,
+            'Website':
+            <input
+                id="website"
+                name="website"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
+
         }
     }
     return (<>
