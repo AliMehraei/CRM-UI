@@ -25,24 +25,38 @@ const Edit = () => {
             return
         const manufacture = manufactureResponse.data.data.manufacture;
         dispatch(updateFormData(manufacture));
+        if (manufacture.vendor_line_card_id) {
+            await handleFetchingVendor(manufacture.vendor_line_card_id, 'vendor_line_card');
+        }
+        if (manufacture.vendor_line_card_id) {
+            await handleFetchingVendor(manufacture.vendor_line_card_id, "vendor_strong_lines");
+        }
 
-        const vendorLineResponse = await api.fetchSingleVendor(manufacture.vendor_line_card_id);
-        const vendorLine = vendorLineResponse.data.data['vendor'];
-        dispatch(updateFormData({['vendor_line_card']: vendorLine}))
-
-        const vendorStrongResponse = await api.fetchSingleVendor(manufacture.vendor_strong_lines_id);
-        const vendorStrong = vendorStrongResponse.data.data['vendor'];
-        dispatch(updateFormData({['vendor_strong_lines']: vendorStrong}));
         const ownerResponse = await api.loadUserById({id: manufacture.owner_id});
         const owner = ownerResponse.data.data;
         dispatch(updateFormData({['owner']: owner}));
     };
+
+    const handleFetchingVendor = async (id: string, vendorKey: string) => {
+        const vendorResponse = await api.fetchSingleVendor(id);
+        if (vendorResponse.status === 200) {
+            const vendor = vendorResponse.data.data['vendor'];
+            dispatch(updateFormData({[vendorKey]: vendor}));
+        }
+    }
+
     useEffect(() => {
 
         fetchData().then(() => {
             setLoading(false);
         });
     }, [manufactureId]);
+
+    useEffect(() => {
+        dispatch(updateFormData({['api']: 'updateSingleManufacture'}));
+        dispatch(updateFormData({['redirectTo']: 'updateSingleManufacture'}));
+
+    }, []);
 
     if (loading)
         return "loading";
