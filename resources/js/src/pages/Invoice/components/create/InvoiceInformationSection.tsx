@@ -5,6 +5,13 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 import Flatpickr from "react-flatpickr";
 import Select from "react-select";
+import {
+    Currencies,
+    loadAccounts,
+    loadOrders,
+    loadOwners,
+    Stages
+} from "../../../../components/Functions/CommonFunctions";
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
@@ -13,64 +20,6 @@ const InvoiceInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const loadOwners = async (e: any) => {
-        const result = await api_instance.loadAdminUsers(e);
-        const valField = 'id';
-        const nameField = 'name';
-        const avatarField = 'avatar';
-        const emailField = 'email';
-        if (result.status) {
-            return result.data.map((user: any) => ({
-                value: user[valField],
-                label: (
-                    <div key={user[valField]} className="flex items-center">
-                        <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
-                        <div>
-                            <div className="text-sm font-bold">{user[nameField]}</div>
-                            <div className="text-xs text-gray-500">{user[emailField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
-    const searchVendor = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'vendor_name';
-
-        const result = await api_instance.searchVendor({query: query});
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
-
-    const loadAccounts = () => {
-
-    };
-    const loadOrders = () => {
-
-    };
-
-    const Stages = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
-        {value: 'negotiation_price', label: 'Negotiation Price'},
-        {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'open', label: 'Open'},
-        {value: 'lost', label: 'Lost'},
-        {value: 'won', label: 'Won'},
-    ];
 
     const Statuses = [
         {value: 'erzeugt', label: 'Erzeugt'},
@@ -80,10 +29,7 @@ const InvoiceInformationSection = () => {
 
 
     ];
-    const Currencies = [
-        {value: 'EUR', label: 'EUR'},
-        {value: 'USD', label: 'USD'},
-    ]
+
     const loadContacts = () => {
 
     };
