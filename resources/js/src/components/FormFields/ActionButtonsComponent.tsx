@@ -68,21 +68,29 @@ const ActionButtonsComponent = ({formState}: any) => {
 
     return (
         <>
-            <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
-                <div className="flex items-center gap-2">
-                    <button onClick={handlePreviousPage} className="btn btn-danger gap-2">
-                        Back
-                    </button>
-                    <button onClick={() => submitForm('new')} className="btn btn-primary gap-2">
-                        Save and new
-                    </button>
-                    <button onClick={() => submitForm('save')} className="btn btn-success gap-2">
-                        Save
-                    </button>
+            <div className=" sticky top-0 z-10 px-0 flex-1 py-2 ltr:xl:mr-6 rtl:xl:ml-6 px-10">
+                <div className=" ">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center">
+                            <span className="text-xl font-bold">{document.title.split(' | ')[0]} : </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button onClick={handlePreviousPage} className="btn btn-danger gap-2">
+                                Back
+                            </button>
+                            <button onClick={() => submitForm('new')} className="btn btn-primary gap-2">
+                                Save and new
+                            </button>
+                            <button onClick={() => submitForm('save')} className="btn btn-success gap-2">
+                                Save
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
     )
+
 }
 
 export default ActionButtonsComponent;
