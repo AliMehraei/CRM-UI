@@ -2,6 +2,8 @@ import React from "react";
 import InvoiceInformationSection from "./InvoiceInformationSection";
 import AddressInformationSection from "./AddressInformationSection";
 import InvoiceItemSection from "./InvoiceItemSection";
+import TermsAndConditionsSection from "./TermsAndConditionsSection";
+import DescriptionInformationSection from "./DescriptionInformationSection";
 
 const InvoiceFormFields = () => {
     return (
@@ -12,7 +14,9 @@ const InvoiceFormFields = () => {
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <InvoiceItemSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
+            <TermsAndConditionsSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <DescriptionInformationSection/>
         </div>
     )
 
