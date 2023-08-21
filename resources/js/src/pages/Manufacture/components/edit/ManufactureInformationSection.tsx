@@ -112,13 +112,13 @@ const ManufactureInformationSection = () => {
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
                     defaultValue={{
-                        value: formState.owner.id,
+                        value: formState.owner?.id,
                         label: (
-                            <div key={formState.owner.id} className="flex items-center">
-                                <img src={formState.owner.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                            <div key={formState.owner?.id} className="flex items-center">
+                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner.name}</div>
-                                    <div className="text-xs text-gray-500">{formState.owner.email}</div>
+                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>
                         ),
