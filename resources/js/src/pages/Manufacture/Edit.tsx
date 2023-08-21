@@ -30,9 +30,9 @@ const Edit = () => {
         const vendorLine = vendorLineResponse.data.data['vendor'];
         dispatch(updateFormData({['vendor_line_card']: vendorLine}))
 
-        const vendorStrongResponse = await api.fetchSingleVendor(manufacture.vendor_line_card_id);
+        const vendorStrongResponse = await api.fetchSingleVendor(manufacture.vendor_strong_lines_id);
         const vendorStrong = vendorStrongResponse.data.data['vendor'];
-        dispatch(updateFormData({['vendor_strong_card']: vendorStrong}));
+        dispatch(updateFormData({['vendor_strong_lines']: vendorStrong}));
         const ownerResponse = await api.loadUserById({id: manufacture.owner_id});
         const owner = ownerResponse.data.data;
         dispatch(updateFormData({['owner']: owner}));
