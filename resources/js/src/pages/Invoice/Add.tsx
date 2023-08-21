@@ -9,7 +9,7 @@ const Add = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle('Manufacture Add'));
+        dispatch(setPageTitle('Invoice Add'));
     });
 
     return (
