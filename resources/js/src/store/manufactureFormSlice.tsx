@@ -4,6 +4,9 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleManufacturer",
+    createRoute:"/manufacture/add",
+    redirectTo: "/manufacture/edit/:id",
+    action: "create",
     name: '',
     octo_api_id: '',
     is_active: false,
