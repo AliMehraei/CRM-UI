@@ -2,13 +2,9 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {
-    AccountTypes, Currencies,
-    handleUploadFile, loadAccounts, loadOwners,
-} from "../../../../components/Functions/CommonFunctions";
+import {loadAccounts} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
-import {loadUsers} from "../../../RFQ/components/edit/HeaderSection";
 
 const AccountInformationSection = () => {
     const dispatch = useDispatch();
