@@ -207,8 +207,8 @@ class api {
     }
 
     async updateSingleManufacture(data: any = null) {
-        const id = data.id;
-        return await _axios.put(`${API_URL_PRODUCT}/api/manufacture/${id}`, data, {headers: Headers});
+        
+        return await _axios.put(`${API_URL_PRODUCT}/api/manufacture/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleManufacturer(data: any = null) {
@@ -237,8 +237,8 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/api/rfq/${id}`);
     }
 
-    async updateSingleRfq(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/rfq/${id}`, data, {headers: Headers});
+    async updateSingleRfq( data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/rfq/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleRfq(data) {
@@ -266,8 +266,8 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/api/invoice/${id}`);
     }
 
-    async updateSingleInvoice(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/invoice/${id}`, data, {headers: Headers});
+    async updateSingleInvoice(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/invoice/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleInvoice(data) {
@@ -296,8 +296,8 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/api/contact/${id}`);
     }
 
-    async updateSingleContact(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/contact/${id}`, data, {headers: Headers});
+    async updateSingleContact( data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/contact/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleContact(data) {
@@ -326,8 +326,8 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/account/${id}`);
     }
 
-    async updateSingleAccount(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/account/${id}`, data, {headers: Headers});
+    async updateSingleAccount( data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/account/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleAccount(data) {
@@ -356,8 +356,8 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/api/lead/${id}`);
     }
 
-    async updateSingleLead(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/lead/${id}`, data, {headers: Headers});
+    async updateSingleLead( data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/lead/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleLead(data) {
@@ -386,8 +386,8 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/api/purchase_order/${id}`);
     }
 
-    async updateSinglePurchaseOrder(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/purchase_order/${id}`, data, {headers: Headers});
+    async updateSinglePurchaseOrder(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/purchase_order/${data.id}`, data, {headers: Headers});
     }
 
     async createSinglePurchaseOrder(data) {
