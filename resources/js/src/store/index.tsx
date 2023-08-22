@@ -7,6 +7,7 @@ import invoiceFormSlice from "./invoiceFormSlice";
 import accountFormSlice from "./accountFormSlice";
 import vendorFormSlice from "./vendorFormSlice";
 import contactFormSlice from "./contactFormSlice";
+import leadFormSlice from "./leadFormSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     accountForm: accountFormSlice,
     vendorForm: vendorFormSlice,
     contactForm: contactFormSlice,
+    leadForm: leadFormSlice,
 });
 
 export default configureStore({
