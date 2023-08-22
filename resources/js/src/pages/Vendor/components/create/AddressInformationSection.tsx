@@ -5,7 +5,7 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
-const ContactInformationSection = () => {
+const AddressInformationSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -37,62 +37,45 @@ const ContactInformationSection = () => {
     };
 
     const fields = {
-        'Contact Information': {
-            'First Name': (<input
-                id="primary_first_name"
-                name="primary_first_name"
+        'Address Information': {
+            'Street': (<input
+                id="street"
+                name="street"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
-            'Phone': (
+            'City': (
                 <input
-                    id="phone"
-                    required
-                    name="phone"
+                    id="city"
+                    name="city"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             
-            'email': (<input
-                id="email"
-                required
-                name="email"
+            'Zip Code': (<input
+                id="zip_code"
+                name="zip_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
-            'linkedin': (<input
-                id="linkedin"
-                name="linkedin"
+            'State': (<input
+                id="state"
+                name="state"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
+            'Country': (<input
+                id="country"
+                name="country"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
         },
         '': {
-            'Last Name': (<input
-                id="primary_last_name"
-                name="primary_last_name"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-
-            
-            'Mobile':
-                <input
-                    id="mobile"
-                    name="mobile"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                />,
-            'Website':
-            <input
-                id="website"
-                name="website"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />,
+           
 
         }
     }
@@ -106,4 +89,4 @@ const ContactInformationSection = () => {
     
 }
 
-export default ContactInformationSection;
+export default AddressInformationSection;

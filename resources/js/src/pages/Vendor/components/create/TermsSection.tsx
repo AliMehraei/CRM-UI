@@ -5,7 +5,7 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
-const ContactInformationSection = () => {
+const TermsSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -37,59 +37,45 @@ const ContactInformationSection = () => {
     };
 
     const fields = {
-        'Contact Information': {
-            'First Name': (<input
-                id="primary_first_name"
-                name="primary_first_name"
+        'Terms and Shipping': {
+            'Payment Terms': (<input
+                id="payment_terms"
+                name="payment_terms"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
-            'Phone': (
+            'Incoterms ': (
                 <input
-                    id="phone"
-                    required
-                    name="phone"
+                    id="incoterms"
+                    
+                    name="incoterms"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             
-            'email': (<input
-                id="email"
-                required
-                name="email"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-            'linkedin': (<input
-                id="linkedin"
-                name="linkedin"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
+            
 
         },
         '': {
-            'Last Name': (<input
-                id="primary_last_name"
-                name="primary_last_name"
+            'Vat NO': (<input
+                id="vat_no"
+                required
+                name="vat_no"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
-
-            
-            'Mobile':
-                <input
-                    id="mobile"
-                    name="mobile"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                />,
-            'Website':
+            'Forwarder': (<input
+                id="forwarder"
+                name="forwarder"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
+            'Forwarder Account no.':
             <input
-                id="website"
-                name="website"
+                id="forwarder_account_no"
+                name="forwarder_account_no"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -106,4 +92,4 @@ const ContactInformationSection = () => {
     
 }
 
-export default ContactInformationSection;
+export default TermsSection;

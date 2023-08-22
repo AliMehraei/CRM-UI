@@ -5,7 +5,7 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
-const ContactInformationSection = () => {
+const APIDataSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -37,62 +37,25 @@ const ContactInformationSection = () => {
     };
 
     const fields = {
-        'Contact Information': {
-            'First Name': (<input
-                id="primary_first_name"
-                name="primary_first_name"
+        'API Data': {
+            'Octopart ID': (<input
+                id="octopart_id"
+                name="octopart_id"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
-            'Phone': (
-                <input
-                    id="phone"
-                    required
-                    name="phone"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                />
-            ),
             
-            'email': (<input
-                id="email"
-                required
-                name="email"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-            'linkedin': (<input
-                id="linkedin"
-                name="linkedin"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
 
         },
         '': {
-            'Last Name': (<input
-                id="primary_last_name"
-                name="primary_last_name"
+            'ZohoBooksID': (<input
+                id="zoho_book_id"
+                name="zoho_book_id"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
-            
-            'Mobile':
-                <input
-                    id="mobile"
-                    name="mobile"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                />,
-            'Website':
-            <input
-                id="website"
-                name="website"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />,
 
         }
     }
@@ -106,4 +69,4 @@ const ContactInformationSection = () => {
     
 }
 
-export default ContactInformationSection;
+export default APIDataSection;
