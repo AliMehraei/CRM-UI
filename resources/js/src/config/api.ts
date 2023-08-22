@@ -307,7 +307,7 @@ class api {
 
     //account
     async searchAccount(data: any = null) {
-        return await _axios.post(`${URL}/api/account/search`, data, {headers: Headers});
+        return await _axios.post(`${API_URL_PRODUCT}/api/account/search`, data, {headers: Headers});
     }
 
     async filterOptionAccount(data: any = null) {
