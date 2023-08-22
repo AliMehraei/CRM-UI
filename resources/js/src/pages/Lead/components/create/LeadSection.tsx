@@ -55,12 +55,14 @@ const LeadSection = () => {
         }
     };
 
-    const ApproveStatus = [
+    const LostReason = [
         {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'waiting', label: 'Waiting for approval'},
-        {value: 'approval', label: 'Approval'},
-        {value: 'rejected', label: 'Rejected'},
+        {value: 'account_contact', label: 'Account or Contact exist already'},
+        {value: 'wrong_branch', label: 'Wrong Branch'},
+        {value: 'wrong_department', label: 'Wrong Department'},
+        {value: 'does_not_exist', label: 'Does Not Exist Anymore'},
+        {value: 'bankruptcy', label: 'Bankruptcy'},
+        {value: 'other', label: 'Other'},
 
     ];
     const LeadStatus = [
@@ -73,14 +75,33 @@ const LeadSection = () => {
         {value: 'close_lead', label: 'Close Lead / Lost Lead'},
 
     ];
-    const leadSource = [
+    const CompanyType = [
         {value: 'none', label: '-None-'},
-        {value: 'web', label: 'Web Download'},
+        {value: 'oem', label: 'OEM'},
+        {value: 'ems', label: 'EMS'},
+        {value: 'odm', label: 'ODM (Development)'},
+        {value: 'reseller', label: 'Reseller'},
+        {value: 'other', label: 'Other'},
+
+    ];
+    const Industry = [
+        {value: 'none', label: '-None-'},
+        {value: 'industrial', label: 'Industrial'},
+        {value: 'automotive', label: 'Automotive'},
+        {value: 'consumer', label: 'Consumer'},
+        {value: 'it', label: 'IT'},
+        {value: 'defence', label: 'Defence'},
+        {value: 'transportation', label: 'Transportation'},
+    ];
+    const LeadSource = [
+        {value: 'none', label: '-None-'},
+        {value: 'exhibitor_list', label: 'Exhibitor List'},
         {value: 'linkedin', label: 'Linkedin'},
         {value: 'chat', label: 'Chat'},
         {value: 'messe', label: 'Messe'},
 
     ];
+
 
     const fields = {
         'Lead Information': {
@@ -107,99 +128,24 @@ const LeadSection = () => {
                 className="flex-1"
                 />
             ),
-            'Contracts': (
-                <AsyncSelect
-                isMulti={false}
-                id="contracts"
-                placeholder="Type at least 2 characters to search..."
-                name="contracts"
-                loadOptions={searchLead}
-                onChange={({value}: any) => {
-                    handleChangeField('contracts', value)
-                }} // Use 'owner_id' if it's the field name
-                className="flex-1"
-                />
-            ),
-            'SL Contains all MFRs': (
-                <input
-                    id="is_active"
-                    type="checkbox"
-                    name="is_active"
-                    className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                    checked={formState.is_active}
-                />
-            ),
-            'Strong Lines': (
-                <AsyncSelect
-                isMulti={false}
-                id="strong_lines"
-                placeholder="Type at least 2 characters to search..."
-                name="strong_lines"
-                loadOptions={searchLead}
-                onChange={({value}: any) => {
-                    handleChangeField('strong_lines', value)
-                }} // Use 'owner_id' if it's the field name
-                className="flex-1"
-                />
-            ),
-            'Line Card': (
-                <AsyncSelect
-                isMulti={false}
-                id="line_card"
-                placeholder="Type at least 2 characters to search..."
-                name="line_card"
-                loadOptions={searchLead}
-                onChange={({value}: any) => {
-                    handleChangeField('line_card', value)
-                }} // Use 'owner_id' if it's the field name
-                className="flex-1"
-                />
-            ),
-            'Approve status': (
+            'Lost Reason': (
                 <Select 
-                options={ApproveStatus} 
-                name="approved_status" 
-                id="approved_status"       
+                options={LostReason} 
+                name="lost_reason" 
+                id="lost_reason"       
                 onChange={({value}: any) => {
-                    handleChangeField('approved_status', value)
+                    handleChangeField('lost_reason', value)
                 }} 
                 className="flex-1"
                 />
             ),
-            'Business Lead': (
+            'Lost Reason Comment': (
                 <input
-                    id="business_lead"
-                    type="checkbox"
-                    name="business_lead"
-                    className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                    checked={formState.business_lead}
-                />
-            ),
-            'Approved By': (
-                <AsyncSelect
-                    isMulti={false}
-                    id="approved_by"
-                    placeholder="Type at least 2 characters to search..."
-                    name="approved_by"
-                    loadOptions={loadOwners}
-                    onChange={({value}: any) => {
-                        handleChangeField('approved_by', value)
-                    }} // Use 'owner_id' if it's the field name
-                    className="flex-1"
-                />
-            ),
-        },
-        '': {
-            'Company': (
-                <input
-                    id="company"
-                    required
-                    name="company"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    // defaultValue={formState.name}
+                id="lost_reason_comment"
+                name="lost_reason_comment"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+               
                 />
             ),
             'Lead Owner': (
@@ -215,86 +161,82 @@ const LeadSection = () => {
                     className="flex-1"
                 />
             ),
-            'Lead Source': (
+            
+            
+        },
+        '': {
+            'Company': (
+                <input
+                    id="company"
+                    required
+                    name="company"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    // defaultValue={formState.name}
+                />
+            ),
+           
+            'Company Type': (
                 <Select 
-                options={leadSource} 
-                name="lead_source" 
-                id="lead_source"       
+                options={CompanyType} 
+                name="company_type" 
+                id="company_type"       
                 onChange={({value}: any) => {
-                    handleChangeField('lead_source', value)
+                    handleChangeField('company_type', value)
                 }} 
                 className="flex-1"
                 />
             ),
-            'Currency': (
+            'Industry': (
                 <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                options={Industry} 
+                name="industry" 
+                id="industry"       
                 onChange={({value}: any) => {
-                    handleChangeField('currency', value)
+                    handleChangeField('industry', value)
                 }} 
                 className="flex-1"
                 />
             ),
-            'ISO Upload':(
+            'Website':(
                 <input
-                    id="iso_upload"
-                    key="iso_upload"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'iso_upload', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="iso_upload"
-                />
-            ),
-            'Doc Upload':(
-                <input
-                    id="doc_upload"
-                    key="doc_upload"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'doc_upload', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="doc_upload"
-                />
-            ),
-            'Parent Lead':(
-                <AsyncSelect
-                isMulti={false}
-                id="parent_lead_id"
-                placeholder="Type at least 2 characters to search..."
-                name="parent_lead_id"
-                loadOptions={searchLead}
-                onChange={({value}: any) => {
-                    handleChangeField('parent_lead_id', value)
-                }} // Use 'owner_id' if it's the field name
-                className="flex-1"
-                />
-            ),
-            'Lead Number':(
-                <input
-                id="lead_number"
-                name="lead_number"
+                id="website"
+                name="website"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                value={formState.lead_number}
+                
             />
             ),
-            'Portal Access':(
+            'Lead Source': (
                 <Select 
-                options={PortalAccess} 
-                name="currency" 
-                id="currency"       
+                options={LeadSource} 
+                name="LeadSource" 
+                id="LeadSource"       
                 onChange={({value}: any) => {
-                    handleChangeField('currency', value)
+                    handleChangeField('LeadSource', value)
                 }} 
                 className="flex-1"
                 />
+            ),
+            'Zusätzlicher Ansprechpartner':(
+                <input
+                id="Ansprechpartner"
+                name="Ansprechpartner"
+                disabled
+                className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                
+                
+            />
+            ),
+
+            'Email Opt Out':(
+                <input
+                id="email_opt_out"
+                type="checkbox"
+                name="email_opt_out"
+                className="form-checkbox"
+                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+            />
             ),
         }
     }

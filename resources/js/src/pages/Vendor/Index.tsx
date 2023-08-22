@@ -412,9 +412,9 @@ const List = () => {
                                         {
                                             accessor: 'vendor_name',
                                             sortable: true,
-                                            render: ({ name }) => (
+                                            render: ({ vendor_name }) => (
                                                 <NavLink to="/vendor/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${name}`}</div>
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${vendor_name}`}</div>
                                                 </NavLink>
                                             ),
                                         },
