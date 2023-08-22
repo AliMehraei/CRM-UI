@@ -71,7 +71,7 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDatafilterOptionProduct();
+        fetchDataFilterOption();
     }, []);
     const scrollToTop = () => {
 

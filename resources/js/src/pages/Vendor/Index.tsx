@@ -41,7 +41,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await api_instance.filterOptionVendorr();
+            const res = await api_instance.filterOptionVendor();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
@@ -71,7 +71,7 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDatafilterOptionProduct();
+        fetchDataFilterOption();
     }, []);
     const scrollToTop = () => {
 
@@ -125,7 +125,7 @@ const List = () => {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
                         setLoading(true);
-                        api_instance.deleteSingleVendorr(rowId).then((res) => {
+                        api_instance.deleteSingleVendor(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
                                 const filteredItems = items.filter((user) => user.id !== rowId);
@@ -169,7 +169,7 @@ const List = () => {
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
         try {
-            api_instance.fetchDataVendorr({
+            api_instance.fetchDataVendor({
                 page: page,
                 pageSize: pageSize,
                 sortField: sortField,
