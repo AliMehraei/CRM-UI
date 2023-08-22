@@ -41,7 +41,26 @@ export const loadOwners = async (e: any) => {
     }
 };
 
-export const loadAccounts = () => {
+export const loadAccounts = async (e: any) => {
+    const result = await api_instance.searchAccount({query: e});
+    const valField = 'id';
+    const nameField = 'account_name';
+    const imageField = 'image';
+    const emailField = 'email';
+    if (result.status === 200) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <img src={data[imageField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                        <div className="text-xs text-gray-500">{data[emailField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
 
 };
 export const loadOrders = () => {
