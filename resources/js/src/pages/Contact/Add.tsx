@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 import ContactFormFields from "./components/create/ContactFormFields";
 
 const Add = () => {
-    const formState = useSelector((state: any) => state.accountForm);
+    const formState = useSelector((state: any) => state.contactForm);
     const dispatch = useDispatch();
 
     useEffect(() => {
