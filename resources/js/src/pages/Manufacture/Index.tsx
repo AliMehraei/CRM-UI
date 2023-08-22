@@ -8,7 +8,7 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import {renderFilterValueFiled} from '../../components/FilterValueFiled'
+import { renderFilterValueFiled } from '../../components/FilterValueFiled'
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -71,7 +71,7 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDataFilterOption();
+        fetchDatafilterOptionProduct();
     }, []);
     const scrollToTop = () => {
 
@@ -162,7 +162,7 @@ const List = () => {
 
     const fetchDatamanufacture = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters',filters);
+        console.log('filters', filters);
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
@@ -180,7 +180,7 @@ const List = () => {
                 setTotalItems(res.data.data.total);
                 setLoading(false);
 
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
                 showMessage('Error fetching manufacture data.', 'error');
@@ -232,14 +232,14 @@ const List = () => {
         scrollToTop();
         // fetchDatamanufacture(page, pageSize, filters, sortStatus);
     };
-    const handleFieldChange = (event,option) => {
+    const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
 
 
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                [value]: { field: value, condition: '', value: '',model: option.model,type:option.type },
+                [value]: { field: value, condition: '', value: '', model: option.model, type: option.type },
             }));
 
             setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
@@ -336,10 +336,10 @@ const List = () => {
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
-                                                   value={option.value}
-                                                   onChange={(e) => handleFieldChange(e,option)}
-                                                   checked={selectedFields.includes(option.value)}
-                                                   className="form-checkbox" />
+                                                value={option.value}
+                                                onChange={(e) => handleFieldChange(e, option)}
+                                                checked={selectedFields.includes(option.value)}
+                                                className="form-checkbox" />
                                             <span className=" text-dark">{option.label}</span>
                                         </label>
 
@@ -362,7 +362,7 @@ const List = () => {
                                                             {filters[option.value] != null && (
                                                                 <>
                                                                     <div className="mb-2">
-                                                                        {renderFilterValueFiled(filters[option.value], option,setFilters,filters)}
+                                                                        {renderFilterValueFiled(filters[option.value], option, setFilters, filters)}
                                                                     </div>
                                                                 </>
                                                             )}

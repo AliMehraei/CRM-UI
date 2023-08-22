@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {setPageTitle} from '../../store/themeConfigSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setPageTitle } from '../../store/themeConfigSlice';
 import RFQFormFields from "./components/create/RFQFormFields";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -11,18 +11,18 @@ const Add = () => {
         dispatch(setPageTitle('RFQ Add'));
     });
     const handleSave = async () => {
-        
+
         try {
-            // const response = await api_instance.create_single_product(params);
+            // const response = await api_instance.createSingleProduct(params);
             // if (response.data.status) {
-                showMessage('Product successfully added');
-                // clearForm();            
-                // } else {
-                // showMessage('Error adding the product', 'error'); 
-                // console.error('Error adding the product', response.data.message);
+            showMessage('Product successfully added');
+            // clearForm();            
+            // } else {
+            // showMessage('Error adding the product', 'error'); 
+            // console.error('Error adding the product', response.data.message);
             // }
         } catch (error) {
-            showMessage('Error making create request', 'error'); 
+            showMessage('Error making create request', 'error');
             console.error('Error making create request', error);
         }
     };
@@ -57,7 +57,7 @@ const Add = () => {
             </div>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
-                    <RFQFormFields/>
+                    <RFQFormFields />
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ const Add = () => {
         dispatch(setPageTitle('Product Add'));
     });
     const api_instance = new api();
-    const getDefaultParams =() =>({
+    const getDefaultParams = () => ({
         product_name: null,
         part_description: null,
         manufacture_id: null,
@@ -195,16 +195,16 @@ const Add = () => {
             return;
         }
         try {
-            const response = await api_instance.create_single_product(params);
+            const response = await api_instance.createSingleProduct(params);
             if (response.data.status) {
                 showMessage('Product successfully added');
-                clearForm();            
-                } else {
-                showMessage('Error adding the product', 'error'); 
+                clearForm();
+            } else {
+                showMessage('Error adding the product', 'error');
                 console.error('Error adding the product', response.data.message);
             }
         } catch (error) {
-            showMessage('Error making create request', 'error'); 
+            showMessage('Error making create request', 'error');
             console.error('Error making create request', error);
         }
     };
@@ -212,11 +212,11 @@ const Add = () => {
         if (!data.product_name) {
             return "Product Name is required.";
         }
-    
+
         if (!data.manufacture_id) {
             return "Manufacture is required.";
         }
-    
+
         return null;
     };
     const showMessage = (msg = '', type = 'success') => {
@@ -339,7 +339,7 @@ const Add = () => {
         const ModifyByField = 'modified_by';
 
         try {
-            const result = await api_instance.loadManufacturers(inputValue);            
+            const result = await api_instance.loadManufacturers(inputValue);
             if (result.status) {
                 const options = result.data.map((manufacturer) => ({
                     value: manufacturer[valField],
@@ -364,7 +364,7 @@ const Add = () => {
         const valField = 'id';
         const rfqName = 'rfq_name';
         try {
-            const result = await api_instance.loadRfqs(inputValue);                        
+            const result = await api_instance.loadRfqs(inputValue);
             if (result.status) {
                 const options = result.data.map((rfq) => ({
                     value: rfq[valField],
@@ -421,10 +421,10 @@ const Add = () => {
                 paramKey: 'alternative_mpn_4'
             }
         };
-    
+
         if (typeMap[type]) {
             const { setter, paramKey } = typeMap[type];
-    
+
             setter(selectedOption);
             setParams(prevParams => ({
                 ...prevParams,
@@ -457,10 +457,10 @@ const Add = () => {
                 paramKey: 'alternative_mpn_4'
             }
         };
-    
+
         if (typeMap[type]) {
             const { setter, paramKey } = typeMap[type];
-    
+
             setter(null); // Resetting the state
             setParams(prevParams => ({
                 ...prevParams,
@@ -522,7 +522,7 @@ const Add = () => {
                                     <label htmlFor="product_name" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Product Name <span className="text-red-500">*</span>
                                     </label>
-                                    <input id="product_name"  required type="text" name="product_name" className={`form-input flex-1 ${!params.product_name ? 'border-red-500' : ''}`} value={params.product_name || ''} onChange={handleInputChange} placeholder="Enter Product Name" />
+                                    <input id="product_name" required type="text" name="product_name" className={`form-input flex-1 ${!params.product_name ? 'border-red-500' : ''}`} value={params.product_name || ''} onChange={handleInputChange} placeholder="Enter Product Name" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="part_description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -535,43 +535,43 @@ const Add = () => {
                                         Manufacture  <span className="text-red-500">*</span>
                                     </label>
                                     <div className="flex-1 ">
-                                    <AsyncSelect
-                                        placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadManufacturers}
-                                        onChange={(e) => handleMaufacturChange(e,'mpn')}
-                                        isMulti={false}
-                                        value={selectedManufacture}
-                                        classNamePrefix="async-select"
-                                        styles={{
-                                            control: (base) => ({
-                                                ...base,
-                                                ...(!params.manufacture_id && { borderColor: '#f56565' }),
-                                                display: 'flex', 
-                                            }),
-                                        }}
-                                    />
+                                        <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={loadManufacturers}
+                                            onChange={(e) => handleMaufacturChange(e, 'mpn')}
+                                            isMulti={false}
+                                            value={selectedManufacture}
+                                            classNamePrefix="async-select"
+                                            styles={{
+                                                control: (base) => ({
+                                                    ...base,
+                                                    ...(!params.manufacture_id && { borderColor: '#f56565' }),
+                                                    display: 'flex',
+                                                }),
+                                            }}
+                                        />
 
 
                                     </div>
-                                    <button onClick={() => clearManufacture('mpn')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <button onClick={() => clearManufacture('mpn')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                         Clear
                                     </button>
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="rfq" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    RFQ (Alternative) 
+                                        RFQ (Alternative)
                                     </label>
                                     <div className="flex-1">
-                                    <AsyncSelect
-                                        placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadRfqs}
-                                        onChange={(e) => handleRfqChange(e)}
-                                        isMulti
-                                        value={selectedRfq}
-                                    />
+                                        <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={loadRfqs}
+                                            onChange={(e) => handleRfqChange(e)}
+                                            isMulti
+                                            value={selectedRfq}
+                                        />
 
                                     </div>
-                                    <button onClick={() => clearRfq()} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <button onClick={() => clearRfq()} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                         Clear
                                     </button>
                                 </div>
@@ -888,7 +888,7 @@ const Add = () => {
                                     <label htmlFor="voltage_rating" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         Voltage Rating
                                     </label>
-                                    <input id="voltage_rating" type="text" name="voltage_rating" className="form-input flex-1" value={params.voltage_rating || ''}  onChange={handleInputChange} placeholder="Enter voltage rating" />
+                                    <input id="voltage_rating" type="text" name="voltage_rating" className="form-input flex-1" value={params.voltage_rating || ''} onChange={handleInputChange} placeholder="Enter voltage rating" />
                                 </div>
 
                             </div>
@@ -897,7 +897,7 @@ const Add = () => {
                                     <label htmlFor="spq" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                                         SPQ
                                     </label>
-                                    <input id="spq" type="text" name="spq" className="form-input flex-1" value={params.spq || '' } onChange={handleInputChange} placeholder="Enter SPQ" />
+                                    <input id="spq" type="text" name="spq" className="form-input flex-1" value={params.spq || ''} onChange={handleInputChange} placeholder="Enter SPQ" />
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="weight_in_kg" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
@@ -1193,75 +1193,75 @@ const Add = () => {
                                 <div className="text-lg">Alternatives :</div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="alternative_mpn_1" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Alternative MPN 1
+                                        Alternative MPN 1
                                     </label>
                                     <div className="flex-1">
-                                    <AsyncSelect
-                                        placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadManufacturers}
-                                        onChange={(e) => handleMaufacturChange(e,'mpn1')}
-                                        isMulti={false}
-                                        value={selectedAltMpn1}
-                                    />
+                                        <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={loadManufacturers}
+                                            onChange={(e) => handleMaufacturChange(e, 'mpn1')}
+                                            isMulti={false}
+                                            value={selectedAltMpn1}
+                                        />
 
                                     </div>
-                                    <button onClick={() => clearManufacture('mpn1')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <button onClick={() => clearManufacture('mpn1')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                         Clear
                                     </button>
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="alternative_mpn_2" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Alternative MPN 2
+                                        Alternative MPN 2
                                     </label>
                                     <div className="flex-1">
-                                    <AsyncSelect
-                                        placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadManufacturers}
-                                        onChange={(e) => handleMaufacturChange(e,'mpn2')}
-                                        isMulti={false}
-                                        value={selectedAltMpn2}
-                                    />
+                                        <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={loadManufacturers}
+                                            onChange={(e) => handleMaufacturChange(e, 'mpn2')}
+                                            isMulti={false}
+                                            value={selectedAltMpn2}
+                                        />
 
-                                    </div>                                    
-                                    <button onClick={() => clearManufacture('mpn2')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    </div>
+                                    <button onClick={() => clearManufacture('mpn2')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                         Clear
                                     </button>
                                 </div>
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
-                            <div className="mt-4 flex items-center">
+                                <div className="mt-4 flex items-center">
                                     <label htmlFor="alternative_mpn_3" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Alternative MPN 3
+                                        Alternative MPN 3
                                     </label>
                                     <div className="flex-1">
-                                    <AsyncSelect
-                                        placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadManufacturers}
-                                        onChange={(e) => handleMaufacturChange(e,'mpn3')}
-                                        isMulti={false}
-                                        value={selectedAltMpn3}
-                                    />
+                                        <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={loadManufacturers}
+                                            onChange={(e) => handleMaufacturChange(e, 'mpn3')}
+                                            isMulti={false}
+                                            value={selectedAltMpn3}
+                                        />
 
                                     </div>
-                                    <button onClick={() => clearManufacture('mpn3')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <button onClick={() => clearManufacture('mpn3')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                         Clear
                                     </button>
                                 </div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="alternative_mpn_4" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Alternative MPN 4
+                                        Alternative MPN 4
                                     </label>
                                     <div className="flex-1">
-                                    <AsyncSelect
-                                        placeholder="Type at least 2 characters to search..."
-                                        loadOptions={loadManufacturers}
-                                        onChange={(e) => handleMaufacturChange(e,'mpn4')}
-                                        isMulti={false}
-                                        value={selectedAltMpn4}
-                                    />
+                                        <AsyncSelect
+                                            placeholder="Type at least 2 characters to search..."
+                                            loadOptions={loadManufacturers}
+                                            onChange={(e) => handleMaufacturChange(e, 'mpn4')}
+                                            isMulti={false}
+                                            value={selectedAltMpn4}
+                                        />
 
                                     </div>
-                                    <button onClick={() => clearManufacture('mpn4')} className="btn btn-clear ltr:ml-2 rtl:mr-2">              
+                                    <button onClick={() => clearManufacture('mpn4')} className="btn btn-clear ltr:ml-2 rtl:mr-2">
                                         Clear
                                     </button>
                                 </div>
@@ -1423,7 +1423,7 @@ const Add = () => {
                                         Clear
                                     </button>
                                 </div>
-                               
+
                                 <div className="flex items-center mt-4">
                                     <label htmlFor="product_margin" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 flex items-center">
                                         Product Margin
@@ -1432,7 +1432,7 @@ const Add = () => {
                                                 i
                                             </div>
                                             <div className="absolute left-0 bottom-0.5 text-center w-48 bg-black text-white text-xs rounded py-1 px-2 shadow-md transform -translate-y-full -translate-x-1/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200 z-10">
-                                            Has more priority than Account Margin
+                                                Has more priority than Account Margin
                                             </div>
                                         </span>
                                     </label>
@@ -1451,7 +1451,7 @@ const Add = () => {
                                 <div className="text-lg">Description Information :</div>
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                         Description
+                                        Description
                                     </label>
                                     <textarea id="description"
                                         name="description"
@@ -1460,14 +1460,14 @@ const Add = () => {
                                         onChange={handleInputChange}
                                         placeholder="Enter description..."
                                         rows="3"
-                                    ></textarea>                               
-                                     </div>
+                                    ></textarea>
+                                </div>
 
                             </div>
                             <div className="lg:w-1/2 w-full md:mt-6">
                                 <div className="mt-4 flex items-center">
                                     <label htmlFor="octopart_short_description" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
-                                    Octopart Short Description 
+                                        Octopart Short Description
                                     </label>
                                     <input id="octopart_short_description" type="text" name="octopart_short_description" className="form-input flex-1" value={params.octopart_short_description || ''} onChange={handleInputChange} placeholder="Enter description" />
                                 </div>
