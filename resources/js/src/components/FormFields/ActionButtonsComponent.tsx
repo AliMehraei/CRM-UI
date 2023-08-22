@@ -14,7 +14,8 @@ const ActionButtonsComponent = ({formState}: any) => {
     const api_instance: any = new api();
 
     const submitForm = async (action: string = 'save') => {
-
+        
+        
         dispatch(resetErrors());
         const toast = Swal.mixin({
             toast: true,
@@ -25,10 +26,12 @@ const ActionButtonsComponent = ({formState}: any) => {
 
         const methodToCall = api_instance[formState.api];
         if (typeof methodToCall !== 'function') {
+            console.log('fds','error api');
             return;
         }
 
         const response = await methodToCall.call(api_instance, formState);
+        console.log('fds',response);
         if (response.isOk) {
             if (formState.action === 'create')
                 dispatch(resetForm());
