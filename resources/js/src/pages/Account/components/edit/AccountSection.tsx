@@ -39,7 +39,6 @@ const AccountSection = () => {
                         dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
                     })}
                     name="manufactureImage"
-                    defaultValue={formState.image}
 
                 />
             ),
@@ -50,7 +49,7 @@ const AccountSection = () => {
                     name="name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.image}
+                    defaultValue={formState.account_name}
 
                 />
             ),
@@ -86,10 +85,10 @@ const AccountSection = () => {
             'Business Account': <input
                 id="is_business"
                 type="checkbox"
-                name="is_business"
+                name="business_account"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                checked={formState.is_business}
+                checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by" type="text" value="None"
                                   placeholder="Readonly input here…"

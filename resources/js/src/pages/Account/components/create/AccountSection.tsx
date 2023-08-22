@@ -82,10 +82,10 @@ const AccountSection = () => {
             'Business Account': <input
                 id="is_business"
                 type="checkbox"
-                name="is_business"
+                name="business_account"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                checked={formState.is_business}
+                checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by" type="text" value="None"
                                   placeholder="Readonly input here…"
