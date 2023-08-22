@@ -10,7 +10,7 @@ const Add = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle('Contact Add'));
+        dispatch(setPageTitle('Excess Add'));
     });
 
     return (
