@@ -88,12 +88,12 @@ const VendorSection = () => {
             ),
             'Vendor Name': (
                 <input
-                    id="name"
+                    id="vendor_name"
                     required
-                    name="name"
+                    name="vendor_name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    value={formState.name}
+                    defaultValue={formState.name}
                 />
             ),
             'Contracts': (
