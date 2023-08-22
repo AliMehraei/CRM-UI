@@ -84,8 +84,8 @@ const AccountInformationSection = () => {
 
             'LinkedIn Company':
                 <input
-                    id="linkedin_company"
-                    name="linkedin_company"
+                    id="linkedin"
+                    name="linkedin"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />,
