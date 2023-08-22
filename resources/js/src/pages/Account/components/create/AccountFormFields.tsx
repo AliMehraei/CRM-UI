@@ -6,6 +6,7 @@ import AccountItemSection from "./AccountItemSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
 import TechnicalInformationSection from "./TechnicalInformationSection";
 import Unused from "./Unused";
+import AddressInformationSection from "./AddressInformationSection";
 
 
 const AccountFormFields = () => {
@@ -16,6 +17,8 @@ const AccountFormFields = () => {
             <AccountInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <TermsAndShippingSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <AddressInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <AccountItemSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
