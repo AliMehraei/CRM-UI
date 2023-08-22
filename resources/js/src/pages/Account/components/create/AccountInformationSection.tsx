@@ -23,7 +23,7 @@ const AccountInformationSection = () => {
 
 
     const fields = {
-        'Account': {
+        'Account Information': {
             'Primary First Name': (<input
                 id="primary_first_name"
                 name="primary_first_name"

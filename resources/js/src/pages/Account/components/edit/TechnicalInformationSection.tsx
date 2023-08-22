@@ -1,15 +1,11 @@
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {AccountTypes, Currencies, handleUploadFile, loadOwners} from "../../../../components/Functions/CommonFunctions";
 import {updateFormData} from "../../../../store/accountFormSlice";
-import Select from "react-select";
-import AsyncSelect from "react-select/async";
-import {loadUsers} from "../../../RFQ/components/edit/HeaderSection";
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 
 const TechnicalInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
+    const formState = useSelector((state: any) => state.accountForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -21,6 +17,8 @@ const TechnicalInformationSection = () => {
                     name="zoho_books_id"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.zoho_books_id}
+
                 />,
 
             'BooksID EUR':
@@ -29,6 +27,8 @@ const TechnicalInformationSection = () => {
                     name="books_id_eur"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.books_id_eur}
+
                 />,
         },
         '': {
@@ -38,6 +38,8 @@ const TechnicalInformationSection = () => {
                     name="account_margin"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.account_margin}
+
                 />,
 
 
@@ -47,6 +49,8 @@ const TechnicalInformationSection = () => {
                     name="books_id_usd"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.books_id_usd}
+
                 />,
 
         }
