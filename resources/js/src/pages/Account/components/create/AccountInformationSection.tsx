@@ -125,9 +125,9 @@ const AccountInformationSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
             />,
             'DCheck': <input
-                id="dcheck"
+                id="d_check"
                 type="checkbox"
-                name="dcheck"
+                name="d_check"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
             />,
