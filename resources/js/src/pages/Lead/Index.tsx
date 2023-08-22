@@ -410,11 +410,11 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'lead_name',
+                                            accessor: 'company',
                                             sortable: true,
-                                            render: ({ name }) => (
+                                            render: ({ company }) => (
                                                 <NavLink to="/lead/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${name}`}</div>
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${company}`}</div>
                                                 </NavLink>
                                             ),
                                         },
