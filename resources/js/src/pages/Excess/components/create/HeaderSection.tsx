@@ -10,13 +10,7 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-    const QuoteChances = [
-        {value: 'none', label: '-None-'},
-        {value: 'high', label: 'High'},
-        {value: 'unknown', label: 'Unknown'},
-        {value: 'low', label: 'Low'},
 
-    ];
 
     const ExcessSources = [
         {value: 'none', label: '-None-'},
@@ -24,9 +18,7 @@ const HeaderSection = () => {
         {value: 'portal', label: 'Portal'},
 
     ];
-    const handleQuoteStageChange = () => {
 
-    };
     const fields = {
         'Header': {
             'Excess Image': <input
