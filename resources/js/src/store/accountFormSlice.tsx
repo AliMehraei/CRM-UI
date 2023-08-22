@@ -7,6 +7,7 @@ const initState = {
     createRoute: "/account/add",
     redirectTo: "/account/edit/:id",
     action: "create",
+    items: [],
 };
 
 const invoiceFormSlice = createSlice({

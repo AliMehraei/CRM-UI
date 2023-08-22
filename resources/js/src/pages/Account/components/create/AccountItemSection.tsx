@@ -1,7 +1,27 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import api from "../../../../config/api";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AccountItemSection = () => {
+    const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.accountForm);
+
+    const handleChangeField = (field: string, value: any, id: string) => {
+        const updatedItem = {
+            ...formState.items[id],
+            [field]: value,
+        };
+
+        const updatedItems = {
+            ...formState.items,
+            [id]: updatedItem,
+        };
+
+        dispatch(updateFormData({items: updatedItems}));
+    };
+
     const [items, setItems] = useState<any>([
         {
             id: 1,
@@ -64,19 +84,30 @@ const AccountItemSection = () => {
                                             </td>
                                             <td>
                                                 <input name="f_q_1" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
                                             </td>
                                             <td>
                                                 <input name="f_q_2" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
                                             </td>
                                             <td>
                                                 <input name="f_q_3" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
                                             </td>
                                             <td>
                                                 <input name="f_q_4" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
+
                                             </td>
 
                                         </tr>
