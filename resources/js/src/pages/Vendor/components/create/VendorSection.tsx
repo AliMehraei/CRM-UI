@@ -93,7 +93,7 @@ const VendorSection = () => {
                     name="vendor_name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.name}
+                    // defaultValue={formState.name}
                 />
             ),
             'Contracts': (

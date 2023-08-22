@@ -152,8 +152,8 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/vendor/${id}`);
     }
 
-    async updateSingleVendor(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/vendor/${id}`, data, {headers: Headers});
+    async updateSingleVendor( data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/vendor/${data.id}`, data, {headers: Headers});
     }
 
     async createSingleVendor(data) {

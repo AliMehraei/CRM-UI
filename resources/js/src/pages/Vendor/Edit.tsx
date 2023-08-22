@@ -1,17 +1,20 @@
+import {Link, useNavigate} from 'react-router-dom';
+import {useParams} from "react-router-dom";
+
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import VendorFormFields from "./components/edit/VendorFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
-import Api from "../../config/api";
-import {useParams} from "react-router-dom";
-import {updateFormData} from "../../store/manufactureFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn"
+import { updateFormData } from '../../store/vendorFormSlice';
+import LoadingAlpyn from '../../components/LoadingAlpyn';
+import Api from '../../config/api';
+
 const Edit = () => {
-    const formState = useSelector((state: any) => state.manufactureForm);
+    const formState = useSelector((state: any) => state.vendorForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const manufactureId = params.id; // Assuming you are using React Router to handle routes
+    const vendorId = params.id; // Assuming you are using React Router to handle routes
     const api = new Api();
     const dispatch = useDispatch();
 
@@ -20,19 +23,19 @@ const Edit = () => {
     });
 
     const fetchData = async () => {
-        const manufactureResponse = await api.fetchSingleVendorr(manufactureId);
-        if (manufactureResponse.status != 200)
+        const vendorResponse = await api.fetchSingleVendor(vendorId);
+        if (vendorResponse.status != 200)
             return
-        const manufacture = manufactureResponse.data.data.manufacture;
-        dispatch(updateFormData(manufacture));
-        if (manufacture.vendor_line_card_id) {
-            await handleFetchingVendor(manufacture.vendor_line_card_id, 'vendor_line_card');
-        }
-        if (manufacture.vendor_line_card_id) {
-            await handleFetchingVendor(manufacture.vendor_line_card_id, "vendor_strong_lines");
-        }
+        const vendor = vendorResponse.data.data.vendor;
+        dispatch(updateFormData(vendor));
+        // if (vendor.vendor_line_card_id) {
+        //     await handleFetchingVendor(vendor.vendor_line_card_id, 'vendor_line_card');
+        // }
+        // if (vendor.vendor_line_card_id) {
+        //     await handleFetchingVendor(vendor.vendor_line_card_id, "vendor_strong_lines");
+        // }
 
-        const ownerResponse = await api.loadUserById({id: manufacture.owner_id});
+        const ownerResponse = await api.loadUserById({id: vendor.owner_id});
         const owner = ownerResponse.data.data;
         dispatch(updateFormData({['owner']: owner}));
     };
@@ -51,7 +54,7 @@ const Edit = () => {
             setLoading(false);
             
         });
-    }, [manufactureId]);
+    }, [vendorId]);
 
     useEffect(() => {
         const formDataUpdates = {
@@ -65,6 +68,7 @@ const Edit = () => {
 
     if (loading)
         return  <LoadingAlpyn />
+
 
     return (
         <div className='px-4'>

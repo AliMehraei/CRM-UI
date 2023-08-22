@@ -5,7 +5,7 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
-const ContactInformationSection = () => {
+const AddressInformationSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -37,69 +37,50 @@ const ContactInformationSection = () => {
     };
 
     const fields = {
-        'Contact Information': {
-            'First Name': (<input
-                id="first_name"
-                name="first_name"
+        'Address Information': {
+            'Street': (<input
+                id="street"
+                name="street"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.first_name}
+                defaultValue={formState.street}
             />),
 
-            'Phone': (
+            'City': (
                 <input
-                    id="phone"
-                    required
-                    name="phone"
+                    id="city"
+                    name="city"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.phone}
+                    defaultValue={formState.city}
                 />
             ),
             
-            'email': (<input
-                id="email"
-                required
-                name="email"
+            'Zip Code': (<input
+                id="zip_code"
+                name="zip_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.email}
+                defaultValue={formState.zip_code}
             />),
-            'linkedin': (<input
-                id="linkedin"
-                name="linkedin"
+            'State': (<input
+                id="state"
+                name="state"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.linkedin}
+                defaultValue={formState.state}
+            />),
+            'Country': (<input
+                id="country"
+                name="country"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.country}
             />),
 
         },
         '': {
-            'Last Name': (<input
-                id="last_name"
-                name="last_name"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.last_name}
-            />),
-
-            
-            'Mobile':
-                <input
-                    id="mobile"
-                    name="mobile"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.mobile}
-                />,
-            'Website':
-            <input
-                id="website"
-                name="website"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.website}
-            />,
+           
 
         }
     }
@@ -113,4 +94,4 @@ const ContactInformationSection = () => {
     
 }
 
-export default ContactInformationSection;
+export default AddressInformationSection;
