@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 import AccountFormFields from "./components/create/AccountFormFields";
 
 const Add = () => {
-    const formState = useSelector((state: any) => state.acc);
+    const formState = useSelector((state: any) => state.accountForm);
     const dispatch = useDispatch();
 
     useEffect(() => {
