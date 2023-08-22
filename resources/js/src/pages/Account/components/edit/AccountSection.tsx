@@ -137,6 +137,7 @@ const AccountSection = () => {
                     name="tam"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.tam}
                 />,
 
             'Exchange Rate': <input id="exchange_rate" name="exchange_rate" type="text" value="1"
@@ -148,6 +149,8 @@ const AccountSection = () => {
                     name="lead_reference"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.lead_reference}
+
                 />,
 
         }

@@ -29,6 +29,7 @@ const AccountInformationSection = () => {
                 name="primary_first_name"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.primary_first_name}
             />),
 
             'Phone': (
@@ -38,6 +39,7 @@ const AccountInformationSection = () => {
                     name="phone"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.phone}
                 />
             ),
             'Fax': (<input
@@ -45,19 +47,24 @@ const AccountInformationSection = () => {
                 name="fax"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.fax}
             />),
-            'email': (<input
+            'Email': (<input
                 id="email"
+                required
                 name="email"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.email}
             />),
-            'website': (<input
+            'Website': (<input
                 required
                 id="website"
                 name="website"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.website}
+
             />),
 
         },
@@ -67,6 +74,8 @@ const AccountInformationSection = () => {
                 name="primary_last_name"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.primary_last_name}
+
             />),
 
             'Parent Account': <AsyncSelect
@@ -84,9 +93,11 @@ const AccountInformationSection = () => {
             'LinkedIn Company':
                 <input
                     id="linkedin_company"
-                    name="linkedin_company"
+                    name="linkedin"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.linkedin}
+
                 />,
             'Account Number':
                 <input
@@ -94,6 +105,7 @@ const AccountInformationSection = () => {
                     name="account_number"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.account_number}
                 />,
 
             'Double Check Status': <Select id="double_check_status"
@@ -122,13 +134,15 @@ const AccountInformationSection = () => {
                 name="has_no_contacts"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                defaultValue={formState.has_no_contacts}
             />,
             'DCheck': <input
-                id="dcheck"
+                id="d_check"
                 type="checkbox"
-                name="dcheck"
+                name="d_check"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                defaultValue={formState.has_no_contacts}
             />,
 
         }

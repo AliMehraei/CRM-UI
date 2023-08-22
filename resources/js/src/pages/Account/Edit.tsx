@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
-import AccountFormFields from "./components/edit/AccountFormFields";
 import {updateFormData} from "../../store/accountFormSlice";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
 import LoadingAlpyn from "../../components/LoadingAlpyn";
+import AccountFormFields from "./components/edit/AccountFormFields";
 
 const Edit = () => {
     const formState = useSelector((state: any) => state.accountForm);
