@@ -1,10 +1,11 @@
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useDispatch} from "react-redux";
-import api from "../../../../config/api";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const Unused = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.accountForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -16,6 +17,8 @@ const Unused = () => {
                     name="purchasing_volume_current"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.purchasing_volume_current}
+
                 />,
         },
         '': {
@@ -25,6 +28,8 @@ const Unused = () => {
                     name="annual_revenue"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.annual_revenue}
+
                 />,
 
         }
