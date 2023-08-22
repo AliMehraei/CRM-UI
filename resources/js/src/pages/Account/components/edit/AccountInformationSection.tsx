@@ -134,7 +134,7 @@ const AccountInformationSection = () => {
                 name="has_no_contacts"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                defaultValue={formState.has_no_contacts}
+                checked={formState.has_no_contacts}
             />,
             'DCheck': <input
                 id="d_check"
@@ -142,7 +142,7 @@ const AccountInformationSection = () => {
                 name="d_check"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                defaultValue={formState.has_no_contacts}
+                checked={formState.has_no_contacts}
             />,
 
         }
