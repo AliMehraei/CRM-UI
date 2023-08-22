@@ -8,7 +8,7 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import {renderFilterValueFiled} from '../../components/FilterValueFiled'
+import { renderFilterValueFiled } from '../../components/FilterValueFiled'
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -22,7 +22,7 @@ const List = () => {
     const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
-     const [filters, setFilters] = useState([]);
+    const [filters, setFilters] = useState([]);
 
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
@@ -37,16 +37,16 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
- 
+
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await api_instance.filter_option();
+            const res = await api_instance.filterOptionProduct();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
                 // console.log('condition.model',item);
-                
+
                 return {
                     ...item,
                     conditions: Object.entries(conditions).map(([key, condition]) => ({
@@ -71,7 +71,7 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDataFilterOption();
+        fetchDatafilterOptionProduct();
     }, []);
     const scrollToTop = () => {
 
@@ -95,7 +95,7 @@ const List = () => {
         );
     }
 
-    
+
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -125,7 +125,7 @@ const List = () => {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
                         setLoading(true);
-                        api_instance.delete_single_product(rowId).then((res) => {
+                        api_instance.deleteSingleProduct(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
                                 const filteredItems = items.filter((user) => user.id !== rowId);
@@ -162,14 +162,14 @@ const List = () => {
 
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-       console.log('filters',filters);
-       
-        
+        console.log('filters', filters);
+
+
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
         try {
-            api_instance.fetch_data_product({
+            api_instance.fetchDataProduct({
                 page: page,
                 pageSize: pageSize,
                 sortField: sortField,
@@ -180,7 +180,7 @@ const List = () => {
                 setTotalItems(res.data.data.total);
                 setLoading(false);
 
-            }).catch((error)=>{
+            }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
                 showMessage('Error fetching product data.', 'error');
@@ -213,7 +213,7 @@ const List = () => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-  
+
 
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
@@ -232,14 +232,14 @@ const List = () => {
         scrollToTop();
         // fetchDataProduct(page, pageSize, filters, sortStatus);
     };
-    const handleFieldChange = (event,option) => {
+    const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
-        
-        
+
+
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                [value]: { field: value, condition: '', value: '',model: option.model,type:option.type },
+                [value]: { field: value, condition: '', value: '', model: option.model, type: option.type },
             }));
 
             setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
@@ -254,7 +254,7 @@ const List = () => {
                 prevSelectedFields.filter((field) => field !== value)
             );
         }
-       
+
 
     };
 
@@ -278,9 +278,9 @@ const List = () => {
         setFilters(updatedFilters);
     };
 
-    
 
-    
+
+
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">
@@ -311,7 +311,7 @@ const List = () => {
                         </Link>
 
                     </div>
-                    
+
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
                     <div className="panel col-span-1">
@@ -337,7 +337,7 @@ const List = () => {
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
                                                 value={option.value}
-                                                onChange={(e) => handleFieldChange(e,option)}
+                                                onChange={(e) => handleFieldChange(e, option)}
                                                 checked={selectedFields.includes(option.value)}
                                                 className="form-checkbox" />
                                             <span className=" text-dark">{option.label}</span>
@@ -362,7 +362,7 @@ const List = () => {
                                                             {filters[option.value] != null && (
                                                                 <>
                                                                     <div className="mb-2">
-                                                                        {renderFilterValueFiled(filters[option.value], option,setFilters,filters)}
+                                                                        {renderFilterValueFiled(filters[option.value], option, setFilters, filters)}
                                                                     </div>
                                                                 </>
                                                             )}
