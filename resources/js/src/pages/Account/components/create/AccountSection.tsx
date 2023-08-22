@@ -3,12 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    AccountTypes, Currencies,
+    AccountTypes, Contract, Currencies,
     handleUploadFile, loadOwners,
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
-import {loadUsers} from "../../../RFQ/components/edit/HeaderSection";
 
 const AccountSection = () => {
     const dispatch = useDispatch();
@@ -64,7 +63,7 @@ const AccountSection = () => {
                 name="contract_id"
                 id="contract_id"
                 placeholder="Select Product Type..."
-                options={AccountTypes}
+                options={Contract}
                 onChange={({value}: any) => {
                     handleChangeField('contract_id', value)
                 }}
@@ -118,7 +117,7 @@ const AccountSection = () => {
                 id="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
                 name="pm_user_id"
-                loadOptions={loadUsers}
+                loadOptions={loadOwners}
                 onChange={({value}: any) => {
                     handleChangeField('pm_user_id', value)
                 }} // Use 'owner_id' if it's the field name
