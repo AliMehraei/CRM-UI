@@ -10,7 +10,7 @@ const Add = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle('Invoice Add'));
+        dispatch(setPageTitle('Account Add'));
     });
 
     return (
