@@ -1,0 +1,126 @@
+import AsyncSelect from "react-select/async";
+import {useDispatch} from "react-redux";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {loadOrders} from "../../../../components/Functions/CommonFunctions";
+import Select from "react-select";
+import {updateFormData} from "../../../../store/accountFormSlice";
+
+const FieldsWithSecondaryPrioritySection = () => {
+    const dispatch = useDispatch();
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
+    };
+
+    const activities = [
+        {value: "none", label: "-None-"},
+        {value: "no_activity", label: "No Activity"},
+        {value: "more_1_year", label: "> 1 year Activity"},
+        {value: "more_1_month", label: "> 1 month Activity"},
+        {value: "regular_activity", label: "Regular Activity"},
+
+    ];
+
+    const doubleCheckStatuses = [
+        {value: "none", label: "-None-"},
+        {value: "back_to_lead", label: "Back to lead"},
+        {value: "converted_to_lead", label: "Converted to lead"},
+        {value: "must_be_deleted", label: "Must be deleted"},
+    ];
+    const fields = {
+        'Contact Details': {
+            'Approved By': <AsyncSelect
+                isMulti={false}
+                id="approved_by"
+                placeholder="Type at least 2 characters to search..."
+                name="approved_by"
+                loadOptions={loadOrders}
+                onChange={({value}: any) => {
+                    handleChangeField('parent_account_id', value)
+                }}
+                className="flex-1"
+            />,
+            'Books Contact': <input
+                id="book_contact"
+                type="checkbox"
+                name="book_contact"
+                className="form-checkbox"
+                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+            />,
+
+            'Contact Activity':
+                <Select id="job_description"
+                        name="job_description"
+                        onChange={({value}: any) => {
+                            handleChangeField('double_check_status', value)
+                        }}
+                        className="flex-1"
+                        options={activities}/>,
+
+            'Title': <input
+                id="title"
+                name="title"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+            'private_email': <input
+                id="private_email"
+                name="private_email"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+            'secondary_email': <input
+                id="secondary_email"
+                name="secondary_email"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+            'portal_operation_tag': <input
+                id="portal_operation_tag"
+                name="portal_operation_tag"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+        },
+        '':
+            {
+                'Email Opt Out': <input
+                    id="email_opt_out"
+                    type="checkbox"
+                    name="email_opt_out"
+                    className="form-checkbox"
+                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                />,
+                'lead_reference': <input
+                    id="lead_reference"
+                    name="lead_reference"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                />,
+                'Double Check Status':
+                    <Select id="double_check_status"
+                            name="double_check_status"
+                            onChange={({value}: any) => {
+                                handleChangeField('double_check_status', value)
+                            }}
+                            className="flex-1"
+                            options={doubleCheckStatuses}/>,
+
+                'DCheck': <input
+                    id="d_check"
+                    type="checkbox"
+                    name="d_check"
+                    className="form-checkbox"
+                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                />,
+            }
+    }
+    return (
+        <>
+            <div className="flex justify-between lg:flex-row flex-col">
+                <GenerateFields fields={fields}/>
+            </div>
+        </>
+    )
+}
+
+export default FieldsWithSecondaryPrioritySection;
