@@ -224,9 +224,7 @@ const LeadSection = () => {
                 name="Ansprechpartner"
                 disabled
                 className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                
-                
-            />
+                />
             ),
 
             'Email Opt Out':(
@@ -236,7 +234,7 @@ const LeadSection = () => {
                 name="email_opt_out"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-            />
+                />
             ),
         }
     }

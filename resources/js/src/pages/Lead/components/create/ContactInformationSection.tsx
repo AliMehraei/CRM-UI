@@ -4,6 +4,7 @@ import {updateFormData} from "../../../../store/vendorFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
+import Select from "react-select";
 
 const ContactInformationSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
@@ -35,16 +36,34 @@ const ContactInformationSection = () => {
             }));
         }
     };
+    const JobDescription=[
+        {value: 'none', label: '-None-'},
+        {value: 'buyer', label: 'Buyer'},
+        {value: 'operative_buyer', label: 'Operative Buyer'},
+        {value: 'chat', label: 'Chat'},
+        {value: 'messe', label: 'Messe'},
+        {value: 'not_yet_clear', label: 'Not Yet Clear'},
+    ];
 
     const fields = {
         'Contact Information': {
             'First Name': (<input
-                id="primary_first_name"
-                name="primary_first_name"
+                id="first_name"
+                name="first_name"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
-
+            'Job Description': (
+                <Select 
+                options={JobDescription} 
+                name="job_description" 
+                id="job_description"       
+                onChange={({value}: any) => {
+                    handleChangeField('job_description', value)
+                }} 
+                className="flex-1"
+                />
+            ),
             'Phone': (
                 <input
                     id="phone"
@@ -72,8 +91,9 @@ const ContactInformationSection = () => {
         },
         '': {
             'Last Name': (<input
-                id="primary_last_name"
-                name="primary_last_name"
+                id="last_name"
+                required
+                name="last_name"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
