@@ -323,7 +323,7 @@ class api {
     }
 
     async fetchSingleAccount(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/account/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/account/${id}`);
     }
 
     async updateSingleAccount(id, data) {
