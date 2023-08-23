@@ -2,11 +2,13 @@ import Select from "react-select";
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
 const StatusSection = () => {
-
-    const handleQuoteValidChange = () => {
-
+    const dispatch = useDispatch();
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
     };
     const AvailabilityTypes = [
         {value: 'none', label: '-None-'},
@@ -21,16 +23,26 @@ const StatusSection = () => {
     const fields = {
         'Status': {
             'Availability Type': <Select options={AvailabilityTypes} name="availability_type" id="availability_type"
-                                         onChange={handleQuoteValidChange} className="flex-1"/>,
+                                         className="flex-1"
+                                         onChange={({value}: any) => {
+                                             handleChangeField('availability_type', value)
+                                         }}
+            />,
 
             'Valid': <Flatpickr name="valid" id="valid" options={{dateFormat: 'd-m-Y'}} className="form-input flex-1"
-                                placeholder="MM DD YYYY"/>,
+                                placeholder="MM DD YYYY"
+                                onChange={(dates) => handleChangeField('valid', dates[0])}
+            />,
 
         },
         '': {
             'Availability Name': <input required id="availability_name" name="availability_name"
-                                        className="form-input flex-1 "/>,
-            'Rating': <input id="rating" name="rating" className="form-input flex-1 "/>,
+                                        className="form-input flex-1 "
+                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+            'Rating': <input id="rating" name="rating" className="form-input flex-1 "
+                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
 
         }
 
