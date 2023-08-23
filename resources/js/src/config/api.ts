@@ -293,7 +293,7 @@ class api {
     }
 
     async fetchSingleContact(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/contact/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/contact/${id}`);
     }
 
     async updateSingleContact(data) {
