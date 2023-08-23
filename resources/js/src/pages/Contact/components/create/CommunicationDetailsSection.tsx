@@ -1,8 +1,5 @@
-import AsyncSelect from "react-select/async";
 import {useDispatch} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
-import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AddressInformationSection = () => {
@@ -18,7 +15,7 @@ const AddressInformationSection = () => {
                                      className="form-textarea flex-1"
                                      placeholder=""
                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
-            'LinkedIn Communication': <textarea id="linkedIn_communication" rows={3} name="linkedIn_communication"
+            'LinkedIn Communication': <textarea id="linkedin_communication" rows={3} name="linkedin_communication"
                                                 className="form-textarea flex-1"
                                                 placeholder=""
                                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
