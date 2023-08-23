@@ -1,12 +1,11 @@
-import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
-import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AddressInformationSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.contactForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -17,10 +16,13 @@ const AddressInformationSection = () => {
             'Description': <textarea id="description" rows={3} name="description"
                                      className="form-textarea flex-1"
                                      placeholder=""
-                                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
-            'LinkedIn Communication': <textarea id="linkedIn_communication" rows={3} name="linkedIn_communication"
+                                     defaultValue={formState.description}
+                                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            ></textarea>,
+            'LinkedIn Communication': <textarea id="linkedin_communication" rows={3} name="linkedin_communication"
                                                 className="form-textarea flex-1"
                                                 placeholder=""
+                                                defaultValue={formState.linkedin_communication}
                                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
         },
     }

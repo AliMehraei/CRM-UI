@@ -1,12 +1,13 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {loadOrders} from "../../../../components/Functions/CommonFunctions";
+import {loadOwners} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const FieldsWithSecondaryPrioritySection = () => {
     const dispatch = useDispatch();
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -27,16 +28,17 @@ const FieldsWithSecondaryPrioritySection = () => {
         {value: "must_be_deleted", label: "Must be deleted"},
     ];
     const fields = {
-        'Contact Details': {
+        'Fields with Secondary Priority': {
             'Approved By': <AsyncSelect
                 isMulti={false}
                 id="approved_by"
                 placeholder="Type at least 2 characters to search..."
                 name="approved_by"
-                loadOptions={loadOrders}
+                loadOptions={loadOwners}
                 onChange={({value}: any) => {
-                    handleChangeField('parent_account_id', value)
+                    handleChangeField('approved_by', value)
                 }}
+
                 className="flex-1"
             />,
             'Books Contact': <input
@@ -45,16 +47,19 @@ const FieldsWithSecondaryPrioritySection = () => {
                 name="book_contact"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+
             />,
 
             'Contact Activity':
-                <Select id="job_description"
-                        name="job_description"
+                <Select id="contact_activity"
+                        name="contact_activity"
                         onChange={({value}: any) => {
                             handleChangeField('double_check_status', value)
                         }}
                         className="flex-1"
-                        options={activities}/>,
+                        options={activities}
+                />,
+
 
             'Title': <input
                 id="title"
