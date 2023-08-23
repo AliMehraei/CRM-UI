@@ -28,13 +28,6 @@ const Edit = () => {
         dispatch(updateFormData(manufacture));
     };
 
-    const handleFetchingVendor = async (id: string, vendorKey: string) => {
-        const vendorResponse = await api.fetchSingleVendor(id);
-        if (vendorResponse.status === 200) {
-            const vendor = vendorResponse.data.data['vendor'];
-            dispatch(updateFormData({[vendorKey]: vendor}));
-        }
-    }
 
     useEffect(() => {
 
