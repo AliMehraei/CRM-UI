@@ -1,6 +1,6 @@
 import {Link, useNavigate} from 'react-router-dom';
 import {useParams} from "react-router-dom";
-
+import 'flatpickr/dist/flatpickr.css';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';

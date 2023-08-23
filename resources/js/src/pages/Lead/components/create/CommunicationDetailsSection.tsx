@@ -5,7 +5,7 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
-const APIDataSection = () => {
+const CommunicationDetailsSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -37,25 +37,30 @@ const APIDataSection = () => {
     };
 
     const fields = {
-        'API Data': {
-            'Octopart ID': (<input
-                id="octopart_id"
-                name="octopart_id"
+        'Communication Details / History': {
+            'Details and notes': (
+                <input
+                id="detail_note"
+                name="detail_note"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-
-            
+            />
+           
+            ),
+            'LinkedIn Communication': (
+                <textarea id="linkedin_communication" rows={3} 
+                name="delinkedin_communicationscription"
+                className="form-textarea flex-1"
+                placeholder=""
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                ></textarea>
+           
+            )
+          
 
         },
         '': {
-            'ZohoBooksID': (<input
-                id="zoho_book_id"
-                name="zoho_book_id"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-
+           
 
         }
     }
@@ -69,4 +74,4 @@ const APIDataSection = () => {
     
 }
 
-export default APIDataSection;
+export default CommunicationDetailsSection;

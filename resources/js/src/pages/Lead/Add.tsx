@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import LeadFormFields from "./components/create/LeadFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
+import 'flatpickr/dist/flatpickr.css';
 
 const Add = () => {
     const formState = useSelector((state: any) => state.leadForm);

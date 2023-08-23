@@ -4,8 +4,8 @@ import {updateFormData} from "../../../../store/vendorFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
-
-const TermsSection = () => {
+import Flatpickr from "react-flatpickr";
+const DevelopmentSection = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -37,21 +37,34 @@ const TermsSection = () => {
     };
 
     const fields = {
-        'Terms and Shipping': {
-            'Payment Terms': (<input
-                id="payment_terms"
-                name="payment_terms"
+        'Development': {
+            'Imported Qualification Status': (<input
+                id="imported_qualification_status"
+                name="imported_qualification_status"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
-            'Incoterms ': (
-                <input
-                    id="incoterms"
-                    
-                    name="incoterms"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            'Last Modified': (
+                <Flatpickr
+                options={{
+                    dateFormat: 'Y-m-d ',
+                    position: 'auto left',
+                }}
+                name="last_modified"
+                value=""
+                className="form-input flex-1"
+                />
+            ),
+            'Created Date': (
+                <Flatpickr
+                options={{
+                    dateFormat: 'Y-m-d ',
+                    position: 'auto left',
+                }}
+                name="created_date"
+                value=""
+                className="form-input flex-1"
                 />
             ),
             
@@ -59,25 +72,12 @@ const TermsSection = () => {
 
         },
         '': {
-            'Vat NO': (<input
-                id="vat_no"
-                required
-                name="vat_no"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-            'Forwarder': (<input
-                id="forwarder"
-                name="forwarder"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-            'Forwarder Account no.':
-            <input
-                id="forwarder_account_no"
-                name="forwarder_account_no"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            'From Panel Side': <input
+                id="from_panel_site"
+                type="checkbox"
+                name="from_panel_site"
+                className="form-checkbox"
+                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
             />,
 
         }
@@ -92,4 +92,4 @@ const TermsSection = () => {
     
 }
 
-export default TermsSection;
+export default DevelopmentSection;
