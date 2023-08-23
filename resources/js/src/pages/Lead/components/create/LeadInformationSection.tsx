@@ -210,10 +210,10 @@ const LeadInformationSection = () => {
             'Lead Source': (
                 <Select 
                 options={LeadSource} 
-                name="LeadSource" 
-                id="LeadSource"       
+                name="lead_source" 
+                id="lead_source"       
                 onChange={({value}: any) => {
-                    handleChangeField('LeadSource', value)
+                    handleChangeField('lead_source', value)
                 }} 
                 className="flex-1"
                 />

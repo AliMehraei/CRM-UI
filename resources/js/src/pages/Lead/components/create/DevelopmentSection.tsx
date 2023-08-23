@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 const DevelopmentSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -18,7 +18,7 @@ const DevelopmentSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 

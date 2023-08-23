@@ -7,7 +7,7 @@ import {handleUploadFile} from "../../../../components/Functions/CommonFunctions
 import Select from "react-select";
 
 const ContactInformationSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -19,7 +19,7 @@ const ContactInformationSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 
@@ -62,7 +62,7 @@ const ContactInformationSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('job_description', value)
                 }} 
-                defaultValue={formState.job_description}
+                defaultValue={JobDescription.find((title) => title.value == formState.job_description)}
                 className="flex-1"
                 />
             ),
@@ -72,6 +72,7 @@ const ContactInformationSection = () => {
                     name="phone"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.phone}
                 />
             ),
             
@@ -81,12 +82,14 @@ const ContactInformationSection = () => {
                 name="mobile"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mobile}
             />,
             'fax': (<input
                 id="fax"
                 name="fax"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.fax}
             />),
 
         },
@@ -97,12 +100,14 @@ const ContactInformationSection = () => {
                 name="last_name"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.last_name}
             />),
             'Email': (<input
                 id="email"
                 name="email"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.email}
             />),
             
            
@@ -112,6 +117,7 @@ const ContactInformationSection = () => {
                 name="linkedin_contact"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.linkedin_contact}
             />,
             'Company LinkedIn':
             <input
@@ -119,6 +125,7 @@ const ContactInformationSection = () => {
                 name="linkedin_company"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.linkedin_company}
             />,
 
         }

@@ -7,7 +7,7 @@ import Select from "react-select";
 import { Currencies } from "../../../../components/Functions/CommonFunctions";
 
 const FieldsScondaryPrioritySection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -19,7 +19,7 @@ const FieldsScondaryPrioritySection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({ query: query });
 
@@ -45,6 +45,7 @@ const FieldsScondaryPrioritySection = () => {
                     name="no_of_employees"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.no_of_employees}
                 />
             ),
             'Lead Reference': (
@@ -53,6 +54,7 @@ const FieldsScondaryPrioritySection = () => {
                     name="lead_reference"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.lead_reference}
                 />
             ),
 
@@ -68,6 +70,7 @@ const FieldsScondaryPrioritySection = () => {
                         handleChangeField('currency', value)
                     }}
                     className="flex-1"
+                    defaultValue={Currencies.find((title) => title.value == formState.currency)}
                 />
             ),
             'Exchange Rate': (
@@ -76,6 +79,7 @@ const FieldsScondaryPrioritySection = () => {
                     value="1"
                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                     disabled
+                    defaultValue={formState.exchange_rate}
                 />
             ),
         }

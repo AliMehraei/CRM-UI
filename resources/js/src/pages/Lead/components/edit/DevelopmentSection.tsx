@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 const DevelopmentSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -18,7 +18,7 @@ const DevelopmentSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 
@@ -43,28 +43,38 @@ const DevelopmentSection = () => {
                 name="imported_qualification_status"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.imported_qualification_status}
             />),
 
             'Last Modified': (
                 <Flatpickr
-                options={{
-                    dateFormat: 'Y-m-d ',
-                    position: 'auto left',
-                }}
-                name="last_modified"
-                value=""
-                className="form-input flex-1"
+                    name="last_modified"
+             
+               
+                    options={{
+                        dateFormat: 'Y-m-d',
+                        position: 'auto left',
+                        defaultDate: `${formState.last_modified ? new Date(formState.last_modified) : ''}`,
+                    }}
+                    className="form-input flex-1"
+                    value={formState.last_modified ? new Date(formState.last_modified) : ''}
+                    onChange={(dates) => handleChangeField('last_modified', dates[0])} // Update the field value on change
+                    defaultValue={formState.last_modified}
                 />
             ),
             'Created Date': (
                 <Flatpickr
-                options={{
-                    dateFormat: 'Y-m-d ',
-                    position: 'auto left',
-                }}
+                
                 name="created_date"
-                value=""
+                options={{
+                    dateFormat: 'Y-m-d',
+                    position: 'auto left',
+                    defaultDate: `${formState.created_date ? new Date(formState.created_date) : ''}`,
+                }}
                 className="form-input flex-1"
+                value={formState.created_date ? new Date(formState.created_date) : ''}
+                onChange={(dates) => handleChangeField('created_date', dates[0])} // Update the field value on change
+                defaultValue={formState.created_date}
                 />
             ),
             
@@ -78,6 +88,7 @@ const DevelopmentSection = () => {
                 name="from_panel_site"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                checked={formState.from_panel_site}
             />,
 
         }

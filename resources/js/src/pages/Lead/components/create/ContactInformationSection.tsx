@@ -7,7 +7,7 @@ import {handleUploadFile} from "../../../../components/Functions/CommonFunctions
 import Select from "react-select";
 
 const ContactInformationSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -19,7 +19,7 @@ const ContactInformationSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 

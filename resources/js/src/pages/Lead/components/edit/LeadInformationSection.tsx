@@ -126,6 +126,7 @@ const LeadInformationSection = () => {
                     handleChangeField('status', value)
                 }} 
                 className="flex-1"
+                 defaultValue={LeadStatus.find((title) => title.value == formState.status)}
                 />
             ),
             'Lost Reason': (
@@ -137,6 +138,7 @@ const LeadInformationSection = () => {
                     handleChangeField('lost_reason', value)
                 }} 
                 className="flex-1"
+                 defaultValue={LostReason.find((title) => title.value == formState.lost_reason)}
                 />
             ),
             'Lost Reason Comment': (
@@ -145,7 +147,7 @@ const LeadInformationSection = () => {
                 name="lost_reason_comment"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.lost_reason_comment}
                 />
             ),
             'Lead Owner': (
@@ -159,6 +161,18 @@ const LeadInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
+                    defaultValue={{
+                        value: formState.owner?.id,
+                        label: (
+                            <div key={formState.owner?.id} className="flex items-center">
+                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                                <div>
+                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div className="text-xs text-gray-500">{formState.owner?.email}</div>
+                                </div>
+                            </div>
+                        ),
+                    }}
                 />
             ),
             
@@ -172,7 +186,7 @@ const LeadInformationSection = () => {
                     name="company"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    // defaultValue={formState.name}
+                    defaultValue={formState.company}
                 />
             ),
            
@@ -185,6 +199,7 @@ const LeadInformationSection = () => {
                     handleChangeField('company_type', value)
                 }} 
                 className="flex-1"
+                defaultValue={CompanyType.find((title) => title.value == formState.company_type)}
                 />
             ),
             'Industry': (
@@ -196,6 +211,7 @@ const LeadInformationSection = () => {
                     handleChangeField('industry', value)
                 }} 
                 className="flex-1"
+                defaultValue={Industry.find((title) => title.value == formState.industry)}
                 />
             ),
             'Website':(
@@ -204,18 +220,19 @@ const LeadInformationSection = () => {
                 name="website"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                
+                defaultValue={formState.website}
             />
             ),
             'Lead Source': (
                 <Select 
                 options={LeadSource} 
-                name="LeadSource" 
-                id="LeadSource"       
+                name="lead_source" 
+                id="lead_source"       
                 onChange={({value}: any) => {
-                    handleChangeField('LeadSource', value)
+                    handleChangeField('lead_source', value)
                 }} 
                 className="flex-1"
+                 defaultValue={LeadSource.find((title) => title.value == formState.lead_source)}
                 />
             ),
             'Zusätzlicher Ansprechpartner':(
@@ -224,6 +241,7 @@ const LeadInformationSection = () => {
                 name="Ansprechpartner"
                 disabled
                 className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                defaultValue={formState.Ansprechpartner}
                 />
             ),
 
@@ -234,6 +252,7 @@ const LeadInformationSection = () => {
                 name="email_opt_out"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                checked={formState.email_opt_out}
                 />
             ),
         }
