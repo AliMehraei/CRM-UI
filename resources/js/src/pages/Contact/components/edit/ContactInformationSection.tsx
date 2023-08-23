@@ -1,13 +1,13 @@
-import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import Flatpickr from "react-flatpickr";
 
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.contactForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -25,24 +25,32 @@ const ContactInformationSection = () => {
                 name="email"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.email}
+
             />,
             'Mobile': <input
                 id="mobile"
                 name="mobile"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mobile}
+
             />,
             'Phone': <input
                 id="phone"
                 name="phone"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.phone}
+
             />,
             'Department': <input
                 id="department"
                 name="department"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.department}
+
             />,
 
             'Asst Phone': <input
@@ -50,6 +58,8 @@ const ContactInformationSection = () => {
                 name="asst_phone"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.asst_phone}
+
             />,
 
             'Home Phone': <input
@@ -57,6 +67,8 @@ const ContactInformationSection = () => {
                 name="home_phone"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.home_phone}
+
             />,
 
             'Other Phone': <input
@@ -64,6 +76,8 @@ const ContactInformationSection = () => {
                 name="other_phone"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.other_phone}
+
             />,
 
             'Fax': <input
@@ -71,6 +85,8 @@ const ContactInformationSection = () => {
                 name="fax"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.fax}
+
             />
         },
         '': {
@@ -79,32 +95,39 @@ const ContactInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
+                    defaultDate: `${formState.last_activity_date ? new Date(formState.last_activity_date) : ''}`,
                 }}
-                value=""
                 className="form-input flex-1"
+                value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}
                 onChange={(dates) => handleChangeField('last_activity_date', dates[0])} // Update the field value on change
+                defaultValue={formState.last_activity_date}
+
             />,
             'Reporting To': <input
                 id="reporting_to"
                 name="reporting_to"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.reporting_to}
+
             />,
             'LinkedIn Contact': <input
                 id="linkedin"
                 name="linkedin"
                 className="form-input flex-1"
                 onChange={e => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.linkedin}
+
             />,
             'Portal Access':
-                <Select id="contact_type"
-                        name="contact_type"
+                <Select id="portal_access"
+                        name="portal_access"
                         onChange={({value}: any) => {
                             handleChangeField('double_check_status', value)
                         }}
                         className="flex-1 "
                         options={portalAccess}
-                        defaultValue={{value: "none", label: "-None-"}}
+                        defaultValue={portalAccess.find((title) => title.value == formState.portal_access)}
                 />,
         }
     }
