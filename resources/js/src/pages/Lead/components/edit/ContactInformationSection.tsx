@@ -1,6 +1,6 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
@@ -52,6 +52,7 @@ const ContactInformationSection = () => {
                 name="first_name"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.first_name}
             />),
             'Job Description': (
                 <Select 
@@ -61,6 +62,7 @@ const ContactInformationSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('job_description', value)
                 }} 
+                defaultValue={formState.job_description}
                 className="flex-1"
                 />
             ),

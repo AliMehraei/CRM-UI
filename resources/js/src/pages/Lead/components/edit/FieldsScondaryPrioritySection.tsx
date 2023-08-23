@@ -1,6 +1,6 @@
 import AsyncSelect from "react-select/async";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFormData } from "../../../../store/vendorFormSlice";
+import { updateFormData } from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";

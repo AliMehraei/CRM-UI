@@ -1,6 +1,6 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
@@ -44,15 +44,17 @@ const CommunicationDetailsSection = () => {
                 name="detail_note"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.detail_note}
             />
            
             ),
             'LinkedIn Communication': (
                 <textarea id="linkedin_communication" rows={3} 
-                name="delinkedin_communicationscription"
+                name="linkedin_communication"
                 className="form-textarea flex-1"
                 placeholder=""
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.linkedin_communication}
                 ></textarea>
            
             )

@@ -1,6 +1,6 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
@@ -43,6 +43,7 @@ const AddressInformationSection = () => {
                 name="zip_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.zip_code}
             />),
 
             'City': (
@@ -51,6 +52,7 @@ const AddressInformationSection = () => {
                     name="city"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.city}
                 />
             ),
             
@@ -64,12 +66,14 @@ const AddressInformationSection = () => {
                 name="state"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.state}
             />),
             'Country': (<input
                 id="country"
                 name="country"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.country}
             />),
 
         }
