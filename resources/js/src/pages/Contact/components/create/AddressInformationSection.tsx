@@ -29,9 +29,9 @@ const AddressInformationSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Mailing Zip': <input
-                id="mailing_zip"
+                id="mailing_code"
 
-                name="mailing_zip"
+                name="mailing_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />

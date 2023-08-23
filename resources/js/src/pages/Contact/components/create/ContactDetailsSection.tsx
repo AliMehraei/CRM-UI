@@ -99,10 +99,10 @@ const ContactDetailsSection = () => {
             ,
             'First Name': (
                 <div>
-                    <Select id="double_check_status"
-                            name="double_check_status"
+                    <Select id="prefix_first_name"
+                            name="prefix_first_name"
                             onChange={({value}: any) => {
-                                handleChangeField('double_check_status', value)
+                                handleChangeField('prefix_first_name', value)
                             }}
                             className="flex-1"
                             options={firstNameTitles}
