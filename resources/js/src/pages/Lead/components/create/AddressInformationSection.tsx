@@ -1,12 +1,12 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
 const AddressInformationSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -18,7 +18,7 @@ const AddressInformationSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 
@@ -38,9 +38,9 @@ const AddressInformationSection = () => {
 
     const fields = {
         'Address Information': {
-            'Street': (<input
-                id="street"
-                name="street"
+            'Zip Code': (<input
+                id="zip_code"
+                name="zip_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
@@ -54,12 +54,11 @@ const AddressInformationSection = () => {
                 />
             ),
             
-            'Zip Code': (<input
-                id="zip_code"
-                name="zip_code"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
+           
+           
+
+        },
+        '': {
             'State': (<input
                 id="state"
                 name="state"
@@ -72,10 +71,6 @@ const AddressInformationSection = () => {
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
-
-        },
-        '': {
-           
 
         }
     }

@@ -1,13 +1,13 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 
 const ContactInformationSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -19,7 +19,7 @@ const ContactInformationSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 
@@ -67,23 +67,22 @@ const ContactInformationSection = () => {
             'Phone': (
                 <input
                     id="phone"
-                    required
                     name="phone"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             
-            'email': (<input
-                id="email"
-                required
-                name="email"
+            'Mobile':
+            <input
+                id="mobile"
+                name="mobile"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-            'linkedin': (<input
-                id="linkedin"
-                name="linkedin"
+            />,
+            'fax': (<input
+                id="fax"
+                name="fax"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
@@ -97,19 +96,25 @@ const ContactInformationSection = () => {
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
-
+            'Email': (<input
+                id="email"
+                name="email"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />),
             
-            'Mobile':
-                <input
-                    id="mobile"
-                    name="mobile"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                />,
-            'Website':
+           
+            'Contact LinkedIn':
             <input
-                id="website"
-                name="website"
+                id="linkedin_contact"
+                name="linkedin_contact"
+                className="form-input flex-1 "
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+            'Company LinkedIn':
+            <input
+                id="linkedin_contact"
+                name="linkedin_company"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,

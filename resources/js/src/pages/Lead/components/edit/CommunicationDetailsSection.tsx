@@ -1,12 +1,12 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
 
-const APIDataSection = () => {
-    const formState = useSelector((state: any) => state.vendorForm);
+const CommunicationDetailsSection = () => {
+    const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
     const api_instance = new api();
 
@@ -18,7 +18,7 @@ const APIDataSection = () => {
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
-        const nameField = 'vendor_name';
+        const nameField = 'lead_name';
 
         const result = await api_instance.searchVendor({query: query});
 
@@ -37,25 +37,32 @@ const APIDataSection = () => {
     };
 
     const fields = {
-        'API Data': {
-            'Octopart ID': (<input
-                id="octopart_id"
-                name="octopart_id"
+        'Communication Details / History': {
+            'Details and notes': (
+                <input
+                id="detail_note"
+                name="detail_note"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-
-            
+                defaultValue={formState.detail_note}
+            />
+           
+            ),
+            'LinkedIn Communication': (
+                <textarea id="linkedin_communication" rows={3} 
+                name="linkedin_communication"
+                className="form-textarea flex-1"
+                placeholder=""
+                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.linkedin_communication}
+                ></textarea>
+           
+            )
+          
 
         },
         '': {
-            'ZohoBooksID': (<input
-                id="zoho_book_id"
-                name="zoho_book_id"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
-
+           
 
         }
     }
@@ -69,4 +76,4 @@ const APIDataSection = () => {
     
 }
 
-export default APIDataSection;
+export default CommunicationDetailsSection;
