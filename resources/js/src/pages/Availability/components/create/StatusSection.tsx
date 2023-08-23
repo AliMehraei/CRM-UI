@@ -1,7 +1,7 @@
 import Select from "react-select";
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import Flatpickr from "react-flatpickr";
-import GenerateFields from "../../../components/FormFields/GenerateFields";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const StatusSection = () => {
 

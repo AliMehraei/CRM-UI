@@ -1,4 +1,4 @@
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
 
 const PriceBreakSection = () => {

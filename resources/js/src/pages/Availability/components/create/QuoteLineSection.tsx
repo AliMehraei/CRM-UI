@@ -1,8 +1,8 @@
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
-import {Currencies} from "../../RFQ/components/edit/HeaderSection";
-import GenerateFields from "../../../components/FormFields/GenerateFields";
+import {Currencies} from "../../../RFQ/components/edit/HeaderSection";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const QuoteLineSection = () => {
     const handleProductChange = () => {

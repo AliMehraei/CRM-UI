@@ -1,8 +1,8 @@
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import Flatpickr from "react-flatpickr";
-import GenerateFields from "../../../components/FormFields/GenerateFields";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const SourceSection = () => {
     const loadVendors = () => {

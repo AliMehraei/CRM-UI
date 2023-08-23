@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
-import GenerateFields from "../../../components/FormFields/GenerateFields";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const HeaderSection = () => {
 
