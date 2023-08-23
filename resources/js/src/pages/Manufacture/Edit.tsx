@@ -7,6 +7,7 @@ import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import {updateFormData} from "../../store/manufactureFormSlice";
 import LoadingAlpyn from "../../components/LoadingAlpyn"
+
 const Edit = () => {
     const formState = useSelector((state: any) => state.manufactureForm);
     const [loading, setLoading] = useState(true);
@@ -25,16 +26,6 @@ const Edit = () => {
             return
         const manufacture = manufactureResponse.data.data.manufacture;
         dispatch(updateFormData(manufacture));
-        if (manufacture.vendor_line_card_id) {
-            await handleFetchingVendor(manufacture.vendor_line_card_id, 'vendor_line_card');
-        }
-        if (manufacture.vendor_line_card_id) {
-            await handleFetchingVendor(manufacture.vendor_line_card_id, "vendor_strong_lines");
-        }
-
-        const ownerResponse = await api.loadUserById({id: manufacture.owner_id});
-        const owner = ownerResponse.data.data;
-        dispatch(updateFormData({['owner']: owner}));
     };
 
     const handleFetchingVendor = async (id: string, vendorKey: string) => {
@@ -49,7 +40,7 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            
+
         });
     }, [manufactureId]);
 
@@ -64,7 +55,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return  <LoadingAlpyn />
+        return <LoadingAlpyn/>
 
     return (
         <div className='px-4'>
