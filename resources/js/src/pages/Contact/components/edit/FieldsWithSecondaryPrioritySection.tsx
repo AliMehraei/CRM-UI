@@ -27,7 +27,7 @@ const FieldsWithSecondaryPrioritySection = () => {
         {value: "must_be_deleted", label: "Must be deleted"},
     ];
     const fields = {
-        'Contact Details': {
+        'Fields with Secondary Priority': {
             'Approved By': <AsyncSelect
                 isMulti={false}
                 id="approved_by"
