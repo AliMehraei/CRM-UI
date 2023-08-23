@@ -149,7 +149,7 @@ export const loadDeals = async () => {
 }
 
 export const loadVendor = async () => {
-    const result = await api_instance.fetchDataVendor(); // TODO : fix this to deal
+    const result = await api_instance.fetchDataVendor();
     if (result.status) {
         return result.data.map((data: any) => ({
             value: data['id'],
@@ -161,3 +161,18 @@ export const loadVendor = async () => {
         }));
     }
 }
+
+export const loadAvailability = async () => {
+    const result = await api_instance.fetchDataVendor();
+    if (result.status) {
+        return result.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['vendor_name']}</div>
+                </div>
+            ),
+        }));
+    }
+}
+
