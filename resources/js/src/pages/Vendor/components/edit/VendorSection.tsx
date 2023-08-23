@@ -146,13 +146,13 @@ const VendorSection = () => {
                 />
             ),
             'Approve status': (
-                <Select 
-                options={ApproveStatus} 
-                name="approved_status" 
-                id="approved_status"       
+                <Select
+                options={ApproveStatus}
+                name="approved_status"
+                id="approved_status"
                 onChange={({value}: any) => {
                     handleChangeField('approved_status', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -171,7 +171,7 @@ const VendorSection = () => {
                     isMulti={false}
                     id="approved_by"
                     placeholder="Type at least 2 characters to search..."
-                    name="approved_by"
+                    name="approved_by_id"
                     loadOptions={loadOwners}
                     onChange={({value}: any) => {
                         handleChangeField('approved_by', value)
@@ -181,7 +181,7 @@ const VendorSection = () => {
             ),
         },
         '': {
-           
+
             'Vendor Owner': (
                 <AsyncSelect
                     isMulti={false}
@@ -208,24 +208,24 @@ const VendorSection = () => {
                 />
             ),
             'Vendor Source': (
-                <Select 
-                options={vendorSource} 
-                name="vendor_source" 
-                id="vendor_source"       
+                <Select
+                options={vendorSource}
+                name="vendor_source"
+                id="vendor_source"
                 onChange={({value}: any) => {
                     handleChangeField('vendor_source', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -290,13 +290,13 @@ const VendorSection = () => {
             />
             ),
             'Portal Access':(
-                <Select 
-                options={PortalAccess} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={PortalAccess}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
