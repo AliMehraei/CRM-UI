@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {loadOrders} from "../../../../components/Functions/CommonFunctions";
+import {loadOrders, loadOwners} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
@@ -33,9 +33,9 @@ const FieldsWithSecondaryPrioritySection = () => {
                 id="approved_by"
                 placeholder="Type at least 2 characters to search..."
                 name="approved_by"
-                loadOptions={loadOrders}
+                loadOptions={loadOwners}
                 onChange={({value}: any) => {
-                    handleChangeField('parent_account_id', value)
+                    handleChangeField('approved_by', value)
                 }}
                 className="flex-1"
             />,
