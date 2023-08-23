@@ -1,5 +1,5 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
@@ -7,6 +7,8 @@ import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AddressInformationSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.contactForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -20,20 +22,23 @@ const AddressInformationSection = () => {
                 name="mailing_country"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mailing_country}
+
             />,
             'Mailing City': <input
                 id="mailing_city"
-
                 name="mailing_city"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mailing_city}
             />,
             'Mailing Zip': <input
-                id="mailing_zip"
-
-                name="mailing_zip"
+                id="mailing_code"
+                name="mailing_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mailing_code}
+
             />
 
         },
@@ -43,12 +48,16 @@ const AddressInformationSection = () => {
                 name="mailing_state"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mailing_state}
+
             />,
             'Mailing Street': <input
                 id="mailing_street"
                 name="mailing_street"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.mailing_street}
+
             />
 
 
