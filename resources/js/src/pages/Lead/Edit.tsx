@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import LeadFormFields from "./components/edit/LeadFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
-import { updateFormData } from '../../store/leadFormSlice';
+import {updateFormData} from '../../store/leadFormSlice';
 import LoadingAlpyn from '../../components/LoadingAlpyn';
 import Api from '../../config/api';
 
@@ -28,16 +28,6 @@ const Edit = () => {
             return
         const lead = leadResponse.data.data.lead;
         dispatch(updateFormData(lead));
-        // if (lead.lead_line_card_id) {
-        //     await handleFetchingLead(lead.lead_line_card_id, 'lead_line_card');
-        // }
-        // if (lead.lead_line_card_id) {
-        //     await handleFetchingLead(lead.lead_line_card_id, "lead_strong_lines");
-        // }
-
-        const ownerResponse = await api.loadUserById({id: lead.owner_id});
-        const owner = ownerResponse.data.data;
-        dispatch(updateFormData({['owner']: owner}));
     };
 
     const handleFetchingLead = async (id: string, leadKey: string) => {
@@ -52,7 +42,7 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            
+
         });
     }, [leadId]);
 
@@ -67,7 +57,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return  <LoadingAlpyn />
+        return <LoadingAlpyn/>
 
 
     return (
