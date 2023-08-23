@@ -150,17 +150,17 @@ const ContactDetailsSection = () => {
                 isMulti={false}
                 id="account_name"
                 placeholder="Type at least 2 characters to search..."
-                name="parent_account_id"
+                name="account_name"
                 loadOptions={loadAccounts}
                 onChange={({value}: any) => {
-                    handleChangeField('parent_account_id', value)
+                    handleChangeField('account_name', value)
                 }}
                 className="flex-1"
             />,
-            'Contact Source': <Select id="contact_type"
-                                      name="contact_type"
+            'Contact Source': <Select id="contact_source"
+                                      name="cocontact_source"
                                       onChange={({value}: any) => {
-                                          handleChangeField('double_check_status', value)
+                                          handleChangeField('contact_source', value)
                                       }}
                                       className="flex-1 "
                                       options={contactSources}
@@ -177,10 +177,10 @@ const ContactDetailsSection = () => {
                 }}
                 className="flex-1"
             />,
-            'Contact Status': <Select id="contact_type"
-                                      name="contact_type"
+            'Contact Status': <Select id="contact_status"
+                                      name="contact_status"
                                       onChange={({value}: any) => {
-                                          handleChangeField('double_check_status', value)
+                                          handleChangeField('contact_status', value)
                                       }}
                                       className="flex-1 "
                                       options={contactStatuses}
