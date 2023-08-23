@@ -353,7 +353,7 @@ class api {
     }
 
     async fetchSingleLead(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/lead/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/lead/${id}`);
     }
 
     async updateSingleLead(data) {
