@@ -79,7 +79,7 @@ const HeaderSection = () => {
                                              handleChangeField('converted_by_id', value)
                                          }}
             />,
-            'Quote Chance': <Select name='chance' required options={QuoteChances}
+            'Quote Chance': <Select name='quote_chance' required options={QuoteChances}
                                     className="flex-1"
                                     onChange={({value}: any) => {
                                         handleChangeField('chance', value)
