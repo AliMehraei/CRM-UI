@@ -4,7 +4,7 @@ import LeadInformationSection from "./LeadInformationSection";
 import DevelopmentSection from "./DevelopmentSection";
 import AddressInformationSection from "./AddressInformationSection";
 import CommunicationDetailsSection from "./CommunicationDetailsSection";
-import FieldsScondaryPrioritySection from "./ FieldsScondaryPrioritySection";
+import FieldsScondaryPrioritySection from "./FieldsScondaryPrioritySection";
 const LeadFormFields = () => {
     return (
         <div className="mt-8 px-4">

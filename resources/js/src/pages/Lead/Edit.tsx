@@ -1,14 +1,14 @@
 import {Link, useNavigate} from 'react-router-dom';
-import {useParams} from "react-router-dom";
-import 'flatpickr/dist/flatpickr.css';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import LeadFormFields from "./components/edit/LeadFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
-import {updateFormData} from '../../store/leadFormSlice';
-import LoadingAlpyn from '../../components/LoadingAlpyn';
-import Api from '../../config/api';
+import 'flatpickr/dist/flatpickr.css';
+import {updateFormData} from "../../store/leadFormSlice";
+import LoadingAlpyn from "../../components/LoadingAlpyn"
+import Api from "../../config/api";
+import {useParams} from "react-router-dom";
 
 const Edit = () => {
     const formState = useSelector((state: any) => state.leadForm);
@@ -30,13 +30,6 @@ const Edit = () => {
         dispatch(updateFormData(lead));
     };
 
-    const handleFetchingLead = async (id: string, leadKey: string) => {
-        const leadResponse = await api.fetchSingleLead(id);
-        if (leadResponse.status === 200) {
-            const lead = leadResponse.data.data['lead'];
-            dispatch(updateFormData({[leadKey]: lead}));
-        }
-    }
 
     useEffect(() => {
 
@@ -58,7 +51,6 @@ const Edit = () => {
 
     if (loading)
         return <LoadingAlpyn/>
-
 
     return (
         <div className='px-4'>

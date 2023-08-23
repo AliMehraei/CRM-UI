@@ -38,12 +38,11 @@ const AddressInformationSection = () => {
 
     const fields = {
         'Address Information': {
-            'Street': (<input
-                id="street"
-                name="street"
+            'Zip Code': (<input
+                id="zip_code"
+                name="zip_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.street}
             />),
 
             'City': (
@@ -52,35 +51,26 @@ const AddressInformationSection = () => {
                     name="city"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.city}
                 />
             ),
             
-            'Zip Code': (<input
-                id="zip_code"
-                name="zip_code"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.zip_code}
-            />),
+           
+           
+
+        },
+        '': {
             'State': (<input
                 id="state"
                 name="state"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.state}
             />),
             'Country': (<input
                 id="country"
                 name="country"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.country}
             />),
-
-        },
-        '': {
-           
 
         }
     }
