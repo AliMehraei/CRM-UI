@@ -12,20 +12,25 @@ class api {
     constructor(props: any = {}) {
         // userLocale = Cookies.get('current_user_locale');
         // URL = `${process.env.MIX_API_BASE_URL}/${userLocale}/v1`;
-        URL = `/api/v1`;
+        URL = `/api`;
         API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT;
         API_URL_USER = import.meta.env.VITE_API_URL_USER;
         Headers = {
             Authorization: `Bearer ${getToken('token')}`
         }
     }
-
+    async searchCategoryProduct(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/product/search_category`, data, { headers: Headers });
+    }
+    async searchProduct(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/product/search`, data, { headers: Headers });
+    }
     async filterOptionProduct(data: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/product/filter_option`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/product/filter_option`);
     }
 
     async fetchDataProduct(data: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/product/list?page=${data.page}&pageSize=${data.pageSize}&sortField=${data.sortField}&sortDirection=${data.sortDirection}&filters=${data.filterParam}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/product/list`,data, { headers: Headers });
     }
 
     async deleteSingleProduct(data: any = null) {
@@ -89,24 +94,24 @@ class api {
     }
 
     async login(data: any) {
-        return await _axios.post(`${URL}/login`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/login`, data, { headers: Headers });
     }
 
     async register(data: any) {
-        return await _axios.post(`${URL}/register`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/register`, data, { headers: Headers });
     }
 
     async logout(data: any = null) {
-        return await _axios.post(`${URL}/logout`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/logout`, data, { headers: Headers });
     }
 
     async getSystemSettingData(data: any) {
-        return await _axios.post(`${URL}/setting`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/setting`, data, { headers: Headers });
     }
 
 
     async changeLocale(locale: any) {
-        return await _axios.get(`${URL}/change-locale/${locale}`);
+        return await _axios.get(`${API_URL_PRODUCT}/change-locale/${locale}`);
     }
 
     async uploadFile(file: any) {
@@ -191,7 +196,7 @@ class api {
     }
 
     async searchManufacturer(data: any = null) {
-        return await _axios.post(`${URL}/api/manufacture/search`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/search`, data, { headers: Headers });
     }
 
     async fetchDataManufacturer(data: any = null) {
@@ -218,7 +223,7 @@ class api {
 
     //RFQ
     async searchRfq(data: any = null) {
-        return await _axios.post(`${URL}/api/rfq/search`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/rfq/search`, data, { headers: Headers });
     }
 
     async filterOptionRfq(data: any = null) {
@@ -247,7 +252,7 @@ class api {
 
     //invoice
     async searchInvoice(data: any = null) {
-        return await _axios.post(`${URL}/api/invoice/search`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/invoice/search`, data, { headers: Headers });
     }
 
     async filterOptionInvoice(data: any = null) {
@@ -277,7 +282,7 @@ class api {
 
     //contact
     async searchContact(data: any = null) {
-        return await _axios.post(`${URL}/api/contact/search`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/contact/search`, data, { headers: Headers });
     }
 
     async filterOptionContact(data: any = null) {
@@ -337,7 +342,7 @@ class api {
 
     //lead
     async searchLead(data: any = null) {
-        return await _axios.post(`${URL}/api/lead/search`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/lead/search`, data, { headers: Headers });
     }
 
     async filterOptionLead(data: any = null) {
@@ -367,7 +372,7 @@ class api {
 
     //PurchaseOrder
     async searchPurchaseOrder(data: any = null) {
-        return await _axios.post(`${URL}/api/purchase_order/search`, data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/purchase_order/search`, data, { headers: Headers });
     }
 
     async filterOptionPurchaseOrder(data: any = null) {

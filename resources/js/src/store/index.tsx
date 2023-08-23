@@ -9,7 +9,7 @@ import vendorFormSlice from "./vendorFormSlice";
 import contactFormSlice from "./contactFormSlice";
 import leadFormSlice from "./leadFormSlice";
 import excessFormSlice from "./excessFormSlice";
-
+import productFormSlice from "./productFormSlice";
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
     contactForm: contactFormSlice,
     leadForm: leadFormSlice,
     excessForm: excessFormSlice,
+    productForm: productFormSlice,
 
 });
 
