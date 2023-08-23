@@ -1,5 +1,5 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
@@ -7,6 +7,8 @@ import {updateFormData} from "../../../../store/accountFormSlice";
 
 const ContactDetailsSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.contactForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -19,7 +21,6 @@ const ContactDetailsSection = () => {
         {value: "prof.", label: "Prof."},
 
     ];
-
     const jobDescriptions = [
         {value: "none", label: "-None-"},
         {value: "buyer", label: "Buyer"},
@@ -113,6 +114,7 @@ const ContactDetailsSection = () => {
                         name="first_name"
                         className="form-input flex-1 "
                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                        defaultValue={formState.fist_name}
                     />
                 </div>
 
@@ -125,6 +127,8 @@ const ContactDetailsSection = () => {
                     name="last_name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.last_name}
+
                 />
             ),
             'Job Description':
@@ -134,15 +138,19 @@ const ContactDetailsSection = () => {
                             handleChangeField('double_check_status', value)
                         }}
                         className="flex-1"
-                        options={jobDescriptions}/>,
+                        options={jobDescriptions}
+                        defaultValue={formState.job_description}
+
+                />,
 
             'Contact Type': <Select id="contact_type"
                                     name="contact_type"
                                     onChange={({value}: any) => {
-                                        handleChangeField('double_check_status', value)
+                                        handleChangeField('contact_type', value)
                                     }}
                                     className="flex-1 disabled" isDisabled={true}
                                     defaultValue={{value: "none", label: "-None-"}}
+
             />,
         },
         '': {
@@ -150,17 +158,29 @@ const ContactDetailsSection = () => {
                 isMulti={false}
                 id="account_name"
                 placeholder="Type at least 2 characters to search..."
-                name="parent_account_id"
+                name="account_name"
                 loadOptions={loadAccounts}
                 onChange={({value}: any) => {
-                    handleChangeField('parent_account_id', value)
+                    handleChangeField('account_name', value)
                 }}
                 className="flex-1"
+                defaultValue={{
+                    value: formState.account?.id,
+                    label: (
+                        <div key={formState.account?.id} className="flex items-center">
+                            <img src={formState.account?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                            <div>
+                                <div className="text-sm font-bold">{formState.account?.name}</div>
+                                <div className="text-xs text-gray-500">{formState.account?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
             />,
-            'Contact Source': <Select id="contact_type"
-                                      name="contact_type"
+            'Contact Source': <Select id="contact_source"
+                                      name="contact_source"
                                       onChange={({value}: any) => {
-                                          handleChangeField('double_check_status', value)
+                                          handleChangeField('contact_source', value)
                                       }}
                                       className="flex-1 "
                                       options={contactSources}
@@ -177,10 +197,10 @@ const ContactDetailsSection = () => {
                 }}
                 className="flex-1"
             />,
-            'Contact Status': <Select id="contact_type"
-                                      name="contact_type"
+            'Contact Status': <Select id="contact_status"
+                                      name="contact_status"
                                       onChange={({value}: any) => {
-                                          handleChangeField('double_check_status', value)
+                                          handleChangeField('contact_status', value)
                                       }}
                                       className="flex-1 "
                                       options={contactStatuses}
