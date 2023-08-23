@@ -87,7 +87,7 @@ const AccountSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.business_account}
             />,
-            'Approved by': <input id="approved_by" name="approved_by" type="text" value="None"
+            'Approved by': <input id="approved_by" name="approved_by_id" type="text" value="None"
                                   placeholder="Readonly input here…"
                                   className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                   disabled/>,

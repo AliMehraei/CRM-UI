@@ -34,7 +34,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 isMulti={false}
                 id="approved_by"
                 placeholder="Type at least 2 characters to search..."
-                name="approved_by"
+                name="approved_by_id"
                 loadOptions={loadOwners}
                 onChange={({value}: any) => {
                     handleChangeField('approved_by', value)
