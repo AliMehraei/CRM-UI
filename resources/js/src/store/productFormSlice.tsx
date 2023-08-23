@@ -7,7 +7,11 @@ const initState = {
     createRoute:"/product/add",
     redirectTo: "/product/edit/:id",
     action: "create",
-   
+    package:'none',
+    product_type:'none',
+    lifecycle_status:'none',
+    usage_unit:'pcs',
+    duplicated_status:'none',
 
 };
 

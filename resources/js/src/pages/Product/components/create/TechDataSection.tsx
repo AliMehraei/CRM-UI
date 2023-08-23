@@ -362,6 +362,7 @@ const TechDataSection = () => {
                     handleChangeField('usage_unit', value)
                 }} 
                 className="flex-1"
+                defaultValue={{ label: 'PCS', value: 'pcs' }}
                 />
             ),
             'Unit Price': (
@@ -473,6 +474,7 @@ const TechDataSection = () => {
                     handleChangeField('duplicated_status', value)
                 }} 
                 className="flex-1"
+                defaultValue={{ label: '-None-', value: 'none' }}
                 />
             ),
             'Voltage Rating (DC)': (

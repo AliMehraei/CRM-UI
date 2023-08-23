@@ -52,6 +52,7 @@ const SupplyChainSection = () => {
                     handleChangeField('lifecycle_status', value)
                 }} 
                 className="flex-1"
+                defaultValue={{ label: '-None-', value: 'none' }}
                 />
             ),
             

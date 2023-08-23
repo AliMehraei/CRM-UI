@@ -33,6 +33,7 @@ const PhysicalPropertiesSection = () => {
                     handleChangeField('package', value)
                 }} 
                 className="flex-1"
+                defaultValue={{ label: '-None-', value: 'none' }}
                 />
             ),
            

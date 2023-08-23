@@ -210,6 +210,7 @@ const ProductInformationSection = () => {
                     handleChangeField('product_type', value)
                 }} 
                 className="flex-1"
+                defaultValue={{ label: '-None-', value: 'none' }}
                 />
             ),
             
