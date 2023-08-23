@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import React, {useEffect} from "react";
 import api from "../../config/api";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {resetErrors, updateErrors} from "../../store/formErrorsSlice";
 import Swal from "sweetalert2";
 import {resetForm} from "../../store/manufactureFormSlice";
@@ -9,13 +9,15 @@ import {resetForm} from "../../store/manufactureFormSlice";
 
 const ActionButtonsComponent = ({formState}: any) => {
     const dispatch = useDispatch();
+    const themeState = useSelector((state: any) => state.themeConfig);
 
     const navigate = useNavigate();
     const api_instance: any = new api();
 
+
     const submitForm = async (action: string = 'save') => {
-        
-        
+
+
         dispatch(resetErrors());
         const toast = Swal.mixin({
             toast: true,
@@ -75,7 +77,7 @@ const ActionButtonsComponent = ({formState}: any) => {
                 <div className=" ">
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex items-center">
-                            <span className="text-xl font-bold">{document.title.split(' | ')[0]} : </span>
+                            <span className="text-xl font-bold">{themeState.pageTitle} : </span>
                         </div>
                         <div className="flex items-center gap-2">
                             <button onClick={handlePreviousPage} className="btn btn-danger gap-2">

@@ -1,7 +1,12 @@
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
 const PriceBreakSection = () => {
+    const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.availabilityForm);
+
     const [items, setItems] = useState<any>([
         {
             id: 1,
@@ -16,6 +21,20 @@ const PriceBreakSection = () => {
             amount: 0,
         },
     ]);
+
+    const handleChangeField = (field: string, value: any, id: string) => {
+        const updatedItem = {
+            ...formState.items[id],
+            [field]: value,
+        };
+
+        const updatedItems = {
+            ...formState.items,
+            [id]: updatedItem,
+        };
+
+        dispatch(updateFormData({items: updatedItems}));
+    };
 
     const addItem = () => {
         let maxId = 0;
@@ -42,7 +61,7 @@ const PriceBreakSection = () => {
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12">
                 <div key="Quote Items" className="">
                     <div className="text-lg">
-                        Quote Items <RequiredComponent/> :
+                        Price Break <RequiredComponent/> :
                     </div>
 
                     <div className="mt-8">
@@ -69,63 +88,88 @@ const PriceBreakSection = () => {
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
+                                                    name="d_1"
                                                     min={0}
                                                     defaultValue={item.d_1}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
+                                                    name="d_10"
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    defaultValue={item.d_10}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    name="d_25"
+                                                    defaultValue={item.d_25}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    name="d_100"
+                                                    defaultValue={item.d_100}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    name="d_250"
+                                                    defaultValue={item.d_250}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    name="d_500"
+                                                    defaultValue={item.d_500}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    name="d_1000"
+                                                    defaultValue={item.d_1000}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    min={0}
+                                                    name="d_3000"
+                                                    defaultValue={item.d_3000}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
                                                 />
                                             </td>
                                             <td>

@@ -1,5 +1,11 @@
-const DescriptionInformationSection = () => {
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
+const DescriptionInformationSection = () => {
+    const dispatch = useDispatch();
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
+    };
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -12,7 +18,9 @@ const DescriptionInformationSection = () => {
                         </label>
                         <textarea id="description" rows={3} name="description"
                                   className="form-textarea flex-1"
-                                  placeholder=""></textarea>
+                                  placeholder=""
+                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                        ></textarea>
                     </div>
                 </div>
             </div>

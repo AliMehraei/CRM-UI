@@ -1,7 +1,13 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
 const TermsAndConditionsSection = () => {
 
+    const dispatch = useDispatch();
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
+    };
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -14,7 +20,7 @@ const TermsAndConditionsSection = () => {
                         </label>
                         <textarea id="terms_and_conditions" rows={3} name="terms_and_conditions"
                                   className="form-textarea flex-1"
-                                  placeholder=""></textarea>
+                                  placeholder="" onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
                     </div>
                 </div>
             </div>

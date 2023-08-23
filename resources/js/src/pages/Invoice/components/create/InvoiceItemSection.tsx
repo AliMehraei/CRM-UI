@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import AsyncSelect from "react-select/async";
 import {loadProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 
 const InvoiceItemSection = () => {
+    const formState = useSelector((state: any) => state.quoteForm);
     const [items, setItems] = useState<any>([
         {
             id: 1,
@@ -20,9 +21,20 @@ const InvoiceItemSection = () => {
         },
     ]);
     const dispatch = useDispatch();
-    const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+    const handleChangeField = (field: string, value: any, id: string) => {
+        const updatedItem = {
+            ...formState.items[id],
+            [field]: value,
+        };
+
+        const updatedItems = {
+            ...formState.items,
+            [id]: updatedItem,
+        };
+
+        dispatch(updateFormData({items: updatedItems}));
     };
+
 
     const addItem = () => {
         let maxId = 0;
@@ -87,18 +99,21 @@ const InvoiceItemSection = () => {
                                                     name="product_id"
                                                     loadOptions={loadProducts}
                                                     onChange={({value}: any) => {
-                                                        handleChangeField('product_id', value)
+                                                        handleChangeField('product_id', value,item.id)
                                                     }}
                                                     className="flex-1"
                                                 />
                                                 <textarea name="description" className="form-textarea mt-4 flex-1"
                                                           placeholder="Enter Description"
                                                           defaultValue={item.description}
-                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}></textarea>
                                             </td>
                                             <td>
                                                 <input name="quantity" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.quantity}/>
+                                                       defaultValue={item.quantity}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+                                                />
+
                                             </td>
                                             <td>
                                                 <input
@@ -108,25 +123,39 @@ const InvoiceItemSection = () => {
                                                     name="list_price"
                                                     min={0}
                                                     defaultValue={item.list_price}
-
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="list_price" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       defaultValue={item.list_price}/>
+                                                       defaultValue={item.list_price}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+
+                                                />
+
                                             </td>
                                             <td>
                                                 <input name="amount" type="text" className="form-input min-w-[200px]"
-                                                       value={item.amount}/>
+                                                       value={item.amount}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+
+                                                />
                                             </td>
                                             <td>
-                                                <input name="Discount" type="text" className="form-input min-w-[200px]"
-                                                       value={item.discount}/>
+                                                <input name="discount" type="text" className="form-input min-w-[200px]"
+                                                       value={item.discount}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+
+                                                />
                                             </td>
                                             <td>
-                                                <input name="Tax" type="text" className="form-input min-w-[200px]"
-                                                       value={item.tax}/>
+                                                <input name="tax" type="text" className="form-input min-w-[200px]"
+                                                       value={item.tax}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+
+                                                />
+
                                             </td>
                                             <td>
                                                 <button type="button" onClick={() => removeItem(item)}>

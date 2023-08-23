@@ -1,23 +1,18 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
-import {RequiredComponent} from "../../../components/FormFields/RequiredComponent";
-import GenerateFields from "../../../components/FormFields/GenerateFields";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {handleUploadFile, loadOwners, loadVendor} from "../../../../components/Functions/CommonFunctions";
+import {useDispatch, useSelector} from "react-redux";
+import api from "../../../../config/api";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
 const HeaderSection = () => {
-
-    const loadVendors = () => {
-
-    };
-    const handleChangeVendor = () => {
-
-    };
-    const loadUsers = () => {
-
+    const dispatch = useDispatch();
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
     };
 
-    function handleChangeOwner() {
-
-    }
 
     const AvailabilitySources = [
         {value: 'none', label: '-None-'},
@@ -33,29 +28,39 @@ const HeaderSection = () => {
 
 
     ];
-    const handleChangeAvailabilitySources = () => {
 
-    };
     const fields = {
         'Header': {
             'Vendor': <AsyncSelect required isMulti={false} id="vendor_id" name="vendor_id"
                                    placeholder="Type at least 2 characters to search..."
-                                   loadOptions={loadVendors} onChange={handleChangeVendor} className="flex-1"/>,
+                                   loadOptions={loadVendor}
+                                   onChange={({value}: any) => {
+                                       handleChangeField('vendor_id', value)
+                                   }}
+                                   className="flex-1"/>,
             'Vendor Quote No': <input id="vendor_quote_no" type="text" name="vendor_quote_no"
-                                      className="form-input flex-1 "/>,
+                                      className="form-input flex-1 "
+                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
         },
         '': {
             'Availability Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
                                                placeholder="Type at least 2 characters to search..."
-                                               loadOptions={loadUsers} onChange={handleChangeOwner}
+                                               loadOptions={loadOwners}
+                                               onChange={({value}: any) => {
+                                                   handleChangeField('owner_id', value)
+                                               }}
                                                className="flex-1"/>,
             'Availability File': <input type="file" name="availability_file" id="availability_file"
                                         className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                                         accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
-            />,
+                                        onChange={(e) => handleUploadFile(e, (response: any) => {
+                                            dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
+                                        })}/>,
             'Availability Source': <Select id="availability_source" name="availability_source" required
-                                            options={AvailabilitySources}
-                                            onChange={handleChangeAvailabilitySources} className="flex-1"/>,
+                                           options={AvailabilitySources}
+                                           onChange={({value}: any) => {
+                                               handleChangeField('owner_id', value)
+                                           }} className="flex-1"/>,
         }
 
     }

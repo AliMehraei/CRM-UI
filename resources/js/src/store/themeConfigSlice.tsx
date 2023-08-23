@@ -133,6 +133,7 @@ const themeConfigSlice = createSlice({
         },
 
         setPageTitle(state, { payload }) {
+            state.pageTitle = payload;
             document.title = `${payload} | Webco`;
         },
     },
