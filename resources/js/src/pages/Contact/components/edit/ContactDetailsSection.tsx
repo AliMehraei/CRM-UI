@@ -107,7 +107,7 @@ const ContactDetailsSection = () => {
                             }}
                             className="flex-1"
                             options={firstNameTitles}
-                            defaultValue={firstNameTitles.find((title)=>title.value = formState.prefix_first_name)}
+                            defaultValue={firstNameTitles.find((title) => title.value == formState.prefix_first_name)}
 
                     />
                     <input
@@ -116,7 +116,7 @@ const ContactDetailsSection = () => {
                         name="first_name"
                         className="form-input flex-1 "
                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                        defaultValue={formState.fist_name}
+                        defaultValue={formState.first_name}
                     />
                 </div>
 
@@ -141,7 +141,7 @@ const ContactDetailsSection = () => {
                         }}
                         className="flex-1"
                         options={jobDescriptions}
-                        defaultValue={formState.job_description}
+                        defaultValue={jobDescriptions.find((title) => title.value == formState.job_description)}
 
                 />,
 
@@ -186,7 +186,8 @@ const ContactDetailsSection = () => {
                                       }}
                                       className="flex-1 "
                                       options={contactSources}
-                                      defaultValue={{value: "none", label: "-None-"}}
+                                      defaultValue={contactSources.find((title) => title.value == formState.contact_source)}
+
             />,
             'Contact Owner': <AsyncSelect
                 isMulti={false}
@@ -197,7 +198,19 @@ const ContactDetailsSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('owner_id', value)
                 }}
-                className="flex-1"
+                className=""
+                defaultValue={{
+                    value: formState.owner?.id,
+                    label: (
+                        <div key={formState.owner?.id} className="flex items-center">
+                            <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                            <div>
+                                <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                <div className="text-xs text-gray-500">{formState.owner?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
             />,
             'Contact Status': <Select id="contact_status"
                                       name="contact_status"
@@ -206,7 +219,8 @@ const ContactDetailsSection = () => {
                                       }}
                                       className="flex-1 "
                                       options={contactStatuses}
-                                      defaultValue={{value: "none", label: "-None-"}}
+                                      defaultValue={contactStatuses.find((title) => title.value == formState.contact_status)}
+
             />,
 
 
