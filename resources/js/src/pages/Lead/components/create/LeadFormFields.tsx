@@ -1,6 +1,6 @@
 import React from "react";
 import ContactInformationSection from "./ContactInformationSection";
-import LeadSection from "./LeadSection";
+import LeadInformationSection from "./LeadInformationSection";
 import TermsSection from "./TermsSection";
 import AddressInformationSection from "./AddressInformationSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
@@ -9,7 +9,7 @@ import APIDataSection from "./APIDataSection";
 const LeadFormFields = () => {
     return (
         <div className="mt-8 px-4">
-            <LeadSection key="leadInfo" />
+            <LeadInformationSection key="leadInfo" />
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <ContactInformationSection key="contact"  />
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>

@@ -38,9 +38,9 @@ const AddressInformationSection = () => {
 
     const fields = {
         'Address Information': {
-            'Street': (<input
-                id="street"
-                name="street"
+            'Zip Code': (<input
+                id="zip_code"
+                name="zip_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
@@ -54,12 +54,11 @@ const AddressInformationSection = () => {
                 />
             ),
             
-            'Zip Code': (<input
-                id="zip_code"
-                name="zip_code"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
+           
+           
+
+        },
+        '': {
             'State': (<input
                 id="state"
                 name="state"
@@ -72,10 +71,6 @@ const AddressInformationSection = () => {
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
-
-        },
-        '': {
-           
 
         }
     }

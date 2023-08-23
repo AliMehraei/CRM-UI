@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {handleUploadFile,Currencies,PortalAccess} from "../../../../components/Functions/CommonFunctions";
 
-const LeadSection = () => {
+const LeadInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.leadForm);
@@ -247,4 +247,4 @@ const LeadSection = () => {
     )
 }
 
-export default LeadSection;
+export default LeadInformationSection;
