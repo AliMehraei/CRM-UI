@@ -49,8 +49,8 @@ const DevelopmentSection = () => {
             'Last Modified': (
                 <Flatpickr
                     name="last_modified"
-             
-               
+
+
                     options={{
                         dateFormat: 'Y-m-d',
                         position: 'auto left',
@@ -58,13 +58,13 @@ const DevelopmentSection = () => {
                     }}
                     className="form-input flex-1"
                     value={formState.last_modified ? new Date(formState.last_modified) : ''}
-                    onChange={(dates) => handleChangeField('last_modified', dates[0])} // Update the field value on change
+                    onChange={(_,dateString) => handleChangeField('last_modified', dateString)} // Update the field value on change
                     defaultValue={formState.last_modified}
                 />
             ),
             'Created Date': (
                 <Flatpickr
-                
+
                 name="created_date"
                 options={{
                     dateFormat: 'Y-m-d',
@@ -73,12 +73,12 @@ const DevelopmentSection = () => {
                 }}
                 className="form-input flex-1"
                 value={formState.created_date ? new Date(formState.created_date) : ''}
-                onChange={(dates) => handleChangeField('created_date', dates[0])} // Update the field value on change
+                onChange={(_,dateString) => handleChangeField('created_date', dateString)} // Update the field value on change
                 defaultValue={formState.created_date}
                 />
             ),
-            
-            
+
+
 
         },
         '': {
@@ -100,7 +100,7 @@ const DevelopmentSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default DevelopmentSection;
