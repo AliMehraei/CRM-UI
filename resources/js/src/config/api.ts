@@ -399,6 +399,36 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/purchase_order`, data, { headers: Headers });
     }
 
+
+    //Quotes
+    async searchQuote(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/quote/search`, data, { headers: Headers });
+    }
+
+    async filterOptionQuote(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/quote/filter_option`);
+    }
+
+    async fetchDataQuote(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/quote/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleQuote(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/quote/${id}`);
+    }
+
+    async fetchSingleQuote(id: any = null) {
+        return await _axios.get(`${API_URL_PRODUCT}/api/quote/${id}`);
+    }
+
+    async updateSingleQuote(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/quote/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleQuote(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/quote`, data, { headers: Headers });
+    }
+
 }
 
 export default api
