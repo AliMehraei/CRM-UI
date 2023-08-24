@@ -11,7 +11,7 @@ import LoadingAlpyn from "../../components/LoadingAlpyn";
 
 const Edit = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.quotes);
+    const formState = useSelector((state: any) => state.quoteform);
 
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -19,13 +19,12 @@ const Edit = () => {
     const api = new Api();
 
     useEffect(() => {
-        dispatch(setPageTitle('Quotes Add'));
+        dispatch(setPageTitle('Quotes Edit'));
     });
-    useEffect(() => {
 
+    useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
-
         });
     }, [contactId]);
 
@@ -40,7 +39,7 @@ const Edit = () => {
     }, []);
 
     const fetchData = async () => {
-        const response = await api.fetchSingleContact(contactId);
+        const response = await api.fetchSingleQuote(contactId);
         if (response.status != 200)
             return
         const quote = response.data.data.quote;
