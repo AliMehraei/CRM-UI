@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
-import QuotesFormFields from "./components/create/QuotesFormFields";
+import QuotesFormFields from "./components/edit/QuotesFormFields";
 import 'flatpickr/dist/flatpickr.css';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {useParams} from "react-router-dom";
