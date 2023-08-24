@@ -429,6 +429,123 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/quote`, data, { headers: Headers });
     }
 
+    //deals
+    async searchDeal(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/deal/search`, data, { headers: Headers });
+    }
+
+    async filterOptionDeal(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/deal/filter_option`);
+    }
+
+    async fetchDataDeal(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/deal/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleDeal(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/deal/${id}`);
+    }
+
+    async fetchSingleDeal(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/deal/${id}`);
+    }
+
+    async updateSingleDeal(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/deal/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleDeal(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/deal`, data, { headers: Headers });
+    }
+
+
+    //availability
+    async searchAvailability(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/availability/search`, data, { headers: Headers });
+    }
+
+    async filterOptionAvailability(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/availability/filter_option`);
+    }
+
+    async fetchDataAvailability(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/availability/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleAvailability(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/availability/${id}`);
+    }
+
+    async fetchSingleAvailability(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/availability/${id}`);
+    }
+
+    async updateSingleAvailability(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/availability/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleAvailability(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/availability`, data, { headers: Headers });
+    }
+
+    //excess
+    async searchExcess(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/excess/search`, data, { headers: Headers });
+    }
+
+    async filterOptionExcess(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/excess/filter_option`);
+    }
+
+    async fetchDataExcess(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/excess/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleExcess(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/excess/${id}`);
+    }
+
+    async fetchSingleExcess(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/excess/${id}`);
+    }
+
+    async updateSingleExcess(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/excess/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleExcess(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/excess`, data, { headers: Headers });
+    }
+
+    //sales_order
+    async searchSalesOrder(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/sales_order/search`, data, { headers: Headers });
+    }
+
+    async filterOptionSalesOrder(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/sales_order/filter_option`);
+    }
+
+    async fetchDataSalesOrder(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/sales_order/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleSalesOrder(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/sales_order/${id}`);
+    }
+
+    async fetchSingleSalesOrder(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/sales_order/${id}`);
+    }
+
+    async updateSingleSalesOrder(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/sales_order/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleSalesOrder(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/sales_order`, data, { headers: Headers });
+    }
+
 }
 
 export default api
