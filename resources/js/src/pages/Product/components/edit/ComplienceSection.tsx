@@ -8,7 +8,6 @@ import {handleUploadFile,Currencies,PortalAccess} from "../../../../components/F
 
 const ComplienceSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -29,6 +28,7 @@ const ComplienceSection = () => {
                 name="rohs"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                defaultChecked={formState.rohs}
                 />
             ),
             'Reach':(
@@ -38,6 +38,7 @@ const ComplienceSection = () => {
                 name="reach"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                defaultChecked={formState.reach}
                 />
             ),
            
@@ -51,7 +52,7 @@ const ComplienceSection = () => {
                     name="rohs_status"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    // defaultValue={formState.name}
+                    defaultValue={formState.rohs_status}
                 />
             ),
             'REACH SVHC': (
@@ -60,7 +61,7 @@ const ComplienceSection = () => {
                     name="reach_svhc"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    // defaultValue={formState.name}
+                    defaultValue={formState.reach_svhc}
                 />
             ),
            

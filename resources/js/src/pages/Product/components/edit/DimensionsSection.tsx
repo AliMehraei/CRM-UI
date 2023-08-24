@@ -26,7 +26,7 @@ const DimensionsSection = () => {
                 name="length"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.length}
                 />
             ),
             'Depth': (
@@ -35,7 +35,7 @@ const DimensionsSection = () => {
                 name="depth"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.depth}
                 />
             ),
             'Thickness': (
@@ -44,7 +44,7 @@ const DimensionsSection = () => {
                 name="thickness"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.thickness}
                 />
             ),
         },
@@ -55,7 +55,7 @@ const DimensionsSection = () => {
                 name="width"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.width}
                 />
             ),
             'Height': (
@@ -64,7 +64,7 @@ const DimensionsSection = () => {
                 name="height"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.height}
                 />
             ),
             

@@ -16,7 +16,7 @@ const APIDataSection = () => {
 
 
     const fields = {
-        'Product Information': {
+        'API Data': {
            
             'Octopart ID': (
                 <input
@@ -56,13 +56,11 @@ const APIDataSection = () => {
             ),
             'OP Last Update': (
                 <Flatpickr
-                options={{
-                    dateFormat: 'Y-m-d ',
-                    position: 'auto left',
-                }}
                 name="last_activity_date"
-                value=""
+                options={{ dateFormat: 'd-m-Y' }}
                 className="form-input flex-1"
+                placeholder="MM DD YYYY"
+                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)}
                 />
             ),
             'OP Failure Message': (
@@ -134,13 +132,12 @@ const APIDataSection = () => {
             ),
             'M Last Update': (
                 <Flatpickr
-                options={{
-                    dateFormat: 'Y-m-d ',
-                    position: 'auto left',
-                }}
+                
                 name="m_last_update"
-                value=""
+                options={{ dateFormat: 'd-m-Y' }}
                 className="form-input flex-1"
+                placeholder="MM DD YYYY"
+                onChange={(_,dateString) => handleChangeField('m_last_update', dateString)}
                 />
             ),
             'Product Margin': (

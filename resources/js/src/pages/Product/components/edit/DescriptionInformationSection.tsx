@@ -7,6 +7,8 @@ import Flatpickr from "react-flatpickr";
 
 const DescriptionInformationSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.productForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -26,7 +28,9 @@ const DescriptionInformationSection = () => {
                 name="description"
                 className="form-textarea flex-1"
                 placeholder=""
+                defaultValue={formState.description}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                
             ),
             'Octopart Short Description': (
                 <textarea 
@@ -35,6 +39,7 @@ const DescriptionInformationSection = () => {
                 name="octopart_short_description"
                 className="form-textarea flex-1"
                 placeholder=""
+                defaultValue={formState.octopart_short_description}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
            
