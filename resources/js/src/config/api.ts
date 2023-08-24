@@ -61,26 +61,26 @@ class api {
     }
 
 
-    async loadRfqs(query) {
-        try {
-            const response = await _axios.get(`${API_URL_PRODUCT}/api/rfq/search-rfq`, {
-                headers: Headers,
-                params: {
-                    query: query
-                },
-            });
-            if (response.status !== 200) {
-                throw new Error("Failed to fetch data from server.");
-            }
-            if (!response.data.status) {
-                throw new Error(response.data.message || "Error retrieving rfqs.");
-            }
-            return response.data;
-        } catch (error) {
-            console.error("Error loading rfqs:", error);
-            throw error;
-        }
-    }
+    // async loadRfqs(query) {
+    //     try {
+    //         const response = await _axios.get(`${API_URL_PRODUCT}/api/rfq/search-rfq`, {
+    //             headers: Headers,
+    //             params: {
+    //                 query: query
+    //             },
+    //         });
+    //         if (response.status !== 200) {
+    //             throw new Error("Failed to fetch data from server.");
+    //         }
+    //         if (!response.data.status) {
+    //             throw new Error(response.data.message || "Error retrieving rfqs.");
+    //         }
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error("Error loading rfqs:", error);
+    //         throw error;
+    //     }
+    // }
 
     async loadCategory() {
         return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
@@ -166,30 +166,30 @@ class api {
     }
 
     //manifacture
-    async searchManufacturersById(id) {
-        return await _axios.post(`${API_URL_USER}/api/manufacture/search-manufactures/find-one`, id, { headers: Headers });
-    }
+    // async searchManufacturersById(id) {
+    //     return await _axios.post(`${API_URL_USER}/api/manufacture/search-manufactures/find-one`, id, { headers: Headers });
+    // }
 
-    async searchManufacturers(query) {
-        try {
-            const response = await _axios.get(`${API_URL_PRODUCT}/api/manufacture/search-manufactures`, {
-                headers: Headers,
-                params: {
-                    query: query
-                },
-            });
-            if (response.status !== 200) {
-                throw new Error("Failed to fetch data from server.");
-            }
-            if (!response.data.status) {
-                throw new Error(response.data.message || "Error retrieving manufacturers.");
-            }
-            return response.data;
-        } catch (error) {
-            console.error("Error loading manufacturers:", error);
-            throw error;
-        }
-    }
+    // async searchManufacturers(query) {
+    //     try {
+    //         const response = await _axios.get(`${API_URL_PRODUCT}/api/manufacture/search-manufactures`, {
+    //             headers: Headers,
+    //             params: {
+    //                 query: query
+    //             },
+    //         });
+    //         if (response.status !== 200) {
+    //             throw new Error("Failed to fetch data from server.");
+    //         }
+    //         if (!response.data.status) {
+    //             throw new Error(response.data.message || "Error retrieving manufacturers.");
+    //         }
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error("Error loading manufacturers:", error);
+    //         throw error;
+    //     }
+    // }
 
     async filterOptionManufacturer(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/api/manufacture/filter_option`);
@@ -544,6 +544,66 @@ class api {
 
     async createSingleSalesOrder(data) {
         return await _axios.post(`${API_URL_PRODUCT}/api/sales_order`, data, { headers: Headers });
+    }
+
+    //task
+    async searchTask(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/task/search`, data, { headers: Headers });
+    }
+
+    async filterOptionTask(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/task/filter_option`);
+    }
+
+    async fetchDataTask(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/task/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleTask(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/task/${id}`);
+    }
+
+    async fetchSingleTask(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/task/${id}`);
+    }
+
+    async updateSingleTask(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/task/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleTask(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/task`, data, { headers: Headers });
+    }
+
+
+
+    //vendor_rfq
+    async searchVendorRfq(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor_rfq/search`, data, { headers: Headers });
+    }
+
+    async filterOptionVendorRfq(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor_rfq/filter_option`);
+    }
+
+    async fetchDataVendorRfq(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor_rfq/list`, data, { headers: Headers });
+    }
+
+    async deleteSingleVendorRfq(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/api/vendor_rfq/${id}`);
+    }
+
+    async fetchSingleVendorRfq(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor_rfq/${id}`);
+    }
+
+    async updateSingleVendorRfq(data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/vendor_rfq/${data.id}`, data, { headers: Headers });
+    }
+
+    async createSingleVendorRfq(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/api/vendor_rfq`, data, { headers: Headers });
     }
 
 }
