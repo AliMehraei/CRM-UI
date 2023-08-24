@@ -141,18 +141,12 @@ export const searchProducts = async (query: string) => {
     const result = await api_instance.searchProduct({ query: query });
     if (result.status) {
         const valField = 'id';
-        const nameField = 'name';
-        const avatarField = 'avatar';
-        const emailField = 'email';
+        const nameField = 'product_name';
         return result.data.data.map((user: any) => ({
             value: user[valField],
             label: (
                 <div key={user[valField]} className="flex items-center">
-                    <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
-                    <div>
                         <div className="text-sm font-bold">{user[nameField]}</div>
-                        <div className="text-xs text-gray-500">{user[emailField]}</div>
-                    </div>
                 </div>
             ),
         }));
@@ -180,7 +174,7 @@ export const searchDeals = async (query: string) => {
             value: data['id'],
             label: (
                 <div key={data['id']} className="flex items-center">
-                    <div className="text-sm font-bold">{data['rfq_name']}</div>
+                    <div className="text-sm font-bold">{data['deal_name']}</div>
                 </div>
             ),
         }));

@@ -43,7 +43,7 @@ const SourceSection = () => {
                 defaultValue={formState.availability_date}
                 className="form-input flex-1"
                 placeholder="MM DD YYYY"
-                onChange={(dates) => handleChangeField('availability_date', dates[0])} />,
+                onChange={(_,dateString) => handleChangeField('availability_date', dateString)} />,
 
             'Availability': <AsyncSelect isMulti={false} id="availability_id" name="availability_id"
                 placeholder="Type at least 2 characters to search..."

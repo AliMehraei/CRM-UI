@@ -1,17 +1,14 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
-import { RequiredComponent } from "../../../../components/FormFields/RequiredComponent";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { useDispatch } from "react-redux";
 import { updateFormData } from "../../../../store/quoteFormSlice";
 import {
     Currencies, handleUploadFile,
-    searchAccounts, searchDeals,
-    loadOrders,
+    searchAccounts, searchContacts, searchDeals,
     searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
-import { searchContacts } from "../../../RFQ/components/edit/HeaderSection";
 
 const HeaderSection = () => {
 

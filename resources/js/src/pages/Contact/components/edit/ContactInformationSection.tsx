@@ -99,7 +99,7 @@ const ContactInformationSection = () => {
                 }}
                 className="form-input flex-1"
                 value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}
-                onChange={(dates) => handleChangeField('last_activity_date', dates[0])} // Update the field value on change
+                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} // Update the field value on change
                 defaultValue={formState.last_activity_date}
 
             />,
