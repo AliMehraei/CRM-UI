@@ -1,7 +1,25 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {updateFormData} from "../../../../store/quoteFormSlice";
 
 const QuoteItemSection = () => {
+    const formState = useSelector((state: any) => state.quoteform);
+    const dispatch = useDispatch();
+
+    const handleChangeField = (field: string, value: any, id: string) => {
+        const updatedItem = {
+            ...formState.items[id],
+            [field]: value,
+        };
+
+        const updatedItems = {
+            ...formState.items,
+            [id]: updatedItem,
+        };
+
+        dispatch(updateFormData({items: updatedItems}));
+    };
     const [items, setItems] = useState<any>([
         {
             id: 1,
@@ -36,6 +54,9 @@ const QuoteItemSection = () => {
 
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
+        const { [item.id]: _, ...remainingItems } = formState.items;
+
+        dispatch(updateFormData({items: remainingItems}));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -70,10 +91,12 @@ const QuoteItemSection = () => {
                                                 <input type="text" className="form-input min-w-[200px]"
                                                        placeholder="Enter Item Name" defaultValue={item.title}/>
                                                 <textarea className="form-textarea mt-4" placeholder="Enter Description"
+                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                           defaultValue={item.description}></textarea>
                                             </td>
                                             <td>
                                                 <input name="part_id" type="text" className="form-input min-w-[200px]"
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.part_id}/>
                                             </td>
                                             <td>
@@ -87,6 +110,7 @@ const QuoteItemSection = () => {
                                             </td>
                                             <td>
                                                 <input name="part_id" type="text" className="form-input min-w-[200px]"
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.part_id}/>
                                             </td>
                                             <td>
@@ -96,24 +120,33 @@ const QuoteItemSection = () => {
                                                     placeholder="Price"
                                                     min={0}
                                                     defaultValue={item.amount}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
                                             </td>
                                             <td>
                                                 <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
                                             </td>
                                             <td>
                                                 <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
                                             </td>
                                             <td>
                                                 <input name="part_id" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.part_id}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
                                             </td>
                                             <td>
                                                 <button type="button" onClick={() => removeItem(item)}>
