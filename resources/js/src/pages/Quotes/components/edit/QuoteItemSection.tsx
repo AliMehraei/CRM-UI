@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import AsyncSelect from "react-select/async";
-import { searchProducts } from "../../../../components/Functions/CommonFunctions";
+import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 
 const QuoteItemSection = () => {
     const formState = useSelector((state: any) => state.quoteform);
@@ -20,13 +20,12 @@ const QuoteItemSection = () => {
             [id]: updatedItem,
         };
 
-        dispatch(updateFormData({ items: updatedItems }));
+        dispatch(updateFormData({items: updatedItems}));
     };
 
     useEffect(() => {
         setItems(formState.items);
     }, [formState.items]);
-
 
 
     const addItem = () => {
@@ -48,33 +47,33 @@ const QuoteItemSection = () => {
 
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
-        const { [item.id]: _, ...remainingItems } = formState.items;
+        const {[item.id]: _, ...remainingItems} = formState.items;
 
-        dispatch(updateFormData({ items: remainingItems }));
+        dispatch(updateFormData({items: remainingItems}));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12">
                 <div key="Quote Items" className="">
                     <div className="text-lg">
-                        Quote Items <RequiredComponent /> :
+                        Quote Items <RequiredComponent/> :
                     </div>
 
                     <div className="mt-8">
                         <div className="overflow-x">
                             <table className="table-auto overflow-scroll w-full">
                                 <thead>
-                                    <tr>
-                                        <th className="w-1">Product Name</th>
-                                        <th className="w-1">Customer Part ID</th>
-                                        <th className="w-1">Quantity</th>
-                                        <th className="w-1">SPQ</th>
-                                        <th className="w-1">List Price</th>
-                                        <th className="w-1">Lead Time</th>
-                                        <th className="w-1">Date Code</th>
-                                        <th className="w-1">Comment</th>
-                                        <th className="w-1">Amount</th>
-                                    </tr>
+                                <tr>
+                                    <th className="w-1">Product Name</th>
+                                    <th className="w-1">Customer Part ID</th>
+                                    <th className="w-1">Quantity</th>
+                                    <th className="w-1">SPQ</th>
+                                    <th className="w-1">List Price</th>
+                                    <th className="w-1">Lead Time</th>
+                                    <th className="w-1">Date Code</th>
+                                    <th className="w-1">Comment</th>
+                                    <th className="w-1">Amount</th>
+                                </tr>
                                 </thead>
                                 <tbody>
 
@@ -84,7 +83,7 @@ const QuoteItemSection = () => {
                                             <td>
                                                 <AsyncSelect isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
-                                                             loadOptions={loadProducts}
+                                                             loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
@@ -103,7 +102,8 @@ const QuoteItemSection = () => {
                                                              }}
                                                 />,
 
-                                                <textarea className="form-textarea mt-4" placeholder="Enter Description"
+                                                <textarea name="description" className="form-textarea mt-4"
+                                                          placeholder="Enter Description"
                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                           defaultValue={item.description}></textarea>
                                             </td>

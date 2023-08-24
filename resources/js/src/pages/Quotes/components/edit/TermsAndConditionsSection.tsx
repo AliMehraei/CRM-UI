@@ -1,6 +1,5 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/quoteFormSlice";
 
 const TermsAndConditionsSection = () => {
     const formState = useSelector((state: any) => state.quoteform);
