@@ -31,8 +31,7 @@ const QuoteItemSection = () => {
     const addItem = () => {
         let maxId = 0;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
-
-        setItems([...items, {
+        let remainingItems = [...items, {
             id: maxId + 1, name: '',
             part_id: '',
             quantity: 1,
@@ -42,7 +41,10 @@ const QuoteItemSection = () => {
             date_code: '',
             comment: '',
             amount: 0,
-        }]);
+        }];
+
+        setItems(remainingItems);
+        dispatch(updateFormData({items: remainingItems}));
     };
 
     const removeItem = (item: any = null) => {
