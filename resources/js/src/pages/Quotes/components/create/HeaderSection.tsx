@@ -97,6 +97,13 @@ const HeaderSection = () => {
                     handleChangeField('owner_id', value)
                 }}
                 className="flex-1" />,
+            'PM User': <AsyncSelect required isMulti={false} id="pm_user_id" name="pm_user_id"
+                                        placeholder="Type at least 2 characters to search..."
+                                        loadOptions={searchOwners}
+                                        onChange={({ value }: any) => {
+                                            handleChangeField('pm_user_id', value)
+                                        }}
+                                        className="flex-1" />,
 
             'Deals Name': <AsyncSelect isMulti={false} id="deal_id" name="deal_id"
                 placeholder="Type at least 2 characters to search..."
