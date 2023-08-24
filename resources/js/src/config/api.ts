@@ -418,7 +418,7 @@ class api {
     }
 
     async fetchSingleQuote(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/quote/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/quote/${id}`);
     }
 
     async updateSingleQuote(data) {
