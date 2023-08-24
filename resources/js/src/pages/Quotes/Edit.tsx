@@ -15,7 +15,7 @@ const Edit = () => {
 
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const contactId = params.id; // Assuming you are using React Router to handle routes
+    const quoteId = params.id; // Assuming you are using React Router to handle routes
     const api = new Api();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Edit = () => {
         fetchData().then(() => {
             setLoading(false);
         });
-    }, [contactId]);
+    }, [quoteId]);
 
     useEffect(() => {
         const formDataUpdates = {
@@ -39,7 +39,7 @@ const Edit = () => {
     }, []);
 
     const fetchData = async () => {
-        const response = await api.fetchSingleQuote(contactId);
+        const response = await api.fetchSingleQuote(quoteId);
         if (response.status != 200)
             return
         const quote = response.data.data.quote;
