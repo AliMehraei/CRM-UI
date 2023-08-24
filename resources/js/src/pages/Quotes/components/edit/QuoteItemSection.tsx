@@ -1,5 +1,5 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import AsyncSelect from "react-select/async";
@@ -8,7 +8,7 @@ import {loadProducts} from "../../../../components/Functions/CommonFunctions";
 const QuoteItemSection = () => {
     const formState = useSelector((state: any) => state.quoteform);
     const dispatch = useDispatch();
-
+    const [items, setItems] = useState<any>([]);
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
             ...formState.items[id],
@@ -22,20 +22,12 @@ const QuoteItemSection = () => {
 
         dispatch(updateFormData({items: updatedItems}));
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
-        },
-    ]);
+
+    useEffect(() => {
+        setItems(formState.items);
+    }, [formState.items]);
+
+
 
     const addItem = () => {
         let maxId = 0;
@@ -98,13 +90,13 @@ const QuoteItemSection = () => {
                                                              }}
                                                              className="flex-1  min-w-[200px]"
                                                              defaultValue={{
-                                                                 value: formState.product?.id,
+                                                                 value: item.id,
                                                                  label: (
-                                                                     <div key={formState.product?.id}
+                                                                     <div key={item.id}
                                                                           className="flex items-center">
                                                                          <div>
                                                                              <div
-                                                                                 className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                                                 className="text-sm font-bold">{item.product?.product_name}</div>
                                                                          </div>
                                                                      </div>
                                                                  ),
@@ -119,7 +111,7 @@ const QuoteItemSection = () => {
                                                 <input name="customer_part_id" type="text"
                                                        className="form-input min-w-[200px]"
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-                                                       defaultValue={item.part_id}/>
+                                                       defaultValue={item.customer_part_id}/>
                                             </td>
                                             <td>
                                                 <input
