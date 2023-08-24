@@ -22,7 +22,7 @@ const QuoteLineSection = () => {
                                          }}
                                          className="flex-1"/>,
 
-            'Customer part ID': <input id="customer_part_iD" name="customer_part_iD" className="form-input flex-1 "
+            'Customer part ID': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />
         },
