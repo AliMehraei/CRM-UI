@@ -4,10 +4,11 @@ import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import {loadProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const QuoteLineSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.quoteform);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -20,18 +21,33 @@ const QuoteLineSection = () => {
                                          onChange={({value}: any) => {
                                              handleChangeField('product_id', value)
                                          }}
+                                         defaultValue={{
+                                             value: formState.product?.id,
+                                             label: (
+                                                 <div key={formState.product?.id} className="flex items-center">
+                                                     <div>
+                                                         <div
+                                                             className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                     </div>
+                                                 </div>
+                                             ),
+                                         }}
                                          className="flex-1"/>,
 
-            'Customer part ID': <input id="customer_part_iD" name="customer_part_iD" className="form-input flex-1 "
+            'Customer part ID': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                       defaultValue={formState.customer_part_id}
             />
         },
         '': {
             'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
+                               defaultValue={formState.quantity}
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
             'List Price': <input id="list_price" name="list_price" className="form-input flex-1 "
+                                 defaultValue={formState.list_price}
                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
             'Lead Time': <input id="lead_time" name="lead_time" className="form-input flex-1 "
+                                defaultValue={formState.lead_time}
                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
         }
