@@ -1,19 +1,18 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import {
     Currencies, handleUploadFile,
-    loadAccounts, loadDeals,
-    loadOrders,
+    loadAccounts, loadContacts, loadDeals,
     loadOwners,
     loadRFQ
 } from "../../../../components/Functions/CommonFunctions";
-import {loadContacts} from "../../../RFQ/components/edit/HeaderSection";
 
 const HeaderSection = () => {
+    const formState = useSelector((state: any) => state.quoteform);
+    const dispatch = useDispatch();
 
     const QuoteChances = [
         {value: 'none', label: '-None-'},
@@ -34,7 +33,6 @@ const HeaderSection = () => {
 
 
     ];
-    const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -46,6 +44,21 @@ const HeaderSection = () => {
                                          onChange={({value}: any) => {
                                              handleChangeField('account_id', value)
                                          }}
+                                         defaultValue={{
+                                             value: formState.account?.id,
+                                             label: (
+                                                 <div key={formState.account?.id} className="flex items-center">
+                                                     <img src={formState.account?.image} alt="avatar"
+                                                          className="w-8 h-8 mr-2 rounded-full"/>
+                                                     <div>
+                                                         <div
+                                                             className="text-sm font-bold">{formState.account?.name}</div>
+                                                         <div
+                                                             className="text-xs text-gray-500">{formState.account?.email}</div>
+                                                     </div>
+                                                 </div>
+                                             ),
+                                         }}
                                          className="flex-1"/>,
             'Contact Name': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
                                          placeholder="Type at least 2 characters to search..."
@@ -53,6 +66,22 @@ const HeaderSection = () => {
                                          onChange={({value}: any) => {
                                              handleChangeField('contact_id', value)
                                          }}
+                                         defaultValue={{
+                                             value: formState.contact?.id,
+                                             label: (
+                                                 <div key={formState.contact?.id} className="flex items-center">
+                                                     <img src={formState.contact?.avatar} alt="avatar"
+                                                          className="w-8 h-8 mr-2 rounded-full"/>
+                                                     <div>
+                                                         <div
+                                                             className="text-sm font-bold">{formState.contact?.name}</div>
+                                                         <div
+                                                             className="text-xs text-gray-500">{formState.contact?.email}</div>
+                                                     </div>
+                                                 </div>
+                                             ),
+                                         }}
+
                                          className="flex-1"/>,
             'RFQ': <AsyncSelect isMulti={false} id="rfq_id" name="rfq_id"
                                 placeholder="Type at least 2 characters to search..."
@@ -60,16 +89,28 @@ const HeaderSection = () => {
                                 onChange={({value}: any) => {
                                     handleChangeField('rfq_id', value)
                                 }}
+                                defaultValue={{
+                                    value: formState.rfq?.id,
+                                    label: (
+                                        <div key={formState.rfq?.id} className="flex items-center">
+                                            <div>
+                                                <div className="text-sm font-bold">{formState.rfq?.rfq_name}</div>
+                                            </div>
+                                        </div>
+                                    ),
+                                }}
                                 className="flex-1"/>,
 
             'Customer RFQ No': <input id="customer_rfq_no" type="text" name="customer_rfq_no"
                                       className="form-input flex-1 "
                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      defaultValue={formState.customer_rfq_no}
             />,
 
             'Subject': <input required id="subject" name="subject" type="text"
                               className="form-input flex-1 "
                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                              defaultValue={formState.subject}
             />,
             'Converted by': <AsyncSelect isMulti={false} id="converted_by_id" name="converted_by_id"
                                          placeholder="Type at least 2 characters to search..."
@@ -78,18 +119,29 @@ const HeaderSection = () => {
                                          onChange={({value}: any) => {
                                              handleChangeField('converted_by_id', value)
                                          }}
+                                         defaultValue={{
+                                             value: formState.converted_by?.id,
+                                             label: (
+                                                 <div key={formState.converted_by?.id} className="flex items-center">
+                                                     <div
+                                                         className="text-sm font-bold">{formState.converted_by?.name}</div>
+                                                 </div>
+                                             ),
+                                         }}
             />,
             'Quote Chance': <Select name='quote_chance' required options={QuoteChances}
                                     className="flex-1"
                                     onChange={({value}: any) => {
                                         handleChangeField('chance', value)
                                     }}
+                                    defaultValue={QuoteChances.find((title) => title.value == formState.quote_chance)}
             />,
             'Currency': <Select name="currency" options={Currencies}
                                 className="flex-1"
                                 onChange={({value}: any) => {
                                     handleChangeField('currency', value)
                                 }}
+                                defaultValue={Currencies.find((title) => title.value == formState.currency)}
             />,
         },
         '': {
@@ -99,6 +151,21 @@ const HeaderSection = () => {
                                         onChange={({value}: any) => {
                                             handleChangeField('owner_id', value)
                                         }}
+                                        defaultValue={{
+                                            value: formState.owner?.id,
+                                            label: (
+                                                <div key={formState.owner?.id} className="flex items-center">
+                                                    <img src={formState.owner?.avatar} alt="avatar"
+                                                         className="w-8 h-8 mr-2 rounded-full"/>
+                                                    <div>
+                                                        <div
+                                                            className="text-sm font-bold">{formState.owner?.name}</div>
+                                                        <div
+                                                            className="text-xs text-gray-500">{formState.owner?.email}</div>
+                                                    </div>
+                                                </div>
+                                            ),
+                                        }}
                                         className="flex-1"/>,
 
             'Deals Name': <AsyncSelect isMulti={false} id="deal_id" name="deal_id"
@@ -107,6 +174,16 @@ const HeaderSection = () => {
                                        onChange={({value}: any) => {
                                            handleChangeField('deal_id', value)
                                        }}
+                                       defaultValue={{
+                                           value: formState.deal?.id,
+                                           label: (
+                                               <div key={formState.deal?.id} className="flex items-center">
+                                                       <div
+                                                           className="text-sm font-bold">{formState.deal?.deal_name}</div>
+
+                                               </div>
+                                           ),
+                                       }}
                                        className="flex-1"/>,
 
             'Quote Stage': <Select name="quote_stage" required options={QuoteStages}
@@ -114,6 +191,8 @@ const HeaderSection = () => {
                                    onChange={({value}: any) => {
                                        handleChangeField('quote_stage', value)
                                    }}
+                                   defaultValue={QuoteStages.find((title) => title.value == formState.quote_stage)}
+
             />,
 
             'Quote File(Excel)': <input
