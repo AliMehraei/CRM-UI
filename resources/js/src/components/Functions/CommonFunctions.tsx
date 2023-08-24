@@ -174,7 +174,7 @@ export const searchDeals = async (query: string) => {
             value: data['id'],
             label: (
                 <div key={data['id']} className="flex items-center">
-                    <div className="text-sm font-bold">{data['rfq_name']}</div>
+                    <div className="text-sm font-bold">{data['deal_name']}</div>
                 </div>
             ),
         }));
