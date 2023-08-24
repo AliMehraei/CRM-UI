@@ -69,6 +69,26 @@ export const loadAccounts = async (e: any) => {
     }
 
 };
+
+export const loadContacts = async (e: any) => {
+    const result = await api_instance.searchContact({query: e});
+    const valField = 'id';
+    if (result.status === 200) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <div>
+                        <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
+                        <div className="text-xs text-gray-500">{data['email']}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+
+};
 export const loadOrders = () => {
 
 };
