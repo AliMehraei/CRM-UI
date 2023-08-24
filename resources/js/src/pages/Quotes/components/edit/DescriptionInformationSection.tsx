@@ -1,7 +1,8 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const DescriptionInformationSection = () => {
+    const formState = useSelector((state: any) => state.quoteform);
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -20,6 +21,7 @@ const DescriptionInformationSection = () => {
                                   className="form-textarea flex-1"
                                   placeholder=""
                                   onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  defaultValue={formState.description}
                         ></textarea>
                     </div>
                 </div>
