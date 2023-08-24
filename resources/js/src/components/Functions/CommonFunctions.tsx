@@ -142,8 +142,8 @@ export const loadProducts = async () => {
 
 export const loadRFQ = async () => {
     const result = await api_instance.fetchDataRfq();
-    if (result.status) {
-        return result.data.map((data: any) => ({
+    if (result.status == 200) {
+        return result.data.data.data.map((data: any) => ({
             value: data['id'],
             label: (
                 <div key={data['id']} className="flex items-center">
