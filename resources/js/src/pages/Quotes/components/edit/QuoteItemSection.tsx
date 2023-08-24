@@ -10,13 +10,13 @@ const QuoteItemSection = () => {
     const dispatch = useDispatch();
     const [items, setItems] = useState<any>([]);
     const handleChangeField = (field: string, value: any, id: string) => {
+        const updatingItem = items.find((item: any) => item.id === id)
         const updatedItem = {
-            ...formState.items[id],
+            ...updatingItem,
             [field]: value,
         };
-
         const updatedItems = {
-            ...formState.items,
+            ...items,
             [id]: updatedItem,
         };
 
@@ -24,8 +24,8 @@ const QuoteItemSection = () => {
     };
 
     useEffect(() => {
-        setItems(formState.items);
-    }, [formState.items]);
+        setItems(Object.values(formState.items));
+    }, []);
 
 
     const addItem = () => {
@@ -79,7 +79,7 @@ const QuoteItemSection = () => {
                                 </thead>
                                 <tbody>
 
-                                {items.map((item: any) => {
+                                {items?.map((item: any) => {
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
