@@ -69,6 +69,25 @@ export const loadAccounts = async (e: any) => {
     }
 
 };
+export const loadManufacture = async (query: string) => {
+    const valField = 'id';
+    const nameField = 'name';
+
+    const result = await api_instance.searchManufacturer({query: query});
+
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+};
 export const loadOrders = () => {
 
 };
@@ -120,10 +139,10 @@ export const loadProducts = async () => {
     }
 }
 
-export const loadRFQ = async () => {
-    const result = await api_instance.fetchDataRfq();
+export const loadRFQ = async (query: string) => {
+    const result = await api_instance.searchRfq({query: query});
     if (result.status) {
-        return result.data.map((data: any) => ({
+        return result.data.data.map((data: any) => ({
             value: data['id'],
             label: (
                 <div key={data['id']} className="flex items-center">
