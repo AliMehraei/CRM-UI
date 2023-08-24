@@ -2,10 +2,11 @@ import Select from "react-select";
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {updateFormData} from "../../../../store/quoteFormSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const StatusSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.quoteform);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -23,15 +24,18 @@ const StatusSection = () => {
                                    onChange={({value}: any) => {
                                        handleChangeField('converted_by_id', value)
                                    }}
+                                   defaultValue={QuoteValid.find((title) => title.value == formState.quote_valid)}
                                    className="flex-1"/>,
             'Proactive Offer': <input id="proactive_offer" type="checkbox" name="proactive_offer"
                                       className="form-checkbox"
                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      checked={formState.proactive_offer}
             />,
         },
         '': {
             'Rating': <input id="rating" name="rating" className="form-input flex-1 "
                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                             defaultValue={formState.rating}
             />,
         }
 
