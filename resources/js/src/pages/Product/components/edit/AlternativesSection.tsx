@@ -53,6 +53,18 @@ const AlternativesSection = () => {
                         handleChangeField('alternative_mpn_1_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
+                    defaultValue={{
+                        value: formState.alternative_mpn_1_id,
+                        label: (
+                            <div key={formState.alternative_mpn_1_id}
+                                className="flex items-center">
+                                <div>
+                                    <div
+                                        className="text-sm font-bold">{formState.alternative_mpn1?.product_name}</div>
+                                </div>
+                            </div>
+                        )
+                    }}
                 />
             ),
             'Alternative MPN 2': (
@@ -67,6 +79,18 @@ const AlternativesSection = () => {
                         handleChangeField('alternative_mpn_2_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
+                    defaultValue={{
+                        value: formState.alternative_mpn_2_id,
+                        label: (
+                            <div key={formState.alternative_mpn_2_id}
+                                className="flex items-center">
+                                <div>
+                                    <div
+                                        className="text-sm font-bold">{formState.alternative_mpn2?.product_name}</div>
+                                </div>
+                            </div>
+                        )
+                    }}
                 />
             ),
 
@@ -85,6 +109,18 @@ const AlternativesSection = () => {
                         handleChangeField('alternative_mpn_3_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
+                    defaultValue={{
+                        value: formState.alternative_mpn_3_id,
+                        label: (
+                            <div key={formState.alternative_mpn_3_id}
+                                className="flex items-center">
+                                <div>
+                                    <div
+                                        className="text-sm font-bold">{formState.alternative_mpn3?.product_name}</div>
+                                </div>
+                            </div>
+                        )
+                    }}
                 />
             ),
             'Alternative MPN 4': (
@@ -99,6 +135,18 @@ const AlternativesSection = () => {
                         handleChangeField('alternative_mpn_4_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
+                    defaultValue={{
+                        value: formState.alternative_mpn_4_id,
+                        label: (
+                            <div key={formState.alternative_mpn_4_id}
+                                className="flex items-center">
+                                <div>
+                                    <div
+                                        className="text-sm font-bold">{formState.alternative_mpn4?.product_name}</div>
+                                </div>
+                            </div>
+                        )
+                    }}
                 />
             ),
 

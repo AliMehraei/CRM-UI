@@ -38,11 +38,11 @@ class api {
     }
 
     async fetchSingleProduct(data: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/api/product/${data}`);
+        return await _axios.post(`${API_URL_PRODUCT}/api/product/${data}`);
     }
 
-    async updateSingleProduct(id, data) {
-        return await _axios.put(`${API_URL_PRODUCT}/api/product/${id}`, data, { headers: Headers });
+    async updateSingleProduct( data) {
+        return await _axios.put(`${API_URL_PRODUCT}/api/product/${data.id}`, data, { headers: Headers });
     }
 
     async createSingleProduct(data) {
