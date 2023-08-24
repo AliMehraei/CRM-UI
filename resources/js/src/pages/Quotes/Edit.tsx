@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
-import {updateFormData} from "../../store/contactFormSlice";
+import {updateFormData} from "../../store/quoteFormSlice";
 import LoadingAlpyn from "../../components/LoadingAlpyn";
 
 const Edit = () => {
