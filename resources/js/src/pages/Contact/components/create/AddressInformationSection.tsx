@@ -1,14 +1,14 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
+import { handleUploadFile, searchAccounts, loadOrders } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import { updateFormData } from "../../../../store/accountFormSlice";
 
 const AddressInformationSection = () => {
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
 
@@ -57,7 +57,7 @@ const AddressInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+                <GenerateFields fields={fields} />
             </div>
         </>
     )

@@ -5,9 +5,7 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 
 const SourceSection = () => {
-    const loadVendors = () => {
-
-    };
+    
     const handleVendorChange = () => {
 
     };

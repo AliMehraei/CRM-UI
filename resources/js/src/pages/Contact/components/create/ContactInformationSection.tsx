@@ -1,22 +1,22 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile, loadAccounts, loadOrders} from "../../../../components/Functions/CommonFunctions";
+import { handleUploadFile, searchAccounts, loadOrders } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import { updateFormData } from "../../../../store/accountFormSlice";
 import Flatpickr from "react-flatpickr";
 
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
     const portalAccess = [
-        {value: "none", label: "-None-"},
-        {value: "waiting", label: "Waiting"},
-        {value: "confirmed", label: "Confirmed"},
-        {value: "rejected", label: "Rejected"},
+        { value: "none", label: "-None-" },
+        { value: "waiting", label: "Waiting" },
+        { value: "confirmed", label: "Confirmed" },
+        { value: "rejected", label: "Rejected" },
     ]
     const fields = {
         'Contact Information': {
@@ -98,20 +98,20 @@ const ContactInformationSection = () => {
             />,
             'Portal Access':
                 <Select id="portal_access"
-                        name="portal_access"
-                        onChange={({value}: any) => {
-                            handleChangeField('portal_access', value)
-                        }}
-                        className="flex-1 "
-                        options={portalAccess}
-                        defaultValue={{value: "none", label: "-None-"}}
+                    name="portal_access"
+                    onChange={({ value }: any) => {
+                        handleChangeField('portal_access', value)
+                    }}
+                    className="flex-1 "
+                    options={portalAccess}
+                    defaultValue={{ value: "none", label: "-None-" }}
                 />,
         }
     }
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+                <GenerateFields fields={fields} />
             </div>
         </>
     )

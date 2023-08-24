@@ -30,7 +30,7 @@ class api {
     }
 
     async fetchDataProduct(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/api/product/list`,data, { headers: Headers });
+        return await _axios.post(`${API_URL_PRODUCT}/api/product/list`, data, { headers: Headers });
     }
 
     async deleteSingleProduct(data: any = null) {
@@ -41,7 +41,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/api/product/${data}`);
     }
 
-    async updateSingleProduct( data) {
+    async updateSingleProduct(data) {
         return await _axios.put(`${API_URL_PRODUCT}/api/product/${data.id}`, data, { headers: Headers });
     }
 
@@ -166,11 +166,11 @@ class api {
     }
 
     //manifacture
-    async loadManufacturersById(id) {
+    async searchManufacturersById(id) {
         return await _axios.post(`${API_URL_USER}/api/manufacture/search-manufactures/find-one`, id, { headers: Headers });
     }
 
-    async loadManufacturers(query) {
+    async searchManufacturers(query) {
         try {
             const response = await _axios.get(`${API_URL_PRODUCT}/api/manufacture/search-manufactures`, {
                 headers: Headers,

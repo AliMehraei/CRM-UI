@@ -1,9 +1,10 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/manufactureFormSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFormData } from "../../../../store/manufactureFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { handleUploadFile,searchOwners } from "../../../../components/Functions/CommonFunctions";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
@@ -11,52 +12,31 @@ const ManufactureInformationSection = () => {
     const formState = useSelector((state: any) => state.manufactureForm);
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
 
     const handleUploadImage = (e: any) => {
         if (e.target.files && e.target.files.length > 0) {
             api_instance.uploadFile(e.target.files[0]).then((response) => {
-                dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
+                dispatch(updateFormData({ field: 'image', value: `${response?.data.data.file_url}` }));
             }).catch();
         }
     };
 
-    const loadOwners = async (e: any) => {
-        const result = await api_instance.loadAdminUsers(e);
-        const valField = 'id';
-        const nameField = 'name';
-        const avatarField = 'avatar';
-        const emailField = 'email';
-        if (result.status) {
-            return result.data.map((user: any) => ({
-                value: user[valField],
-                label: (
-                    <div key={user[valField]} className="flex items-center">
-                        <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
-                        <div>
-                            <div className="text-sm font-bold">{user[nameField]}</div>
-                            <div className="text-xs text-gray-500">{user[emailField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
-
+   
 
     const fields = {
         'Manufacture Information': {
             'Manufacture Image': (<input
-                    id="manufacture_image"
-                    key="manufacture_image"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="image/*"
-                    onChange={handleUploadImage}
-                    name="manufactureImage"
-                />
+                id="manufacture_image"
+                key="manufacture_image"
+                type="file"
+                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                accept="image/*"
+                onChange={handleUploadImage}
+                name="manufactureImage"
+            />
             ),
             'Manufacture Name': (
                 <input
@@ -106,8 +86,8 @@ const ManufactureInformationSection = () => {
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
-                    loadOptions={loadOwners}
-                    onChange={({value}: any) => {
+                    loadOptions={searchOwners}
+                    onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
@@ -115,7 +95,7 @@ const ManufactureInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.owner?.name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
@@ -130,7 +110,7 @@ const ManufactureInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+                <GenerateFields fields={fields} />
             </div>
         </>
     )

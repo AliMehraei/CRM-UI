@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess } from "../../../../components/Functions/CommonFunctions";
+import { handleUploadFile, Currencies, PortalAccess,searchOwners } from "../../../../components/Functions/CommonFunctions";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -33,27 +33,7 @@ const VendorSection = () => {
             }));
         }
     };
-    const loadOwners = async (e: any) => {
-        const result = await api_instance.loadAdminUsers(e);
-        const valField = 'id';
-        const nameField = 'name';
-        const avatarField = 'avatar';
-        const emailField = 'email';
-        if (result.status) {
-            return result.data.map((user: any) => ({
-                value: user[valField],
-                label: (
-                    <div key={user[valField]} className="flex items-center">
-                        <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
-                        <div>
-                            <div className="text-sm font-bold">{user[nameField]}</div>
-                            <div className="text-xs text-gray-500">{user[emailField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
+    
 
     const ApproveStatus = [
         { value: 'none', label: '-None-' },
@@ -172,7 +152,7 @@ const VendorSection = () => {
                     id="approved_by"
                     placeholder="Type at least 2 characters to search..."
                     name="approved_by_id"
-                    loadOptions={loadOwners}
+                    loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('approved_by_id', value)
                     }} // Use 'owner_id' if it's the field name
@@ -188,7 +168,7 @@ const VendorSection = () => {
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
-                    loadOptions={loadOwners}
+                    loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
                     }} // Use 'owner_id' if it's the field name

@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import AsyncSelect from "react-select/async";
-import {loadProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/invoiceFormSlice";
+import { searchProducts } from "../../../../components/Functions/CommonFunctions";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFormData } from "../../../../store/invoiceFormSlice";
 
 const InvoiceItemSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
@@ -32,7 +32,7 @@ const InvoiceItemSection = () => {
             [id]: updatedItem,
         };
 
-        dispatch(updateFormData({items: updatedItems}));
+        dispatch(updateFormData({ items: updatedItems }));
     };
 
 
@@ -73,111 +73,111 @@ const InvoiceItemSection = () => {
                         <div className="overflow-x">
                             <table className="table-auto overflow-scroll w-full">
                                 <thead>
-                                <tr>
-                                    <th className="w-1">S.NO</th>
-                                    <th className="w-full">Product Name</th>
-                                    <th className="w-1">Quantity</th>
-                                    <th className="w-1">List Price</th>
-                                    <th className="w-1">Amount</th>
-                                    <th className="w-1">Discount</th>
-                                    <th className="w-1">Tax</th>
-                                    <th className="w-1">Total</th>
-                                </tr>
+                                    <tr>
+                                        <th className="w-1">S.NO</th>
+                                        <th className="w-full">Product Name</th>
+                                        <th className="w-1">Quantity</th>
+                                        <th className="w-1">List Price</th>
+                                        <th className="w-1">Amount</th>
+                                        <th className="w-1">Discount</th>
+                                        <th className="w-1">Tax</th>
+                                        <th className="w-1">Total</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
 
-                                {items.map((item: any) => {
-                                    return (
-                                        <tr className="align-top" key={item.id}>
-                                            <td>
-                                                {item.id}
-                                            </td>
-                                            <td>
-                                                <AsyncSelect
-                                                    isMulti={false}
-                                                    placeholder="Type at least 2 characters to search..."
-                                                    name="product_id"
-                                                    loadOptions={loadProducts}
-                                                    onChange={({value}: any) => {
-                                                        handleChangeField('product_id', value,item.id)
-                                                    }}
-                                                    className="flex-1"
-                                                />
-                                                <textarea name="description" className="form-textarea mt-4 flex-1"
-                                                          placeholder="Enter Description"
-                                                          defaultValue={item.description}
-                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}></textarea>
-                                            </td>
-                                            <td>
-                                                <input name="quantity" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.quantity}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
-                                                />
+                                    {items.map((item: any) => {
+                                        return (
+                                            <tr className="align-top" key={item.id}>
+                                                <td>
+                                                    {item.id}
+                                                </td>
+                                                <td>
+                                                    <AsyncSelect
+                                                        isMulti={false}
+                                                        placeholder="Type at least 2 characters to search..."
+                                                        name="product_id"
+                                                        loadOptions={searchProducts}
+                                                        onChange={({ value }: any) => {
+                                                            handleChangeField('product_id', value, item.id)
+                                                        }}
+                                                        className="flex-1"
+                                                    />
+                                                    <textarea name="description" className="form-textarea mt-4 flex-1"
+                                                        placeholder="Enter Description"
+                                                        defaultValue={item.description}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}></textarea>
+                                                </td>
+                                                <td>
+                                                    <input name="quantity" type="text" className="form-input min-w-[200px]"
+                                                        defaultValue={item.quantity}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    />
 
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    placeholder="Price"
-                                                    name="list_price"
-                                                    min={0}
-                                                    defaultValue={item.list_price}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
-                                                />
-                                            </td>
-                                            <td>
-                                                <input name="list_price" type="text"
-                                                       className="form-input min-w-[200px]"
-                                                       defaultValue={item.list_price}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        type="number"
+                                                        className="form-input w-32"
+                                                        placeholder="Price"
+                                                        name="list_price"
+                                                        min={0}
+                                                        defaultValue={item.list_price}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input name="list_price" type="text"
+                                                        className="form-input min-w-[200px]"
+                                                        defaultValue={item.list_price}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
-                                                />
+                                                    />
 
-                                            </td>
-                                            <td>
-                                                <input name="amount" type="text" className="form-input min-w-[200px]"
-                                                       value={item.amount}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+                                                </td>
+                                                <td>
+                                                    <input name="amount" type="text" className="form-input min-w-[200px]"
+                                                        value={item.amount}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
-                                                />
-                                            </td>
-                                            <td>
-                                                <input name="discount" type="text" className="form-input min-w-[200px]"
-                                                       value={item.discount}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input name="discount" type="text" className="form-input min-w-[200px]"
+                                                        value={item.discount}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
-                                                />
-                                            </td>
-                                            <td>
-                                                <input name="tax" type="text" className="form-input min-w-[200px]"
-                                                       value={item.tax}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value,item.id)}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input name="tax" type="text" className="form-input min-w-[200px]"
+                                                        value={item.tax}
+                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
-                                                />
+                                                    />
 
-                                            </td>
-                                            <td>
-                                                <button type="button" onClick={() => removeItem(item)}>
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="20"
-                                                        height="20"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        strokeWidth="1.5"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                    >
-                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                    </svg>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
+                                                </td>
+                                                <td>
+                                                    <button type="button" onClick={() => removeItem(item)}>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="20"
+                                                            height="20"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="1.5"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                        >
+                                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                        </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>
