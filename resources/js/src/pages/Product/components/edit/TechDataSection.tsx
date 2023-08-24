@@ -113,7 +113,7 @@ const TechDataSection = () => {
                     name="average_lead_time"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.average_lead_time}
                 />
             ),
             'Capacitance': (
@@ -122,7 +122,7 @@ const TechDataSection = () => {
                     name="capacitance"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.capacitance}
                 />
             ),
             'Dielectric': (
@@ -131,7 +131,7 @@ const TechDataSection = () => {
                     name="dielectric"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.dielectric}
                 />
             ),
             'Flash Memory Size': (
@@ -140,7 +140,7 @@ const TechDataSection = () => {
                     name="flash_memory_size"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.flash_memory_size}
                 />
             ),
             'Frequency': (
@@ -149,7 +149,7 @@ const TechDataSection = () => {
                     name="frequency"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.frequency}
                 />
             ),
             'Halogen Free': (
@@ -158,7 +158,7 @@ const TechDataSection = () => {
                     name="halogen_free"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.halogen_free}
                 />
             ),
 
@@ -169,7 +169,7 @@ const TechDataSection = () => {
                     name="lead_free"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.lead_free}
                 />
             ),
             'Max Operating Temperature': (
@@ -178,7 +178,7 @@ const TechDataSection = () => {
                     name="max_operating_temperature"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.max_operating_temperature}
                 />
             ),
             'Max Supply Voltage': (
@@ -187,7 +187,7 @@ const TechDataSection = () => {
                     name="max_supply_voltage"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.max_supply_voltage}
                 />
             ),
             'Number of A/D Converters': (
@@ -196,7 +196,7 @@ const TechDataSection = () => {
                     name="number_of_ad_converters"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_ad_converters}
                 />
             ),
             'Number of D/A Converters': (
@@ -205,7 +205,7 @@ const TechDataSection = () => {
                     name="number_of_da_converters"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_da_converters}
                 />
             ),
             'Number of I2C Channels': (
@@ -214,7 +214,7 @@ const TechDataSection = () => {
                     name="number_of_i2c_channels"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_i2c_channels}
                 />
             ),
             'Number of Timers/Counters': (
@@ -223,7 +223,7 @@ const TechDataSection = () => {
                     name="number_of_timers_counters"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_timers_counters}
                 />
             ),
             'Number of USART Channels': (
@@ -232,7 +232,7 @@ const TechDataSection = () => {
                     name="number_of_usart_channels"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_usart_channels}
                 />
             ),
             'Mount': (
@@ -241,7 +241,7 @@ const TechDataSection = () => {
                     name="mount"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.mount}
                 />
             ),
             'Radiation Hardening': (
@@ -250,7 +250,7 @@ const TechDataSection = () => {
                     name="radiation_hardening"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.radiation_hardening}
                 />
             ),
             'Schedule B': (
@@ -259,7 +259,7 @@ const TechDataSection = () => {
                     name="schedule_b"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.schedule_b}
                 />
             ),
             'Termination': (
@@ -268,7 +268,7 @@ const TechDataSection = () => {
                     name="termination"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.termination}
                 />
             ),
             'Voltage ': (
@@ -277,7 +277,7 @@ const TechDataSection = () => {
                     name="voltage"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.voltage}
                 />
             ),
             'Voltage Rating': (
@@ -286,7 +286,7 @@ const TechDataSection = () => {
                     name="voltage_rating"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.voltage_rating}
                 />
             ),
         },
@@ -297,7 +297,7 @@ const TechDataSection = () => {
                     name="spq"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.spq}
                 />
             ),
             'Weight in kg': (
@@ -306,7 +306,7 @@ const TechDataSection = () => {
                     name="weight_in_kg"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.weight_in_kg}
                 />
             ),
             'Composition': (
@@ -315,7 +315,7 @@ const TechDataSection = () => {
                     name="composition"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.composition}
                 />
             ),
             'Core Architecture': (
@@ -324,7 +324,7 @@ const TechDataSection = () => {
                     name="core_architecture"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.core_architecture}
                 />
             ),
             'RAM Size': (
@@ -333,7 +333,7 @@ const TechDataSection = () => {
                     name="ram_size"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.ram_size}
                 />
             ),
             'Material': (
@@ -342,7 +342,7 @@ const TechDataSection = () => {
                     name="material"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.material}
                 />
             ),
             'Usage Unit': (
@@ -354,7 +354,7 @@ const TechDataSection = () => {
                         handleChangeField('usage_unit', value)
                     }}
                     className="flex-1"
-                    defaultValue={{ label: 'PCS', value: 'pcs' }}
+                    defaultValue={formState.usage_unit}
                 />
             ),
             'Unit Price': (
@@ -364,7 +364,7 @@ const TechDataSection = () => {
                     type="number"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={0}
+                    defaultValue={formState.unit_price}
                 />
             ),
             'Min Operating Temperature': (
@@ -373,7 +373,7 @@ const TechDataSection = () => {
                     name="min_operating_temperature"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.min_operating_temperature}
                 />
             ),
             'Min Supply Voltage': (
@@ -382,7 +382,7 @@ const TechDataSection = () => {
                     name="min_supply_voltage"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.min_supply_voltage}
                 />
             ),
             'Nominal Supply Current': (
@@ -391,7 +391,7 @@ const TechDataSection = () => {
                     name="nominal_supply_current"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.nominal_supply_current}
                 />
             ),
             'Number of Channels': (
@@ -400,7 +400,7 @@ const TechDataSection = () => {
                     name="number_of_channels"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_channels}
                 />
             ),
             'Number of I/Os': (
@@ -409,7 +409,7 @@ const TechDataSection = () => {
                     name="number_of_ios"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_ios}
                 />
             ),
             'Number of SPI Channels': (
@@ -418,7 +418,7 @@ const TechDataSection = () => {
                     name="number_of_spi_channels"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_spi_channels}
                 />
             ),
             'Number of UART Channels': (
@@ -427,7 +427,7 @@ const TechDataSection = () => {
                     name="number_of_uart_channels"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.number_of_uart_channels}
                 />
             ),
             'Resistance': (
@@ -436,7 +436,7 @@ const TechDataSection = () => {
                     name="resistance"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.resistance}
                 />
             ),
             'Temperature Coefficient ': (
@@ -445,7 +445,7 @@ const TechDataSection = () => {
                     name="temperature_coefficient"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.temperature_coefficient}
                 />
             ),
             'Tolerance': (
@@ -454,7 +454,7 @@ const TechDataSection = () => {
                     name="tolerance"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.tolerance}
                 />
             ),
             'Duplicated Status': (
@@ -466,7 +466,7 @@ const TechDataSection = () => {
                         handleChangeField('duplicated_status', value)
                     }}
                     className="flex-1"
-                    defaultValue={{ label: '-None-', value: 'none' }}
+                    defaultValue={duplicatedOptions.find((title) => title.value == formState.duplicated_status)}
                 />
             ),
             'Voltage Rating (DC)': (
@@ -475,7 +475,7 @@ const TechDataSection = () => {
                     name="voltage_rating_dc"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.voltage_rating_dc}
                 />
             ),
 

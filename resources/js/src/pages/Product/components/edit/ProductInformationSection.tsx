@@ -38,6 +38,7 @@ const ProductInformationSection = () => {
                 onChange={(e) => handleUploadFile(e, (response: any) => {
                     dispatch(updateFormData({ field: 'image', value: `${response?.data.data.file_url}` }));
                 })}
+                
                 name="image"
             />
             ),
@@ -49,7 +50,7 @@ const ProductInformationSection = () => {
                     name="product_name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.product_name}
                 />
             ),
             'Part Description': (
@@ -58,7 +59,7 @@ const ProductInformationSection = () => {
                     name="part_description"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                    defaultValue={formState.part_description}
                 />
             ),
             'Manufacture': (
@@ -120,6 +121,7 @@ const ProductInformationSection = () => {
                     name="business_product"
                     className="form-checkbox"
                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    defaultChecked={formState.business_product}
                 />
             ),
             'Approved By': (
@@ -157,6 +159,7 @@ const ProductInformationSection = () => {
                     name="product_active"
                     className="form-checkbox"
                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    defaultChecked={formState.product_active}
                 />
             ),
             'Product Owner': (
@@ -190,7 +193,7 @@ const ProductInformationSection = () => {
                     name="datasheet_url"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                // defaultValue={formState.name}
+                    defaultValue={formState.datasheet_url}
                 />
             ),
 
@@ -203,8 +206,8 @@ const ProductInformationSection = () => {
                         handleChangeField('product_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={{ label: '-None-', value: 'none' }}
-                />
+                    defaultValue={productTypeOptions.find((title) => title.value == formState.product_type)}
+                    />
             ),
 
         }

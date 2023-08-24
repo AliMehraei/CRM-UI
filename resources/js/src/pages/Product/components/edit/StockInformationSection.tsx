@@ -8,7 +8,6 @@ import {handleUploadFile,Currencies,PortalAccess} from "../../../../components/F
 
 const StockInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -27,7 +26,7 @@ const StockInformationSection = () => {
                 name="quantity_in_stock"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.quantity_in_stock}
                 />
             ),
           
@@ -40,7 +39,7 @@ const StockInformationSection = () => {
                 name="qty_ordered"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.qty_ordered}
                 />
             ),
             'Quantity in Demand': (
@@ -49,7 +48,7 @@ const StockInformationSection = () => {
                 name="quantity_in_demand"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.quantity_in_demand}
                 />
             ),
         }

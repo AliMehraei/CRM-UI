@@ -8,7 +8,6 @@ import {handleUploadFile,Currencies,PortalAccess} from "../../../../components/F
 
 const ExportImportDataSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -27,7 +26,7 @@ const ExportImportDataSection = () => {
                 name="tariff_code"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.tariff_code}
                 />
             ),
           
@@ -40,7 +39,7 @@ const ExportImportDataSection = () => {
                 name="eccn"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                defaultValue={formState.eccn}
                 />
             ),
         }
