@@ -97,18 +97,7 @@ const QuoteItemSection = () => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
                                                              className="flex-1  min-w-[200px]"
-                                                             defaultValue={{
-                                                                 value: formState.product?.id,
-                                                                 label: (
-                                                                     <div key={formState.product?.id}
-                                                                          className="flex items-center">
-                                                                         <div>
-                                                                             <div
-                                                                                 className="text-sm font-bold">{formState.product?.product_name}</div>
-                                                                         </div>
-                                                                     </div>
-                                                                 ),
-                                                             }}
+
                                                 />,
 
                                                 <textarea className="form-textarea mt-4" placeholder="Enter Description"
