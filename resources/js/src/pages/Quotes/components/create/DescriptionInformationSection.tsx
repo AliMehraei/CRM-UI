@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/quoteFormSlice";
 
 const DescriptionInformationSection = () => {
     const dispatch = useDispatch();
