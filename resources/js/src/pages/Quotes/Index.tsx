@@ -12,7 +12,7 @@ import { renderFilterValueFiled } from '../../components/FilterValueFiled'
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('Product List'));
+        dispatch(setPageTitle('Quote List'));
     });
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
@@ -41,7 +41,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await api_instance.filterOptionProduct();
+            const res = await api_instance.filterOptionQuote();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
@@ -83,7 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataProduct(page, pageSize, filters);
+        fetchDataQuote(page, pageSize, filters);
 
     };
 
@@ -125,7 +125,7 @@ const List = () => {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
                         setLoading(true);
-                        api_instance.deleteSingleProduct(rowId).then((res) => {
+                        api_instance.deleteSingleQuote(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
                                 const filteredItems = items.filter((user) => user.id !== rowId);
@@ -133,8 +133,8 @@ const List = () => {
                                 setInitialRecords(filteredItems);
                                 setItems(filteredItems);
                             } else {
-                                showMessage('Error deleting the product: ' + result.message, 'error');
-                                console.error('Error deleting the product', result.message);
+                                showMessage('Error deleting the quote: ' + result.message, 'error');
+                                console.error('Error deleting the quote', result.message);
                             }
                         });
                         setLoading(false);
@@ -160,7 +160,7 @@ const List = () => {
         });
     };
 
-    const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
+    const fetchDataQuote = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
         console.log('filters', filters);
 
@@ -169,7 +169,7 @@ const List = () => {
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
         try {
-            api_instance.fetchDataProduct({
+            api_instance.fetchDataQuote({
                 page: page,
                 pageSize: pageSize,
                 sortField: sortField,
@@ -183,10 +183,10 @@ const List = () => {
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
-                showMessage('Error fetching product data.', 'error');
+                showMessage('Error fetching quote data.', 'error');
             });
         } catch (error) {
-            showMessage('Error fetching product data.', 'error');
+            showMessage('Error fetching quote data.', 'error');
             console.error('Error fetching data:', error);
             setLoading(false);
         }
@@ -200,7 +200,7 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDataProduct(page, pageSize);
+        fetchDataQuote(page, pageSize);
         setInitialRecords(sortBy(items, 'id'));
 
     }, [page, pageSize]); // Added page and pageSize as dependencies
@@ -216,11 +216,11 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDataProduct(page, pageSize, filters, sortStatus);
+        fetchDataQuote(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus]);
     useEffect(() => {
         if (resetFilter)
-            fetchDataProduct(page, pageSize, filters, sortStatus);
+            fetchDataQuote(page, pageSize, filters, sortStatus);
     }, [resetFilter]);
 
     const resetFilters = () => {
@@ -230,7 +230,7 @@ const List = () => {
         setPage(1);
         setResetFilter(true);
         scrollToTop();
-        // fetchDataProduct(page, pageSize, filters, sortStatus);
+        // fetchDataQuote(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
@@ -261,7 +261,7 @@ const List = () => {
     const handleSortChange = (sortStatus) => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
-        fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
+        fetchDataQuote(page, pageSize, filters, { columnAccessor, direction });
     };
 
     const handleConditionChange = (field, event) => {
@@ -283,7 +283,7 @@ const List = () => {
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
-            <div className="product-table">
+            <div className="quote-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
@@ -410,11 +410,11 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'product_name',
+                                            accessor: 'Subject',
                                             sortable: true,
-                                            render: ({ product_name }) => (
-                                                <NavLink to="/product/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${product_name}`}</div>
+                                            render: ({ subject }) => (
+                                                <NavLink to="/quote/preview">
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                                                 </NavLink>
                                             ),
                                         },
@@ -428,14 +428,14 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'product_owner',
+                                            accessor: 'quote_owner',
                                             sortable: true,
-                                            render: ({ product_owner }) => <div className="font-semibold">{product_owner}</div>,
+                                            render: ({ quote_owner }) => <div className="font-semibold">{quote_owner}</div>,
                                         },
                                         {
-                                            accessor: 'Product Type',
+                                            accessor: 'Quote Type',
                                             sortable: true,
-                                            render: ({ product_type }) => <div className="font-semibold">{product_type}</div>,
+                                            render: ({ quote_type }) => <div className="font-semibold">{quote_type}</div>,
                                         },
                                         {
                                             accessor: 'action',
@@ -444,7 +444,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
-                                                    <NavLink to={`/product/edit/${id}`} className="flex hover:text-info">
+                                                    <NavLink to={`/quote/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
                                                                 opacity="0.5"
@@ -466,7 +466,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
-                                                    <NavLink to="/product/preview" className="flex hover:text-primary">
+                                                    <NavLink to="/quote/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 opacity="0.5"
