@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess } from "../../../../components/Functions/CommonFunctions";
+import {  Currencies, PortalAccess } from "../../../../components/Functions/CommonFunctions";
 import { handleUploadFile,searchOwners } from "../../../../components/Functions/CommonFunctions";
 
 const VendorSection = () => {
@@ -34,7 +34,7 @@ const VendorSection = () => {
             }));
         }
     };
-   
+
 
     const ApproveStatus = [
         { value: 'none', label: '-None-' },
