@@ -12,7 +12,7 @@ import { renderFilterValueFiled } from '../../components/FilterValueFiled'
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('lead List'));
+        dispatch(setPageTitle('deal List'));
     });
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
@@ -41,7 +41,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await api_instance.filterOptionLead();
+            const res = await api_instance.filterOptionDeal();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
@@ -83,7 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDatalead(page, pageSize, filters);
+        fetchDatadeal(page, pageSize, filters);
 
     };
 
@@ -125,7 +125,7 @@ const List = () => {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
                         setLoading(true);
-                        api_instance.deleteSingleLead(rowId).then((res) => {
+                        api_instance.deleteSingleDeal(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
                                 const filteredItems = items.filter((user) => user.id !== rowId);
@@ -133,8 +133,8 @@ const List = () => {
                                 setInitialRecords(filteredItems);
                                 setItems(filteredItems);
                             } else {
-                                showMessage('Error deleting the lead: ' + result.message, 'error');
-                                console.error('Error deleting the lead', result.message);
+                                showMessage('Error deleting the deal: ' + result.message, 'error');
+                                console.error('Error deleting the deal', result.message);
                             }
                         });
                         setLoading(false);
@@ -160,7 +160,7 @@ const List = () => {
         });
     };
 
-    const fetchDatalead = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
+    const fetchDatadeal = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
         console.log('filters', filters);
 
@@ -169,7 +169,7 @@ const List = () => {
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
         try {
-            api_instance.fetchDataLead({
+            api_instance.fetchDataDeal({
                 page: page,
                 pageSize: pageSize,
                 sortField: sortField,
@@ -183,10 +183,10 @@ const List = () => {
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
-                showMessage('Error fetching lead data.', 'error');
+                showMessage('Error fetching deal data.', 'error');
             });
         } catch (error) {
-            showMessage('Error fetching lead data.', 'error');
+            showMessage('Error fetching deal data.', 'error');
             console.error('Error fetching data:', error);
             setLoading(false);
         }
@@ -200,7 +200,7 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDatalead(page, pageSize);
+        fetchDatadeal(page, pageSize);
         setInitialRecords(sortBy(items, 'id'));
 
     }, [page, pageSize]); // Added page and pageSize as dependencies
@@ -216,11 +216,11 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDatalead(page, pageSize, filters, sortStatus);
+        fetchDatadeal(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus]);
     useEffect(() => {
         if (resetFilter)
-            fetchDatalead(page, pageSize, filters, sortStatus);
+            fetchDatadeal(page, pageSize, filters, sortStatus);
     }, [resetFilter]);
 
     const resetFilters = () => {
@@ -230,7 +230,7 @@ const List = () => {
         setPage(1);
         setResetFilter(true);
         scrollToTop();
-        // fetchDatalead(page, pageSize, filters, sortStatus);
+        // fetchDatadeal(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
@@ -261,7 +261,7 @@ const List = () => {
     const handleSortChange = (sortStatus) => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
-        fetchDatalead(page, pageSize, filters, { columnAccessor, direction });
+        fetchDatadeal(page, pageSize, filters, { columnAccessor, direction });
     };
 
     const handleConditionChange = (field, event) => {
@@ -283,7 +283,7 @@ const List = () => {
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
-            <div className="lead-table">
+            <div className="deal-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
@@ -306,7 +306,7 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-                        <Link to="/lead/add" className="btn btn-primary gap-2">
+                        <Link to="/deal/add" className="btn btn-primary gap-2">
                             Add New
                         </Link>
 
@@ -410,32 +410,32 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'company',
+                                            accessor: 'Deal Name',
                                             sortable: true,
-                                            render: ({ company }) => (
-                                                <NavLink to="/lead/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${company}`}</div>
+                                            render: ({ deal_name }) => (
+                                                <NavLink to="/deal/preview">
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${deal_name}`}</div>
                                                 </NavLink>
                                             ),
                                         },
                                         {
-                                            accessor: 'lead',
+                                            accessor: 'deal',
                                             sortable: true,
-                                            render: ({ lead }) => (
+                                            render: ({ deal }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {lead}
+                                                    {deal}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'lead_owner',
+                                            accessor: 'deal_owner',
                                             sortable: true,
-                                            render: ({ lead_owner }) => <div className="font-semibold">{lead_owner}</div>,
+                                            render: ({ deal_owner }) => <div className="font-semibold">{deal_owner}</div>,
                                         },
                                         {
-                                            accessor: 'lead Type',
+                                            accessor: 'deal Type',
                                             sortable: true,
-                                            render: ({ lead_type }) => <div className="font-semibold">{lead_type}</div>,
+                                            render: ({ deal_type }) => <div className="font-semibold">{deal_type}</div>,
                                         },
                                         {
                                             accessor: 'action',
@@ -444,7 +444,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
-                                                    <NavLink to={`/lead/edit/${id}`} className="flex hover:text-info">
+                                                    <NavLink to={`/deal/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
                                                                 opacity="0.5"
@@ -466,7 +466,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
-                                                    <NavLink to="/lead/preview" className="flex hover:text-primary">
+                                                    <NavLink to="/deal/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 opacity="0.5"
