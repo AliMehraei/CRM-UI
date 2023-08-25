@@ -13,6 +13,7 @@ import productFormSlice from "./productFormSlice";
 import quoteFormSlice from "./quoteFormSlice";
 import dealFormSlice from "./dealFormSlice";
 import purchaseOrderFormSlice from "./purchaseOrderFormSlice";
+import salesOrderFormSlice from "./salesOrderFormSlice";
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     quoteform: quoteFormSlice,
     dealform: dealFormSlice,
     purchaseOrderform: purchaseOrderFormSlice,
+    salesOrderform: salesOrderFormSlice,
 });
 
 export default configureStore({
