@@ -26,7 +26,6 @@ const DescriptionInformationSection = () => {
                 className="form-textarea flex-1"
                 placeholder=""
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.description}
                 ></textarea>
            
             ),
