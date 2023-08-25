@@ -12,6 +12,11 @@ export const Currencies = [
     { value: 'EUR', label: 'EUR' },
     { value: 'USD', label: 'USD' },
 ]
+export const ApproveChangesOption = [
+    { value: 'none', label: '-None-' },
+    { value: 'yes', label: 'Yes' },
+    { value: 'no', label: 'No' },
+]
 export const StatusOption = [
     {value: 'draft', label: 'Draft'},
     {value: 'approved', label: 'Approved'},
