@@ -12,7 +12,12 @@ export const Currencies = [
     { value: 'EUR', label: 'EUR' },
     { value: 'USD', label: 'USD' },
 ]
-
+export const StatusOption = [
+    {value: 'draft', label: 'Draft'},
+    {value: 'approved', label: 'Approved'},
+    {value: 'confirmed', label: 'Confirmed'},
+    {value: 'closed', label: 'Closed'},
+];
 export const Stages = [
     { value: 'none', label: '-None-' },
     { value: 'draft', label: 'Draft' },
@@ -108,6 +113,19 @@ export const searchVendor = async (query: string) => {
         }));
     }
 }
+export const searchAvailability = async (query: string) => {
+    const result = await api_instance.searchAvailability({ query: query });
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['availability_name']}</div>
+                </div>
+            ),
+        }));
+    }
+}
 export const searchQuote = async (query: string) => {
     const result = await api_instance.searchQuote({ query: query });
     if (result.status) {
@@ -123,6 +141,19 @@ export const searchQuote = async (query: string) => {
 }
 export const searchInvoice = async (query: string) => {
     const result = await api_instance.searchInvoice({ query: query });
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['subject']}</div>
+                </div>
+            ),
+        }));
+    }
+}
+export const searchPurchaseOrder = async (query: string) => {
+    const result = await api_instance.searchPurchaseOrder({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
