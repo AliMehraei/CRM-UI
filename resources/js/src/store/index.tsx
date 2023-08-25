@@ -11,7 +11,7 @@ import leadFormSlice from "./leadFormSlice";
 import excessFormSlice from "./excessFormSlice";
 import productFormSlice from "./productFormSlice";
 import quoteFormSlice from "./quoteFormSlice";
-
+import dealFormSlice from "./dealFormSlice";
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
     excessForm: excessFormSlice,
     productForm: productFormSlice,
     quoteform: quoteFormSlice,
+    dealform: dealFormSlice,
 });
 
 export default configureStore({

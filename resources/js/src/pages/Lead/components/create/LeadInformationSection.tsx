@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {handleUploadFile,searchOwners,Currencies,PortalAccess} from "../../../../components/Functions/CommonFunctions";
+import {handleUploadFile,searchOwners} from "../../../../components/Functions/CommonFunctions";
 
 const LeadInformationSection = () => {
     const dispatch = useDispatch();
@@ -14,25 +14,7 @@ const LeadInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const searchLead = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'lead_name';
-
-        const result = await api_instance.searchLead({query: query});
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
+   
  
 
     const LostReason = [
