@@ -26,7 +26,7 @@ const StatusSection = () => {
                                    className="flex-1"/>,
             'Proactive Offer': <input id="proactive_offer" type="checkbox" name="proactive_offer"
                                       className="form-checkbox"
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
             />,
         },
         '': {

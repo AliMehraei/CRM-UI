@@ -1,6 +1,5 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useDispatch} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/quoteFormSlice";
 
 const TermsAndConditionsSection = () => {
 

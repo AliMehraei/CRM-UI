@@ -19,7 +19,7 @@ const SourceSection = () => {
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchVendor}
                 onChange={({ value }: any) => {
-                    handleChangeField('product_id', value)
+                    handleChangeField('vendor_id', value)
                 }}
                 defaultValue={{
                     value: formState.vendor?.id,
