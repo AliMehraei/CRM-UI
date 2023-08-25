@@ -25,92 +25,6 @@ export const Stages = [
 ];
 
 
-export const searchOwners = async (e: any) => {
-    const result = await api_instance.loadAdminUsers(e);
-    const valField = 'id';
-    const nameField = 'name';
-    const avatarField = 'avatar';
-    const emailField = 'email';
-    if (result.status) {
-        return result.data.map((user: any) => ({
-            value: user[valField],
-            label: (
-                <div key={user[valField]} className="flex items-center">
-                    <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
-                    <div>
-                        <div className="text-sm font-bold">{user[nameField]}</div>
-                        <div className="text-xs text-gray-500">{user[emailField]}</div>
-                    </div>
-                </div>
-            ),
-        }));
-    }
-};
-
-export const searchAccounts = async (e: any) => {
-    const result = await api_instance.searchAccount({ query: e });
-    const valField = 'id';
-    const nameField = 'account_name';
-    const imageField = 'image';
-    const emailField = 'email';
-    if (result.status === 200) {
-        return result.data.data.map((data: any) => ({
-            value: data[valField],
-            label: (
-                <div key={data[valField]} className="flex items-center">
-                    <img src={data[imageField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
-                    <div>
-                        <div className="text-sm font-bold">{data[nameField]}</div>
-                        <div className="text-xs text-gray-500">{data[emailField]}</div>
-                    </div>
-                </div>
-            ),
-        }));
-    }
-
-};
-
-export const searchContacts = async (e: any) => {
-    const result = await api_instance.searchContact({ query: e });
-    const valField = 'id';
-    if (result.status === 200) {
-        return result.data.data.map((data: any) => ({
-            value: data[valField],
-            label: (
-                <div key={data[valField]} className="flex items-center">
-                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
-                    <div>
-                        <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
-                        <div className="text-xs text-gray-500">{data['email']}</div>
-                    </div>
-                </div>
-            ),
-        }));
-    }
-
-};
-export const searchManufacture = async (query: string) => {
-    const valField = 'id';
-    const nameField = 'name';
-
-    const result = await api_instance.searchManufacturer({ query: query });
-
-    if (result.status) {
-        return result.data.data.map((data: any) => ({
-            value: data[valField],
-            label: (
-                <div key={data[valField]} className="flex items-center">
-                    <div>
-                        <div className="text-sm font-bold">{data[nameField]}</div>
-                    </div>
-                </div>
-            ),
-        }));
-    }
-};
-export const loadOrders = () => {
-
-};
 
 export const handleUploadFile = (e: any, callBack: any) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -194,7 +108,32 @@ export const searchVendor = async (query: string) => {
         }));
     }
 }
-
+export const searchQuote = async (query: string) => {
+    const result = await api_instance.searchQuote({ query: query });
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['subject']}</div>
+                </div>
+            ),
+        }));
+    }
+}
+export const searchInvoice = async (query: string) => {
+    const result = await api_instance.searchInvoice({ query: query });
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['subject']}</div>
+                </div>
+            ),
+        }));
+    }
+}
 export const loadAvailability = async (query: string) => {
     const result = await api_instance.searchAvailability({ query: query });
     if (result.status) {
@@ -209,3 +148,124 @@ export const loadAvailability = async (query: string) => {
     }
 }
 
+
+export const searchOwners = async (e: any) => {
+    const result = await api_instance.loadAdminUsers(e);
+    const valField = 'id';
+    const nameField = 'name';
+    const avatarField = 'avatar';
+    const emailField = 'email';
+    if (result.status) {
+        return result.data.map((user: any) => ({
+            value: user[valField],
+            label: (
+                <div key={user[valField]} className="flex items-center">
+                    <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <div>
+                        <div className="text-sm font-bold">{user[nameField]}</div>
+                        <div className="text-xs text-gray-500">{user[emailField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+};
+
+export const searchAccounts = async (e: any) => {
+    const result = await api_instance.searchAccount({ query: e });
+    const valField = 'id';
+    const nameField = 'account_name';
+    const imageField = 'image';
+    const emailField = 'email';
+    if (result.status === 200) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <img src={data[imageField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                        <div className="text-xs text-gray-500">{data[emailField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+
+};
+export const searchLead = async (e: any) => {
+    const result = await api_instance.searchLead({ query: e });
+    const valField = 'id';
+    if (result.status === 200) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <div>
+                        <div className="text-sm font-bold">{data['company']}</div>
+                        <div className="text-xs text-gray-500">{data['email']}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+
+};
+export const searchContacts = async (e: any) => {
+    const result = await api_instance.searchContact({ query: e });
+    const valField = 'id';
+    if (result.status === 200) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <div>
+                        <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
+                        <div className="text-xs text-gray-500">{data['email']}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+
+};
+export const searchManufacture = async (query: string) => {
+    const valField = 'id';
+    const nameField = 'name';
+
+    const result = await api_instance.searchManufacturer({ query: query });
+
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+};
+export const searchSalesOrder = async (query: string) => {
+    const valField = 'id';
+    const nameField = 'subject';
+
+    const result = await api_instance.searchSalesOrder({ query: query });
+
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+};
