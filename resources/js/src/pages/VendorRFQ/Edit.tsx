@@ -44,7 +44,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleVendorRfq',
-            redirectTo: 'updateSingleVendorRfq',
+            redirectTo: "/vendor_rfq/edit/:id",
             action: 'edit'
         };
 
