@@ -41,7 +41,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleManufacture',
-            redirectTo: 'updateSingleManufacture',
+            redirectTo: '/manufacture/edit/:id',
             action: 'edit'
         };
 
