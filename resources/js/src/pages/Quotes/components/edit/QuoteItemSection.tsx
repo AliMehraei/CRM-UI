@@ -10,14 +10,16 @@ const QuoteItemSection = () => {
     const dispatch = useDispatch();
     const [items, setItems] = useState<any>([]);
     const handleChangeField = (field: string, value: any, id: string) => {
-        const updatingItem = items.find((item: any) => item.id === id)
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
         const updatedItem = {
             ...updatingItem,
             [field]: value,
         };
         const updatedItems = {
             ...items,
-            [id]: updatedItem,
+            [itemIndex]: updatedItem,
         };
 
         dispatch(updateFormData({items: updatedItems}));
@@ -29,7 +31,7 @@ const QuoteItemSection = () => {
 
 
     const addItem = () => {
-        let maxId = 0;
+        let maxId;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
             id: maxId + 1, name: '',
