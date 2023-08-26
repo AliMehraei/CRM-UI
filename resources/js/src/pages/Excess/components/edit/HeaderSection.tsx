@@ -160,6 +160,7 @@ const HeaderSection = () => {
                                      onChange={({value}: any) => {
                                          handleChangeField('excess_source', value)
                                      }}
+                                     defaultValue={ExcessSources.find((data) => data.value == formState.excess_source)}
 
                                      className="flex-1"/>,
             'Secondary Email': <input id="secondary_email" type="text" name="secondary_email"
