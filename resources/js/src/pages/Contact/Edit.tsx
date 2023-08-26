@@ -41,7 +41,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleContact',
-            redirectTo: 'updateSingleContact',
+            redirectTo: '/contact/edit/:id',
             action: 'edit'
         };
 
