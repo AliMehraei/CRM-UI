@@ -2,7 +2,7 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import {getImageSource, handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const ManufactureInformationSection = () => {
@@ -40,7 +40,7 @@ const ManufactureInformationSection = () => {
                     </div>
                     <img
                         id="manufacture_image_preview"
-                        src={formState.image && formState.image !== '' ? formState.image : 'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png'} // TODO : change this
+                        src={getImageSource(formState.image || formState.oldImage)}
                         alt="img" className="mt-4 w-20 h-20 rounded"/>
                 </div>
 
