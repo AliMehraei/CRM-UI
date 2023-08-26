@@ -1,7 +1,8 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
+
 
 const PriceBreakSection = () => {
     const dispatch = useDispatch();

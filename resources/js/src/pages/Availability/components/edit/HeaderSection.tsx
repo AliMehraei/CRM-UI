@@ -1,11 +1,10 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile, searchOwners, searchVendor} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
+
 
 const HeaderSection = () => {
     const dispatch = useDispatch();

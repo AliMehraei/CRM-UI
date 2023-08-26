@@ -1,9 +1,6 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import Tippy from "@tippyjs/react";
-import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
 
 const CreatedSection = () => {
     const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {Currencies, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
 
 const QuoteLineSection = () => {
     const dispatch = useDispatch();

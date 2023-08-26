@@ -1,9 +1,9 @@
 import Select from "react-select";
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
+
 
 const StatusSection = () => {
     const dispatch = useDispatch();

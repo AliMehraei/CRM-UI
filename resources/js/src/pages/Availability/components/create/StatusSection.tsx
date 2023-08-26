@@ -3,7 +3,7 @@ import {RequiredComponent} from "../../../../components/FormFields/RequiredCompo
 import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
 
 const StatusSection = () => {
     const dispatch = useDispatch();

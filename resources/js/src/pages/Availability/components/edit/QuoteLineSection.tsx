@@ -1,16 +1,18 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {Currencies, searchProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const QuoteLineSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.availabilityForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
+
 
 
     const fields = {
@@ -20,6 +22,20 @@ const QuoteLineSection = () => {
                                          loadOptions={searchProducts}
                                          onChange={({value}: any) => {
                                              handleChangeField('product_id', value)
+                                         }}
+                                         defaultValue={{
+                                             value: formState.contact?.id,
+                                             label: (
+                                                 <div key={formState.contact?.id} className="flex items-center">
+                                                     <img src={formState.contact?.image} alt="avatar"
+                                                          className="w-8 h-8 mr-2 rounded-full"/>
+                                                     <div>
+                                                         <div className="text-sm font-bold">{formState.contact?.name}</div>
+                                                         <div
+                                                             className="text-xs text-gray-500">{formState.contact?.email}</div>
+                                                     </div>
+                                                 </div>
+                                             ),
                                          }}
                                          className="flex-1"/>,
 
