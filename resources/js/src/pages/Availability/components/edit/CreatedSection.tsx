@@ -1,6 +1,6 @@
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
 
 const CreatedSection = () => {
     const dispatch = useDispatch();
