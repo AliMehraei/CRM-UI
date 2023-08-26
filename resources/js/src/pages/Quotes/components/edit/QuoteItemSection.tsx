@@ -50,9 +50,8 @@ const QuoteItemSection = () => {
     };
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.items;
-
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
         dispatch(updateFormData({items: remainingItems}));
     };
     return (<>
