@@ -35,8 +35,7 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            console.log('formState',formState);
-            
+
 
         });
     }, [productId]);
@@ -44,7 +43,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleProduct',
-            redirectTo: 'updateSingleProduct',
+            redirectTo: '/product/edit/:id',
             action: 'edit'
         };
 
