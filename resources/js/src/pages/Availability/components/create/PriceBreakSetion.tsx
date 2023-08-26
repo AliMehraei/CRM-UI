@@ -65,8 +65,8 @@ const PriceBreakSection = () => {
                     </div>
 
                     <div className="mt-8">
-                        <div className="overflow-x">
-                            <table className="table-auto overflow-scroll w-full">
+                        <div className="overflow-x-auto	w-11/12">
+                            <table className="table-auto">
                                 <thead>
                                 <tr>
                                     <th className="w-1">3000 (€)</th>
