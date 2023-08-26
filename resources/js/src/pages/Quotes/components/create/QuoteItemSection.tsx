@@ -65,15 +65,15 @@ const QuoteItemSection = () => {
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
-            <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12">
+            <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12 ">
                 <div key="Quote Items" className="">
                     <div className="text-lg">
                         Quote Items <RequiredComponent/> :
                     </div>
 
                     <div className="mt-8">
-                        <div className="overflow-x">
-                            <table className="table-auto overflow-scroll w-full">
+                        <div className="overflow-x-auto	w-11/12">
+                            <table className="table-auto w-5">
                                 <thead>
                                 <tr>
                                     <th className="w-1">Product Name</th>
