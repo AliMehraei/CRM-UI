@@ -3,6 +3,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 const initState = {
+    api: "createSingleRfq",
+    createRoute: "createSingleRfq",
+    redirectTo: "updateSingleRfq",
+    action: "create",
     account_id: '',
     contact_id: '',
     rfq_owner_id: '',
@@ -39,7 +43,7 @@ const initState = {
 };
 
 const formSlice = createSlice({
-    name: 'form',
+    name: 'rfqForm',
     initialState: initState,
     reducers: {
         updateFormData: (state, action) => {

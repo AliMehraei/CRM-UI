@@ -4,8 +4,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleProduct",
-    createRoute:"/product/add",
-    redirectTo: "/product/edit/:id",
+    createRoute:"createSingleProduct",
+    redirectTo: "updateSingleProduct",
     action: "create",
     package:'none',
     product_type:'none',

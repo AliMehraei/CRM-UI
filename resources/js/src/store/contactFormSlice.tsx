@@ -3,9 +3,9 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 const initState = {
-    api: "createSingleAccount",
-    createRoute: "/account/add",
-    redirectTo: "/account/edit/:id",
+    api: "createSingleContact",
+    createRoute: "createSingleContact",
+    redirectTo: "updateSingleContact",
     action: "create",
     items: [],
 };

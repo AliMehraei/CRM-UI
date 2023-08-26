@@ -4,10 +4,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleDeal",
-    createRoute:"/deal/add",
-    redirectTo: "/deal/edit/:id",
+    createRoute:"createSingleDeal",
+    redirectTo: "updateSingleDeal",
     action: "create",
-   
+
 
 };
 
