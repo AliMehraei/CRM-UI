@@ -4,8 +4,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleQuote",
-    createRoute: "createSingleQuote",
-    redirectTo: "updateSingleQuote",
+    createRoute: "/quotes/add",
+    redirectTo: "/quotes/edit/:id",
     action: "create",
     items: [],
 };

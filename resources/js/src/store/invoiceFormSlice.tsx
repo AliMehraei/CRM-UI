@@ -4,8 +4,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleInvoice",
-    createRoute: "createSingleInvoice",
-    redirectTo: "updateSingleInvoice",
+    createRoute: "/invoice/add",
+    redirectTo: "/invoice/edit/:id",
     action: "create",
     name: '',
     octo_api_id: '',
