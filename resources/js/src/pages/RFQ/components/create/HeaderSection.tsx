@@ -95,7 +95,7 @@ const HeaderSection = () => {
 
             'Status': <Select name='status' required options={Statuses}
                               onChange={({value}: any) => {
-                                  handleChangeField('rfq_type', value)
+                                  handleChangeField('status', value)
                               }} className="flex-1"/>,
 
             'Date History': <Flatpickr name='date_history' options={{dateFormat: 'd-m-Y'}} className="form-input flex-1"
