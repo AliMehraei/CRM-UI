@@ -14,7 +14,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.vendorForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const vendorId = params.id; // Assuming you are using React Router to handle routes
+    const vendorId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            
+
         });
     }, [vendorId]);
 

@@ -13,7 +13,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const purchaseOrderId = params.id; // Assuming you are using React Router to handle routes
+    const purchaseOrderId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
 

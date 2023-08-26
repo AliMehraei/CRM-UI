@@ -14,7 +14,7 @@ const Edit = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const contactId = params.id; // Assuming you are using React Router to handle routes
+    const contactId = params.id;
     const api = new Api();
 
 
