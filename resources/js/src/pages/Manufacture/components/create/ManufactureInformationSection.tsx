@@ -16,17 +16,24 @@ const ManufactureInformationSection = () => {
 
     const fields = {
         'Manufacture Information': {
-            'Manufacture Image': (<input
-                    id="manufacture_image"
-                    key="manufacture_image"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="image/*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                    })}
-                    name="manufactureImage"
-                />
+            'Manufacture Image': (
+                <div className="">
+                    <input
+                        id="manufacture_image"
+                        key="manufacture_image"
+                        type="file"
+                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                        accept="image/*"
+                        onChange={(e) => handleUploadFile(e, (response: any) => {
+                            dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                        })}
+                        name="manufactureImage"
+                    />
+                    <img
+                        src={formState.image && formState.image !== '' ? formState.image : 'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png'} // TODO : change this
+                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                </div>
+
             ),
             'Manufacture Name': (
                 <input
