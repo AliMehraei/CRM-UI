@@ -25,6 +25,7 @@ const Edit = () => {
         if (manufactureResponse.status != 200)
             return
         const manufacture = manufactureResponse.data.data.manufacture;
+        manufacture.oldImage = manufacture.image;
         dispatch(updateFormData(manufacture));
     };
 
