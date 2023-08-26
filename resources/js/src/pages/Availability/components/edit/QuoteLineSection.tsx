@@ -14,7 +14,6 @@ const QuoteLineSection = () => {
     };
 
 
-
     const fields = {
         'Quote Line': {
             'Product name': <AsyncSelect required isMulti={false} id="product_id" name="product_id"
@@ -24,37 +23,36 @@ const QuoteLineSection = () => {
                                              handleChangeField('product_id', value)
                                          }}
                                          defaultValue={{
-                                             value: formState.contact?.id,
+                                             value: formState.product?.id,
                                              label: (
-                                                 <div key={formState.contact?.id} className="flex items-center">
-                                                     <img src={formState.contact?.image} alt="avatar"
-                                                          className="w-8 h-8 mr-2 rounded-full"/>
-                                                     <div>
-                                                         <div className="text-sm font-bold">{formState.contact?.name}</div>
-                                                         <div
-                                                             className="text-xs text-gray-500">{formState.contact?.email}</div>
-                                                     </div>
+                                                 <div key={formState.product?.id} className="flex items-center">
+                                                     <div className="text-sm font-bold">{formState.product?.name}</div>
                                                  </div>
                                              ),
                                          }}
                                          className="flex-1"/>,
 
             'SKU name': <input id="sku_name" name="sku_name" className="form-input flex-1 "
+                               defaultValue={formState.sku_name}
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Quantity': <input required id="quantity" name="quantity" className="form-input flex-1 "
+                               defaultValue={formState.quantity}
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'In Stock Quantity': <input id="in_stock_quantity" name="in_stock_quantity"
+                                        defaultValue={formState.in_stock_quantity}
                                         className="form-input flex-1 "
                                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Currency': <Select id="currency" name="currency" options={Currencies}
                                 className="flex-1"
+                                defaultValue={Currencies.find((data) => data.value == formState.currency)}
                                 onChange={({value}: any) => {
                                     handleChangeField('currency', value)
                                 }}/>,
             'Cost': <input id="cost" name="cost" className="form-input flex-1 "
+                           defaultValue={formState.cost}
                            onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
 
@@ -64,18 +62,23 @@ const QuoteLineSection = () => {
         },
         '': {
             'Lead Time': <input id="lead_time" name="lead_time" className="form-input flex-1 "
+                                defaultValue={formState.lead_time}
                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Date Code': <input id="date_code" name="date_code" className="form-input flex-1 "
+                                defaultValue={formState.date_code}
                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'SPQ': <input id="spq" name="spq" className="form-input flex-1 "
+                          defaultValue={formState.spq}
                           onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'MOQ': <input id="moq" name="moq" className="form-input flex-1 "
+                          defaultValue={formState.moq}
                           onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'comment': <input id="comment" name="comment" className="form-input flex-1 "
+                              defaultValue={formState.comment}
                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
 
