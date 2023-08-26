@@ -20,7 +20,7 @@ const ExcessLineSection = () => {
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchProducts}
                                          onChange={({value}: any) => {
-                                             handleChangeField('parent_account_id', value)
+                                             handleChangeField('product_id', value)
                                          }}
                                          className="flex-1"/>,
             'Customer Internal No.': <input id="customer_internal_no" type="text" name="customer_internal_no"
