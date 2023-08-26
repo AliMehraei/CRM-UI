@@ -1,13 +1,12 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufactureFormSlice";
-import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.manufactureForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -18,18 +17,29 @@ const ManufactureInformationSection = () => {
         'Manufacture Information': {
             'Manufacture Image': (
                 <div className="">
-                    <input
-                        id="manufacture_image"
-                        key="manufacture_image"
-                        type="file"
-                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                        accept="image/*"
-                        onChange={(e) => handleUploadFile(e, (response: any) => {
-                            dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                        })}
-                        name="manufactureImage"
-                    />
+                    <div className="flex">
+                        <input
+                            id="manufacture_image"
+                            key="manufacture_image"
+                            type="file"
+                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                            accept="image/*"
+                            onChange={(e) => handleUploadFile(e, (response: any) => {
+                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                            })}
+                            name="manufactureImage"
+                        />
+                        <ClearButtonComponent callBack={() => {
+                            const fileInput = document.getElementById('manufacture_image') as HTMLInputElement | null;
+                            if (fileInput) {
+                                fileInput.value = '';
+                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                            }
+                            dispatch(updateFormData({'image': null}));
+                        }}/>
+                    </div>
                     <img
+                        id="manufacture_image_preview"
                         src={formState.image && formState.image !== '' ? formState.image : 'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png'} // TODO : change this
                         alt="img" className="mt-4 w-20 h-20 rounded"/>
                 </div>
