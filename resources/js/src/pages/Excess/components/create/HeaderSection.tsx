@@ -63,14 +63,14 @@ const HeaderSection = () => {
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
-                                             handleChangeField('parent_account_id', value)
+                                             handleChangeField('account_id', value)
                                          }}
                                          className="flex-1"/>,
             'Contact': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchOwners}
                                     onChange={({value}: any) => {
-                                        handleChangeField('parent_account_id', value)
+                                        handleChangeField('contact_id', value)
                                     }}
                                     className="flex-1"/>,
             'Email': <input id="email" type="text" name="email"
@@ -87,11 +87,11 @@ const HeaderSection = () => {
 
         },
         '': {
-            'Excess Owner': <AsyncSelect isMulti={false} id="excess_owner" name="excess_owner"
+            'Excess Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchOwners}
                                          onChange={({value}: any) => {
-                                             handleChangeField('excess_owner', value)
+                                             handleChangeField('owner_id', value)
                                          }}
                                          className="flex-1"/>,
             'Excess File': <input
