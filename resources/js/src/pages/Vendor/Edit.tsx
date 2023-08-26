@@ -1,12 +1,10 @@
-import {Link, useNavigate} from 'react-router-dom';
 import {useParams} from "react-router-dom";
-
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import VendorFormFields from "./components/edit/VendorFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
-import { updateFormData } from '../../store/vendorFormSlice';
+import {updateFormData} from '../../store/vendorFormSlice';
 import LoadingAlpyn from '../../components/LoadingAlpyn';
 import Api from '../../config/api';
 
@@ -28,25 +26,7 @@ const Edit = () => {
             return
         const vendor = vendorResponse.data.data.vendor;
         dispatch(updateFormData(vendor));
-        // if (vendor.vendor_line_card_id) {
-        //     await handleFetchingVendor(vendor.vendor_line_card_id, 'vendor_line_card');
-        // }
-        // if (vendor.vendor_line_card_id) {
-        //     await handleFetchingVendor(vendor.vendor_line_card_id, "vendor_strong_lines");
-        // }
-
-        const ownerResponse = await api.loadUserById({id: vendor.owner_id});
-        const owner = ownerResponse.data.data;
-        dispatch(updateFormData({['owner']: owner}));
     };
-
-    const handleFetchingVendor = async (id: string, vendorKey: string) => {
-        const vendorResponse = await api.fetchSingleVendor(id);
-        if (vendorResponse.status === 200) {
-            const vendor = vendorResponse.data.data['vendor'];
-            dispatch(updateFormData({[vendorKey]: vendor}));
-        }
-    }
 
     useEffect(() => {
 
@@ -59,7 +39,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleVendor',
-            redirectTo: 'updateSingleVendor',
+            redirectTo: '/vendor/edit/:id',
             action: 'edit'
         };
 
@@ -67,7 +47,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return  <LoadingAlpyn />
+        return <LoadingAlpyn/>
 
 
     return (
