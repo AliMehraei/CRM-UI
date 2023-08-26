@@ -111,7 +111,7 @@ const AccountSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -123,7 +123,7 @@ const AccountSection = () => {
                 loadOptions={searchOwners}
                 onChange={({ value }: any) => {
                     handleChangeField('pm_user_id', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
             />,
             'Account Activity': <Select id="account_activity" name="account_activity" options={activities}

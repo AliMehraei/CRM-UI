@@ -14,8 +14,8 @@ const LeadInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-   
- 
+
+
 
     const LostReason = [
         {value: 'none', label: '-None-'},
@@ -80,24 +80,24 @@ const LeadInformationSection = () => {
                 />
             ),
             'Status': (
-                <Select 
-                options={LeadStatus} 
-                name="status" 
-                id="status"       
+                <Select
+                options={LeadStatus}
+                name="status"
+                id="status"
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
             'Lost Reason': (
-                <Select 
-                options={LostReason} 
-                name="lost_reason" 
-                id="lost_reason"       
+                <Select
+                options={LostReason}
+                name="lost_reason"
+                id="lost_reason"
                 onChange={({value}: any) => {
                     handleChangeField('lost_reason', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -107,7 +107,7 @@ const LeadInformationSection = () => {
                 name="lost_reason_comment"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+
                 />
             ),
             'Lead Owner': (
@@ -119,12 +119,12 @@ const LeadInformationSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
-            
-            
+
+
         },
         '': {
             'Company': (
@@ -137,26 +137,26 @@ const LeadInformationSection = () => {
                     // defaultValue={formState.name}
                 />
             ),
-           
+
             'Company Type': (
-                <Select 
-                options={CompanyType} 
-                name="company_type" 
-                id="company_type"       
+                <Select
+                options={CompanyType}
+                name="company_type"
+                id="company_type"
                 onChange={({value}: any) => {
                     handleChangeField('company_type', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
             'Industry': (
-                <Select 
-                options={Industry} 
-                name="industry" 
-                id="industry"       
+                <Select
+                options={Industry}
+                name="industry"
+                id="industry"
                 onChange={({value}: any) => {
                     handleChangeField('industry', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -166,17 +166,17 @@ const LeadInformationSection = () => {
                 name="website"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                
+
             />
             ),
             'Lead Source': (
-                <Select 
-                options={LeadSource} 
-                name="lead_source" 
-                id="lead_source"       
+                <Select
+                options={LeadSource}
+                name="lead_source"
+                id="lead_source"
                 onChange={({value}: any) => {
                     handleChangeField('lead_source', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),

@@ -52,7 +52,7 @@ const TechDataSection = () => {
             }));
         }
     };
-    
+
 
     const duplicatedOptions = [
         { label: '-None-', value: 'none' },
@@ -90,7 +90,7 @@ const TechDataSection = () => {
                     loadOptions={searchCategoryProduct}
                     onChange={({ value }: any) => {
                         handleChangeField('product_category_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.product_category_id,

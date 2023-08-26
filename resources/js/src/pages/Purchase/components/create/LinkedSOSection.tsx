@@ -17,7 +17,7 @@ const LinkedSOSection = () => {
     };
 
 
-    
+
     const SOStatusOption = [
         {value: 'none', label: '-None-'},
         {value: 'draft', label: 'Draft'},
@@ -26,13 +26,13 @@ const LinkedSOSection = () => {
         {value: 'confirmed', label: 'Confirmed'},
         {value: 'packed', label: 'Packed'},
         {value: 'shipped', label: 'Shipped'},
-       
+
     ];
-    
+
     const fields = {
         'Linked SO': {
-            
-           
+
+
             'Account Name': (
                 <AsyncSelect
                     isMulti={false}
@@ -42,14 +42,14 @@ const LinkedSOSection = () => {
                     loadOptions={searchAccounts}
                     onChange={({value}: any) => {
                         handleChangeField('account_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
-            
-           
-            
+
+
+
             'SO Number': (
                 <AsyncSelect
                     isMulti={false}
@@ -59,13 +59,13 @@ const LinkedSOSection = () => {
                     loadOptions={searchSalesOrder}
                     onChange={({value}: any) => {
                         handleChangeField('sales_order_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
-                    
+
+
                 />
             ),
-           
+
             'Quantity SO': (
                 <input
                     id="quantity_so"
@@ -85,18 +85,18 @@ const LinkedSOSection = () => {
                 />
             ),
             'SO Status': (
-                <Select 
-                options={SOStatusOption} 
-                name="so_status" 
-                id="so_status"       
+                <Select
+                options={SOStatusOption}
+                name="so_status"
+                id="so_status"
                 onChange={({value}: any) => {
                     handleChangeField('so_status', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
-           
-            
+
+
         },
         '': {
             'Requested D.D.': (
@@ -133,9 +133,9 @@ const LinkedSOSection = () => {
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-            
-           
-            
+
+
+
             'SPQ SO':(
                 <input
                 id="spq_so"
@@ -144,8 +144,8 @@ const LinkedSOSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />
             ),
-            
-            
+
+
         }
     }
     return (

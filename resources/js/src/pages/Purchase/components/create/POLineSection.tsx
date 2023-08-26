@@ -17,7 +17,7 @@ const POLineSection = () => {
     };
 
 
-    
+
     const LeadSourceOption = [
         {value: 'none', label: '-None-'},
         {value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch'},
@@ -25,24 +25,24 @@ const POLineSection = () => {
         {value: 'kunden', label: 'Kunden Vermittlung'},
         {value: 'teilnehmer', label: 'Teilnehmer'},
         {value: 'mess', label: 'Mess'},
-       
+
     ];
     const TypeOption = [
         {value: 'none', label: '-None-'},
         {value: 'existierendes', label: 'Existierendes Geschäft'},
         {value: 'neues', label: 'Neues Geschäft'},
-   
+
 
     ];
     const PipelineOption = [
         {value: 'purchaseOrder', label: 'PurchaseOrder'},
         {value: 'excess', label: 'Excess'},
-   
+
 
     ];
     const StageExcessOption = [
         {value: 'qualification', label: 'Qualifikation'},
-   
+
     ];
     const StagePurchaseOrderOption = [
         {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
@@ -51,7 +51,7 @@ const POLineSection = () => {
         {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
         {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
         {value: 'close_lead', label: 'Close Lead / Lost Lead'},
-   
+
     ];
     let StageOption =StageExcessOption;
 
@@ -70,7 +70,7 @@ const POLineSection = () => {
 
                 />
             ),
-            
+
             'Product Name': (
                 <AsyncSelect
                     isMulti={false}
@@ -80,9 +80,9 @@ const POLineSection = () => {
                     loadOptions={searchProducts}
                     onChange={({value}: any) => {
                         handleChangeField('product_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Quantity': (
@@ -119,7 +119,7 @@ const POLineSection = () => {
 
                 />
             ),
-           
+
             'Date Code': (
                 <input
                 id="date_code"
@@ -146,8 +146,8 @@ const POLineSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-           
-            
+
+
         }
     }
     return (

@@ -24,7 +24,7 @@ const VendorRFQInformation = () => {
         { value: 'email-sent', label: 'Email Sent' },
         { value: 'closed', label: 'Closed' },
     ]
-  
+
 
     const fields = {
         'Vendor RFQ Information': {
@@ -44,27 +44,27 @@ const VendorRFQInformation = () => {
                     loadOptions={searchVendor}
                     onChange={({value}: any) => {
                         handleChangeField('vendor_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.vendor?.id,
                         label: (
                             <div key={formState.vendor?.id} className="flex items-center">
                                 <div className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
-                                
+
                             </div>
                         ),
                     }}
                 />
             ),
             'Status': (
-                <Select 
-                options={StatusVendorRfqOptions} 
-                name="status" 
-                id="status"       
+                <Select
+                options={StatusVendorRfqOptions}
+                name="status"
+                id="status"
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={StatusVendorRfqOptions.find((title) => title.value == formState.status)}
                 />
@@ -80,13 +80,13 @@ const VendorRFQInformation = () => {
                 />
             ),
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={Currencies.find((title) => title.value == formState.status)}
                 />
@@ -100,7 +100,7 @@ const VendorRFQInformation = () => {
                     loadOptions={searchRFQ}
                     onChange={({ value }: any) => {
                         handleChangeField('related_rfqs', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={formState.rfq
                         ? formState.rfq.map((rfq: any) => ({
@@ -117,13 +117,13 @@ const VendorRFQInformation = () => {
                     }
                 />
             ),
-            
-           
-           
+
+
+
 
         },
         '': {
-            
+
             'Date': (
                 <Flatpickr
                 name="date"
@@ -134,7 +134,7 @@ const VendorRFQInformation = () => {
                 defaultValue={formState.date}
                 className="form-input flex-1"
                 placeholder="MM DD YYYY"
-                onChange={(_,dateString) => handleChangeField('date', dateString)} 
+                onChange={(_,dateString) => handleChangeField('date', dateString)}
                 />
             ),
             'Vendor RFQ Owner': (
@@ -146,7 +146,7 @@ const VendorRFQInformation = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.owner?.id,
@@ -189,7 +189,7 @@ const VendorRFQInformation = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default VendorRFQInformation;

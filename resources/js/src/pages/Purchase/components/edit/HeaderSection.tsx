@@ -17,11 +17,11 @@ const HeaderSection = () => {
     };
 
 
-    
+
 
     const fields = {
         'Header': {
-            
+
             'Vendor Name': (
                 <AsyncSelect
                 isMulti={false}
@@ -32,7 +32,7 @@ const HeaderSection = () => {
                 loadOptions={searchVendor}
                 onChange={({value}: any) => {
                     handleChangeField('vendor_id', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
                 defaultValue={{
                     value: formState.vendor?.id,
@@ -56,7 +56,7 @@ const HeaderSection = () => {
                     loadOptions={searchContacts}
                     onChange={({value}: any) => {
                         handleChangeField('contact_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.contact?.id,
@@ -81,7 +81,7 @@ const HeaderSection = () => {
                     loadOptions={searchAvailability}
                     onChange={({value}: any) => {
                         handleChangeField('availability_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.availability?.id,
@@ -94,13 +94,13 @@ const HeaderSection = () => {
                 />
             ),
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={Currencies.find((title) => title.value == formState.currency)}
                 />
@@ -114,9 +114,9 @@ const HeaderSection = () => {
                     defaultValue={formState.exchange_rate}
                 />
             ),
-          
-            
-            
+
+
+
         },
         '': {
             'PO Date': (
@@ -142,7 +142,7 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.owner?.id,
@@ -167,7 +167,7 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('approved_by_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.approved_by?.id,
@@ -183,9 +183,9 @@ const HeaderSection = () => {
                     }}
                 />
             ),
-            
-           
-            
+
+
+
         }
     }
     return (

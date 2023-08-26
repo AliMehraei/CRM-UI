@@ -17,7 +17,7 @@ const DealInformationSection = () => {
     };
 
 
-    
+
     const LeadSourceOption = [
         {value: 'none', label: '-None-'},
         {value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch'},
@@ -25,24 +25,24 @@ const DealInformationSection = () => {
         {value: 'kunden', label: 'Kunden Vermittlung'},
         {value: 'teilnehmer', label: 'Teilnehmer'},
         {value: 'mess', label: 'Mess'},
-       
+
     ];
     const TypeOption = [
         {value: 'none', label: '-None-'},
         {value: 'existierendes', label: 'Existierendes Geschäft'},
         {value: 'neues', label: 'Neues Geschäft'},
-   
+
 
     ];
     const PipelineOption = [
         {value: 'deal', label: 'Deal'},
         {value: 'excess', label: 'Excess'},
-   
+
 
     ];
     const StageExcessOption = [
         {value: 'qualification', label: 'Qualifikation'},
-   
+
     ];
     const StageDealOption = [
         {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
@@ -51,7 +51,7 @@ const DealInformationSection = () => {
         {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
         {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
         {value: 'close_lead', label: 'Close Lead / Lost Lead'},
-   
+
     ];
     let StageOption =StageExcessOption;
 
@@ -66,9 +66,9 @@ const DealInformationSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Deals Name': (
@@ -88,19 +88,19 @@ const DealInformationSection = () => {
                     loadOptions={searchAccounts}
                     onChange={({value}: any) => {
                         handleChangeField('account_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Type': (
-                <Select 
-                options={TypeOption} 
-                name="deal_type" 
-                id="deal_type"       
+                <Select
+                options={TypeOption}
+                name="deal_type"
+                id="deal_type"
                 onChange={({value}: any) => {
                     handleChangeField('deal_type', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -113,13 +113,13 @@ const DealInformationSection = () => {
                 />
             ),
             'Lead Source': (
-                <Select 
-                options={LeadSourceOption} 
-                name="lead_source" 
-                id="lead_source"       
+                <Select
+                options={LeadSourceOption}
+                name="lead_source"
+                id="lead_source"
                 onChange={({value}: any) => {
                     handleChangeField('lead_source', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -132,9 +132,9 @@ const DealInformationSection = () => {
                     loadOptions={searchContacts}
                     onChange={({value}: any) => {
                         handleChangeField('contact_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Lead': (
@@ -146,9 +146,9 @@ const DealInformationSection = () => {
                     loadOptions={searchLead}
                     onChange={({value}: any) => {
                         handleChangeField('lead_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'RFQ': (
@@ -160,9 +160,9 @@ const DealInformationSection = () => {
                     loadOptions={searchRFQ}
                     onChange={({value}: any) => {
                         handleChangeField('rfq_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Quote': (
@@ -174,9 +174,9 @@ const DealInformationSection = () => {
                     loadOptions={searchQuote}
                     onChange={({value}: any) => {
                         handleChangeField('quote_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Sales Order': (
@@ -188,9 +188,9 @@ const DealInformationSection = () => {
                     loadOptions={searchSalesOrder}
                     onChange={({value}: any) => {
                         handleChangeField('sales_order_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Invoice': (
@@ -202,25 +202,25 @@ const DealInformationSection = () => {
                     loadOptions={searchInvoice}
                     onChange={({value}: any) => {
                         handleChangeField('invoice_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
 
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
-            
-            
+
+
         },
         '': {
             'Amount': (
@@ -234,7 +234,7 @@ const DealInformationSection = () => {
             ),
             'Closing Date': (
                 <Flatpickr
-                   
+
                     name="closing_date"
                     options={{ dateFormat: 'd-m-Y' }}
                     className="form-input flex-1"
@@ -244,25 +244,25 @@ const DealInformationSection = () => {
                 />
             ),
             'Pipeline': (
-                <Select 
-                options={PipelineOption} 
-                name="deal_pipeline" 
-                id="deal_pipeline"       
+                <Select
+                options={PipelineOption}
+                name="deal_pipeline"
+                id="deal_pipeline"
                 onChange={({value}: any) => {
                     handleChangeField('deal_pipeline', value)
-                }} 
+                }}
                 className="flex-1"
 
                 />
             ),
             'Stage': (
-                <Select 
-                options={StageOption} 
-                name="deal_stage" 
-                id="deal_stage"       
+                <Select
+                options={StageOption}
+                name="deal_stage"
+                id="deal_stage"
                 onChange={({value}: any) => {
                     handleChangeField('deal_stage', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -290,7 +290,7 @@ const DealInformationSection = () => {
                     disabled
                 />
             ),
-            
+
             'Lead Reference':(
                 <input
                 id="lead_reference"
@@ -299,7 +299,7 @@ const DealInformationSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />
             ),
-            
+
         }
     }
     return (

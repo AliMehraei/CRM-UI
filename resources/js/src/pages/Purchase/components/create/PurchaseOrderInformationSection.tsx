@@ -17,16 +17,16 @@ const PurchaseOrderInformationSection = () => {
     };
 
 
-    
+
     const POTypeOption = [
         {value: 'none', label: '-None-'},
         {value: 'single', label: 'Single PO'},
         {value: 'frame', label: 'Frame PO'},
         {value: 'call_off', label: 'Call Off'},
         {value: 'forecast', label: 'Forecast PO'},
-       
+
     ];
-    
+
     const CarrierOption = [
         {value: 'vendor_forwarder', label: 'Vendor Forwarder'},
         {value: 'ups', label: 'UPS'},
@@ -34,19 +34,19 @@ const PurchaseOrderInformationSection = () => {
         {value: 'dhl', label: 'DHL'},
         {value: 'blue_dart', label: 'BlueDart'},
     ];
-    
-   
+
+
 
     const fields = {
         'PurchaseOrders Information': {
             'PO Type': (
-                <Select 
-                options={POTypeOption} 
-                name="po_type" 
-                id="po_type"       
+                <Select
+                options={POTypeOption}
+                name="po_type"
+                id="po_type"
                 onChange={({value}: any) => {
                     handleChangeField('purchapo_typeseOrder_type', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -59,9 +59,9 @@ const PurchaseOrderInformationSection = () => {
                     loadOptions={searchPurchaseOrder}
                     onChange={({value}: any) => {
                         handleChangeField('parent_po_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'ZohoBooksID': (
@@ -72,10 +72,10 @@ const PurchaseOrderInformationSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-           
-            
-           
-            
+
+
+
+
         },
         '': {
             'Subject': (
@@ -88,24 +88,24 @@ const PurchaseOrderInformationSection = () => {
                 />
             ),
             'Status': (
-                <Select 
-                options={StatusOption} 
-                name="status" 
-                id="status"       
+                <Select
+                options={StatusOption}
+                name="status"
+                id="status"
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
             'Carrier': (
-                <Select 
-                options={CarrierOption} 
-                name="carrier" 
-                id="carrier"       
+                <Select
+                options={CarrierOption}
+                name="carrier"
+                id="carrier"
                 onChange={({value}: any) => {
                     handleChangeField('carrier', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -129,8 +129,8 @@ const PurchaseOrderInformationSection = () => {
                 name="confirmation_vendorFile"
             />
         ),
-            
-            
+
+
         }
     }
     return (

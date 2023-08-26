@@ -86,7 +86,7 @@ const VendorSection = () => {
                     loadOptions={searchVendor}
                     onChange={({ value }: any) => {
                         handleChangeField('contracts', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -109,7 +109,7 @@ const VendorSection = () => {
                     loadOptions={searchVendor}
                     onChange={({ value }: any) => {
                         handleChangeField('strong_lines', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -122,7 +122,7 @@ const VendorSection = () => {
                     loadOptions={searchVendor}
                     onChange={({ value }: any) => {
                         handleChangeField('line_card', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -156,7 +156,7 @@ const VendorSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('approved_by_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -172,7 +172,7 @@ const VendorSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -233,7 +233,7 @@ const VendorSection = () => {
                     loadOptions={searchVendor}
                     onChange={({ value }: any) => {
                         handleChangeField('parent_vendor_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),

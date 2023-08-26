@@ -86,7 +86,7 @@ const AccountInformationSection = () => {
                 loadOptions={searchAccounts}
                 onChange={({ value }: any) => {
                     handleChangeField('parent_account_id', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
             />,
 
@@ -112,7 +112,7 @@ const AccountInformationSection = () => {
                 name="double_check_status"
                 onChange={({ value }: any) => {
                     handleChangeField('double_check_status', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
                 options={doubleCheckStatuses}
             />,
@@ -125,7 +125,7 @@ const AccountInformationSection = () => {
                 loadOptions={searchAccounts}
                 onChange={({ value }: any) => {
                     handleChangeField('child_account_id', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
             />,
             'Has No Contacts': <input

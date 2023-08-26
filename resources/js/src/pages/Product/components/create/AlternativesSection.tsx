@@ -51,7 +51,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProduct}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_1_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -65,7 +65,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProduct}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_2_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -83,7 +83,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProduct}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_3_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -97,7 +97,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProduct}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_4_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),

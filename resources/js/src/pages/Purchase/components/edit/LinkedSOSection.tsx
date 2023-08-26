@@ -17,7 +17,7 @@ const LinkedSOSection = () => {
     };
 
 
-    
+
     const SOStatusOption = [
         {value: 'none', label: '-None-'},
         {value: 'draft', label: 'Draft'},
@@ -26,13 +26,13 @@ const LinkedSOSection = () => {
         {value: 'confirmed', label: 'Confirmed'},
         {value: 'packed', label: 'Packed'},
         {value: 'shipped', label: 'Shipped'},
-       
+
     ];
-    
+
     const fields = {
         'Linked SO': {
-            
-           
+
+
             'Account Name': (
                 <AsyncSelect
                     isMulti={false}
@@ -42,7 +42,7 @@ const LinkedSOSection = () => {
                     loadOptions={searchAccounts}
                     onChange={({value}: any) => {
                         handleChangeField('account_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.account?.id,
@@ -58,9 +58,9 @@ const LinkedSOSection = () => {
                     }}
                 />
             ),
-            
-           
-            
+
+
+
             'SO Number': (
                 <AsyncSelect
                     isMulti={false}
@@ -70,7 +70,7 @@ const LinkedSOSection = () => {
                     loadOptions={searchSalesOrder}
                     onChange={({value}: any) => {
                         handleChangeField('sales_order_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.sales_order_id,
@@ -86,7 +86,7 @@ const LinkedSOSection = () => {
                     }}
                 />
             ),
-           
+
             'Quantity SO': (
                 <input
                     id="quantity_so"
@@ -108,19 +108,19 @@ const LinkedSOSection = () => {
                 />
             ),
             'SO Status': (
-                <Select 
-                options={SOStatusOption} 
-                name="so_status" 
-                id="so_status"       
+                <Select
+                options={SOStatusOption}
+                name="so_status"
+                id="so_status"
                 onChange={({value}: any) => {
                     handleChangeField('so_status', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={SOStatusOption.find((title) => title.value == formState.so_status)}
                 />
             ),
-           
-            
+
+
         },
         '': {
             'Requested D.D.': (
@@ -160,9 +160,9 @@ const LinkedSOSection = () => {
                     defaultValue={formState.dc}
                 />
             ),
-            
-           
-            
+
+
+
             'SPQ SO':(
                 <input
                 id="spq_so"
@@ -172,8 +172,8 @@ const LinkedSOSection = () => {
                 defaultValue={formState.spq_so}
             />
             ),
-            
-            
+
+
         }
     }
     return (

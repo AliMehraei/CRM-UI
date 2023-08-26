@@ -24,11 +24,11 @@ const HeaderSection = () => {
         {value: 'lost', label: 'lost'},
     ];
 
-    
+
 
     const fields = {
         'Header': {
-            
+
             'Account Name': (
                 <AsyncSelect
                 isMulti={false}
@@ -39,9 +39,9 @@ const HeaderSection = () => {
                 loadOptions={searchAccounts}
                 onChange={({value}: any) => {
                     handleChangeField('account_id', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
-                
+
             />
             ),
             'Contact Name': (
@@ -53,9 +53,9 @@ const HeaderSection = () => {
                     loadOptions={searchContacts}
                     onChange={({value}: any) => {
                         handleChangeField('contact_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                  
+
                 />
             ),
             'Quote Name': (
@@ -67,26 +67,26 @@ const HeaderSection = () => {
                     loadOptions={searchQuote}
                     onChange={({value}: any) => {
                         handleChangeField('quote_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
-          
-          
-            
-            
+
+
+
+
         },
         '': {
             'Deals Name': (
@@ -98,19 +98,19 @@ const HeaderSection = () => {
                     loadOptions={searchDeals}
                     onChange={({value}: any) => {
                         handleChangeField('deal_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Deal Stage': (
-                <Select 
-                options={DealStageOption} 
-                name="deal_stage" 
-                id="deal_stage"       
+                <Select
+                options={DealStageOption}
+                name="deal_stage"
+                id="deal_stage"
                 onChange={({value}: any) => {
                     handleChangeField('deal_stage', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -123,9 +123,9 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Sales Person': (
@@ -137,9 +137,9 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('sales_person_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Approved By': (
@@ -151,9 +151,9 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('approved_by_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Exchange Rate': (
@@ -164,8 +164,8 @@ const HeaderSection = () => {
                     disabled
                 />
             ),
-           
-            
+
+
         }
     }
     return (

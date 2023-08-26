@@ -14,7 +14,7 @@ const ProductInformationSection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-  
+
 
 
     const productTypeOptions = [
@@ -69,7 +69,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchManufacture}
                     onChange={({ value }: any) => {
                         handleChangeField('manufacture_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -82,7 +82,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchRFQ}
                     onChange={({ value }: any) => {
                         handleChangeField('rfq_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -104,7 +104,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('approved_by_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
@@ -129,7 +129,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),

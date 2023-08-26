@@ -13,7 +13,7 @@ const AlternativesSection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-    
+
 
     const fields = {
         'Alternatives': {
@@ -30,7 +30,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProducts}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_1_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.alternative_mpn_1_id,
@@ -56,7 +56,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProducts}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_2_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.alternative_mpn_2_id,
@@ -86,7 +86,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProducts}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_3_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.alternative_mpn_3_id,
@@ -112,7 +112,7 @@ const AlternativesSection = () => {
                     loadOptions={searchProducts}
                     onChange={({ value }: any) => {
                         handleChangeField('alternative_mpn_4_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.alternative_mpn_4_id,

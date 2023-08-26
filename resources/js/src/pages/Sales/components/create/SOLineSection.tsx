@@ -17,7 +17,7 @@ const SOLineSection = () => {
     };
 
 
-    
+
     const LeadSourceOption = [
         {value: 'none', label: '-None-'},
         {value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch'},
@@ -25,24 +25,24 @@ const SOLineSection = () => {
         {value: 'kunden', label: 'Kunden Vermittlung'},
         {value: 'teilnehmer', label: 'Teilnehmer'},
         {value: 'mess', label: 'Mess'},
-       
+
     ];
     const TypeOption = [
         {value: 'none', label: '-None-'},
         {value: 'existierendes', label: 'Existierendes Geschäft'},
         {value: 'neues', label: 'Neues Geschäft'},
-   
+
 
     ];
     const PipelineOption = [
         {value: 'salesOrder', label: 'SalesOrder'},
         {value: 'excess', label: 'Excess'},
-   
+
 
     ];
     const StageExcessOption = [
         {value: 'qualification', label: 'Qualifikation'},
-   
+
     ];
     const StageSalesOrderOption = [
         {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
@@ -51,7 +51,7 @@ const SOLineSection = () => {
         {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
         {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
         {value: 'close_lead', label: 'Close Lead / Lost Lead'},
-   
+
     ];
     let StageOption =StageExcessOption;
 
@@ -70,7 +70,7 @@ const SOLineSection = () => {
 
                 />
             ),
-            
+
             'Product Name': (
                 <AsyncSelect
                     isMulti={false}
@@ -80,9 +80,9 @@ const SOLineSection = () => {
                     loadOptions={searchProducts}
                     onChange={({value}: any) => {
                         handleChangeField('product_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                    
+
                 />
             ),
             'Customer part Id': (
@@ -126,7 +126,7 @@ const SOLineSection = () => {
 
                 />
             ),
-           
+
             'Date Code': (
                 <input
                 id="date_code"
@@ -153,8 +153,8 @@ const SOLineSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-           
-            
+
+
         }
     }
     return (

@@ -17,11 +17,11 @@ const HeaderSection = () => {
     };
 
 
-    
+
 
     const fields = {
         'Header': {
-            
+
             'Vendor Name': (
                 <AsyncSelect
                 isMulti={false}
@@ -32,9 +32,9 @@ const HeaderSection = () => {
                 loadOptions={searchVendor}
                 onChange={({value}: any) => {
                     handleChangeField('vendor_id', value)
-                }} // Use 'owner_id' if it's the field name
+                }}
                 className="flex-1"
-               
+
             />
             ),
             'Contact Name': (
@@ -46,9 +46,9 @@ const HeaderSection = () => {
                     loadOptions={searchContacts}
                     onChange={({value}: any) => {
                         handleChangeField('contact_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                  
+
                 />
             ),
             'Availability No': (
@@ -60,19 +60,19 @@ const HeaderSection = () => {
                     loadOptions={searchAvailability}
                     onChange={({value}: any) => {
                         handleChangeField('availability_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -84,9 +84,9 @@ const HeaderSection = () => {
                     disabled
                 />
             ),
-          
-            
-            
+
+
+
         },
         '': {
             'PO Date': (
@@ -111,9 +111,9 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Approved By': (
@@ -125,14 +125,14 @@ const HeaderSection = () => {
                     loadOptions={searchOwners}
                     onChange={({value}: any) => {
                         handleChangeField('approved_by_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
-            
-           
-            
+
+
+
         }
     }
     return (

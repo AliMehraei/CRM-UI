@@ -67,7 +67,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchManufacture}
                     onChange={({ value }: any) => {
                         handleChangeField('manufacture_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.manufacture_id,
@@ -92,7 +92,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchRFQ}
                     onChange={({ value }: any) => {
                         handleChangeField('rfq_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={formState.rfq
                         ? formState.rfq.map((rfq: any) => ({
@@ -128,7 +128,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('approved_by_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.approved_by?.id,
@@ -166,7 +166,7 @@ const ProductInformationSection = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.owner?.id,

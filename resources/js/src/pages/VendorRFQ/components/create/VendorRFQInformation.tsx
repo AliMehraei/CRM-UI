@@ -24,7 +24,7 @@ const VendorRFQInformation = () => {
         { value: 'email-sent', label: 'Email Sent' },
         { value: 'closed', label: 'Closed' },
     ]
-  
+
 
     const fields = {
         'Vendor RFQ Information': {
@@ -43,18 +43,18 @@ const VendorRFQInformation = () => {
                     loadOptions={searchVendor}
                     onChange={({value}: any) => {
                         handleChangeField('vendor_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
             'Status': (
-                <Select 
-                options={StatusVendorRfqOptions} 
-                name="status" 
-                id="status"       
+                <Select
+                options={StatusVendorRfqOptions}
+                name="status"
+                id="status"
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={StatusVendorRfqOptions.find((title) => title.value == 'draft')}
                 />
@@ -69,13 +69,13 @@ const VendorRFQInformation = () => {
                 />
             ),
             'Currency': (
-                <Select 
-                options={Currencies} 
-                name="currency" 
-                id="currency"       
+                <Select
+                options={Currencies}
+                name="currency"
+                id="currency"
                 onChange={({value}: any) => {
                     handleChangeField('currency', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={Currencies.find((title) => title.value == 'EUR')}
                 />
@@ -89,17 +89,17 @@ const VendorRFQInformation = () => {
                     loadOptions={searchRFQ}
                     onChange={({ value }: any) => {
                         handleChangeField('related_rfqs', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
                 />
             ),
-            
-           
-           
+
+
+
 
         },
         '': {
-            
+
             'Date': (
                 <Flatpickr
                 name="date"
@@ -108,7 +108,7 @@ const VendorRFQInformation = () => {
                 }}
                 className="form-input flex-1"
                 placeholder="MM DD YYYY"
-                onChange={(_,dateString) => handleChangeField('date', dateString)} 
+                onChange={(_,dateString) => handleChangeField('date', dateString)}
                 />
             ),
             'Vendor RFQ Owner': (
@@ -120,9 +120,9 @@ const VendorRFQInformation = () => {
                     loadOptions={searchOwners}
                     onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
-                    }} // Use 'owner_id' if it's the field name
+                    }}
                     className="flex-1"
-                   
+
                 />
             ),
             'Email Opt Out': (
@@ -151,7 +151,7 @@ const VendorRFQInformation = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default VendorRFQInformation;
