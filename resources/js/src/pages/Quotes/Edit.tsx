@@ -31,7 +31,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleQuote',
-            redirectTo: 'updateSingleQuote',
+            redirectTo: '/quotes/edit/:id',
             action: 'edit'
         };
 

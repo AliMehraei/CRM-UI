@@ -1,42 +1,48 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
-import { updateFormData } from "../../../../store/manufactureFormSlice";
-import api from "../../../../config/api";
+import {useDispatch, useSelector} from "react-redux";
+import {updateFormData} from "../../../../store/manufactureFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { useEffect } from "react";
-import { handleUploadFile,searchOwners } from "../../../../components/Functions/CommonFunctions";
+import {getImageSource, handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.manufactureForm);
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
-
-    const handleUploadImage = (e: any) => {
-        if (e.target.files && e.target.files.length > 0) {
-            api_instance.uploadFile(e.target.files[0]).then((response) => {
-                dispatch(updateFormData({ field: 'image', value: `${response?.data.data.file_url}` }));
-            }).catch();
-        }
-    };
-
-   
 
     const fields = {
         'Manufacture Information': {
-            'Manufacture Image': (<input
-                id="manufacture_image"
-                key="manufacture_image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={handleUploadImage}
-                name="manufactureImage"
-            />
+            'Manufacture Image': (<div className="">
+                    <div className="flex">
+                        <input
+                            id="manufacture_image"
+                            key="manufacture_image"
+                            type="file"
+                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                            accept="image/*"
+                            onChange={(e) => handleUploadFile(e, (response: any) => {
+                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                            })}
+                            name="manufactureImage"
+                        />
+                        <ClearButtonComponent callBack={() => {
+                            const fileInput = document.getElementById('manufacture_image') as HTMLInputElement | null;
+                            if (fileInput) {
+                                fileInput.value = '';
+                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                            }
+                            dispatch(updateFormData({'image': null}));
+                        }}/>
+                    </div>
+                    <img
+                        id="manufacture_image_preview"
+                        src={getImageSource(formState.image || formState.oldImage)}
+                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                </div>
             ),
             'Manufacture Name': (
                 <input
@@ -87,7 +93,7 @@ const ManufactureInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
                     loadOptions={searchOwners}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
@@ -95,7 +101,7 @@ const ManufactureInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
                                 <div>
                                     <div className="text-sm font-bold">{formState.owner?.name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
@@ -110,7 +116,7 @@ const ManufactureInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields} />
+                <GenerateFields fields={fields}/>
             </div>
         </>
     )

@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import React, {useEffect} from "react";
+import React from "react";
 import api from "../../config/api";
 import {useDispatch, useSelector} from "react-redux";
 import {resetErrors, updateErrors} from "../../store/formErrorsSlice";
@@ -28,12 +28,11 @@ const ActionButtonsComponent = ({formState}: any) => {
 
         const methodToCall = api_instance[formState.api];
         if (typeof methodToCall !== 'function') {
-            console.log('fds','error api');
+            console.log('fds', 'error api');
             return;
         }
 
         const response = await methodToCall.call(api_instance, formState);
-        console.log('fds',response);
         if (response.isOk) {
             if (formState.action === 'create')
                 dispatch(resetForm());
@@ -68,7 +67,10 @@ const ActionButtonsComponent = ({formState}: any) => {
 
     const handlePreviousPage = () => {
         const pathToNavigate = location.pathname.replace('\/add', '\/list');
-        navigate(pathToNavigate, {replace: true});
+        if (formState.action == 'edit')
+            navigate(-1);
+        else
+            navigate(pathToNavigate, {replace: true});
     }
 
     return (
