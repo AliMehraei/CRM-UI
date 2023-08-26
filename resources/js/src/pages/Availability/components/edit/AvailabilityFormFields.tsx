@@ -4,6 +4,7 @@ import StatusSection from "./StatusSection";
 import QuoteLineSection from "./QuoteLineSection";
 import PriceBreakSection from "./PriceBreakSetion";
 import CreatedSection from "./CreatedSection";
+import DevelopmentSection from "../create/DevelopmentSection";
 
 
 const AvailabilityFormFields = () => {
@@ -16,6 +17,8 @@ const AvailabilityFormFields = () => {
             <QuoteLineSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <PriceBreakSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <DevelopmentSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <CreatedSection/>
         </div>

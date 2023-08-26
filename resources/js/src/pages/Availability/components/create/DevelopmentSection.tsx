@@ -1,28 +1,24 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import Select from "react-select";
-import AsyncSelect from "react-select/async";
-import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/availabilityFormSlice";
 
-const SourceSection = () => {
-    
-    const handleVendorChange = () => {
+const DevelopmentSection = () => {
+    const dispatch = useDispatch();
 
-    };
-    const handleAvailabilityChange = () => {
-
-    };
-    const loadAvailability = () => {
-
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
     };
     const fields = {
         'Development': {
             'From Our Inventory': <input id="from_our_inventory" type="checkbox"
                                          name="from_our_inventory"
-                                         className="form-checkbox"/>,
+                                         className="form-checkbox"
+                                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+
         },
         '': {
             'Portal Availability Id': <input id="portal_availability_id" name="portal_availability_id"
+                                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                              className="form-input flex-1 "/>,
         }
     }
@@ -33,4 +29,4 @@ const SourceSection = () => {
         </div>
     </>)
 }
-export default SourceSection
+export default DevelopmentSection
