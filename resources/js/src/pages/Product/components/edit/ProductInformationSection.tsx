@@ -14,11 +14,6 @@ const ProductInformationSection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-
-
-
-
-
     const productTypeOptions = [
         { label: '-None-', value: 'none' },
         { label: 'Goods', value: 'goods' },

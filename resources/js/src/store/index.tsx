@@ -14,6 +14,9 @@ import quoteFormSlice from "./quoteFormSlice";
 import dealFormSlice from "./dealFormSlice";
 import purchaseOrderFormSlice from "./purchaseOrderFormSlice";
 import salesOrderFormSlice from "./salesOrderFormSlice";
+import vendorRfqFormSlice from "./vendorRfqFormSlice";
+
+
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
@@ -26,10 +29,11 @@ const rootReducer = combineReducers({
     leadForm: leadFormSlice,
     excessForm: excessFormSlice,
     productForm: productFormSlice,
-    quoteform: quoteFormSlice,
-    dealform: dealFormSlice,
-    purchaseOrderform: purchaseOrderFormSlice,
-    salesOrderform: salesOrderFormSlice,
+    quoteForm: quoteFormSlice,
+    dealForm: dealFormSlice,
+    purchaseOrderForm: purchaseOrderFormSlice,
+    salesOrderForm: salesOrderFormSlice,
+    vendorRfqForm: vendorRfqFormSlice,
 });
 
 export default configureStore({

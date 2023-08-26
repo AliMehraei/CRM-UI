@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess , searchOwners} from "../../../../components/Functions/CommonFunctions";
+import { handleUploadFile, Currencies, PortalAccess , searchOwners, searchManufacture, searchRFQ} from "../../../../components/Functions/CommonFunctions";
 
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
@@ -14,44 +14,7 @@ const ProductInformationSection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-    const searchManufacture = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'name';
-
-        const result = await api_instance.searchManufacturer({ query: query });
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
-    const searchRFQ = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'rfq_name';
-
-        const result = await api_instance.searchRfq({ query: query });
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
+  
 
     
     const productTypeOptions = [
@@ -112,7 +75,7 @@ const ProductInformationSection = () => {
             ),
             'RFQ (Alternative)': (
                 <AsyncSelect
-                    isMulti={false}
+                    isMulti={true}
                     id="rfq_id"
                     placeholder="Type at least 2 characters to search..."
                     name="rfq_id"
