@@ -1,15 +1,18 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
+    getImageSource,
     handleUploadFile,
     searchAccounts,
     searchOwners
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/contactFormSlice";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const ContactDetailsSection = () => {
+    const formState = useSelector((state: any) => state.contactForm);
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -89,17 +92,33 @@ const ContactDetailsSection = () => {
 
     const fields = {
         'Contact Details': {
-            'Contact Image': <input
-                id="image"
-                key="image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                })}
-                name="manufactureImage"
-            />
+            'Contact Image': <div className="">
+                <div className="flex">
+                    <input
+                        id="image"
+                        key="image"
+                        type="file"
+                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                        accept="image/*"
+                        onChange={(e) => handleUploadFile(e, (response: any) => {
+                            dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                        })}
+                        name="image"
+                    />
+                    <ClearButtonComponent callBack={() => {
+                        const fileInput = document.getElementById('image') as HTMLInputElement | null;
+                        if (fileInput) {
+                            fileInput.value = '';
+                            fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                        }
+                        dispatch(updateFormData({'image': null}));
+                    }}/>
+                </div>
+                <img
+                    id="contact_image_preview"
+                    src={getImageSource(formState.image || formState.oldImage)}
+                    alt="img" className="mt-4 w-20 h-20 rounded"/>
+            </div>
             ,
             'First Name': (
                 <div className="flex">

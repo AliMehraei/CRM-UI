@@ -107,7 +107,7 @@ const ContactDetailsSection = () => {
                             name="image"
                         />
                         <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('manufacture_image') as HTMLInputElement | null;
+                            const fileInput = document.getElementById('image') as HTMLInputElement | null;
                             if (fileInput) {
                                 fileInput.value = '';
                                 fileInput.dispatchEvent(new Event('change', {bubbles: true}));
