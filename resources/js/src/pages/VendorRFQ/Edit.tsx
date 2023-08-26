@@ -32,12 +32,8 @@ const Edit = () => {
 
 
     useEffect(() => {
-
         fetchData().then(() => {
             setLoading(false);
-            console.log('formState',formState);
-
-
         });
     }, [vendorRfqId]);
 
