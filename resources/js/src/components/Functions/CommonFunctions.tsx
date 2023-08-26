@@ -308,3 +308,24 @@ export const searchSalesOrder = async (query: string) => {
 export const getImageSource = (image: string) => {
     return image && image !== '' ? image : 'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png'; // todo : change this
 };
+
+
+export const searchExcess = async (query: string) => {
+    const valField = 'id';
+    const nameField = 'excess_name';
+
+    const result = await api_instance.searchManufacturer({query: query});
+
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+}
