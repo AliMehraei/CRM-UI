@@ -15,6 +15,7 @@ import dealFormSlice from "./dealFormSlice";
 import purchaseOrderFormSlice from "./purchaseOrderFormSlice";
 import salesOrderFormSlice from "./salesOrderFormSlice";
 import vendorRfqFormSlice from "./vendorRfqFormSlice";
+import availabilityFormSlice from "./availabilityFormSlice";
 
 
 const rootReducer = combineReducers({
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
     purchaseOrderForm: purchaseOrderFormSlice,
     salesOrderForm: salesOrderFormSlice,
     vendorRfqForm: vendorRfqFormSlice,
+    availabilityForm: availabilityFormSlice,
 });
 
 export default configureStore({
