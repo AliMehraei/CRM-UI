@@ -36,7 +36,7 @@ const Edit = () => {
         fetchData().then(() => {
             setLoading(false);
             console.log('formState',formState);
-            
+
 
         });
     }, [leadId]);
@@ -44,7 +44,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleLead',
-            redirectTo: 'updateSingleLead',
+            redirectTo: '/lead/edit/:id',
             action: 'edit'
         };
 
