@@ -1,4 +1,3 @@
-import {Link, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -35,16 +34,13 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            console.log('formState',formState);
-
-
         });
     }, [salesOrderId]);
 
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleSalesOrder',
-            redirectTo: 'updateSingleSalesOrder',
+            redirectTo: '/sales/edit/:id',
             action: 'edit'
         };
 
