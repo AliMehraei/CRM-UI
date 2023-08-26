@@ -1,5 +1,5 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/availabilityFormSlice";
 
@@ -8,10 +8,35 @@ const PriceBreakSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.availabilityForm);
 
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            name: '',
+    const [items, setItems] = useState<any>([]);
+
+    const handleChangeField = (field: string, value: any, id: string) => {
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
+        const updatedItem = {
+            ...updatingItem,
+            [field]: value,
+        };
+        const updatedItems = {
+            ...items,
+            [itemIndex]: updatedItem,
+        };
+
+        dispatch(updateFormData({items: updatedItems}));
+    };
+
+
+    useEffect(() => {
+        setItems(Object.values(formState.items));
+    }, []);
+
+
+    const addItem = () => {
+        let maxId;
+        maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
+        let remainingItems = [...items, {
+            id: maxId + 1, name: '',
             part_id: '',
             quantity: 1,
             SPQ: '',
@@ -20,43 +45,18 @@ const PriceBreakSection = () => {
             date_code: '',
             comment: '',
             amount: 0,
-        },
-    ]);
+        }];
 
-    const handleChangeField = (field: string, value: any, id: string) => {
-        const updatedItem = {
-            ...formState.items[id],
-            [field]: value,
-        };
-
-        const updatedItems = {
-            ...formState.items,
-            [id]: updatedItem,
-        };
-
-        dispatch(updateFormData({items: updatedItems}));
-    };
-
-    const addItem = () => {
-        let maxId = 0;
-        maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
-
-        setItems([...items, {
-            id: maxId + 1, name: '',
-            "d_3000": '',
-            "d_1000": '',
-            "d_500": '',
-            "d_250": '',
-            "d_100": '',
-            "d_25": '',
-            "d_10": '',
-            "d_1": '',
-        }]);
+        setItems(remainingItems);
+        dispatch(updateFormData({items: remainingItems}));
     };
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
+        dispatch(updateFormData({items: remainingItems}));
     };
+
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12">
