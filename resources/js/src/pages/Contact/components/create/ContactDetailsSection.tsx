@@ -102,13 +102,13 @@ const ContactDetailsSection = () => {
             />
             ,
             'First Name': (
-                <div>
+                <div className="flex">
                     <Select id="prefix_first_name"
                             name="prefix_first_name"
                             onChange={({value}: any) => {
                                 handleChangeField('prefix_first_name', value)
                             }}
-                            className="flex-1"
+                            className="flex-none w-32 mr-2"
                             options={firstNameTitles}
                     />
                     <input
