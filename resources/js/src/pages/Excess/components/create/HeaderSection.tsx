@@ -39,7 +39,7 @@ const HeaderSection = () => {
                             className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                             accept="image/*"
                             onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                                dispatch(updateFormData({'excess_image': `${response?.data.data.file_url}`}));
                             })}
                             name="excess_image"
                         />
@@ -49,12 +49,12 @@ const HeaderSection = () => {
                                 fileInput.value = '';
                                 fileInput.dispatchEvent(new Event('change', {bubbles: true}));
                             }
-                            dispatch(updateFormData({'image': null}));
+                            dispatch(updateFormData({'excess_image': null}));
                         }}/>
                     </div>
                     <img
                         id="excess_image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
+                        src={getImageSource(formState.excess_image || formState.oldImage)}
                         alt="img" className="mt-4 w-20 h-20 rounded"/>
                 </div>
             ,
