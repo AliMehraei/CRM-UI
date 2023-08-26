@@ -1,34 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
-import RFQFormFields from "./components/edit/AvailabilityFormFields";
-import {updateFormData} from "../../store/rfqFormSlice";
+import {updateFormData} from "../../store/availabilityFormSlice";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import LoadingAlpyn from "../../components/LoadingAlpyn";
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
+import AvailabilityFormFields from "./components/edit/AvailabilityFormFields";
 
-const Add = () => {
+const Edit = () => {
     const formState = useSelector((state: any) => state.availabilityForm);
     const dispatch = useDispatch();
     const api = new Api();
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const rfqId = params.id;
+    const availabilityId = params.id;
 
     useEffect(() => {
-        dispatch(setPageTitle('RFQ Add'));
+        dispatch(setPageTitle('Availability Edit'));
     });
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
         });
-    }, [rfqId]);
+    }, [availabilityId]);
 
     useEffect(() => {
         const formDataUpdates = {
-            api: 'updateSingleRfq',
-            redirectTo: '/rfq/edit/:id',
+            api: 'updateSingleAvailability',
+            redirectTo: '/availability/edit/:id',
             action: 'edit'
         };
 
@@ -36,7 +36,7 @@ const Add = () => {
     }, []);
 
     const fetchData = async () => {
-        const response = await api.fetchSingleQuote(rfqId);
+        const response = await api.fetchSingleAvailability(availabilityId);
         if (response.status != 200)
             return
         const quote = response.data.data.quote;
@@ -51,11 +51,11 @@ const Add = () => {
             <ActionButtonsComponent formState={formState}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
-                    <RFQFormFields/>
+                    <AvailabilityFormFields/>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Add;
+export default Edit;
