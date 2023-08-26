@@ -1,12 +1,11 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import Tippy from "@tippyjs/react";
-import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const CreatedSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.availibilityForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -15,10 +14,13 @@ const CreatedSection = () => {
         'Created': {
             'test': <input id="test" type="checkbox"
                            name="test"
-                           className="form-checkbox" onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                           checked={formState.test}
+                           className="form-checkbox"
+                           onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
             'Send letter owner': <input id="send_letter_owner" type="checkbox"
                                         name="send_letter_owner"
                                         className="form-checkbox"
+                                        checked={formState.send_letter_owner}
                                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
         }
     }
