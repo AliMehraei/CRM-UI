@@ -36,7 +36,7 @@ const Add = () => {
     }, []);
 
     const fetchData = async () => {
-        const response = await api.fetchSingleQuote(rfqId);
+        const response = await api.fetchSingleRfq(rfqId);
         if (response.status != 200)
             return
         const quote = response.data.data.quote;
