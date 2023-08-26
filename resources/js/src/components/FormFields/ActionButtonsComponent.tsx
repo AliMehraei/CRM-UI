@@ -33,7 +33,6 @@ const ActionButtonsComponent = ({formState}: any) => {
         }
 
         const response = await methodToCall.call(api_instance, formState);
-        console.log('fds',response);
         if (response.isOk) {
             if (formState.action === 'create')
                 dispatch(resetForm());
