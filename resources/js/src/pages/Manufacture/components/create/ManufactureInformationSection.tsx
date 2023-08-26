@@ -1,35 +1,32 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
-import { updateFormData } from "../../../../store/manufactureFormSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {updateFormData} from "../../../../store/manufactureFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { handleUploadFile,searchOwners } from "../../../../components/Functions/CommonFunctions";
+import {handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
 
 const ManufactureInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.manufactureForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
-
-
-   
 
 
     const fields = {
         'Manufacture Information': {
             'Manufacture Image': (<input
-                id="manufacture_image"
-                key="manufacture_image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ field: 'image', value: `${response?.data.data.file_url}` }));
-                })}
-                name="manufactureImage"
-            />
+                    id="manufacture_image"
+                    key="manufacture_image"
+                    type="file"
+                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                    accept="image/*"
+                    onChange={(e) => handleUploadFile(e, (response: any) => {
+                        dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                    })}
+                    name="manufactureImage"
+                />
             ),
             'Manufacture Name': (
                 <input
@@ -80,7 +77,7 @@ const ManufactureInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
                     loadOptions={searchOwners}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
                     }} // Use 'owner_id' if it's the field name
                     className="flex-1"
@@ -91,7 +88,7 @@ const ManufactureInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields} />
+                <GenerateFields fields={fields}/>
             </div>
         </>
     )
