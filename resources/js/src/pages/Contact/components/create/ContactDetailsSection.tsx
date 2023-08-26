@@ -7,7 +7,7 @@ import {
     searchOwners
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/contactFormSlice";
 
 const ContactDetailsSection = () => {
     const dispatch = useDispatch();

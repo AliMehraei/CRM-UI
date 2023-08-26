@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { handleUploadFile, searchAccounts, loadOrders } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-import { updateFormData } from "../../../../store/accountFormSlice";
+import { updateFormData } from "../../../../store/contactFormSlice";
 import Flatpickr from "react-flatpickr";
 
 const ContactInformationSection = () => {

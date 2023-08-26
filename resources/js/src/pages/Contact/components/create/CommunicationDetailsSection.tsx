@@ -1,6 +1,6 @@
 import {useDispatch} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/contactFormSlice";
 
 const AddressInformationSection = () => {
     const dispatch = useDispatch();
