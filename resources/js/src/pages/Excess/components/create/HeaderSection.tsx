@@ -105,9 +105,9 @@ const HeaderSection = () => {
                 name="excess_file"
             />,
 
-            'Excess Source': <Select options={ExcessSources}
+            'Excess Source': <Select name="excess_source" id="excess_source" options={ExcessSources}
                                      onChange={({value}: any) => {
-                                         handleChangeField('currency', value)
+                                         handleChangeField('excess_source', value)
                                      }}
                                      className="flex-1"/>,
             'Secondary Email': <input id="secondary_email" type="text" name="secondary_email"
