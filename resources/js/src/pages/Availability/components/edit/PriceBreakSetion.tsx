@@ -28,7 +28,7 @@ const PriceBreakSection = () => {
 
 
     useEffect(() => {
-        setItems(Object.values(formState.items));
+        setItems(Object.values(formState.price_breaks));
     }, []);
 
 
