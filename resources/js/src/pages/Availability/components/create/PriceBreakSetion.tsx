@@ -23,16 +23,16 @@ const PriceBreakSection = () => {
 
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
-            ...formState.items[id],
+            ...formState.price_breaks[id],
             [field]: value,
         };
 
         const updatedItems = {
-            ...formState.items,
+            ...formState.price_breaks,
             [id]: updatedItem,
         };
 
-        dispatch(updateFormData({items: updatedItems}));
+        dispatch(updateFormData({price_breaks: updatedItems}));
     };
 
     const addItem = () => {
@@ -87,64 +87,9 @@ const PriceBreakSection = () => {
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-                                                    name="cost_1"
                                                     min={0}
-                                                    defaultValue={item.cost_1}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    name="cost_10"
-                                                    min={0}
-                                                    defaultValue={item.cost_10}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    min={0}
-                                                    name="cost_25"
-                                                    defaultValue={item.cost_25}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    min={0}
-                                                    name="cost_100"
-                                                    defaultValue={item.cost_100}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    min={0}
-                                                    name="cost_250"
-                                                    defaultValue={item.cost_250}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    min={0}
-                                                    name="cost_500"
-                                                    defaultValue={item.cost_500}
+                                                    name="cost_3000"
+                                                    defaultValue={item.cost_3000}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -160,17 +105,79 @@ const PriceBreakSection = () => {
 
                                                 />
                                             </td>
+
                                             <td>
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
                                                     min={0}
-                                                    name="cost_3000"
-                                                    defaultValue={item.cost_3000}
+                                                    name="cost_500"
+                                                    defaultValue={item.cost_500}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
                                             </td>
+
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    min={0}
+                                                    name="cost_250"
+                                                    defaultValue={item.cost_250}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    min={0}
+                                                    name="cost_100"
+                                                    defaultValue={item.cost_100}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    min={0}
+                                                    name="cost_25"
+                                                    defaultValue={item.cost_25}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    name="cost_10"
+                                                    min={0}
+                                                    defaultValue={item.cost_10}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    name="cost_1"
+                                                    min={0}
+                                                    defaultValue={item.cost_1}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+
                                             <td>
                                                 <button type="button" onClick={() => removeItem(item)}>
                                                     <svg
