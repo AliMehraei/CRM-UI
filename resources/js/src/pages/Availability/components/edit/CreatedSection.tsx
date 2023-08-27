@@ -4,7 +4,7 @@ import {updateFormData} from "../../../../store/availabilityFormSlice";
 
 const CreatedSection = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.availibilityForm);
+    const formState = useSelector((state: any) => state.availabilityForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
