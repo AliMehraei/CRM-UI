@@ -15,7 +15,7 @@ const Edit = () => {
 
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const quoteId = params.id; // Assuming you are using React Router to handle routes
+    const quoteId = params.id;
     const api = new Api();
 
     useEffect(() => {

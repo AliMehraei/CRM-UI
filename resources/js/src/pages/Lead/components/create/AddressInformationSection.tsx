@@ -15,27 +15,6 @@ const AddressInformationSection = () => {
     };
 
 
-
-    const searchVendor = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'lead_name';
-
-        const result = await api_instance.searchVendor({query: query});
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
-
     const fields = {
         'Address Information': {
             'Zip Code': (<input
@@ -53,9 +32,9 @@ const AddressInformationSection = () => {
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-            
-           
-           
+
+
+
 
         },
         '': {
@@ -81,7 +60,7 @@ const AddressInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default AddressInformationSection;

@@ -14,7 +14,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.productForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const productId = params.id; // Assuming you are using React Router to handle routes
+    const productId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
 
@@ -35,8 +35,7 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            console.log('formState',formState);
-            
+
 
         });
     }, [productId]);
@@ -44,7 +43,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleProduct',
-            redirectTo: 'updateSingleProduct',
+            redirectTo: '/product/edit/:id',
             action: 'edit'
         };
 

@@ -4,11 +4,12 @@ import {updateFormData} from "../../../../store/availabilityFormSlice";
 
 const DevelopmentSection = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.availibilityForm);
+    const formState = useSelector((state: any) => state.availabilityForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
+
     const fields = {
         'Development': {
             'From Our Inventory': <input id="from_our_inventory" type="checkbox"
@@ -21,7 +22,7 @@ const DevelopmentSection = () => {
         '': {
             'Portal Availability Id': <input id="portal_availability_id" name="portal_availability_id"
                                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                                             checked={formState.portal_availability_id}
+                                             defaultValue={formState.portal_availability_id}
                                              className="form-input flex-1 "/>,
         }
     }

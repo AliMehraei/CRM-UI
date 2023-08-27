@@ -13,7 +13,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.accountForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const accountId = params.id; // Assuming you are using React Router to handle routes
+    const accountId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
 

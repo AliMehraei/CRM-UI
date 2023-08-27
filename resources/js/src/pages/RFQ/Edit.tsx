@@ -8,7 +8,7 @@ import LoadingAlpyn from "../../components/LoadingAlpyn";
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 
-const Add = () => {
+const Edit = () => {
     const formState = useSelector((state: any) => state.rfqFormSlice);
     const dispatch = useDispatch();
     const api = new Api();
@@ -17,7 +17,7 @@ const Add = () => {
     const rfqId = params.id;
 
     useEffect(() => {
-        dispatch(setPageTitle('RFQ Add'));
+        dispatch(setPageTitle('RFQ Edit'));
     });
     useEffect(() => {
         fetchData().then(() => {
@@ -31,7 +31,6 @@ const Add = () => {
             redirectTo: '/rfq/edit/:id',
             action: 'edit'
         };
-
         dispatch(updateFormData(formDataUpdates));
     }, []);
 
@@ -39,7 +38,7 @@ const Add = () => {
         const response = await api.fetchSingleRfq(rfqId);
         if (response.status != 200)
             return
-        const quote = response.data.data.quote;
+        const quote = response.data.data.rfq;
         dispatch(updateFormData(quote));
     };
 
@@ -58,4 +57,4 @@ const Add = () => {
     );
 };
 
-export default Add;
+export default Edit;

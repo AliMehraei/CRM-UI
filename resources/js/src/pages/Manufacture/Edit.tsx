@@ -12,7 +12,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.manufactureForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const manufactureId = params.id; // Assuming you are using React Router to handle routes
+    const manufactureId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
 

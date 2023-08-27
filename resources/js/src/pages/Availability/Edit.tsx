@@ -7,6 +7,7 @@ import LoadingAlpyn from "../../components/LoadingAlpyn";
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import AvailabilityFormFields from "./components/edit/AvailabilityFormFields";
+import 'flatpickr/dist/flatpickr.css';
 
 const Edit = () => {
     const formState = useSelector((state: any) => state.availabilityForm);
@@ -39,8 +40,8 @@ const Edit = () => {
         const response = await api.fetchSingleAvailability(availabilityId);
         if (response.status != 200)
             return
-        const quote = response.data.data.quote;
-        dispatch(updateFormData(quote));
+        const availability = response.data.data.availability;
+        dispatch(updateFormData(availability));
     };
 
     if (loading)

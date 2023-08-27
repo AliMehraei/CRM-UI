@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/contactFormSlice";
 import Flatpickr from "react-flatpickr";
 
 const ContactInformationSection = () => {

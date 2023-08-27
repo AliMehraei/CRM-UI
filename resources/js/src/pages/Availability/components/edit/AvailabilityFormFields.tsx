@@ -4,7 +4,7 @@ import StatusSection from "./StatusSection";
 import QuoteLineSection from "./QuoteLineSection";
 import PriceBreakSection from "./PriceBreakSetion";
 import CreatedSection from "./CreatedSection";
-import DevelopmentSection from "../create/DevelopmentSection";
+import DevelopmentSection from "./DevelopmentSection";
 
 
 const AvailabilityFormFields = () => {

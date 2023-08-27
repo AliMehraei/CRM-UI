@@ -1,4 +1,3 @@
-import {Link, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -14,7 +13,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const purchaseOrderId = params.id; // Assuming you are using React Router to handle routes
+    const purchaseOrderId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
 
@@ -35,16 +34,13 @@ const Edit = () => {
 
         fetchData().then(() => {
             setLoading(false);
-            console.log('formState',formState);
-            
-
         });
     }, [purchaseOrderId]);
 
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSinglePurchaseOrder',
-            redirectTo: 'updateSinglePurchaseOrder',
+            redirectTo: '/purchase/edit/:id',
             action: 'edit'
         };
 
