@@ -612,7 +612,7 @@ const Header = () => {
                 </div>
 
                 {/* horizontal menu */}
-                <ul className="horizontal-menu hidden py-1.5 font-semibold px-6 lg:space-x-1.5 xl:space-x-8 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
+                <ul className="horizontal-menu hidden py-1.5 font-semibold px-4 lg:space-x-1.5 xl:space-x-4 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
                     
                     <li className="menu nav-item relative">
                         <NavLink to="/"className="nav-link">
