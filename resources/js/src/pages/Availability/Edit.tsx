@@ -39,8 +39,8 @@ const Edit = () => {
         const response = await api.fetchSingleAvailability(availabilityId);
         if (response.status != 200)
             return
-        const quote = response.data.data.quote;
-        dispatch(updateFormData(quote));
+        const availability = response.data.data.availability;
+        dispatch(updateFormData(availability));
     };
 
     if (loading)
