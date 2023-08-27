@@ -8,7 +8,6 @@ import Select from "react-select";
 import {
     Currencies,
     searchAccounts,
-    loadOrders,
     searchOwners,
     Stages,
     searchContacts
