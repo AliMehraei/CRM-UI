@@ -31,6 +31,11 @@ const InvoiceItemSection = () => {
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {...items.find((item: any) => item.id === id)};
         updatedItem[field] = value;
+        const amount = (parseFloat(updatedItem.quantity) || 0) * (parseFloat(updatedItem.list_price) || 0)
+        const total = amount - ((parseFloat(updatedItem.discount) || 0) + (parseFloat(updatedItem.tax) || 0))
+        updatedItem['amount'] = amount;
+        updatedItem['total'] = total;
+
         updateItems(updatedItem);
     };
     const updateItems = (updatedItem: any) => {
