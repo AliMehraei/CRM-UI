@@ -17,28 +17,27 @@ const InvoiceItemSection = () => {
     const [items, setItems] = useState<any>([
         {
             id: 1,
-            product_id: '',
-            description: '',
-            quantity: 0,
-            list_price: '',
-            amount: 0,
-            discount: 0,
-            tax: 0,
-            total: 0,
+            product_id: null,
+            description: null,
+            quantity: null,
+            list_price: null,
+            amount: null,
+            discount: null,
+            tax: null,
+            total: null,
         },
     ]);
     const dispatch = useDispatch();
     const handleChangeField = (field: string, value: any, id: string) => {
-        const updatedItem = {
-            ...formState.items[id],
-            [field]: value,
-        };
-
-        const updatedItems = {
-            ...formState.items,
-            [id]: updatedItem,
-        };
-
+        const updatedItem = {...items.find((item: any) => item.id === id)};
+        updatedItem[field] = value;
+        updateItems(updatedItem);
+    };
+    const updateItems = (updatedItem: any) => {
+        const updatedItems = items.map((item: any) =>
+            item.id === updatedItem.id ? {...item, ...updatedItem} : item
+        );
+        setItems(updatedItems);
         dispatch(updateFormData({items: updatedItems}));
         updateSummary();
     };
@@ -50,14 +49,14 @@ const InvoiceItemSection = () => {
 
         setItems([...items, {
             id: maxId + 1,
-            product_id: '',
-            description: '',
-            quantity: 0,
-            list_price: '',
-            amount: 0,
-            discount: 0,
-            Tax: 0,
-            Total: 0,
+            product_id: null,
+            description: null,
+            quantity: null,
+            list_price: null,
+            amount: null,
+            discount: null,
+            tax: null,
+            total: null,
         }]);
 
     };
@@ -68,20 +67,27 @@ const InvoiceItemSection = () => {
     };
 
     const updateSummary = () => {
-        /*    const subtotal = items.reduce((total: any, item: any) => total + parseFloat(item.amount), 0);
-            const discount = items.reduce((total: any, item: any) => total + parseFloat(item.discount), 0);
-            const tax = items.reduce((total: any, item: any) => total + parseFloat(item.tax), 0);
-            const adjustment = items.reduce((total: any, item: any) => total + parseFloat(item.adjustment), 0);
+        const subtotal = items.reduce((total: number, item: any) =>
+            total + (parseFloat(item.amount) || 0), 0);
 
-            const grandTotal = subtotal - discount + tax + adjustment;
+        const discount = items.reduce((total: number, item: any) =>
+            total + (parseFloat(item.discount) || 0), 0);
 
-            setSummary({
-                subtotal,
-                discount,
-                tax,
-                adjustment,
-                grandTotal,
-            });*/
+        const tax = items.reduce((total: number, item: any) =>
+            total + (parseFloat(item.tax) || 0), 0);
+
+        const adjustment = items.reduce((total: number, item: any) =>
+            total + (parseFloat(item.adjustment) || 0), 0);
+
+        const grandTotal = subtotal - discount + tax + adjustment;
+
+        setSummary({
+            subtotal,
+            discount,
+            tax,
+            adjustment,
+            grandTotal,
+        });
     };
 
     useEffect(() => {
@@ -161,7 +167,7 @@ const InvoiceItemSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <input name="item_discount" type="number"
+                                                <input name="discount" type="number"
                                                        className="form-input min-w-[200px]"
                                                        value={item.discount}
                                                     // value="tex"
@@ -169,14 +175,15 @@ const InvoiceItemSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <input name="item_tax" type="text" className="form-input min-w-[200px]"
+                                                <input name="tax" type="number"
+                                                       className="form-input min-w-[200px]"
                                                        value={item.tax}
                                                     // value="tex"
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
-                                                <input name="item_total" type="text"
+                                                <input name="total" type="number"
                                                        className="form-input min-w-[200px]"
                                                        defaultValue={item.total}
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
