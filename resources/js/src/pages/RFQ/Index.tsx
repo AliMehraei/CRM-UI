@@ -196,12 +196,14 @@ const List = () => {
 
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
-        setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data);
+        const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
+        setInitialRecords(reversedData);
+
     }, [items, sortStatus]);
 
     useEffect(() => {
         fetchDataRfq(page, pageSize);
-        setInitialRecords(sortBy(items, 'id'));
+        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
 
     }, [page, pageSize]); // Added page and pageSize as dependencies
 
@@ -261,6 +263,7 @@ const List = () => {
     const handleSortChange = (sortStatus) => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
         setSortStatus({ columnAccessor, direction });
+        setPage(1);
         fetchDataRfq(page, pageSize, filters, { columnAccessor, direction });
     };
 
@@ -405,7 +408,7 @@ const List = () => {
                                     records={records}
                                     columns={[
                                         {
-                                            accessor: 'ID',
+                                            accessor: 'id',
                                             sortable: true,
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
