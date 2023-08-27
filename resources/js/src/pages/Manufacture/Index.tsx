@@ -422,23 +422,32 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'octo_api_id',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ octo_api_id }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                    {octo_api_id}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture_owner',
+                                            accessor: 'owner',
                                             sortable: true,
-                                            render: ({ manufacture_owner }) => <div className="font-semibold">{manufacture_owner}</div>,
+                                            render: ({ owner }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {owner.name}
+                                                </div>
+                                            ),
                                         },
                                         {
-                                            accessor: 'manufacture Type',
+                                            accessor: 'is_active',
+                                            title: 'Active',
                                             sortable: true,
-                                            render: ({ manufacture_type }) => <div className="font-semibold">{manufacture_type}</div>,
+                                            render: ({ is_active }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {is_active === 1 ? 'Active' : 'Not Active'}
+                                                </div>
+                                            ),
                                         },
                                         {
                                             accessor: 'action',
