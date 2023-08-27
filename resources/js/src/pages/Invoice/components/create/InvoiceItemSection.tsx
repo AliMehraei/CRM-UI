@@ -19,12 +19,12 @@ const InvoiceItemSection = () => {
             id: 1,
             product_id: '',
             description: '',
-            quantity: 1,
+            quantity: 0,
             list_price: '',
             amount: 0,
             discount: 0,
-            Tax: 0,
-            Total: 0,
+            tax: 0,
+            total: 0,
         },
     ]);
     const dispatch = useDispatch();
@@ -52,13 +52,14 @@ const InvoiceItemSection = () => {
             id: maxId + 1,
             product_id: '',
             description: '',
-            quantity: 1,
+            quantity: 0,
             list_price: '',
             amount: 0,
             discount: 0,
             Tax: 0,
             Total: 0,
         }]);
+
     };
 
 
@@ -67,20 +68,20 @@ const InvoiceItemSection = () => {
     };
 
     const updateSummary = () => {
-        const subtotal = items.reduce((total: any, item: any) => total + parseFloat(item.amount), 0);
-        const discount = items.reduce((total: any, item: any) => total + parseFloat(item.discount), 0);
-        const tax = items.reduce((total: any, item: any) => total + parseFloat(item.tax), 0);
-        const adjustment = items.reduce((total: any, item: any) => total + parseFloat(item.adjustment), 0);
+        /*    const subtotal = items.reduce((total: any, item: any) => total + parseFloat(item.amount), 0);
+            const discount = items.reduce((total: any, item: any) => total + parseFloat(item.discount), 0);
+            const tax = items.reduce((total: any, item: any) => total + parseFloat(item.tax), 0);
+            const adjustment = items.reduce((total: any, item: any) => total + parseFloat(item.adjustment), 0);
 
-        const grandTotal = subtotal - discount + tax + adjustment;
+            const grandTotal = subtotal - discount + tax + adjustment;
 
-        setSummary({
-            subtotal,
-            discount,
-            tax,
-            adjustment,
-            grandTotal,
-        });
+            setSummary({
+                subtotal,
+                discount,
+                tax,
+                adjustment,
+                grandTotal,
+            });*/
     };
 
     useEffect(() => {
@@ -153,31 +154,31 @@ const InvoiceItemSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <input name="list_price" type="text"
-                                                       className="form-input min-w-[200px]"
-                                                       defaultValue={item.list_price}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-
-                                            </td>
-                                            <td>
-                                                <input name="amount" type="text" className="form-input min-w-[200px]"
+                                                <input name="amount" type="number" className="form-input min-w-[200px]"
                                                        value={item.amount}
+                                                    // value="tex"
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
                                                 />
                                             </td>
                                             <td>
-                                                <input name="discount" type="text" className="form-input min-w-[200px]"
+                                                <input name="item_discount" type="number"
+                                                       className="form-input min-w-[200px]"
                                                        value={item.discount}
+                                                    // value="tex"
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
                                                 />
                                             </td>
                                             <td>
-                                                <input name="tax" type="text" className="form-input min-w-[200px]"
+                                                <input name="item_tax" type="text" className="form-input min-w-[200px]"
                                                        value={item.tax}
+                                                    // value="tex"
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input name="item_total" type="text"
+                                                       className="form-input min-w-[200px]"
+                                                       defaultValue={item.total}
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
