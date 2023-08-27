@@ -7,14 +7,7 @@ const initState = {
     createRoute: "/invoice/add",
     redirectTo: "/invoice/edit/:id",
     action: "create",
-    name: '',
-    octo_api_id: '',
-    is_active: false,
-    alias_names: '',
-    owner_id: '',
-    vendor_line_card_id: '',
-    vendor_strong_lines_id: '',
-    image: '',
+    items: [],
 
 };
 
