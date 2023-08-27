@@ -23,7 +23,7 @@ const PriceBreakSection = () => {
             [itemIndex]: updatedItem,
         };
 
-        dispatch(updateFormData({items: updatedItems}));
+        dispatch(updateFormData({price_breaks: updatedItems}));
     };
 
 
@@ -36,25 +36,25 @@ const PriceBreakSection = () => {
         let maxId;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
-            id: maxId + 1, name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
+            id: maxId + 1,
+            "cost_3000": '',
+            "cost_1000": '',
+            "cost_500": '',
+            "cost_250": '',
+            "cost_100": '',
+            "cost_25": '',
+            "cost_10": '',
+            "cost_1": '',
         }];
 
         setItems(remainingItems);
-        dispatch(updateFormData({items: remainingItems}));
+        dispatch(updateFormData({price_breaks: remainingItems}));
     };
 
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
-        dispatch(updateFormData({items: remainingItems}));
+        dispatch(updateFormData({price_breaks: remainingItems}));
     };
 
     return (<>
@@ -89,9 +89,9 @@ const PriceBreakSection = () => {
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-                                                    name="d_1"
+                                                    name="cost_1"
                                                     min={0}
-                                                    defaultValue={item.d_1}
+                                                    defaultValue={item.cost_1}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -100,20 +100,9 @@ const PriceBreakSection = () => {
                                                 <input
                                                     type="number"
                                                     className="form-input w-32"
-                                                    name="d_10"
+                                                    name="cost_10"
                                                     min={0}
-                                                    defaultValue={item.d_10}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="number"
-                                                    className="form-input w-32"
-                                                    min={0}
-                                                    name="d_25"
-                                                    defaultValue={item.d_25}
+                                                    defaultValue={item.cost_10}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -123,8 +112,8 @@ const PriceBreakSection = () => {
                                                     type="number"
                                                     className="form-input w-32"
                                                     min={0}
-                                                    name="d_100"
-                                                    defaultValue={item.d_100}
+                                                    name="cost_25"
+                                                    defaultValue={item.cost_25}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -134,8 +123,8 @@ const PriceBreakSection = () => {
                                                     type="number"
                                                     className="form-input w-32"
                                                     min={0}
-                                                    name="d_250"
-                                                    defaultValue={item.d_250}
+                                                    name="cost_100"
+                                                    defaultValue={item.cost_100}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -145,8 +134,8 @@ const PriceBreakSection = () => {
                                                     type="number"
                                                     className="form-input w-32"
                                                     min={0}
-                                                    name="d_500"
-                                                    defaultValue={item.d_500}
+                                                    name="cost_250"
+                                                    defaultValue={item.cost_250}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -156,8 +145,8 @@ const PriceBreakSection = () => {
                                                     type="number"
                                                     className="form-input w-32"
                                                     min={0}
-                                                    name="d_1000"
-                                                    defaultValue={item.d_1000}
+                                                    name="cost_500"
+                                                    defaultValue={item.cost_500}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -167,8 +156,19 @@ const PriceBreakSection = () => {
                                                     type="number"
                                                     className="form-input w-32"
                                                     min={0}
-                                                    name="d_3000"
-                                                    defaultValue={item.d_3000}
+                                                    name="cost_1000"
+                                                    defaultValue={item.cost_1000}
+                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="form-input w-32"
+                                                    min={0}
+                                                    name="cost_3000"
+                                                    defaultValue={item.cost_3000}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
