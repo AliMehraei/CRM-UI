@@ -37,7 +37,6 @@ const List = () => {
         columnAccessor: 'id',
         direction: 'asc',
     });
-
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
@@ -66,10 +65,6 @@ const List = () => {
         }
         setLoading(false);
     };
-
-
-
-
     useEffect(() => {
         fetchDataFilterOption();
     }, []);
@@ -94,7 +89,6 @@ const List = () => {
             option.label.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
-
 
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
@@ -162,7 +156,6 @@ const List = () => {
 
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters', filters);
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
