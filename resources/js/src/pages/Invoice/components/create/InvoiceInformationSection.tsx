@@ -10,7 +10,7 @@ import {
     searchAccounts,
     searchOwners,
     Stages,
-    searchContacts
+    searchContacts, searchSalesOrder
 } from "../../../../components/Functions/CommonFunctions";
 
 const InvoiceInformationSection = () => {
@@ -110,9 +110,9 @@ const InvoiceInformationSection = () => {
                 id="sales_order_id"
                 placeholder="Type at least 2 characters to search..."
                 name="sales_order_id"
-                loadOptions={loadOrders}
+                loadOptions={searchSalesOrder}
                 onChange={({ value }: any) => {
-                    handleChangeField('order_id', value)
+                    handleChangeField('sales_order_id', value)
                 }}
                 className="flex-1"
             />,
