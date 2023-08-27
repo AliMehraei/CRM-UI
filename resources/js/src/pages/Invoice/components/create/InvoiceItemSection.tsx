@@ -160,32 +160,30 @@ const InvoiceItemSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <input name="amount" type="number" className="form-input min-w-[200px]"
-                                                       value={item.amount}
-                                                    // value="tex"
+                                                <input name="amount" type="number"
+                                                       className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                                       value={item.amount} disabled
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="discount" type="number"
-                                                       className="form-input min-w-[200px]"
-                                                       value={item.discount}
-                                                    // value="tex"
+                                                       className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                                       value={item.discount} disabled
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="tax" type="number"
-                                                       className="form-input min-w-[200px]"
-                                                       value={item.tax}
-                                                    // value="tex"
+                                                       className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                                       value={item.tax} disabled
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="total" type="number"
-                                                       className="form-input min-w-[200px]"
-                                                       defaultValue={item.total}
+                                                       className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                                       defaultValue={item.total} disabled
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -231,13 +229,13 @@ const InvoiceItemSection = () => {
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Discount(€)</div>
-                                    <input id="discount" name="discount" type="text" value={summary.discount}
+                                    <input id="discount" name="discount" type="text" value={summary.discount} disabled
                                            className="w-64 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b] cursor-text"
                                     />
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Tax(€)</div>
-                                    <input id="tax" name="tax" type="text" value={summary.tax}
+                                    <input id="tax" name="tax" type="text" value={summary.tax} disabled
                                            className="w-64 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
                                     />
                                 </div>
