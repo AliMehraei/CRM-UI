@@ -81,14 +81,14 @@ const HeaderSection = () => {
                                                    ),
                                                }}
                                                className="flex-1"/>,
-            'Availability File': <div>
+            'Availability File': <div className="flex">
                 <input type="file" name="availability_file" id="availability_file"
                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                        accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
                        onChange={(e) => handleUploadFile(e, (response: any) => {
                            dispatch(updateFormData({'availability_file': `${response?.data.data.file_url}`}));
                        })}/>
-                <a className="btn btn-outline-primary" href={formState.availability_file}>Download</a>
+                <a className="ml-1 btn btn-outline-primary" href={formState.availability_file}>Download</a>
             </div>,
 
             'Availability Source': <Select id="availability_source" name="availability_source" required
