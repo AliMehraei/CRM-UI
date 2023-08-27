@@ -3,6 +3,7 @@ import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
+import EditPencilIcon from "../../../../components/EditPencilIcon";
 
 const InvoiceItemSection = () => {
     const formState = useSelector((state: any) => state.invoiceForm);
@@ -172,18 +173,32 @@ const InvoiceItemSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <input name="discount" type="number"
-                                                       className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
-                                                       value={item.discount} disabled
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-                                                />
+                                                <div className="flex">
+                                                    <input name="discount" type="number"
+                                                           className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                                           value={item.discount} disabled
+                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    />
+                                                    <button type="button"
+                                                            className="btn w-5 h-5 p-0 rounded-full ml-1">
+                                                        <EditPencilIcon/>
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td>
-                                                <input name="tax" type="number"
-                                                       className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
-                                                       value={item.tax} disabled
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-                                                />
+                                                <div className="flex">
+
+                                                    <input name="tax" type="number"
+                                                           className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                                           value={item.tax} disabled
+                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    />
+                                                    <button type="button"
+                                                            className="btn w-5 h-5 p-0 rounded-full ml-1">
+                                                        <EditPencilIcon/>
+
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td>
                                                 <input name="total" type="number"
@@ -234,15 +249,30 @@ const InvoiceItemSection = () => {
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Discount(€)</div>
-                                    <input id="discount" name="discount" type="text" value={summary.discount} disabled
-                                           className="w-64 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b] cursor-text"
-                                    />
+                                    <div className="flex">
+                                        <input id="discount" name="discount" type="text" value={summary.discount}
+                                               disabled
+                                               className="w-56 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b] cursor-text"
+                                        />
+                                        <button type="button"
+                                                className="btn w-5 h-5 p-0 rounded-full ml-1">
+                                            <EditPencilIcon/>
+
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Tax(€)</div>
-                                    <input id="tax" name="tax" type="text" value={summary.tax} disabled
-                                           className="w-64 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
-                                    />
+                                    <div className="flex">
+                                        <input id="tax" name="tax" type="text" value={summary.tax} disabled
+                                               className="w-56 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
+                                        />
+                                        <button type="button"
+                                                className="btn w-5 h-5 p-0 rounded-full ml-1">
+                                            <EditPencilIcon/>
+
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Adjustment(€)</div>
