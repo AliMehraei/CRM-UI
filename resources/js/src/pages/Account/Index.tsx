@@ -422,23 +422,47 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'business_account',
+                                            title: 'Business Account',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ business_account }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                    {business_account === 1 ? '✔' : ''}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'account_owner',
+                                            accessor: 'owner',
+                                            title: 'Account Owner',
                                             sortable: true,
-                                            render: ({ account_owner }) => <div className="font-semibold">{account_owner}</div>,
+                                            render: ({ owner }) => (
+                                                <div className="font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
+                                                </div>
+                                            ),
                                         },
                                         {
-                                            accessor: 'Account Type',
+                                            accessor: 'created_at',
+                                            title: 'Created time',
                                             sortable: true,
-                                            render: ({ account_type }) => <div className="font-semibold">{account_type}</div>,
+                                            render: ({ created_at }) => {
+                                                const date = new Date(created_at);
+                                                const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                                                return (
+                                                    <div className="font-semibold">
+                                                        {formattedDate}
+                                                    </div>
+                                                );
+                                            },
+                                        },
+                                        {
+                                            accessor: 'phone',
+                                            sortable: true,
+                                            render: ({ phone }) => (
+                                                <div className="font-semibold">
+                                                    {phone}
+                                                </div>
+                                            ),
                                         },
                                         {
                                             accessor: 'action',
