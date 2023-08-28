@@ -434,7 +434,7 @@ const List = () => {
                                         {
                                             accessor: 'owner',
                                             title :'Lead Owner',
-                                            sortable: true,
+                                            sortable: false,
                                             render: ({ owner }) => (
                                                 <div className="flex items-center font-semibold">
                                                     {owner ? owner.name : 'No Owner'}

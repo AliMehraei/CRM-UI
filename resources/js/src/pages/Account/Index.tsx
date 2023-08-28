@@ -434,7 +434,7 @@ const List = () => {
                                         {
                                             accessor: 'owner',
                                             title: 'Account Owner',
-                                            sortable: true,
+                                            sortable: false,
                                             render: ({ owner }) => (
                                                 <div className="font-semibold">
                                                     {owner ? owner.name : 'No Owner'}
