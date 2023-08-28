@@ -413,32 +413,39 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'PurchaseOrder Name',
+                                            accessor: 'subject',
                                             sortable: true,
-                                            render: ({ purchaseOrder_name }) => (
+                                            render: ({ subject }) => (
                                                 <NavLink to="/purchase/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${purchaseOrder_name}`}</div>
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                                                 </NavLink>
                                             ),
                                         },
                                         {
-                                            accessor: 'purchaseOrder',
+                                            accessor: 'status',
                                             sortable: true,
-                                            render: ({ purchaseOrder }) => (
+                                            render: ({ status }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {purchaseOrder}
+                                                    {status}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'purchaseOrder_owner',
-                                            sortable: true,
-                                            render: ({ purchaseOrder_owner }) => <div className="font-semibold">{purchaseOrder_owner}</div>,
-                                        },
-                                        {
-                                            accessor: 'purchaseOrder Type',
-                                            sortable: true,
-                                            render: ({ purchaseOrder_type }) => <div className="font-semibold">{purchaseOrder_type}</div>,
+                                            accessor: 'vendor_owner',
+                                            title: 'Purchase Order Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => 
+                                            <div className="font-semibold">
+                                                {owner ? owner.name : '-No Owner-'}
+                                            </div>,
+                                        },  {
+                                            accessor: 'vendor',
+                                            title: 'Vendor Name',
+                                            sortable: false,
+                                            render: ({ vendor }) => 
+                                            <div className="font-semibold">
+                                                {vendor ? vendor.vendor_name : '-No vendor-'}
+                                            </div>,
                                         },
                                         {
                                             accessor: 'action',
