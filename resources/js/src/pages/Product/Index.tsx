@@ -419,14 +419,49 @@ const List = () => {
                                             sortable: true,
                                             render: ({ manufacture }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                    {manufacture ? manufacture.name : 'No manufacture'}
+
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'product_owner',
+                                            accessor: 'owner',
+                                            title :'Product Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => 
+                                            <div className="font-semibold">
+                                                {owner ? owner.name : 'No Owner'}
+                                            </div>,
+                                        },
+                                        {
+                                            accessor: 'product_active',
+                                            title: 'Product Active',
                                             sortable: true,
-                                            render: ({ product_owner }) => <div className="font-semibold">{product_owner}</div>,
+                                            render: ({ product_active }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {product_active === 1 ? '✔' : ''}
+                                                </div>
+                                            ),
+                                        },
+                                        
+                                        {
+                                            accessor: 'created_at',
+                                            title: 'Created time',
+                                            sortable: true,
+                                            render: ({ created_at }) => {
+                                                const date = new Date(created_at);
+                                                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                                const hours = date.getHours();
+                                                const minutes = String(date.getMinutes()).padStart(2, '0');
+                                                const ampm = hours >= 12 ? 'PM' : 'AM';
+                                                const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                                        
+                                                return (
+                                                    <div className="font-semibold">
+                                                        {formattedDate}
+                                                    </div>
+                                                );
+                                            },
                                         },
                                         {
                                             accessor: 'Product Type',

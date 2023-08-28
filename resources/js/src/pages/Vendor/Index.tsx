@@ -422,23 +422,22 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'vendor',
-                                            sortable: true,
-                                            render: ({ vendor }) => (
-                                                <div className="flex items-center font-semibold">
-                                                    {vendor}
-                                                </div>
-                                            ),
-                                        },
-                                        {
                                             accessor: 'vendor_owner',
-                                            sortable: true,
-                                            render: ({ vendor_owner }) => <div className="font-semibold">{vendor_owner}</div>,
+                                            sortable: false,
+                                            render: ({ owner }) => 
+                                            <div className="font-semibold">
+                                                {owner ? owner.name : 'No Owner'}
+                                            </div>,
                                         },
                                         {
-                                            accessor: 'vendor Type',
+                                            accessor: 'phone',
                                             sortable: true,
-                                            render: ({ vendor_type }) => <div className="font-semibold">{vendor_type}</div>,
+                                            render: ({ phone }) => <div className="font-semibold">{phone}</div>,
+                                        },
+                                        {
+                                            accessor: 'website',
+                                            sortable: true,
+                                            render: ({ website }) => <div className="font-semibold">{website}</div>,
                                         },
                                         {
                                             accessor: 'action',
