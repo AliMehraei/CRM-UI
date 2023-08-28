@@ -413,6 +413,16 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
+                                            accessor: 'lead_name',
+                                            title :'Lead Name',
+                                            sortable: false,
+                                            render: ({ first_name ,last_name }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {`${first_name} ${last_name}`}
+                                                </div>
+                                            ),
+                                        },
+                                        {
                                             accessor: 'company',
                                             sortable: true,
                                             render: ({ company }) => (
@@ -422,23 +432,23 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'lead',
-                                            sortable: true,
-                                            render: ({ lead }) => (
+                                            accessor: 'owner',
+                                            title :'Lead Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {lead}
+                                                    {owner ? owner.name : 'No Owner'}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'lead_owner',
+                                            accessor: 'email',
                                             sortable: true,
-                                            render: ({ lead_owner }) => <div className="font-semibold">{lead_owner}</div>,
-                                        },
-                                        {
-                                            accessor: 'lead Type',
-                                            sortable: true,
-                                            render: ({ lead_type }) => <div className="font-semibold">{lead_type}</div>,
+                                            render: ({ email }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {email}
+                                                </div>
+                                            ),
                                         },
                                         {
                                             accessor: 'action',

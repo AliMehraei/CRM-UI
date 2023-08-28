@@ -413,7 +413,8 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'Sales Order subject',
+                                            accessor: 'subject',
+                                            title: 'Sales Order subject',
                                             sortable: true,
                                             render: ({ subject }) => (
                                                 <NavLink to="/sales/preview">
@@ -422,23 +423,23 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'salesOrder',
+                                            accessor: 'status',
                                             sortable: true,
-                                            render: ({ salesOrder }) => (
+                                            render: ({ status }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {salesOrder}
+                                                    {status}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'salesOrder_owner',
-                                            sortable: true,
-                                            render: ({ salesOrder_owner }) => <div className="font-semibold">{salesOrder_owner}</div>,
-                                        },
-                                        {
-                                            accessor: 'salesOrder Type',
-                                            sortable: true,
-                                            render: ({ salesOrder_type }) => <div className="font-semibold">{salesOrder_type}</div>,
+                                            accessor: 'owner',
+                                            title :'Sale Order Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
+                                                </div>
+                                            ),
                                         },
                                         {
                                             accessor: 'action',

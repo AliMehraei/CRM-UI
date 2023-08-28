@@ -422,23 +422,35 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'quote_stage',
+                                            title :'Quote Stage',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ quote_stage }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                    {quote_stage}
+                                                </div>
+                                            ),
+                                        },
+                                        
+                                        {
+                                            accessor: 'owner',
+                                            title :'Quote Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'quote_owner',
-                                            sortable: true,
-                                            render: ({ quote_owner }) => <div className="font-semibold">{quote_owner}</div>,
-                                        },
-                                        {
-                                            accessor: 'Quote Type',
-                                            sortable: true,
-                                            render: ({ quote_type }) => <div className="font-semibold">{quote_type}</div>,
+                                            accessor: 'account',
+                                            title :'Account Name',
+                                            sortable: false,
+                                            render: ({ account }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {account ? account.account_name : 'No Account'}
+                                                </div>
+                                            ),
                                         },
                                         {
                                             accessor: 'action',

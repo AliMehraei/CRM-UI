@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
 import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
-import EditPencilIcon from "../../../../components/EditPencilIcon";
+import PopoverComponent from "./PopoverComponent";
 
 const InvoiceItemSection = () => {
-    const formState = useSelector((state: any) => state.invoiceForm);
+    const dispatch = useDispatch();
     const [summary, setSummary] = useState({
+        amount: 0,
         subtotal: 0,
         discount: 0,
         tax: 0,
@@ -28,7 +29,6 @@ const InvoiceItemSection = () => {
             total: null,
         },
     ]);
-    const dispatch = useDispatch();
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {...items.find((item: any) => item.id === id)};
         updatedItem[field] = value;
@@ -45,12 +45,11 @@ const InvoiceItemSection = () => {
         );
         setItems(updatedItems);
         dispatch(updateFormData({items: updatedItems}));
-        updateSummary();
     };
 
 
     const addItem = () => {
-        let maxId = 0;
+        let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
 
         setItems([...items, {
@@ -67,6 +66,21 @@ const InvoiceItemSection = () => {
 
     };
 
+    const handleChangeSummary = (field: string, value: any) => {
+        const updatedSummaries: any = {...summary}
+        updatedSummaries[field] = parseFloat(value);
+
+        updatedSummaries.grandTotal =
+            (updatedSummaries.subtotal - updatedSummaries.discount) + updatedSummaries.tax + updatedSummaries.adjustment;
+
+        setSummary(updatedSummaries);
+    }
+
+    useEffect(() => {
+
+        dispatch(updateFormData({summary: summary}));
+
+    }, [summary]);
 
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
@@ -74,20 +88,18 @@ const InvoiceItemSection = () => {
 
     const updateSummary = () => {
         const subtotal = items.reduce((total: number, item: any) =>
-            total + (parseFloat(item.amount) || 0), 0);
+            total + (parseFloat(item.total) || 0), 0);
+        const amount = subtotal;
+        const discount = summary.discount;
 
-        const discount = items.reduce((total: number, item: any) =>
-            total + (parseFloat(item.discount) || 0), 0);
+        const tax = summary.tax;
 
-        const tax = items.reduce((total: number, item: any) =>
-            total + (parseFloat(item.tax) || 0), 0);
-
-        const adjustment = items.reduce((total: number, item: any) =>
-            total + (parseFloat(item.adjustment) || 0), 0);
+        const adjustment = summary.adjustment;
 
         const grandTotal = subtotal - discount + tax + adjustment;
 
         setSummary({
+            amount,
             subtotal,
             discount,
             tax,
@@ -179,10 +191,9 @@ const InvoiceItemSection = () => {
                                                            value={item.discount} disabled
                                                            onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     />
-                                                    <button type="button"
-                                                            className="btn w-5 h-5 p-0 rounded-full ml-1">
-                                                        <EditPencilIcon/>
-                                                    </button>
+                                                    <PopoverComponent item={item}
+                                                                      handleChangeField={handleChangeField}
+                                                                      field={"discount"}/>
                                                 </div>
                                             </td>
                                             <td>
@@ -193,11 +204,9 @@ const InvoiceItemSection = () => {
                                                            value={item.tax} disabled
                                                            onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     />
-                                                    <button type="button"
-                                                            className="btn w-5 h-5 p-0 rounded-full ml-1">
-                                                        <EditPencilIcon/>
-
-                                                    </button>
+                                                    <PopoverComponent item={item}
+                                                                      handleChangeField={handleChangeField}
+                                                                      field={"tax"}/>
                                                 </div>
                                             </td>
                                             <td>
@@ -254,11 +263,9 @@ const InvoiceItemSection = () => {
                                                disabled
                                                className="w-56 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b] cursor-text"
                                         />
-                                        <button type="button"
-                                                className="btn w-5 h-5 p-0 rounded-full ml-1">
-                                            <EditPencilIcon/>
-
-                                        </button>
+                                        <PopoverComponent item={summary}
+                                                          handleChangeField={handleChangeSummary}
+                                                          field={"discount"}/>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
@@ -267,16 +274,15 @@ const InvoiceItemSection = () => {
                                         <input id="tax" name="tax" type="text" value={summary.tax} disabled
                                                className="w-56 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
                                         />
-                                        <button type="button"
-                                                className="btn w-5 h-5 p-0 rounded-full ml-1">
-                                            <EditPencilIcon/>
-
-                                        </button>
+                                        <PopoverComponent item={summary}
+                                                          handleChangeField={handleChangeSummary}
+                                                          field={"tax"}/>
                                     </div>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Adjustment(€)</div>
                                     <input id="adjustment" name="adjustment" type="text" value={summary.adjustment}
+                                           onChange={(e) => handleChangeSummary(e.target.name, e.target.value)}
                                            className="w-64 form-input "
                                     />
                                 </div>

@@ -414,31 +414,41 @@ const List = () => {
                                         },
                                         {
                                             accessor: 'contact_name',
-                                            sortable: true,
-                                            render: ({ contact_name }) => (
+                                            sortable: false,
+                                            render: ({ first_name ,last_name }) => (
                                                 <NavLink to="/contact/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${contact_name}`}</div>
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${first_name} ${last_name}`}</div>
                                                 </NavLink>
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'email',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ email }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                    {email}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'contact_owner',
-                                            sortable: true,
-                                            render: ({ contact_owner }) => <div className="font-semibold">{contact_owner}</div>,
+                                            accessor: 'owner',
+                                            title :'Contact Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
+                                                </div>
+                                            ),
                                         },
                                         {
-                                            accessor: 'Contact Type',
-                                            sortable: true,
-                                            render: ({ contact_type }) => <div className="font-semibold">{contact_type}</div>,
+                                            accessor: 'account',
+                                            title :'Account Name',
+                                            sortable: false,
+                                            render: ({ account }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {account ? account.account_name : 'No Account'}
+                                                </div>
+                                            ),
                                         },
                                         {
                                             accessor: 'action',

@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 
 const TermsAndConditionsSection = () => {
-    const formState = useSelector((state: any) => state.quoteform);
+    const formState = useSelector((state: any) => state.quoteForm);
 
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
