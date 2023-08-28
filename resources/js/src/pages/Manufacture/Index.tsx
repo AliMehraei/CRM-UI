@@ -435,7 +435,7 @@ const List = () => {
                                             sortable: true,
                                             render: ({ owner }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {owner.name}
+                                                    {owner ? owner.name : 'No Owner'}
                                                 </div>
                                             ),
                                         },
