@@ -41,7 +41,8 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await api_instance.filterOptionRfq();
+            // const res = await api_instance.filterOptionRfq();
+            const res = await api_instance.filterOptionContact();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
@@ -422,18 +423,49 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'created_at',
+                                            title: 'Created time',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ created_at }) => {
+                                                const date = new Date(created_at);
+                                                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                                const hours = date.getHours();
+                                                const minutes = String(date.getMinutes()).padStart(2, '0');
+                                                const ampm = hours >= 12 ? 'PM' : 'AM';
+                                                const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                                        
+                                                return (
+                                                    <div className="font-semibold">
+                                                        {formattedDate}
+                                                    </div>
+                                                );
+                                            },
+                                        },
+                                        
+                                        {
+                                            accessor: 'status',
+                                            sortable: true,
+                                            render: ({ status }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                    {status}
+                                                </div>
+                                            ),
+                                        },
+
+                                        {
+                                            accessor: 'owner',
+                                            title :'Quote Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => (
+                                                <div className="flex items-center font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'rfq_owner',
+                                            accessor: 'target_price',
                                             sortable: true,
-                                            render: ({ rfq_owner }) => <div className="font-semibold">{rfq_owner}</div>,
+                                            render: ({ target_price,currency }) => <div className="font-semibold">{`${target_price} ${currency}`}</div>,
                                         },
                                         {
                                             accessor: 'Rfq Type',

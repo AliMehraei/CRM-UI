@@ -11,7 +11,7 @@ import LoadingAlpyn from "../../components/LoadingAlpyn";
 
 const Edit = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.quoteform);
+    const formState = useSelector((state: any) => state.quoteForm);
 
     const [loading, setLoading] = useState(true);
     const params = useParams();

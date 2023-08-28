@@ -1,10 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/quoteFormSlice";
+import {updateFormData} from "../../../../store/invoiceFormSlice";
 
 const TermsAndConditionsSection = () => {
-    const formState = useSelector((state: any) => state.quoteForm);
-
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.invoiceForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
@@ -14,14 +14,15 @@ const TermsAndConditionsSection = () => {
             <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                 <div key="Terms and Conditions" className="">
                     <div className="text-lg">Terms and Conditions :</div>
-                    <div key="terms_conditions" className="mt-4 flex items-center">
+                    <div key="terms_and_conditions" className="mt-4 flex items-center">
                         <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0">
                             Terms and Conditions
                         </label>
-                        <textarea id="terms_conditions" rows={3} name="terms_conditions"
+                        <textarea id="terms_and_conditions" rows={3} name="terms_conditions"
                                   className="form-textarea flex-1"
-                                  defaultValue={formState.terms_conditions}
-                                  placeholder="" onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  value={formState.terms_conditions}
+                                  placeholder=""></textarea>
                     </div>
                 </div>
             </div>
