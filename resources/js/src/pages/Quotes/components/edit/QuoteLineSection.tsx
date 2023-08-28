@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const QuoteLineSection = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.quoteform);
+    const formState = useSelector((state: any) => state.quoteForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));

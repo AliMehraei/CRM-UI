@@ -11,7 +11,7 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 
 const HeaderSection = () => {
-    const formState = useSelector((state: any) => state.quoteform);
+    const formState = useSelector((state: any) => state.quoteForm);
     const dispatch = useDispatch();
 
     const QuoteChances = [

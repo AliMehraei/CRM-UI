@@ -43,9 +43,9 @@ const InvoiceInformationSection = () => {
             />,
             'Subject': (
                 <input
-                    id="name"
+                    id="subject"
                     required
-                    name="name"
+                    name="subject"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
@@ -125,7 +125,7 @@ const InvoiceInformationSection = () => {
             'Deal Stage': <Select
                 name="deal_stage"
                 id="deal_stage"
-                placeholder="Select Product Type..."
+                placeholder=""
                 options={Stages}
                 onChange={({ value }: any) => {
                     handleChangeField('deal_stage', value)
@@ -142,7 +142,7 @@ const InvoiceInformationSection = () => {
             'Status': <Select
                 name="status"
                 id="status"
-                placeholder="Select Product Type..."
+                placeholder=""
                 options={Statuses}
                 onChange={({ value }: any) => {
                     handleChangeField('status', value)

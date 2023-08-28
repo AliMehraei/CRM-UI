@@ -9,7 +9,7 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 
 const Add = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.quoteform);
+    const formState = useSelector((state: any) => state.quoteForm);
 
     useEffect(() => {
         dispatch(setPageTitle('Quotes Add'));

@@ -6,7 +6,7 @@ import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 
 const QuoteItemSection = () => {
-    const formState = useSelector((state: any) => state.quoteform);
+    const formState = useSelector((state: any) => state.quoteForm);
     const dispatch = useDispatch();
     const [items, setItems] = useState<any>([]);
     const handleChangeField = (field: string, value: any, id: string) => {
