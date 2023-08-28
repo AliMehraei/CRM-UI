@@ -43,9 +43,9 @@ const InvoiceInformationSection = () => {
             />,
             'Subject': (
                 <input
-                    id="name"
+                    id="subject"
                     required
-                    name="name"
+                    name="subject"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
