@@ -1,42 +1,98 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useRef, useState} from "react";
 import {Popover, Transition} from "@headlessui/react";
+import EditPencilIcon from "../../../../components/EditPencilIcon";
 
+const PopoverComponent = ({item, field, handleChangeField}: any) => {
+    const [isPercentage, setIsPercentage] = useState(true);
+    const buttonRef = useRef<HTMLButtonElement | null>(null); // Set the correct type for the ref
+    const percentageRef = useRef<HTMLInputElement | null>(null); // Set the correct type for the ref
+    const directRef = useRef<HTMLInputElement | null>(null); // Set the correct type for the ref
 
-const solutions = [
-    {
-        name: 'Insights',
-        description: 'Measure actions your users take',
-        href: '##',
-        icon: IconThree,
-    },
-    {
-        name: 'Automations',
-        description: 'Create your own targeted content',
-        href: '##',
-        icon: IconThree,
-    },
-    {
-        name: 'Reports',
-        description: 'Keep track of your growth',
-        href: '##',
-        icon: IconThree,
-    },
-]
-const popoverComponent = () => {
+    const handleChangeType = () => {
+        setIsPercentage((prevState) => !prevState)
+    }
+    const handleSubmit = () => {
+        let value;
+        if (isPercentage) {
+            value = (percentageRef.current ? parseFloat(percentageRef.current?.value) : 0) / 100 * item.amount;
+        } else {
+            value = (directRef.current ? parseFloat(directRef.current?.value) : 0)
+        }
+        handleChangeField(field, value, item.id);
+
+        buttonRef.current?.click();
+
+    }
+
     return (
         <>
-            <div data-headlessui-state="open">
-                <button data-headlessui-state="open">Solutions</button>
-                <div data-headlessui-state="open">
-                    <a href="/insights">Insights</a>
-                    <a href="/automations">Automations</a>
-                    <a href="/reports">Reports</a>
-                </div>
-            </div>
+            <Popover className="relative">
+                {({open}) => (
+                    <>
+                        <Popover.Button ref={buttonRef} className="btn w-5 h-5 p-0 rounded-full ml-1">
+
+                            <EditPencilIcon/>
+                        </Popover.Button>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-200"
+                            enterFrom="opacity-0 translate-y-1"
+                            enterTo="opacity-100 translate-y-0"
+                            leave="transition ease-in duration-150"
+                            leaveFrom="opacity-100 translate-y-0"
+                            leaveTo="opacity-0 translate-y-1"
+                        >
+                            <Popover.Panel
+                                className="absolute left-1/2 z-10 mt-3  max-w-sm -translate-x-1/2 transform px-4 sm:px-0 w-80">
+                                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ">
+                                    <div className="relative grid gap-8 bg-white p-7 w-full">
+                                        <div className="flex gap-3">
+                                            <label className="inline-block">
+                                                <input checked={isPercentage} type="radio" name="type"
+                                                       className="form-radio" onChange={handleChangeType}
+                                                />
+                                                <span>Percentage</span>
+                                            </label>
+                                            <input name="total"
+                                                   ref={percentageRef}
+                                                   hidden={!isPercentage}
+                                                   className="form-input mx-2 w-20  h-8  cursor-text"
+                                            />
+                                        </div>
+                                        <div className="block gap-3">
+                                            <label className="inline-block">
+                                                <input
+                                                    checked={!isPercentage}
+                                                    type="radio"
+                                                    name="type"
+                                                    className="form-radio"
+                                                    onChange={handleChangeType}/>
+                                                <span className="">Direct Price Reduction</span>
+                                            </label>
+                                            <input
+                                                ref={directRef}
+                                                name="total"
+                                                hidden={isPercentage}
+                                                className="form-input mx-2 w-20 h-8 cursor-text"
+                                            />
+                                        </div>
+                                        <div className="flex gap-3">
+                                            <button className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+                                            <button className="btn btn-warning"
+                                                    onClick={() => buttonRef.current?.click()}>Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Popover.Panel>
+                        </Transition>
+                    </>
+                )}
+            </Popover>
         </>
     )
 }
-export default popoverComponent;
+export default PopoverComponent;
 
 function IconThree() {
     return (
