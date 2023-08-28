@@ -432,7 +432,7 @@ const List = () => {
                                         },
                                         {
                                             accessor: 'owner',
-                                            title :'Lead Owner',
+                                            title :'Contact Owner',
                                             sortable: false,
                                             render: ({ owner }) => (
                                                 <div className="flex items-center font-semibold">
