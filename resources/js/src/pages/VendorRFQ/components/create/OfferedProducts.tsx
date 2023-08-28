@@ -2,8 +2,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/vendorRfqFormSlice";
 import AsyncSelect from "react-select/async";
-import {searchManufacture, searchProducts, searchRFQ} from "../../../../components/Functions/CommonFunctions";
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
+import {searchManufacture, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 
 const OfferedProductsSection = () => {
@@ -46,7 +45,7 @@ const OfferedProductsSection = () => {
         }];
 
         setItems(remainingItems);
-        dispatch(updateFormData({items: remainingItems}));
+        dispatch(updateFormData({offered_products: remainingItems}));
 
     };
 
@@ -59,9 +58,9 @@ const OfferedProductsSection = () => {
 
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.items;
+        const {[item.id]: _, ...remainingItems} = formState.offered_products;
 
-        dispatch(updateFormData({items: remainingItems}));
+        dispatch(updateFormData({offered_products: remainingItems}));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -117,6 +116,18 @@ const OfferedProductsSection = () => {
                                                        className="form-input min-w-[200px]"
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.quantity}/>
+                                            </td>
+                                            <td>
+                                                <input name="price" type="text"
+                                                       className="form-input min-w-[200px]"
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       defaultValue={item.price}/>
+                                            </td>
+                                            <td>
+                                                <input name="dc" type="text"
+                                                       className="form-input min-w-[200px]"
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       defaultValue={item.dc}/>
                                             </td>
                                             <td>
                                                 <Select options={LeadTimeDemands}

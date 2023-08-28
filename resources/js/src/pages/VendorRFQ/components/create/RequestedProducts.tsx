@@ -12,29 +12,21 @@ const RequestedProductsSection = () => {
 
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
-            ...formState.items[id],
+            ...formState.requested_products[id],
             [field]: value,
         };
 
         const updatedItems = {
-            ...formState.items,
+            ...formState.requested_products,
             [id]: updatedItem,
         };
 
-        dispatch(updateFormData({items: updatedItems}));
+        dispatch(updateFormData({requested_products: updatedItems}));
     };
     const [items, setItems] = useState<any>([
         {
             id: 1,
-            name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
+
         },
     ]);
 
@@ -42,19 +34,11 @@ const RequestedProductsSection = () => {
         let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
-            id: maxId + 1, name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
+            id: maxId + 1,
         }];
 
         setItems(remainingItems);
-        dispatch(updateFormData({items: remainingItems}));
+        dispatch(updateFormData({requested_products: remainingItems}));
 
     };
 
@@ -67,9 +51,9 @@ const RequestedProductsSection = () => {
 
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.items;
+        const {[item.id]: _, ...remainingItems} = formState.requested_products;
 
-        dispatch(updateFormData({items: remainingItems}));
+        dispatch(updateFormData({requested_products: remainingItems}));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -204,4 +188,4 @@ const RequestedProductsSection = () => {
     </>)
 }
 
-    export default RequestedProductsSection;
+export default RequestedProductsSection;
