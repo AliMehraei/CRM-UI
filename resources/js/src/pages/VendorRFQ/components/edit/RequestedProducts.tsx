@@ -11,14 +11,17 @@ const RequestedProductsSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: string, value: any, id: string) => {
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
         const updatedItem = {
-            ...formState.requested_products[id],
+            ...updatingItem,
             [field]: value,
         };
 
         const updatedItems = {
-            ...formState.requested_products,
-            [id]: updatedItem,
+            ...items,
+            [itemIndex]: updatedItem,
         };
 
         dispatch(updateFormData({requested_products: updatedItems}));
