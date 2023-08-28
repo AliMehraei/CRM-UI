@@ -49,10 +49,11 @@ const OfferedProductsSection = () => {
 
     const removeItem = (item: any = null) => {
         setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.offered_products;
-
+        const dataArray = Object.values(formState.offered_products);
+        const remainingItems = dataArray.filter((data: any) => data.id !== item.id);
         dispatch(updateFormData({offered_products: remainingItems}));
     };
+
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12 ">
