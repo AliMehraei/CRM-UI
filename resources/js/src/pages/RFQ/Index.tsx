@@ -41,8 +41,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            // const res = await api_instance.filterOptionRfq();
-            const res = await api_instance.filterOptionContact();
+            const res = await api_instance.filterOptionRfq();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
