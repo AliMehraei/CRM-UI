@@ -1,8 +1,9 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 
 const DescriptionInformationSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.invoiceForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -20,6 +21,7 @@ const DescriptionInformationSection = () => {
                         <textarea id="description" rows={3} name="description"
                                   className="form-textarea flex-1"
                                   onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  value={formState.description}
                                   placeholder=""></textarea>
                     </div>
                 </div>
