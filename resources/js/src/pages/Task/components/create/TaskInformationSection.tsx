@@ -93,16 +93,17 @@ const TaskInformationSection = () => {
                 className="flex-1"
                 />
             ),
-            'Reminder':(
+            'Repeat':(
                 <input
-                id="reminder"
+                id="repeat"
                 type="checkbox"
-                name="reminder"
+                name="repeat"
+                disabled
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
                 />
-            ),
-
+            )
+            
         },
         'Description Information': {
             'Description': (
