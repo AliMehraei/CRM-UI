@@ -413,6 +413,25 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
+                                        accessor: 'created_at',
+                                        title: 'Created time',
+                                        sortable: true,
+                                        render: ({ created_at }) => {
+                                            const date = new Date(created_at);
+                                            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                            const hours = date.getHours();
+                                            const minutes = String(date.getMinutes()).padStart(2, '0');
+                                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                                            const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                                    
+                                            return (
+                                                <div className="font-semibold">
+                                                    {formattedDate}
+                                                </div>
+                                            );
+                                        },
+                                    },
+                                        {
                                             accessor: 'availability_name',
                                             sortable: true,
                                             render: ({ availability_name }) => (
@@ -422,18 +441,31 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
-                                            sortable: true,
-                                            render: ({ manufacture }) => (
+                                            accessor: 'vendor',
+                                            sortable: false,
+                                            render: ({ vendor }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture}
+                                                {vendor ? vendor.vendor_name : '-No vendor-'}
                                                 </div>
                                             ),
                                         },
                                         {
-                                            accessor: 'availability_owner',
-                                            sortable: true,
-                                            render: ({ availability_owner }) => <div className="font-semibold">{availability_owner}</div>,
+                                            accessor: 'owner',
+                                            sortable: false,
+                                            render: ({ owner }) => (
+                                                <div className="flex items-center font-semibold">
+                                                {owner ? owner.name : '-No owner-'}
+                                                </div>
+                                            ), 
+                                        },
+                                        {
+                                            accessor: 'product',
+                                            sortable: false,
+                                            render: ({ product }) => (
+                                                <div className="flex items-center font-semibold">
+                                                {product ? product.product_name : '-No product-'}
+                                                </div>
+                                            ), 
                                         },
                                         {
                                             accessor: 'Availability Type',

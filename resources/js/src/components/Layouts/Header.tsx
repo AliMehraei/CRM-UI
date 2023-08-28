@@ -111,9 +111,17 @@ const Header = () => {
             <div className="shadow-sm">
                 <div className="relative bg-white flex w-full items-center px-5 py-2.5 dark:bg-black">
                     <div className="horizontal-logo flex lg:hidden justify-between items-center ltr:mr-2 rtl:ml-2">
+
                         <Link to="/" className="main-logo flex items-center shrink-0">
-                            <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo.webp" alt="logo" />
+                            {themeConfig.isDarkMode ? (
+                                <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo-light.webp" alt="logo" />
+                            ) : (
+                                <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo.webp" alt="logo" />
+                            )}                            
                         </Link>
+
+
+
                         <button
                             type="button"
                             className="collapse-icon flex-none dark:text-[#d0d2d6] hover:text-primary dark:hover:text-primary flex lg:hidden ltr:ml-2 rtl:mr-2 p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:bg-white-light/90 dark:hover:bg-dark/60"
@@ -131,7 +139,7 @@ const Header = () => {
 
                     <div className="ltr:mr-2 rtl:ml-2 hidden sm:block">
                         <ul className="flex items-center space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
-                          
+
                             <li>
                                 <Link to="/todolist" className="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,7 +164,7 @@ const Header = () => {
                                     </svg>
                                 </Link>
                             </li>
-                            
+
                         </ul>
                     </div>
                     <div className="sm:flex-1 ltr:sm:ml-0 ltr:ml-auto sm:rtl:mr-0 rtl:mr-auto flex items-center space-x-1.5 lg:space-x-2 rtl:space-x-reverse dark:text-[#d0d2d6]">
@@ -198,24 +206,23 @@ const Header = () => {
                         </div>
                         <div className="dropdown shrink-0">
                             <button className="flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
-                            
-                                
+
+
                                 <Link to="/app/setting" >
                                     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-                                        <g id="Layer_65" data-name="Layer 65"><path d="M32,21.54A10.47,10.47,0,0,0,21.54,32c.57,13.88,20.35,13.88,20.92,0A10.47,10.47,0,0,0,32,21.54Zm0,17.92A7.46,7.46,0,0,1,24.54,32c.35-9.88,14.58-9.88,14.92,0A7.46,7.46,0,0,1,32,39.46Z"/><path d="M53.94,26.57H50.72a18.83,18.83,0,0,0-1.65-4l2.28-2.28a1.49,1.49,0,0,0,0-2.12l-5.56-5.56a1.49,1.49,0,0,0-2.12,0l-2.28,2.28a18.83,18.83,0,0,0-4-1.65V10.06a1.5,1.5,0,0,0-1.5-1.5H28.07a1.5,1.5,0,0,0-1.5,1.5v3.22a18.83,18.83,0,0,0-4,1.65l-2.28-2.28a1.49,1.49,0,0,0-2.12,0l-5.56,5.56a1.49,1.49,0,0,0,0,2.12l2.28,2.28a18.83,18.83,0,0,0-1.65,4H10.06a1.5,1.5,0,0,0-1.5,1.5v7.86a1.5,1.5,0,0,0,1.5,1.5h3.22a18.83,18.83,0,0,0,1.65,4l-2.28,2.28a1.49,1.49,0,0,0,0,2.12l5.56,5.56a1.49,1.49,0,0,0,2.12,0l2.28-2.28a18.83,18.83,0,0,0,4,1.65v3.22a1.5,1.5,0,0,0,1.5,1.5h7.86a1.5,1.5,0,0,0,1.5-1.5V50.72a18.83,18.83,0,0,0,4-1.65l2.28,2.28a1.49,1.49,0,0,0,2.12,0l5.56-5.56a1.49,1.49,0,0,0,0-2.12l-2.28-2.28a18.83,18.83,0,0,0,1.65-4h3.22a1.5,1.5,0,0,0,1.5-1.5V28.07A1.5,1.5,0,0,0,53.94,26.57Zm-1.5,7.86H49.56l-.13,0a1.51,1.51,0,0,0-1.33,1.16,17.07,17.07,0,0,1-2.28,5.45,1.55,1.55,0,0,0,0,1.16,22.12,22.12,0,0,0,2.36,2.51l-3.44,3.44-2-2a1.53,1.53,0,0,0-1.89-.22,15.85,15.85,0,0,1-5.22,2.17,1.53,1.53,0,0,0-1.18,1.49v2.85H29.57V49.59a1.54,1.54,0,0,0-.91-1.4,17,17,0,0,1-5.49-2.26,1.53,1.53,0,0,0-1.89.22l-2,2-3.44-3.44,2-2a1.54,1.54,0,0,0,.22-1.89,17,17,0,0,1-2.26-5.49,1.51,1.51,0,0,0-1.4-.91H11.56V29.57a25.3,25.3,0,0,0,3.4-.1,1.52,1.52,0,0,0,.93-1.06,16.19,16.19,0,0,1,2.18-5.24,1.54,1.54,0,0,0-.22-1.89l-2-2,3.44-3.44,2,2a1.54,1.54,0,0,0,1.87.21,17,17,0,0,1,5.49-2.26,1.54,1.54,0,0,0,.91-1.4V11.56h4.86v2.85a1.54,1.54,0,0,0,.91,1.4,17,17,0,0,1,5.49,2.26,1.54,1.54,0,0,0,1.87-.21l2-2,3.44,3.44a23,23,0,0,0-2.36,2.51,1.55,1.55,0,0,0,0,1.16,17.07,17.07,0,0,1,2.28,5.45,1.54,1.54,0,0,0,1.46,1.18h2.88Z"/></g>
+                                        <g id="Layer_65" data-name="Layer 65"><path d="M32,21.54A10.47,10.47,0,0,0,21.54,32c.57,13.88,20.35,13.88,20.92,0A10.47,10.47,0,0,0,32,21.54Zm0,17.92A7.46,7.46,0,0,1,24.54,32c.35-9.88,14.58-9.88,14.92,0A7.46,7.46,0,0,1,32,39.46Z" /><path d="M53.94,26.57H50.72a18.83,18.83,0,0,0-1.65-4l2.28-2.28a1.49,1.49,0,0,0,0-2.12l-5.56-5.56a1.49,1.49,0,0,0-2.12,0l-2.28,2.28a18.83,18.83,0,0,0-4-1.65V10.06a1.5,1.5,0,0,0-1.5-1.5H28.07a1.5,1.5,0,0,0-1.5,1.5v3.22a18.83,18.83,0,0,0-4,1.65l-2.28-2.28a1.49,1.49,0,0,0-2.12,0l-5.56,5.56a1.49,1.49,0,0,0,0,2.12l2.28,2.28a18.83,18.83,0,0,0-1.65,4H10.06a1.5,1.5,0,0,0-1.5,1.5v7.86a1.5,1.5,0,0,0,1.5,1.5h3.22a18.83,18.83,0,0,0,1.65,4l-2.28,2.28a1.49,1.49,0,0,0,0,2.12l5.56,5.56a1.49,1.49,0,0,0,2.12,0l2.28-2.28a18.83,18.83,0,0,0,4,1.65v3.22a1.5,1.5,0,0,0,1.5,1.5h7.86a1.5,1.5,0,0,0,1.5-1.5V50.72a18.83,18.83,0,0,0,4-1.65l2.28,2.28a1.49,1.49,0,0,0,2.12,0l5.56-5.56a1.49,1.49,0,0,0,0-2.12l-2.28-2.28a18.83,18.83,0,0,0,1.65-4h3.22a1.5,1.5,0,0,0,1.5-1.5V28.07A1.5,1.5,0,0,0,53.94,26.57Zm-1.5,7.86H49.56l-.13,0a1.51,1.51,0,0,0-1.33,1.16,17.07,17.07,0,0,1-2.28,5.45,1.55,1.55,0,0,0,0,1.16,22.12,22.12,0,0,0,2.36,2.51l-3.44,3.44-2-2a1.53,1.53,0,0,0-1.89-.22,15.85,15.85,0,0,1-5.22,2.17,1.53,1.53,0,0,0-1.18,1.49v2.85H29.57V49.59a1.54,1.54,0,0,0-.91-1.4,17,17,0,0,1-5.49-2.26,1.53,1.53,0,0,0-1.89.22l-2,2-3.44-3.44,2-2a1.54,1.54,0,0,0,.22-1.89,17,17,0,0,1-2.26-5.49,1.51,1.51,0,0,0-1.4-.91H11.56V29.57a25.3,25.3,0,0,0,3.4-.1,1.52,1.52,0,0,0,.93-1.06,16.19,16.19,0,0,1,2.18-5.24,1.54,1.54,0,0,0-.22-1.89l-2-2,3.44-3.44,2,2a1.54,1.54,0,0,0,1.87.21,17,17,0,0,1,5.49-2.26,1.54,1.54,0,0,0,.91-1.4V11.56h4.86v2.85a1.54,1.54,0,0,0,.91,1.4,17,17,0,0,1,5.49,2.26,1.54,1.54,0,0,0,1.87-.21l2-2,3.44,3.44a23,23,0,0,0-2.36,2.51,1.55,1.55,0,0,0,0,1.16,17.07,17.07,0,0,1,2.28,5.45,1.54,1.54,0,0,0,1.46,1.18h2.88Z" /></g>
                                     </svg>
                                 </Link>
-                                
-                                
+
+
                             </button>
                         </div>
                         <div>
                             {themeConfig.theme === 'light' ? (
                                 <button
-                                    className={`${
-                                        themeConfig.theme === 'light' &&
+                                    className={`${themeConfig.theme === 'light' &&
                                         'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
-                                    }`}
+                                        }`}
                                     onClick={() => {
                                         setTheme('dark');
                                         dispatch(toggleTheme('dark'));
@@ -238,10 +245,9 @@ const Header = () => {
                             )}
                             {themeConfig.theme === 'dark' && (
                                 <button
-                                    className={`${
-                                        themeConfig.theme === 'dark' &&
+                                    className={`${themeConfig.theme === 'dark' &&
                                         'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
-                                    }`}
+                                        }`}
                                     onClick={() => {
                                         setTheme('system');
                                         dispatch(toggleTheme('system'));
@@ -257,10 +263,9 @@ const Header = () => {
                             )}
                             {themeConfig.theme === 'system' && (
                                 <button
-                                    className={`${
-                                        themeConfig.theme === 'system' &&
+                                    className={`${themeConfig.theme === 'system' &&
                                         'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
-                                    }`}
+                                        }`}
                                     onClick={() => {
                                         setTheme('light');
                                         dispatch(toggleTheme('light'));
@@ -278,7 +283,7 @@ const Header = () => {
                                 </button>
                             )}
                         </div>
-                      
+
                         <div className="dropdown shrink-0">
                             <Dropdown
                                 offset={[0, 8]}
@@ -613,9 +618,9 @@ const Header = () => {
 
                 {/* horizontal menu */}
                 <ul className="horizontal-menu hidden py-1.5 font-semibold px-4 lg:space-x-1.5 xl:space-x-4 rtl:space-x-reverse bg-white border-t border-[#ebedf2] dark:border-[#191e3a] dark:bg-black text-black dark:text-white-dark">
-                    
+
                     <li className="menu nav-item relative">
-                        <NavLink to="/"className="nav-link">
+                        <NavLink to="/" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -630,61 +635,61 @@ const Header = () => {
                                 </svg>
                                 <span className="px-1">{t('dashboard')}</span>
                             </div>
-                           
+
                         </NavLink>
-                    
+
                     </li>
-                    <li className="menu nav-item relative"> 
+                    <li className="menu nav-item relative">
                         <NavLink to="/account/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                            </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                </svg>
                                 <span className="px-1">{t('Account')}</span>
                             </div>
-                           
+
                         </NavLink>
-                        
-                    
+
+
                     </li>
                     <li className="menu nav-item relative">
                         <NavLink to="/lead/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path opacity="0.5" d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path opacity="0.5" d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><ellipse cx="12" cy="17" rx="6" ry="4" stroke="currentColor" stroke-width="1.5"></ellipse><path opacity="0.5" d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path opacity="0.5" d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                            </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path opacity="0.5" d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path opacity="0.5" d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><ellipse cx="12" cy="17" rx="6" ry="4" stroke="currentColor" stroke-width="1.5"></ellipse><path opacity="0.5" d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path opacity="0.5" d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                </svg>
                                 <span className="px-1">{t('Leads')}</span>
                             </div>
-                           
+
                         </NavLink>
-                    
+
                     </li>
 
                     <li className="menu nav-item relative">
                         <NavLink to="/contact/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                            </svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle><path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                </svg>
                                 <span className="px-1">{t('contacts')}</span>
                             </div>
-                           
+
                         </NavLink>
-                    
+
                     </li>
-                   
+
                     <li className="menu nav-item relative">
                         <NavLink to="/sales/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 7L14.6203 14.3347C13.6227 15.3263 13.1238 15.822 12.5051 15.822C11.8864 15.8219 11.3876 15.326 10.3902 14.3342L10.1509 14.0962C9.15254 13.1035 8.65338 12.6071 8.03422 12.6074C7.41506 12.6076 6.91626 13.1043 5.91867 14.0977L2 18M22 7V12.5458M22 7H16.4179" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 7L14.6203 14.3347C13.6227 15.3263 13.1238 15.822 12.5051 15.822C11.8864 15.8219 11.3876 15.326 10.3902 14.3342L10.1509 14.0962C9.15254 13.1035 8.65338 12.6071 8.03422 12.6074C7.41506 12.6076 6.91626 13.1043 5.91867 14.0977L2 18M22 7V12.5458M22 7H16.4179" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                                 <span className="px-1">{t('Sales')}</span>
                             </div>
-                           
+
                         </NavLink>
-                    
+
                     </li>
-                    <li className="menu nav-item relative"> 
+                    <li className="menu nav-item relative">
                         <NavLink to="/quotes/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g opacity="0.5">
                                         <path
                                             d="M14 2.75C15.9068 2.75 17.2615 2.75159 18.2892 2.88976C19.2952 3.02503 19.8749 3.27869 20.2981 3.7019C20.7213 4.12511 20.975 4.70476 21.1102 5.71085C21.2484 6.73851 21.25 8.09318 21.25 10C21.25 10.4142 21.5858 10.75 22 10.75C22.4142 10.75 22.75 10.4142 22.75 10V9.94359C22.75 8.10583 22.75 6.65019 22.5969 5.51098C22.4392 4.33856 22.1071 3.38961 21.3588 2.64124C20.6104 1.89288 19.6614 1.56076 18.489 1.40314C17.3498 1.24997 15.8942 1.24998 14.0564 1.25H14C13.5858 1.25 13.25 1.58579 13.25 2C13.25 2.41421 13.5858 2.75 14 2.75Z"
@@ -722,15 +727,15 @@ const Header = () => {
                                 </svg>
                                 <span className="px-1">{t('Quotes')}</span>
                             </div>
-                           
+
                         </NavLink>
-                        
-                    
+
+
                     </li>
-                    <li className="menu nav-item relative"> 
+                    <li className="menu nav-item relative">
                         <NavLink to="/rfq/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g opacity="0.5">
                                         <path
                                             d="M14 2.75C15.9068 2.75 17.2615 2.75159 18.2892 2.88976C19.2952 3.02503 19.8749 3.27869 20.2981 3.7019C20.7213 4.12511 20.975 4.70476 21.1102 5.71085C21.2484 6.73851 21.25 8.09318 21.25 10C21.25 10.4142 21.5858 10.75 22 10.75C22.4142 10.75 22.75 10.4142 22.75 10V9.94359C22.75 8.10583 22.75 6.65019 22.5969 5.51098C22.4392 4.33856 22.1071 3.38961 21.3588 2.64124C20.6104 1.89288 19.6614 1.56076 18.489 1.40314C17.3498 1.24997 15.8942 1.24998 14.0564 1.25H14C13.5858 1.25 13.25 1.58579 13.25 2C13.25 2.41421 13.5858 2.75 14 2.75Z"
@@ -768,32 +773,32 @@ const Header = () => {
                                 </svg>
                                 <span className="px-1">{t('RFQ')}</span>
                             </div>
-                           
+
                         </NavLink>
-                        
-                    
+
+
                     </li>
-                    
+
 
                     <li className="menu nav-item relative">
                         <NavLink to="/product/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
                                 <span className="px-1">{t('Product')}</span>
                             </div>
-                           
+
                         </NavLink>
-                    
+
                     </li>
                     <li className="menu nav-item relative">
                         <NavLink to="/availability/list" className="nav-link">
                             <div className="flex items-center">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
                                 <span className="px-1">{t('Availability')}</span>
                             </div>
-                           
+
                         </NavLink>
-                    
+
                     </li>
 
 
@@ -845,7 +850,7 @@ const Header = () => {
                             </div>
                         </button>
                         <ul className="sub-menu">
-                            
+
                             <li>
                                 <NavLink to="/contracts">{t('Contracts')}</NavLink>
                             </li>
@@ -861,8 +866,8 @@ const Header = () => {
                             <li>
                                 <NavLink to="/manufacture/list">{t('Manufacture')}</NavLink>
                             </li>
-                            
-                            
+
+
                             <li>
                                 <NavLink to="/invoice/list">{t('Invoice')}</NavLink>
                             </li>
@@ -897,12 +902,12 @@ const Header = () => {
                             <li>
                                 <NavLink to="/purchase/list">{t('Purchase')}</NavLink>
                             </li>
-                             <li>
+                            <li>
                                 <NavLink to="/deal/list">{t('Deal')}</NavLink>
                             </li>
                         </ul>
                     </li>
-                   
+
                 </ul>
             </div>
         </header>

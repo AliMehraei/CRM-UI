@@ -413,7 +413,7 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'Deal Name',
+                                            accessor: 'deal_name',
                                             sortable: true,
                                             render: ({ deal_name }) => (
                                                 <NavLink to="/deal/preview">
@@ -422,24 +422,44 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'deal',
+                                            accessor: 'amount',
                                             sortable: true,
-                                            render: ({ deal }) => (
+                                            render: ({ amount , currency }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {deal}
+                                                    {`${amount} ${currency}`}
                                                 </div>
                                             ),
                                         },
                                         {
                                             accessor: 'deal_owner',
-                                            sortable: true,
-                                            render: ({ deal_owner }) => <div className="font-semibold">{deal_owner}</div>,
+                                            title: 'Deal Owner',
+                                            sortable: false,
+                                            render: ({ owner }) => 
+                                            <div className="font-semibold">
+                                                {owner ? owner.name : '-No Owner-'}
+                                            </div>,
                                         },
-                                        {
-                                            accessor: 'deal Type',
+                                        ,
+                                    {
+                                      accessor: 'closing_date',
+                                            title: 'Closing time',
                                             sortable: true,
-                                            render: ({ deal_type }) => <div className="font-semibold">{deal_type}</div>,
+                                            render: ({ closing_date }) => {
+                                                const date = new Date(closing_date);
+                                                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                                const hours = date.getHours();
+                                                const minutes = String(date.getMinutes()).padStart(2, '0');
+                                                const ampm = hours >= 12 ? 'PM' : 'AM';
+                                                const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                                        
+                                                return (
+                                                    <div className="font-semibold">
+                                                        {formattedDate}
+                                                    </div>
+                                                );
+                                            },
                                         },
+                                 
                                         {
                                             accessor: 'action',
                                             title: 'Actions',
