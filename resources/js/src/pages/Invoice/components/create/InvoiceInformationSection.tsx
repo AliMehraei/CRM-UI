@@ -125,7 +125,7 @@ const InvoiceInformationSection = () => {
             'Deal Stage': <Select
                 name="deal_stage"
                 id="deal_stage"
-                placeholder="Select Product Type..."
+                placeholder=""
                 options={Stages}
                 onChange={({ value }: any) => {
                     handleChangeField('deal_stage', value)
@@ -142,7 +142,7 @@ const InvoiceInformationSection = () => {
             'Status': <Select
                 name="status"
                 id="status"
-                placeholder="Select Product Type..."
+                placeholder=""
                 options={Statuses}
                 onChange={({ value }: any) => {
                     handleChangeField('status', value)

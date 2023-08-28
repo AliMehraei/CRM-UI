@@ -1,6 +1,5 @@
 import AsyncSelect from "react-select/async";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { updateFormData } from "../../../../store/invoiceFormSlice";
 import Flatpickr from "react-flatpickr";
@@ -15,7 +14,8 @@ import {
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
+    const formState = useSelector((state: any) => state.invoiceForm);
+
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
@@ -125,7 +125,7 @@ const InvoiceInformationSection = () => {
             'Deal Stage': <Select
                 name="deal_stage"
                 id="deal_stage"
-                placeholder="Select Product Type..."
+                placeholder=""
                 options={Stages}
                 onChange={({ value }: any) => {
                     handleChangeField('deal_stage', value)
@@ -142,7 +142,7 @@ const InvoiceInformationSection = () => {
             'Status': <Select
                 name="status"
                 id="status"
-                placeholder="Select Product Type..."
+                placeholder=""
                 options={Statuses}
                 onChange={({ value }: any) => {
                     handleChangeField('status', value)
