@@ -49,9 +49,8 @@ const RequestedProductsSection = () => {
     ];
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.requested_products;
-
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
         dispatch(updateFormData({requested_products: remainingItems}));
     };
     return (<>

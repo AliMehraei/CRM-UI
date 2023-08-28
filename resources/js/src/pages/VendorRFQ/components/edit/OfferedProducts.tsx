@@ -48,9 +48,8 @@ const OfferedProductsSection = () => {
     ];
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
-        const dataArray = Object.values(formState.offered_products);
-        const remainingItems = dataArray.filter((data: any) => data.id !== item.id);
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
         dispatch(updateFormData({offered_products: remainingItems}));
     };
 
