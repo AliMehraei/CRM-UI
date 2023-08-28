@@ -67,8 +67,11 @@ const InvoiceItemSection = () => {
 
     };
 
-    const handleChangeSummary = () => {
-
+    const handleChangeSummary = (field: string, value: any) => {
+        setSummary((prevSummary) => ({
+            ...prevSummary,
+            [field]: value,
+        }));
         updateSummary()
     }
 
@@ -252,7 +255,6 @@ const InvoiceItemSection = () => {
                                         <input id="discount" name="discount" type="text" value={summary.discount}
                                                disabled
                                                className="w-56 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b] cursor-text"
-                                               onChange={handleChangeSummary}
                                         />
                                         <PopoverComponent item={summary}
                                                           handleChangeField={handleChangeSummary}
@@ -264,7 +266,6 @@ const InvoiceItemSection = () => {
                                     <div className="flex">
                                         <input id="tax" name="tax" type="text" value={summary.tax} disabled
                                                className="w-56 form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
-                                               onChange={handleChangeSummary}
                                         />
                                         <PopoverComponent item={summary}
                                                           handleChangeField={handleChangeSummary}
