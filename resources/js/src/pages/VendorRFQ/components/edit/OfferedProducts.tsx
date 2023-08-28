@@ -71,7 +71,7 @@ const OfferedProductsSection = () => {
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12 ">
                 <div key="Quote Items" className="">
                     <div className="text-lg">
-                        Requested Products :
+                        Offered Products :
                     </div>
 
                     <div className="mt-8">
