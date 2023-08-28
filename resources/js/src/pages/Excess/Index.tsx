@@ -41,7 +41,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await api_instance.filterOptionAvailability();
+            const res = await api_instance.filterOptionExcess();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
@@ -125,7 +125,7 @@ const List = () => {
                 const deleteSingleRow = async (rowId: number) => {
                     try {
                         setLoading(true);
-                        api_instance.deleteSingleAvailability(rowId).then((res) => {
+                        api_instance.deleteSingleExcess(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
                                 const filteredItems = items.filter((user) => user.id !== rowId);
@@ -133,8 +133,8 @@ const List = () => {
                                 setInitialRecords(filteredItems);
                                 setItems(filteredItems);
                             } else {
-                                showMessage('Error deleting the availability: ' + result.message, 'error');
-                                console.error('Error deleting the availability', result.message);
+                                showMessage('Error deleting the excess: ' + result.message, 'error');
+                                console.error('Error deleting the excess', result.message);
                             }
                         });
                         setLoading(false);
@@ -183,10 +183,10 @@ const List = () => {
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
-                showMessage('Error fetching availability data.', 'error');
+                showMessage('Error fetching excess data.', 'error');
             });
         } catch (error) {
-            showMessage('Error fetching availability data.', 'error');
+            showMessage('Error fetching excess data.', 'error');
             console.error('Error fetching data:', error);
             setLoading(false);
         }
@@ -285,7 +285,7 @@ const List = () => {
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
-        <div className="availability-table">
+        <div className="excess-table">
             <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                 <div className="flex items-center gap-2">
                     <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
@@ -434,7 +434,7 @@ const List = () => {
                                         accessor: 'excess_name',
                                         sortable: true,
                                         render: ({ excess_name }) => (
-                                            <NavLink to="/availability/preview">
+                                            <NavLink to="/excess/preview">
                                                 <div className="text-primary underline hover:no-underline font-semibold">{`#${excess_name}`}</div>
                                             </NavLink>
                                         ),
@@ -469,7 +469,7 @@ const List = () => {
                                         textAlignment: 'center',
                                         render: ({ id }) => (
                                             <div className="flex gap-4 items-center w-max mx-auto">
-                                                <NavLink to={`/availability/edit/${id}`} className="flex hover:text-info">
+                                                <NavLink to={`/excess/edit/${id}`} className="flex hover:text-info">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                         <path
                                                             opacity="0.5"
@@ -491,7 +491,7 @@ const List = () => {
                                                         ></path>
                                                     </svg>
                                                 </NavLink>
-                                                <NavLink to="/availability/preview" className="flex hover:text-primary">
+                                                <NavLink to="/excess/preview" className="flex hover:text-primary">
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             opacity="0.5"

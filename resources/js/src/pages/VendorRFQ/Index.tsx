@@ -416,7 +416,7 @@ const List = () => {
                                             accessor: 'vendor_rfq_name',
                                             sortable: true,
                                             render: ({ vendor_rfq_name }) => (
-                                                <NavLink to="/VendorRfq/preview">
+                                                <NavLink to="/vendor_rfq/preview">
                                                     <div className="text-primary underline hover:no-underline font-semibold">{`#${vendor_rfq_name}`}</div>
                                                 </NavLink>
                                             ),
