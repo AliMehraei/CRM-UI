@@ -22,26 +22,13 @@ const OfferedProductsSection = () => {
 
         dispatch(updateFormData({offered_products: updatedItems}));
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-
-        },
-    ]);
+    const [items, setItems] = useState<any>([]);
 
     const addItem = () => {
         let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
-            id: maxId + 1, name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
+            id: maxId + 1
         }];
 
         setItems(remainingItems);
@@ -100,6 +87,18 @@ const OfferedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
+                                                             defaultValue={{
+                                                                 value: item.product?.id,
+                                                                 label: (
+                                                                     <div key={item.product?.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.product?.product_name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
+                                                             }}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -109,6 +108,18 @@ const OfferedProductsSection = () => {
                                                              loadOptions={searchManufacture}
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('manufacture_id', value, item.id)
+                                                             }}
+                                                             defaultValue={{
+                                                                 value: item.manufacture?.id,
+                                                                 label: (
+                                                                     <div key={item.manufacture?.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.manufacture?.name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
                                                              }}
                                                              className="flex-1  min-w-[200px]"
                                                 />
@@ -135,20 +146,20 @@ const OfferedProductsSection = () => {
                                             </td>
                                             <td>
                                                 <Select options={LeadTimeDemands}
-                                                        name="lead_time_demand"
-                                                        id="lead_time_demand"
+                                                        name="offer_lead_time"
+                                                        id="offer_lead_time"
                                                         onChange={({value}: any) => {
-                                                            handleChangeField('lead_time_demand', value, item.id)
+                                                            handleChangeField('offer_lead_time', value, item.id)
                                                         }}
                                                         menuPlacement={"top"}
                                                         menuPortalTarget={document.body}
-                                                        defaultValue={LeadTimeDemands.find((data) => data.value == formState.lead_time_demand)}
+                                                        defaultValue={LeadTimeDemands.find((data) => data.value == item.offer_lead_time)}
 
                                                         className="flex-1 min-w-[200px]"/>
                                             </td>
                                             <td>
                                                 <textarea name="comment" className="form-input min-w-[200px]"
-                                                          defaultValue={item.date_code}
+                                                          defaultValue={item.comment}
                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>

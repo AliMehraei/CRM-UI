@@ -131,14 +131,13 @@ const OfferedProductsSection = () => {
                                             </td>
                                             <td>
                                                 <Select options={LeadTimeDemands}
-                                                        name="lead_time_demand"
-                                                        id="lead_time_demand"
+                                                        name="offer_lead_time"
+                                                        id="offer_lead_time"
                                                         onChange={({value}: any) => {
-                                                            handleChangeField('lead_time_demand', value, item.id)
+                                                            handleChangeField('offer_lead_time', value, item.id)
                                                         }}
                                                         menuPlacement={"top"}
                                                         menuPortalTarget={document.body}
-                                                        defaultValue={LeadTimeDemands.find((data) => data.value == formState.lead_time_demand)}
 
                                                         className="flex-1 min-w-[200px]"/>
                                             </td>
