@@ -133,7 +133,6 @@ const InvoiceItemSection = () => {
                                 <tbody>
 
                                 {items.map((item: any) => {
-                                    console.log(item.product?.product_name)
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
