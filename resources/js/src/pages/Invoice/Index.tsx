@@ -308,7 +308,7 @@ const List = () => {
                         </svg>
                         Delete
                     </button>
-                    <Link to="/excess/add" className="btn btn-primary gap-2">
+                    <Link to="/invoice/add" className="btn btn-primary gap-2">
                         Add New
                     </Link>
 
