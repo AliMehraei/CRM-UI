@@ -438,7 +438,8 @@ const List = () => {
                                             <div className="font-semibold">
                                                 {owner ? owner.name : '-No Owner-'}
                                             </div>,
-                                        },  {
+                                        },
+                                          {
                                             accessor: 'vendor',
                                             title: 'Vendor Name',
                                             sortable: false,
