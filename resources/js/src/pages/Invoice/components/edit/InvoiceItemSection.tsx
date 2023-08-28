@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
 import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 import PopoverComponent from "./PopoverComponent";
 
 const InvoiceItemSection = () => {
+    const formState = useSelector((state: any) => state.invoiceForm);
     const dispatch = useDispatch();
     const [summary, setSummary] = useState({
         amount: 0,
@@ -16,19 +17,13 @@ const InvoiceItemSection = () => {
         grandTotal: 0,
     });
 
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            product_id: null,
-            description: null,
-            quantity: null,
-            list_price: null,
-            amount: null,
-            discount: null,
-            tax: null,
-            total: null,
-        },
-    ]);
+    const [items, setItems] = useState<any>([]);
+
+    useEffect(() => {
+        setItems(Object.values(formState.items));
+    }, []);
+
+
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {...items.find((item: any) => item.id === id)};
         updatedItem[field] = value;
@@ -138,21 +133,32 @@ const InvoiceItemSection = () => {
                                 <tbody>
 
                                 {items.map((item: any) => {
+                                    console.log(item.product?.product_name)
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
                                                 {item.id}
                                             </td>
                                             <td>
-                                                <AsyncSelect
-                                                    isMulti={false}
-                                                    placeholder="Type at least 2 characters to search..."
-                                                    name="product_id"
-                                                    loadOptions={searchProducts}
-                                                    onChange={({value}: any) => {
-                                                        handleChangeField('product_id', value, item.id)
-                                                    }}
-                                                    className="flex-1"
+                                                <AsyncSelect isMulti={false} id="product_id" name="product_id"
+                                                             placeholder="Type at least 2 characters to search..."
+                                                             loadOptions={searchProducts}
+                                                             onChange={({value}: any) => {
+                                                                 handleChangeField('product_id', value, item.id)
+                                                             }}
+                                                             className="flex-1  min-w-[200px]"
+                                                             defaultValue={{
+                                                                 value: item.id,
+                                                                 label: (
+                                                                     <div key={item.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.product?.product_name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
+                                                             }}
                                                 />
                                                 <textarea name="description" className="form-textarea mt-4 flex-1"
                                                           placeholder="Enter Description"
