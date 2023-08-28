@@ -1,1 +1,0 @@
-import{u as o,S as s}from"./Select-aecb2a80.esm-ed0f9406.js";import{_ as S}from"./floating-ui.dom-776dbd07.js";import{r as e}from"./main-aee2b09f.js";var n=e.forwardRef(function(a,r){var t=o(a);return e.createElement(s,S({ref:r},t))}),p=n;export{p as S};
