@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/vendorRfqFormSlice";
 import AsyncSelect from "react-select/async";
@@ -23,12 +23,11 @@ const RequestedProductsSection = () => {
 
         dispatch(updateFormData({requested_products: updatedItems}));
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
+    const [items, setItems] = useState<any>([]);
 
-        },
-    ]);
+    useEffect(() => {
+        setItems(Object.values(formState.requested_products));
+    }, []);
 
     const addItem = () => {
         let maxId: number;

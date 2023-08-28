@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/vendorRfqFormSlice";
 import AsyncSelect from "react-select/async";
@@ -48,6 +48,10 @@ const OfferedProductsSection = () => {
         dispatch(updateFormData({offered_products: remainingItems}));
 
     };
+
+    useEffect(() => {
+        setItems(Object.values(formState.offered_products));
+    }, []);
 
     const LeadTimeDemands = [
         {label: '-None-', value: 'none'},
