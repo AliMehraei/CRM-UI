@@ -89,6 +89,18 @@ const RequestedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('rfq_id', value, item.id)
                                                              }}
+                                                             defaultValue={{
+                                                                 value: item.rfq?.id,
+                                                                 label: (
+                                                                     <div key={item.rfq?.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.rfq?.rfq_name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
+                                                             }}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -105,6 +117,18 @@ const RequestedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
+                                                             defaultValue={{
+                                                                 value: item.product?.id,
+                                                                 label: (
+                                                                     <div key={item.product?.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.product?.product_name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
+                                                             }}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -120,6 +144,18 @@ const RequestedProductsSection = () => {
                                                              loadOptions={searchManufacture}
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('manufacture_id', value, item.id)
+                                                             }}
+                                                             defaultValue={{
+                                                                 value: item.manufacture?.id,
+                                                                 label: (
+                                                                     <div key={item.manufacture?.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.manufacture?.name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
                                                              }}
                                                              className="flex-1  min-w-[200px]"
                                                 />
@@ -139,13 +175,13 @@ const RequestedProductsSection = () => {
                                                         }}
                                                         menuPlacement={"top"}
                                                         menuPortalTarget={document.body}
-                                                        defaultValue={LeadTimeDemands.find((data) => data.value == formState.lead_time_demand)}
+                                                        defaultValue={LeadTimeDemands.find((data) => data.value == item.lead_time_demand)}
 
                                                         className="flex-1 min-w-[200px]"/>
                                             </td>
                                             <td>
                                                 <textarea name="comment" className="form-input min-w-[200px]"
-                                                          defaultValue={item.date_code}
+                                                          defaultValue={item.comment}
                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
