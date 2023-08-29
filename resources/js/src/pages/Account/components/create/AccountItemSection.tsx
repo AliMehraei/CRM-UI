@@ -1,7 +1,5 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AccountItemSection = () => {
@@ -11,17 +9,17 @@ const AccountItemSection = () => {
     const [items, setItems] = useState<any>([{id: 1,},]);
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
-            ...formState.items[id],
+            ...formState.forcasts[id],
             [field]: value,
         };
 
         const updatedItems = {
-            ...formState.items,
+            ...formState.forcasts,
             [id]: updatedItem,
         };
 
         setItems(Object.values(updatedItems))
-        dispatch(updateFormData({items: updatedItems}));
+        dispatch(updateFormData({forcasts: updatedItems}));
     };
 
 
