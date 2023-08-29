@@ -4,10 +4,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSinglePurchaseOrder",
-    createRoute:"/purchase/add",
+    createRoute: "/purchase/add",
     redirectTo: "/purchase/edit/:id",
     action: "create",
-   
+    items: [{id: 0,},],
 
 };
 
