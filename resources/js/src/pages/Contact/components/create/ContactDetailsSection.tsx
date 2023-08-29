@@ -171,12 +171,13 @@ const ContactDetailsSection = () => {
         '': {
             'Account Name': <AsyncSelect
                 isMulti={false}
-                id="account_name"
+                required
+                id="account_id"
                 placeholder="Type at least 2 characters to search..."
-                name="account_name"
+                name="account_id"
                 loadOptions={searchAccounts}
                 onChange={({value}: any) => {
-                    handleChangeField('account_name', value)
+                    handleChangeField('account_id', value)
                 }}
                 className="flex-1"
             />,

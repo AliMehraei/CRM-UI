@@ -37,7 +37,10 @@ const HeaderSection = () => {
     };
     const fields = {
         'Header': {
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+            'Account Name': <AsyncSelect 
+            isMulti={false}
+             id="account_id"
+              name="account_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}
                 onChange={({ value }: any) => {
