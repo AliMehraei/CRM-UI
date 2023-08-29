@@ -53,8 +53,8 @@ const TypeSection = () => {
         {value: "App\\Models\\Invoice", label: "Invoice",api:searchInvoice,labelFelid:'subject'},
         {value: "App\\Models\\VendorRfq", label: "Vendor Rfq",api:searchVendorRFQ,labelFelid:'vendor_rfq_name'},
     ];
-    const [selectedType, setSelectedType] = useState("App\\Models\\Contact");
-    const [selectedModule, setSelectedModule] = useState("App\\Models\\Account");
+    const [selectedType, setSelectedType] = useState(formState.userable_type);
+    const [selectedModule, setSelectedModule] = useState(formState.moduleable_type);
     const [selectedUserableId, setSelectedUserableId] = useState(
         {
             value: formState.userable?.id,
