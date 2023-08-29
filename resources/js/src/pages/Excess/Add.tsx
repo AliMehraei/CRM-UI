@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 import ExcessFormFields from "./components/create/ExcessFormFields";
 
 const Add = () => {
-    const formState = useSelector((state: any) => state.contactForm);
+    const formState = useSelector((state: any) => state.excessForm);
     const dispatch = useDispatch();
 
     useEffect(() => {
