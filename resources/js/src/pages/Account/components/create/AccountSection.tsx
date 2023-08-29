@@ -140,6 +140,7 @@ const AccountSection = () => {
                 onChange={({ value }: any) => {
                     handleChangeField('pm_user_id', value)
                 }}
+                required
                 className="flex-1"
             />,
             'Account Activity': <Select id="account_activity" name="account_activity" options={activities}

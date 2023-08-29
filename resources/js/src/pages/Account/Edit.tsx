@@ -42,19 +42,8 @@ const Edit = () => {
         const accountResponse = await api.fetchSingleAccount(accountId);
         if (accountResponse.status != 200)
             return;
-        console.log(accountResponse);
         const account = accountResponse.data.data.account;
         dispatch(updateFormData(account));
-    /*    if (account.vendor_line_card_id) {
-            await handleFetchingVendor(account.vendor_line_card_id, 'vendor_line_card');
-        }
-        if (account.vendor_line_card_id) {
-            await handleFetchingVendor(account.vendor_line_card_id, "vendor_strong_lines");
-        }
-*/
-        const ownerResponse = await api.loadUserById({id: account.owner_id});
-        const owner = ownerResponse.data.data;
-        dispatch(updateFormData({['owner']: owner}));
     };
     if (loading)
         return <LoadingAlpyn/>
