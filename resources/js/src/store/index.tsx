@@ -16,7 +16,7 @@ import purchaseOrderFormSlice from "./purchaseOrderFormSlice";
 import salesOrderFormSlice from "./salesOrderFormSlice";
 import vendorRfqFormSlice from "./vendorRfqFormSlice";
 import availabilityFormSlice from "./availabilityFormSlice";
-
+import taskFormSlice from './taskFormSlice'
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -36,6 +36,8 @@ const rootReducer = combineReducers({
     salesOrderForm: salesOrderFormSlice,
     vendorRfqForm: vendorRfqFormSlice,
     availabilityForm: availabilityFormSlice,
+    taskForm: taskFormSlice,
+
 });
 
 export default configureStore({

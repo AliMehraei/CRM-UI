@@ -106,6 +106,11 @@ const RecoverIdCover = lazy(() => import('../pages/Authentication/RecoverIdCover
 const UnlockCover = lazy(() => import('../pages/Authentication/UnlockCover'));
 const Error = lazy(() => import('../components/Error'));
 
+const ListTask = lazy(() => import('../pages/Task/Index'));
+const PreviewTask = lazy(() => import('../pages/Task/Preview'));
+const AddTask= lazy(() => import('../pages/Task/Add'));
+const EditTask = lazy(() => import('../pages/Task/Edit'));
+
 
 const routes = [
     // dashboard
@@ -149,7 +154,23 @@ const routes = [
         path: '/invoice/list',
         element: <ListInvoice />,
     },
-
+    //task
+    {
+        path: '/task/list',
+        element: <ListTask />,
+    },
+    {
+        path: '/task/preview/:id',
+        element: <PreviewTask/>,
+    },
+    {
+        path: '/task/add',
+        element: <AddTask/>,
+    },
+    {
+        path: '/task/edit/:id',
+        element: <EditTask />,
+    },
     // preview page
     {
         path: '/invoice/preview/:id',
