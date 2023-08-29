@@ -8,6 +8,7 @@ const AccountItemSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.accountForm);
 
+    const [items, setItems] = useState<any>([{id: 1,},]);
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
             ...formState.items[id],
@@ -23,31 +24,17 @@ const AccountItemSection = () => {
         dispatch(updateFormData({items: updatedItems}));
     };
 
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
-        },
-    ]);
 
     const addItem = () => {
-        let maxId = 0;
+        let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
 
         setItems([...items, {
             id: maxId + 1,
-            f_q_1: '',
-            f_q_2: '',
-            f_q_3: '',
-            f_q_4: '',
+            q1: '',
+            q2: '',
+            q3: '',
+            q4: '',
 
         }]);
     };
@@ -84,28 +71,28 @@ const AccountItemSection = () => {
                                                 {item.id}
                                             </td>
                                             <td>
-                                                <input name="f_q_1" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}
+                                                <input name="q1" type="text" className="form-input w-32"
+                                                       defaultValue={item.q1}
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
-                                                <input name="f_q_2" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-
-                                                />
-                                            </td>
-                                            <td>
-                                                <input name="f_q_3" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}
+                                                <input name="q2" type="text" className="form-input w-32"
+                                                       defaultValue={item.q2}
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
                                             </td>
                                             <td>
-                                                <input name="f_q_4" type="text" className="form-input w-32"
-                                                       defaultValue={item.part_id}
+                                                <input name="q3" type="text" className="form-input w-32"
+                                                       defaultValue={item.q3}
+                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+
+                                                />
+                                            </td>
+                                            <td>
+                                                <input name="q4" type="text" className="form-input w-32"
+                                                       defaultValue={item.q4}
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
 
