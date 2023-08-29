@@ -60,9 +60,9 @@ const AccountSection = () => {
             ),
             'Account Name': (
                 <input
-                    id="name"
+                    id="account_name"
                     required
-                    name="name"
+                    name="account_name"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.account_name}

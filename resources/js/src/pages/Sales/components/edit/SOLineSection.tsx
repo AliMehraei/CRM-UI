@@ -75,6 +75,7 @@ const SOLineSection = () => {
             'Product Name': (
                 <AsyncSelect
                     isMulti={false}
+                    required
                     id="product_id"
                     placeholder="Type at least 2 characters to search..."
                     name="product_id"
