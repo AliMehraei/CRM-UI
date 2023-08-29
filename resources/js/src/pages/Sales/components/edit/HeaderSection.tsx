@@ -57,6 +57,7 @@ const HeaderSection = () => {
             'Contact Name': (
                 <AsyncSelect
                     isMulti={false}
+                    required
                     id="contact_id"
                     placeholder="Type at least 2 characters to search..."
                     name="contact_id"
@@ -82,6 +83,7 @@ const HeaderSection = () => {
             'Quote Name': (
                 <AsyncSelect
                     isMulti={false}
+                    required
                     id="quote_id"
                     placeholder="Type at least 2 characters to search..."
                     name="quote_id"
@@ -121,6 +123,7 @@ const HeaderSection = () => {
             'Deals Name': (
                 <AsyncSelect
                     isMulti={false}
+                    required
                     id="deal_id"
                     placeholder="Type at least 2 characters to search..."
                     name="deal_id"
