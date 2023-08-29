@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    AccountTypes, Contract, Currencies,
+    AccountTypes, Contract, Currencies, getImageSource,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/accountFormSlice";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const AccountSection = () => {
     const dispatch = useDispatch();
@@ -29,17 +30,35 @@ const AccountSection = () => {
 
     const fields = {
         'Account': {
-            'Account Image': (<input
-                id="account_image"
-                key="account_image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ 'image' : `${response?.data.data.file_url}` }));
-                })}
-                name="manufactureImage"
-            />
+            'Account Image': (
+                <div className="">
+                    <div className="flex">
+                        <input
+                            id="account_image"
+                            key="account_image"
+                            type="file"
+                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                            accept="image/*"
+                            onChange={(e) => handleUploadFile(e, (response: any) => {
+                                dispatch(updateFormData({ 'image' : `${response?.data.data.file_url}` }));
+                            })}
+                            name="account_image"
+                        />
+                        <ClearButtonComponent callBack={() => {
+                            const fileInput = document.getElementById('account_image') as HTMLInputElement | null;
+                            if (fileInput) {
+                                fileInput.value = '';
+                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                            }
+                            dispatch(updateFormData({'image': null}));
+                        }}/>
+                    </div>
+                    <img
+                        id="manufacture_image_preview"
+                        src={getImageSource(formState.image || formState.oldImage)}
+                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                </div>
+
             ),
             'Account Name': (
                 <input
@@ -99,7 +118,7 @@ const AccountSection = () => {
                 className="flex-1" />,
         },
         '': {
-            'Manufacture Owner': (
+            'Account Owner': (
                 <AsyncSelect
                     isMulti={false}
                     id="owner_id"
