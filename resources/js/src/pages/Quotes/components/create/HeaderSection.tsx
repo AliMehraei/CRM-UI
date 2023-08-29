@@ -40,6 +40,7 @@ const HeaderSection = () => {
             'Account Name': <AsyncSelect 
             isMulti={false}
              id="account_id"
+             required
               name="account_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}

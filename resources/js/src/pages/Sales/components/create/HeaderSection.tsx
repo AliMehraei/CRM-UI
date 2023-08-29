@@ -150,6 +150,7 @@ const HeaderSection = () => {
             'Approved By': (
                 <AsyncSelect
                     isMulti={false}
+                    required
                     id="approved_by_id"
                     placeholder="Type at least 2 characters to search..."
                     name="approved_by_id"
