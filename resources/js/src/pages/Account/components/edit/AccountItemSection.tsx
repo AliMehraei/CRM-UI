@@ -1,7 +1,5 @@
-import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AccountItemSection = () => {
@@ -46,7 +44,9 @@ const AccountItemSection = () => {
     };
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
+        dispatch(updateFormData({forcasts: remainingItems}));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -102,6 +102,24 @@ const AccountItemSection = () => {
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
 
+                                            </td>
+                                            <td>
+                                                <button type="button" onClick={() => removeItem(item)}>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.5"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    >
+                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                    </svg>
+                                                </button>
                                             </td>
 
                                         </tr>
