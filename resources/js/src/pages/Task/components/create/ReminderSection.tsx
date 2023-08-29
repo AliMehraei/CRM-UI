@@ -48,10 +48,14 @@ const ReminderSection = () => {
                         data-enable-time={false}
                         placeholder="MM DD YYYY"
                         value={selectedDate}
-                        onChange={date => {
-                            setSelectedDate(date[0]);
-                            handleChangeField('reminder_on_date', date[0]);
-                        }}                    />
+                        // onChange={date => {
+                        //     setSelectedDate(date[0]);
+                        //     handleChangeField('reminder_on_date', date[0]);
+                        // }}     
+                        onChange={(_,dateString) => handleChangeField('reminder_on_date', dateString)}
+
+                        options={{ dateFormat: 'd-m-Y' }}              
+                         />
                     
                     <label>At:</label>
                     <Flatpickr 
