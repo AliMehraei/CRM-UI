@@ -8,7 +8,18 @@ import {
     searchLead,
     searchContacts,
     searchAccounts,
-    searchVendor
+    searchVendor,
+    searchQuote,
+    searchRFQ,
+    searchExcess,
+    searchAvailability,
+    searchProducts,
+    searchManufacture,
+    searchDeals,
+    searchSalesOrder,
+    searchPurchaseOrder,
+    searchInvoice,
+    searchVendorRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import {useEffect, useState} from "react";
@@ -35,17 +46,17 @@ const TypeSection = () => {
     const moduleableType = [
         {value: "App\\Models\\Account", label: "Account", api: searchAccounts},
         {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor},
-        {value: "App\\Models\\Quote", label: "Quote"},
-        {value: "App\\Models\\Rfq", label: "Rfq"},
-        {value: "App\\Models\\Excess", label: "Excess"},
-        {value: "App\\Models\\Availability", label: "Availability"},
-        {value: "App\\Models\\Product", label: "Product"},
-        {value: "App\\Models\\Manufacture", label: "Manufacture"},
-        {value: "App\\Models\\Deal", label: "Deals"},
-        {value: "App\\Models\\SalesOrder", label: "Sales Order"},
-        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order"},
-        {value: "App\\Models\\Invoice", label: "Invoice"},
-        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq"},
+        {value: "App\\Models\\Quote", label: "Quote" , api: searchQuote},
+        {value: "App\\Models\\Rfq", label: "Rfq" ,api: searchRFQ},
+        {value: "App\\Models\\Excess", label: "Excess",api:searchExcess},
+        {value: "App\\Models\\Availability", label: "Availability",api: searchAvailability},
+        {value: "App\\Models\\Product", label: "Product" ,api:searchProducts},
+        {value: "App\\Models\\Manufacture", label: "Manufacture",api:searchManufacture},
+        {value: "App\\Models\\Deal", label: "Deals",api:searchDeals},
+        {value: "App\\Models\\SalesOrder", label: "Sales Order",api:searchSalesOrder},
+        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order",api:searchPurchaseOrder},
+        {value: "App\\Models\\Invoice", label: "Invoice",api:searchInvoice},
+        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq",api:searchVendorRFQ},
     ];
     const searchModule = (e: any) => {
         const module: any = moduleableType.find(m => m.value === selectedModule) ?? {
