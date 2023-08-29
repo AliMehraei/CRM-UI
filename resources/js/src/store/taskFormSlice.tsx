@@ -8,8 +8,8 @@ const initState = {
     redirectTo: "/task/edit/:id",
     action: "create",
     items: [],
-    userable_type : { value: "App\Models\Contact", label: "Contact" },
-
+    userable_type: "App\\Models\\Contact",
+    moduleableType: "App\\Models\\Account"
 };
 
 const taskFormSlice = createSlice({
