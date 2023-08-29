@@ -20,6 +20,7 @@ const OfferedProductsSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({offered_products: updatedItems}));
     };
     const [items, setItems] = useState<any>([

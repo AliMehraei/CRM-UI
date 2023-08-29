@@ -21,6 +21,7 @@ const RequestedProductsSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({requested_products: updatedItems}));
     };
     const [items, setItems] = useState<any>([

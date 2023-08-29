@@ -32,6 +32,7 @@ const PriceBreakSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({price_breaks: updatedItems}));
     };
 

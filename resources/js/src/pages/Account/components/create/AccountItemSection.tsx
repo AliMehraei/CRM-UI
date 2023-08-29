@@ -19,6 +19,7 @@ const AccountItemSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
 

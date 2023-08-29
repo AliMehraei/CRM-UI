@@ -8,25 +8,22 @@ import Select from "react-select";
 const OfferedProductsSection = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
     const dispatch = useDispatch();
+    const [items, setItems] = useState<any>([]);
 
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatingItem = items.find((item: any) => item.id === id);
         const itemIndex = items.findIndex((item: any) => item.id === id);
-
         const updatedItem = {
             ...updatingItem,
             [field]: value,
         };
-
         const updatedItems = {
             ...items,
             [itemIndex]: updatedItem,
         };
-
-
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({offered_products: updatedItems}));
     };
-    const [items, setItems] = useState<any>([]);
 
     const addItem = () => {
         let maxId: number;
@@ -91,6 +88,7 @@ const OfferedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
+                                                             menuPortalTarget={document.body}
                                                              defaultValue={{
                                                                  value: item.product?.id,
                                                                  label: (
@@ -113,6 +111,7 @@ const OfferedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('manufacture_id', value, item.id)
                                                              }}
+                                                             menuPortalTarget={document.body}
                                                              defaultValue={{
                                                                  value: item.manufacture?.id,
                                                                  label: (

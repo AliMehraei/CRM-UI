@@ -20,6 +20,7 @@ const QuoteItemSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
     const [items, setItems] = useState<any>([
