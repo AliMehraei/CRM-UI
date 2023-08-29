@@ -8,6 +8,7 @@ const initState = {
     redirectTo: "/task/edit/:id",
     action: "create",
     items: [],
+    userable_type : { value: "App\Models\Contact", label: "Contact" },
 
 };
 

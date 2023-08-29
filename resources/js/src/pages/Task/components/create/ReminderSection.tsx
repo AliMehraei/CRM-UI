@@ -1,10 +1,7 @@
-import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/taskFormSlice";
-import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {handleUploadFile,searchOwners} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import { useState } from "react";
 
@@ -12,18 +9,21 @@ const ReminderSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.taskForm);
+    const [isReminderChecked, setIsReminderChecked] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(new Date());
+    const reminderType = [
+        { value: "email", label: "Email" },
+        { value: "popup", label: "PopUp" },
+        { value: "both", label: "Both" },
+    ];
     const handleChangeField = (field: any, value: any) => {
         if(field === 'reminder') {
             setIsReminderChecked(value);
         }
         dispatch(updateFormData({[field]: value}));
     };
-    const [isReminderChecked, setIsReminderChecked] = useState(false);
-    const reminderType = [
-        { value: "email", label: "Email" },
-        { value: "popup", label: "PopUp" },
-        { value: "both", label: "Both" },
-    ];
+  
 
    
     return (
@@ -47,17 +47,22 @@ const ReminderSection = () => {
                         className="p-2 border rounded-md form-input flex-1"
                         data-enable-time={false}
                         placeholder="MM DD YYYY"
-                        value={new Date()}
-                        onChange={date => handleChangeField('reminder_on_date', date[0])}
-                    />
+                        value={selectedDate}
+                        onChange={date => {
+                            setSelectedDate(date[0]);
+                            handleChangeField('reminder_on_date', date[0]);
+                        }}                    />
                     
                     <label>At:</label>
                     <Flatpickr 
                         className="p-2 border rounded-md form-input flex-1"
                         data-enable-time={true}
-                        data-no-calendar={true}
-                        value={new Date()}
-                        onChange={time => handleChangeField('reminder_on_time', time[0])}
+                        data-no-calendar={true}   
+                        value={selectedTime}
+                        onChange={time => {
+                            setSelectedTime(time[0]);
+                            handleChangeField('reminder_on_time', time[0]);
+                        }}
                     />
 
                     <label>Notify Type:</label> 
