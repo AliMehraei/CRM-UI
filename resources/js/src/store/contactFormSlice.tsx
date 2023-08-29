@@ -7,7 +7,7 @@ const initState = {
     createRoute: "/account/add",
     redirectTo: "/account/edit/:id",
     action: "create",
-    items: [],
+    items: [{id: 0,},],
 };
 
 const contactFormSlice = createSlice({

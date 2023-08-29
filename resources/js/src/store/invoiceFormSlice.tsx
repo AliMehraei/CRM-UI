@@ -7,7 +7,7 @@ const initState = {
     createRoute: "/invoice/add",
     redirectTo: "/invoice/edit/:id",
     action: "create",
-    items: [],
+    items: [{id: 0,},],
 
 };
 
