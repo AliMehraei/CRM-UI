@@ -9,7 +9,7 @@ const initState = {
     action: "create",
     items: [],
     userable_type: "App\\Models\\Contact",
-    moduleableType: "App\\Models\\Account"
+    moduleable_type: "App\\Models\\Account"
 };
 
 const taskFormSlice = createSlice({

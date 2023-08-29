@@ -90,6 +90,20 @@ export const searchRFQ = async (query: string) => {
     }
 }
 
+
+export const searchVendorRFQ = async (query: string) => {
+    const result = await api_instance.searchVendorRfq({query: query});
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['vendor_rfq_name']}</div>
+                </div>
+            ),
+        }));
+    }
+}
 export const searchDeals = async (query: string) => {
     const result = await api_instance.searchDeal({query: query}); // TODO : fix this to deal
     if (result.status) {
