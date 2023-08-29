@@ -9,17 +9,17 @@ const AccountItemSection = () => {
     const [items, setItems] = useState<any>([{ id: 1, },]);
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
-            ...formState.forcasts[id],
+            ...formState.forecasts[id],
             [field]: value,
         };
 
         const updatedItems = {
-            ...formState.forcasts,
+            ...formState.forecasts,
             [id]: updatedItem,
         };
 
         setItems(Object.values(updatedItems))
-        dispatch(updateFormData({ forcasts: updatedItems }));
+        dispatch(updateFormData({ forecasts: updatedItems }));
     };
 
 
@@ -40,7 +40,7 @@ const AccountItemSection = () => {
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
-        dispatch(updateFormData({ forcasts: remainingItems }));
+        dispatch(updateFormData({ forecasts: remainingItems }));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">

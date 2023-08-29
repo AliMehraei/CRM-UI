@@ -21,11 +21,11 @@ const AccountItemSection = () => {
         };
 
         setItems(Object.values(updatedItems))
-        dispatch(updateFormData({ forcasts: updatedItems }));
+        dispatch(updateFormData({ forecasts: updatedItems }));
     };
 
     useEffect(() => {
-        setItems(Object.values(formState.forcasts));
+        setItems(Object.values(formState.forecasts));
     }, []);
 
 
@@ -46,7 +46,7 @@ const AccountItemSection = () => {
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
-        dispatch(updateFormData({ forcasts: remainingItems }));
+        dispatch(updateFormData({ forecasts: remainingItems }));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
