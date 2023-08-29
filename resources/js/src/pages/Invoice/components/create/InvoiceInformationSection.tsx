@@ -38,7 +38,7 @@ const InvoiceInformationSection = () => {
                 loadOptions={searchOwners}
                 className="flex-1"
                 onChange={({ value }: any) => {
-                    handleChangeField('vendor_line_card_id', value)
+                    handleChangeField('owner_id', value)
                 }}
             />,
             'Subject': (
