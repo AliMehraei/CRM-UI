@@ -231,7 +231,7 @@
       "resources/js/src/pages/Pages/Error404.tsx",
       "resources/js/src/pages/Pages/Error500.tsx",
       "resources/js/src/pages/Pages/Error503.tsx",
-      "resources/js/src/pages/Pages/Maintenence.tsx",
+      "resources/js/src/pages/Pages/Maintenance.tsx",
       "resources/js/src/pages/Authentication/LoginBoxed.tsx",
       "resources/js/src/pages/Authentication/RegisterBoxed.tsx",
       "resources/js/src/pages/Authentication/UnlockBox.tsx",
@@ -866,13 +866,13 @@
     "isDynamicEntry": true,
     "src": "resources/js/src/pages/Pages/KnowledgeBase.tsx"
   },
-  "resources/js/src/pages/Pages/Maintenence.tsx": {
-    "file": "assets/Maintenence-0e261f28.js",
+  "resources/js/src/pages/Pages/Maintenance.tsx": {
+    "file": "assets/Maintenance-0e261f28.js",
     "imports": [
       "resources/js/src/main.tsx"
     ],
     "isDynamicEntry": true,
-    "src": "resources/js/src/pages/Pages/Maintenence.tsx"
+    "src": "resources/js/src/pages/Pages/Maintenance.tsx"
   },
   "resources/js/src/pages/Product/Add.tsx": {
     "css": [

@@ -46,19 +46,19 @@ const AddSupport = lazy(() => import('../pages/Support/Add'));
 const EditSupport = lazy(() => import('../pages/Support/Edit'));
 
 const ListExcess = lazy(() => import('../pages/Excess/Index'));
-const PreviewExcess= lazy(() => import('../pages/Excess/Preview'));
-const AddExcess= lazy(() => import('../pages/Excess/Add'));
+const PreviewExcess = lazy(() => import('../pages/Excess/Preview'));
+const AddExcess = lazy(() => import('../pages/Excess/Add'));
 const EditExcess = lazy(() => import('../pages/Excess/Edit'));
 
-const ListManufacture= lazy(() => import('../pages/Manufacture/Index'));
+const ListManufacture = lazy(() => import('../pages/Manufacture/Index'));
 const PreviewManufacture = lazy(() => import('../pages/Manufacture/Preview'));
 const AddManufacture = lazy(() => import('../pages/Manufacture/Add'));
 const EditManufacture = lazy(() => import('../pages/Manufacture/Edit'));
 
 const ListProduct = lazy(() => import('../pages/Product/Index'));
-const PreviewProduct= lazy(() => import('../pages/Product/Preview'));
+const PreviewProduct = lazy(() => import('../pages/Product/Preview'));
 const AddProduct = lazy(() => import('../pages/Product/Add'));
-const EditProduct= lazy(() => import('../pages/Product/Edit'));
+const EditProduct = lazy(() => import('../pages/Product/Edit'));
 
 const ListQuotes = lazy(() => import('../pages/Quotes/Index'));
 const PreviewQuotes = lazy(() => import('../pages/Quotes/Preview'));
@@ -95,7 +95,7 @@ const ComingSoon = lazy(() => import('../pages/Pages/ComingSoon'));
 const ERROR404 = lazy(() => import('../pages/Pages/Error404'));
 const ERROR500 = lazy(() => import('../pages/Pages/Error500'));
 const ERROR503 = lazy(() => import('../pages/Pages/Error503'));
-const Maintenence = lazy(() => import('../pages/Pages/Maintenence'));
+const Maintenance = lazy(() => import('../pages/Pages/Maintenance'));
 const LoginBoxed = lazy(() => import('../pages/Authentication/LoginBoxed'));
 const RegisterBoxed = lazy(() => import('../pages/Authentication/RegisterBoxed'));
 const UnlockBoxed = lazy(() => import('../pages/Authentication/UnlockBox'));
@@ -108,7 +108,7 @@ const Error = lazy(() => import('../components/Error'));
 
 const ListTask = lazy(() => import('../pages/Task/Index'));
 const PreviewTask = lazy(() => import('../pages/Task/Preview'));
-const AddTask= lazy(() => import('../pages/Task/Add'));
+const AddTask = lazy(() => import('../pages/Task/Add'));
 const EditTask = lazy(() => import('../pages/Task/Edit'));
 
 
@@ -161,11 +161,11 @@ const routes = [
     },
     {
         path: '/task/preview/:id',
-        element: <PreviewTask/>,
+        element: <PreviewTask />,
     },
     {
         path: '/task/add',
-        element: <AddTask/>,
+        element: <AddTask />,
     },
     {
         path: '/task/edit/:id',
@@ -232,8 +232,8 @@ const routes = [
         layout: 'blank',
     },
     {
-        path: '/pages/maintenence',
-        element: <Maintenence />,
+        path: '/pages/maintenance',
+        element: <Maintenance />,
         layout: 'blank',
     },
     //Authentication
@@ -461,7 +461,7 @@ const routes = [
     },
     {
         path: '/contact/add',
-        element: <AddContact/>,
+        element: <AddContact />,
     },
     {
         path: '/contact/edit/:id',
