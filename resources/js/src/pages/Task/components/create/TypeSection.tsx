@@ -102,6 +102,7 @@ const TypeSection = () => {
                             handleChangeField('userable_id', value);
                         }}
                         className="flex-1"
+                        required
                     />
 
                 </div>
@@ -136,6 +137,7 @@ const TypeSection = () => {
                             handleChangeField('moduleable_id', value);
                         }}
                         className="flex-1"
+                        required
                     />
 
                 </div>

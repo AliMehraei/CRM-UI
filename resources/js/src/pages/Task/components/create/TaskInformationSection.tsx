@@ -54,6 +54,7 @@ const TaskInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
+                    required
                 />
             ),
             'Subject': (
@@ -62,7 +63,7 @@ const TaskInformationSection = () => {
                 name="subject"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-
+                required
                 />
             ),
             'Dua Date': (
