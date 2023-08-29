@@ -4,8 +4,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleAvailability",
-    createRoute: "/account/add",
-    redirectTo: "/account/edit/:id",
+    createRoute: "/availability/add",
+    redirectTo: "/availability/edit/:id",
     action: "create",
     price_breaks: [{id: 0,},],
 };

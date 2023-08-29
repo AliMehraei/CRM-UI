@@ -3,6 +3,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 const initState = {
+    api: "createSingleRfq",
+    createRoute: "/rfq/add",
+    redirectTo: "/rfq/edit/:id",
+    action: "create",
     account_id: '',
     contact_id: '',
     rfq_owner_id: '',
