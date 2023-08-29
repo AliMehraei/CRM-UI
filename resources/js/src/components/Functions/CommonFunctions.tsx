@@ -328,7 +328,7 @@ export const searchExcess = async (query: string) => {
     const valField = 'id';
     const nameField = 'excess_name';
 
-    const result = await api_instance.searchManufacturer({query: query});
+    const result = await api_instance.searchExcess({query: query});
 
     if (result.status) {
         return result.data.data.map((data: any) => ({

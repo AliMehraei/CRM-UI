@@ -64,6 +64,9 @@ const TypeSection = () => {
             label: "Account",
             api: searchAccounts
         }
+        console.log('====================================');
+        console.log(module.api);
+        console.log('====================================');
         return module.api.call(null, e);
 
     }
@@ -113,7 +116,7 @@ const TypeSection = () => {
                         name="moduleable_type"
                         menuPortalTarget={document.body}
                         menuPlacement={"top"}
-                        defaultValue={moduleableType.find((data) => data.value == formState.moduleableType)}
+                        defaultValue={moduleableType.find((data) => data.value == formState.moduleable_type)}
                         onChange={({value}: any) => {
                             setSelectedModule(value);
                             handleChangeField('moduleable_type', value);
