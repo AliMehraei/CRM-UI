@@ -2,7 +2,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
-import TaskFormFields from "./components/edit/FormFields";
+import TaskFormFields from "./components/edit/TaskFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
 import {updateFormData} from "../../store/taskFormSlice";

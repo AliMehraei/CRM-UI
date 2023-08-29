@@ -55,6 +55,20 @@ const TaskInformationSection = () => {
                     }}
                     className="flex-1"
                     required
+                    defaultValue={{
+                        value: formState.owner?.id,
+                        label: (
+                            <div key={formState.owner?.id} className="flex items-center">
+                                <img src={formState.owner?.image} alt="avatar"
+                                     className="w-8 h-8 mr-2 rounded-full"/>
+                                <div>
+                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div
+                                        className="text-xs text-gray-500">{formState.owner?.email}</div>
+                                </div>
+                            </div>
+                        ),
+                    }}
                 />
             ),
             'Subject': (
@@ -64,11 +78,15 @@ const TaskInformationSection = () => {
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 required
+                defaultValue={formState.subject}
+
                 />
             ),
             'Dua Date': (
-                <Flatpickr name='dua_date' options={{ dateFormat: 'd-m-Y' }}
+                <Flatpickr name='dua_date' options={{ dateFormat: 'd-m-Y',
+                defaultDate: `${formState.dua_date ? new Date(formState.dua_date) : ''}`,}}
                 className="form-input flex-1"
+                defaultValue={formState.dua_date}
                 placeholder="MM DD YYYY"
                 onChange={(_,dateString) => handleChangeField('dua_date', dateString)} />
             ),
@@ -81,6 +99,7 @@ const TaskInformationSection = () => {
                     handleChangeField('status', value)
                 }}
                 className="flex-1"
+                defaultValue={TaskStatus.find((title) => title.value == formState.status)}
                 />
             ),
             'Priority': (
@@ -91,6 +110,7 @@ const TaskInformationSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('priority', value)
                 }}
+                defaultValue={Priority.find((title) => title.value == formState.priority)}
                 className="flex-1"
                 />
             ),
