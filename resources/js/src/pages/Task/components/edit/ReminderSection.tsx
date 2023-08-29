@@ -9,9 +9,9 @@ const ReminderSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.taskForm);
-    const [isReminderChecked, setIsReminderChecked] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedTime, setSelectedTime] = useState(new Date());
+    const [isReminderChecked, setIsReminderChecked] = useState(formState.reminder);
+    const [selectedDate, setSelectedDate] = useState(formState.reminder_on_date);
+    const [selectedTime, setSelectedTime] = useState(formState.reminder_on_time);
     const reminderType = [
         { value: "email", label: "Email" },
         { value: "popup", label: "PopUp" },
@@ -37,6 +37,7 @@ const ReminderSection = () => {
                     name="reminder"
                     className="form-checkbox h-5 w-5 text-blue-600"
                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    defaultChecked={formState.reminder}
                 />
             </div>
             
@@ -48,8 +49,9 @@ const ReminderSection = () => {
                         data-enable-time={false}
                         placeholder="MM DD YYYY"
                         value={selectedDate}   
-                        onChange={(_,dateString) => handleChangeField('reminder_on_date', dateString)}
-
+                        onChange={(_,dateString) => {                          
+                            setSelectedDate(dateString);
+                            handleChangeField('reminder_on_date', dateString)}}
                         options={{ dateFormat: 'd-m-Y' }}              
                          />
                     
@@ -73,6 +75,8 @@ const ReminderSection = () => {
                         }}
                         className="flex-1"
                         options={reminderType}
+                        defaultValue={reminderType.find((title) => title.value == formState.reminder_type)}
+
                     />
                 </div>
             )}

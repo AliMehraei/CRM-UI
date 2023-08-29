@@ -83,12 +83,16 @@ const TaskInformationSection = () => {
                 />
             ),
             'Dua Date': (
-                <Flatpickr name='dua_date' options={{ dateFormat: 'd-m-Y',
-                defaultDate: `${formState.dua_date ? new Date(formState.dua_date) : ''}`,}}
+                <Flatpickr name='due_date' 
                 className="form-input flex-1"
-                defaultValue={formState.dua_date}
+                defaultValue={formState.due_date}
                 placeholder="MM DD YYYY"
-                onChange={(_,dateString) => handleChangeField('dua_date', dateString)} />
+                options={{
+                    dateFormat: 'd-m-Y',
+                    defaultDate: `${formState.due_date ? new Date(formState.due_date) : ''}`,
+                }}
+                defaultValue={formState.due_date}
+                onChange={(_,dateString) => handleChangeField('due_date', dateString)} />
             ),
             'Status': (
                 <Select
@@ -122,6 +126,8 @@ const TaskInformationSection = () => {
                 disabled
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                defaultChecked={formState.repeat}
+
                 />
             )
             

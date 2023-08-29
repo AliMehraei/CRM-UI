@@ -28,36 +28,64 @@ import {an} from "@fullcalendar/core/internal-common";
 const TypeSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
-    const [selectedType, setSelectedType] = useState("App\\Models\\Contact");
-    const [selectedModule, setSelectedModule] = useState("App\\Models\\Account");
-    const [selectedUserableId, setSelectedUserableId] = useState(null);
-    const [selectedModuleableId, setSelectedModuleableId] = useState(null);
 
     const formState = useSelector((state: any) => state.taskForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
     const userableType = [
         {value: "App\\Models\\Lead", label: "Lead"},
         {value: "App\\Models\\Contact", label: "Contact"},
     ];
 
     const moduleableType = [
-        {value: "App\\Models\\Account", label: "Account", api: searchAccounts},
-        {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor},
-        {value: "App\\Models\\Quote", label: "Quote" , api: searchQuote},
-        {value: "App\\Models\\Rfq", label: "Rfq" ,api: searchRFQ},
-        {value: "App\\Models\\Excess", label: "Excess",api:searchExcess},
-        {value: "App\\Models\\Availability", label: "Availability",api: searchAvailability},
-        {value: "App\\Models\\Product", label: "Product" ,api:searchProducts},
-        {value: "App\\Models\\Manufacture", label: "Manufacture",api:searchManufacture},
-        {value: "App\\Models\\Deal", label: "Deals",api:searchDeals},
-        {value: "App\\Models\\SalesOrder", label: "Sales Order",api:searchSalesOrder},
-        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order",api:searchPurchaseOrder},
-        {value: "App\\Models\\Invoice", label: "Invoice",api:searchInvoice},
-        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq",api:searchVendorRFQ},
+        {value: "App\\Models\\Account", label: "Account", api: searchAccounts,labelFelid:'account_name'},
+        {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor,labelFelid:'vendor_name'},
+        {value: "App\\Models\\Quote", label: "Quote" , api: searchQuote,labelFelid:'subject'},
+        {value: "App\\Models\\Rfq", label: "Rfq" ,api: searchRFQ,labelFelid:'rfq_name'},
+        {value: "App\\Models\\Excess", label: "Excess",api:searchExcess,labelFelid:'excess_name'},
+        {value: "App\\Models\\Availability", label: "Availability",api: searchAvailability,labelFelid:'availability_name'},
+        {value: "App\\Models\\Product", label: "Product" ,api:searchProducts,labelFelid:'product_name'},
+        {value: "App\\Models\\Manufacture", label: "Manufacture",api:searchManufacture,labelFelid:'name'},
+        {value: "App\\Models\\Deal", label: "Deals",api:searchDeals,labelFelid:'deal_name'},
+        {value: "App\\Models\\SalesOrder", label: "Sales Order",api:searchSalesOrder,labelFelid:'subject'},
+        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order",api:searchPurchaseOrder,labelFelid:'subject'},
+        {value: "App\\Models\\Invoice", label: "Invoice",api:searchInvoice,labelFelid:'subject'},
+        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq",api:searchVendorRFQ,labelFelid:'vendor_rfq_name'},
     ];
+    const [selectedType, setSelectedType] = useState("App\\Models\\Contact");
+    const [selectedModule, setSelectedModule] = useState("App\\Models\\Account");
+    const [selectedUserableId, setSelectedUserableId] = useState(
+        {
+            value: formState.userable?.id,
+            label: (
+                <div key={formState.userable?.id} className="flex items-center">
+                    <img src={formState.userable?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <div>
+                        <div className="text-sm font-bold">{`${formState.userable?.first_name} ${formState.userable?.last_name}`}</div>
+                        <div className="text-xs text-gray-500">{formState.userable?.email}</div>
+                    </div>
+                </div>
+            ),
+        }
+    );
+    const labelMField=moduleableType.find(module => module.value === formState.moduleable_type)?.labelFelid;    
+    const [selectedModuleableId, setSelectedModuleableId] = useState(
+        {
+            value: formState.moduleable?.id,
+            label: (
+                <div key={formState.moduleable?.id} className="flex items-center">
+                    <div>
+                        <div className="text-sm font-bold">
+                            {formState.moduleable[labelMField]}
+                        </div>
+                    </div>
+                </div>
+            ),
+        
+        }
+    );
+
     const searchModule = (e: any) => {
         const module: any = moduleableType.find(m => m.value === selectedModule) ?? {
             value: "App\\Models\\Account",
@@ -65,9 +93,7 @@ const TypeSection = () => {
             api: searchAccounts
         }
         return module.api.call(null, e);
-
     }
-
 
     return (
         <>
@@ -113,7 +139,7 @@ const TypeSection = () => {
                         name="moduleable_type"
                         menuPortalTarget={document.body}
                         menuPlacement={"top"}
-                        defaultValue={moduleableType.find((data) => data.value == formState.moduleableType)}
+                        defaultValue={moduleableType.find((data) => data.value == formState.moduleable_type)}
                         onChange={({value}: any) => {
                             setSelectedModule(value);
                             handleChangeField('moduleable_type', value);
