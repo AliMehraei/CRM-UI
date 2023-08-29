@@ -1,24 +1,19 @@
 import React from "react";
-import ContactInformationSection from "./ContactInformationSection";
-import LeadInformationSection from "./LeadInformationSection";
-import DevelopmentSection from "./DevelopmentSection";
-import AddressInformationSection from "./AddressInformationSection";
-import CommunicationDetailsSection from "./CommunicationDetailsSection";
-import FieldsScondaryPrioritySection from "./FieldsScondaryPrioritySection";
+import TaskInformationSection from './TaskInformationSection' ;
+import ReminderSection from './ReminderSection' ;
+import TypeSection from "./TypeSection";
+
 const LeadFormFields = () => {
     return (
         <div className="mt-8 px-4">
-            <LeadInformationSection key="leadInfo" />
+
+            <TaskInformationSection key="leadInfo" />
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <ContactInformationSection key="contact"  />
+            <ReminderSection key={'Reminder'}/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <AddressInformationSection key="Address"  />
+            <TypeSection key={'type'}/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <CommunicationDetailsSection key="Description"  />
-            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <FieldsScondaryPrioritySection key="FieldsScondaryPriority"  />
-            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <DevelopmentSection key="Development"  />
+
         </div>
     )
 
