@@ -47,11 +47,7 @@ const ReminderSection = () => {
                         className="p-2 border rounded-md form-input flex-1"
                         data-enable-time={false}
                         placeholder="MM DD YYYY"
-                        value={selectedDate}
-                        // onChange={date => {
-                        //     setSelectedDate(date[0]);
-                        //     handleChangeField('reminder_on_date', date[0]);
-                        // }}     
+                        value={selectedDate}   
                         onChange={(_,dateString) => handleChangeField('reminder_on_date', dateString)}
 
                         options={{ dateFormat: 'd-m-Y' }}              
