@@ -33,7 +33,8 @@ const InvoiceInformationSection = () => {
 
     const fields = {
         'Invoice Information': {
-            'Invoice Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
+            'Invoice Owner': <AsyncSelect isMulti={false}
+             id="owner_id" name="owner_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchOwners}
                 className="flex-1"
