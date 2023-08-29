@@ -11,15 +11,15 @@ const TermsAndShippingSection = () => {
     const fields = {
         'Terms and Shipping': {
             'Incoterms': (<input
-                id="incoterms"
-                name="incoterms"
+                id="incoterm"
+                name="incoterm"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'Payment Terms': (<input
-                id="payment_terms"
-                name="payment_terms"
+                id="payment_term"
+                name="payment_term"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
