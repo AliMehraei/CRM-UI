@@ -32,6 +32,7 @@ const PriceBreakSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({price_breaks: updatedItems}));
     };
 
@@ -53,7 +54,9 @@ const PriceBreakSection = () => {
     };
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
+        dispatch(updateFormData({price_breaks: remainingItems}));
     };
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">

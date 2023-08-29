@@ -663,7 +663,16 @@ const Header = () => {
                         </NavLink>
 
                     </li>
+                    <li className="menu nav-item relative">
+                        <NavLink to="/task/list" className="nav-link">
+                            <div className="flex items-center">
+                              
+                                <span className="px-1">{t('Task')}</span>
+                            </div>
 
+                        </NavLink>
+
+                    </li>
                     <li className="menu nav-item relative">
                         <NavLink to="/contact/list" className="nav-link">
                             <div className="flex items-center">

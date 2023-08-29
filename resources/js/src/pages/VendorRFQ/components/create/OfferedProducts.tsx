@@ -20,6 +20,7 @@ const OfferedProductsSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({offered_products: updatedItems}));
     };
     const [items, setItems] = useState<any>([
@@ -57,9 +58,8 @@ const OfferedProductsSection = () => {
     ];
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.offered_products;
-
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
         dispatch(updateFormData({offered_products: remainingItems}));
     };
     return (<>
@@ -67,7 +67,7 @@ const OfferedProductsSection = () => {
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12 ">
                 <div key="Quote Items" className="">
                     <div className="text-lg">
-                        Requested Products :
+                        Offered Products :
                     </div>
 
                     <div className="mt-8">
@@ -131,14 +131,13 @@ const OfferedProductsSection = () => {
                                             </td>
                                             <td>
                                                 <Select options={LeadTimeDemands}
-                                                        name="lead_time_demand"
-                                                        id="lead_time_demand"
+                                                        name="offer_lead_time"
+                                                        id="offer_lead_time"
                                                         onChange={({value}: any) => {
-                                                            handleChangeField('lead_time_demand', value, item.id)
+                                                            handleChangeField('offer_lead_time', value, item.id)
                                                         }}
                                                         menuPlacement={"top"}
                                                         menuPortalTarget={document.body}
-                                                        defaultValue={LeadTimeDemands.find((data) => data.value == formState.lead_time_demand)}
 
                                                         className="flex-1 min-w-[200px]"/>
                                             </td>

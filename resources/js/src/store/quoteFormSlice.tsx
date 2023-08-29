@@ -7,7 +7,7 @@ const initState = {
     createRoute: "/quotes/add",
     redirectTo: "/quotes/edit/:id",
     action: "create",
-    items: [],
+    items: [{id: 0,},],
 };
 
 const quoteFormSlice = createSlice({

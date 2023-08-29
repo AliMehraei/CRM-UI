@@ -3,11 +3,11 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 const initState = {
-    api: "createSingleAccount",
-    createRoute: "/account/add",
-    redirectTo: "/account/edit/:id",
+    api: "createSingleContact",
+    createRoute: "/contact/add",
+    redirectTo: "/contact/edit/:id",
     action: "create",
-    items: [],
+    items: [{id: 0,},],
 };
 
 const contactFormSlice = createSlice({

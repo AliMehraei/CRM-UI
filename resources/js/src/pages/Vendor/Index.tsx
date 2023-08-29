@@ -162,7 +162,7 @@ const List = () => {
 
     const fetchDatavendor = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters', filters);
+
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
@@ -424,7 +424,7 @@ const List = () => {
                                         {
                                             accessor: 'vendor_owner',
                                             sortable: false,
-                                            render: ({ owner }) => 
+                                            render: ({ owner }) =>
                                             <div className="font-semibold">
                                                 {owner ? owner.name : 'No Owner'}
                                             </div>,

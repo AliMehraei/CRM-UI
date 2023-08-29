@@ -162,7 +162,7 @@ const List = () => {
 
     const fetchDataInvoice = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters', filters);
+
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
@@ -261,7 +261,7 @@ const List = () => {
     };
 
     const handleSortChange = (sortStatus) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
+        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
         setPage(1);
         fetchDataInvoice(page, pageSize, filters, { columnAccessor, direction });
@@ -422,7 +422,7 @@ const List = () => {
                                         const minutes = String(date.getMinutes()).padStart(2, '0');
                                         const ampm = hours >= 12 ? 'PM' : 'AM';
                                         const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
-                                
+
                                         return (
                                             <div className="font-semibold">
                                                 {formattedDate}
@@ -447,7 +447,7 @@ const List = () => {
                                             <div className="flex items-center font-semibold">
                                             {owner ? owner.name : '-No owner-'}
                                             </div>
-                                        ), 
+                                        ),
                                     },
                                     {
                                         accessor: 'contact',
@@ -457,7 +457,7 @@ const List = () => {
                                             <div className="flex items-center font-semibold">
                                             {contact ? `${contact.first_name} ${contact.last_name}` : '-No contact-'}
                                             </div>
-                                        ), 
+                                        ),
                                     },
                                     {
                                         accessor: 'account',
@@ -467,7 +467,7 @@ const List = () => {
                                             <div className="flex items-center font-semibold">
                                             {account ? account.account_name : '-No account-'}
                                             </div>
-                                        ), 
+                                        ),
                                     },
                                     {
                                         accessor: 'action',

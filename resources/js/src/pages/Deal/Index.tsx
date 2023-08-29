@@ -162,7 +162,7 @@ const List = () => {
 
     const fetchDatadeal = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters', filters);
+
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
@@ -434,7 +434,7 @@ const List = () => {
                                             accessor: 'deal_owner',
                                             title: 'Deal Owner',
                                             sortable: false,
-                                            render: ({ owner }) => 
+                                            render: ({ owner }) =>
                                             <div className="font-semibold">
                                                 {owner ? owner.name : '-No Owner-'}
                                             </div>,
@@ -451,7 +451,7 @@ const List = () => {
                                                 const minutes = String(date.getMinutes()).padStart(2, '0');
                                                 const ampm = hours >= 12 ? 'PM' : 'AM';
                                                 const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
-                                        
+
                                                 return (
                                                     <div className="font-semibold">
                                                         {formattedDate}
@@ -459,7 +459,7 @@ const List = () => {
                                                 );
                                             },
                                         },
-                                 
+
                                         {
                                             accessor: 'action',
                                             title: 'Actions',

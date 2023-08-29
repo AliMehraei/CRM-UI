@@ -52,14 +52,14 @@ const Sidebar = () => {
             >
                 <div className="bg-white dark:bg-black h-full">
                     <div className="flex justify-between items-center px-4 py-3">
-                    <NavLink to="/" className="main-logo flex items-center shrink-0">
-                        {themeConfig.isDarkMode ? (
-                            <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo-light.webp" alt="logo" />
+                        <NavLink to="/" className="main-logo flex items-center shrink-0">
+                            {themeConfig.isDarkMode ? (
+                                <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo-light.webp" alt="logo" />
                             ) : (
                                 <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo.webp" alt="logo" />
                             )}
                         </NavLink>
-                       
+
                         <button
                             type="button"
                             className="collapse-icon w-8 h-8 rounded-full flex items-center hover:bg-gray-500/10 dark:hover:bg-dark-light/10 dark:text-white-light transition duration-300 rtl:rotate-180"
@@ -886,9 +886,8 @@ const Sidebar = () => {
                                         <li className="menu nav-item">
                                             <button
                                                 type="button"
-                                                className={`${
-                                                    errorSubMenu ? 'open' : ''
-                                                } w-full before:bg-gray-300 before:w-[5px] before:h-[5px] before:rounded ltr:before:mr-2 rtl:before:ml-2 dark:text-[#888ea8] hover:bg-gray-100 dark:hover:bg-gray-900`}
+                                                className={`${errorSubMenu ? 'open' : ''
+                                                    } w-full before:bg-gray-300 before:w-[5px] before:h-[5px] before:rounded ltr:before:mr-2 rtl:before:ml-2 dark:text-[#888ea8] hover:bg-gray-100 dark:hover:bg-gray-900`}
                                                 onClick={() => setErrorSubMenu(!errorSubMenu)}
                                             >
                                                 {t('error')}
@@ -930,8 +929,8 @@ const Sidebar = () => {
                                         </li>
 
                                         <li>
-                                            <NavLink to="/pages/maintenence" target="_blank">
-                                                {t('maintenence')}
+                                            <NavLink to="/pages/maintenance" target="_blank">
+                                                {t('maintenance')}
                                             </NavLink>
                                         </li>
                                     </ul>

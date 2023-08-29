@@ -162,7 +162,7 @@ const List = () => {
 
     const fetchDataVendorRfq = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters', filters);
+
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
@@ -433,7 +433,7 @@ const List = () => {
                                         {
                                             accessor: 'vendor_rfq_owner',
                                             sortable: false,
-                                            render: ({ owner }) => 
+                                            render: ({ owner }) =>
                                             <div className="font-semibold">
                                                 {owner ? owner.name : '-No Owner-'}
                                             </div>,
@@ -441,7 +441,7 @@ const List = () => {
                                         {
                                             accessor: 'vendor name',
                                             sortable: false,
-                                            render: ({ vendor }) => 
+                                            render: ({ vendor }) =>
                                             <div className="font-semibold">
                                                 {vendor ? vendor.vendor_name : '-No Vendor-'}
                                             </div>,

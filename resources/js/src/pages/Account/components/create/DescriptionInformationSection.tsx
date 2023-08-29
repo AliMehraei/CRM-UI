@@ -22,6 +22,8 @@ const DescriptionInformationSection = () => {
                 name="last_activity_date"
                 value=""
                 className="form-input flex-1"
+                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} // Update the field value on change
+
             />
         },
     }

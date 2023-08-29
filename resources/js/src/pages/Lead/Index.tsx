@@ -162,7 +162,7 @@ const List = () => {
 
     const fetchDatalead = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        console.log('filters', filters);
+
 
 
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;

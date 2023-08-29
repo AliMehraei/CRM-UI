@@ -20,6 +20,7 @@ const QuoteItemSection = () => {
             [id]: updatedItem,
         };
 
+        setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
     const [items, setItems] = useState<any>([
@@ -58,11 +59,11 @@ const QuoteItemSection = () => {
     };
 
     const removeItem = (item: any = null) => {
-        setItems(items.filter((d: any) => d.id !== item.id));
-        const {[item.id]: _, ...remainingItems} = formState.items;
-
+        const remainingItems = items.filter((d: any) => d.id != item.id);
+        setItems(remainingItems);
         dispatch(updateFormData({items: remainingItems}));
     };
+
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12 ">
