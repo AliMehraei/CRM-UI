@@ -11,8 +11,6 @@ const PurchaseItemSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: string, value: any, id: string) => {
-        console.log(field, value, id)
-        console.log(items)
         const updatedItem = {
             ...formState.items[id],
             [field]: value,
@@ -22,7 +20,6 @@ const PurchaseItemSection = () => {
             ...formState.items,
             [id]: updatedItem,
         };
-        console.log(updatedItems)
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
