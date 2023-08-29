@@ -59,7 +59,7 @@ const InvoiceInformationSection = () => {
                 value=""
                 className="form-input flex-1"
                 name="invoice_date"
-                onChange={(e) => handleChangeField('invoice_date', e[0])}
+                onChange={(_,dateString) => handleChangeField('invoice_date', dateString)}
 
             />,
             'Due Date': <Flatpickr
@@ -70,7 +70,8 @@ const InvoiceInformationSection = () => {
                 value=""
                 name="due_date"
                 className="form-input flex-1"
-                onChange={(e) => handleChangeField('due_date', e[0])}
+                onChange={(_,dateString) => handleChangeField('due_date', dateString)}
+
 
             />,
             'Sales Commission': (
