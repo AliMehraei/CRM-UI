@@ -21,7 +21,7 @@ const StatusSection = () => {
         'Status': {
             'Quote valid': <Select options={QuoteValid} name="quote_valid" id="quote_valid"
                                    onChange={({value}: any) => {
-                                       handleChangeField('converted_by_id', value)
+                                       handleChangeField('quote_valid', value)
                                    }}
                                    className="flex-1"/>,
             'Proactive Offer': <input id="proactive_offer" type="checkbox" name="proactive_offer"
