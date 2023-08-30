@@ -74,8 +74,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataTask(page, pageSize, filters);
-
+        fetchDataTask(page, pageSize, filters, sortStatus); // Fetch data based on filters
     };
     // Filter the options based on search query
     let filteredOptions = [];
@@ -188,11 +187,7 @@ const List = () => {
     }, [page, pageSize, initialRecords]);
     useEffect(() => {
         fetchDataTask(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, filters, sortStatus, resetFilter]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataTask(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
+    }, [page, pageSize, sortStatus, resetFilter]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
