@@ -79,7 +79,8 @@ const HeaderSection = () => {
                                                      <img src={formState.account?.image} alt="avatar"
                                                           className="w-8 h-8 mr-2 rounded-full"/>
                                                      <div>
-                                                         <div className="text-sm font-bold">{formState.account?.name}</div>
+                                                         <div
+                                                             className="text-sm font-bold">{formState.account?.name}</div>
                                                          <div
                                                              className="text-xs text-gray-500">{formState.account?.email}</div>
                                                      </div>
@@ -222,7 +223,7 @@ const HeaderSection = () => {
                     dispatch(updateFormData({'customer_rfq_file': `${response?.data.data.file_url}`}));
                 })}
             />
-                <a className="btn btn-outline-primary" href={formState.customer_rfq_file}>Download</a>
+                <a className="btn ml-1 btn-outline-primary" href={formState.customer_rfq_file}>Download</a>
             </div>,
             'RFQ Dead Line': <Flatpickr name="rfq_dead_line"
                                         options={{
@@ -244,14 +245,28 @@ const HeaderSection = () => {
 
             />,
 
-            'Vendor RFQs Line': <AsyncSelect id="vendor_rfq_lines"
-                                             name="vendor_rfq_lines"
+            'Vendor RFQs Line': <AsyncSelect id="vendor_rfqs_line"
+                                             name="vendor_rfqs_line"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor}
-                                             onChange={({value}: any) => {
-                                                 handleChangeField('vendor_rfq_lines', value)
+                                             onChange={(values: any) => {
+                                                 handleChangeField('vendor_rfqs_lines', values.map((v: any) => v.value))
                                              }}
-                                             className="flex-1"/>, //TODO : fix here for default values
+                                             defaultValue={formState.vendor_rfqs_line
+                                                 ? formState.vendor_rfqs_line.map((data: any) => ({
+                                                     value: data.id,
+                                                     label: (
+                                                         <div key={data.id} className="flex items-center">
+                                                             <div>
+                                                                 <div className="text-sm font-bold">{data.vendor_name}</div>
+                                                             </div>
+                                                         </div>
+                                                     ),
+                                                 }))
+                                                 : []
+                                             }
+                                             isMulti={true}
+                                             className="flex-1"/>,
         }
 
     }
