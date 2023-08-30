@@ -94,7 +94,7 @@ const HeaderSection = () => {
             'Availability Source': <Select id="availability_source" name="availability_source" required
                                            options={AvailabilitySources}
                                            onChange={({value}: any) => {
-                                               handleChangeField('owner_id', value)
+                                               handleChangeField('availability_source', value)
                                            }} className="flex-1"
                                            defaultValue={AvailabilitySources.find((data) => data.value == formState.availability_source)}
             />,
