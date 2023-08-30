@@ -25,7 +25,7 @@ export const LineSection = () => {
             'Customer Part Id': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
-            'Quantity': <input id="quantity" name="Quantity" className="form-input flex-1 "
+            'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                required/>,
 

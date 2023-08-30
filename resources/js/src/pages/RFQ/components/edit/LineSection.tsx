@@ -35,7 +35,7 @@ export const LineSection = () => {
                                        defaultValue={formState.customer_part_id}
                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
-            'Quantity': <input id="quantity" name="Quantity" className="form-input flex-1 "
+            'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
                                defaultValue={formState.quantity}
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                required/>,
