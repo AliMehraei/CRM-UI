@@ -7,7 +7,7 @@ import {updateFormData} from "../../../../store/rfqFormSlice";
 
 export const DevelopmentSection = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.rfqForm);
+    const formState = useSelector((state: any) => state.rfqFormSlice);
 
 
     const handleChangeField = (field: any, value: any) => {
