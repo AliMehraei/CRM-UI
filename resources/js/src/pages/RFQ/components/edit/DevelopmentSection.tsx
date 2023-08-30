@@ -33,7 +33,7 @@ export const DevelopmentSection = () => {
                 />
             </label>,
             'Open Status Time': <Flatpickr
-                name="open_status_time"
+                name="open_status_timestamp"
                 data-enable-time
                 options={{
                     enableTime: true,
@@ -43,7 +43,7 @@ export const DevelopmentSection = () => {
                 }}
                 defaultValue={formState.open_status_time}
 
-                onChange={(_, dateString) => handleChangeField('open_status_time', dateString)}
+                onChange={(_, dateString) => handleChangeField('open_status_timestamp', dateString)}
                 className="form-input flex-1"
             />
         }
