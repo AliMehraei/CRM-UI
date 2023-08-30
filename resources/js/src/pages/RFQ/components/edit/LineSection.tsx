@@ -54,22 +54,20 @@ export const LineSection = () => {
                                                      handleChangeField('alternative_products', values.map((v: any) => v.value))
                                                  }}
                                                  isMulti={true}
-                                                 defaultValue={{
-                                                     value: formState.contact?.id,
-                                                     label: (
-                                                         <div key={formState.contact?.id} className="flex items-center">
-                                                             <img src={formState.contact?.image} alt="avatar"
-                                                                  className="w-8 h-8 mr-2 rounded-full"/>
-                                                             <div>
-                                                                 <div
-                                                                     className="text-sm font-bold">{formState.contact?.name}</div>
-                                                                 <div
-                                                                     className="text-xs text-gray-500">{formState.contact?.email}</div>
+                                                 defaultValue={formState.rfq_product_alternatives
+                                                     ? formState.rfq_product_alternatives.map((data: any) => ({
+                                                         value: data.id,
+                                                         label: (
+                                                             <div key={data.id} className="flex items-center">
+                                                                 <div>
+                                                                     <div className="text-sm font-bold">{data.product_name}</div>
+                                                                 </div>
                                                              </div>
-                                                         </div>
-                                                     ),
-                                                 }}
-                                                 className="flex-1"/>,  //TODO : fix this for default value
+                                                         ),
+                                                     }))
+                                                     : []
+                                                 }
+                                                 className="flex-1"/>,
             'Availability': <AsyncSelect isMulti={false} id="availability" name="availability_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAvailability}
