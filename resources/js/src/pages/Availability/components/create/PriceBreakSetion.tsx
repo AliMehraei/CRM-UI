@@ -7,19 +7,7 @@ const PriceBreakSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.availabilityForm);
 
-    const [items, setItems] = useState<any>([
-        {
-            id: 0,
-            "cost_3000": '',
-            "cost_1000": '',
-            "cost_500": '',
-            "cost_250": '',
-            "cost_100": '',
-            "cost_25": '',
-            "cost_10": '',
-            "cost_1": '',
-        },
-    ]);
+    const [items, setItems] = useState<any>(formState.price_breaks);
 
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
@@ -37,20 +25,13 @@ const PriceBreakSection = () => {
     };
 
     const addItem = () => {
-        let maxId = 0;
+        let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
-
-        setItems([...items, {
+        const totalItems = [...items, {
             id: maxId + 1,
-            "cost_3000": '',
-            "cost_1000": '',
-            "cost_500": '',
-            "cost_250": '',
-            "cost_100": '',
-            "cost_25": '',
-            "cost_10": '',
-            "cost_1": '',
-        }]);
+        }]
+        setItems(totalItems);
+        dispatch(updateFormData({price_breaks: totalItems}));
     };
 
     const removeItem = (item: any = null) => {
