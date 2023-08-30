@@ -9,7 +9,6 @@ export const LineSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: any, value: any) => {
-        console.log(field,value)
         dispatch(updateFormData({[field]: value}));
     };
     const fields = {
