@@ -83,7 +83,7 @@ class api {
     // }
 
     async loadCategory() {
-        return await _axios.get(`${API_URL_PRODUCT}/api/product/catagory/list`);
+        return await _axios.get(`${API_URL_PRODUCT}/api/product/category/list`);
     }
 
     async loadApiModelsPost(data, url, apiMethod) {

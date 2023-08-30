@@ -91,7 +91,6 @@ const TaskInformationSection = () => {
                     dateFormat: 'd-m-Y',
                     defaultDate: `${formState.due_date ? new Date(formState.due_date) : ''}`,
                 }}
-                defaultValue={formState.due_date}
                 onChange={(_,dateString) => handleChangeField('due_date', dateString)} />
             ),
             'Status': (
