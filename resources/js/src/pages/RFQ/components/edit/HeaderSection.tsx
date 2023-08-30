@@ -201,7 +201,7 @@ const HeaderSection = () => {
                     dispatch(updateFormData({'customer_rfq_file': `${response?.data.data.file_url}`}));
                 })}
             />
-                <a className="btn ml-1 btn-outline-primary" href={formState.customer_rfq_file}>Download</a>
+                <a className="btn ml-1 btn-outline-primary" href={formState.customer_rfq_file} target="_blank">Download</a>
             </div>,
             'RFQ Dead Line': <Flatpickr name="rfq_dead_line"
                                         options={{

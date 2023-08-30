@@ -153,7 +153,7 @@ const HeaderSection = () => {
                     })}
                     name="excess_file"
                 />
-                <a className="ml-1 btn btn-outline-primary cursor-pointer" href={formState.excess_file}>Download</a>
+                <a className="ml-1 btn btn-outline-primary cursor-pointer" href={formState.excess_file} target="_blank">Download</a>
             </div>,
 
             'Excess Source': <Select name="excess_source" id="excess_source" options={ExcessSources}

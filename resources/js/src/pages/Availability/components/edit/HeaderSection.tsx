@@ -88,7 +88,7 @@ const HeaderSection = () => {
                        onChange={(e) => handleUploadFile(e, (response: any) => {
                            dispatch(updateFormData({'availability_file': `${response?.data.data.file_url}`}));
                        })}/>
-                <a className="ml-1 btn btn-outline-primary" href={formState.availability_file}>Download</a>
+                <a className="ml-1 btn btn-outline-primary" href={formState.availability_file} target="_blank">Download</a>
             </div>,
 
             'Availability Source': <Select id="availability_source" name="availability_source" required

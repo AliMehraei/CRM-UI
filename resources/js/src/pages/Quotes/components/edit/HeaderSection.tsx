@@ -229,7 +229,7 @@ const HeaderSection = () => {
                             dispatch(updateFormData({field: 'quote_file', value: `${response?.data.data.file_url}`}));
                         })}
                     />
-                    <a className="ml-1 cursor-pointer btn btn-outline-primary" href={formState.quote_file}>Download</a>
+                    <a className="ml-1 cursor-pointer btn btn-outline-primary" href={formState.quote_file} target="_blank">Download</a>
                 </div>
                 ,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"

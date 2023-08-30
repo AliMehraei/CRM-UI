@@ -107,7 +107,7 @@ const AccountSection = () => {
                         })}
                         name="contract_attachment"
                     />
-                    <a className="btn btn-outline-primary" href={formState.contract_attachment}>Download</a>
+                    <a className="btn btn-outline-primary" href={formState.contract_attachment} target="_blank">Download</a>
                 </div>
             ),
             'Business Account': <input
