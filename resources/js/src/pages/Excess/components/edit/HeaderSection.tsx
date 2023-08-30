@@ -142,7 +142,7 @@ const HeaderSection = () => {
                                              ),
                                          }}
                                          className="flex-1"/>,
-            'Excess File': <div>
+            'Excess File': <div className="flex">
                 <input
                     id="excess_file"
                     key="excess_file"
@@ -153,7 +153,7 @@ const HeaderSection = () => {
                     })}
                     name="excess_file"
                 />
-                <a className="btn btn-outline-primary" href={formState.excess_file}>Download</a>
+                <a className="ml-1 btn btn-outline-primary cursor-pointer" href={formState.excess_file}>Download</a>
             </div>,
 
             'Excess Source': <Select name="excess_source" id="excess_source" options={ExcessSources}
