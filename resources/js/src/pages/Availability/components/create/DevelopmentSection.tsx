@@ -13,7 +13,7 @@ const DevelopmentSection = () => {
             'From Our Inventory': <input id="from_our_inventory" type="checkbox"
                                          name="from_our_inventory"
                                          className="form-checkbox"
-                                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                         onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
 
         },
         '': {
