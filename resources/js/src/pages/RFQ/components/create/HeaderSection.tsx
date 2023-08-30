@@ -158,13 +158,15 @@ const HeaderSection = () => {
                                 }}
             />,
 
-            'Vendor RFQs Line': <AsyncSelect id="vendor_rfq_lines"
-                                             name="vendor_rfq_lines"
+            'Vendor RFQs Line': <AsyncSelect id="vendor_rfqs_line"
+                                             name="vendor_rfqs_line"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor}
-                                             onChange={({value}: any) => {
-                                                 handleChangeField('vendor_rfq_lines', value)
+                                             onChange={(values: any) => {
+                                                 handleChangeField('vendor_rfqs_line', values.map((v: any) => v.value))
                                              }}
+
+                                             isMulti={true}
                                              className="flex-1"/>,
         }
 
