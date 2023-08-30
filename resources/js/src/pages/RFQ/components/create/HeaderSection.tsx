@@ -4,7 +4,7 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     Currencies,
-    handleUploadFile,
+    handleUploadFile, searchAccounts,
     searchContacts,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
@@ -56,16 +56,22 @@ const HeaderSection = () => {
         {value: 'no_feedback', label: 'No Feedback'},
         {value: 'negotiation_price', label: 'Negotiation Price'},
         {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'Open', label: 'open'},
-        {value: 'Open', label: 'open'},
+        {value: 'open', label: 'Open'},
+        {value: 'lost', label: 'Lost'},
+        {value: 'won', label: 'Won'},
     ]
 
 
     const fields = {
 
         'Header': {
-            'Account Name': <input id="account-name" type="text" name="account_id"
-                                   className="form-input flex-1 "/>,
+            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchAccounts}
+                                         onChange={({value}: any) => {
+                                             handleChangeField('account_id', value)
+                                         }}
+                                         className="flex-1"/>,
             'Contact': <AsyncSelect isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchContacts}

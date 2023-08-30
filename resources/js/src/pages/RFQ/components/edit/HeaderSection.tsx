@@ -4,7 +4,7 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     Currencies,
-    handleUploadFile,
+    handleUploadFile, searchAccounts,
     searchContacts,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
@@ -57,16 +57,36 @@ const HeaderSection = () => {
         {value: 'no_feedback', label: 'No Feedback'},
         {value: 'negotiation_price', label: 'Negotiation Price'},
         {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'Open', label: 'open'},
-        {value: 'Open', label: 'open'},
+        {value: 'open', label: 'Open'},
+        {value: 'lost', label: 'Lost'},
+        {value: 'won', label: 'Won'},
     ]
 
 
     const fields = {
 
         'Header': {
-            'Account Name': <input id="account-name" type="text" name="account_id"
-                                   className="form-input flex-1 "/>,
+            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchAccounts}
+                                         onChange={({value}: any) => {
+                                             handleChangeField('account_id', value)
+                                         }}
+                                         defaultValue={{
+                                             value: formState.account?.id,
+                                             label: (
+                                                 <div key={formState.account?.id} className="flex items-center">
+                                                     <img src={formState.account?.image} alt="avatar"
+                                                          className="w-8 h-8 mr-2 rounded-full"/>
+                                                     <div>
+                                                         <div className="text-sm font-bold">{formState.account?.name}</div>
+                                                         <div
+                                                             className="text-xs text-gray-500">{formState.account?.email}</div>
+                                                     </div>
+                                                 </div>
+                                             ),
+                                         }}
+                                         className="flex-1"/>,
 
             'Contact': <AsyncSelect isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
