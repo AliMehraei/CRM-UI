@@ -53,6 +53,7 @@ export const LineSection = () => {
                                                  onChange={({value}: any) => {
                                                      handleChangeField('alternative_products', value)
                                                  }}
+                                                 isMulti={true}
                                                  defaultValue={{
                                                      value: formState.contact?.id,
                                                      label: (

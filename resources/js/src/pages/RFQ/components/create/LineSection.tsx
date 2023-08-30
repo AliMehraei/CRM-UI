@@ -40,6 +40,7 @@ export const LineSection = () => {
                                                  onChange={({value}: any) => {
                                                      handleChangeField('alternative_products', value)
                                                  }}
+                                                 isMulti={true}
                                                  className="flex-1"/>,
             'Availability': <AsyncSelect isMulti={false} id="availability" name="availability_id"
                                          placeholder="Type at least 2 characters to search..."
