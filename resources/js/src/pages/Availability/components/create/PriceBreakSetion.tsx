@@ -9,7 +9,7 @@ const PriceBreakSection = () => {
 
     const [items, setItems] = useState<any>([
         {
-            id: 1,
+            id: 0,
             "cost_3000": '',
             "cost_1000": '',
             "cost_500": '',
