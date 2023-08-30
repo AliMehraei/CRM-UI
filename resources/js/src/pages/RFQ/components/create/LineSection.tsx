@@ -1,14 +1,15 @@
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {searchAvailability, searchExcess, searchProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/rfqFormSlice";
 
 
 export const LineSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: any, value: any) => {
+        console.log(field,value)
         dispatch(updateFormData({[field]: value}));
     };
     const fields = {

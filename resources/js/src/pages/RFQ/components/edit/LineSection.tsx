@@ -2,7 +2,7 @@ import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {searchAvailability, searchExcess, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/rfqFormSlice";
 
 
 export const LineSection = () => {
@@ -24,7 +24,8 @@ export const LineSection = () => {
                                              value: formState.product?.id,
                                              label: (
                                                  <div key={formState.product?.id} className="flex items-center">
-                                                     <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                     <div
+                                                         className="text-sm font-bold">{formState.product?.product_name}</div>
                                                  </div>
                                              ),
                                          }}
