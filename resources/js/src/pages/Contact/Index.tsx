@@ -202,12 +202,6 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDataContact(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
-    useEffect(() => {
         setPage(1);
     }, [pageSize]);
 
@@ -216,10 +210,9 @@ const List = () => {
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
 
-
     useEffect(() => {
         fetchDataContact(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
+    }, [page, pageSize, filters, sortStatus, resetFilter]);
     useEffect(() => {
         if (resetFilter)
             fetchDataContact(page, pageSize, filters, sortStatus);
