@@ -192,28 +192,6 @@ const HeaderSection = () => {
                                   defaultValue={DealStages.find((data) => data.value == formState.deal_stage)}
                                   className="flex-1"/>,
 
-            'PM User': <AsyncSelect isMulti={false} id="pm_user_id"
-                                    placeholder="Type at least 2 characters to search..."
-                                    loadOptions={searchOwners}
-                                    onChange={({value}: any) => {
-                                        handleChangeField('pm_user_id', value)
-                                    }}
-                                    defaultValue={{
-                                        value: formState.pm_user?.id,
-                                        label: (
-                                            <div key={formState.pm_user?.id} className="flex items-center">
-                                                <img src={formState.pm_user?.avatar} alt="avatar"
-                                                     className="w-8 h-8 mr-2 rounded-full"/>
-                                                <div>
-                                                    <div className="text-sm font-bold">{formState.pm_user?.name}</div>
-                                                    <div
-                                                        className="text-xs text-gray-500">{formState.pm_user?.email}</div>
-                                                </div>
-                                            </div>
-                                        ),
-                                    }}
-                                    className="flex-1"/>,
-
             'Customer RFQ File': <div className="flex"><input
                 name="customer_rfq_file"
                 type="file"

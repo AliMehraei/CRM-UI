@@ -129,13 +129,6 @@ const HeaderSection = () => {
                                   }}
                                   className="flex-1"/>,
 
-            'PM User': <AsyncSelect isMulti={false} id="pm_user_id"
-                                    placeholder="Type at least 2 characters to search..."
-                                    loadOptions={searchOwners}
-                                    onChange={({value}: any) => {
-                                        handleChangeField('pm_user_id', value)
-                                    }}
-                                    className="flex-1"/>,
             'Customer RFQ File': <input
                 name="customer_rfq_file"
                 type="file"
