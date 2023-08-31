@@ -173,7 +173,7 @@ const List = () => {
         }
     };
     useEffect(() => {
-        const data = sortBy(items, sortStatus.columnAccessor);   
+        const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
         setInitialRecords(reversedData);
 
@@ -224,7 +224,7 @@ const List = () => {
     };
 
     const handleSortChange = (sortStatus) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
+        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
         setPage(1);
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
@@ -297,8 +297,8 @@ const List = () => {
                         {/* Filter by options */}
                         <div className="mb-4">
                             <label className="block font-semibold">Filter by:</label>
-                            {filteredOptions.map((option) => (
-                                <div>
+                            {filteredOptions.map((option, index) => (
+                                <div key={option.value + index}>
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
@@ -398,7 +398,7 @@ const List = () => {
                                             accessor: 'owner',
                                             title :'Product Owner',
                                             sortable: false,
-                                            render: ({ owner }) => 
+                                            render: ({ owner }) =>
                                             <div className="font-semibold">
                                                 {owner ? owner.name : 'No Owner'}
                                             </div>,
@@ -413,7 +413,7 @@ const List = () => {
                                                 </div>
                                             ),
                                         },
-                                        
+
                                         {
                                             accessor: 'created_at',
                                             title: 'Created time',
@@ -425,7 +425,7 @@ const List = () => {
                                                 const minutes = String(date.getMinutes()).padStart(2, '0');
                                                 const ampm = hours >= 12 ? 'PM' : 'AM';
                                                 const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
-                                        
+
                                                 return (
                                                     <div className="font-semibold">
                                                         {formattedDate}
