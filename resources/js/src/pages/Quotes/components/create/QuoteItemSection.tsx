@@ -7,6 +7,20 @@ import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 
 const QuoteItemSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
+    const [items, setItems] = useState<any>([
+        {
+            id: 0,
+            name: '',
+            part_id: '',
+            quantity: 1,
+            SPQ: '',
+            list_price: '',
+            lead_time: '',
+            date_code: '',
+            comment: '',
+            amount: 0,
+        },
+    ]);
     const dispatch = useDispatch();
 
     const handleChangeField = (field: string, value: any, id: string) => {
@@ -23,23 +37,10 @@ const QuoteItemSection = () => {
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            name: '',
-            part_id: '',
-            quantity: 1,
-            SPQ: '',
-            list_price: '',
-            lead_time: '',
-            date_code: '',
-            comment: '',
-            amount: 0,
-        },
-    ]);
+
 
     const addItem = () => {
-        let maxId = 0;
+        let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
             id: maxId + 1, name: '',

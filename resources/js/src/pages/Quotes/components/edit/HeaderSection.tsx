@@ -218,14 +218,20 @@ const HeaderSection = () => {
 
             />,
 
-            'Quote File(Excel)': <input
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
-                })}
-            />,
+            'Quote File(Excel)':
+                <div className="flex">
+                    <input
+                        name="quote_file"
+                        type="file"
+                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                        accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
+                        onChange={(e) => handleUploadFile(e, (response: any) => {
+                            dispatch(updateFormData({field: 'quote_file', value: `${response?.data.data.file_url}`}));
+                        })}
+                    />
+                    <a className="ml-1 cursor-pointer btn btn-outline-primary" href={formState.quote_file} target="_blank">Download</a>
+                </div>
+                ,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                     disabled/>,

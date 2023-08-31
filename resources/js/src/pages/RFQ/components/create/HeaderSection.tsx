@@ -4,7 +4,7 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     Currencies,
-    handleUploadFile,
+    handleUploadFile, searchAccounts,
     searchContacts,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
@@ -56,16 +56,22 @@ const HeaderSection = () => {
         {value: 'no_feedback', label: 'No Feedback'},
         {value: 'negotiation_price', label: 'Negotiation Price'},
         {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'Open', label: 'open'},
-        {value: 'Open', label: 'open'},
+        {value: 'open', label: 'Open'},
+        {value: 'lost', label: 'Lost'},
+        {value: 'won', label: 'Won'},
     ]
 
 
     const fields = {
 
         'Header': {
-            'Account Name': <input id="account-name" type="text" name="account_id"
-                                   className="form-input flex-1 "/>,
+            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchAccounts}
+                                         onChange={({value}: any) => {
+                                             handleChangeField('account_id', value)
+                                         }}
+                                         className="flex-1"/>,
             'Contact': <AsyncSelect isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchContacts}
@@ -123,13 +129,6 @@ const HeaderSection = () => {
                                   }}
                                   className="flex-1"/>,
 
-            'PM User': <AsyncSelect isMulti={false} id="pm_user_id"
-                                    placeholder="Type at least 2 characters to search..."
-                                    loadOptions={searchOwners}
-                                    onChange={({value}: any) => {
-                                        handleChangeField('pm_user_id', value)
-                                    }}
-                                    className="flex-1"/>,
             'Customer RFQ File': <input
                 name="customer_rfq_file"
                 type="file"
@@ -152,13 +151,15 @@ const HeaderSection = () => {
                                 }}
             />,
 
-            'Vendor RFQs Line': <AsyncSelect id="vendor_rfq_lines"
-                                             name="vendor_rfq_lines"
+            'Vendor RFQs Line': <AsyncSelect id="vendor_rfqs_line"
+                                             name="vendor_rfqs_line"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor}
-                                             onChange={({value}: any) => {
-                                                 handleChangeField('vendor_rfq_lines', value)
+                                             onChange={(values: any) => {
+                                                 handleChangeField('vendor_rfqs_line', values.map((v: any) => v.value))
                                              }}
+
+                                             isMulti={true}
                                              className="flex-1"/>,
         }
 

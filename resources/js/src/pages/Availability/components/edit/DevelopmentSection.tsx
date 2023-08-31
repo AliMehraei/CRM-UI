@@ -16,7 +16,7 @@ const DevelopmentSection = () => {
                                          name="from_our_inventory"
                                          className="form-checkbox"
                                          checked={formState.from_our_inventory}
-                                         onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                         onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
 
         },
         '': {
