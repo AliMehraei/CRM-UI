@@ -73,7 +73,6 @@ const InvoiceItemSection = () => {
     }
 
     useEffect(() => {
-        console.log(summary)
         dispatch(updateFormData({summary: summary}));
 
     }, [summary]);
