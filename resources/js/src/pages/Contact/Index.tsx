@@ -212,7 +212,7 @@ const List = () => {
     useEffect(() => {
         fetchDataContact(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, resetFilter]);
- 
+
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
@@ -322,8 +322,8 @@ const List = () => {
                         {/* Filter by options */}
                         <div className="mb-4">
                             <label className="block font-semibold">Filter by:</label>
-                            {filteredOptions.map((option) => (
-                                <div>
+                            {filteredOptions.map((option, index) => (
+                                <div key={option.value + index}>
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"

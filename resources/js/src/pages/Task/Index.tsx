@@ -292,8 +292,8 @@ const List = () => {
                         {/* Filter by options */}
                         <div className="mb-4">
                             <label className="block font-semibold">Filter by:</label>
-                            {filteredOptions.map((option) => (
-                                <div>
+                            {filteredOptions.map((option, index) => (
+                                <div key={option.value + index}>
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
@@ -392,7 +392,7 @@ const List = () => {
                                                     const minutes = String(date.getMinutes()).padStart(2, '0');
                                                     const ampm = hours >= 12 ? 'PM' : 'AM';
                                                     const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
-                                            
+
                                                     return (
                                                         <div className="font-semibold">
                                                             {formattedDate}
