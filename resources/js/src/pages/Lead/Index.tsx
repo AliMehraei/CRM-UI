@@ -83,7 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDatalead(page, pageSize, filters);
+        fetchDatalead(page, pageSize, filters,sortStatus);
 
     };
 
@@ -200,31 +200,16 @@ const List = () => {
         setInitialRecords(reversedData);
 
     }, [items, sortStatus]);
-
-    useEffect(() => {
-        fetchDatalead(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
-
     useEffect(() => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-
-
     useEffect(() => {
         fetchDatalead(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDatalead(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
-
+    }, [page, pageSize, sortStatus, resetFilter]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters

@@ -83,7 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataVendorRfq(page, pageSize, filters);
+        fetchDataVendorRfq(page, pageSize, filters, sortStatus);
 
     };
 
@@ -202,12 +202,6 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDataVendorRfq(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
-    useEffect(() => {
         setPage(1);
     }, [pageSize]);
 
@@ -219,11 +213,7 @@ const List = () => {
 
     useEffect(() => {
         fetchDataVendorRfq(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataVendorRfq(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
+    }, [page, pageSize, sortStatus, resetFilter]);
 
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields

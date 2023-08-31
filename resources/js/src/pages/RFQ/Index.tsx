@@ -45,7 +45,6 @@ const List = () => {
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
-                // console.log('condition.model',item);
 
                 return {
                     ...item,
@@ -83,7 +82,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataRfq(page, pageSize, filters);
+        fetchDataRfq(page, pageSize, filters,sortStatus);
 
     };
 
@@ -202,12 +201,6 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDataRfq(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
-    useEffect(() => {
         setPage(1);
     }, [pageSize]);
 
@@ -219,11 +212,7 @@ const List = () => {
 
     useEffect(() => {
         fetchDataRfq(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataRfq(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
+    }, [page, pageSize, sortStatus, resetFilter]);
 
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields

@@ -83,8 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataContact(page, pageSize, filters);
-
+        fetchDataContact(page, pageSize, filters,sortStatus);
     };
 
     // Filter the options based on search query
@@ -202,12 +201,6 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDataContact(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
-    useEffect(() => {
         setPage(1);
     }, [pageSize]);
 
@@ -216,15 +209,10 @@ const List = () => {
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
 
-
     useEffect(() => {
         fetchDataContact(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataContact(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
-
+    }, [page, pageSize, sortStatus, resetFilter]);
+ 
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters

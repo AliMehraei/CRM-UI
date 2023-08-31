@@ -83,7 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDatasalesOrder(page, pageSize, filters);
+        fetchDatasalesOrder(page, pageSize, filters,sortStatus);
 
     };
 
@@ -162,12 +162,8 @@ const List = () => {
 
     const fetchDatasalesOrder = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-
-
-
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
-
         try {
             api_instance.fetchDataSalesOrder({
                 page: page,
@@ -179,7 +175,6 @@ const List = () => {
                 setItems(res.data.data.data);
                 setTotalItems(res.data.data.total);
                 setLoading(false);
-
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
@@ -190,22 +185,12 @@ const List = () => {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
-
-
     };
-
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
         setInitialRecords(reversedData);
-
     }, [items, sortStatus]);
-
-    useEffect(() => {
-        fetchDatasalesOrder(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
 
     useEffect(() => {
         setPage(1);
@@ -216,15 +201,10 @@ const List = () => {
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
 
-
     useEffect(() => {
         fetchDatasalesOrder(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDatasalesOrder(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
-
+    }, [page, pageSize, sortStatus, resetFilter]);
+    
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters

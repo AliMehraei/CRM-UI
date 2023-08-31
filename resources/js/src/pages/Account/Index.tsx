@@ -83,8 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataAccount(page, pageSize, filters);
-
+        fetchDataAccount(page, pageSize, filters, sortStatus); // Fetch data based on filters
     };
 
     // Filter the options based on search query
@@ -162,12 +161,8 @@ const List = () => {
 
     const fetchDataAccount = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-
-
-
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
-
         try {
             api_instance.fetchDataAccount({
                 page: page,
@@ -190,23 +185,12 @@ const List = () => {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
-
-
     };
-
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
         setInitialRecords(reversedData);
-
     }, [items, sortStatus]);
-
-    useEffect(() => {
-        fetchDataAccount(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
@@ -216,15 +200,9 @@ const List = () => {
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
 
-
     useEffect(() => {
         fetchDataAccount(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataAccount(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
-
+    }, [page, pageSize, sortStatus, resetFilter]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
