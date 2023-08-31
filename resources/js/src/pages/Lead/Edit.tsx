@@ -5,7 +5,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import LeadFormFields from "./components/edit/LeadFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
-import {updateFormData} from "../../store/leadFormSlice";
+import {resetForm, updateFormData} from "../../store/leadFormSlice";
 import LoadingAlpyn from "../../components/LoadingAlpyn"
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
@@ -53,7 +53,7 @@ const Edit = () => {
 
     return (
         <div className='px-4'>
-            <ActionButtonsComponent formState={formState}/>
+            <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
                     <LeadFormFields/>

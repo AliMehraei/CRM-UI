@@ -1,4 +1,3 @@
-// redux/formSlice.js
 import {createSlice} from '@reduxjs/toolkit';
 
 
@@ -31,5 +30,5 @@ const formSlice = createSlice({
     },
 });
 
-export const {updateFormData} = formSlice.actions;
+export const {updateFormData, resetForm} = formSlice.actions;
 export default formSlice.reducer;

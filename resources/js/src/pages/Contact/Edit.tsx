@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 import ContactFormFields from "./components/edit/ContactFormFields";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
-import {updateFormData} from "../../store/contactFormSlice";
+import {resetForm, updateFormData} from "../../store/contactFormSlice";
 import LoadingAlpyn from "../../components/LoadingAlpyn";
 
 const Edit = () => {
@@ -54,7 +54,7 @@ const Edit = () => {
 
     return (
         <div className='px-4'>
-            <ActionButtonsComponent formState={formState}/>
+            <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
                     <ContactFormFields/>

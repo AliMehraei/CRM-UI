@@ -4,10 +4,9 @@ import api from "../../config/api";
 import {useDispatch, useSelector} from "react-redux";
 import {resetErrors, updateErrors} from "../../store/formErrorsSlice";
 import Swal from "sweetalert2";
-import {resetForm} from "../../store/manufactureFormSlice";
 
 
-const ActionButtonsComponent = ({formState}: any) => {
+const ActionButtonsComponent = ({formState, resetForm}: any) => {
     const dispatch = useDispatch();
     const themeState = useSelector((state: any) => state.themeConfig);
 
