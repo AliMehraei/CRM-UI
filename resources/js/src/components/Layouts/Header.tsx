@@ -63,28 +63,28 @@ const Header = () => {
     const [messages, setMessages] = useState([
         {
             id: 1,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
+            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
             title: 'Congratulations!',
             message: 'Your OS has been updated.',
             time: '1hr',
         },
         {
             id: 2,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
+            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
             title: 'Did you know?',
             message: 'You can switch between artboards.',
             time: '2hr',
         },
         {
             id: 3,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
+            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
             title: 'Something went wrong!',
             message: 'Send Reposrt',
             time: '2days',
         },
         {
             id: 4,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
+            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
             title: 'Warning',
             message: 'Your password strength is low.',
             time: '5days',
@@ -755,10 +755,10 @@ const Header = () => {
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle>
+                                    <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5"></circle>
                                     <path
                                         d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                 </svg>
                                 <span className="px-1">{t('Account')}</span>
                             </div>
@@ -772,19 +772,19 @@ const Header = () => {
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle>
+                                    <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5"></circle>
                                     <path opacity="0.5" d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4"
-                                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                     <path opacity="0.5" d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4"
-                                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                     <ellipse cx="12" cy="17" rx="6" ry="4" stroke="currentColor"
-                                             stroke-width="1.5"></ellipse>
+                                             strokeWidth="1.5"></ellipse>
                                     <path opacity="0.5"
                                           d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14"
-                                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                     <path opacity="0.5"
                                           d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14"
-                                          stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                 </svg>
                                 <span className="px-1">{t('Leads')}</span>
                             </div>
@@ -807,10 +807,10 @@ const Header = () => {
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle>
+                                    <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5"></circle>
                                     <path
                                         d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                 </svg>
                                 <span className="px-1">{t('contacts')}</span>
                             </div>
@@ -826,8 +826,8 @@ const Header = () => {
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M22 7L14.6203 14.3347C13.6227 15.3263 13.1238 15.822 12.5051 15.822C11.8864 15.8219 11.3876 15.326 10.3902 14.3342L10.1509 14.0962C9.15254 13.1035 8.65338 12.6071 8.03422 12.6074C7.41506 12.6076 6.91626 13.1043 5.91867 14.0977L2 18M22 7V12.5458M22 7H16.4179"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round"></path>
+                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+                                        strokeLinejoin="round"></path>
                                 </svg>
                                 <span className="px-1">{t('Sales')}</span>
                             </div>
