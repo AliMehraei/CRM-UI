@@ -74,19 +74,21 @@ const InvoiceInformationSection = () => {
                 value={formState.invoice_date}
                 className="form-input flex-1"
                 name="invoice_date"
-                onChange={(e) => handleChangeField('invoice_date', e[0])}
+                onChange={(_,dateString) => handleChangeField('invoice_date', dateString)}
+
 
             />,
             'Due Date': <Flatpickr
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.invoice_date ? new Date(formState.invoice_date) : ''}`,
+                    defaultDate: `${formState.due_date ? new Date(formState.due_date) : ''}`,
                 }}
                 value={formState.invoice_date}
                 name="due_date"
                 className="form-input flex-1"
-                onChange={(e) => handleChangeField('due_date', e[0])}
+                onChange={(_,dateString) => handleChangeField('due_date', dateString)}
+
 
             />,
             'Sales Commission': (

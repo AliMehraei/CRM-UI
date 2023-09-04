@@ -4,7 +4,14 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess,searchOwners } from "../../../../components/Functions/CommonFunctions";
+import {
+    handleUploadFile,
+    Currencies,
+    PortalAccess,
+    searchOwners,
+    getImageSource
+} from "../../../../components/Functions/CommonFunctions";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const LeadInformationSection = () => {
     const dispatch = useDispatch();
@@ -85,17 +92,34 @@ const LeadInformationSection = () => {
 
     const fields = {
         'Lead Information': {
-            'Lead Image': (<input
-                id="lead_image"
-                key="lead_image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ 'image' : `${response?.data.data.file_url}` }));
-                })}
-                name="leadImage"
-            />
+            'Lead Image': (
+                <div className="">
+                    <div className="flex">
+                        <input
+                            id="image"
+                            key="image"
+                            type="file"
+                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                            accept="image/*"
+                            onChange={(e) => handleUploadFile(e, (response: any) => {
+                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                            })}
+                            name="image"
+                        />
+                        <ClearButtonComponent callBack={() => {
+                            const fileInput = document.getElementById('image') as HTMLInputElement | null;
+                            if (fileInput) {
+                                fileInput.value = '';
+                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                            }
+                            dispatch(updateFormData({'image': null}));
+                        }}/>
+                    </div>
+                    <img
+                        id="image_preview"
+                        src={getImageSource(formState.image || formState.oldImage)}
+                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                </div>
             ),
             'Status': (
                 <Select

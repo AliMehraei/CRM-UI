@@ -16,12 +16,12 @@ const CreatedSection = () => {
                            name="test"
                            checked={formState.test}
                            className="form-checkbox"
-                           onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                           onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
             'Send letter owner': <input id="send_letter_owner" type="checkbox"
                                         name="send_letter_owner"
                                         className="form-checkbox"
                                         checked={formState.send_letter_owner}
-                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                        onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
         }
     }
     return (<>

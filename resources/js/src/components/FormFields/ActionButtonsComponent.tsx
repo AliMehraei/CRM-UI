@@ -4,10 +4,9 @@ import api from "../../config/api";
 import {useDispatch, useSelector} from "react-redux";
 import {resetErrors, updateErrors} from "../../store/formErrorsSlice";
 import Swal from "sweetalert2";
-import {resetForm} from "../../store/manufactureFormSlice";
 
 
-const ActionButtonsComponent = ({formState}: any) => {
+const ActionButtonsComponent = ({formState, resetForm}: any) => {
     const dispatch = useDispatch();
     const themeState = useSelector((state: any) => state.themeConfig);
 
@@ -23,7 +22,7 @@ const ActionButtonsComponent = ({formState}: any) => {
             toast: true,
             position: 'top',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 5000,
         });
 
         const methodToCall = api_instance[formState.api];
@@ -56,6 +55,14 @@ const ActionButtonsComponent = ({formState}: any) => {
             const errorData = response.data.data;
             const errorsToUpdate = {hasError: true, ...Object.fromEntries(Object.entries(errorData).map(([field, value]: any) => [field, value[0]]))};
             dispatch(updateErrors(errorsToUpdate));
+            toast.fire({
+                icon: 'error',
+                html: `<h5>Form Validation Error</h5>
+                        <span style="font-size: 12px">Please Check fields</span>
+                        `,
+                padding: '10px 20px',
+
+            });
         } else {
             toast.fire({
                 icon: 'error',

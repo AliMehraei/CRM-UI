@@ -12,11 +12,11 @@ const CreatedSection = () => {
         'Created': {
             'test': <input id="test" type="checkbox"
                            name="test"
-                           className="form-checkbox" onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                           className="form-checkbox" onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
             'Send letter owner': <input id="send_letter_owner" type="checkbox"
                                         name="send_letter_owner"
                                         className="form-checkbox"
-                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                        onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
         }
     }
     return (<>

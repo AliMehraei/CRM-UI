@@ -235,10 +235,9 @@ const HeaderSection = () => {
             'Exchange Rate': (
                 <input id="exchange_rate"
                     name="exchange_rate" type="text"
-                    value="1"
                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                     disabled
-                    defaultValue={formState.exchange_rate}
+                    defaultValue={formState.exchange_rate ?? 1}
                 />
             ),
 

@@ -31,14 +31,14 @@ export const DevelopmentSection = () => {
                 />
             </label>,
             'Open Status Time': <Flatpickr
-                name="open_status_time"
+                name="open_status_timestamp"
                 data-enable-time
                 options={{
                     enableTime: true,
                     dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
                 }}
-                onChange={(_, dateString) => handleChangeField('rfq_dead_line', dateString)}
+                onChange={(_, dateString) => handleChangeField('open_status_timestamp', dateString)}
                 className="form-input flex-1"
             />
         }

@@ -7,7 +7,7 @@ import {updateFormData} from "../../../../store/rfqFormSlice";
 
 export const DevelopmentSection = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.rfqForm);
+    const formState = useSelector((state: any) => state.rfqFormSlice);
 
 
     const handleChangeField = (field: any, value: any) => {
@@ -33,17 +33,17 @@ export const DevelopmentSection = () => {
                 />
             </label>,
             'Open Status Time': <Flatpickr
-                name="open_status_time"
+                name="open_status_timestamp"
                 data-enable-time
                 options={{
                     enableTime: true,
                     dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
-                    defaultDate: `${formState.open_status_time ? new Date(formState.open_status_time) : ''}`,
+                    defaultDate: `${formState.open_status_date ? new Date(formState.open_status_date+' '+ formState.open_status_time) : ''}`,
                 }}
-                defaultValue={formState.open_status_time}
+                defaultValue={formState.open_status_timestamp}
 
-                onChange={(_, dateString) => handleChangeField('open_status_time', dateString)}
+                onChange={(_, dateString) => handleChangeField('open_status_timestamp', dateString)}
                 className="form-input flex-1"
             />
         }

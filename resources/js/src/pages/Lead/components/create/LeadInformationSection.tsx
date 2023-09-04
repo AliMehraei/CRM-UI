@@ -4,7 +4,8 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {handleUploadFile,searchOwners} from "../../../../components/Functions/CommonFunctions";
+import {getImageSource, handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const LeadInformationSection = () => {
     const dispatch = useDispatch();
@@ -13,8 +14,6 @@ const LeadInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
 
 
     const LostReason = [
@@ -67,46 +66,63 @@ const LeadInformationSection = () => {
 
     const fields = {
         'Lead Information': {
-            'Lead Image': (<input
-                    id="lead_image"
-                    key="lead_image"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="image/*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'image', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="leadImage"
-                />
+            'Lead Image': (
+                <div className="">
+                    <div className="flex">
+                        <input
+                            id="image"
+                            key="image"
+                            type="file"
+                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                            accept="image/*"
+                            onChange={(e) => handleUploadFile(e, (response: any) => {
+                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                            })}
+                            name="leadImage"
+                        />
+                        <ClearButtonComponent callBack={() => {
+                            const fileInput = document.getElementById('image') as HTMLInputElement | null;
+                            if (fileInput) {
+                                fileInput.value = '';
+                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                            }
+                            dispatch(updateFormData({'image': null}));
+                        }}/>
+                    </div>
+                    <img
+                        id="image_preview"
+                        src={getImageSource(formState.image || formState.oldImage)}
+                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                </div>
             ),
             'Status': (
                 <Select
-                options={LeadStatus}
-                name="status"
-                id="status"
-                onChange={({value}: any) => {
-                    handleChangeField('status', value)
-                }}
-                className="flex-1"
+                    options={LeadStatus}
+                    name="status"
+                    id="status"
+                    onChange={({value}: any) => {
+                        handleChangeField('status', value)
+                    }}
+                    className="flex-1"
                 />
             ),
             'Lost Reason': (
                 <Select
-                options={LostReason}
-                name="lost_reason"
-                id="lost_reason"
-                onChange={({value}: any) => {
-                    handleChangeField('lost_reason', value)
-                }}
-                className="flex-1"
+                    options={LostReason}
+                    name="lost_reason"
+                    id="lost_reason"
+                    onChange={({value}: any) => {
+                        handleChangeField('lost_reason', value)
+                    }}
+                    className="flex-1"
                 />
             ),
             'Lost Reason Comment': (
                 <input
-                id="lost_reason_comment"
-                name="lost_reason_comment"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    id="lost_reason_comment"
+                    name="lost_reason_comment"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -140,62 +156,62 @@ const LeadInformationSection = () => {
 
             'Company Type': (
                 <Select
-                options={CompanyType}
-                name="company_type"
-                id="company_type"
-                onChange={({value}: any) => {
-                    handleChangeField('company_type', value)
-                }}
-                className="flex-1"
+                    options={CompanyType}
+                    name="company_type"
+                    id="company_type"
+                    onChange={({value}: any) => {
+                        handleChangeField('company_type', value)
+                    }}
+                    className="flex-1"
                 />
             ),
             'Industry': (
                 <Select
-                options={Industry}
-                name="industry"
-                id="industry"
-                onChange={({value}: any) => {
-                    handleChangeField('industry', value)
-                }}
-                className="flex-1"
+                    options={Industry}
+                    name="industry"
+                    id="industry"
+                    onChange={({value}: any) => {
+                        handleChangeField('industry', value)
+                    }}
+                    className="flex-1"
                 />
             ),
-            'Website':(
+            'Website': (
                 <input
-                id="website"
-                name="website"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    id="website"
+                    name="website"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
 
-            />
+                />
             ),
             'Lead Source': (
                 <Select
-                options={LeadSource}
-                name="lead_source"
-                id="lead_source"
-                onChange={({value}: any) => {
-                    handleChangeField('lead_source', value)
-                }}
-                className="flex-1"
+                    options={LeadSource}
+                    name="lead_source"
+                    id="lead_source"
+                    onChange={({value}: any) => {
+                        handleChangeField('lead_source', value)
+                    }}
+                    className="flex-1"
                 />
             ),
-            'Zusätzlicher Ansprechpartner':(
+            'Zusätzlicher Ansprechpartner': (
                 <input
-                id="Ansprechpartner"
-                name="Ansprechpartner"
-                disabled
-                className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                    id="Ansprechpartner"
+                    name="Ansprechpartner"
+                    disabled
+                    className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                 />
             ),
 
-            'Email Opt Out':(
+            'Email Opt Out': (
                 <input
-                id="email_opt_out"
-                type="checkbox"
-                name="email_opt_out"
-                className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    id="email_opt_out"
+                    type="checkbox"
+                    name="email_opt_out"
+                    className="form-checkbox"
+                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
         }

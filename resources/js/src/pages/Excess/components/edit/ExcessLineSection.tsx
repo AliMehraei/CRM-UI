@@ -28,7 +28,7 @@ const ExcessLineSection = () => {
                                              value: formState.product?.id,
                                              label: (
                                                  <div key={formState.product?.id} className="flex items-center">
-                                                     <div className="text-sm font-bold">{formState.product?.name}</div>
+                                                     <div className="text-sm font-bold">{formState.product?.product_name}</div>
                                                  </div>
                                              ),
                                          }}
