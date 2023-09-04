@@ -61,9 +61,9 @@ const Create = () => {
                             <button type="submit" className="btn btn-dark !mt-6">
                                 Cancel
                             </button>
-                            <button type="submit" className="btn btn-primary !mt-6">
+                            <Link to="/import/account/operation" type="submit" className="btn btn-primary !mt-6">
                                 Submit
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
