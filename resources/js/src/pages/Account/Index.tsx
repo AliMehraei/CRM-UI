@@ -9,6 +9,8 @@ import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
 import { renderFilterValueFiled } from '../../components/FilterValueFiled'
+import React from 'react';
+import Dropdown from '../../components/Dropdown';
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -259,8 +261,7 @@ const List = () => {
         setFilters(updatedFilters);
     };
 
-
-
+    const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
@@ -287,10 +288,25 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-                        <Link to="/account/add" className="btn btn-primary gap-2">
-                            Add New
-                        </Link>
 
+                        <div className="inline-flex">
+                            <Link to="/account/add" className="btn btn-primary ltr:rounded-r-none rtl:rounded-l-none">
+                                Add New
+                            </Link>
+                            <div className="dropdown">
+                                <Dropdown
+                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
+                                    btnClassName="btn dropdown-toggle btn-primary ltr:rounded-l-none rtl:rounded-r-none border-l-[#4468fd] before:border-[5px] before:border-l-transparent before:border-r-transparent before:border-t-inherit before:border-b-0 before:inline-block before:border-t-white-light h-full"
+                                    button={<span className="sr-only">Toggle dropdown</span>}
+                                >
+                                    <ul className="!min-w-[170px]">
+                                        <li>
+                                            <Link to="/import/account">Import Accounts</Link>
+                                        </li>
+                                    </ul>
+                                </Dropdown>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
