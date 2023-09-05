@@ -30,10 +30,10 @@ const Operation = () => {
         switch (operation) {
             case 'create':
                 return (
-                    <div className="bg-primary-light p-5 rounded-md my-4">
+                    <div className="bg-primary-light dark:bg-primary-dark-light p-5 rounded-md my-4">
                         <div className="flex items-center justify-between space-x-4">
-                            <label htmlFor="ctnSelect1" >Skip existing contacts based on</label>
-                            <select id="ctnSelect1" className="form-select flex-1 text-white-dark" required>
+                            <label htmlFor="ctnSelect1" className="dark:text-dark-light w-full whitespace-nowrap">Skip existing contacts based on</label>
+                            <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
                                 <option>--None--</option>
                                 <option>{ moduleName } Id</option>
                             </select>
@@ -44,18 +44,18 @@ const Operation = () => {
             case 'update':
             case 'create_update':
                 return (
-                    <div className="bg-primary-light p-5 rounded-md my-4 space-y-4">
+                    <div className="bg-primary-light dark:bg-primary-dark-light p-5 rounded-md my-4 space-y-4">
                         <div className="flex items-center justify-between space-x-4">
-                            <label htmlFor="ctnSelect1" >Find existing contacts based on</label>
-                            <select id="ctnSelect1" className="form-select flex-1 text-white-dark" required>
+                            <label htmlFor="ctnSelect1" className="dark:text-dark-light w-full whitespace-nowrap" >Find existing contacts based on</label>
+                            <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
                                 <option>--None--</option>
                                 <option>{ moduleName } Id</option>
                             </select>
                         </div>
                         <div>
                             <label className="inline-flex cursor-pointer">
-                                <input type="checkbox" className="form-checkbox bg-white    " />
-                                <span className="">Don't update empty values for existing contacts </span>
+                                <input type="checkbox" className="form-checkbox bg-white dark:bg-dark-dark-light" />
+                                <span className="dark:text-dark-light">Don't update empty values for existing contacts </span>
                             </label>
                         </div>
                     </div>
