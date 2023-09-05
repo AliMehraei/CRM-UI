@@ -87,6 +87,7 @@ const EditInvoice = lazy(() => import('../pages/Invoice/Edit'));
 
 const ImportCreate = lazy(() => import('../pages/Import/Create'));
 const ImportOperation = lazy(() => import('../pages/Import/Operation'));
+const ImportFieldMapping = lazy(() => import('../pages/Import/FieldMapping'));
 
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
@@ -132,6 +133,10 @@ const routes = [
     {
         path: '/import/:module/operation',
         element: <ImportOperation />,
+    },
+    {
+        path: '/import/:module/field-mapping',
+        element: <ImportFieldMapping />,
     },
 
     {
