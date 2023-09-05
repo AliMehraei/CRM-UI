@@ -58,11 +58,19 @@ const Create = () => {
                             />
                         </div>
                         <div className="flex justify-between items-center">
-                            <button type="submit" className="btn btn-dark !mt-6">
+                            <Link to="/" type="submit" className="group btn btn-dark !mt-4">
+                                <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                                 Cancel
-                            </button>
-                            <Link to="/import/account/operation" type="submit" className="btn btn-primary !mt-6">
-                                Submit
+                            </Link>
+                            <Link to="/import/account/operation" type="submit" className="group btn btn-primary !mt-4">
+                                Next
+                                <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </Link>
                         </div>
                     </div>
