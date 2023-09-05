@@ -385,23 +385,23 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'manufacturer',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ manufacturer }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture ? manufacture.name : 'No manufacture'}
+                                                    {manufacturer ? manufacturer.name : 'No manufacturer'}
 
                                                 </div>
                                             ),
                                         },
                                         {
                                             accessor: 'owner',
-                                            title :'Product Owner',
+                                            title: 'Product Owner',
                                             sortable: false,
                                             render: ({ owner }) =>
-                                            <div className="font-semibold">
-                                                {owner ? owner.name : 'No Owner'}
-                                            </div>,
+                                                <div className="font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
+                                                </div>,
                                         },
                                         {
                                             accessor: 'product_active',

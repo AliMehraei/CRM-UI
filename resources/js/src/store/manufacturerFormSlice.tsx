@@ -1,11 +1,11 @@
 // redux/formSlice.js
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 
 const initState = {
     api: "createSingleManufacturer",
-    createRoute:"/manufacture/add",
-    redirectTo: "/manufacture/edit/:id",
+    createRoute: "/manufacturer/add",
+    redirectTo: "/manufacturer/edit/:id",
     action: "create",
     name: '',
     octo_api_id: '',
@@ -18,8 +18,8 @@ const initState = {
 
 };
 
-const manufactureFormSlice = createSlice({
-    name: 'manufactureForm',
+const manufacturerFormSlice = createSlice({
+    name: 'manufacturerForm',
     initialState: initState,
     reducers: {
         updateFormData: (state, action) => {
@@ -32,7 +32,7 @@ const manufactureFormSlice = createSlice({
             const fileInput = document.querySelector('[type="file"]') as HTMLInputElement | null;
             for (let element in fileInput) {
                 fileInput.value = ''; // Clear the value
-                fileInput.dispatchEvent(new Event('change', {bubbles: true})); // Trigger a change event
+                fileInput.dispatchEvent(new Event('change', { bubbles: true })); // Trigger a change event
             }
 
             return initState
@@ -40,5 +40,5 @@ const manufactureFormSlice = createSlice({
     },
 });
 
-export const {updateFormData, resetForm} = manufactureFormSlice.actions;
-export default manufactureFormSlice.reducer;
+export const { updateFormData, resetForm } = manufacturerFormSlice.actions;
+export default manufacturerFormSlice.reducer;

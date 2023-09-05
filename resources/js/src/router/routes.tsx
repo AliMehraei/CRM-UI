@@ -50,10 +50,10 @@ const PreviewExcess = lazy(() => import('../pages/Excess/Preview'));
 const AddExcess = lazy(() => import('../pages/Excess/Add'));
 const EditExcess = lazy(() => import('../pages/Excess/Edit'));
 
-const ListManufacture = lazy(() => import('../pages/Manufacture/Index'));
-const PreviewManufacture = lazy(() => import('../pages/Manufacture/Preview'));
-const AddManufacture = lazy(() => import('../pages/Manufacture/Add'));
-const EditManufacture = lazy(() => import('../pages/Manufacture/Edit'));
+const ListManufacturer = lazy(() => import('../pages/Manufacturer/Index'));
+const PreviewManufacturer = lazy(() => import('../pages/Manufacturer/Preview'));
+const AddManufacturer = lazy(() => import('../pages/Manufacturer/Add'));
+const EditManufacturer = lazy(() => import('../pages/Manufacturer/Edit'));
 
 const ListProduct = lazy(() => import('../pages/Product/Index'));
 const PreviewProduct = lazy(() => import('../pages/Product/Preview'));
@@ -337,20 +337,20 @@ const routes = [
 
 
     {
-        path: '/manufacture/list',
-        element: <ListManufacture />,
+        path: '/manufacturer/list',
+        element: <ListManufacturer />,
     },
     {
-        path: '/manufacture/preview/:id',
-        element: <PreviewManufacture />,
+        path: '/manufacturer/preview/:id',
+        element: <PreviewManufacturer />,
     },
     {
-        path: '/manufacture/add',
-        element: <AddManufacture />,
+        path: '/manufacturer/add',
+        element: <AddManufacturer />,
     },
     {
-        path: '/manufacture/edit/:id',
-        element: <EditManufacture />,
+        path: '/manufacturer/edit/:id',
+        element: <EditManufacturer />,
     },
 
 

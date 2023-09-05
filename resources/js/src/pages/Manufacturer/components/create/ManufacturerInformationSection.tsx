@@ -1,51 +1,51 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/manufactureFormSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFormData } from "../../../../store/manufacturerFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {getImageSource, handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import { getImageSource, handleUploadFile, searchOwners } from "../../../../components/Functions/CommonFunctions";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
-const ManufactureInformationSection = () => {
+const ManufacturerInformationSection = () => {
     const dispatch = useDispatch();
-    const formState = useSelector((state: any) => state.manufactureForm);
+    const formState = useSelector((state: any) => state.manufacturerForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
 
     const fields = {
-        'Manufacture Information': {
-            'Manufacture Image': (
+        'Manufacturer Information': {
+            'Manufacturer Image': (
                 <div className="">
                     <div className="flex">
                         <input
-                            id="manufacture_image"
-                            key="manufacture_image"
+                            id="manufacturer_image"
+                            key="manufacturer_image"
                             type="file"
                             className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                             accept="image/*"
                             onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                                dispatch(updateFormData({ 'image': `${response?.data.data.file_url}` }));
                             })}
-                            name="manufactureImage"
+                            name="manufacturerImage"
                         />
                         <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('manufacture_image') as HTMLInputElement | null;
+                            const fileInput = document.getElementById('manufacturer_image') as HTMLInputElement | null;
                             if (fileInput) {
                                 fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                                fileInput.dispatchEvent(new Event('change', { bubbles: true }));
                             }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
+                            dispatch(updateFormData({ 'image': null }));
+                        }} />
                     </div>
                     <img
-                        id="manufacture_image_preview"
+                        id="manufacturer_image_preview"
                         src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                        alt="img" className="mt-4 w-20 h-20 rounded" />
                 </div>
 
             ),
-            'Manufacture Name': (
+            'Manufacturer Name': (
                 <input
                     id="name"
                     required
@@ -87,14 +87,14 @@ const ManufactureInformationSection = () => {
                     checked={formState.is_active}
                 />
             ),
-            'Manufacture Owner': (
+            'Manufacturer Owner': (
                 <AsyncSelect
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
                     loadOptions={searchOwners}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
@@ -105,10 +105,10 @@ const ManufactureInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+                <GenerateFields fields={fields} />
             </div>
         </>
     )
 }
 
-export default ManufactureInformationSection;
+export default ManufacturerInformationSection;

@@ -12,7 +12,7 @@ import { renderFilterValueFiled } from '../../components/FilterValueFiled'
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('manufacture List'));
+        dispatch(setPageTitle('manufacturer List'));
     });
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
@@ -83,7 +83,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDatamanufacture(page, pageSize, filters,sortStatus);
+        fetchDatamanufacturer(page, pageSize, filters, sortStatus);
 
     };
 
@@ -133,8 +133,8 @@ const List = () => {
                                 setInitialRecords(filteredItems);
                                 setItems(filteredItems);
                             } else {
-                                showMessage('Error deleting the manufacture: ' + result.message, 'error');
-                                console.error('Error deleting the manufacture', result.message);
+                                showMessage('Error deleting the manufacturer: ' + result.message, 'error');
+                                console.error('Error deleting the manufacturer', result.message);
                             }
                         });
                         setLoading(false);
@@ -160,7 +160,7 @@ const List = () => {
         });
     };
 
-    const fetchDatamanufacture = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
+    const fetchDatamanufacturer = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
 
 
@@ -183,10 +183,10 @@ const List = () => {
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
-                showMessage('Error fetching manufacture data.', 'error');
+                showMessage('Error fetching manufacturer data.', 'error');
             });
         } catch (error) {
-            showMessage('Error fetching manufacture data.', 'error');
+            showMessage('Error fetching manufacturer data.', 'error');
             console.error('Error fetching data:', error);
             setLoading(false);
         }
@@ -212,7 +212,7 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDatamanufacture(page, pageSize, filters, sortStatus);
+        fetchDatamanufacturer(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, resetFilter]);
 
     const resetFilters = () => {
@@ -222,7 +222,7 @@ const List = () => {
         setPage(1);
         setResetFilter(true);
         scrollToTop();
-        // fetchDatamanufacture(page, pageSize, filters, sortStatus);
+        // fetchDatamanufacturer(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
@@ -254,7 +254,7 @@ const List = () => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
         setPage(1);
-        fetchDatamanufacture(page, pageSize, filters, { columnAccessor, direction });
+        fetchDatamanufacturer(page, pageSize, filters, { columnAccessor, direction });
     };
 
     const handleConditionChange = (field, event) => {
@@ -276,7 +276,7 @@ const List = () => {
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
-            <div className="manufacture-table">
+            <div className="manufacturer-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
@@ -299,7 +299,7 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-                        <Link to="/manufacture/add" className="btn btn-primary gap-2">
+                        <Link to="/manufacturer/add" className="btn btn-primary gap-2">
                             Add New
                         </Link>
 
@@ -403,10 +403,10 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'manufacture_name',
+                                            accessor: 'manufacturer_name',
                                             sortable: true,
                                             render: ({ name }) => (
-                                                <NavLink to="/manufacture/preview">
+                                                <NavLink to="/manufacturer/preview">
                                                     <div className="text-primary underline hover:no-underline font-semibold">{`#${name}`}</div>
                                                 </NavLink>
                                             ),
@@ -446,7 +446,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
-                                                    <NavLink to={`/manufacture/edit/${id}`} className="flex hover:text-info">
+                                                    <NavLink to={`/manufacturer/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
                                                                 opacity="0.5"
@@ -468,7 +468,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
-                                                    <NavLink to="/manufacture/preview" className="flex hover:text-primary">
+                                                    <NavLink to="/manufacturer/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 opacity="0.5"
