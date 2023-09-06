@@ -122,6 +122,7 @@ const routes = [
         element: <Index />,
     },
 
+
     {
         path: '/index',
         element: <Index />,
@@ -273,7 +274,7 @@ const routes = [
         layout: 'blank',
     },
     {
-        path: '/auth/cover-login',
+        path: '/auth/login',
         element: <LoginCover />,
         layout: 'blank',
     },
