@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import ProtectedRoute from '../components/ProtectedRoute';
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
 const Contracts = lazy(() => import('../pages/Contracts'));
@@ -108,21 +109,16 @@ const RegisterCover = lazy(() => import('../pages/Authentication/RegisterCover')
 const RecoverIdCover = lazy(() => import('../pages/Authentication/RecoverIdCover'));
 const UnlockCover = lazy(() => import('../pages/Authentication/UnlockCover'));
 const Error = lazy(() => import('../components/Error'));
-
 const ListTask = lazy(() => import('../pages/Task/Index'));
 const PreviewTask = lazy(() => import('../pages/Task/Preview'));
 const AddTask = lazy(() => import('../pages/Task/Add'));
 const EditTask = lazy(() => import('../pages/Task/Edit'));
-
-
 const routes = [
     // dashboard
     {
         path: '/',
         element: <Index />,
     },
-
-
     {
         path: '/index',
         element: <Index />,
@@ -156,8 +152,6 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount />,
     },
-
-
     {
         path: '/contracts',
         element: <Contracts />,
@@ -293,12 +287,6 @@ const routes = [
         element: <RecoverIdCover />,
         layout: 'blank',
     },
-
-
-
-
-
-
     {
         path: '/availability/list',
         element: <ListAvailability />,
@@ -349,9 +337,6 @@ const routes = [
         path: '/excess/edit/:id',
         element: <EditExcess />,
     },
-
-
-
     {
         path: '/manufacturer/list',
         element: <ListManufacturer />,
@@ -368,9 +353,6 @@ const routes = [
         path: '/manufacturer/edit/:id',
         element: <EditManufacturer />,
     },
-
-
-
     {
         path: '/product/list',
         element: <ListProduct />,
@@ -387,9 +369,6 @@ const routes = [
         path: '/product/edit/:id',
         element: <EditProduct />,
     },
-
-
-
     {
         path: '/quotes/list',
         element: <ListQuotes />,
@@ -406,10 +385,6 @@ const routes = [
         path: '/quotes/edit/:id',
         element: <EditQuotes />,
     },
-
-
-
-
     {
         path: '/rfq/list',
         element: <ListRFQ />,
@@ -426,9 +401,6 @@ const routes = [
         path: '/rfq/edit/:id',
         element: <EditRFQ />,
     },
-
-
-
     {
         path: '/vendor_rfq/list',
         element: <ListVendorRFQ />,
@@ -445,9 +417,6 @@ const routes = [
         path: '/vendor_rfq/edit/:id',
         element: <EditVendorRFQ />,
     },
-
-
-
     {
         path: '/vendor/list',
         element: <ListVendor />,
@@ -464,9 +433,6 @@ const routes = [
         path: '/vendor/edit/:id',
         element: <EditVendor />,
     },
-
-
-
     {
         path: '/contact/list',
         element: <ListContact />,
@@ -483,9 +449,6 @@ const routes = [
         path: '/contact/edit/:id',
         element: <EditContact />,
     },
-
-
-
     {
         path: '/deal/list',
         element: <ListDeal />,
@@ -502,10 +465,6 @@ const routes = [
         path: '/deal/edit/:id',
         element: <EditDeal />,
     },
-
-
-
-
     {
         path: '/lead/list',
         element: <ListLead />,
@@ -522,9 +481,6 @@ const routes = [
         path: '/lead/edit/:id',
         element: <EditLead />,
     },
-
-
-
     {
         path: '/purchase/list',
         element: <ListPurchase />,
@@ -541,9 +497,6 @@ const routes = [
         path: '/purchase/edit/:id',
         element: <EditPurchase />,
     },
-
-
-
     {
         path: '/sales/list',
         element: <ListSales />,
@@ -560,13 +513,10 @@ const routes = [
         path: '/sales/edit/:id',
         element: <EditSales />,
     },
-
-
     {
         path: '*',
         element: <Error />,
         layout: 'blank',
     },
 ];
-
 export { routes };

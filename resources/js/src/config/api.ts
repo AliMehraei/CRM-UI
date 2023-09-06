@@ -1,7 +1,8 @@
 import _axios from './axios'
 import { setToken, getToken, removeToken } from './config';
 import { an } from "@fullcalendar/core/internal-common";
-
+import { useAuth } from './authContext';
+import { Outlet, Navigate } from 'react-router-dom';
 let URL: any;
 let API_URL_PRODUCT: any;
 let API_URL_USER: any;
