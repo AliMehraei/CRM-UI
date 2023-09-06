@@ -8,22 +8,21 @@ const api_instance = new api();
 
 export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) => {
     const handleValueChange = (field, value) => {
-        console.log('value',value);
-        
+
         const updatedFilters = { ...filters };
         updatedFilters[field] = { ...updatedFilters[field], value };
         // console.log('updatedFilters : ',updatedFilters[field]);
-        
+
         setFilters(updatedFilters);
     };
-    
+
     const handleInputValueChange = (field, event) => {
         const filterObject = {
             value: event.target.value
         };
         handleValueChange(field, filterObject);
     };
-    
+
     const handelBetween = (field, event) => {
         const { name, value } = event.target;
         const existingFilter = filters[field];
@@ -38,15 +37,15 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
 
         handleValueChange(field, filterObject);
     };
-    
+
     const handelDueIn = (field, event) => {
-       
+
         const { name, value } = event.target;
         const existingFilter = filters[field];
         const existingValue = existingFilter ? existingFilter.value : {};
         const newValue= name === 'period_val' ? value : existingValue.value || 2;
         const newPeriod = name === 'period' ? value : existingValue.period || 'day';
-        
+
         const filterObject = {
             value: newValue,
             period: newPeriod
@@ -61,22 +60,21 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         let duration:any;
         let duration_condtion:any;
         if(event.target!=undefined){
-            
-            
+
+
             const { name, value } = event.target;
             const existingFilter = filters[field];
             const existingValue = existingFilter ? existingFilter.value : {};
             duration = name === 'duration' ? value : existingValue.duration || 2;
             duration_condtion = name === 'duration_condtion' ? value : existingValue.duration_condtion || '=';
             options=existingValue.options ?? [] ;
-            console.log('options',options);
-            
+
         }
         else{
             options=event.map(item => item.value);
         }
-        
-        
+
+
         if(condtion === 'is_not'){
             combinedValue = {
                 options: options
@@ -107,14 +105,14 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
 
         handleValueChange(field, transformedObject);
     };
-    
+
     const handleSelectMultipleUser = (field, selectedOptions) => {
         const userIds = {
             options: selectedOptions.map(item => item.value)
         };
         handleValueChange(field, userIds);
     };
-  
+
     const loadAdminUsers = async (inputValue, option) => {
         if (inputValue.length < 2) return [];
         const apiUrl = option.type_info.api;
@@ -147,7 +145,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
           return [];
         }
       };
-      
+
     const loadModels = async (inputValue ,option) => {
 
         if (inputValue.length < 2) return [];
@@ -188,7 +186,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
 
     if (type_condition == "number") {
         switch (condition) {
-            
+
             case 'between':
                 return (
                     <>
@@ -240,9 +238,9 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                             onChange={(e) => handleSelectMultiple(option.value, e )}
                             options={type_condition_ops_formed} isMulti={false} />
                     </>
-                    
+
                 );
-                      
+
             default:
                 return (
                     <>
@@ -275,20 +273,20 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                             onChange={(e) => handleSelectMultipleDuration(option.value, e , 'is_not')}
                             options={type_condition_ops_formed} isMulti />
                     </>
-                    
+
                 );
             case 'is':
-              
+
                 return(
                     <>
                         <Select placeholder="Select an option"
-                            
+
                             onChange={(e) => handleSelectMultipleDuration(option.value, e ,'is')}
                             options={type_condition_ops_formed} isMulti />
                         <div className=" mt-4">
-                            
+
                             <label className="block font-semibold">Duration:</label>
-                            
+
                             <div className="mb-2">
                                 <input
                                     type="number"
@@ -313,7 +311,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                                 </div>
                         </div>
                     </>
-                );                
+                );
             default:
                 return (
                     <>
@@ -347,9 +345,9 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                             onChange={(e) => handleSelectMultiple(option.value, e )}
                             options={type_condition_ops_formed} isMulti />
                     </>
-                    
+
                 );
-                      
+
             default:
                 return (
                     <>
@@ -365,7 +363,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
     }
     else if (type_condition == "select2_multiple_api_user") {
-        
+
         switch (condition) {
             case 'is_empty':
             case 'is_not_empty':
@@ -380,7 +378,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                         onChange={(e) => handleSelectMultipleUser(option.value, e)}
                         isMulti
                     />
-                </>  
+                </>
                 );
             default:
                 return (
@@ -397,7 +395,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
         }
     }
     else if (type_condition == "select2_multiple_api") {
-        
+
         switch (condition) {
             case 'is_empty':
             case 'is_not_empty':
@@ -412,7 +410,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                         onChange={(e) => handleSelectMultiple(option.value, e)}
                         isMulti
                     />
-                </>  
+                </>
                 );
             default:
                 return (
@@ -566,7 +564,7 @@ export const renderFilterValueFiled = (filterSelect, option,setFilters,filters) 
                 );
         }
     }
-    
+
 
 
 }

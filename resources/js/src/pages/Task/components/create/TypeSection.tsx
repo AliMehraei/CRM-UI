@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../config/api";
-import {updateFormData} from "../../../../store/taskFormSlice";
+import { updateFormData } from "../../../../store/taskFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
@@ -14,7 +14,7 @@ import {
     searchExcess,
     searchAvailability,
     searchProducts,
-    searchManufacture,
+    searchManufacturer,
     searchDeals,
     searchSalesOrder,
     searchPurchaseOrder,
@@ -22,8 +22,8 @@ import {
     searchVendorRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
-import {useEffect, useState} from "react";
-import {an} from "@fullcalendar/core/internal-common";
+import { useEffect, useState } from "react";
+import { an } from "@fullcalendar/core/internal-common";
 
 const TypeSection = () => {
     const dispatch = useDispatch();
@@ -35,28 +35,28 @@ const TypeSection = () => {
 
     const formState = useSelector((state: any) => state.taskForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
     const userableType = [
-        {value: "App\\Models\\Lead", label: "Lead"},
-        {value: "App\\Models\\Contact", label: "Contact"},
+        { value: "App\\Models\\Lead", label: "Lead" },
+        { value: "App\\Models\\Contact", label: "Contact" },
     ];
 
     const moduleableType = [
-        {value: "App\\Models\\Account", label: "Account", api: searchAccounts},
-        {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor},
-        {value: "App\\Models\\Quote", label: "Quote" , api: searchQuote},
-        {value: "App\\Models\\Rfq", label: "Rfq" ,api: searchRFQ},
-        {value: "App\\Models\\Excess", label: "Excess",api:searchExcess},
-        {value: "App\\Models\\Availability", label: "Availability",api: searchAvailability},
-        {value: "App\\Models\\Product", label: "Product" ,api:searchProducts},
-        {value: "App\\Models\\Manufacture", label: "Manufacture",api:searchManufacture},
-        {value: "App\\Models\\Deal", label: "Deals",api:searchDeals},
-        {value: "App\\Models\\SalesOrder", label: "Sales Order",api:searchSalesOrder},
-        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order",api:searchPurchaseOrder},
-        {value: "App\\Models\\Invoice", label: "Invoice",api:searchInvoice},
-        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq",api:searchVendorRFQ},
+        { value: "App\\Models\\Account", label: "Account", api: searchAccounts },
+        { value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor },
+        { value: "App\\Models\\Quote", label: "Quote", api: searchQuote },
+        { value: "App\\Models\\Rfq", label: "Rfq", api: searchRFQ },
+        { value: "App\\Models\\Excess", label: "Excess", api: searchExcess },
+        { value: "App\\Models\\Availability", label: "Availability", api: searchAvailability },
+        { value: "App\\Models\\Product", label: "Product", api: searchProducts },
+        { value: "App\\Models\\Manufacturer", label: "Manufacturer", api: searchManufacturer },
+        { value: "App\\Models\\Deal", label: "Deals", api: searchDeals },
+        { value: "App\\Models\\SalesOrder", label: "Sales Order", api: searchSalesOrder },
+        { value: "App\\Models\\PurchaseOrder", label: "Purchase Order", api: searchPurchaseOrder },
+        { value: "App\\Models\\Invoice", label: "Invoice", api: searchInvoice },
+        { value: "App\\Models\\VendorRfq", label: "Vendor Rfq", api: searchVendorRFQ },
     ];
     const searchModule = (e: any) => {
         const module: any = moduleableType.find(m => m.value === selectedModule) ?? {
@@ -82,7 +82,7 @@ const TypeSection = () => {
                         name="userable_type"
                         defaultValue={userableType.find((data) => data.value == formState.userable_type)}
 
-                        onChange={({value}: any) => {
+                        onChange={({ value }: any) => {
                             setSelectedType(value);
                             handleChangeField('userable_type', value);
                             setSelectedUserableId(null);
@@ -100,8 +100,8 @@ const TypeSection = () => {
                         menuPortalTarget={document.body}
                         menuPlacement={"top"}
                         loadOptions={selectedType === "App\\Models\\Lead" ? searchLead : searchContacts}
-                        onChange={({value, label}: any) => {
-                            setSelectedUserableId({value, label});
+                        onChange={({ value, label }: any) => {
+                            setSelectedUserableId({ value, label });
                             handleChangeField('userable_id', value);
                         }}
                         className="flex-1"
@@ -117,7 +117,7 @@ const TypeSection = () => {
                         menuPortalTarget={document.body}
                         menuPlacement={"top"}
                         defaultValue={moduleableType.find((data) => data.value == formState.moduleable_type)}
-                        onChange={({value}: any) => {
+                        onChange={({ value }: any) => {
                             setSelectedModule(value);
                             handleChangeField('moduleable_type', value);
                             setSelectedModuleableId(null);
@@ -135,8 +135,8 @@ const TypeSection = () => {
                         name="moduleable_id"
                         value={selectedModuleableId}
                         loadOptions={(e) => searchModule(e)}
-                        onChange={({value, label}: any) => {
-                            setSelectedModuleableId({value, label});
+                        onChange={({ value, label }: any) => {
+                            setSelectedModuleableId({ value, label });
                             handleChangeField('moduleable_id', value);
                         }}
                         className="flex-1"

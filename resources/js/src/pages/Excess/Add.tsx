@@ -4,6 +4,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
 import ExcessFormFields from "./components/create/ExcessFormFields";
+import {resetForm} from "../../store/excessFormSlice";
 
 const Add = () => {
     const formState = useSelector((state: any) => state.excessForm);
@@ -15,7 +16,7 @@ const Add = () => {
 
     return (
         <div className='px-4'>
-            <ActionButtonsComponent formState={formState}/>
+            <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
                     <ExcessFormFields/>

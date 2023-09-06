@@ -23,7 +23,6 @@ const List = () => {
     const [selectedFields, setSelectedFields] = useState([]);
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
     const [filters, setFilters] = useState([]);
-
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -31,8 +30,6 @@ const List = () => {
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
-
-    //const [search, setSearch] = useState('');
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'id',
         direction: 'asc',
@@ -69,7 +66,6 @@ const List = () => {
         fetchDataFilterOption();
     }, []);
     const scrollToTop = () => {
-
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -78,10 +74,8 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataProduct(page, pageSize, filters);
-
+        fetchDataProduct(page, pageSize, filters, sortStatus); // Fetch data based on filters
     };
-
     // Filter the options based on search query
     let filteredOptions = [];
     if (optionsFilter && optionsFilter.length > 0) {
@@ -89,7 +83,6 @@ const List = () => {
             option.label.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
-
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -104,7 +97,6 @@ const List = () => {
             padding: '10px 20px',
         });
     };
-
     const deleteRow = (id: any = null) => {
         Swal.fire({
             icon: 'warning',
@@ -153,14 +145,10 @@ const List = () => {
             }
         });
     };
-
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-
-
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
-
         try {
             api_instance.fetchDataProduct({
                 page: page,
@@ -183,41 +171,23 @@ const List = () => {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
-
-
     };
-
     useEffect(() => {
-        const data = sortBy(items, sortStatus.columnAccessor);   
+        const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
         setInitialRecords(reversedData);
 
     }, [items, sortStatus]);
-
-    useEffect(() => {
-        fetchDataProduct(page, pageSize);
-        setInitialRecords(sortBy(items,sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
-
     useEffect(() => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
-
-
     useEffect(() => {
         fetchDataProduct(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataProduct(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
-
+    }, [page, pageSize, sortStatus, resetFilter]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
@@ -254,7 +224,7 @@ const List = () => {
     };
 
     const handleSortChange = (sortStatus) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value      
+        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
         setPage(1);
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
@@ -327,8 +297,8 @@ const List = () => {
                         {/* Filter by options */}
                         <div className="mb-4">
                             <label className="block font-semibold">Filter by:</label>
-                            {filteredOptions.map((option) => (
-                                <div>
+                            {filteredOptions.map((option, index) => (
+                                <div key={option.value + index}>
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
@@ -415,23 +385,23 @@ const List = () => {
                                             ),
                                         },
                                         {
-                                            accessor: 'manufacture',
+                                            accessor: 'manufacturer',
                                             sortable: true,
-                                            render: ({ manufacture }) => (
+                                            render: ({ manufacturer }) => (
                                                 <div className="flex items-center font-semibold">
-                                                    {manufacture ? manufacture.name : 'No manufacture'}
+                                                    {manufacturer ? manufacturer.name : 'No manufacturer'}
 
                                                 </div>
                                             ),
                                         },
                                         {
                                             accessor: 'owner',
-                                            title :'Product Owner',
+                                            title: 'Product Owner',
                                             sortable: false,
-                                            render: ({ owner }) => 
-                                            <div className="font-semibold">
-                                                {owner ? owner.name : 'No Owner'}
-                                            </div>,
+                                            render: ({ owner }) =>
+                                                <div className="font-semibold">
+                                                    {owner ? owner.name : 'No Owner'}
+                                                </div>,
                                         },
                                         {
                                             accessor: 'product_active',
@@ -443,7 +413,7 @@ const List = () => {
                                                 </div>
                                             ),
                                         },
-                                        
+
                                         {
                                             accessor: 'created_at',
                                             title: 'Created time',
@@ -455,7 +425,7 @@ const List = () => {
                                                 const minutes = String(date.getMinutes()).padStart(2, '0');
                                                 const ampm = hours >= 12 ? 'PM' : 'AM';
                                                 const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
-                                        
+
                                                 return (
                                                     <div className="font-semibold">
                                                         {formattedDate}

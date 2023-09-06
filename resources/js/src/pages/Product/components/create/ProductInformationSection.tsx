@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess , searchOwners, searchManufacture, searchRFQ} from "../../../../components/Functions/CommonFunctions";
+import { handleUploadFile, Currencies, PortalAccess, searchOwners, searchManufacturer, searchRFQ } from "../../../../components/Functions/CommonFunctions";
 
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const ProductInformationSection = () => {
                 className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                 accept="image/*"
                 onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ 'image' : `${response?.data.data.file_url}` }));
+                    dispatch(updateFormData({ 'image': `${response?.data.data.file_url}` }));
                 })}
                 name="image"
             />
@@ -59,16 +59,16 @@ const ProductInformationSection = () => {
 
                 />
             ),
-            'Manufacture': (
+            'Manufacturer': (
                 <AsyncSelect
                     isMulti={false}
                     required
-                    id="manufacture_id"
+                    id="manufacturer_id"
                     placeholder="Type at least 2 characters to search..."
-                    name="manufacture_id"
-                    loadOptions={searchManufacture}
+                    name="manufacturer_id"
+                    loadOptions={searchManufacturer}
                     onChange={({ value }: any) => {
-                        handleChangeField('manufacture_id', value)
+                        handleChangeField('manufacturer_id', value)
                     }}
                     className="flex-1"
                 />

@@ -1,14 +1,15 @@
-import { Link, NavLink } from 'react-router-dom';
-import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { useState, useEffect } from 'react';
+import {Link, NavLink} from 'react-router-dom';
+import {DataTable, DataTableSortStatus} from 'mantine-datatable';
+import {useState, useEffect} from 'react';
 import sortBy from 'lodash/sortBy';
-import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from '../../store';
-import { setPageTitle } from '../../store/themeConfigSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {IRootState} from '../../store';
+import {setPageTitle} from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import { renderFilterValueFiled } from '../../components/FilterValueFiled'
+import {renderFilterValueFiled} from '../../components/FilterValueFiled'
+
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -68,8 +69,6 @@ const List = () => {
     };
 
 
-
-
     useEffect(() => {
         fetchDataFilterOption();
     }, []);
@@ -83,7 +82,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataQuote(page, pageSize, filters);
+        fetchDataQuote(page, pageSize, filters, sortStatus);
 
     };
 
@@ -102,7 +101,7 @@ const List = () => {
             position: 'top',
             showConfirmButton: false,
             timer: 3000,
-            customClass: { container: 'toast' },
+            customClass: {container: 'toast'},
         });
         toast.fire({
             icon: type,
@@ -155,7 +154,12 @@ const List = () => {
                     setSelectedRecords([]);
                     setPage(1);
                 }
-                Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success', customClass: 'sweet-alerts' });
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    icon: 'success',
+                    customClass: 'sweet-alerts'
+                });
             }
         });
     };
@@ -164,8 +168,7 @@ const List = () => {
         setLoading(true);
 
 
-
-        const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
+        const {columnAccessor: sortField = '', direction: sortDirection = ''} = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
         try {
@@ -202,12 +205,6 @@ const List = () => {
     }, [items, sortStatus]);
 
     useEffect(() => {
-        fetchDataQuote(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
-    useEffect(() => {
         setPage(1);
     }, [pageSize]);
 
@@ -219,11 +216,7 @@ const List = () => {
 
     useEffect(() => {
         fetchDataQuote(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataQuote(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
+    }, [page, pageSize, sortStatus, resetFilter]);
 
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
@@ -235,19 +228,19 @@ const List = () => {
         // fetchDataQuote(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event, option) => {
-        const { value, checked } = event.target;
+        const {value, checked} = event.target;
 
 
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                [value]: { field: value, condition: '', value: '', model: option.model, type: option.type },
+                [value]: {field: value, condition: '', value: '', model: option.model, type: option.type},
             }));
 
             setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
         } else {
             setFilters((prevFilters) => {
-                const updatedFilters = { ...prevFilters };
+                const updatedFilters = {...prevFilters};
                 delete updatedFilters[value];
                 return updatedFilters;
             });
@@ -261,15 +254,15 @@ const List = () => {
     };
 
     const handleSortChange = (sortStatus) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
-        setSortStatus({ columnAccessor, direction });
+        const {columnAccessor, direction = 'asc'} = sortStatus; // Destructure with a default value
+        setSortStatus({columnAccessor, direction});
         setPage(1);
-        fetchDataQuote(page, pageSize, filters, { columnAccessor, direction });
+        fetchDataQuote(page, pageSize, filters, {columnAccessor, direction});
     };
 
     const handleConditionChange = (field, event) => {
         const conditionsToClear = ['between', 'in_the_last', 'due_in'];
-        let updatedFilterValue = { ...filters[field], condition: event.value };
+        let updatedFilterValue = {...filters[field], condition: event.value};
         if (conditionsToClear.includes(updatedFilterValue.condition)) {
             updatedFilterValue.value = '';
         }
@@ -282,24 +275,26 @@ const List = () => {
     };
 
 
-
-
     return (
-        <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
+        <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="quote-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
-                                <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+                                <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5"
+                                      strokeLinecap="round"></path>
                                 <path
                                     d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
                                     stroke="currentColor"
                                     strokeWidth="1.5"
                                     strokeLinecap="round"
                                 ></path>
-                                <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-                                <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor" strokeWidth="1.5"
+                                      strokeLinecap="round"></path>
+                                <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor" strokeWidth="1.5"
+                                      strokeLinecap="round"></path>
                                 <path
                                     opacity="0.5"
                                     d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
@@ -334,15 +329,15 @@ const List = () => {
                         {/* Filter by options */}
                         <div className="mb-4">
                             <label className="block font-semibold">Filter by:</label>
-                            {filteredOptions.map((option) => (
-                                <div>
+                            {filteredOptions.map((option, index) => (
+                                <div key={option.value + index}>
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"
-                                                value={option.value}
-                                                onChange={(e) => handleFieldChange(e, option)}
-                                                checked={selectedFields.includes(option.value)}
-                                                className="form-checkbox" />
+                                                   value={option.value}
+                                                   onChange={(e) => handleFieldChange(e, option)}
+                                                   checked={selectedFields.includes(option.value)}
+                                                   className="form-checkbox"/>
                                             <span className=" text-dark">{option.label}</span>
                                         </label>
 
@@ -356,11 +351,12 @@ const List = () => {
                                                         <h3 className="text-lg font-semibold mt-4">Search Options</h3>
                                                         <div className="mb-4">
                                                             <div className="mb-2">
-                                                                <label className="block font-semibold">Search include for {option.value}:</label>
+                                                                <label className="block font-semibold">Search include
+                                                                    for {option.value}:</label>
                                                                 <Select
                                                                     onChange={(e) => handleConditionChange(option.value, e)}
                                                                     placeholder="Select an include"
-                                                                    options={option.conditions} />
+                                                                    options={option.conditions}/>
                                                             </div>
                                                             {filters[option.value] != null && (
                                                                 <>
@@ -380,7 +376,6 @@ const List = () => {
                         </div>
 
 
-
                         {/* Apply filter button */}
                         {selectedFields.length > 0 && (
                             <div className="flex flex-wrap justify-between space-x-2 md:space-x-4">
@@ -396,10 +391,11 @@ const List = () => {
                         )}
                     </div>
                     <div className="panel col-span-4">
-                        <div className="datatables pagination-padding" >
+                        <div className="datatables pagination-padding">
                             {loading ? (
                                 <div className='flex justify-center'>
-                                    <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
+                                    <span
+                                        className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                 </div>
                             ) : (
 
@@ -410,22 +406,23 @@ const List = () => {
                                         {
                                             accessor: 'id',
                                             sortable: true,
-                                            render: ({ id }) => <div className="font-semibold">{id}</div>,
+                                            render: ({id}) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
                                             accessor: 'Subject',
                                             sortable: true,
-                                            render: ({ subject }) => (
+                                            render: ({subject}) => (
                                                 <NavLink to="/quotes/preview">
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
+                                                    <div
+                                                        className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                                                 </NavLink>
                                             ),
                                         },
                                         {
                                             accessor: 'quote_stage',
-                                            title :'Quote Stage',
+                                            title: 'Quote Stage',
                                             sortable: true,
-                                            render: ({ quote_stage }) => (
+                                            render: ({quote_stage}) => (
                                                 <div className="flex items-center font-semibold">
                                                     {quote_stage}
                                                 </div>
@@ -434,9 +431,9 @@ const List = () => {
 
                                         {
                                             accessor: 'owner',
-                                            title :'Quote Owner',
+                                            title: 'Quote Owner',
                                             sortable: false,
-                                            render: ({ owner }) => (
+                                            render: ({owner}) => (
                                                 <div className="flex items-center font-semibold">
                                                     {owner ? owner.name : 'No Owner'}
                                                 </div>
@@ -444,9 +441,9 @@ const List = () => {
                                         },
                                         {
                                             accessor: 'account',
-                                            title :'Account Name',
+                                            title: 'Account Name',
                                             sortable: false,
-                                            render: ({ account }) => (
+                                            render: ({account}) => (
                                                 <div className="flex items-center font-semibold">
                                                     {account ? account.account_name : 'No Account'}
                                                 </div>
@@ -457,10 +454,11 @@ const List = () => {
                                             title: 'Actions',
                                             sortable: false,
                                             textAlignment: 'center',
-                                            render: ({ id }) => (
+                                            render: ({id}) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
                                                     <NavLink to={`/quotes/edit/${id}`} className="flex hover:text-info">
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
                                                                 opacity="0.5"
                                                                 d="M22 10.5V12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2H13.5"
@@ -482,7 +480,8 @@ const List = () => {
                                                         </svg>
                                                     </NavLink>
                                                     <NavLink to="/quotes/preview" className="flex hover:text-primary">
-                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 opacity="0.5"
                                                                 d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z"
@@ -497,17 +496,22 @@ const List = () => {
                                                         </svg>
                                                     </NavLink>
                                                     {/* <NavLink to="" className="flex"> */}
-                                                    <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
-                                                            <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                                    <button type="button" className="flex hover:text-danger"
+                                                            onClick={(e) => deleteRow(id)}>
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+                                                            <path d="M20.5001 6H3.5" stroke="currentColor"
+                                                                  strokeWidth="1.5" strokeLinecap="round"></path>
                                                             <path
                                                                 d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
                                                                 stroke="currentColor"
                                                                 strokeWidth="1.5"
                                                                 strokeLinecap="round"
                                                             ></path>
-                                                            <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-                                                            <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                                            <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor"
+                                                                  strokeWidth="1.5" strokeLinecap="round"></path>
+                                                            <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor"
+                                                                  strokeWidth="1.5" strokeLinecap="round"></path>
                                                             <path
                                                                 opacity="0.5"
                                                                 d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
@@ -532,7 +536,11 @@ const List = () => {
                                     onSortStatusChange={handleSortChange}
                                     selectedRecords={selectedRecords}
                                     onSelectedRecordsChange={setSelectedRecords}
-                                    paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
+                                    paginationText={({
+                                                         from,
+                                                         to,
+                                                         totalRecords
+                                                     }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
                                 />
                             )}
 

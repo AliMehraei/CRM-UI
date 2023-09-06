@@ -50,10 +50,10 @@ const PreviewExcess = lazy(() => import('../pages/Excess/Preview'));
 const AddExcess = lazy(() => import('../pages/Excess/Add'));
 const EditExcess = lazy(() => import('../pages/Excess/Edit'));
 
-const ListManufacture = lazy(() => import('../pages/Manufacture/Index'));
-const PreviewManufacture = lazy(() => import('../pages/Manufacture/Preview'));
-const AddManufacture = lazy(() => import('../pages/Manufacture/Add'));
-const EditManufacture = lazy(() => import('../pages/Manufacture/Edit'));
+const ListManufacturer = lazy(() => import('../pages/Manufacturer/Index'));
+const PreviewManufacturer = lazy(() => import('../pages/Manufacturer/Preview'));
+const AddManufacturer = lazy(() => import('../pages/Manufacturer/Add'));
+const EditManufacturer = lazy(() => import('../pages/Manufacturer/Edit'));
 
 const ListProduct = lazy(() => import('../pages/Product/Index'));
 const PreviewProduct = lazy(() => import('../pages/Product/Preview'));
@@ -85,6 +85,9 @@ const PreviewInvoice = lazy(() => import('../pages/Invoice/Preview'));
 const AddInvoice = lazy(() => import('../pages/Invoice/Add'));
 const EditInvoice = lazy(() => import('../pages/Invoice/Edit'));
 
+const ImportCreate = lazy(() => import('../pages/Import/Create'));
+const ImportOperation = lazy(() => import('../pages/Import/Operation'));
+const ImportFieldMapping = lazy(() => import('../pages/Import/FieldMapping'));
 
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
@@ -122,6 +125,18 @@ const routes = [
     {
         path: '/index',
         element: <Index />,
+    },
+    {
+        path: '/import/:module',
+        element: <ImportCreate />,
+    },
+    {
+        path: '/import/:module/operation',
+        element: <ImportOperation />,
+    },
+    {
+        path: '/import/:module/field-mapping',
+        element: <ImportFieldMapping />,
     },
 
     {
@@ -337,20 +352,20 @@ const routes = [
 
 
     {
-        path: '/manufacture/list',
-        element: <ListManufacture />,
+        path: '/manufacturer/list',
+        element: <ListManufacturer />,
     },
     {
-        path: '/manufacture/preview/:id',
-        element: <PreviewManufacture />,
+        path: '/manufacturer/preview/:id',
+        element: <PreviewManufacturer />,
     },
     {
-        path: '/manufacture/add',
-        element: <AddManufacture />,
+        path: '/manufacturer/add',
+        element: <AddManufacturer />,
     },
     {
-        path: '/manufacture/edit/:id',
-        element: <EditManufacture />,
+        path: '/manufacturer/edit/:id',
+        element: <EditManufacturer />,
     },
 
 

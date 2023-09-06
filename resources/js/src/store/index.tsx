@@ -1,7 +1,7 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import themeConfigSlice from './themeConfigSlice';
 import rfqFormSlice from "./rfqFormSlice";
-import manufactureFormSlice from "./manufactureFormSlice";
+import manufacturerFormSlice from "./manufacturerFormSlice";
 import formErrorsSlice from "./formErrorsSlice";
 import invoiceFormSlice from "./invoiceFormSlice";
 import accountFormSlice from "./accountFormSlice";
@@ -21,7 +21,7 @@ import taskFormSlice from './taskFormSlice'
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
     rfqFormSlice: rfqFormSlice,
-    manufactureForm: manufactureFormSlice,
+    manufacturerForm: manufacturerFormSlice,
     formErrors: formErrorsSlice,
     invoiceForm: invoiceFormSlice,
     accountForm: accountFormSlice,

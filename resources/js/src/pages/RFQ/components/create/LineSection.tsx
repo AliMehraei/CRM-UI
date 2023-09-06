@@ -1,8 +1,8 @@
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {searchAvailability, searchExcess, searchProducts} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/rfqFormSlice";
 
 
 export const LineSection = () => {
@@ -25,7 +25,7 @@ export const LineSection = () => {
             'Customer Part Id': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
-            'Quantity': <input id="quantity" name="Quantity" className="form-input flex-1 "
+            'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                required/>,
 
@@ -37,9 +37,10 @@ export const LineSection = () => {
             'Alternative Products': <AsyncSelect id="alternative_products" name="alternative_products"
                                                  placeholder="Type at least 2 characters to search..."
                                                  loadOptions={searchProducts}
-                                                 onChange={({value}: any) => {
-                                                     handleChangeField('alternative_products', value)
+                                                 onChange={(values: any) => {
+                                                     handleChangeField('alternative_products', values.map((v: any) => v.value))
                                                  }}
+                                                 isMulti={true}
                                                  className="flex-1"/>,
             'Availability': <AsyncSelect isMulti={false} id="availability" name="availability_id"
                                          placeholder="Type at least 2 characters to search..."

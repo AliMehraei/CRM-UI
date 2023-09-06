@@ -8,14 +8,15 @@ import PopoverComponent from "./PopoverComponent";
 const InvoiceItemSection = () => {
     const formState = useSelector((state: any) => state.invoiceForm);
     const dispatch = useDispatch();
-    const [summary, setSummary] = useState({
+    const defaultSummary = {
         amount: 0,
         subtotal: 0,
         discount: 0,
         tax: 0,
         adjustment: 0,
         grandTotal: 0,
-    });
+    }
+    const [summary, setSummary] = useState({defaultSummary, ...formState.summary});
 
     const [items, setItems] = useState<any>([]);
 
@@ -72,7 +73,6 @@ const InvoiceItemSection = () => {
     }
 
     useEffect(() => {
-
         dispatch(updateFormData({summary: summary}));
 
     }, [summary]);

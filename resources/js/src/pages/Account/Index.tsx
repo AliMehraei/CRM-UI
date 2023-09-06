@@ -9,6 +9,8 @@ import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
 import { renderFilterValueFiled } from '../../components/FilterValueFiled'
+import React from 'react';
+import Dropdown from '../../components/Dropdown';
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -83,8 +85,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataAccount(page, pageSize, filters);
-
+        fetchDataAccount(page, pageSize, filters, sortStatus); // Fetch data based on filters
     };
 
     // Filter the options based on search query
@@ -162,12 +163,8 @@ const List = () => {
 
     const fetchDataAccount = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-
-
-
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
-
         try {
             api_instance.fetchDataAccount({
                 page: page,
@@ -190,23 +187,12 @@ const List = () => {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
-
-
     };
-
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
         setInitialRecords(reversedData);
-
     }, [items, sortStatus]);
-
-    useEffect(() => {
-        fetchDataAccount(page, pageSize);
-        setInitialRecords(sortBy(items, sortStatus.columnAccessor));
-
-    }, [page, pageSize]); // Added page and pageSize as dependencies
-
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
@@ -216,15 +202,9 @@ const List = () => {
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
 
-
     useEffect(() => {
         fetchDataAccount(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
-    useEffect(() => {
-        if (resetFilter)
-            fetchDataAccount(page, pageSize, filters, sortStatus);
-    }, [resetFilter]);
-
+    }, [page, pageSize, sortStatus, resetFilter]);
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
@@ -281,8 +261,7 @@ const List = () => {
         setFilters(updatedFilters);
     };
 
-
-
+    const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     return (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
@@ -309,10 +288,25 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-                        <Link to="/account/add" className="btn btn-primary gap-2">
-                            Add New
-                        </Link>
 
+                        <div className="inline-flex">
+                            <Link to="/account/add" className="btn btn-primary ltr:rounded-r-none rtl:rounded-l-none">
+                                Add New
+                            </Link>
+                            <div className="dropdown">
+                                <Dropdown
+                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
+                                    btnClassName="btn dropdown-toggle btn-primary ltr:rounded-l-none rtl:rounded-r-none border-l-[#4468fd] before:border-[5px] before:border-l-transparent before:border-r-transparent before:border-t-inherit before:border-b-0 before:inline-block before:border-t-white-light h-full"
+                                    button={<span className="sr-only">Toggle dropdown</span>}
+                                >
+                                    <ul className="!min-w-[170px]">
+                                        <li>
+                                            <Link to="/import/account">Import Accounts</Link>
+                                        </li>
+                                    </ul>
+                                </Dropdown>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -334,8 +328,8 @@ const List = () => {
                         {/* Filter by options */}
                         <div className="mb-4">
                             <label className="block font-semibold">Filter by:</label>
-                            {filteredOptions.map((option) => (
-                                <div>
+                            {filteredOptions.map((option, index) => (
+                                <div key={option.value + index}>
                                     <div key={option.value} className="mb-2">
                                         <label className="flex items-center cursor-pointer">
                                             <input type="checkbox"

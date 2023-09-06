@@ -2,7 +2,7 @@ import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {searchAvailability, searchExcess, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/rfqFormSlice";
 
 
 export const LineSection = () => {
@@ -24,7 +24,8 @@ export const LineSection = () => {
                                              value: formState.product?.id,
                                              label: (
                                                  <div key={formState.product?.id} className="flex items-center">
-                                                     <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                     <div
+                                                         className="text-sm font-bold">{formState.product?.product_name}</div>
                                                  </div>
                                              ),
                                          }}
@@ -35,7 +36,7 @@ export const LineSection = () => {
                                        defaultValue={formState.customer_part_id}
                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
 
-            'Quantity': <input id="quantity" name="Quantity" className="form-input flex-1 "
+            'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
                                defaultValue={formState.quantity}
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                required/>,
@@ -49,25 +50,24 @@ export const LineSection = () => {
             'Alternative Products': <AsyncSelect id="alternative_products" name="alternative_products"
                                                  placeholder="Type at least 2 characters to search..."
                                                  loadOptions={searchProducts}
-                                                 onChange={({value}: any) => {
-                                                     handleChangeField('alternative_products', value)
+                                                 onChange={(values: any) => {
+                                                     handleChangeField('alternative_products', values.map((v: any) => v.value))
                                                  }}
-                                                 defaultValue={{
-                                                     value: formState.contact?.id,
-                                                     label: (
-                                                         <div key={formState.contact?.id} className="flex items-center">
-                                                             <img src={formState.contact?.image} alt="avatar"
-                                                                  className="w-8 h-8 mr-2 rounded-full"/>
-                                                             <div>
-                                                                 <div
-                                                                     className="text-sm font-bold">{formState.contact?.name}</div>
-                                                                 <div
-                                                                     className="text-xs text-gray-500">{formState.contact?.email}</div>
+                                                 isMulti={true}
+                                                 defaultValue={formState.rfq_product_alternatives
+                                                     ? formState.rfq_product_alternatives.map((data: any) => ({
+                                                         value: data.id,
+                                                         label: (
+                                                             <div key={data.id} className="flex items-center">
+                                                                 <div>
+                                                                     <div className="text-sm font-bold">{data.product_name}</div>
+                                                                 </div>
                                                              </div>
-                                                         </div>
-                                                     ),
-                                                 }}
-                                                 className="flex-1"/>,  //TODO : fix this for default value
+                                                         ),
+                                                     }))
+                                                     : []
+                                                 }
+                                                 className="flex-1"/>,
             'Availability': <AsyncSelect isMulti={false} id="availability" name="availability_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAvailability}

@@ -10,7 +10,7 @@ const initState = {
     items: [{id: 0,},],
 };
 
-const invoiceFormSlice = createSlice({
+const accountFormSlice = createSlice({
     name: 'accountForm',
     initialState: initState,
     reducers: {
@@ -32,5 +32,5 @@ const invoiceFormSlice = createSlice({
     },
 });
 
-export const {updateFormData, resetForm} = invoiceFormSlice.actions;
-export default invoiceFormSlice.reducer;
+export const {updateFormData, resetForm} = accountFormSlice.actions;
+export default accountFormSlice.reducer;
