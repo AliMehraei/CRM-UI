@@ -3,7 +3,6 @@ import { setToken, getToken, removeToken } from './config';
 import { an } from "@fullcalendar/core/internal-common";
 
 let URL: any;
-let Headers: any;
 let API_URL_PRODUCT: any;
 let API_URL_USER: any;
 
@@ -15,10 +14,9 @@ class api {
         URL = `/api/v1`;
         API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT + URL;
         API_URL_USER = import.meta.env.VITE_API_URL_USER + URL;
-        Headers = {
-            Authorization: `Bearer ${getToken('token')}`
-        }
     }
+
+    
 
     async searchCategoryProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data, { headers: Headers });
