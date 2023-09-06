@@ -3,14 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from './store';
 import { toggleRTL, toggleTheme, toggleLocale, toggleMenu, toggleLayout, toggleAnimation, toggleNavbar, toggleSemidark } from './store/themeConfigSlice';
 import store from './store';
-import { AuthContext } from './config/authContext';
-import { useIsLoggedIn } from './config/isLogin';
-import { Navigate } from 'react-router-dom';
-
 function App({ children }: PropsWithChildren) {
     const themeConfig = useSelector((state: IRootState) => state.themeConfig);
     const dispatch = useDispatch();
-    const isLoggedIn = useIsLoggedIn();
 
     useEffect(() => {
         dispatch(toggleTheme(localStorage.getItem('theme') || themeConfig.theme));
@@ -29,13 +24,11 @@ function App({ children }: PropsWithChildren) {
                 themeConfig.rtlClass
             } main-section antialiased relative font-nunito text-sm font-normal`}
         >
-        <AuthContext.Provider value={{ isLoggedIn }}>
             <div
                 className={`${(store.getState().themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${themeConfig.rtlClass} main-section antialiased relative font-nunito text-sm font-normal`}
             >
-                {isLoggedIn ? children : <Navigate to="/auth/login" />}
+                {children}
             </div>
-        </AuthContext.Provider>
            
         </div>
     );

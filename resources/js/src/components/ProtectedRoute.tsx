@@ -1,22 +1,15 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { useIsLoggedIn } from './config/isLogin';
+import { Route, Navigate } from 'react-router-dom';
+import { useIsLoggedIn } from '../config/isLogin';
 
-const ProtectedRoute = ({ component: Component, bypassProtection = false, ...rest }: any) => {
+const ProtectedRoute = ({ path, children, bypassProtection = false }) => {
   const isLoggedIn = useIsLoggedIn();
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isLoggedIn || bypassProtection ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/auth/login" />
-        )
-      }
-    />
-  );
+  if (isLoggedIn || bypassProtection) {
+    return <Route path={path}>{children}</Route>;
+  } else {
+    return <Navigate to="/auth/login" replace />;
+  }
 };
 
 export default ProtectedRoute;
