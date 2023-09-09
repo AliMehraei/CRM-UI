@@ -5,16 +5,22 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import { setToken } from '../../config/config';
 import api from '../../config/api';
 import Swal from 'sweetalert2';
+import { useUserStatus } from '../../config/authCheck';  
 
 const LoginCover = () => {
     const api_instance = new api();
 
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(setPageTitle('Login Cover'));
-    });
     const navigate = useNavigate();
-
+    const { isLoggedIn } = useUserStatus(); 
+    useEffect(() => {
+        if (isLoggedIn) {  
+            navigate('/');
+            return;
+        }
+        dispatch(setPageTitle('Login Cover'));
+    }, [isLoggedIn, dispatch, navigate]);
+    
     const submitForm = async (event) => {
         event.preventDefault();
 
