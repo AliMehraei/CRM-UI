@@ -1,15 +1,21 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { useIsLoggedIn } from '../config/isLogin';
+import { Route } from 'react-router-dom';
+import { useUserStatus } from '../config/authCheck';
+import { useNavigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ path, children, bypassProtection = false }) => {
-  const isLoggedIn = useIsLoggedIn();
+export const ProtectedRoute = ({ requiredPermission, ...rest }) => {
+    const { isLoggedIn, hasPermission } = useUserStatus();
+    const navigate = useNavigate();
 
-  if (isLoggedIn || bypassProtection) {
-    return <Route path={path}>{children}</Route>;
-  } else {
-    return <Navigate to="/auth/login" replace />;
-  }
-};
+    if (!isLoggedIn) {
+        navigate("/auth/login");
+        return null;
+    }
 
-export default ProtectedRoute;
+    if (requiredPermission && !hasPermission(requiredPermission)) {
+        navigate("/permission-denied");
+        return null;
+    }
+
+    return <Route {...rest} />;
+}
