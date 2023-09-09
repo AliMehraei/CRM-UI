@@ -97,6 +97,7 @@ const ContactForm = lazy(() => import('../pages/Pages/ContactForm'));
 const Faq = lazy(() => import('../pages/Pages/Faq'));
 const ComingSoon = lazy(() => import('../pages/Pages/ComingSoon'));
 const ERROR404 = lazy(() => import('../pages/Pages/Error404'));
+const ERROR403 = lazy(() => import('../pages/Pages/Error403'));
 const ERROR500 = lazy(() => import('../pages/Pages/Error500'));
 const ERROR503 = lazy(() => import('../pages/Pages/Error503'));
 const Maintenance = lazy(() => import('../pages/Pages/Maintenance'));
@@ -118,6 +119,10 @@ const routes = [
     {
         path: '/',
         element: <Index />,
+    },
+    {
+        path: '/permission-denied',
+        element: <ERROR403 />,
     },
     {
         path: '/index',
@@ -169,7 +174,7 @@ const routes = [
         path: '/task/list',
         element: <ListTask />,
         protected: true,
-        requiredPermission : 'can-view-tasks'
+        requiredPermission : 'can-view-tasks1'
     },
     {
         path: '/task/preview/:id',
