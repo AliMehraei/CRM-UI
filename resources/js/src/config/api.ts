@@ -17,19 +17,18 @@ class api {
         API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT + URL;
         API_URL_USER = import.meta.env.VITE_API_URL_USER + URL;
     }
-
     async searchCategoryProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data, { headers: Headers });
     }
-
+    async getUserPremissions(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data, { headers: Headers });
+    }
     async searchProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data, { headers: Headers });
     }
-
     async filterOptionProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/filter_option`);
     }
-
     async fetchDataProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/list`, data, { headers: Headers });
     }
