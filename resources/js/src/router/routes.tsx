@@ -168,6 +168,8 @@ const routes = [
     {
         path: '/task/list',
         element: <ListTask />,
+        protected: true,
+        requiredPermission : 'can-view-tasks'
     },
     {
         path: '/task/preview/:id',
