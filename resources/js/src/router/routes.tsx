@@ -174,19 +174,26 @@ const routes = [
         path: '/task/list',
         element: <ListTask />,
         protected: true,
-        requiredPermission : 'can-view-tasks1'
+        requiredPermission : 'can-view-task'
     },
     {
         path: '/task/preview/:id',
         element: <PreviewTask />,
+        protected: true,
+        requiredPermission : 'can-edit-task'
     },
     {
         path: '/task/add',
         element: <AddTask />,
+
+        protected: true,
+        requiredPermission : 'can-create-task'
     },
     {
         path: '/task/edit/:id',
         element: <EditTask />,
+        protected: true,
+        requiredPermission : 'can-edit-task'
     },
     // preview page
     {
@@ -363,18 +370,26 @@ const routes = [
     {
         path: '/product/list',
         element: <ListProduct />,
+        protected: true,
+        requiredPermission : 'can-view-product'
     },
     {
         path: '/product/preview/:id',
         element: <PreviewProduct />,
+        protected: true,
+        requiredPermission : 'can-edit-product'
     },
     {
         path: '/product/add',
         element: <AddProduct />,
+        protected: true,
+        requiredPermission : 'can-create-product'
     },
     {
         path: '/product/edit/:id',
         element: <EditProduct />,
+        protected: true,
+        requiredPermission : 'can-edit-product'
     },
     {
         path: '/quotes/list',

@@ -31,8 +31,6 @@ const LoginCover = () => {
 
         try {
             const response = await api_instance.login({ email, password });
-            console.log('API Response:', response);
-
             if (response.data.isOk && response.status === 200) {
                 // Handle successful login
                 setToken(response.data.token, 'token');
