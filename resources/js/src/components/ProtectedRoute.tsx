@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStatus } from '../config/authCheck';
 import App from '../App';
@@ -13,20 +13,18 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermission, path, element }) => {
     const { isLoggedIn, isLoading, hasPermission } = useUserStatus();
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (!isLoading && !isLoggedIn) {
+            navigate("/auth/login");
+        } else if (!isLoading && requiredPermission && !hasPermission(requiredPermission)) {
+            navigate("/permission-denied");
+        }
+    }, [isLoading, isLoggedIn, hasPermission, requiredPermission]);
 
     if (isLoading) {
-        return <><LoadingAlpyn/></>;
-    }
-
-    if (!isLoggedIn) {
-        navigate("/auth/login");
-        return null;
-    }
-
-    if (requiredPermission && !hasPermission(requiredPermission)) {
-        navigate("/permission-denied");
-        return null;
-    }    
+        return <LoadingAlpyn />;
+    } 
     
     return (
         <App>
