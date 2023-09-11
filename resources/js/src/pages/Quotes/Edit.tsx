@@ -7,7 +7,7 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
 import {resetForm, updateFormData} from "../../store/quoteFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
 
 const Edit = () => {
     const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Edit = () => {
     };
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
 
     return (

@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import api from '../../config/api';
 import { renderFilterValueFiled } from '../../components/FilterValueFiled';
 import { useUserStatus } from '../../config/authCheck';
-import LoadingAlpyn from '../../components/LoadingAlpyn';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const List = () => {
     useEffect(() => {
         if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
             // Render loading component or handle the lack of permission here.
-            return <LoadingAlpyn />;
+            return <LoadingSasCrm />;
         }
         else {
            // for some reason
@@ -283,7 +283,7 @@ const List = () => {
 
     return (
         !true  ? (
-            <LoadingAlpyn />
+            <LoadingSasCrm />
           ) : (
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">

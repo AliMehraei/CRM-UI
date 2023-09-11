@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStatus } from '../config/authCheck';
 import App from '../App';
-import LoadingAlpyn from './LoadingAlpyn';
+import LoadingSasCrm from './LoadingSasCrm';
 
 interface ProtectedRouteProps {
     requiredPermission?: string;
@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermi
     }, [isLoading, isLoggedIn, hasPermission, requiredPermission]);
 
     if (isLoading) {
-        return <LoadingAlpyn />;
+        return <LoadingSasCrm />;
     } 
     
     return (

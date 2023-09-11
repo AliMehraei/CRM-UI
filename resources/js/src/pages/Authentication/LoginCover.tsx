@@ -6,7 +6,7 @@ import { setToken } from '../../config/config';
 import api from '../../config/api';
 import Swal from 'sweetalert2';
 import { useUserStatus } from '../../config/authCheck';  
-import LoadingAlpyn from '../../components/LoadingAlpyn';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const LoginCover = () => {
     const api_instance = new api();
@@ -61,7 +61,7 @@ const LoginCover = () => {
     };
 
     if (isLoading || isLoggedIn) {
-        return <LoadingAlpyn />;
+        return <LoadingSasCrm />;
     }
 
     return (
