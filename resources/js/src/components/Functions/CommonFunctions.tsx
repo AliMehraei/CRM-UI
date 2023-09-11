@@ -200,7 +200,7 @@ export const loadAvailability = async (query: string) => {
 
 export const searchOwners = async (e: any) => {
     const result = await api_instance.loadAdminUsers(e);
-    const valField = 'id';
+    const valField = 'userId';
     const nameField = 'name';
     const avatarField = 'avatar';
     const emailField = 'email';
