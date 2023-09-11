@@ -18,17 +18,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermi
 
   useEffect(() => {
     if (isLoading) {
-        console.log('Loading...');
+        console.log('Loading...'); // TODO: remove this
         
       return; // Wait until loading is complete
     }
 
     if (!isLoggedIn) {
-        console.log('Not logged in');
+        console.log('Not logged in');  // TODO: remove this
         
       navigate('/auth/login');
     } else if (requiredPermission && !hasPermission(requiredPermission)) {
-      console.log('Permission denied');
+      console.log('Permission denied');  // TODO: remove this
       
         navigate('/permission-denied');
     }
