@@ -1,3 +1,4 @@
+// ProtectedRoute.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStatus } from '../config/authCheck';
@@ -5,33 +6,48 @@ import App from '../App';
 import LoadingSasCrm from './LoadingSasCrm';
 
 interface ProtectedRouteProps {
-    requiredPermission?: string;
-    path?: string;
-    element?: React.ReactNode;
-    children?: React.ReactNode;
+  requiredPermission?: string;
+  path?: string;
+  element?: React.ReactNode;
+  children?: React.ReactNode;
 }
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermission, path, element }) => {
-    const { isLoggedIn, isLoading, hasPermission } = useUserStatus();
-    const navigate = useNavigate();
-    
-    useEffect(() => {
-        if (!isLoading && !isLoggedIn) {
-            navigate("/auth/login");
-        } else if (!isLoading && requiredPermission && !hasPermission(requiredPermission)) {
-            navigate("/permission-denied");
-        }
-    }, [isLoading, isLoggedIn, hasPermission, requiredPermission]);
 
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermission }) => {
+  const { isLoggedIn, isLoading, hasPermission } = useUserStatus();
+  const navigate = useNavigate();
+
+  useEffect(() => {
     if (isLoading) {
-        return <LoadingSasCrm />;
-    } 
-    
-    return (
-        <App>
-            <div className="text-black dark:text-white-dark min-h-screen">{children}</div>
-        </App>
-    );
-};
+        console.log('Loading...');
+        
+      return; // Wait until loading is complete
+    }
 
+    if (!isLoggedIn) {
+        console.log('Not logged in');
+        
+      navigate('/auth/login');
+    } else if (requiredPermission && !hasPermission(requiredPermission)) {
+      console.log('Permission denied');
+      
+        navigate('/permission-denied');
+    }
+  }, [isLoading, isLoggedIn, hasPermission, requiredPermission, navigate]);
+
+  if (isLoading || (!requiredPermission && !isLoggedIn)) {
+    // While loading or if no permission is required and the user is not logged in, return LoadingSasCrm
+    return <LoadingSasCrm />;
+  }
+
+  if (children) {
+    return (
+      <App>
+        <div className="text-black dark:text-white-dark min-h-screen">{children}</div>
+      </App>
+    );
+  } else {
+    return null;
+  }
+};
 
 export default ProtectedRoute;
