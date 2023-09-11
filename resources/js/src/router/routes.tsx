@@ -1,4 +1,6 @@
 import { lazy } from 'react';
+import ProtectedRoute from '../components/ProtectedRoute';
+import ErrorPage from '../pages/Pages/ErroPage';
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
 const Contracts = lazy(() => import('../pages/Contracts'));
@@ -95,9 +97,6 @@ const KnowledgeBase = lazy(() => import('../pages/Pages/KnowledgeBase'));
 const ContactForm = lazy(() => import('../pages/Pages/ContactForm'));
 const Faq = lazy(() => import('../pages/Pages/Faq'));
 const ComingSoon = lazy(() => import('../pages/Pages/ComingSoon'));
-const ERROR404 = lazy(() => import('../pages/Pages/Error404'));
-const ERROR500 = lazy(() => import('../pages/Pages/Error500'));
-const ERROR503 = lazy(() => import('../pages/Pages/Error503'));
 const Maintenance = lazy(() => import('../pages/Pages/Maintenance'));
 const LoginBoxed = lazy(() => import('../pages/Authentication/LoginBoxed'));
 const RegisterBoxed = lazy(() => import('../pages/Authentication/RegisterBoxed'));
@@ -108,20 +107,21 @@ const RegisterCover = lazy(() => import('../pages/Authentication/RegisterCover')
 const RecoverIdCover = lazy(() => import('../pages/Authentication/RecoverIdCover'));
 const UnlockCover = lazy(() => import('../pages/Authentication/UnlockCover'));
 const Error = lazy(() => import('../components/Error'));
-
 const ListTask = lazy(() => import('../pages/Task/Index'));
 const PreviewTask = lazy(() => import('../pages/Task/Preview'));
 const AddTask = lazy(() => import('../pages/Task/Add'));
 const EditTask = lazy(() => import('../pages/Task/Edit'));
-
-
 const routes = [
     // dashboard
     {
         path: '/',
         element: <Index />,
     },
-
+    {
+        path: '/permission-denied',
+        element: <ErrorPage errorCode="403" />
+        ,
+    },
     {
         path: '/index',
         element: <Index />,
@@ -155,8 +155,6 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount />,
     },
-
-
     {
         path: '/contracts',
         element: <Contracts />,
@@ -173,18 +171,27 @@ const routes = [
     {
         path: '/task/list',
         element: <ListTask />,
+        protected: true,
+        requiredPermission : 'can-view-taskx'
     },
     {
         path: '/task/preview/:id',
         element: <PreviewTask />,
+        protected: true,
+        requiredPermission : 'can-edit-task'
     },
     {
         path: '/task/add',
         element: <AddTask />,
+
+        protected: true,
+        requiredPermission : 'can-create-task'
     },
     {
         path: '/task/edit/:id',
         element: <EditTask />,
+        protected: true,
+        requiredPermission : 'can-edit-task'
     },
     // preview page
     {
@@ -233,17 +240,17 @@ const routes = [
     },
     {
         path: '/pages/error404',
-        element: <ERROR404 />,
+        element: <ErrorPage errorCode="404" />,
         layout: 'blank',
     },
     {
         path: '/pages/error500',
-        element: <ERROR500 />,
+        element: <ErrorPage errorCode="500" />,
         layout: 'blank',
     },
     {
         path: '/pages/error503',
-        element: <ERROR503 />,
+        element: <ErrorPage errorCode="503" />,
         layout: 'blank',
     },
     {
@@ -273,7 +280,7 @@ const routes = [
         layout: 'blank',
     },
     {
-        path: '/auth/cover-login',
+        path: '/auth/login',
         element: <LoginCover />,
         layout: 'blank',
     },
@@ -292,12 +299,6 @@ const routes = [
         element: <RecoverIdCover />,
         layout: 'blank',
     },
-
-
-
-
-
-
     {
         path: '/availability/list',
         element: <ListAvailability />,
@@ -348,9 +349,6 @@ const routes = [
         path: '/excess/edit/:id',
         element: <EditExcess />,
     },
-
-
-
     {
         path: '/manufacturer/list',
         element: <ListManufacturer />,
@@ -367,28 +365,30 @@ const routes = [
         path: '/manufacturer/edit/:id',
         element: <EditManufacturer />,
     },
-
-
-
     {
         path: '/product/list',
         element: <ListProduct />,
+        protected: true,
+        requiredPermission : 'can-view-product'
     },
     {
         path: '/product/preview/:id',
         element: <PreviewProduct />,
+        protected: true,
+        requiredPermission : 'can-edit-product'
     },
     {
         path: '/product/add',
         element: <AddProduct />,
+        protected: true,
+        requiredPermission : 'can-create-product'
     },
     {
         path: '/product/edit/:id',
         element: <EditProduct />,
+        protected: true,
+        requiredPermission : 'can-edit-product'
     },
-
-
-
     {
         path: '/quotes/list',
         element: <ListQuotes />,
@@ -405,10 +405,6 @@ const routes = [
         path: '/quotes/edit/:id',
         element: <EditQuotes />,
     },
-
-
-
-
     {
         path: '/rfq/list',
         element: <ListRFQ />,
@@ -425,9 +421,6 @@ const routes = [
         path: '/rfq/edit/:id',
         element: <EditRFQ />,
     },
-
-
-
     {
         path: '/vendor_rfq/list',
         element: <ListVendorRFQ />,
@@ -444,9 +437,6 @@ const routes = [
         path: '/vendor_rfq/edit/:id',
         element: <EditVendorRFQ />,
     },
-
-
-
     {
         path: '/vendor/list',
         element: <ListVendor />,
@@ -463,9 +453,6 @@ const routes = [
         path: '/vendor/edit/:id',
         element: <EditVendor />,
     },
-
-
-
     {
         path: '/contact/list',
         element: <ListContact />,
@@ -482,9 +469,6 @@ const routes = [
         path: '/contact/edit/:id',
         element: <EditContact />,
     },
-
-
-
     {
         path: '/deal/list',
         element: <ListDeal />,
@@ -501,10 +485,6 @@ const routes = [
         path: '/deal/edit/:id',
         element: <EditDeal />,
     },
-
-
-
-
     {
         path: '/lead/list',
         element: <ListLead />,
@@ -521,9 +501,6 @@ const routes = [
         path: '/lead/edit/:id',
         element: <EditLead />,
     },
-
-
-
     {
         path: '/purchase/list',
         element: <ListPurchase />,
@@ -540,9 +517,6 @@ const routes = [
         path: '/purchase/edit/:id',
         element: <EditPurchase />,
     },
-
-
-
     {
         path: '/sales/list',
         element: <ListSales />,
@@ -559,13 +533,10 @@ const routes = [
         path: '/sales/edit/:id',
         element: <EditSales />,
     },
-
-
     {
         path: '*',
         element: <Error />,
         layout: 'blank',
     },
 ];
-
 export { routes };

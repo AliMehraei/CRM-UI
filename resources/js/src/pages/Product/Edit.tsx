@@ -6,7 +6,7 @@ import ProductFormFields from "./components/edit/ProductFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
 import {resetForm, updateFormData} from "../../store/productFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn"
+import LoadingSasCrm from "../../components/LoadingSasCrm"
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 
@@ -51,7 +51,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
     return (
         <div className='px-4'>

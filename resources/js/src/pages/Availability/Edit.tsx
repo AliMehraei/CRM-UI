@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import {resetForm, updateFormData} from "../../store/availabilityFormSlice";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import AvailabilityFormFields from "./components/edit/AvailabilityFormFields";
@@ -45,7 +45,7 @@ const Edit = () => {
     };
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
     return (
         <div className='px-4'>

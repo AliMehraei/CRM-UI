@@ -8,46 +8,66 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import { renderFilterValueFiled } from '../../components/FilterValueFiled'
+import { renderFilterValueFiled } from '../../components/FilterValueFiled';
+import { useUserStatus } from '../../config/authCheck';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
+
 const List = () => {
     const dispatch = useDispatch();
+    
     useEffect(() => {
         dispatch(setPageTitle('Product List'));
-    });
+    }, [dispatch]);
+
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
+    
+    useEffect(() => {
+        if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
+            // Render loading component or handle the lack of permission here.
+            return <LoadingSasCrm />;
+        }
+        else {
+           // for some reason
+        }
+    }, [isLoading, isLoggedIn, hasPermission]);
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance = new api();
-    const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
+    const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
+
     const [items, setItems] = useState([]);
     const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
-    const [searchQuery, setSearchQuery] = useState(''); // State for search input
+    const [searchQuery, setSearchQuery] = useState('');
     const [filters, setFilters] = useState([]);
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+    
     const [initialRecords, setInitialRecords] = useState(sortBy(items, 'id'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
+
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'id',
         direction: 'asc',
     });
+
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
+            if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+
             const res = await api_instance.filterOptionProduct();
             // Transform the data
             const transformedData = res.data.data.map((item) => {
                 const conditions = item.condition;
-                // console.log('condition.model',item);
-
                 return {
                     ...item,
                     conditions: Object.entries(conditions).map(([key, condition]) => ({
                         value: key,
-                        label: condition.value, // or any other property to use as the label
+                        label: condition.value,
                         input: condition.input,
                         type: condition.type,
                         model: item.model,
@@ -55,27 +75,35 @@ const List = () => {
                 };
             });
             setOptionsFilter(transformedData);
-
+         }
         } catch (error) {
             showMessage('Error fetching filter options.', 'error');
             console.error('Error fetching data:', error);
         }
         setLoading(false);
     };
+
     useEffect(() => {
+        if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
         fetchDataFilterOption();
+        }
     }, []);
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     };
+
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDataProduct(page, pageSize, filters, sortStatus); // Fetch data based on filters
+        if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
+        fetchDataProduct(page, pageSize, filters, sortStatus);
+        }
     };
+
     // Filter the options based on search query
     let filteredOptions = [];
     if (optionsFilter && optionsFilter.length > 0) {
@@ -83,6 +111,7 @@ const List = () => {
             option.label.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
+
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
             toast: true,
@@ -97,56 +126,62 @@ const List = () => {
             padding: '10px 20px',
         });
     };
-    const deleteRow = (id: any = null) => {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-            padding: '2em',
-            customClass: 'sweet-alerts',
-        }).then((result) => {
-            if (result.value) {
-                const deleteSingleRow = async (rowId: number) => {
-                    try {
-                        setLoading(true);
-                        api_instance.deleteSingleProduct(rowId).then((res) => {
-                            const result = res.data;
-                            if (result.status) {
-                                const filteredItems = items.filter((user) => user.id !== rowId);
-                                setRecords(filteredItems);
-                                setInitialRecords(filteredItems);
-                                setItems(filteredItems);
-                            } else {
-                                showMessage('Error deleting the product: ' + result.message, 'error');
-                                console.error('Error deleting the product', result.message);
-                            }
-                        });
-                        setLoading(false);
-                    } catch (error) {
-                        showMessage('Error making delete request', 'error');
-                        console.error('Error making delete request', error);
-                        setLoading(false);
-                    }
 
-                };
-                if (id) {
-                    deleteSingleRow(id);
-                    setSelectedRecords([]);
-                } else {
-                    let selectedRows = selectedRecords || [];
-                    const ids = selectedRows.map((d: any) => d.id);
-                    ids.forEach((rowId) => deleteSingleRow(rowId));
-                    setSelectedRecords([]);
-                    setPage(1);
+    const deleteRow = (id: any = null) => {
+        if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-delete-product')) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                padding: '2em',
+                customClass: 'sweet-alerts',
+            }).then((result) => {
+                if (result.value) {
+                    const deleteSingleRow = async (rowId: number) => {
+                        try {
+                            setLoading(true);
+                            api_instance.deleteSingleProduct(rowId).then((res) => {
+                                const result = res.data;
+                                if (result.status) {
+                                    const filteredItems = items.filter((user) => user.id !== rowId);
+                                    setRecords(filteredItems);
+                                    setInitialRecords(filteredItems);
+                                    setItems(filteredItems);
+                                } else {
+                                    showMessage('Error deleting the product: ' + result.message, 'error');
+                                    console.error('Error deleting the product', result.message);
+                                }
+                            });
+                            setLoading(false);
+                        } catch (error) {
+                            showMessage('Error making delete request', 'error');
+                            console.error('Error making delete request', error);
+                            setLoading(false);
+                        }
+                    };
+
+                    if (id) {
+                        deleteSingleRow(id);
+                        setSelectedRecords([]);
+                    } else {
+                        let selectedRows = selectedRecords || [];
+                        const ids = selectedRows.map((d: any) => d.id);
+                        ids.forEach((rowId) => deleteSingleRow(rowId));
+                        setSelectedRecords([]);
+                        setPage(1);
+                    }
+                    Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success', customClass: 'sweet-alerts' });
                 }
-                Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success', customClass: 'sweet-alerts' });
-            }
-        });
+            });
+        }
+        else showMessage('You don\'t have permission to perform this action.', 'error');
     };
+
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
+        if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
@@ -160,7 +195,6 @@ const List = () => {
                 setItems(res.data.data.data);
                 setTotalItems(res.data.data.total);
                 setLoading(false);
-
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
@@ -171,23 +205,30 @@ const List = () => {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
+    }
     };
+
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
         setInitialRecords(reversedData);
-
     }, [items, sortStatus]);
+
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
+
     useEffect(() => {
         const to = pageSize;
         setRecords([...initialRecords.slice(0, to)]);
     }, [page, pageSize, initialRecords]);
+
     useEffect(() => {
+        if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
         fetchDataProduct(page, pageSize, filters, sortStatus);
+        }
     }, [page, pageSize, sortStatus, resetFilter]);
+
     const resetFilters = () => {
         setSelectedFields([]); // Reset selected fields
         setFilters([]); // Reset filters
@@ -195,18 +236,15 @@ const List = () => {
         setPage(1);
         setResetFilter(true);
         scrollToTop();
-        // fetchDataProduct(page, pageSize, filters, sortStatus);
     };
+
     const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
-
-
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
                 [value]: { field: value, condition: '', value: '', model: option.model, type: option.type },
             }));
-
             setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
         } else {
             setFilters((prevFilters) => {
@@ -214,17 +252,14 @@ const List = () => {
                 delete updatedFilters[value];
                 return updatedFilters;
             });
-
             setSelectedFields((prevSelectedFields) =>
                 prevSelectedFields.filter((field) => field !== value)
             );
         }
-
-
     };
 
     const handleSortChange = (sortStatus) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
+        const { columnAccessor, direction = 'asc' } = sortStatus;
         setSortStatus({ columnAccessor, direction });
         setPage(1);
         fetchDataProduct(page, pageSize, filters, { columnAccessor, direction });
@@ -243,12 +278,14 @@ const List = () => {
 
         setFilters(updatedFilters);
     };
-
-
+   
 
 
     return (
-        <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
+        !true  ? (
+            <LoadingSasCrm />
+          ) : (
+            <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
@@ -528,6 +565,7 @@ const List = () => {
                 </div>
             </div>
         </div>
+        )       
     );
 };
 
