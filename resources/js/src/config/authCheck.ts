@@ -24,7 +24,7 @@ export const useUserStatus = (): UserStatus => {
         }
         async function fetchPermissions() {
             try {
-                const response = await api_instance.getUserPremissions();
+                const response = await api_instance.getUserPermissions();
                 
                 if (response.status === 200 && Array.isArray(response.data.permissions)) {
                     setIsLoggedIn(true);

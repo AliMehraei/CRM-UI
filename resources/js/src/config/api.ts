@@ -20,7 +20,7 @@ class api {
     async searchCategoryProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data, { headers: Headers });
     }
-    async getUserPremissions(data: any = null) {
+    async getUserPermissions(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data, { headers: Headers });
     }
     async searchProduct(data: any = null) {
