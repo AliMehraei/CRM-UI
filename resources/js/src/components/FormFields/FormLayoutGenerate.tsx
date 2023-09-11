@@ -1,5 +1,5 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import {RequiredComponent} from "./RequiredComponent";
@@ -7,8 +7,10 @@ import * as CommonFunctions from "../Functions/CommonFunctions";
 
 const FormLayoutGenerate = ({formState, updateFormData}: any) => {
     const dispatch = useDispatch();
+    const formErrors = useSelector((state: any) => state.formErrors);
 
     const handleChangeField = (field: any, value: any) => {
+        console.log(field, value);
         dispatch(updateFormData({[field]: value}));
     };
     type AdditionalAttribute = {
@@ -29,14 +31,20 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
         type: "select" | "enum" | "boolean" | "string" | "selectApi" | "multiSelectApi" | "double";
     };
 
-    interface CommonFunctionsInterface {
-        [key: string]: Function;
-    }
-
     const generateHtmlElement = (data: any) => {
         const attribute: AdditionalAttribute = data.model_attribute;
         const options = JSON.parse(attribute.options);
         const loadOptions = (CommonFunctions as Record<string, any>)[attribute.api];
+        const hasError = Object.keys(formErrors).length > 1 && formErrors[attribute.name];
+        const errorStyleForSelect = (base: any) =>
+            hasError
+                ? {
+                    ...base,
+                    borderColor: 'rgba(231, 81, 90, 0.7)',
+                    backgroundColor: 'rgba(231, 81, 90, 0.08)',
+                    color: 'rgba(231, 81, 90, 1)',
+                }
+                : {...base}
         const elements: any = {
             'boolean': <input type="checkbox" className="form-checkbox"
                               name={attribute.name}
@@ -59,20 +67,29 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
                 <AsyncSelect isMulti={false} className="flex-1" placeholder="Type at least 2 characters to search..."
                              name={attribute.name}
                              loadOptions={loadOptions}
+                             styles={{
+                                 control: errorStyleForSelect,
+                             }}
                              onChange={({value}: any) => {
                                  handleChangeField(attribute.name, value)
                              }}/>,
             'multiSelectApi':
-                <AsyncSelect isMulti={true} className="flex-1" placeholder="Type at least 2 characters to search..."
+                <AsyncSelect isMulti={true} className="flex-1 	"
+                             placeholder="Type at least 2 characters to search..."
                              name={attribute.name}
                              loadOptions={loadOptions}
                              onChange={(values: any) => {
                                  handleChangeField(attribute.name, values.map((v: any) => v.value))
-                             }}/>,
+                             }}
+                             styles={{
+                                 control: errorStyleForSelect,
+                             }}
+                />,
         };
 
         return (
-            <div className="flex mt-4 items-center">
+            <div
+                className={hasError ? "flex mt-4 items-center has-error" : "flex mt-4 items-center"}>
 
                 <label className=" ltr:mr-2 rtl:ml-2 w-1/3 mb-0 ">
                     {attribute.label}
@@ -80,6 +97,9 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
                 </label>
                 <div className="w-full">
                     {elements[attribute.type] ?? ''}
+                    {hasError &&
+                        <div
+                            className="text-danger mt-1"> {formErrors[attribute.name]}</div>}
                 </div>
 
             </div>
@@ -92,14 +112,14 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
     }
 
     const groupColumns = (data: ColumnData[]) => {
-        const groupedData = data.reduce<{ [key: string]: ColumnData[] }>((result, item: any) => {
+        const groupedData = data.reduce<any>((result, item: any) => {
             const {section_col} = item;
             result[section_col] = [...(result[section_col] || []), item];
             return result;
         }, {});
 
-        return Object.values(groupedData).map((group) =>
-            group.sort((a, b) => a.order - b.order)
+        return Object.values(groupedData).map((group: any) =>
+            group.sort((a: any, b: any) => a.order - b.order)
         );
     };
 
