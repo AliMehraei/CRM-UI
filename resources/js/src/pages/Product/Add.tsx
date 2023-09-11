@@ -7,6 +7,7 @@ import 'flatpickr/dist/flatpickr.css';
 import {resetForm, updateFormData} from "../../store/productFormSlice";
 import LoadingAlpyn from "../../components/LoadingAlpyn";
 import Api from "../../config/api";
+import FormLayoutGenerate from "../../components/FormFields/FormLayoutGenerate";
 
 const Add = () => {
     const formState = useSelector((state: any) => state.productForm);
@@ -43,7 +44,8 @@ const Add = () => {
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
-                    <ProductFormFields/>
+                    <FormLayoutGenerate formState={formState} updateFormData={updateFormData}/>
+                    {/*<ProductFormFields/>*/}
                 </div>
             </div>
         </div>
