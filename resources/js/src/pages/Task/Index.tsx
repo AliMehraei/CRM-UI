@@ -374,8 +374,8 @@ const List = () => {
                                             accessor: 'subject',
                                             title :'Task subject',
                                             sortable: false,
-                                            render: ({ subject }) => (
-                                                <NavLink to="/task/preview">
+                                            render: ({ subject ,id}) => (
+                                                <NavLink to={`/task/edit/${id}`}>
                                                 <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                                             </NavLink>
                                             ),
