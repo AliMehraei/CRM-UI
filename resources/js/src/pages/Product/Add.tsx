@@ -1,18 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import ProductFormFields from "./components/create/ProductFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
-import {resetForm} from "../../store/productFormSlice";
+import {resetForm, updateFormData} from "../../store/productFormSlice";
+import LoadingAlpyn from "../../components/LoadingAlpyn";
+import Api from "../../config/api";
 
 const Add = () => {
     const formState = useSelector((state: any) => state.productForm);
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const api = new Api();
+
+    const fetchData = async () => {
+        const formLayout = await api.getFormLayout({'model': 'Product'});
+        if (formLayout.status != 200)
+            return
+        const layout = formLayout.data;
+        dispatch(updateFormData({layout: layout}));
+
+    };
+
+
+    useEffect(() => {
+
+        fetchData().then(() => {
+            setLoading(false);
+        });
+    }, []);
 
     useEffect(() => {
         dispatch(setPageTitle('Product Add'));
     });
+
+    if (loading)
+        return <LoadingAlpyn/>
 
     return (
         <div className='px-4'>
