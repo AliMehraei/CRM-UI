@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import ProtectedRoute from '../components/ProtectedRoute';
+import ErrorPage from '../pages/Pages/ErroPage';
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
 const Contracts = lazy(() => import('../pages/Contracts'));
@@ -96,10 +97,6 @@ const KnowledgeBase = lazy(() => import('../pages/Pages/KnowledgeBase'));
 const ContactForm = lazy(() => import('../pages/Pages/ContactForm'));
 const Faq = lazy(() => import('../pages/Pages/Faq'));
 const ComingSoon = lazy(() => import('../pages/Pages/ComingSoon'));
-const ERROR404 = lazy(() => import('../pages/Pages/Error404'));
-const ERROR403 = lazy(() => import('../pages/Pages/Error403'));
-const ERROR500 = lazy(() => import('../pages/Pages/Error500'));
-const ERROR503 = lazy(() => import('../pages/Pages/Error503'));
 const Maintenance = lazy(() => import('../pages/Pages/Maintenance'));
 const LoginBoxed = lazy(() => import('../pages/Authentication/LoginBoxed'));
 const RegisterBoxed = lazy(() => import('../pages/Authentication/RegisterBoxed'));
@@ -122,7 +119,8 @@ const routes = [
     },
     {
         path: '/permission-denied',
-        element: <ERROR403 />,
+        element: <ErrorPage errorCode="403" />
+        ,
     },
     {
         path: '/index',
@@ -174,7 +172,7 @@ const routes = [
         path: '/task/list',
         element: <ListTask />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'can-view-taskx'
     },
     {
         path: '/task/preview/:id',
@@ -242,17 +240,17 @@ const routes = [
     },
     {
         path: '/pages/error404',
-        element: <ERROR404 />,
+        element: <ErrorPage errorCode="404" />,
         layout: 'blank',
     },
     {
         path: '/pages/error500',
-        element: <ERROR500 />,
+        element: <ErrorPage errorCode="500" />,
         layout: 'blank',
     },
     {
         path: '/pages/error503',
-        element: <ERROR503 />,
+        element: <ErrorPage errorCode="503" />,
         layout: 'blank',
     },
     {
