@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 import Select from "react-select";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 
 const ProductFormFields = () => {
     const formState = useSelector((state: any) => state.productForm);
@@ -8,21 +9,33 @@ const ProductFormFields = () => {
     useEffect(() => {
     }, []);
 
-    const getHtmlElement = (type: string) => {
+    const generateHtmlElement = (data: any) => {
+        console.log(data)
         const elements: any = {
-            'select': <Select/>,
+            'select': <Select className="form-control"/>,
             'boolean': <input type="checkbox"/>,
+            'string': <input className="form-input flex-1"/>
         };
 
-        return elements[type] || null;
+        return (
+            <div className="mt-4 items-center">
+                <div className="flex">
+                    <label className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 mt-2">
+                        test
+                        <RequiredComponent/>
+                    </label>
+                    <div className="">
+                        <input className="form-input "/>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     interface ColumnData {
         col: string;
         order: number;
     }
-
-    type GroupedData = Record<string, ColumnData[]>;
 
     const groupColumns = (data: ColumnData[]) => {
         const groupedData = data.reduce<{ [key: string]: ColumnData[] }>((result, item: any) => {
@@ -42,15 +55,33 @@ const ProductFormFields = () => {
                 const cols = groupColumns(section.layout_data);
                 return (
                     <>
-                        <div key={`${section.title}_${index}`} className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
-                            <div key={section.title} className="">
+                        <div key={`${section.title}_${index}`} className=" w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
+                            <div key={section.title} className="w-full">
                                 <div className="text-lg">{section.title}</div>
-                                <div className="flex justify-between  flex-row">
+                                {/*<div className="flex bg-gray-200 ">
+                                    <div className="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">
+                                        Short
+                                    </div>
+                                    <div className="flex-1 text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">
+                                        Medium length
+                                    </div>
+                                </div>*/}
+                                <div className="flex justify-between lg:flex-row flex-col ">
                                     {cols.map((col: any) => (
-                                        <div className="flex flex-col">
+                                        <div className="lg:w-1/2 w-full ltr:lg:mr-6 rtl:lg:ml-6 mb-6">
                                             {col.map((data: any, innerIndex: any) => (
-                                                <div className="flex" key={innerIndex}>
-                                                    {innerIndex}
+                                                <div className="" key={data.id + "_" + innerIndex}>
+                                                    <div className="flex mt-4 items-center">
+
+                                                        <label className=" ltr:mr-2 rtl:ml-2 w-1/3 mb-0 mt-2">
+                                                            Account Owner
+                                                            <RequiredComponent/>
+                                                        </label>
+                                                        <div className="w-full">
+                                                            <input className="flex-1 form-input "/>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
