@@ -9,7 +9,7 @@ const Logout = () => {
 
   useEffect(() => {
     // Clear the token and then navigate to the login page
-   // removeToken('token');
+    removeToken('token');
     logout();
     navigate('/auth/login');
   }, [navigate]);
