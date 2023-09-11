@@ -151,7 +151,7 @@ const AccountSection = () => {
                                     className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div
-                                        className="text-sm font-bold">{formState.owner?.name}</div>
+                                        className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div
                                         className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
