@@ -1,5 +1,6 @@
-import { lazy } from 'react';
+import {lazy} from 'react';
 import ProtectedRoute from '../components/ProtectedRoute';
+
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
 const Contracts = lazy(() => import('../pages/Contracts'));
@@ -118,427 +119,427 @@ const routes = [
     // dashboard
     {
         path: '/',
-        element: <Index />,
+        element: <Index/>,
     },
     {
         path: '/permission-denied',
-        element: <ERROR403 />,
+        element: <ERROR403/>,
     },
     {
         path: '/index',
-        element: <Index />,
+        element: <Index/>,
     },
     {
         path: '/import/:module',
-        element: <ImportCreate />,
+        element: <ImportCreate/>,
     },
     {
         path: '/import/:module/operation',
-        element: <ImportOperation />,
+        element: <ImportOperation/>,
     },
     {
         path: '/import/:module/field-mapping',
-        element: <ImportFieldMapping />,
+        element: <ImportFieldMapping/>,
     },
 
     {
         path: '/account/list',
-        element: <ListAccount />,
+        element: <ListAccount/>,
     },
     {
         path: '/account/preview/:id',
-        element: <PreviewAccount />,
+        element: <PreviewAccount/>,
     },
     {
         path: '/account/add',
-        element: <AddAccount />,
+        element: <AddAccount/>,
     },
     {
         path: '/account/edit/:id',
-        element: <EditAccount />,
+        element: <EditAccount/>,
     },
     {
         path: '/contracts',
-        element: <Contracts />,
+        element: <Contracts/>,
     },
     {
         path: '/todolist',
-        element: <Todolist />,
+        element: <Todolist/>,
     },
     {
         path: '/invoice/list',
-        element: <ListInvoice />,
+        element: <ListInvoice/>,
     },
     //task
     {
         path: '/task/list',
-        element: <ListTask />,
+        element: <ListTask/>,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission: 'can-view-task'
     },
     {
         path: '/task/preview/:id',
-        element: <PreviewTask />,
+        element: <PreviewTask/>,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission: 'can-edit-task'
     },
     {
         path: '/task/add',
-        element: <AddTask />,
+        element: <AddTask/>,
 
         protected: true,
-        requiredPermission : 'can-create-task'
+        requiredPermission: 'can-create-task'
     },
     {
         path: '/task/edit/:id',
-        element: <EditTask />,
+        element: <EditTask/>,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission: 'can-edit-task'
     },
     // preview page
     {
         path: '/invoice/preview/:id',
-        element: <PreviewInvoice />,
+        element: <PreviewInvoice/>,
     },
     {
         path: '/invoice/add',
-        element: <AddInvoice />,
+        element: <AddInvoice/>,
     },
     {
         path: '/invoice/edit/:id',
-        element: <EditInvoice />,
+        element: <EditInvoice/>,
     },
     {
         path: '/app/setting',
-        element: <Setting />,
+        element: <Setting/>,
     },
     // Users page
     {
         path: '/users/profile',
-        element: <Profile />,
+        element: <Profile/>,
     },
     {
         path: '/users/user-account-settings',
-        element: <AccountSetting />,
+        element: <AccountSetting/>,
     },
     // pages
     {
         path: '/pages/knowledge-base',
-        element: <KnowledgeBase />,
+        element: <KnowledgeBase/>,
     },
     {
         path: '/pages/contact-us',
-        element: <ContactForm />,
+        element: <ContactForm/>,
         layout: 'blank',
     },
     {
         path: '/pages/faq',
-        element: <Faq />,
+        element: <Faq/>,
     },
     {
         path: '/pages/coming-soon',
-        element: <ComingSoon />,
+        element: <ComingSoon/>,
         layout: 'blank',
     },
     {
         path: '/pages/error404',
-        element: <ERROR404 />,
+        element: <ERROR404/>,
         layout: 'blank',
     },
     {
         path: '/pages/error500',
-        element: <ERROR500 />,
+        element: <ERROR500/>,
         layout: 'blank',
     },
     {
         path: '/pages/error503',
-        element: <ERROR503 />,
+        element: <ERROR503/>,
         layout: 'blank',
     },
     {
         path: '/pages/maintenance',
-        element: <Maintenance />,
+        element: <Maintenance/>,
         layout: 'blank',
     },
     //Authentication
     {
         path: '/auth/boxed-signin',
-        element: <LoginBoxed />,
+        element: <LoginBoxed/>,
         layout: 'blank',
     },
     {
         path: '/auth/boxed-signup',
-        element: <RegisterBoxed />,
+        element: <RegisterBoxed/>,
         layout: 'blank',
     },
     {
         path: '/auth/boxed-lockscreen',
-        element: <UnlockBoxed />,
+        element: <UnlockBoxed/>,
         layout: 'blank',
     },
     {
         path: '/auth/boxed-password-reset',
-        element: <RecoverIdBoxed />,
+        element: <RecoverIdBoxed/>,
         layout: 'blank',
     },
     {
         path: '/auth/login',
-        element: <LoginCover />,
+        element: <LoginCover/>,
         layout: 'blank',
     },
     {
         path: '/auth/cover-register',
-        element: <RegisterCover />,
+        element: <RegisterCover/>,
         layout: 'blank',
     },
     {
         path: '/auth/cover-lockscreen',
-        element: <UnlockCover />,
+        element: <UnlockCover/>,
         layout: 'blank',
     },
     {
         path: '/auth/cover-password-reset',
-        element: <RecoverIdCover />,
+        element: <RecoverIdCover/>,
         layout: 'blank',
     },
     {
         path: '/availability/list',
-        element: <ListAvailability />,
+        element: <ListAvailability/>,
     },
     {
         path: '/availability/preview/:id',
-        element: <PreviewAvailability />,
+        element: <PreviewAvailability/>,
     },
     {
         path: '/availability/add',
-        element: <AddAvailability />,
+        element: <AddAvailability/>,
     },
     {
         path: '/availability/edit/:id',
-        element: <EditAvailability />,
+        element: <EditAvailability/>,
     },
 
     {
         path: '/support/list',
-        element: <ListSupport />,
+        element: <ListSupport/>,
     },
     {
         path: '/support/preview/:id',
-        element: <PreviewSupport />,
+        element: <PreviewSupport/>,
     },
     {
         path: '/support/add',
-        element: <AddSupport />,
+        element: <AddSupport/>,
     },
     {
         path: '/support/edit/:id',
-        element: <EditSupport />,
+        element: <EditSupport/>,
     },
 
     {
         path: '/excess/list',
-        element: <ListExcess />,
+        element: <ListExcess/>,
     },
     {
         path: '/excess/preview/:id',
-        element: <PreviewExcess />,
+        element: <PreviewExcess/>,
     },
     {
         path: '/excess/add',
-        element: <AddExcess />,
+        element: <AddExcess/>,
     },
     {
         path: '/excess/edit/:id',
-        element: <EditExcess />,
+        element: <EditExcess/>,
     },
     {
         path: '/manufacturer/list',
-        element: <ListManufacturer />,
+        element: <ListManufacturer/>,
     },
     {
         path: '/manufacturer/preview/:id',
-        element: <PreviewManufacturer />,
+        element: <PreviewManufacturer/>,
     },
     {
         path: '/manufacturer/add',
-        element: <AddManufacturer />,
+        element: <AddManufacturer/>,
     },
     {
         path: '/manufacturer/edit/:id',
-        element: <EditManufacturer />,
+        element: <EditManufacturer/>,
     },
     {
         path: '/product/list',
-        element: <ListProduct />,
-        protected: true,
-        requiredPermission : 'can-view-product'
+        element: <ListProduct/>,
+        protected: false,
+        requiredPermission: 'can-view-product'
     },
     {
         path: '/product/preview/:id',
-        element: <PreviewProduct />,
-        protected: true,
-        requiredPermission : 'can-edit-product'
+        element: <PreviewProduct/>,
+        protected: false,
+        requiredPermission: 'can-edit-product'
     },
     {
         path: '/product/add',
-        element: <AddProduct />,
-        protected: true,
-        requiredPermission : 'can-create-product'
+        element: <AddProduct/>,
+        protected: false,
+        requiredPermission: 'can-create-product'
     },
     {
         path: '/product/edit/:id',
-        element: <EditProduct />,
-        protected: true,
-        requiredPermission : 'can-edit-product'
+        element: <EditProduct/>,
+        protected: false,
+        requiredPermission: 'can-edit-product'
     },
     {
         path: '/quotes/list',
-        element: <ListQuotes />,
+        element: <ListQuotes/>,
     },
     {
         path: '/quotes/preview/:id',
-        element: <PreviewQuotes />,
+        element: <PreviewQuotes/>,
     },
     {
         path: '/quotes/add',
-        element: <AddQuotes />,
+        element: <AddQuotes/>,
     },
     {
         path: '/quotes/edit/:id',
-        element: <EditQuotes />,
+        element: <EditQuotes/>,
     },
     {
         path: '/rfq/list',
-        element: <ListRFQ />,
+        element: <ListRFQ/>,
     },
     {
         path: '/rfq/preview/:id',
-        element: <PreviewRFQ />,
+        element: <PreviewRFQ/>,
     },
     {
         path: '/rfq/add',
-        element: <AddRFQ />,
+        element: <AddRFQ/>,
     },
     {
         path: '/rfq/edit/:id',
-        element: <EditRFQ />,
+        element: <EditRFQ/>,
     },
     {
         path: '/vendor_rfq/list',
-        element: <ListVendorRFQ />,
+        element: <ListVendorRFQ/>,
     },
     {
         path: '/vendor_rfq/preview/:id',
-        element: <PreviewVendorRFQ />,
+        element: <PreviewVendorRFQ/>,
     },
     {
         path: '/vendor_rfq/add',
-        element: <AddVendorRFQ />,
+        element: <AddVendorRFQ/>,
     },
     {
         path: '/vendor_rfq/edit/:id',
-        element: <EditVendorRFQ />,
+        element: <EditVendorRFQ/>,
     },
     {
         path: '/vendor/list',
-        element: <ListVendor />,
+        element: <ListVendor/>,
     },
     {
         path: '/vendor/preview/:id',
-        element: <PreviewVendor />,
+        element: <PreviewVendor/>,
     },
     {
         path: '/vendor/add',
-        element: <AddVendor />,
+        element: <AddVendor/>,
     },
     {
         path: '/vendor/edit/:id',
-        element: <EditVendor />,
+        element: <EditVendor/>,
     },
     {
         path: '/contact/list',
-        element: <ListContact />,
+        element: <ListContact/>,
     },
     {
         path: '/contact/preview/:id',
-        element: <PreviewContact />,
+        element: <PreviewContact/>,
     },
     {
         path: '/contact/add',
-        element: <AddContact />,
+        element: <AddContact/>,
     },
     {
         path: '/contact/edit/:id',
-        element: <EditContact />,
+        element: <EditContact/>,
     },
     {
         path: '/deal/list',
-        element: <ListDeal />,
+        element: <ListDeal/>,
     },
     {
         path: '/deal/preview/:id',
-        element: <PreviewDeal />,
+        element: <PreviewDeal/>,
     },
     {
         path: '/deal/add',
-        element: <AddDeal />,
+        element: <AddDeal/>,
     },
     {
         path: '/deal/edit/:id',
-        element: <EditDeal />,
+        element: <EditDeal/>,
     },
     {
         path: '/lead/list',
-        element: <ListLead />,
+        element: <ListLead/>,
     },
     {
         path: '/lead/preview/:id',
-        element: <PreviewLead />,
+        element: <PreviewLead/>,
     },
     {
         path: '/lead/add',
-        element: <AddLead />,
+        element: <AddLead/>,
     },
     {
         path: '/lead/edit/:id',
-        element: <EditLead />,
+        element: <EditLead/>,
     },
     {
         path: '/purchase/list',
-        element: <ListPurchase />,
+        element: <ListPurchase/>,
     },
     {
         path: '/purchase/preview/:id',
-        element: <PreviewPurchase />,
+        element: <PreviewPurchase/>,
     },
     {
         path: '/purchase/add',
-        element: <AddPurchase />,
+        element: <AddPurchase/>,
     },
     {
         path: '/purchase/edit/:id',
-        element: <EditPurchase />,
+        element: <EditPurchase/>,
     },
     {
         path: '/sales/list',
-        element: <ListSales />,
+        element: <ListSales/>,
     },
     {
         path: '/sales/preview/:id',
-        element: <PreviewSales />,
+        element: <PreviewSales/>,
     },
     {
         path: '/sales/add',
-        element: <AddSales />,
+        element: <AddSales/>,
     },
     {
         path: '/sales/edit/:id',
-        element: <EditSales />,
+        element: <EditSales/>,
     },
     {
         path: '*',
-        element: <Error />,
+        element: <Error/>,
         layout: 'blank',
     },
 ];
-export { routes };
+export {routes};
