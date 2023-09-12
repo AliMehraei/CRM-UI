@@ -1,8 +1,8 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { useDispatch } from "react-redux";
-import { updateFormData } from "../../../../store/quoteFormSlice";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/quoteFormSlice";
 import {
     Currencies, handleUploadFile,
     searchAccounts, searchContacts, searchDeals,
@@ -13,115 +13,115 @@ import {
 const HeaderSection = () => {
 
     const QuoteChances = [
-        { value: 'none', label: '-None-' },
-        { value: 'high', label: 'High' },
-        { value: 'unknown', label: 'Unknown' },
-        { value: 'low', label: 'Low' },
+        {value: 'none', label: '-None-'},
+        {value: 'high', label: 'High'},
+        {value: 'unknown', label: 'Unknown'},
+        {value: 'low', label: 'Low'},
 
     ];
 
     const QuoteStages = [
-        { value: 'draft', label: 'Draft' },
-        { value: 'no_feedback', label: 'No Feedback' },
-        { value: 'negotiation_price', label: 'Negotiation Price' },
-        { value: 'negotiation_conditions', label: 'Negotiation Conditions' },
-        { value: 'open', label: 'Open' },
-        { value: 'lost', label: 'Lost' },
-        { value: 'won', label: 'Won' },
+        {value: 'draft', label: 'Draft'},
+        {value: 'no_feedback', label: 'No Feedback'},
+        {value: 'negotiation_price', label: 'Negotiation Price'},
+        {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
+        {value: 'open', label: 'Open'},
+        {value: 'lost', label: 'Lost'},
+        {value: 'won', label: 'Won'},
 
 
     ];
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
     const fields = {
         'Header': {
-            'Account Name': <AsyncSelect 
-            isMulti={false}
-             id="account_id"
-             required
-              name="account_id"
+            'Account Name': <AsyncSelect
+                isMulti={false}
+                id="account_id"
+                required
+                name="account_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('account_id', value)
                 }}
-                className="flex-1" />,
+                className="flex-1"/>,
             'Contact Name': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchContacts}
-                onChange={({ value }: any) => {
-                    handleChangeField('contact_id', value)
-                }}
-                className="flex-1" />,
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchContacts}
+                                         onChange={({value}: any) => {
+                                             handleChangeField('contact_id', value)
+                                         }}
+                                         className="flex-1"/>,
             'RFQ': <AsyncSelect isMulti={false} id="rfq_id" name="rfq_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchRFQ}
-                onChange={({ value }: any) => {
-                    handleChangeField('rfq_id', value)
-                }}
-                className="flex-1" />,
+                                placeholder="Type at least 2 characters to search..."
+                                loadOptions={searchRFQ}
+                                onChange={({value}: any) => {
+                                    handleChangeField('rfq_id', value)
+                                }}
+                                className="flex-1"/>,
 
             'Customer RFQ No': <input id="customer_rfq_no" type="text" name="customer_rfq_no"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      className="form-input flex-1 "
+                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Subject': <input required id="subject" name="subject" type="text"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                              className="form-input flex-1 "
+                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Converted by': <AsyncSelect isMulti={false} id="converted_by_id" name="converted_by_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchOwners}
-                className="flex-1"
-                onChange={({ value }: any) => {
-                    handleChangeField('converted_by_id', value)
-                }}
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchOwners}
+                                         className="flex-1"
+                                         onChange={({value}: any) => {
+                                             handleChangeField('converted_by_id', value)
+                                         }}
             />,
             'Quote Chance': <Select name='quote_chance' required options={QuoteChances}
-                className="flex-1"
-                onChange={({ value }: any) => {
-                    handleChangeField('chance', value)
-                }}
+                                    className="flex-1"
+                                    onChange={({value}: any) => {
+                                        handleChangeField('quote_chance', value)
+                                    }}
             />,
             'Currency': <Select name="currency" options={Currencies}
-                className="flex-1"
-                onChange={({ value }: any) => {
-                    handleChangeField('currency', value)
-                }}
+                                className="flex-1"
+                                onChange={({value}: any) => {
+                                    handleChangeField('currency', value)
+                                }}
             />,
         },
         '': {
             'Quote Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchOwners}
-                onChange={({ value }: any) => {
-                    handleChangeField('owner_id', value)
-                }}
-                className="flex-1" />,
-            'PM User': <AsyncSelect required isMulti={false} id="pm_user_id" name="pm_user_id"
                                         placeholder="Type at least 2 characters to search..."
                                         loadOptions={searchOwners}
-                                        onChange={({ value }: any) => {
-                                            handleChangeField('pm_user_id', value)
+                                        onChange={({value}: any) => {
+                                            handleChangeField('owner_id', value)
                                         }}
-                                        className="flex-1" />,
+                                        className="flex-1"/>,
+            'PM User': <AsyncSelect required isMulti={false} id="pm_user_id" name="pm_user_id"
+                                    placeholder="Type at least 2 characters to search..."
+                                    loadOptions={searchOwners}
+                                    onChange={({value}: any) => {
+                                        handleChangeField('pm_user_id', value)
+                                    }}
+                                    className="flex-1"/>,
 
             'Deals Name': <AsyncSelect isMulti={false} id="deal_id" name="deal_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchDeals}
-                onChange={({ value }: any) => {
-                    handleChangeField('deal_id', value)
-                }}
-                className="flex-1" />,
+                                       placeholder="Type at least 2 characters to search..."
+                                       loadOptions={searchDeals}
+                                       onChange={({value}: any) => {
+                                           handleChangeField('deal_id', value)
+                                       }}
+                                       className="flex-1"/>,
 
             'Quote Stage': <Select name="quote_stage" required options={QuoteStages}
-                className="flex-1"
-                onChange={({ value }: any) => {
-                    handleChangeField('quote_stage', value)
-                }}
+                                   className="flex-1"
+                                   onChange={({value}: any) => {
+                                       handleChangeField('quote_stage', value)
+                                   }}
             />,
 
             'Quote File(Excel)': <input
@@ -129,12 +129,12 @@ const HeaderSection = () => {
                 className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                 accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
                 onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ 'image' : `${response?.data.data.file_url}` }));
+                    dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
                 })}
             />,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
-                className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                disabled />,
+                                    className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                                    disabled/>,
         }
 
     }
@@ -142,7 +142,7 @@ const HeaderSection = () => {
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
-            <GenerateFields fields={fields} />
+            <GenerateFields fields={fields}/>
 
         </div>
     </>)

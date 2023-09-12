@@ -54,7 +54,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 <Select id="contact_activity"
                     name="contact_activity"
                     onChange={({ value }: any) => {
-                        handleChangeField('double_check_status', value)
+                        handleChangeField('contact_activity', value)
                     }}
                     className="flex-1"
                     options={activities}

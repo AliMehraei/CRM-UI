@@ -160,7 +160,7 @@ const ContactDetailsSection = () => {
                 <Select id="job_description"
                     name="job_description"
                     onChange={({ value }: any) => {
-                        handleChangeField('double_check_status', value)
+                        handleChangeField('job_description', value)
                     }}
                     className="flex-1"
                     options={jobDescriptions}
