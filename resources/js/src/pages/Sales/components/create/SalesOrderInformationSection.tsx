@@ -67,10 +67,10 @@ const SalesOrderInformationSection = () => {
             'SO Type': (
                 <Select
                     options={SOTypeOption}
-                    name="po_type"
-                    id="po_type"
+                    name="so_type"
+                    id="so_type"
                     onChange={({value}: any) => {
-                        handleChangeField('po_type', value)
+                        handleChangeField('so_type', value)
                     }}
                     className="flex-1"
                 />
