@@ -91,8 +91,13 @@ const AccountInformationSection = () => {
                     value: formState.parent?.id,
                     label: (
                         <div key={formState.parent?.id} className="flex items-center">
-                            <img src={formState.parent?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.parent  ? (
+                                <img
+                                    src={formState.parent.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.parent?.name}</div>
@@ -147,14 +152,19 @@ const AccountInformationSection = () => {
                 defaultValue={{
                     value: formState.child?.id,
                     label: (
-                        <div key={formState.parent?.id} className="flex items-center">
-                            <img src={formState.parent?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                        <div key={formState.child?.id} className="flex items-center">
+                           {formState.child ? (
+                                <img
+                                    src={formState.child.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.parent?.name}</div>
+                                    className="text-sm font-bold">{formState.child?.name}</div>
                                 <div
-                                    className="text-xs text-gray-500">{formState.parent?.email}</div>
+                                    className="text-xs text-gray-500">{formState.child?.email}</div>
                             </div>
                         </div>
                     ),
