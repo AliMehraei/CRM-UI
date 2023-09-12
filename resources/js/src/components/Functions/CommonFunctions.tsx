@@ -201,7 +201,7 @@ export const loadAvailability = async (query: string) => {
 export const searchOwners = async (e: any) => {
     const result = await api_instance.loadAdminUsers(e);
     const valField = 'userId';
-    const nameField = 'name';
+    const nameField = 'first_name';
     const avatarField = 'avatar';
     const emailField = 'email';
     if (result.status) {
@@ -211,7 +211,7 @@ export const searchOwners = async (e: any) => {
                 <div key={user[valField]} className="flex items-center">
                     <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                     <div>
-                        <div className="text-sm font-bold">{user[nameField]}</div>
+                        <div className="text-sm font-bold">{user[nameField]+" "+user['last_name']}</div>
                         <div className="text-xs text-gray-500">{user[emailField]}</div>
                     </div>
                 </div>
