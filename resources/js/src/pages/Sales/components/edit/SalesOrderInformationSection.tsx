@@ -74,13 +74,13 @@ const SalesOrderInformationSection = () => {
             'SO Type': (
                 <Select
                     options={SOTypeOption}
-                    name="po_type"
-                    id="po_type"
+                    name="so_type"
+                    id="so_type"
                     onChange={({value}: any) => {
-                        handleChangeField('po_type', value)
+                        handleChangeField('so_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={SOTypeOption.find((title) => title.value == formState.po_type)}
+                    defaultValue={SOTypeOption.find((title) => title.value == formState.so_type)}
                 />
             ),
             'Parent SO Nr.': (
