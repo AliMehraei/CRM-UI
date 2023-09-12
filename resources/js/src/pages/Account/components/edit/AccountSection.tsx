@@ -147,8 +147,13 @@ const AccountSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
@@ -175,8 +180,13 @@ const AccountSection = () => {
                     value: formState.pm_user?.id,
                     label: (
                         <div key={formState.pm_user?.id} className="flex items-center">
-                            <img src={formState.pm_user?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.pm_user ? (
+                                <img
+                                    src={formState.pm_user.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.pm_user?.first_name + " " + formState.pm_user?.last_name}</div>
