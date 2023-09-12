@@ -24,15 +24,15 @@ interface User {
   time_zone: string;
   role_id: string;
   date_of_birth: string;
-  added_by_id: string;
-  modified_by_id: string;
+  //added_by_id: string;
+  //modified_by_id: string;
   profile_id: string;
   time_format: string;
   currency: string;
   confirmation_status: number;
   zuid: number;
   date_format: string;
-  current_shift_id: string;
+ // current_shift_id: string;
   next_shift_id?: any; // nullable
   shift_effective_from?: any; // nullable
   grouping: string;
@@ -41,15 +41,15 @@ interface User {
   name_format: string;
   status_reason: string;
   type: string;
-  reporting_to_id?: any; // nullable
+  //reporting_to_id?: any; // nullable
   user_status: string;
   email_verified_at: string;
   avatar?: any; // nullable
   status: string;
-  created_at: string;
-  updated_at: string;
-  deleted_at?: any; // nullable
-  userId: string;
+  //created_at: string;
+  //updated_at: string;
+  //deleted_at?: any; // nullable
+  //userId: string;
 }
 
 
