@@ -60,7 +60,7 @@ const TypeSection = () => {
             value: formState.userable?.id,
             label: (
                 <div key={formState.userable?.id} className="flex items-center">
-                    <img src={formState.userable?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <img src={formState.userable?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{`${formState.userable?.first_name} ${formState.userable?.last_name}`}</div>
                         <div className="text-xs text-gray-500">{formState.userable?.email}</div>
