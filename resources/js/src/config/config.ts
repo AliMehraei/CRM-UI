@@ -38,3 +38,35 @@ export const removeToken = (key:string) => {
 
   return true;
 }
+
+export const setUserData = (userData) => {
+  var expires = new Date().getTime() + 365 * 86400000;
+  // 365*24*60*60*1000   Day * Hour * Minutes * Seconds * Milliseconds
+
+  var sessionObject = {
+    expiresAt: expires,
+    data: userData,
+  };
+  localStorage.setItem('userData', JSON.stringify(sessionObject));
+};
+
+export const getUserData = () => {
+  var response = localStorage.getItem('userData');
+
+  var now = new Date().getTime();
+  if (response != null) {
+    const userData = JSON.parse(response);
+
+    if (now > userData.expiresAt) {
+      localStorage.removeItem('userData');
+      return null;
+    }
+    return userData?.data;
+  } else {
+    return null;
+  }
+};
+
+export const removeUserData = () => {
+  localStorage.removeItem('userData');
+};
