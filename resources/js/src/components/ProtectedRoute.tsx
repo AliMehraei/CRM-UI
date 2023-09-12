@@ -16,9 +16,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermi
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoading) {
-      return; 
-    }
+    if (isLoading) return;
 
     if (!isLoggedIn) {
       navigate('/auth/login');
@@ -28,18 +26,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermi
     if (requiredPermission && !hasPermission(requiredPermission)) {
       navigate('/permission-denied');
     }
-  }, [isLoading, isLoggedIn, hasPermission, requiredPermission, navigate]);
+  }, [isLoading, isLoggedIn, requiredPermission, hasPermission, navigate]);
 
-  if (isLoading || (!isLoggedIn && !requiredPermission)) {
+  if (isLoading) {
     return <LoadingSasCrm />;
   }
 
-  if (!isLoggedIn) {
-    return null;
-  }
-
-  if (requiredPermission && !hasPermission(requiredPermission)) {
-    navigate('/permission-denied');
+  if (!isLoggedIn || (requiredPermission && !hasPermission(requiredPermission))) {
+    return null; // Once useEffect's logic is executed, the user will be redirected appropriately.
+    
   }
 
   return (
