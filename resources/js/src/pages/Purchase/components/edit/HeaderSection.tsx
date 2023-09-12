@@ -64,7 +64,13 @@ const HeaderSection = () => {
                         value: formState.contact?.id,
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
-                                <img src={formState.contact?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.contact ? (
+                                <img
+                                    src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.account?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
@@ -150,7 +156,13 @@ const HeaderSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
@@ -175,7 +187,13 @@ const HeaderSection = () => {
                         value: formState.approved_by?.id,
                         label: (
                             <div key={formState.approved_by?.id} className="flex items-center">
-                                <img src={formState.approved_by?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.approved_by ? (
+                                <img
+                                    src={formState.approved_by.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>

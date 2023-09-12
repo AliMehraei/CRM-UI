@@ -136,8 +136,13 @@ const ProductInformationSection = () => {
                         value: formState.approved_by?.id,
                         label: (
                             <div key={formState.approved_by?.id} className="flex items-center">
-                                <img src={formState.approved_by?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.approved_by ? (
+                                <img
+                                    src={formState.approved_by.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
@@ -176,7 +181,13 @@ const ProductInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>

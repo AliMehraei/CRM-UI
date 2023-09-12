@@ -76,8 +76,13 @@ const HeaderSection = () => {
                     value: formState.account?.id,
                     label: (
                         <div key={formState.account?.id} className="flex items-center">
-                            <img src={formState.account?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.account ? (
+                                <img
+                                    src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.account?.name}</div>
@@ -99,8 +104,13 @@ const HeaderSection = () => {
                     value: formState.contact?.id,
                     label: (
                         <div key={formState.contact?.id} className="flex items-center">
-                            <img src={formState.contact?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.contact ? (
+                                <img
+                                    src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div className="text-sm font-bold">{formState.contact?.name}</div>
                                 <div
@@ -174,8 +184,13 @@ const HeaderSection = () => {
                     value: formState.owner?.id,
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
-                            <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                 <div

@@ -69,8 +69,13 @@ const HeaderSection = () => {
                     value: formState.owner?.id,
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
-                            <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
