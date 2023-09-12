@@ -51,7 +51,15 @@ export const AccountTypes = [
     { value: 'systemintegrator_it', label: 'System-Integrator It' },
     { value: 'other', label: 'Other' },
 ]
+export const FirstNameTitles = [
+    {value: "none", label: "-None-"},
+    {value: "herr", label: "Herr"},
+    {value: "frau", label: "Frau"},
+    {value: "fr.", label: "Fr."},
+    {value: "dr.", label: "Dr."},
+    {value: "prof.", label: "Prof."},
 
+];
 export const Contract = [
     { value: 'nda', label: 'NDA' },
     { value: 'quality_agreement', label: 'Quality Agreement' },
