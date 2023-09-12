@@ -147,7 +147,7 @@ const AccountSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.image} alt="avatar"
+                                <img src={formState.owner?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div
@@ -175,11 +175,11 @@ const AccountSection = () => {
                     value: formState.pm_user?.id,
                     label: (
                         <div key={formState.pm_user?.id} className="flex items-center">
-                            <img src={formState.pm_user?.avatar} alt="avatar"
+                            <img src={formState.pm_user?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar"
                                 className="w-8 h-8 mr-2 rounded-full" />
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.pm_user?.first_name+" "+formState.pm_user?.last_name}</div>
+                                    className="text-sm font-bold">{formState.pm_user?.first_name + " " + formState.pm_user?.last_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.pm_user?.email}</div>
                             </div>

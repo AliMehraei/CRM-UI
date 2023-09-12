@@ -51,7 +51,15 @@ export const AccountTypes = [
     { value: 'systemintegrator_it', label: 'System-Integrator It' },
     { value: 'other', label: 'Other' },
 ]
+export const FirstNameTitles = [
+    {value: "none", label: "-None-"},
+    {value: "herr", label: "Herr"},
+    {value: "frau", label: "Frau"},
+    {value: "fr.", label: "Fr."},
+    {value: "dr.", label: "Dr."},
+    {value: "prof.", label: "Prof."},
 
+];
 export const Contract = [
     { value: 'nda', label: 'NDA' },
     { value: 'quality_agreement', label: 'Quality Agreement' },
@@ -209,7 +217,7 @@ export const searchOwners = async (e: any) => {
             value: user[valField],
             label: (
                 <div key={user[valField]} className="flex items-center">
-                    <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <img src={user[avatarField] ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{user[nameField]+" "+user['last_name']}</div>
                         <div className="text-xs text-gray-500">{user[emailField]}</div>
@@ -231,7 +239,7 @@ export const searchAccounts = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data[imageField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <img src={data[imageField] ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
                         <div className="text-xs text-gray-500">{data[emailField]}</div>
@@ -250,7 +258,7 @@ export const searchLead = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{data['company']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
@@ -269,7 +277,7 @@ export const searchContacts = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>

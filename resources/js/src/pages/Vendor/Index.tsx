@@ -405,8 +405,8 @@ const List = () => {
                                         {
                                             accessor: 'vendor_name',
                                             sortable: true,
-                                            render: ({ vendor_name }) => (
-                                                <NavLink to="/vendor/preview">
+                                            render: ({ vendor_name,id }) => (
+                                                <NavLink to={`/vendor/edit/${id}`}>
                                                     <div className="text-primary underline hover:no-underline font-semibold">{`#${vendor_name}`}</div>
                                                 </NavLink>
                                             ),
@@ -458,7 +458,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
-                                                    <NavLink to="/vendor/preview" className="flex hover:text-primary">
+                                                    {/* <NavLink to="/vendor/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
                                                                 opacity="0.5"
@@ -472,7 +472,7 @@ const List = () => {
                                                                 strokeWidth="1.5"
                                                             />
                                                         </svg>
-                                                    </NavLink>
+                                                    </NavLink> */}
                                                     {/* <NavLink to="" className="flex"> */}
                                                     <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">

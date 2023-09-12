@@ -5,7 +5,8 @@ import {
     getImageSource,
     handleUploadFile,
     searchAccounts,
-    searchOwners
+    searchOwners,
+    FirstNameTitles
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/contactFormSlice";
@@ -18,15 +19,7 @@ const ContactDetailsSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-    const firstNameTitles = [
-        { value: "none", label: "-None-" },
-        { value: "herr", label: "Herr" },
-        { value: "frau", label: "Frau" },
-        { value: "fr.", label: "Fr." },
-        { value: "dr.", label: "Dr." },
-        { value: "prof.", label: "Prof." },
 
-    ];
     const jobDescriptions = [
         { value: "none", label: "-None-" },
         { value: "buyer", label: "Buyer" },
@@ -129,8 +122,8 @@ const ContactDetailsSection = () => {
                             handleChangeField('prefix_first_name', value)
                         }}
                         className="flex-none w-32 mr-2"
-                        options={firstNameTitles}
-                        defaultValue={firstNameTitles.find((title) => title.value == formState.prefix_first_name)}
+                        options={FirstNameTitles}
+                        defaultValue={FirstNameTitles.find((title) => title.value == formState.prefix_first_name)}
 
                     />
                     <input
@@ -194,7 +187,7 @@ const ContactDetailsSection = () => {
                     value: formState.account?.id,
                     label: (
                         <div key={formState.account?.id} className="flex items-center">
-                            <img src={formState.account?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                            <img src={formState.account?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                             <div>
                                 <div className="text-sm font-bold">{formState.account?.name}</div>
                                 <div className="text-xs text-gray-500">{formState.account?.email}</div>
@@ -227,7 +220,7 @@ const ContactDetailsSection = () => {
                     value: formState.owner?.id,
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
-                            <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                            <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                             <div>
                                 <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                 <div className="text-xs text-gray-500">{formState.owner?.email}</div>

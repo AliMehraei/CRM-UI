@@ -44,7 +44,7 @@ const InvoiceInformationSection = () => {
                     value: formState.owner?.id,
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
-                            <img src={formState.owner?.avatar} alt="avatar"
+                            <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar"
                                 className="w-8 h-8 mr-2 rounded-full" />
                             <div>
                                 <div
@@ -114,7 +114,7 @@ const InvoiceInformationSection = () => {
                     value: formState.account?.id,
                     label: (
                         <div key={formState.account?.id} className="flex items-center">
-                            <img src={formState.account?.image} alt="avatar"
+                            <img src={formState.account?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar"
                                 className="w-8 h-8 mr-2 rounded-full" />
                             <div>
                                 <div

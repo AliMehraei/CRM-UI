@@ -72,7 +72,7 @@ const HeaderSection = () => {
                         value: formState.contact?.id,
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
-                                <img src={formState.contact?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.contact?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.contact?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
@@ -172,7 +172,7 @@ const HeaderSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
@@ -198,7 +198,7 @@ const HeaderSection = () => {
                         value: formState.sales_person?.id,
                         label: (
                             <div key={formState.sales_person?.id} className="flex items-center">
-                                <img src={formState.sales_person?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.sales_person?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.sales_person?.name}</div>
                                     <div className="text-xs text-gray-500">{formState.sales_person?.email}</div>
@@ -224,7 +224,7 @@ const HeaderSection = () => {
                         value: formState.approved_by?.id,
                         label: (
                             <div key={formState.approved_by?.id} className="flex items-center">
-                                <img src={formState.approved_by?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.approved_by?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>

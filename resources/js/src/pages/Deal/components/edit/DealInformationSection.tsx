@@ -74,7 +74,7 @@ const DealInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.owner?.avatar ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
@@ -108,7 +108,7 @@ const DealInformationSection = () => {
                         value: formState.account?.id,
                         label: (
                             <div key={formState.account?.id} className="flex items-center">
-                                <img src={formState.account?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.account?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.account?.account_name}</div>
                                     <div className="text-xs text-gray-500">{formState.account?.email}</div>
@@ -166,7 +166,7 @@ const DealInformationSection = () => {
                         value: formState.contact?.id,
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
-                                <img src={formState.contact?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                <img src={formState.contact?.image ?? '/assets/images/user-profile.jpeg'} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
                                     <div className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.account?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
