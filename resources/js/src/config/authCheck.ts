@@ -9,19 +9,21 @@ interface UserStatus {
   isLoggedIn: boolean;
   permissions: Permission[];
   hasPermission: (permissionName: Permission) => boolean;
-  logout: () => void; // Add a logout function
+  logout: () => void;
 }
 
+const TOKEN_KEY = 'token';
+
 export const useUserStatus = (): UserStatus => {
+  const token = getToken(TOKEN_KEY);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!token);
   const [permissions, setPermissions] = useState<Permission[]>([]);
-  const api_instance = new api();
+  const api_instance = new api(); // Consider refactoring this.
 
   useEffect(() => {
-    const token = getToken('token');
     if (!token) {
-      setIsLoggedIn(false);
+      logout(); 
       setIsLoading(false);
       return;
     }
@@ -45,14 +47,14 @@ export const useUserStatus = (): UserStatus => {
     }
 
     fetchPermissions();
-  }, []);
+  }, [token]);
 
   const hasPermission = (permissionName: Permission): boolean => {
     return permissions.includes(permissionName);
   };
 
   const logout = () => {
-    removeToken('token');
+    removeToken(TOKEN_KEY);
     setIsLoggedIn(false);
     setPermissions([]);
   };
