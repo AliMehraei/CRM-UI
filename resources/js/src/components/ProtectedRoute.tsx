@@ -1,4 +1,3 @@
-// ProtectedRoute.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserStatus } from '../config/authCheck';
@@ -18,36 +17,36 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredPermi
 
   useEffect(() => {
     if (isLoading) {
-        console.log('Loading...'); // TODO: remove this
-        
-      return; // Wait until loading is complete
+      return; 
     }
 
     if (!isLoggedIn) {
-        console.log('Not logged in');  // TODO: remove this
-        
       navigate('/auth/login');
-    } else if (requiredPermission && !hasPermission(requiredPermission)) {
-      console.log('Permission denied');  // TODO: remove this
-      
-        navigate('/permission-denied');
+      return;
+    }
+
+    if (requiredPermission && !hasPermission(requiredPermission)) {
+      navigate('/permission-denied');
     }
   }, [isLoading, isLoggedIn, hasPermission, requiredPermission, navigate]);
 
-  if (isLoading || (!requiredPermission && !isLoggedIn)) {
-    // While loading or if no permission is required and the user is not logged in, return LoadingSasCrm
+  if (isLoading || (!isLoggedIn && !requiredPermission)) {
     return <LoadingSasCrm />;
   }
 
-  if (children) {
-    return (
-      <App>
-        <div className="text-black dark:text-white-dark min-h-screen">{children}</div>
-      </App>
-    );
-  } else {
+  if (!isLoggedIn) {
     return null;
   }
+
+  if (requiredPermission && !hasPermission(requiredPermission)) {
+    navigate('/permission-denied');
+  }
+
+  return (
+    <App>
+      <div className="text-black dark:text-white-dark min-h-screen">{children}</div>
+    </App>
+  );
 };
 
 export default ProtectedRoute;
