@@ -423,8 +423,8 @@ const List = () => {
                                     {
                                         accessor: 'subject',
                                         sortable: true,
-                                        render: ({ subject }) => (
-                                            <NavLink to="/invoice/preview">
+                                        render: ({ subject,id }) => (
+                                            <NavLink to={`/invoice/edit/${id}`}>
                                                 <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                                             </NavLink>
                                         ),
@@ -488,7 +488,7 @@ const List = () => {
                                                         ></path>
                                                     </svg>
                                                 </NavLink>
-                                                <NavLink to="/invoice/preview" className="flex hover:text-primary">
+                                                {/* <NavLink to="/invoice/preview" className="flex hover:text-primary">
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             opacity="0.5"
@@ -502,7 +502,7 @@ const List = () => {
                                                             strokeWidth="1.5"
                                                         />
                                                     </svg>
-                                                </NavLink>
+                                                </NavLink> */}
                                                 {/* <NavLink to="" className="flex"> */}
                                                 <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
