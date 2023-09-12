@@ -57,7 +57,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+            // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
 
             const res = await api_instance.filterOptionProduct();
             // Transform the data
@@ -75,7 +75,7 @@ const List = () => {
                 };
             });
             setOptionsFilter(transformedData);
-         }
+        //  }
         } catch (error) {
             showMessage('Error fetching filter options.', 'error');
             console.error('Error fetching data:', error);
@@ -84,9 +84,9 @@ const List = () => {
     };
 
     useEffect(() => {
-        if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
+        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
         fetchDataFilterOption();
-        }
+        // }
     }, []);
 
     const scrollToTop = () => {
@@ -99,9 +99,9 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
+        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
         fetchDataProduct(page, pageSize, filters, sortStatus);
-        }
+        // }
     };
 
     // Filter the options based on search query
@@ -128,7 +128,7 @@ const List = () => {
     };
 
     const deleteRow = (id: any = null) => {
-        if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-delete-product')) {
+        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-delete-product')) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Are you sure?',
@@ -175,13 +175,13 @@ const List = () => {
                     Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success', customClass: 'sweet-alerts' });
                 }
             });
-        }
-        else showMessage('You don\'t have permission to perform this action.', 'error');
+        // }
+        // else showMessage('You don\'t have permission to perform this action.', 'error');
     };
 
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
@@ -205,7 +205,7 @@ const List = () => {
             console.error('Error fetching data:', error);
             setLoading(false);
         }
-    }
+    // }
     };
 
     useEffect(() => {
@@ -224,9 +224,9 @@ const List = () => {
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
-        if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+        // if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
         fetchDataProduct(page, pageSize, filters, sortStatus);
-        }
+        // }
     }, [page, pageSize, sortStatus, resetFilter]);
 
     const resetFilters = () => {

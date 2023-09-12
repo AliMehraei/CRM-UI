@@ -1,11 +1,13 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../config/api";
-import {updateFormData} from "../../../../store/salesOrderFormSlice";
+import { updateFormData } from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchContacts,Currencies
-    ,searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals} from "../../../../components/Functions/CommonFunctions";
+import {
+    searchContacts, Currencies
+    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals
+} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
 const HeaderSection = () => {
@@ -13,15 +15,15 @@ const HeaderSection = () => {
     const api_instance = new api();
     const formState = useSelector((state: any) => state.salesOrderForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
     const DealStageOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
+        { value: 'none', label: '-None-' },
+        { value: 'draft', label: 'Draft' },
+        { value: 'no_feedback', label: 'No Feedback' },
         //TODO
-        {value: 'open', label: 'open'},
-        {value: 'lost', label: 'lost'},
+        { value: 'open', label: 'open' },
+        { value: 'lost', label: 'lost' },
     ];
 
 
@@ -31,28 +33,28 @@ const HeaderSection = () => {
 
             'Account Name': (
                 <AsyncSelect
-                isMulti={false}
-                required
-                id="account_id"
-                placeholder="Type at least 2 characters to search..."
-                name="account_id"
-                loadOptions={searchAccounts}
-                onChange={({value}: any) => {
-                    handleChangeField('account_id', value)
-                }}
-                className="flex-1"
-                defaultValue={{
-                    value: formState.account?.id,
-                    label: (
-                        <div key={formState.account?.id} className="flex items-center">
-                            <div>
-                                <div className="text-sm font-bold">{formState.account?.account_name}</div>
-                                <div className="text-xs text-gray-500">{formState.account?.email}</div>
+                    isMulti={false}
+                    required
+                    id="account_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="account_id"
+                    loadOptions={searchAccounts}
+                    onChange={({ value }: any) => {
+                        handleChangeField('account_id', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={{
+                        value: formState.account?.id,
+                        label: (
+                            <div key={formState.account?.id} className="flex items-center">
+                                <div>
+                                    <div className="text-sm font-bold">{formState.account?.account_name}</div>
+                                    <div className="text-xs text-gray-500">{formState.account?.email}</div>
+                                </div>
                             </div>
-                        </div>
-                    ),
-                }}
-            />
+                        ),
+                    }}
+                />
             ),
             'Contact Name': (
                 <AsyncSelect
@@ -62,7 +64,7 @@ const HeaderSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="contact_id"
                     loadOptions={searchContacts}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('contact_id', value)
                     }}
                     className="flex-1"
@@ -72,7 +74,7 @@ const HeaderSection = () => {
                             <div key={formState.contact?.id} className="flex items-center">
                                 <img src={formState.contact?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
-                                    <div className="text-sm font-bold">{formState.contact?.first_name + ' '+ formState.contact?.last_name}</div>
+                                    <div className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.contact?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
                                 </div>
                             </div>
@@ -88,7 +90,7 @@ const HeaderSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="quote_id"
                     loadOptions={searchQuote}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('quote_id', value)
                     }}
                     className="flex-1"
@@ -104,14 +106,14 @@ const HeaderSection = () => {
             ),
             'Currency': (
                 <Select
-                options={Currencies}
-                name="currency"
-                id="currency"
-                onChange={({value}: any) => {
-                    handleChangeField('currency', value)
-                }}
-                className="flex-1"
-                defaultValue={Currencies.find((title) => title.value == formState.currency)}
+                    options={Currencies}
+                    name="currency"
+                    id="currency"
+                    onChange={({ value }: any) => {
+                        handleChangeField('currency', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={Currencies.find((title) => title.value == formState.currency)}
                 />
             ),
 
@@ -128,7 +130,7 @@ const HeaderSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="deal_id"
                     loadOptions={searchDeals}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('deal_id', value)
                     }}
                     className="flex-1"
@@ -144,14 +146,14 @@ const HeaderSection = () => {
             ),
             'Deal Stage': (
                 <Select
-                options={DealStageOption}
-                name="deal_stage"
-                id="deal_stage"
-                onChange={({value}: any) => {
-                    handleChangeField('deal_stage', value)
-                }}
-                className="flex-1"
-                defaultValue={DealStageOption.find((title) => title.value == formState.deal_stage)}
+                    options={DealStageOption}
+                    name="deal_stage"
+                    id="deal_stage"
+                    onChange={({ value }: any) => {
+                        handleChangeField('deal_stage', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={DealStageOption.find((title) => title.value == formState.deal_stage)}
                 />
             ),
             'SalesOrders Owner': (
@@ -162,7 +164,7 @@ const HeaderSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
                     loadOptions={searchOwners}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
@@ -172,7 +174,7 @@ const HeaderSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>
@@ -188,7 +190,7 @@ const HeaderSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="sales_person_id"
                     loadOptions={searchOwners}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('sales_person_id', value)
                     }}
                     className="flex-1"
@@ -214,7 +216,7 @@ const HeaderSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="approved_by_id"
                     loadOptions={searchOwners}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('approved_by_id', value)
                     }}
                     className="flex-1"
@@ -224,7 +226,7 @@ const HeaderSection = () => {
                             <div key={formState.approved_by?.id} className="flex items-center">
                                 <img src={formState.approved_by?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
-                                    <div className="text-sm font-bold">{formState.approved_by?.name}</div>
+                                    <div className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>
                                 </div>
                             </div>
@@ -247,7 +249,7 @@ const HeaderSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+                <GenerateFields fields={fields} />
             </div>
         </>
     )

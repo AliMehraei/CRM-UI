@@ -1,10 +1,10 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
-import {useDispatch, useSelector} from "react-redux";
-import {updateFormData} from "../../../../store/vendorRfqFormSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFormData } from "../../../../store/vendorRfqFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {Currencies, handleUploadFile, searchOwners, searchRFQ, searchVendor} from "../../../../components/Functions/CommonFunctions";
+import { Currencies, handleUploadFile, searchOwners, searchRFQ, searchVendor } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
 const VendorRFQInformation = () => {
@@ -17,7 +17,7 @@ const VendorRFQInformation = () => {
     };
 
 
-     const StatusVendorRfqOptions = [
+    const StatusVendorRfqOptions = [
         { value: 'none', label: '-None-' },
         { value: 'draft', label: 'Draft' },
         { value: 'excel-generate', label: 'Excel Generated' },
@@ -42,7 +42,7 @@ const VendorRFQInformation = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="vendor_id"
                     loadOptions={searchVendor}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('vendor_id', value)
                     }}
                     className="flex-1"
@@ -59,14 +59,14 @@ const VendorRFQInformation = () => {
             ),
             'Status': (
                 <Select
-                options={StatusVendorRfqOptions}
-                name="status"
-                id="status"
-                onChange={({value}: any) => {
-                    handleChangeField('status', value)
-                }}
-                className="flex-1"
-                defaultValue={StatusVendorRfqOptions.find((title) => title.value == formState.status)}
+                    options={StatusVendorRfqOptions}
+                    name="status"
+                    id="status"
+                    onChange={({ value }: any) => {
+                        handleChangeField('status', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={StatusVendorRfqOptions.find((title) => title.value == formState.status)}
                 />
             ),
             'Email': (
@@ -81,14 +81,14 @@ const VendorRFQInformation = () => {
             ),
             'Currency': (
                 <Select
-                options={Currencies}
-                name="currency"
-                id="currency"
-                onChange={({value}: any) => {
-                    handleChangeField('currency', value)
-                }}
-                className="flex-1"
-                defaultValue={Currencies.find((title) => title.value == formState.status)}
+                    options={Currencies}
+                    name="currency"
+                    id="currency"
+                    onChange={({ value }: any) => {
+                        handleChangeField('currency', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={Currencies.find((title) => title.value == formState.status)}
                 />
             ),
             'Related RFQs': (
@@ -126,15 +126,15 @@ const VendorRFQInformation = () => {
 
             'Date': (
                 <Flatpickr
-                name="date"
-                options={{
-                    dateFormat: 'd-m-Y',
-                    defaultDate: `${formState.date ? new Date(formState.date) : ''}`,
-                }}
-                defaultValue={formState.date}
-                className="form-input flex-1"
-                placeholder="MM DD YYYY"
-                onChange={(_,dateString) => handleChangeField('date', dateString)}
+                    name="date"
+                    options={{
+                        dateFormat: 'd-m-Y',
+                        defaultDate: `${formState.date ? new Date(formState.date) : ''}`,
+                    }}
+                    defaultValue={formState.date}
+                    className="form-input flex-1"
+                    placeholder="MM DD YYYY"
+                    onChange={(_, dateString) => handleChangeField('date', dateString)}
                 />
             ),
             'Vendor RFQ Owner': (
@@ -154,7 +154,7 @@ const VendorRFQInformation = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>
@@ -183,11 +183,11 @@ const VendorRFQInformation = () => {
         }
     }
     return (<>
-            <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+        <div className="flex justify-between lg:flex-row flex-col">
+            <GenerateFields fields={fields} />
 
-            </div>
-        </>
+        </div>
+    </>
     )
 
 }
