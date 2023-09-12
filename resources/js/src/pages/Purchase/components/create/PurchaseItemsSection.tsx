@@ -151,7 +151,7 @@ const PurchaseItemSection = () => {
                                                     }}
                                                     className="form-input min-w-[200px]"
                                                     value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
-                                                    onChange={(_, dateString) => handleChangeField('last_modified', dateString, item.id)} // Update the field value on change
+                                                    onChange={(_, dateString) => handleChangeField('requested_delivery_date', dateString, item.id)} // Update the field value on change
                                                     defaultValue={formState.requested_delivery_date}
                                                 />
                                             </td>
@@ -165,7 +165,7 @@ const PurchaseItemSection = () => {
                                                     }}
                                                     className="form-input flex-1 min-w-[200px]"
                                                     value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}
-                                                    onChange={(_, dateString) => handleChangeField('last_modified', dateString, item.id)} // Update the field value on change
+                                                    onChange={(_, dateString) => handleChangeField('estimated_delivery_date', dateString, item.id)} // Update the field value on change
                                                     defaultValue={formState.estimated_delivery_date}
                                                 />
                                             </td>
