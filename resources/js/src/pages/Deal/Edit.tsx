@@ -43,7 +43,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleDeal',
-            redirectTo: 'updateSingleDeal',
+            redirectTo: '/deal/edit/:id',
             action: 'edit'
         };
 

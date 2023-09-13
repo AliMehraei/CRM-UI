@@ -5,12 +5,13 @@ import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import Api from "../../../../config/api";
 
 const SalesItemsSection = () => {
     const formState = useSelector((state: any) => state.salesOrderForm);
-    const [items, setItems] = useState<any>([{id: 1, amount: 0},]);
+    const [items, setItems] = useState<any>([]);
     const dispatch = useDispatch();
-
+    const api = new Api();
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatingItem = items.find((item: any) => item.id === id);
         const itemIndex = items.findIndex((item: any) => item.id === id);
@@ -30,6 +31,30 @@ const SalesItemsSection = () => {
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
+    const handleChangeProduct = async (value: any, id: string) => {
+        const res = await api.fetchSingleProduct(value);
+        if (res.status !== 200)
+            return;
+        const product = res.data.data.product;
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
+        const updatedItem = {
+            ...updatingItem,
+            product_id: value,
+            list_price: product.unit_price
+        };
+        const updatedAmount = {
+            ...updatedItem,
+            amount: parseInt(updatedItem.quantity ?? 0) * parseFloat(updatedItem.list_price ?? 0),
+        };
+        const updatedItems = {
+            ...items,
+            [itemIndex]: updatedAmount,
+        };
+        setItems(Object.values(updatedItems))
+        dispatch(updateFormData({items: updatedItems}));
+    }
 
 
     const addItem = () => {
@@ -53,6 +78,7 @@ const SalesItemsSection = () => {
     useEffect(() => {
         setItems(Object.values(formState.items));
     }, []);
+
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -88,9 +114,10 @@ const SalesItemsSection = () => {
                                                          placeholder="Type at least 2 characters to search..."
                                                          loadOptions={searchProducts}
                                                          onChange={({value}: any) => {
-                                                             handleChangeField('product_id', value, item.id)
+                                                             // handleChangeField('product_id', value, item.id)
+                                                             handleChangeProduct(value, item.id);
                                                          }}
-                                                         defaultValue={{
+                                                         defaultValue={item.product ? {
                                                              value: item.product?.id,
                                                              label: (
                                                                  <div key={item.product?.id}
@@ -101,7 +128,7 @@ const SalesItemsSection = () => {
                                                                      </div>
                                                                  </div>
                                                              ),
-                                                         }}
+                                                         } : null}
                                                          className="flex-1  min-w-[200px]"/>
                                             <textarea
                                                 name="description"
@@ -125,7 +152,7 @@ const SalesItemsSection = () => {
                                             <input name="customer_part_id" type="text"
                                                    className="form-input min-w-[200px]"
                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-                                                   defaultValue={item.part_id}
+                                                   defaultValue={item.customer_part_id}
                                             />
                                         </td>
                                         <td>
@@ -160,13 +187,13 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    defaultDate: `${formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}`,
+                                                    defaultDate: `${item.requested_delivery_date ? new Date(item.requested_delivery_date) : ''}`,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
                                                 // value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
                                                 onChange={(_, dateString) => handleChangeField('requested_delivery_date', dateString, item.id)} // Update the field value on change
-                                                defaultValue={formState.requested_delivery_date}
+                                                defaultValue={item.requested_delivery_date}
                                             />
                                         </td>
                                         <td>
@@ -175,13 +202,13 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    defaultDate: `${formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}`,
+                                                    defaultDate: `${item.estimated_delivery_date ? new Date(item.estimated_delivery_date) : ''}`,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
                                                 // value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}
                                                 onChange={(_, dateString) => handleChangeField('estimated_delivery_date', dateString, item.id)} // Update the field value on change
-                                                defaultValue={formState.estimated_delivery_date}
+                                                defaultValue={item.estimated_delivery_date}
                                             />
                                         </td>
                                         <td>

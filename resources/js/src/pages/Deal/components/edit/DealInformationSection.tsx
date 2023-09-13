@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
-import { updateFormData } from "../../../../store/dealFormSlice";
+import {updateFormData} from "../../../../store/dealFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
@@ -15,44 +15,43 @@ const DealInformationSection = () => {
     const api_instance = new api();
     const formState = useSelector((state: any) => state.dealForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
 
-
     const LeadSourceOption = [
-        { value: 'none', label: '-None-' },
-        { value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch' },
-        { value: 'mitarbeitervermittlung', label: 'Mitarbeitervermittlung' },
-        { value: 'kunden', label: 'Kunden Vermittlung' },
-        { value: 'teilnehmer', label: 'Teilnehmer' },
-        { value: 'mess', label: 'Mess' },
+        {value: 'none', label: '-None-'},
+        {value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch'},
+        {value: 'mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
+        {value: 'kunden', label: 'Kunden Vermittlung'},
+        {value: 'teilnehmer', label: 'Teilnehmer'},
+        {value: 'mess', label: 'Mess'},
 
     ];
     const TypeOption = [
-        { value: 'none', label: '-None-' },
-        { value: 'existierendes', label: 'Existierendes Geschäft' },
-        { value: 'neues', label: 'Neues Geschäft' },
+        {value: 'none', label: '-None-'},
+        {value: 'existierendes', label: 'Existierendes Geschäft'},
+        {value: 'neues', label: 'Neues Geschäft'},
 
 
     ];
     const PipelineOption = [
-        { value: 'deal', label: 'Deal' },
-        { value: 'excess', label: 'Excess' },
+        {value: 'deal', label: 'Deal'},
+        {value: 'excess', label: 'Excess'},
 
 
     ];
     const StageExcessOption = [
-        { value: 'qualification', label: 'Qualifikation' },
+        {value: 'qualification', label: 'Qualifikation'},
 
     ];
     const StageDealOption = [
-        { value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)' },
-        { value: '1_cold_lead', label: '1.0 Cold lead qualified (CLQ)' },
-        { value: '2_first_contract', label: '2.0 First contact made (FCM)' },
-        { value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)' },
-        { value: '4_hot_lead', label: '4.0 Hot lead (HLQ)' },
-        { value: 'close_lead', label: 'Close Lead / Lost Lead' },
+        {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
+        {value: '1_cold_lead', label: '1.0 Cold lead qualified (CLQ)'},
+        {value: '2_first_contract', label: '2.0 First contact made (FCM)'},
+        {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
+        {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
+        {value: 'close_lead', label: 'Close Lead / Lost Lead'},
 
     ];
     let StageOption = StageExcessOption;
@@ -66,7 +65,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
                     loadOptions={searchOwners}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
@@ -75,14 +74,15 @@ const DealInformationSection = () => {
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
-                                <img
-                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
-                                    alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full"
-                                />
+                                    <img
+                                        src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
                                 ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="account_id"
                     loadOptions={searchAccounts}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('account_id', value)
                     }}
                     className="flex-1"
@@ -115,11 +115,11 @@ const DealInformationSection = () => {
                         label: (
                             <div key={formState.account?.id} className="flex items-center">
                                 {formState.account ? (
-                                <img
-                                    src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
-                                    alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full"
-                                />
+                                    <img
+                                        src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
                                 ) : null}
                                 <div>
                                     <div className="text-sm font-bold">{formState.account?.account_name}</div>
@@ -135,7 +135,7 @@ const DealInformationSection = () => {
                     options={TypeOption}
                     name="deal_type"
                     id="deal_type"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('deal_type', value)
                     }}
                     className="flex-1"
@@ -144,11 +144,10 @@ const DealInformationSection = () => {
             ),
             'Expected Revenue': (
                 <input id="expected_revenue"
-                    name="expected_revenue" type="text"
-                    value="1"
-                    className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                    disabled
-                    defaultValue={formState.expected_revenue}
+                       name="expected_revenue" type="text"
+                       className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                       disabled
+                       defaultValue={formState.expected_revenue ?? 1}
                 />
             ),
             'Lead Source': (
@@ -156,7 +155,7 @@ const DealInformationSection = () => {
                     options={LeadSourceOption}
                     name="lead_source"
                     id="lead_source"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('lead_source', value)
                     }}
                     className="flex-1"
@@ -170,7 +169,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="contact_id"
                     loadOptions={searchContacts}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('contact_id', value)
                     }}
                     className="flex-1"
@@ -178,15 +177,16 @@ const DealInformationSection = () => {
                         value: formState.contact?.id,
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
-                            {formState.contact ? (
-                                <img
-                                    src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
-                                    alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full"
-                                />
+                                {formState.contact ? (
+                                    <img
+                                        src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
                                 ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.account?.last_name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.account?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="lead_id"
                     loadOptions={searchLead}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('lead_id', value)
                     }}
                     className="flex-1"
@@ -209,7 +209,7 @@ const DealInformationSection = () => {
                         value: formState.lead_id,
                         label: (
                             <div key={formState.lead_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.lead?.company}</div>
@@ -226,7 +226,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="rfq_id"
                     loadOptions={searchRFQ}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('rfq_id', value)
                     }}
                     className="flex-1"
@@ -234,7 +234,7 @@ const DealInformationSection = () => {
                         value: formState.rfq_id,
                         label: (
                             <div key={formState.rfq_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.rfq?.rfq_name}</div>
@@ -251,7 +251,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="quote_id"
                     loadOptions={searchQuote}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('quote_id', value)
                     }}
                     className="flex-1"
@@ -259,7 +259,7 @@ const DealInformationSection = () => {
                         value: formState.quote_id,
                         label: (
                             <div key={formState.quote_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.quote?.subject}</div>
@@ -276,7 +276,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="sales_order_id"
                     loadOptions={searchSalesOrder}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('sales_order_id', value)
                     }}
                     className="flex-1"
@@ -284,7 +284,7 @@ const DealInformationSection = () => {
                         value: formState.sales_order_id,
                         label: (
                             <div key={formState.sales_order_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.sales_order?.subject}</div>
@@ -301,7 +301,7 @@ const DealInformationSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="invoice_id"
                     loadOptions={searchInvoice}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('invoice_id', value)
                     }}
                     className="flex-1"
@@ -309,7 +309,7 @@ const DealInformationSection = () => {
                         value: formState.invoice_id,
                         label: (
                             <div key={formState.invoice_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.invoice?.subject}</div>
@@ -325,7 +325,7 @@ const DealInformationSection = () => {
                     options={Currencies}
                     name="currency"
                     id="currency"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('currency', value)
                     }}
                     className="flex-1"
@@ -365,7 +365,7 @@ const DealInformationSection = () => {
                     options={PipelineOption}
                     name="deal_pipeline"
                     id="deal_pipeline"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
                     }}
                     className="flex-1"
@@ -378,7 +378,7 @@ const DealInformationSection = () => {
                     options={StageOption}
                     name="deal_stage"
                     id="deal_stage"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('deal_stage', value)
                     }}
                     className="flex-1"
@@ -405,11 +405,10 @@ const DealInformationSection = () => {
             ),
             'Exchange Rate': (
                 <input id="exchange_rate"
-                    name="exchange_rate" type="text"
-                    value="1"
-                    className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                    disabled
-                    defaultValue={formState.exchange_rate}
+                       name="exchange_rate" type="text"
+                       className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                       disabled
+                       defaultValue={formState.exchange_rate ?? 1}
                 />
             ),
 
@@ -428,7 +427,7 @@ const DealInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields} />
+                <GenerateFields fields={fields}/>
             </div>
         </>
     )
