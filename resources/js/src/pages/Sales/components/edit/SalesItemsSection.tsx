@@ -5,12 +5,13 @@ import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import Api from "../../../../config/api";
 
 const SalesItemsSection = () => {
     const formState = useSelector((state: any) => state.salesOrderForm);
     const [items, setItems] = useState<any>([]);
     const dispatch = useDispatch();
-
+    const api = new Api();
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatingItem = items.find((item: any) => item.id === id);
         const itemIndex = items.findIndex((item: any) => item.id === id);
@@ -30,6 +31,30 @@ const SalesItemsSection = () => {
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
+    const handleChangeProduct = async (value: any, id: string) => {
+        const res = await api.fetchSingleProduct(value);
+        if (res.status !== 200)
+            return;
+        const product = res.data.data.product;
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
+        const updatedItem = {
+            ...updatingItem,
+            product_id: value,
+            list_price: product.unit_price
+        };
+        const updatedAmount = {
+            ...updatedItem,
+            amount: parseInt(updatedItem.quantity ?? 0) * parseFloat(updatedItem.list_price ?? 0),
+        };
+        const updatedItems = {
+            ...items,
+            [itemIndex]: updatedAmount,
+        };
+        setItems(Object.values(updatedItems))
+        dispatch(updateFormData({items: updatedItems}));
+    }
 
 
     const addItem = () => {
@@ -89,7 +114,8 @@ const SalesItemsSection = () => {
                                                          placeholder="Type at least 2 characters to search..."
                                                          loadOptions={searchProducts}
                                                          onChange={({value}: any) => {
-                                                             handleChangeField('product_id', value, item.id)
+                                                             // handleChangeField('product_id', value, item.id)
+                                                             handleChangeProduct(value, item.id);
                                                          }}
                                                          defaultValue={item.product ? {
                                                              value: item.product?.id,
