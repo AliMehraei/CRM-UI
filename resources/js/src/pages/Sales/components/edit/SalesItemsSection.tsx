@@ -42,7 +42,9 @@ const SalesItemsSection = () => {
         const updatedItem = {
             ...updatingItem,
             product_id: value,
-            list_price: product.unit_price
+            list_price: product.unit_price,
+            description: product.description
+
         };
         const updatedAmount = {
             ...updatedItem,
