@@ -87,8 +87,8 @@ const VendorRFQInformation = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="related_rfqs"
                     loadOptions={searchRFQ}
-                    onChange={({ value }: any) => {
-                        handleChangeField('related_rfqs', value)
+                    onChange={(values: any) => {
+                        handleChangeField('related_rfqs', values.map((v: any) => v.value))
                     }}
                     className="flex-1"
                 />
