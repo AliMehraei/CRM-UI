@@ -91,7 +91,7 @@ const SalesItemsSection = () => {
                                                          onChange={({value}: any) => {
                                                              handleChangeField('product_id', value, item.id)
                                                          }}
-                                                         defaultValue={{
+                                                         defaultValue={item.product ? {
                                                              value: item.product?.id,
                                                              label: (
                                                                  <div key={item.product?.id}
@@ -102,7 +102,7 @@ const SalesItemsSection = () => {
                                                                      </div>
                                                                  </div>
                                                              ),
-                                                         }}
+                                                         } : null}
                                                          className="flex-1  min-w-[200px]"/>
                                             <textarea
                                                 name="description"
