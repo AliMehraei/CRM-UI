@@ -267,7 +267,7 @@ class api {
         return await _axios.delete(`${API_URL_PRODUCT}/purchase_order/${id}`);
     }
     async fetchSinglePurchaseOrder(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/purchase_order/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/${id}`);
     }
     async updateSinglePurchaseOrder(data) {
         return await _axios.put(`${API_URL_PRODUCT}/purchase_order/${data.id}`, data, { headers: Headers });
