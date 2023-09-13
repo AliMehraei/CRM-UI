@@ -100,16 +100,16 @@ const VendorRFQInformation = () => {
             'Related RFQs': (
                 <AsyncSelect
                     isMulti={true}
-                    id="related_rfqs"
+                    id="related_rfqs_id"
                     placeholder="Type at least 2 characters to search..."
-                    name="related_rfqs"
+                    name="related_rfqs_id"
                     loadOptions={searchRFQ}
                     onChange={(values: any) => {
-                        handleChangeField('related_rfqs', values.map((v: any) => v.value))
+                        handleChangeField('related_rfqs_id', values.map((v: any) => v.value))
                     }}
                     className="flex-1"
-                    defaultValue={formState.rfq
-                        ? formState.rfq.map((rfq: any) => ({
+                    defaultValue={formState.related_rfqs
+                        ? formState.related_rfqs.map((rfq: any) => ({
                             value: rfq.id,
                             label: (
                                 <div key={rfq.id} className="flex items-center">
