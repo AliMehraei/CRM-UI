@@ -102,7 +102,7 @@ const LeadInformationSection = () => {
                             className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                             accept="image/*"
                             onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                                dispatch(updateFormData({ 'image': `${response?.data.data.file_url}` }));
                             })}
                             name="image"
                         />
@@ -110,15 +110,15 @@ const LeadInformationSection = () => {
                             const fileInput = document.getElementById('image') as HTMLInputElement | null;
                             if (fileInput) {
                                 fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                                fileInput.dispatchEvent(new Event('change', { bubbles: true }));
                             }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
+                            dispatch(updateFormData({ 'image': null }));
+                        }} />
                     </div>
                     <img
                         id="image_preview"
                         src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                        alt="img" className="mt-4 w-20 h-20 rounded" />
                 </div>
             ),
             'Status': (
@@ -169,9 +169,15 @@ const LeadInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                               {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>

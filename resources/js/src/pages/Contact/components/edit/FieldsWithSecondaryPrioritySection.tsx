@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import { useDispatch, useSelector } from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { loadOrders, searchOwners } from "../../../../components/Functions/CommonFunctions";
+import { searchOwners } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/contactFormSlice";
 
@@ -44,10 +44,16 @@ const FieldsWithSecondaryPrioritySection = () => {
                     value: formState.approved_by?.id,
                     label: (
                         <div key={formState.approved_by?.id} className="flex items-center">
-                            <img src={formState.approved_by?.avatar} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.approved_by ? (
+                                <img
+                                    src={formState.approved_by.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
-                                <div className="text-sm font-bold">{formState.approved_by?.name}</div>
+                                <div
+                                    className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                 <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>
                             </div>
                         </div>
@@ -68,7 +74,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 <Select id="contact_activity"
                     name="contact_activity"
                     onChange={({ value }: any) => {
-                        handleChangeField('double_check_status', value)
+                        handleChangeField('contact_activity', value)
                     }}
                     className="flex-1"
                     options={activities}

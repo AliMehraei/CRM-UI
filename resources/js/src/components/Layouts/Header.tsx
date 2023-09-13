@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { IRootState } from '../../store';
 import { toggleTheme } from '../../store/themeConfigSlice';
 import { useTranslation } from 'react-i18next';
 import { toggleSidebar } from '../../store/themeConfigSlice';
 import i18next from 'i18next';
 import Dropdown from '../Dropdown';
+import { useUserStatus } from '../../config/authCheck';
+import LoadingSasCrm from '../LoadingSasCrm';
+import { getUserData } from '../../config/config';
 
 const Header = () => {
+   // const { isLoggedIn, isLoading, hasPermission,user} = useUserStatus();
+    const navigate = useNavigate();
     const location = useLocation();
+    const user = getUserData();
+
     useEffect(() => {
         const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
         const all: any = document.querySelectorAll('.horizontal-menu .active');
@@ -613,7 +620,8 @@ const Header = () => {
                             </Dropdown>
                         </div>
                         <div className="dropdown shrink-0 flex">
-                            <Dropdown
+                            {user ? 
+                             (<Dropdown
                                 offset={[0, 8]}
                                 placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
                                 btnClassName="relative group block"
@@ -628,14 +636,17 @@ const Header = () => {
                                                 src="/assets/images/user-profile.jpeg" alt="userProfile" />
                                             <div className="ltr:pl-4 rtl:pr-4">
                                                 <h4 className="text-base">
-                                                    John Doe
+                                                    {user?.last_name}
                                                     <span
                                                         className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
                                                 </h4>
-                                                <button type="button"
-                                                    className="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white">
-                                                    johndoe@gmail.com
+                                                <button 
+                                                    type="button" 
+                                                    className="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white truncate w-32"
+                                                >
+                                                {user?.email}
                                                 </button>
+
                                             </div>
                                         </div>
                                     </li>
@@ -704,7 +715,7 @@ const Header = () => {
                                         </Link>
                                     </li>
                                     <li className="border-t border-white-light dark:border-white-light/10">
-                                        <Link to="/auth/boxed-signin" className="text-danger !py-3">
+                                        <Link to="/auth/logout" className="text-danger !py-3">
                                             <svg className="ltr:mr-2 rtl:ml-2 rotate-90" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -721,7 +732,9 @@ const Header = () => {
                                         </Link>
                                     </li>
                                 </ul>
-                            </Dropdown>
+                            </Dropdown>)
+                            :  "" }
+                            
                         </div>
                     </div>
                 </div>

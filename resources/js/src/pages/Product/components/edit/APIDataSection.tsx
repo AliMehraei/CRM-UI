@@ -12,13 +12,13 @@ const APIDataSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
-    
+
+
 
 
     const fields = {
         'API Data': {
-           
+
             'Octopart ID': (
                 <input
                 id="octopart_id"
@@ -41,10 +41,11 @@ const APIDataSection = () => {
                 <input
                 id="update_by_mouser"
                 type="checkbox"
+
                 name="update_by_mouser"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                defaultValue={formState.update_by_mouser}
+                defaultChecked={formState.update_by_mouser}
                 />
             ),
             'ZohoBooksID': (
@@ -66,7 +67,7 @@ const APIDataSection = () => {
                 defaultValue={formState.last_activity_date}
                 className="form-input flex-1"
                 placeholder="MM DD YYYY"
-                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} 
+                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)}
                 />
             ),
             'OP Failure Message': (
@@ -79,9 +80,9 @@ const APIDataSection = () => {
                 />
             ),
             'Octopart Images': (
-                <textarea 
-                id="octopart_images" 
-                rows={2} 
+                <textarea
+                id="octopart_images"
+                rows={2}
                 name="octopart_images"
                 className="form-textarea flex-1"
                 placeholder=""
@@ -89,9 +90,9 @@ const APIDataSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Octopart Datasheets': (
-                <textarea 
-                id="octopart_datasheets" 
-                rows={2} 
+                <textarea
+                id="octopart_datasheets"
+                rows={2}
                 name="octopart_datasheets"
                 className="form-textarea flex-1"
                 placeholder=""
@@ -99,19 +100,19 @@ const APIDataSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Octopart Compliance Documents': (
-                <textarea 
-                id="octopart_compliance_documents" 
-                rows={2} 
+                <textarea
+                id="octopart_compliance_documents"
+                rows={2}
                 name="octopart_compliance_documents"
                 className="form-textarea flex-1"
                 placeholder=""
                   defaultValue={formState.octopart_compliance_documents}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
-            
+
         },
         '': {
-            
+
             'Mouser URL': (
                 <input
                     id="mouser_url"
@@ -141,7 +142,7 @@ const APIDataSection = () => {
             ),
             'M Last Update': (
                 <Flatpickr
-                
+
                 name="m_last_update"
                 options={{
                     dateFormat: 'd-m-Y',
@@ -150,7 +151,7 @@ const APIDataSection = () => {
                 defaultValue={formState.m_last_update}
                 className="form-input flex-1"
                 placeholder="MM DD YYYY"
-                onChange={(_,dateString) => handleChangeField('m_last_update', dateString)} 
+                onChange={(_,dateString) => handleChangeField('m_last_update', dateString)}
                 />
             ),
             'Product Margin': (
@@ -162,9 +163,9 @@ const APIDataSection = () => {
                     defaultValue={formState.product_margin}
                 />
             ),
-           
-            
-            
+
+
+
         }
     }
     return (

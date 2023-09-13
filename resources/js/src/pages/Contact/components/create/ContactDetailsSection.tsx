@@ -5,7 +5,8 @@ import {
     getImageSource,
     handleUploadFile,
     searchAccounts,
-    searchOwners
+    searchOwners,
+    FirstNameTitles
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/contactFormSlice";
@@ -17,15 +18,7 @@ const ContactDetailsSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-    const firstNameTitles = [
-        {value: "none", label: "-None-"},
-        {value: "herr", label: "Herr"},
-        {value: "frau", label: "Frau"},
-        {value: "fr.", label: "Fr."},
-        {value: "dr.", label: "Dr."},
-        {value: "prof.", label: "Prof."},
-
-    ];
+   
 
     const jobDescriptions = [
         {value: "none", label: "-None-"},
@@ -128,7 +121,7 @@ const ContactDetailsSection = () => {
                                 handleChangeField('prefix_first_name', value)
                             }}
                             className="flex-none w-32 mr-2"
-                            options={firstNameTitles}
+                            options={FirstNameTitles}
                     />
                     <input
                         id="first_name"
@@ -154,7 +147,7 @@ const ContactDetailsSection = () => {
                 <Select id="job_description"
                         name="job_description"
                         onChange={({value}: any) => {
-                            handleChangeField('double_check_status', value)
+                            handleChangeField('job_description', value)
                         }}
                         className="flex-1"
                         options={jobDescriptions}/>,

@@ -6,7 +6,7 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import Api from "../../config/api";
 import { useParams } from "react-router-dom";
 import { resetForm, updateFormData } from "../../store/manufacturerFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn"
+import LoadingSasCrm from "../../components/LoadingSasCrm"
 
 const Edit = () => {
     const formState = useSelector((state: any) => state.manufacturerForm);
@@ -49,7 +49,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn />
+        return <LoadingSasCrm />
 
     return (
         <div className='px-4'>

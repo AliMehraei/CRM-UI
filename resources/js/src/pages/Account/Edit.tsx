@@ -6,7 +6,7 @@ import 'flatpickr/dist/flatpickr.css';
 import {resetForm, updateFormData} from "../../store/accountFormSlice";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
 import AccountFormFields from "./components/edit/AccountFormFields";
 
 const Edit = () => {
@@ -46,7 +46,7 @@ const Edit = () => {
         dispatch(updateFormData(account));
     };
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
     return (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
