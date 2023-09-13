@@ -127,8 +127,8 @@ const LinkedSOSection = () => {
             ),
             'D/C': (
                 <input
-                    id="dc"
-                    name="dc"
+                    id="dc_so"
+                    name="dc_so"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
