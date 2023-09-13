@@ -5,35 +5,71 @@ import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import Api from "../../../../config/api";
 
 const PurchaseItemSection = () => {
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const dispatch = useDispatch();
+    const api = new Api();
+    const [items, setItems] = useState<any>([
+        {
+            id: 1,
+            amount: 0,
+            list_price: 0,
+        },
+    ]);
 
     const handleChangeField = (field: string, value: any, id: string) => {
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
         const updatedItem = {
-            ...formState.items[id],
+            ...updatingItem,
             [field]: value,
         };
-
+        const updatedAmount = {
+            ...updatedItem,
+            amount: parseInt(updatedItem.quantity ?? 0) * parseFloat(updatedItem.list_price ?? 0),
+        };
         const updatedItems = {
-            ...formState.items,
-            [id]: updatedItem,
+            ...items,
+            [itemIndex]: updatedAmount,
         };
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 0,
-        },
-    ]);
+
+    const handleChangeProduct = async (value: any, id: string) => {
+        const res = await api.fetchSingleProduct(value);
+        if (res.status !== 200)
+            return;
+        const product = res.data.data.product;
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
+        const updatedItem = {
+            ...updatingItem,
+            product_id: value,
+            list_price: product.unit_price ?? 0,
+            description: product.description
+        };
+        const updatedAmount = {
+            ...updatedItem,
+            amount: parseInt(updatedItem.quantity ?? 0) * parseFloat(updatedItem.list_price ?? 0),
+        };
+        const updatedItems = {
+            ...items,
+            [itemIndex]: updatedAmount,
+        };
+        setItems(Object.values(updatedItems))
+        dispatch(updateFormData({items: updatedItems}));
+    }
 
     const addItem = () => {
         let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
-            id: maxId + 1
+            id: maxId + 1, amount: 0, list_price: 0
         }];
 
         setItems(remainingItems);
@@ -80,7 +116,7 @@ const PurchaseItemSection = () => {
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
-                                                                 handleChangeField('product_id', value, item.id)
+                                                                 handleChangeProduct(value, item.id)
                                                              }}
                                                              className="flex-1  min-w-[200px]"
 
@@ -111,7 +147,7 @@ const PurchaseItemSection = () => {
                                                     placeholder="Price"
                                                     name="list_price"
                                                     min={0}
-                                                    defaultValue={item.list_price}
+                                                    value={item.list_price}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
@@ -121,9 +157,9 @@ const PurchaseItemSection = () => {
                                                     className="w-32 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                                     name="amount"
                                                     min={0}
+                                                    value={item.amount}
                                                     disabled
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
-                                                    defaultValue={item.amount}
                                                 />
                                             </td>
 
