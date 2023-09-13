@@ -42,7 +42,9 @@ const SalesItemsSection = () => {
         const updatedItem = {
             ...updatingItem,
             product_id: value,
-            list_price: product.unit_price
+            list_price: product.unit_price ?? 0,
+            description: product.description
+
         };
         const updatedAmount = {
             ...updatedItem,
@@ -61,7 +63,7 @@ const SalesItemsSection = () => {
         let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
-            id: maxId + 1, amount: 0
+            id: maxId + 1, amount: 0 ,list_price: 0
         }];
 
         setItems(remainingItems);

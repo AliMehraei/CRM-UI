@@ -11,9 +11,8 @@ const DescriptionInformationSection = () => {
     const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
-
 
 
     const searchVendor = async (query: string) => {
@@ -40,17 +39,16 @@ const DescriptionInformationSection = () => {
         'Description Information': {
             'Description': (
                 <textarea id="description" rows={3} name="description"
-                className="form-textarea flex-1"
-                placeholder=""></textarea>
-           
+                          className="form-textarea flex-1"
+                          defaultValue={formState.description}
+                          onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                          placeholder=""></textarea>
+
             )
-          
+
 
         },
-        '': {
-           
-
-        }
+        '': {}
     }
     return (<>
             <div className="flex justify-between lg:flex-row flex-col">
@@ -59,7 +57,7 @@ const DescriptionInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default DescriptionInformationSection;

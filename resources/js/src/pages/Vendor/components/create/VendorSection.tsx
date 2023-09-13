@@ -249,10 +249,10 @@ const VendorSection = () => {
             'Portal Access': (
                 <Select
                     options={PortalAccess}
-                    name="currency"
-                    id="currency"
+                    name="portal_access"
+                    id="portal_access"
                     onChange={({ value }: any) => {
-                        handleChangeField('currency', value)
+                        handleChangeField('portal_access', value)
                     }}
                     className="flex-1"
                 />
