@@ -83,13 +83,13 @@ const VendorSection = () => {
             ),
             'Contracts': (
                 <AsyncSelect
-                    isMulti={false}
-                    id="contracts"
+                    isMulti={true}
+                    id="contracts_id"
                     placeholder="Type at least 2 characters to search..."
-                    name="contracts"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('contracts', value)
+                    name="contracts_id"
+                    loadOptions={searchVendor}  //TODO : fix here
+                    onChange={(values: any) => {
+                        handleChangeField('contracts_id', values.map((v: any) => v.value))
                     }}
                     className="flex-1"
                 />
