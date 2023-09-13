@@ -1,5 +1,5 @@
 import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import AsyncSelect from "react-select/async";
@@ -82,6 +82,11 @@ const PurchaseItemSection = () => {
         setItems(remainingItems);
         dispatch(updateFormData({items: remainingItems}));
     };
+
+
+    useEffect(() => {
+        setItems(Object.values(formState.items));
+    }, []);
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
