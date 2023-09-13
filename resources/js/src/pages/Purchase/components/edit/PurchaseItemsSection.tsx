@@ -11,13 +11,7 @@ const PurchaseItemSection = () => {
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const dispatch = useDispatch();
     const api = new Api();
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
-            amount: 0,
-            list_price: 0,
-        },
-    ]);
+    const [items, setItems] = useState<any>([]);
 
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatingItem = items.find((item: any) => item.id === id);
@@ -124,7 +118,18 @@ const PurchaseItemSection = () => {
                                                                  handleChangeProduct(value, item.id)
                                                              }}
                                                              className="flex-1  min-w-[200px]"
-
+                                                             defaultValue={item.product ? {
+                                                                 value: item.product?.id,
+                                                                 label: (
+                                                                     <div key={item.product?.id}
+                                                                          className="flex items-center">
+                                                                         <div>
+                                                                             <div
+                                                                                 className="text-sm font-bold">{item.product?.product_name}</div>
+                                                                         </div>
+                                                                     </div>
+                                                                 ),
+                                                             } : null}
                                                 />,
 
                                                 <textarea
@@ -188,12 +193,12 @@ const PurchaseItemSection = () => {
                                                     options={{
                                                         dateFormat: 'Y-m-d',
                                                         position: 'auto left',
-                                                        defaultDate: `${formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}`,
                                                     }}
-                                                    className="form-input min-w-[200px]"
-                                                    value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
+                                                    placeholder='Y-m-d'
+                                                    className="form-input flex-1 min-w-[200px]"
+                                                    // value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
                                                     onChange={(_, dateString) => handleChangeField('requested_delivery_date', dateString, item.id)} // Update the field value on change
-                                                    defaultValue={formState.requested_delivery_date}
+                                                    defaultValue={item.requested_delivery_date}
                                                 />
                                             </td>
                                             <td>
@@ -202,12 +207,12 @@ const PurchaseItemSection = () => {
                                                     options={{
                                                         dateFormat: 'Y-m-d',
                                                         position: 'auto left',
-                                                        defaultDate: `${formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}`,
                                                     }}
+                                                    placeholder='Y-m-d'
                                                     className="form-input flex-1 min-w-[200px]"
-                                                    value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}
+                                                    // value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}
                                                     onChange={(_, dateString) => handleChangeField('estimated_delivery_date', dateString, item.id)} // Update the field value on change
-                                                    defaultValue={formState.estimated_delivery_date}
+                                                    defaultValue={item.estimated_delivery_date}
                                                 />
                                             </td>
                                             <td>
