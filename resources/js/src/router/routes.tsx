@@ -118,7 +118,7 @@ const routes = [
         path: '/',
         element: <Index />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/permission-denied',
@@ -129,151 +129,151 @@ const routes = [
         path: '/index',
         element: <Index />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/import/:module',
         element: <ImportCreate />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'import-product'
     },
     {
         path: '/import/:module/operation',
         element: <ImportOperation />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'import-product'
     },
     {
         path: '/import/:module/field-mapping',
         element: <ImportFieldMapping />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'import-product'
     },
 
     {
         path: '/account/list',
         element: <ListAccount />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-account'
     },
     {
         path: '/account/preview/:id',
         element: <PreviewAccount />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-account'
     },
     {
         path: '/account/add',
         element: <AddAccount />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'create-account'
     },
     {
         path: '/account/edit/:id',
         element: <EditAccount />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'update-account'
     },
     {
         path: '/contracts',
         element: <Contracts />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/todolist',
         element: <Todolist />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/invoice/list',
         element: <ListInvoice />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-invoice'
     },
     //task
     {
         path: '/task/list',
         element: <ListTask />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-task'
     },
     {
         path: '/task/preview/:id',
         element: <PreviewTask />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-task'
     },
     {
         path: '/task/add',
         element: <AddTask />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-task'
     },
     {
         path: '/task/edit/:id',
         element: <EditTask />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-task'
     },
     // preview page
     {
         path: '/invoice/preview/:id',
         element: <PreviewInvoice />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-invoice'
     },
     {
         path: '/invoice/add',
         element: <AddInvoice />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-invoice'
     },
     {
         path: '/invoice/edit/:id',
         element: <EditInvoice />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-invoice'
     },
     {
         path: '/app/setting',
         element: <Setting />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-product'
     },
     // Users page
     {
         path: '/users/profile',
         element: <Profile />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-user'
     },
     {
         path: '/users/user-account-settings',
         element: <AccountSetting />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-user'
     },
     // pages
     {
         path: '/pages/knowledge-base',
         element: <KnowledgeBase />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/pages/contact-us',
         element: <ContactForm />,
         layout: 'blank',
-        protected: true,
-        requiredPermission : 'can-edit-task'
+        // protected: true,
+        requiredPermission : 'read-product'
     },
     {
         path: '/pages/faq',
         element: <Faq />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/pages/coming-soon',
@@ -305,7 +305,6 @@ const routes = [
         path: '/auth/boxed-signin',
         element: <LoginBoxed />,
         layout: 'blank',
-        protected: true,
     },
     {
         path: '/auth/boxed-signup',
@@ -351,339 +350,339 @@ const routes = [
         path: '/availability/list',
         element: <ListAvailability />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-availability'
     },
     {
         path: '/availability/preview/:id',
         element: <PreviewAvailability />,
-    protected: true,
-        requiredPermission : 'can-view-task'
-    },
+        protected: true,
+        requiredPermission : 'read-availability'
+},
     {
         path: '/availability/add',
         element: <AddAvailability />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'create-availability'
     },
     {
         path: '/availability/edit/:id',
         element: <EditAvailability />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'update-availability'
     },
 
     {
         path: '/support/list',
         element: <ListSupport />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-support'
     },
     {
         path: '/support/preview/:id',
         element: <PreviewSupport />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-support'
     },
     {
         path: '/support/add',
         element: <AddSupport />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'create-support'
     },
     {
         path: '/support/edit/:id',
         element: <EditSupport />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'update-support'
     },
 
     {
         path: '/excess/list',
         element: <ListExcess />,
         protected: true,
-        requiredPermission : 'can-edit-task'
+        requiredPermission : 'read-excess'
     },
     {
         path: '/excess/preview/:id',
         element: <PreviewExcess />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-excess'
     },
     {
         path: '/excess/add',
         element: <AddExcess />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-excess'
     },
     {
         path: '/excess/edit/:id',
         element: <EditExcess />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-excess'
     },
     {
         path: '/manufacturer/list',
         element: <ListManufacturer />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-manufacturer'
     },
     {
         path: '/manufacturer/preview/:id',
         element: <PreviewManufacturer />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-manufacturer'
     },
     {
         path: '/manufacturer/add',
         element: <AddManufacturer />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-manufacturer'
     },
     {
         path: '/manufacturer/edit/:id',
         element: <EditManufacturer />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-manufacturer'
     },
     {
         path: '/product/list',
         element: <ListProduct />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/product/preview/:id',
         element: <PreviewProduct />,        
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-product'
     },
     {
         path: '/product/add',
         element: <AddProduct />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-product'
     },
     {
         path: '/product/edit/:id',
         element: <EditProduct />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-product'
     },
     {
         path: '/quotes/list',
         element: <ListQuotes />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-quote'
     },
     {
         path: '/quotes/preview/:id',
         element: <PreviewQuotes />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-quote'
     },
     {
         path: '/quotes/add',
         element: <AddQuotes />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-quote'
     },
     {
         path: '/quotes/edit/:id',
         element: <EditQuotes />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-quote'
     },
     {
         path: '/rfq/list',
         element: <ListRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-rfq'
     },
     {
         path: '/rfq/preview/:id',
         element: <PreviewRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-rfq'
     },
     {
         path: '/rfq/add',
         element: <AddRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-rfq'
     },
     {
         path: '/rfq/edit/:id',
         element: <EditRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-rfq'
     },
     {
         path: '/vendor_rfq/list',
         element: <ListVendorRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-vendor-rfq'
     },
     {
         path: '/vendor_rfq/preview/:id',
         element: <PreviewVendorRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-vendor-rfq'
     },
     {
         path: '/vendor_rfq/add',
         element: <AddVendorRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-vendor-rfq'
     },
     {
         path: '/vendor_rfq/edit/:id',
         element: <EditVendorRFQ />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-vendor-rfq'
     },
     {
         path: '/vendor/list',
         element: <ListVendor />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-vendor'
     },
     {
         path: '/vendor/preview/:id',
         element: <PreviewVendor />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-vendor'
     },
     {
         path: '/vendor/add',
         element: <AddVendor />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-vendor'
     },
     {
         path: '/vendor/edit/:id',
         element: <EditVendor />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-vendor'
     },
     {
         path: '/contact/list',
         element: <ListContact />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-contact'
     },
     {
         path: '/contact/preview/:id',
         element: <PreviewContact />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-contact'
     },
     {
         path: '/contact/add',
         element: <AddContact />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-contact'
     },
     {
         path: '/contact/edit/:id',
         element: <EditContact />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-contact'
     },
     {
         path: '/deal/list',
         element: <ListDeal />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-deal'
     },
     {
         path: '/deal/preview/:id',
         element: <PreviewDeal />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-deal'
     },
     {
         path: '/deal/add',
         element: <AddDeal />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-deal'
     },
     {
         path: '/deal/edit/:id',
         element: <EditDeal />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-deal'
     },
     {
         path: '/lead/list',
         element: <ListLead />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-lead'
     },
     {
         path: '/lead/preview/:id',
         element: <PreviewLead />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-lead'
     },
     {
         path: '/lead/add',
         element: <AddLead />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-lead'
     },
     {
         path: '/lead/edit/:id',
         element: <EditLead />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-lead'
     },
     {
         path: '/purchase/list',
         element: <ListPurchase />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-purchase-order'
     },
     {
         path: '/purchase/preview/:id',
         element: <PreviewPurchase />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-purchase-order'
     },
     {
         path: '/purchase/add',
         element: <AddPurchase />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-purchase-order'
     },
     {
         path: '/purchase/edit/:id',
         element: <EditPurchase />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-purchase-order'
     },
     {
         path: '/sales/list',
         element: <ListSales />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-sales-order'
     },
     {
         path: '/sales/preview/:id',
         element: <PreviewSales />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'read-sales-order'
     },
     {
         path: '/sales/add',
         element: <AddSales />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'create-sales-order'
     },
     {
         path: '/sales/edit/:id',
         element: <EditSales />,
         protected: true,
-        requiredPermission : 'can-view-task'
+        requiredPermission : 'update-sales-order'
     },
     {
         path: '*',
