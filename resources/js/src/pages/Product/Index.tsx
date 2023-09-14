@@ -22,7 +22,7 @@ const List = () => {
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     
     useEffect(() => {
-        if (!isLoading && !hasPermission('filter-option-product') && !hasPermission('cam-view-product')) {
+        if (!isLoading && !hasPermission('filter-product') && !hasPermission('read-product')) {
             // Render loading component or handle the lack of permission here.
             return <LoadingSasCrm />;
         }
@@ -57,7 +57,7 @@ const List = () => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+            // if (!isLoading && hasPermission('filter-product') && hasPermission('read-product')) {
 
             const res = await api_instance.filterOptionProduct();
             // Transform the data
@@ -84,7 +84,7 @@ const List = () => {
     };
 
     useEffect(() => {
-        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+        // if (!isLoading && hasPermission('filter-product') && hasPermission('read-product')) {
         fetchDataFilterOption();
         // }
     }, []);
@@ -99,7 +99,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+        // if (!isLoading && hasPermission('filter-product') && hasPermission('read-product')) {
         fetchDataProduct(page, pageSize, filters, sortStatus);
         // }
     };
@@ -128,7 +128,7 @@ const List = () => {
     };
 
     const deleteRow = (id: any = null) => {
-        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-delete-product')) {
+        // if (!isLoading && hasPermission('filter-product') && hasPermission('cam-delete-product')) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Are you sure?',
@@ -181,7 +181,7 @@ const List = () => {
 
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        // if (!isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+        // if (!isLoading && hasPermission('filter-product') && hasPermission('read-product')) {
         const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
@@ -224,7 +224,7 @@ const List = () => {
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
-        // if (isLoading && hasPermission('filter-option-product') && hasPermission('cam-view-product')) {
+        // if (isLoading && hasPermission('filter-product') && hasPermission('read-product')) {
         fetchDataProduct(page, pageSize, filters, sortStatus);
         // }
     }, [page, pageSize, sortStatus, resetFilter]);
