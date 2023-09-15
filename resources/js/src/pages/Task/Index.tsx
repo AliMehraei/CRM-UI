@@ -398,8 +398,8 @@ const List = () => {
                                             title :'Task subject',
                                             sortable: false,
                                             render: ({ subject, id }) => (
-                                                hasPermission('update-product') ? (
-                                                  <NavLink to={`/product/edit/${id}`}>
+                                                hasPermission('update-task') ? (
+                                                  <NavLink to={`/task/edit/${id}`}>
                                                     <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                                                   </NavLink>
                                                 ) : (
