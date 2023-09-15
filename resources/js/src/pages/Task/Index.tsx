@@ -20,7 +20,7 @@ const List = () => {
 
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        if (!isLoading && !hasPermission('filter-product') && !hasPermission('read-product')) {
+        if (!isLoading && !hasPermission('filter-task') && !hasPermission('read-task')) {
             setLoading(true);
             return <LoadingSasCrm />;
         }
