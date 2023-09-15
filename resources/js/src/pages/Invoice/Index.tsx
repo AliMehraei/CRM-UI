@@ -576,8 +576,8 @@ const List = () => {
             </div>
         </div>
     </div>
-    );
     )
+    );
 };
 
 export default List;
