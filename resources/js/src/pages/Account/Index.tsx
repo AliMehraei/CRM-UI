@@ -11,12 +11,25 @@ import api from '../../config/api';
 import { renderFilterValueFiled } from '../../components/FilterValueFiled'
 import React from 'react';
 import Dropdown from '../../components/Dropdown';
+import { useUserStatus } from '../../config/authCheck';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
+
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Account List'));
     });
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
+
     const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        if (!isLoading && !hasPermission('filter-product') && !hasPermission('read-product')) {
+            setLoading(true);
+            return <LoadingSasCrm />;
+        }
+            setLoading(false);
+            return;
+    }, [isLoading, isLoggedIn, hasPermission]);
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
@@ -264,10 +277,14 @@ const List = () => {
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
     return (
+        ( !hasPermission('read-account') || loading) ? (
+            <LoadingSasCrm />
+          ) : (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="account-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
+                    {hasPermission('delete-account') && (
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                 <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -288,7 +305,8 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
-
+                    )}
+                    {hasPermission('create-account') && (
                         <div className="inline-flex">
                             <Link to="/account/add" className="btn btn-primary ltr:rounded-r-none rtl:rounded-l-none">
                                 Add New
@@ -307,10 +325,13 @@ const List = () => {
                                 </Dropdown>
                             </div>
                         </div>
+                    )}
                     </div>
 
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
+                {hasPermission('filter-account') && (
+
                     <div className="panel col-span-1">
                         <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
@@ -389,6 +410,7 @@ const List = () => {
 
                         )}
                     </div>
+                )}
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding" >
                             {loading ? (
@@ -410,10 +432,14 @@ const List = () => {
                                             accessor: 'account_name',
                                             sortable: true,
                                             render: ({ account_name,id }) => (
+                                            hasPermission('update-account') ? (
                                                 <NavLink to={`/account/edit/${id}`}>
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${account_name}`}</div>
-                                                </NavLink>
-                                            ),
+                                                <div className="text-primary underline hover:no-underline font-semibold">{`#${account_name}`}</div>
+                                              </NavLink>
+                                            ) : (
+                                              <div className="font-semibold">{`#${account_name}`}</div>
+                                            )
+                                          )
                                         },
                                         {
                                             accessor: 'business_account',
@@ -465,6 +491,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
+                                                    {hasPermission('update-account') && (
                                                     <NavLink to={`/account/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
@@ -487,6 +514,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
+                                                    )}
                                                     {/* <NavLink to="/account/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -503,6 +531,7 @@ const List = () => {
                                                         </svg>
                                                     </NavLink> */}
                                                     {/* <NavLink to="" className="flex"> */}
+                                                    {hasPermission('delete-account') && (
                                                     <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                                             <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -522,6 +551,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </button>
+                                                    )}
                                                     {/* </NavLink> */}
                                                 </div>
                                             ),
@@ -548,6 +578,7 @@ const List = () => {
                 </div>
             </div>
         </div>
+          )
     );
 };
 
