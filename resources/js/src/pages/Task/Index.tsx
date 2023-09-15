@@ -8,13 +8,25 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
+import { useUserStatus } from '../../config/authCheck';
 import { renderFilterValueFiled } from '../../components/FilterValueFiled'
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Task List'));
     });
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
+
     const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        if (!isLoading && !hasPermission('filter-product') && !hasPermission('read-product')) {
+            setLoading(true);
+            return <LoadingSasCrm />;
+        }
+            setLoading(false);
+            return;
+    }, [isLoading, isLoggedIn, hasPermission]);
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
@@ -241,40 +253,50 @@ const List = () => {
 
         setFilters(updatedFilters);
     };
-
+    // if (isLoading) {
+    //     setLoading(true);
+    //     return <div><LoadingSasCrm /></div>;
+    // }
     return (
+        ( !hasPermission('read-task') || loading) ? (
+            <LoadingSasCrm />
+          ) : (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="task-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
-                        <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
-                                <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-                                <path
-                                    d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                ></path>
-                                <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-                                <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-                                <path
-                                    opacity="0.5"
-                                    d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                ></path>
-                            </svg>
-                            Delete
-                        </button>
+                        {hasPermission('delete-task') && (
+                            <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+                                    <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                    <path
+                                        d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                    ></path>
+                                    <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                    <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                    <path
+                                        opacity="0.5"
+                                        d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                    ></path>
+                                </svg>
+                                Delete
+                            </button>
+                         )}
+                        {hasPermission('create-task') && (
                         <Link to="/task/add" className="btn btn-primary gap-2">
                             Add New
                         </Link>
-
+                        )}
                     </div>
 
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
+                     {hasPermission('filter-task') && (
                     <div className="panel col-span-1">
                         <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
@@ -353,6 +375,7 @@ const List = () => {
 
                         )}
                     </div>
+                     )}
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding" >
                             {loading ? (
@@ -374,11 +397,15 @@ const List = () => {
                                             accessor: 'subject',
                                             title :'Task subject',
                                             sortable: false,
-                                            render: ({ subject ,id}) => (
-                                                <NavLink to={`/task/edit/${id}`}>
-                                                <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
-                                            </NavLink>
-                                            ),
+                                            render: ({ subject, id }) => (
+                                                hasPermission('update-product') ? (
+                                                  <NavLink to={`/product/edit/${id}`}>
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
+                                                  </NavLink>
+                                                ) : (
+                                                  <div className="font-semibold">{`#${subject}`}</div>
+                                                )
+                                              )
                                         },
                                         ,
                                         {
@@ -436,6 +463,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
+                                                    {hasPermission('update-task') && (
                                                     <NavLink to={`/task/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
@@ -458,6 +486,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
+                                                    )}
                                                     {/* <NavLink to="/task/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -474,6 +503,7 @@ const List = () => {
                                                         </svg>
                                                     </NavLink> */}
                                                     {/* <NavLink to="" className="flex"> */}
+                                                    {hasPermission('delete-task') && (
                                                     <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                                             <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -493,6 +523,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </button>
+                                                    )}
                                                     {/* </NavLink> */}
                                                 </div>
                                             ),
@@ -519,6 +550,8 @@ const List = () => {
                 </div>
             </div>
         </div>
+          )
+        
     );
 };
 

@@ -23,12 +23,13 @@ const List = () => {
     
     useEffect(() => {
         if (!isLoading && !hasPermission('filter-product') && !hasPermission('read-product')) {
-            // Render loading component or handle the lack of permission here.
+            setLoading(true);
+
             return <LoadingSasCrm />;
         }
-        else {
-           // for some reason
-        }
+        
+            setLoading(false);
+            return;
     }, [isLoading, isLoggedIn, hasPermission]);
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
@@ -280,16 +281,21 @@ const List = () => {
     };
    
 
-
+    // if (isLoading) {
+    //     setLoading(true);
+    //     return <div><LoadingSasCrm /></div>;
+    // }
     return (
-        !true  ? (
+      ( !hasPermission('read-product') || loading) ? (
             <LoadingSasCrm />
           ) : (
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="product-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
-                        <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
+                        
+                    {hasPermission('delete-product') && (
+                            <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                 <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                 <path
@@ -309,14 +315,16 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
+                        )}
+                        {hasPermission('create-product') && (
                         <Link to="/product/add" className="btn btn-primary gap-2">
                             Add New
                         </Link>
-
+                        )}
                     </div>
-
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
+                    {hasPermission('filter-product') && (
                     <div className="panel col-span-1">
                         <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
@@ -395,6 +403,7 @@ const List = () => {
 
                         )}
                     </div>
+                    )}
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding" >
                             {loading ? (
@@ -415,11 +424,16 @@ const List = () => {
                                         {
                                             accessor: 'product_name',
                                             sortable: true,
-                                            render: ({ product_name,id }) => (
-                                                <NavLink to={`/product/edit/${id}`}>
+                                            render: ({ product_name, id }) => (
+                                                hasPermission('update-product') ? (
+                                                  <NavLink to={`/product/edit/${id}`}>
                                                     <div className="text-primary underline hover:no-underline font-semibold">{`#${product_name}`}</div>
-                                                </NavLink>
-                                            ),
+                                                  </NavLink>
+                                                ) : (
+                                                  <div className="font-semibold">{`#${product_name}`}</div>
+                                                )
+                                              )
+                                              
                                         },
                                         {
                                             accessor: 'manufacturer',
@@ -482,6 +496,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
+                                                    {hasPermission('update-product') && (
                                                     <NavLink to={`/product/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
@@ -504,6 +519,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
+                                                    )}
                                                     {/* <NavLink to="/product/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -520,6 +536,7 @@ const List = () => {
                                                         </svg>
                                                     </NavLink> */}
                                                     {/* <NavLink to="" className="flex"> */}
+                                                    {hasPermission('delete-product') && (
                                                     <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                                             <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -539,6 +556,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </button>
+                                                    )}
                                                     {/* </NavLink> */}
                                                 </div>
                                             ),
