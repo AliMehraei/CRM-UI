@@ -8,13 +8,25 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import { renderFilterValueFiled } from '../../components/FilterValueFiled'
+import { renderFilterValueFiled } from '../../components/FilterValueFiled';
+import { useUserStatus } from '../../config/authCheck';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('deal List'));
     });
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
+
     const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        if (!isLoading && !hasPermission('filter-deal') && !hasPermission('read-deal')) {
+            setLoading(true);
+            return <LoadingSasCrm />;
+        }
+            setLoading(false);
+            return;
+    }, [isLoading, isLoggedIn, hasPermission]);   
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
@@ -275,10 +287,14 @@ const List = () => {
 
 
     return (
+        ( !hasPermission('read-deal') || loading) ? (
+            <LoadingSasCrm />
+          ) : (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
             <div className="deal-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
+                    {hasPermission('create-contact') && (
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                 <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -299,14 +315,18 @@ const List = () => {
                             </svg>
                             Delete
                         </button>
+                    )}
+                    {hasPermission('create-deal') && (
                         <Link to="/deal/add" className="btn btn-primary gap-2">
                             Add New
                         </Link>
+                    )}
 
                     </div>
 
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
+                {hasPermission('filter-deal') && (
                     <div className="panel col-span-1">
                         <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
@@ -385,6 +405,7 @@ const List = () => {
 
                         )}
                     </div>
+                )}
                     <div className="panel col-span-4">
                         <div className="datatables pagination-padding" >
                             {loading ? (
@@ -406,9 +427,13 @@ const List = () => {
                                             accessor: 'deal_name',
                                             sortable: true,
                                             render: ({ deal_name,id }) => (
-                                                <NavLink to={`/deal/edit/${id}`}>
-                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${deal_name}`}</div>
-                                                </NavLink>
+                                                hasPermission('update-contact') ? (
+                                                    <NavLink to={`/deal/edit/${id}`}>
+                                                    <div className="text-primary underline hover:no-underline font-semibold">{`#${deal_name} `}</div>
+                                                    </NavLink>
+                                                ) : (
+                                                <div className="font-semibold">{`#${deal_name} `}</div>
+                                                )
                                             ),
                                         },
                                         {
@@ -457,6 +482,7 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
+                                                {hasPermission('update-deal') && (
                                                     <NavLink to={`/deal/edit/${id}`} className="flex hover:text-info">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                             <path
@@ -479,6 +505,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </NavLink>
+                                                )}
                                                     {/* <NavLink to="/deal/preview" className="flex hover:text-primary">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -495,6 +522,8 @@ const List = () => {
                                                         </svg>
                                                     </NavLink> */}
                                                     {/* <NavLink to="" className="flex"> */}
+                                                    {hasPermission('delete-contact') && (
+
                                                     <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                                             <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -514,6 +543,7 @@ const List = () => {
                                                             ></path>
                                                         </svg>
                                                     </button>
+                                                    )}
                                                     {/* </NavLink> */}
                                                 </div>
                                             ),
@@ -540,6 +570,7 @@ const List = () => {
                 </div>
             </div>
         </div>
+          )
     );
 };
 
