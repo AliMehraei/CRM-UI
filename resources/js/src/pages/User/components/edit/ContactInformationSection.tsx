@@ -18,6 +18,7 @@ const ContactInformationSection = () => {
                 id="street"
                 name="street"
                 className="form-input flex-1 "
+                defaultValue={formState.street}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -25,6 +26,7 @@ const ContactInformationSection = () => {
                 id="city"
                 name="city"
                 className="form-input flex-1 "
+                defaultValue={formState.city}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -32,6 +34,7 @@ const ContactInformationSection = () => {
                 id="state"
                 name="state"
                 className="form-input flex-1 "
+                defaultValue={formState.state}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -39,6 +42,7 @@ const ContactInformationSection = () => {
                 id="country"
                 name="country"
                 className="form-input flex-1 "
+                defaultValue={formState.country}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -49,6 +53,7 @@ const ContactInformationSection = () => {
                 id="zip_code"
                 name="zip_code"
                 className="form-input flex-1 "
+                defaultValue={formState.zip_code}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -56,6 +61,7 @@ const ContactInformationSection = () => {
                 id="fax"
                 name="fax"
                 className="form-input flex-1 "
+                defaultValue={formState.fax}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -63,6 +69,7 @@ const ContactInformationSection = () => {
                 id="website"
                 name="website"
                 className="form-input flex-1 "
+                defaultValue={formState.website}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
