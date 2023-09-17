@@ -21,7 +21,7 @@ const Edit = () => {
     });
 
     const fetchData = async () => {
-        const userResponse = await api.loadUserById(userId);
+        const userResponse = await api.fetchSingleUser(userId);
         if (userResponse.status != 200)
             return
         const user = userResponse.data.data.user;
