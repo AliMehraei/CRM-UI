@@ -4,6 +4,7 @@ import ContactInformationSection from "./ContactInformationSection";
 import PreferencesSection from "./PreferencesSection";
 import OtherSection from "./OtherSection";
 import ShiftInformationSection from "./ShiftInformationSection";
+import RoleSection from "./RoleSection";
 
 const UserFormFields = () => {
     return (
@@ -13,6 +14,8 @@ const UserFormFields = () => {
             <ContactInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <PreferencesSection/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <RoleSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <ShiftInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
