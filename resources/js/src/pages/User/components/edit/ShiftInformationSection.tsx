@@ -1,12 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/userFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Flatpickr from "react-flatpickr";
 
 const ShiftInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.userForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -18,6 +16,8 @@ const ShiftInformationSection = () => {
                 id="current_shift_id"
                 name="current_shift_id"
                 className="form-input flex-1 "
+                defaultValue={formState.current_shift_id}
+
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -25,6 +25,8 @@ const ShiftInformationSection = () => {
                 id="next_shift_id"
                 name="next_shift_id"
                 className="form-input flex-1 "
+                defaultValue={formState.next_shift_id}
+
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -34,11 +36,13 @@ const ShiftInformationSection = () => {
 
             'Shift Effective From': <Flatpickr
                 options={{
-                    dateFormat: 'Y-m-d ',
+                    dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
+                    defaultDate: `${formState.shift_effective_from ? new Date(formState.shift_effective_from) : ''}`,
+
                 }}
+                defaultValue={formState.shift_effective_from}
                 name="shift_effective_from"
-                value=""
                 className="form-input flex-1"
                 onChange={(_, dateString) => handleChangeField('shift_effective_from', dateString)} // Update the field value on change
 
