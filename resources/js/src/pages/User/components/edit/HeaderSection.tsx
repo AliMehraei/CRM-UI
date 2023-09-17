@@ -40,9 +40,9 @@ const HeaderSection = () => {
                 options={{
                     dateFormat: 'Y-m-d ',
                     position: 'auto left',
-                    defaultDate: `${formState.date_history ? new Date(formState.date_history) : ''}`,
+                    defaultDate: `${formState.date_of_birth ? new Date(formState.date_of_birth) : ''}`,
                 }}
-                defaultValue={formState.last_activity_date}
+                defaultValue={formState.date_of_birth}
                 name="date_of_birth"
                 className="form-input flex-1"
 
