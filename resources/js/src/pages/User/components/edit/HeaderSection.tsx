@@ -1,12 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/userFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Flatpickr from "react-flatpickr";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.userForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -18,6 +16,7 @@ const HeaderSection = () => {
                 id="first_name"
                 name="first_name"
                 className="form-input flex-1 "
+                defaultValue={formState.first_name}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -25,6 +24,7 @@ const HeaderSection = () => {
                 id="last_name"
                 name="last_name"
                 className="form-input flex-1 "
+                defaultValue={formState.last_name}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -32,6 +32,7 @@ const HeaderSection = () => {
                 id="alias"
                 name="alias"
                 className="form-input flex-1 "
+                defaultValue={formState.alias}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
@@ -39,10 +40,12 @@ const HeaderSection = () => {
                 options={{
                     dateFormat: 'Y-m-d ',
                     position: 'auto left',
+                    defaultDate: `${formState.date_history ? new Date(formState.date_history) : ''}`,
                 }}
+                defaultValue={formState.last_activity_date}
                 name="date_of_birth"
-                value=""
                 className="form-input flex-1"
+
                 onChange={(_, dateString) => handleChangeField('date_of_birth', dateString)} // Update the field value on change
 
             />
@@ -52,6 +55,7 @@ const HeaderSection = () => {
             'Email': <input
                 id="email"
                 name="email"
+                defaultValue={formState.email}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -59,6 +63,7 @@ const HeaderSection = () => {
             'Phone': <input
                 id="phone"
                 name="phone"
+                defaultValue={formState.phone}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -66,6 +71,7 @@ const HeaderSection = () => {
             'Mobile': <input
                 id="mobile"
                 name="mobile"
+                defaultValue={formState.mobile}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
