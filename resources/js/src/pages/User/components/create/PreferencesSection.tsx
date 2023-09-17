@@ -22,8 +22,8 @@ const HeaderSection = () => {
             />,
 
             'Locale': <input
-                id="locale"
-                name="locale"
+                id="country_locale"
+                name="country_locale"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
