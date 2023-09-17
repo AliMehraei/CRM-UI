@@ -583,6 +583,10 @@ class api {
     async createSingleUser(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/user`, data, {headers: Headers});
     }
+
+    async searchRoles(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/roles/all`, data, {headers: Headers});
+    }
 }
 
 export default api
