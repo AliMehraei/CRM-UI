@@ -3,13 +3,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm} from "../../store/manufacturerFormSlice";
+import UserFormFields from "./components/create/UserFormFields";
 
 const Add = () => {
     const formState = useSelector((state: any) => state.manufacturerForm);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle('Manufacturer Add'));
+        dispatch(setPageTitle('User Add'));
     });
 
     return (
@@ -17,7 +18,7 @@ const Add = () => {
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
-                    test
+                    <UserFormFields/>
                 </div>
             </div>
         </div>
