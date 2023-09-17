@@ -1,6 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/userFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import AsyncSelect from "react-select/async";
+import {searchRFQ, searchRoles} from "../../../../components/Functions/CommonFunctions";
 
 const RoleSection = () => {
     const dispatch = useDispatch();
@@ -11,6 +13,18 @@ const RoleSection = () => {
 
     const fields = {
         'Roles': {
+            'Roles': <AsyncSelect
+                isMulti={true}
+                id="roles_id"
+                placeholder="Type at least 2 characters to search..."
+                name="roles_id"
+                loadOptions={searchRoles}
+                onChange={(values: any) => {
+                    handleChangeField('roles_id', values.map((v: any) => v.value))
+                }}
+                className="flex-1"
+            />,
+
             'Role Id': <input
                 id="role_id"
                 name="role_id"
