@@ -358,10 +358,9 @@ export const searchExcess = async (query: string) => {
 
 export const searchRoles = async (query: string) => {
     const valField = 'id';
-    const nameField = 'role_name';
+    const nameField = 'name';
 
     const result = await api_instance.searchRoles({query: query});
-
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data[valField],
