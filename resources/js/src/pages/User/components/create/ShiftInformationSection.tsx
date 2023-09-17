@@ -34,7 +34,7 @@ const ShiftInformationSection = () => {
 
             'Shift Effective From': <Flatpickr
                 options={{
-                    dateFormat: 'Y-m-d ',
+                    dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
                 }}
                 name="shift_effective_from"
