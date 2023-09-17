@@ -13,7 +13,7 @@ const OtherSection = () => {
     };
 
     const fields = {
-        'Header': {
+        'Other': {
             'Grouping': <input
                 id="grouping"
                 name="grouping"

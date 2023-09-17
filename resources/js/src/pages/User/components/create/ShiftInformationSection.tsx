@@ -13,7 +13,7 @@ const ShiftInformationSection = () => {
     };
 
     const fields = {
-        'Header': {
+        'Shift Information ': {
             'Current Shift Id': <input
                 id="current_shift_id"
                 name="current_shift_id"
