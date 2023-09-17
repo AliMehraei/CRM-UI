@@ -290,6 +290,12 @@ const routes = [
         // protected: true,
         // requiredPermission: 'update-invoice'
     },
+    {
+        path: '/user/list/',
+        element: <ListUser/>,
+        // protected: true,
+        // requiredPermission: 'update-invoice'
+    },
 
     // pages
     {
