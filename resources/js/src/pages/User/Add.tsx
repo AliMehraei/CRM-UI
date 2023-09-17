@@ -4,9 +4,10 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm} from "../../store/manufacturerFormSlice";
 import UserFormFields from "./components/create/UserFormFields";
+import 'flatpickr/dist/flatpickr.css';
 
 const Add = () => {
-    const formState = useSelector((state: any) => state.manufacturerForm);
+    const formState = useSelector((state: any) => state.userForm);
     const dispatch = useDispatch();
 
     useEffect(() => {
