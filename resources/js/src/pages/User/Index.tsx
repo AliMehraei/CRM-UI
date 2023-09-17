@@ -14,18 +14,18 @@ import LoadingSasCrm from '../../components/LoadingSasCrm';
 const List = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(setPageTitle('manufacturer List'));
+        dispatch(setPageTitle('user List'));
     });
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        if (!isLoading && !hasPermission('filter-manufacturer') && !hasPermission('read-manufacturer')) {
+        if (!isLoading && !hasPermission('filter-user') && !hasPermission('read-user')) {
             setLoading(true);
             return <LoadingSasCrm />;
         }
             setLoading(false);
             return;
-    }, [isLoading, isLoggedIn, hasPermission]);   
+    }, [isLoading, isLoggedIn, hasPermission]);
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
@@ -94,7 +94,7 @@ const List = () => {
     const applyFilters = () => {
         setResetFilter(false);
         scrollToTop();
-        fetchDatamanufacturer(page, pageSize, filters, sortStatus);
+        fetchDatauser(page, pageSize, filters, sortStatus);
 
     };
 
@@ -144,8 +144,8 @@ const List = () => {
                                 setInitialRecords(filteredItems);
                                 setItems(filteredItems);
                             } else {
-                                showMessage('Error deleting the manufacturer: ' + result.message, 'error');
-                                console.error('Error deleting the manufacturer', result.message);
+                                showMessage('Error deleting the user: ' + result.message, 'error');
+                                console.error('Error deleting the user', result.message);
                             }
                         });
                         setLoading(false);
@@ -171,7 +171,7 @@ const List = () => {
         });
     };
 
-    const fetchDatamanufacturer = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
+    const fetchDatauser = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
 
 
@@ -194,10 +194,10 @@ const List = () => {
             }).catch((error) => {
                 console.error('Error fetching data:', error);
                 setLoading(false);
-                showMessage('Error fetching manufacturer data.', 'error');
+                showMessage('Error fetching user data.', 'error');
             });
         } catch (error) {
-            showMessage('Error fetching manufacturer data.', 'error');
+            showMessage('Error fetching user data.', 'error');
             console.error('Error fetching data:', error);
             setLoading(false);
         }
@@ -223,7 +223,7 @@ const List = () => {
 
 
     useEffect(() => {
-        fetchDatamanufacturer(page, pageSize, filters, sortStatus);
+        fetchDatauser(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, resetFilter]);
 
     const resetFilters = () => {
@@ -233,7 +233,7 @@ const List = () => {
         setPage(1);
         setResetFilter(true);
         scrollToTop();
-        // fetchDatamanufacturer(page, pageSize, filters, sortStatus);
+        // fetchDatauser(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event, option) => {
         const { value, checked } = event.target;
@@ -265,7 +265,7 @@ const List = () => {
         const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
         setSortStatus({ columnAccessor, direction });
         setPage(1);
-        fetchDatamanufacturer(page, pageSize, filters, { columnAccessor, direction });
+        fetchDatauser(page, pageSize, filters, { columnAccessor, direction });
     };
 
     const handleConditionChange = (field, event) => {
@@ -286,14 +286,14 @@ const List = () => {
 
 
     return (
-        ( !hasPermission('read-manufacturer') || loading) ? (
+        ( !hasPermission('read-user') || loading) ? (
             <LoadingSasCrm />
           ) : (
         <div className="panel px-0 border-white-light dark:border-[#1b2e4b]" >
-            <div className="manufacturer-table">
+            <div className="user-table">
                 <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                     <div className="flex items-center gap-2">
-                    {hasPermission('delete-manufacturer') && (
+                    {hasPermission('delete-user') && (
                         <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                 <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -315,8 +315,8 @@ const List = () => {
                             Delete
                         </button>
                         )}
-                    {hasPermission('create-manufacturer') && (
-                    <Link to="/manufacturer/add" className="btn btn-primary gap-2">
+                    {hasPermission('create-user') && (
+                    <Link to="/user/add" className="btn btn-primary gap-2">
                         Add New
                     </Link>
                     )}
@@ -324,7 +324,7 @@ const List = () => {
 
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
-                {hasPermission('filter-manufacturer') && (
+                {hasPermission('filter-user') && (
                     <div className="panel col-span-1">
                         <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
@@ -422,11 +422,11 @@ const List = () => {
                                             render: ({ id }) => <div className="font-semibold">{id}</div>,
                                         },
                                         {
-                                            accessor: 'manufacturer_name',
+                                            accessor: 'user_name',
                                             sortable: true,
                                             render: ({ name,id }) => (
-                                                hasPermission('update-manufacturer') ? (
-                                                    <NavLink to={`/manufacturer/edit/${id}`}>
+                                                hasPermission('update-user') ? (
+                                                    <NavLink to={`/user/edit/${id}`}>
                                                         <div className="text-primary underline hover:no-underline font-semibold">{`#${name}`}</div>
                                                   </NavLink>
                                                 ) : (
@@ -469,8 +469,8 @@ const List = () => {
                                             textAlignment: 'center',
                                             render: ({ id }) => (
                                                 <div className="flex gap-4 items-center w-max mx-auto">
-                                                     {hasPermission('delete-manufacturer') && (
-                                                <NavLink to={`/manufacturer/edit/${id}`} className="flex hover:text-info">
+                                                     {hasPermission('delete-user') && (
+                                                <NavLink to={`/user/edit/${id}`} className="flex hover:text-info">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4.5 h-4.5">
                                                         <path
                                                             opacity="0.5"
@@ -493,7 +493,7 @@ const List = () => {
                                                     </svg>
                                                 </NavLink>
                                                 )}
-                                                {/* <NavLink to="/manufacturer/preview" className="flex hover:text-primary">
+                                                {/* <NavLink to="/user/preview" className="flex hover:text-primary">
                                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             opacity="0.5"
@@ -509,7 +509,7 @@ const List = () => {
                                                     </svg>
                                                 </NavLink> */}
                                                 {/* <NavLink to="" className="flex"> */}
-                                                {hasPermission('delete-manufacturer') && (
+                                                {hasPermission('delete-user') && (
                                                 <button type="button" className="flex hover:text-danger" onClick={(e) => deleteRow(id)}>
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                                         <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
