@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import themeConfigSlice from './themeConfigSlice';
 import rfqFormSlice from "./rfqFormSlice";
 import manufacturerFormSlice from "./manufacturerFormSlice";
@@ -19,6 +19,7 @@ import availabilityFormSlice from "./availabilityFormSlice";
 import taskFormSlice from './taskFormSlice'
 import authSlice from './authSlice'
 import permissionSlice from './permissionSlice'
+import userFormSlice from "./userFormSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
     taskForm: taskFormSlice,
     auth: authSlice,
     permissions: permissionSlice,
+    userForm: userFormSlice,
 });
 
 export default configureStore({
