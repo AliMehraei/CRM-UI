@@ -14,6 +14,7 @@ const RoleSection = () => {
             'Role Id': <input
                 id="role_id"
                 name="role_id"
+                defaultValue={formState.role_id}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -21,6 +22,7 @@ const RoleSection = () => {
             'Added By Id': <input
                 id="added_by_id"
                 name="added_by_id"
+                defaultValue={formState.added_by_id}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -28,6 +30,7 @@ const RoleSection = () => {
             'Profile Id': <input
                 id="profile_id"
                 name="profile_id"
+                defaultValue={formState.profile_id}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -38,6 +41,7 @@ const RoleSection = () => {
             'Reporting To Id': <input
                 id="reporting_to_id"
                 name="reporting_to_id"
+                defaultValue={formState.reporting_to_id}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -45,6 +49,7 @@ const RoleSection = () => {
             'User Status': <input
                 id="user_status"
                 name="user_status"
+                defaultValue={formState.user_status}
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
@@ -53,6 +58,7 @@ const RoleSection = () => {
                 type="checkbox"
                 id="confirmation_status"
                 name="confirmation_status"
+                defaultValue={formState.confirmation_status}
                 className="form-checkbox  "
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
             />,
