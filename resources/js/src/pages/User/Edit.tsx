@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import {resetForm, updateFormData} from "../../store/userFormSlice";
 import LoadingSasCrm from "../../components/LoadingSasCrm"
 import UserFormFields from "./components/edit/UserFormFields";
+import 'flatpickr/dist/flatpickr.css';
 
 const Edit = () => {
     const formState = useSelector((state: any) => state.userForm);
