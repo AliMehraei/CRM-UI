@@ -4,7 +4,7 @@ import {updateFormData} from "../../../../store/userFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Flatpickr from "react-flatpickr";
 
-const HeaderSection = () => {
+const OtherSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.userForm);
@@ -57,4 +57,4 @@ const HeaderSection = () => {
     )
 }
 
-export default HeaderSection;
+export default OtherSection;
