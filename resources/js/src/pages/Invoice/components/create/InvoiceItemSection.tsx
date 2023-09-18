@@ -4,9 +4,11 @@ import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 import PopoverComponent from "./PopoverComponent";
+import Api from "../../../../config/api";
 
 const InvoiceItemSection = () => {
     const dispatch = useDispatch();
+    const api = new Api();
     const [summary, setSummary] = useState({
         amount: 0,
         subtotal: 0,
@@ -21,12 +23,12 @@ const InvoiceItemSection = () => {
             id: 1,
             product_id: null,
             description: null,
-            quantity: null,
-            list_price: null,
-            amount: null,
-            discount: null,
-            tax: null,
-            total: null,
+            quantity: 0,
+            list_price: 0,
+            amount: 0,
+            discount: 0,
+            tax: 0,
+            total: 0,
         },
     ]);
     const handleChangeField = (field: string, value: any, id: string) => {
@@ -56,12 +58,12 @@ const InvoiceItemSection = () => {
             id: maxId + 1,
             product_id: null,
             description: null,
-            quantity: null,
-            list_price: null,
-            amount: null,
-            discount: null,
-            tax: null,
-            total: null,
+            quantity: 0,
+            list_price: 0,
+            amount: 0,
+            discount: 0,
+            tax: 0,
+            total: 0,
         }]);
 
     };
@@ -108,6 +110,35 @@ const InvoiceItemSection = () => {
         });
     };
 
+
+    const handleChangeProduct = async (value: any, id: string) => {
+        const res = await api.fetchSingleProduct(value);
+        if (res.status !== 200)
+            return;
+        const product = res.data.data.product;
+        const updatingItem = items.find((item: any) => item.id === id);
+        const itemIndex = items.findIndex((item: any) => item.id === id);
+
+        const updatedItem = {
+            ...updatingItem,
+            product_id: value,
+            list_price: product.unit_price != null && product.unit_price != '' ? product.unit_price : 0,
+            tax: product.tax != null && product.tax != '' ? product.tax : 0,
+            description: product.description
+        };
+        const updatedAmount = {
+            ...updatedItem,
+            amount: parseInt(updatedItem.quantity ?? 0) * parseFloat(updatedItem.list_price ?? 0),
+        };
+        const updatedItems = {
+            ...items,
+            [itemIndex]: updatedAmount,
+        };
+        console.log(updatedItems);
+        setItems(Object.values(updatedItems))
+        dispatch(updateFormData({items: updatedItems}));
+    }
+
     useEffect(() => {
         updateSummary();
     }, [items]);
@@ -150,7 +181,7 @@ const InvoiceItemSection = () => {
                                                     name="product_id"
                                                     loadOptions={searchProducts}
                                                     onChange={({value}: any) => {
-                                                        handleChangeField('product_id', value, item.id)
+                                                        handleChangeProduct(value, item.id)
                                                     }}
                                                     className="flex-1"
                                                 />
@@ -173,7 +204,7 @@ const InvoiceItemSection = () => {
                                                     placeholder="Price"
                                                     name="list_price"
                                                     min={0}
-                                                    defaultValue={item.list_price}
+                                                    value={item.list_price}
                                                     onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
@@ -212,7 +243,7 @@ const InvoiceItemSection = () => {
                                             <td>
                                                 <input name="total" type="number"
                                                        className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
-                                                       defaultValue={item.total} disabled
+                                                       value={item.total} disabled
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
