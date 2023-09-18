@@ -134,7 +134,6 @@ const InvoiceItemSection = () => {
             ...items,
             [itemIndex]: updatedAmount,
         };
-        console.log(updatedItems);
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({items: updatedItems}));
     }
