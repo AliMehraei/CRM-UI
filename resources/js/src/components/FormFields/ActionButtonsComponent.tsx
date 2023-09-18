@@ -82,7 +82,7 @@ const ActionButtonsComponent = ({formState, resetForm}: any) => {
 
     useEffect(() => {
         dispatch(resetErrors());
-        dispatch(resetForm());
+        // dispatch(resetForm()); // TODO : think about this
 
     }, []);
 
