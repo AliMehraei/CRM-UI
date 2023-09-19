@@ -381,7 +381,7 @@ export const findApiToCall = (functionName: string) => {
     const api_instance: any = new api();
     const methodToCall = api_instance[functionName];
     if (typeof methodToCall !== 'function') {
-        throw new Error("API not found")
+        throw new Error(`API not found : ${functionName}`)
     }
     return methodToCall;
 }
