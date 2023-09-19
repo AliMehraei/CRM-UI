@@ -293,7 +293,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
 
         emitter.on('deleteTableRow', deleteRow);
         return () => {
-            emitter.off('deleteRow', deleteRow);
+            emitter.off('deleteTableRow', deleteRow);
         };
     }, []);
 
