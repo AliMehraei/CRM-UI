@@ -1,4 +1,5 @@
 import api from "../../config/api";
+import {EventEmitter} from "events";
 
 const api_instance = new api();
 
@@ -389,3 +390,5 @@ export const findApiToCall = (functionName: string) => {
 export const upFirstLetter = (string: string) => {
     return string.replace(/^./, string[0].toUpperCase())
 }
+
+export const emitter = new EventEmitter();
