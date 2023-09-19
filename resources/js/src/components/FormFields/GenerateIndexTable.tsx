@@ -2,7 +2,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {DataTable, DataTableSortStatus} from 'mantine-datatable';
 import {useEffect, useState} from 'react';
 import sortBy from 'lodash/sortBy';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {IRootState} from '../../store';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
@@ -10,10 +10,10 @@ import api from '../../config/api';
 import {renderFilterValueFiled} from '../FilterValueFiled';
 import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../../components/LoadingSasCrm';
-import {emitter, findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
+import {findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
+import {DeleteIcon, EditIcon} from "./CommonIcons";
 
 const GenerateIndexTable = ({modelName, tableColumns}: any) => {
-    const dispatch = useDispatch();
     const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
@@ -112,32 +112,8 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
             customClass: 'sweet-alerts',
         }).then((result) => {
             if (result.value) {
-                const deleteSingleRow = async (rowId: number) => {
-                    try {
-                        setLoading(true);
-
-                        findApiToCall(`deleteSingle${upFirstLetter(modelName)}`).call(api_instance, rowId)
-                            .then((res: any) => {
-                                const result = res.data;
-                                if (result.status) {
-                                    const filteredItems = items.filter((user: any) => user.id !== rowId);
-                                    setRecords(filteredItems);
-                                    setInitialRecords(filteredItems);
-                                    setItems(filteredItems);
-                                } else {
-                                    showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
-                                    console.error(`Error deleting the ${modelName} : `, result.message);
-                                }
-                            });
-                        setLoading(false);
-                    } catch (error) {
-                        showMessage('Error making delete request', 'error');
-                        console.error('Error making delete request', error);
-                        setLoading(false);
-                    }
-                };
-
                 if (id) {
+                    console.log("before delete page : ", page)
                     deleteSingleRow(id);
                     setSelectedRecords([]);
                 } else {
@@ -156,6 +132,37 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
             }
         });
     };
+
+    const deleteSingleRow = async (rowId: number) => {
+        try {
+            setLoading(true);
+
+            findApiToCall(`deleteSingle${upFirstLetter(modelName)}`).call(api_instance, rowId)
+                .then((res: any) => {
+                    const result = res.data;
+                    if (result.status) {
+                        console.log(page);
+                        fetchModelData(page, PAGE_SIZES[0], filters, sortStatus)
+                        /*   console.log(items);
+                           const filteredItems = items.filter((item: any) => item.id !== rowId);
+                           console.log('filtered',filteredItems.map(item=>item.id));
+                           console.log('row', rowId);
+                           setRecords(filteredItems);
+                           setInitialRecords(filteredItems);
+                           setItems(filteredItems);*/
+                    } else {
+                        showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
+                        console.error(`Error deleting the ${modelName} : `, result.message);
+                    }
+                });
+            setLoading(false);
+        } catch (error) {
+            showMessage('Error making delete request', 'error');
+            console.error('Error making delete request', error);
+            setLoading(false);
+        }
+    };
+
 
     const fetchModelData = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
@@ -289,13 +296,33 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         fetchDataFilterOption();
     }, []);
 
-    useEffect(() => {
 
-        emitter.on('deleteTableRow', deleteRow);
-        return () => {
-            emitter.off('deleteTableRow', deleteRow);
-        };
-    }, []);
+    useEffect(() => {
+        tableColumns = tableColumns.map((col: any) => {
+            if (col.accessor === 'action') {
+                const OriginalRender = col.render;
+
+                // Overwrite the render function and add the <span>test</span>
+                col.render = ({id}: any) => (
+                    <div className="flex gap-4 items-center w-max mx-auto">
+                        {OriginalRender({id})}
+                        {hasPermission('update-product') && (
+                            <NavLink to={`/${modelName}/edit/${id}`} className="flex hover:text-info">
+                                <EditIcon/>
+                            </NavLink>
+                        )}
+                        {hasPermission('delete-product') && (
+                            <button type="button" className="flex hover:text-danger"
+                                    onClick={() => deleteRow(id)}>
+                                <DeleteIcon/>
+                            </button>
+                        )}
+                    </div>
+                );
+            }
+            return col;
+        });
+    }, [tableColumns]);
 
     return (
         (!hasPermission(`read-${modelName}`) || loading) ? (

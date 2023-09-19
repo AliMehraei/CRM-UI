@@ -1,5 +1,5 @@
 import {NavLink} from 'react-router-dom';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import {formatDate} from "@fullcalendar/core";
 import {DeleteIcon, EditIcon} from "../../components/FormFields/CommonIcons";
@@ -89,19 +89,8 @@ const List = () => {
             sortable: false,
             textAlignment: 'center',
             render: ({id}: any) => (
-                <div className="flex gap-4 items-center w-max mx-auto">
-                    {hasPermission('update-product') && (
-                        <NavLink to={`/product/edit/${id}`} className="flex hover:text-info">
-                            <EditIcon/>
-                        </NavLink>
-                    )}
-                    {hasPermission('delete-product') && (
-                        <button type="button" className="flex hover:text-danger"
-                                onClick={() => emitter.emit('deleteTableRow', id)}>
-                            <DeleteIcon/>
-                        </button>
-                    )}
-                </div>
+                <>
+                </>
             ),
         },
     ];
