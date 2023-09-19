@@ -1,6 +1,6 @@
 import {Link, NavLink} from 'react-router-dom';
 import {DataTable, DataTableSortStatus} from 'mantine-datatable';
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import sortBy from 'lodash/sortBy';
 import {useDispatch, useSelector} from 'react-redux';
 import {IRootState} from '../../store';
@@ -25,8 +25,6 @@ const List = () => {
     useEffect(() => {
         if (!isLoading && !hasPermission('filter-product') && !hasPermission('read-product')) {
             setLoading(true);
-
-            return <LoadingSasCrm/>;
         }
 
         setLoading(false);
@@ -40,9 +38,9 @@ const List = () => {
 
     const [items, setItems] = useState([]);
     const [optionsFilter, setOptionsFilter] = useState([]);
-    const [selectedFields, setSelectedFields] = useState([]);
+    const [selectedFields, setSelectedFields] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [filters, setFilters] = useState([]);
+    const [filters, setFilters] = useState<any>([]);
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -64,11 +62,11 @@ const List = () => {
 
             const res = await api_instance.filterOptionProduct();
             // Transform the data
-            const transformedData = res.data.data.map((item) => {
+            const transformedData = res.data.data.map((item: any) => {
                 const conditions = item.condition;
                 return {
                     ...item,
-                    conditions: Object.entries(conditions).map(([key, condition]) => ({
+                    conditions: Object.entries(conditions).map(([key, condition]: any) => ({
                         value: key,
                         label: condition.value,
                         input: condition.input,
@@ -110,7 +108,7 @@ const List = () => {
     // Filter the options based on search query
     let filteredOptions: any = [];
     if (optionsFilter && optionsFilter.length > 0) {
-        filteredOptions = optionsFilter.filter((option) =>
+        filteredOptions = optionsFilter.filter((option: any) =>
             option.label.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
@@ -148,7 +146,7 @@ const List = () => {
                         api_instance.deleteSingleProduct(rowId).then((res) => {
                             const result = res.data;
                             if (result.status) {
-                                const filteredItems = items.filter((user) => user.id !== rowId);
+                                const filteredItems = items.filter((user: any) => user.id !== rowId);
                                 setRecords(filteredItems);
                                 setInitialRecords(filteredItems);
                                 setItems(filteredItems);
@@ -171,7 +169,7 @@ const List = () => {
                 } else {
                     let selectedRows = selectedRecords || [];
                     const ids = selectedRows.map((d: any) => d.id);
-                    ids.forEach((rowId) => deleteSingleRow(rowId));
+                    ids.forEach((rowId: any) => deleteSingleRow(rowId));
                     setSelectedRecords([]);
                     setPage(1);
                 }
@@ -190,7 +188,7 @@ const List = () => {
     const fetchDataProduct = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
         // if (!isLoading && hasPermission('filter-product') && hasPermission('read-product')) {
-        const {columnAccessor: sortField = '', direction: sortDirection = ''} = sortStatus;
+        const {columnAccessor: sortField = '', direction: sortDirection = ''}: any = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
             api_instance.fetchDataProduct({
@@ -227,8 +225,7 @@ const List = () => {
     }, [pageSize]);
 
     useEffect(() => {
-        const to = pageSize;
-        setRecords([...initialRecords.slice(0, to)]);
+        setRecords([...initialRecords.slice(0, pageSize)]);
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
@@ -246,36 +243,36 @@ const List = () => {
         scrollToTop();
     };
 
-    const handleFieldChange = (event, option) => {
-        const {value, checked} = event.target;
+    const handleFieldChange = (event: any, option: any) => {
+        const {value, checked}: any = event.target;
         if (checked) {
-            setFilters((prevFilters) => ({
+            setFilters((prevFilters: any) => ({
                 ...prevFilters,
                 [value]: {field: value, condition: '', value: '', model: option.model, type: option.type},
             }));
-            setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
+            setSelectedFields((prevSelectedFields: any) => [...prevSelectedFields, value]);
         } else {
-            setFilters((prevFilters) => {
+            setFilters((prevFilters: any) => {
                 const updatedFilters = {...prevFilters};
                 delete updatedFilters[value];
                 return updatedFilters;
             });
-            setSelectedFields((prevSelectedFields) =>
-                prevSelectedFields.filter((field) => field !== value)
+            setSelectedFields((prevSelectedFields: any) =>
+                prevSelectedFields.filter((field: any) => field !== value)
             );
         }
     };
 
-    const handleSortChange = (sortStatus) => {
+    const handleSortChange = (sortStatus: any) => {
         const {columnAccessor, direction = 'asc'} = sortStatus;
         setSortStatus({columnAccessor, direction});
         setPage(1);
         fetchDataProduct(page, pageSize, filters, {columnAccessor, direction});
     };
 
-    const handleConditionChange = (field, event) => {
+    const handleConditionChange = (field: any, event: any) => {
         const conditionsToClear = ['between', 'in_the_last', 'due_in'];
-        let updatedFilterValue = {...filters[field], condition: event.value};
+        let updatedFilterValue: any = {...(filters[field] as object), condition: event.value};
         if (conditionsToClear.includes(updatedFilterValue.condition)) {
             updatedFilterValue.value = '';
         }
