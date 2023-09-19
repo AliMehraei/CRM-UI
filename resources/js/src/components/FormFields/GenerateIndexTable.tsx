@@ -1,6 +1,6 @@
 import {Link, NavLink} from 'react-router-dom';
 import {DataTable, DataTableSortStatus} from 'mantine-datatable';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import sortBy from 'lodash/sortBy';
 import {useSelector} from 'react-redux';
 import {IRootState} from '../../store';
@@ -38,6 +38,9 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         columnAccessor: 'id',
         direction: 'asc',
     });
+
+    const pageRef = useRef(page);
+
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
@@ -101,7 +104,8 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         });
     };
 
-    const deleteRow = (id: any = null) => {
+    const deleteRow = (id: any = null, page) => {
+        console.log("page ref " , pageRef)
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
@@ -277,6 +281,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
 
     useEffect(() => {
         setRecords([...initialRecords.slice(0, pageSize)]);
+        pageRef.current = page;
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
@@ -313,7 +318,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                         )}
                         {hasPermission('delete-product') && (
                             <button type="button" className="flex hover:text-danger"
-                                    onClick={() => deleteRow(id)}>
+                                    onClick={() => deleteRow(id, page)}>
                                 <DeleteIcon/>
                             </button>
                         )}
