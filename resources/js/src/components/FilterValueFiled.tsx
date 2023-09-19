@@ -68,7 +68,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
             options = existingValue.options ?? [];
 
         } else {
-            options = event.map(item => item.value);
+            options = event.map((item: any) => item.value);
         }
 
 
@@ -85,7 +85,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         }
         handleValueChange(field, combinedValue);
     };
-    const handleSelectMultiple = (field, selectedOptions) => {
+    const handleSelectMultiple = (field: any, selectedOptions: any) => {
         let transformedObject;
 
         if (Array.isArray(selectedOptions)) {
@@ -101,14 +101,14 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         handleValueChange(field, transformedObject);
     };
 
-    const handleSelectMultipleUser = (field, selectedOptions) => {
+    const handleSelectMultipleUser = (field: any, selectedOptions: any) => {
         const userIds = {
-            options: selectedOptions.map(item => item.value)
+            options: selectedOptions.map((item: any) => item.value)
         };
         handleValueChange(field, userIds);
     };
 
-    const loadAdminUsers = async (inputValue, option) => {
+    const loadAdminUsers = async (inputValue: any, option: any) => {
         if (inputValue.length < 2) return [];
         const apiUrl = option.type_info.api;
         const valField = 'id';
@@ -116,9 +116,9 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         const avatarField = 'avatar';
         const emailField = 'email';
         try {
-            const result = await api_instance.loadAdminUsers(inputValue, apiUrl);
+            const result: any = await api_instance.loadAdminUsers(inputValue, apiUrl);
             if (result.status) {
-                const options = result.data.map((user) => ({
+                const options = result.data.map((user: any) => ({
                     value: user[valField],
                     label: (
                         <div key={user[valField]} className="flex items-center">
@@ -141,7 +141,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         }
     };
 
-    const loadModels = async (inputValue, option) => {
+    const loadModels = async (inputValue: any, option: any) => {
 
         if (inputValue.length < 2) return [];
         const apiUrl = option.type_info.api;
@@ -150,9 +150,9 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         const labelField = option.type_info.lable_filed;
 
         try {
-            const result = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
+            const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
             if (result.status) {
-                const options = result.data.data.map((model) => ({
+                const options = result.data.data.map((model: any) => ({
                     value: model[valField],
                     label: (
                         <div key={model[valField]} className="flex items-center">
