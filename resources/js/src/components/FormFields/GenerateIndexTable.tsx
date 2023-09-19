@@ -7,11 +7,11 @@ import {IRootState} from '../../store';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import {renderFilterValueFiled} from '../FilterValueFiled';
 import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 import {findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
 import {DeleteIcon, EditIcon} from "./CommonIcons";
+import {renderFilterValueFiled} from "../FilterFields/FilterValueField";
 
 const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
