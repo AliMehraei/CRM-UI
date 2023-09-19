@@ -176,8 +176,205 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
     if (!option.condition[condition].input) {
         return null;
     }
+    const BetweenInputs = ({onChange}: any) => (
+        <>
+            <label className="block text-sm text-gray-600">From:</label>
+            <input type="number" name="from" className="border p-2 w-full" onChange={onChange}/>
+            <label className="block text-sm text-gray-600">To:</label>
+            <input type="number" name="to" className="border p-2 w-full" onChange={onChange}/>
+        </>
+    );
 
-    if (type_condition == "number") {
+    const ValueInput = ({onChange, placeholder}: any) => (
+        <>
+            <label className="block font-semibold">Value:</label>
+            <input type="text" placeholder={placeholder} className="border p-2 w-full" onChange={onChange}/>
+        </>
+    );
+
+    const DurationInput = ({onChange, optionValue}: any) => (
+        <div className=" mt-4">
+            <label className="block font-semibold">Duration:</label>
+            <div className="mb-2">
+                <input
+                    type="number"
+                    placeholder='Days'
+                    className="border p-2 w-1/2"
+                    min="1"
+                    name='duration'
+                    onChange={(event) => onChange(optionValue, event, 'is')}
+                />
+                <select
+                    name='duration_condition'
+                    className="border p-2 w-1/2"
+                    placeholder='Select a Condition'
+                    onChange={(event) => onChange(optionValue, event, 'is')}
+                >
+                    <option value="=">=</option>
+                    <option value="<">&lt;</option>
+                    <option value=">">&gt;</option>
+                    <option value="<=">&lt;=</option>
+                    <option value=">=">&gt;=</option>
+                </select>
+            </div>
+        </div>
+    );
+
+
+    const DefaultInput = ({placeholder, onChange, label}: any) => (
+        <>
+            <label className="block font-semibold">{label}</label>
+            <input
+                type="text"
+                placeholder={placeholder}
+                className="border p-2 w-full"
+                onChange={onChange}
+            />
+        </>
+    );
+
+    const DateRangeInput = ({onChange}: any) => (
+        <>
+            <label className="block text-sm text-gray-600">From:</label>
+            <input type="date" name="from" className="border p-2 w-full" onChange={onChange}/>
+            <label className="block text-sm text-gray-600">To:</label>
+            <input type="date" name="to" className="border p-2 w-full" onChange={onChange}/>
+        </>
+    );
+
+    const PeriodInput = ({onChange}: any) => (
+        <>
+            <div className="flex">
+                <input
+                    type="number"
+                    placeholder='2'
+                    className="border p-2 w-1/2"
+                    min="1"
+                    name='period_val'
+                    onChange={onChange}
+                />
+                <select
+                    name='period'
+                    className="border p-2 w-1/2"
+                    defaultValue="days"
+                    onChange={onChange}
+                >
+                    <option value="days">Days</option>
+                    <option value="weeks">Weeks</option>
+                    <option value="months">Months</option>
+                </select>
+            </div>
+        </>
+    );
+
+    const SingleDateInput = ({onChange}: any) => (
+        <>
+            <input
+                type="date"
+                className="border p-2 w-full"
+                onChange={onChange}
+            />
+        </>
+    );
+
+    const AsyncMultiInput = ({placeholder, loadOptions, onChange}: any) => (
+        <AsyncSelect
+            placeholder={placeholder}
+            loadOptions={loadOptions}
+            onChange={onChange}
+            isMulti
+        />
+    );
+    const SelectComponent = ({options, condition, optionValue, isMulti = false}: any) => {
+        const optionsFormed = Object.keys(options || {}).map(key => ({value: key, label: options[key]}));
+        return (
+            <Select
+                placeholder="Select an option"
+                onChange={(e) => (isMulti ? handleSelectMultipleDuration(optionValue, e, condition) : handleSelectMultiple(optionValue, e))}
+                options={optionsFormed}
+                isMulti={isMulti}
+            />
+        );
+    };
+
+    const typeConditionHandlers: any = {
+        "number": {
+            "between": () => <BetweenInputs onChange={(e: any) => handelBetween(option.value, e)}/>,
+            "not_between": () => <BetweenInputs onChange={(e: any) => handelBetween(option.value, e)}/>,
+            "default": () => <ValueInput onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                         placeholder="Search value"/>
+        },
+        "select": {
+            "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}/>,
+            "is": () => <SelectComponent options={option.options} condition="is" optionValue={option.value}/>,
+            "default": () => <ValueInput onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                         placeholder="Search value that contains"/>
+        },
+        "select2_multiple_duration": {
+            "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
+                                             isMulti={true}/>,
+            "is": () => (
+                <>
+                    <SelectComponent options={option.options} condition="is" optionValue={option.value} isMulti={true}/>
+                    <DurationInput onChange={handleSelectMultipleDuration} optionValue={option.value}/>
+                </>
+            ),
+            "default": () => <ValueInput onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                         placeholder="Search value that contains"/>
+        },
+        "select2_multiple_api_user": {
+            "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                                                        loadOptions={(e: any) => loadAdminUsers(e, option)}
+                                                        onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
+            "is": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                                                    loadOptions={(e: any) => loadAdminUsers(e, option)}
+                                                    onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
+            "default": (option: any) => <DefaultInput placeholder="Search value that contains"
+                                                      onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                                      label="Value:"/>
+        },
+        "select2_multiple_api": {
+            "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                                                        loadOptions={(e: any) => loadModels(e, option)}
+                                                        onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
+            "is": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                                                    loadOptions={(e: any) => loadModels(e, option)}
+                                                    onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
+            "default": (option: any) => <DefaultInput placeholder="Search value that contains"
+                                                      onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                                      label="Value:"/>
+        },
+        "text": {
+            "between": (option: any) => <DateRangeInput onChange={(e: any) => handelBetween(option.value, e)}/>,
+            "in_the_last": (option: any) => <PeriodInput onChange={(e: any) => handelDueIn(option.value, e)}/>,
+            "due_in": (option: any) => <PeriodInput onChange={(e: any) => handelDueIn(option.value, e)}/>,
+            "on": (option: any) => <SingleDateInput onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
+            "before": (option: any) => <SingleDateInput
+                onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
+            "after": (option: any) => <SingleDateInput onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
+            "default": (option: any) => <DefaultInput placeholder="Search value that contains"
+                                                      onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                                      label="Value:"/>
+        },
+        "date": {
+            "between": (option: any) => <DateRangeInput onChange={(e: any) => handelBetween(option.value, e)}/>,
+            "in_the_last": (option: any) => <PeriodInput onChange={(e: any) => handelDueIn(option.value, e)}/>,
+            "due_in": (option: any) => <PeriodInput onChange={(e: any) => handelDueIn(option.value, e)}/>,
+            "on": (option: any) => <SingleDateInput onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
+            "before": (option: any) => <SingleDateInput
+                onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
+            "after": (option: any) => <SingleDateInput onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
+            "default": (option: any) => <DefaultInput placeholder="Search value that contains"
+                                                      onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                                      label="Value:"/>
+        }
+    };
+
+    if (typeConditionHandlers[type_condition]) {
+        return typeConditionHandlers[type_condition][condition] ? typeConditionHandlers[type_condition][condition](option) : typeConditionHandlers[type_condition]['default'](option);
+    }
+
+    /*if (type_condition == "number") {
         switch (condition) {
 
             case 'between':
@@ -556,7 +753,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     </>
                 );
         }
-    }
+    }*/
 
 
 }
