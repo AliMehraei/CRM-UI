@@ -39,7 +39,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         direction: 'asc',
     });
 
-    const pageRef = useRef(page);
+    const filterOptionRef: any = useRef();
 
     const fetchDataFilterOption = async () => {
         setLoading(true);
@@ -75,7 +75,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         });
     };
 
-    const applyFilters = () => {
+    const applyFilters = ({page, pageSize, filters, sortStatus}: any) => {
         setResetFilter(false);
         scrollToTop();
         fetchModelData(page, pageSize, filters, sortStatus);
@@ -104,8 +104,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         });
     };
 
-    const deleteRow = (id: any = null, page) => {
-        console.log("page ref " , pageRef)
+    const deleteRow = (id: any = null) => {
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
@@ -117,7 +116,6 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         }).then((result) => {
             if (result.value) {
                 if (id) {
-                    console.log("before delete page : ", page)
                     deleteSingleRow(id);
                     setSelectedRecords([]);
                 } else {
@@ -145,8 +143,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                 .then((res: any) => {
                     const result = res.data;
                     if (result.status) {
-                        console.log(page);
-                        fetchModelData(page, PAGE_SIZES[0], filters, sortStatus)
+                        applyFilters(filterOptionRef.current);
                         /*   console.log(items);
                            const filteredItems = items.filter((item: any) => item.id !== rowId);
                            console.log('filtered',filteredItems.map(item=>item.id));
@@ -272,6 +269,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
+        filterOptionRef.current = {...filterOptionRef.current, sortStatus};
         setInitialRecords(reversedData);
     }, [items, sortStatus]);
 
@@ -281,13 +279,17 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
 
     useEffect(() => {
         setRecords([...initialRecords.slice(0, pageSize)]);
-        pageRef.current = page;
+        filterOptionRef.current = {...filterOptionRef.current, page, pageSize};
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
+        filterOptionRef.current = {...filterOptionRef.current, page, pageSize, sortStatus};
         fetchModelData(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, resetFilter]);
 
+    useEffect(() => {
+        filterOptionRef.current = {...filterOptionRef.current, filters};
+    }, [filters]);
     useEffect(() => {
         if (!isLoading && !hasPermission(`filter-${modelName}`) && !hasPermission(`read-${modelName}`)) {
             setLoading(true);
@@ -318,7 +320,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                         )}
                         {hasPermission('delete-product') && (
                             <button type="button" className="flex hover:text-danger"
-                                    onClick={() => deleteRow(id, page)}>
+                                    onClick={() => deleteRow(id)}>
                                 <DeleteIcon/>
                             </button>
                         )}
@@ -417,7 +419,8 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                 {/* Apply filter button */}
                                 {selectedFields.length > 0 && (
                                     <div className="flex flex-wrap justify-between space-x-2 md:space-x-4">
-                                        <button onClick={(e) => applyFilters()} className="btn btn-sm btn-primary">
+                                        <button onClick={() => applyFilters({page, pageSize, filters, sortStatus})}
+                                                className="btn btn-sm btn-primary">
                                             Apply Filter
                                         </button>
 
