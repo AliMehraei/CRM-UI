@@ -149,7 +149,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                 }
                 Swal.fire({
                     title: 'Deleted!',
-                    text: 'Your file has been deleted.',
+                    text: 'Row has been deleted.',
                     icon: 'success',
                     customClass: 'sweet-alerts'
                 });
