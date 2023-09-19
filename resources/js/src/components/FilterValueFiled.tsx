@@ -118,7 +118,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         try {
             const result: any = await api_instance.loadAdminUsers(inputValue, apiUrl);
             if (result.status) {
-                const options = result.data.map((user: any) => ({
+                return result.data.map((user: any) => ({
                     value: user[valField],
                     label: (
                         <div key={user[valField]} className="flex items-center">
@@ -130,7 +130,6 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                         </div>
                     ),
                 }));
-                return options;
             } else {
                 console.error('An error occurred while fetching users', result.message);
                 return [];
@@ -152,7 +151,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
         try {
             const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
             if (result.status) {
-                const options = result.data.data.map((model: any) => ({
+                return result.data.data.map((model: any) => ({
                     value: model[valField],
                     label: (
                         <div key={model[valField]} className="flex items-center">
@@ -162,7 +161,6 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                         </div>
                     ),
                 }));
-                return options;
             } else {
                 console.error('An error occurred while fetching users', result.message);
                 return [];
@@ -432,7 +430,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                                onChange={(e) => handelBetween(option.value, e)}/>
                     </>
                 )
-                break;
+
             case 'is_empty':
             case 'is_not_empty':
 
@@ -502,7 +500,6 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                                onChange={(e) => handelBetween(option.value, e)}/>
                     </>
                 )
-                break;
             case 'is_empty':
             case 'is_not_empty':
 
