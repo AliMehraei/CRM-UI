@@ -380,7 +380,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                             </div>
                                             {/* Search options and Input text for selected fields */}
                                             {selectedFields.length > 0 && selectedFields.includes(option.value) && (
-                                                <div key={option.value + Math.random()}>
+                                                <div key={index + option.value}>
                                                     <h3 className="text-lg font-semibold mt-4">Search Options</h3>
                                                     <div className="mb-4">
                                                         <div className="mb-2">
