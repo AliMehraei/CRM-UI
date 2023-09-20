@@ -4,15 +4,15 @@ import {useEffect, useRef, useState} from 'react';
 import sortBy from 'lodash/sortBy';
 import {useDispatch, useSelector} from 'react-redux';
 import {IRootState} from '../../store';
-import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
 import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
 import {findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
 import {DeleteIcon, EditIcon} from "../FormFields/CommonIcons";
-import FilterValueField from "./FilterValueField";
 import {resetFilterSlice} from "../../store/filterSlice";
+import CheckboxComponent from "./CheckboxComponent";
+import SearchOptionComponent from "./SeachOptionComponent";
 
 const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const dispatch = useDispatch();
@@ -371,43 +371,18 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                         <label className="block font-semibold">Filter by:</label>
                                         {filteredOptions.map((option: any, index: any) => (
                                             <div key={option.value + index}>
-                                                <div key={option.value} className="mb-2">
-                                                    <label className="flex items-center cursor-pointer">
-                                                        <input type="checkbox"
-                                                               value={option.value}
-                                                               onChange={(e) => handleFieldChange(e, option)}
-                                                               checked={selectedFields.includes(option.value)}
-                                                               className="form-checkbox"/>
-                                                        <span className="text-dark">{option.label}</span>
-                                                    </label>
-                                                </div>
-                                                {/* Search options and Input text for selected fields */}
-                                                {selectedFields.length > 0 && selectedFields.includes(option.value) && (
-                                                    <div key={index + option.value}>
-                                                        <h3 className="text-lg font-semibold mt-4">Search Options</h3>
-                                                        <div className="mb-4">
-                                                            <div className="mb-2">
-                                                                <label className="block font-semibold">Search include
-                                                                    for {option.value}:</label>
-                                                                <Select
-                                                                    onChange={(e) => handleConditionChange(option.value, e)}
-                                                                    placeholder="Select an include"
-                                                                    options={option.conditions}/>
-                                                            </div>
-                                                            {filters[option.value] && (
-                                                                <div className="mb-2">
+                                                <CheckboxComponent option={option} handleFieldChange={handleFieldChange}
+                                                                   selectedFields={selectedFields}/>
 
-                                                                    <FilterValueField key={index + option.value}
-                                                                                      filterSelect={filters[option.value]}
-                                                                                      option={option}
-                                                                                      setFilters={setFilters}
-                                                                                      filters={filters}
-                                                                                      filterState={filterState}
-                                                                    />
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    </div>
+                                                {selectedFields.includes(option.value) && (
+                                                    <SearchOptionComponent
+                                                        option={option}
+                                                        handleConditionChange={handleConditionChange}
+                                                        filters={filters}
+                                                        filterState={filterState}
+                                                        setFilters={setFilters}
+                                                        filterOptionRef={filterOptionRef}
+                                                    />
                                                 )}
                                             </div>
                                         ))}
