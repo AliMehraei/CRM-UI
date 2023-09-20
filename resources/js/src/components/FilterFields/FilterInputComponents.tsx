@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 
-export const BetweenInputs = ({onChange, defaultValue}: any) => (
+export const BetweenInputs = ({onChange,  defaultValue}: any) => (
     <>
         <label className="block text-sm text-gray-600">From:</label>
         <input defaultValue={defaultValue} type="number" name="from" className="border p-2 w-full" onChange={onChange}/>
@@ -10,14 +10,14 @@ export const BetweenInputs = ({onChange, defaultValue}: any) => (
     </>
 );
 
-export const ValueInput = ({onChange, placeholder}: any) => (
+export const ValueInput = ({onChange, placeholder, defaultValue}: any) => (
     <>
         <label className="block font-semibold">Value:</label>
         <input type="text" placeholder={placeholder} className="border p-2 w-full" onChange={onChange}/>
     </>
 );
 
-export const DurationInput = ({onChange, optionValue}: any) => (
+export const DurationInput = ({onChange, optionValue, defaultValue}: any) => (
     <div className=" mt-4">
         <label className="block font-semibold">Duration:</label>
         <div className="mb-2">
@@ -46,19 +46,20 @@ export const DurationInput = ({onChange, optionValue}: any) => (
 );
 
 
-export const DefaultInput = ({placeholder, onChange, label}: any) => (
+export const DefaultInput = ({placeholder, onChange, label, defaultValue}: any) => (
     <>
         <label className="block font-semibold">{label}</label>
         <input
             type="text"
             placeholder={placeholder}
             className="border p-2 w-full"
+            defaultValue={defaultValue}
             onChange={onChange}
         />
     </>
 );
 
-export const DateRangeInput = ({onChange}: any) => (
+export const DateRangeInput = ({onChange, defaultValue}: any) => (
     <>
         <label className="block text-sm text-gray-600">From:</label>
         <input type="date" name="from" className="border p-2 w-full" onChange={onChange}/>
@@ -67,7 +68,7 @@ export const DateRangeInput = ({onChange}: any) => (
     </>
 );
 
-export const PeriodInput = ({onChange, defaultValue = 2}: any) => (
+export const PeriodInput = ({onChange,  defaultValue}: any) => (
     <>
         <div className="flex">
             <input
@@ -93,7 +94,7 @@ export const PeriodInput = ({onChange, defaultValue = 2}: any) => (
     </>
 );
 
-export const SingleDateInput = ({onChange}: any) => (
+export const SingleDateInput = ({onChange, defaultValue}: any) => (
     <>
         <input
             type="date"
@@ -103,7 +104,7 @@ export const SingleDateInput = ({onChange}: any) => (
     </>
 );
 
-export const AsyncMultiInput = ({placeholder, loadOptions, onChange}: any) => (
+export const AsyncMultiInput = ({placeholder, loadOptions, onChange, defaultValue}: any) => (
     <AsyncSelect
         placeholder={placeholder}
         loadOptions={loadOptions}
@@ -111,7 +112,7 @@ export const AsyncMultiInput = ({placeholder, loadOptions, onChange}: any) => (
         isMulti
     />
 );
-export const SelectComponent = ({options, condition, optionValue, isMulti = false, handleSelectMultipleDuration, handleSelectMultiple}: any) => {
+export const SelectComponent = ({options, condition, optionValue, isMulti = false, handleSelectMultipleDuration, handleSelectMultiple, defaultValue}: any) => {
     const optionsFormed = Object.keys(options || {}).map(key => ({value: key, label: options[key]}));
     return (
         <Select
