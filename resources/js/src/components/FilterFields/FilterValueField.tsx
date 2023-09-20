@@ -10,6 +10,7 @@ import {
 import React from "react";
 import {useDispatch} from "react-redux";
 import {updateFilterSlice} from "../../store/filterSlice";
+import {loadModels} from "../Functions/CommonFunctions";
 
 const api_instance = new api();
 
@@ -151,36 +152,6 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
         }
     };
 
-    const loadModels = async (inputValue: any, option: any) => {
-
-        if (inputValue.length < 2) return [];
-        const apiUrl = option.type_info.api;
-        const apiMethod = option.type_info.method;
-        const valField = option.type_info.value_flield;
-        const labelField = option.type_info.lable_filed;
-
-        try {
-            const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
-            if (result.status) {
-                return result.data.data.map((model: any) => ({
-                    value: model[valField],
-                    label: (
-                        <div key={model[valField]} className="flex items-center">
-                            <div>
-                                <div className="text-sm font-bold">{model[labelField]}</div>
-                            </div>
-                        </div>
-                    ),
-                }));
-            } else {
-                console.error('An error occurred while fetching data ', result.message);
-                return [];
-            }
-        } catch (error) {
-            console.error('An error occurred while fetching data : ', error);
-            return [];
-        }
-    };
     const condition = filterSelect.condition;
     const type_condition = option.type;
     if (!option.condition[condition]) return null;
@@ -223,6 +194,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
             "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
                                                         loadOptions={(e: any) => loadAdminUsers(e, option)}
                                                         defaultValue={defaultValue}
+                                                        typeInfo={type_condition}
                                                         onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
             "is": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
                                                     loadOptions={(e: any) => loadAdminUsers(e, option)}

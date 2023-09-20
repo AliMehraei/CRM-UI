@@ -1,5 +1,6 @@
 import api from "../../config/api";
 import {EventEmitter} from "events";
+import React from "react";
 
 const api_instance = new api();
 
@@ -390,5 +391,36 @@ export const findApiToCall = (functionName: string) => {
 export const upFirstLetter = (string: string) => {
     return string.replace(/^./, string[0].toUpperCase())
 }
+
+export const loadModels = async (inputValue: any, option: any) => {
+
+    if (inputValue.length < 2) return [];
+    const apiUrl = option.type_info.api;
+    const apiMethod = option.type_info.method;
+    const valField = option.type_info.value_flield;
+    const labelField = option.type_info.lable_filed;
+
+    try {
+        const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
+        if (result.status) {
+            return result.data.data.map((model: any) => ({
+                value: model[valField],
+                label: (
+                    <div key={model[valField]} className="flex items-center">
+                        <div>
+                            <div className="text-sm font-bold">{model[labelField]}</div>
+                        </div>
+                    </div>
+                ),
+            }));
+        } else {
+            console.error('An error occurred while fetching data ', result.message);
+            return [];
+        }
+    } catch (error) {
+        console.error('An error occurred while fetching data : ', error);
+        return [];
+    }
+};
 
 export const emitter = new EventEmitter();
