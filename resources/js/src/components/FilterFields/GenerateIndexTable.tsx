@@ -2,7 +2,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {DataTable, DataTableSortStatus} from 'mantine-datatable';
 import {useEffect, useRef, useState} from 'react';
 import sortBy from 'lodash/sortBy';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IRootState} from '../../store';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
@@ -11,9 +11,13 @@ import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
 import {findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
 import {DeleteIcon, EditIcon} from "../FormFields/CommonIcons";
-import {renderFilterValueFiled} from "./FilterValueField";
+import FilterValueField from "./FilterValueField";
+import {resetFilterSlice} from "../../store/filterSlice";
 
 const GenerateIndexTable = ({modelName, tableColumns}: any) => {
+    const dispatch = useDispatch();
+    const filterState = useSelector((state: any) => state.filters);
+
     const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
@@ -272,6 +276,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
 
     useEffect(() => {
         fetchDataFilterOption();
+        dispatch(resetFilterSlice())
     }, []);
 
 
@@ -370,39 +375,36 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                                            onChange={(e) => handleFieldChange(e, option)}
                                                            checked={selectedFields.includes(option.value)}
                                                            className="form-checkbox"/>
-                                                    <span className=" text-dark">{option.label}</span>
+                                                    <span className="text-dark">{option.label}</span>
                                                 </label>
-
                                             </div>
                                             {/* Search options and Input text for selected fields */}
-                                            {selectedFields.length > 0 && (
-                                                <>
-                                                    {
-                                                        selectedFields.includes(option.value) ? (
-                                                            <div key={option.value}>
-                                                                <h3 className="text-lg font-semibold mt-4">Search
-                                                                    Options</h3>
-                                                                <div className="mb-4">
-                                                                    <div className="mb-2">
-                                                                        <label className="block font-semibold">Search
-                                                                            include for {option.value}:</label>
-                                                                        <Select
-                                                                            onChange={(e) => handleConditionChange(option.value, e)}
-                                                                            placeholder="Select an include"
-                                                                            options={option.conditions}/>
-                                                                    </div>
-                                                                    {filters[option.value] != null && (
-                                                                        <>
-                                                                            <div className="mb-2">
-                                                                                {renderFilterValueFiled(filters[option.value], option, setFilters, filters)}
-                                                                            </div>
-                                                                        </>
-                                                                    )}
-                                                                </div>
+                                            {selectedFields.length > 0 && selectedFields.includes(option.value) && (
+                                                <div key={option.value + Math.random()}>
+                                                    <h3 className="text-lg font-semibold mt-4">Search Options</h3>
+                                                    <div className="mb-4">
+                                                        <div className="mb-2">
+                                                            <label className="block font-semibold">Search include
+                                                                for {option.value}:</label>
+                                                            <Select
+                                                                onChange={(e) => handleConditionChange(option.value, e)}
+                                                                placeholder="Select an include"
+                                                                options={option.conditions}/>
+                                                        </div>
+                                                        {filters[option.value] && (
+                                                            <div className="mb-2">
+
+                                                                <FilterValueField key={index + option.value}
+                                                                                  filterSelect={filters[option.value]}
+                                                                                  option={option}
+                                                                                  setFilters={setFilters}
+                                                                                  filters={filters}
+                                                                                  filterState={filterState}
+                                                                />
                                                             </div>
-                                                        ) : null
-                                                    }
-                                                </>
+                                                        )}
+                                                    </div>
+                                                </div>
                                             )}
                                         </div>
                                     ))}

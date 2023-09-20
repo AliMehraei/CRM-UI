@@ -8,14 +8,18 @@ import {
     ValueInput
 } from "./FilterInputComponents";
 import React from "react";
+import {useDispatch} from "react-redux";
 
 const api_instance = new api();
 
-export const renderFilterValueFiled = (filterSelect: any, option: any, setFilters: any, filters: any) => {
+const FilterValueField = ({filterSelect, option, setFilters, filters, filterState}: any) => {
+    const dispatch = useDispatch();
+
     const handleValueChange = (field: any, value: any) => {
 
         const updatedFilters = {...filters};
         updatedFilters[field] = {...updatedFilters[field], value};
+        // dispatch(updateFilterSlice({"test": 1}))
 
         setFilters(updatedFilters);
     };
@@ -644,3 +648,4 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
 
 }
 
+export default FilterValueField;
