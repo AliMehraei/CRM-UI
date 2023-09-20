@@ -333,139 +333,145 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         (!hasPermission(`read-${modelName}`) || loading) ? (
             <LoadingSasCrm/>
         ) : (
-            <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-                <div className={`${modelName}-table`}>
-                    <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
-                        <div className="flex items-center gap-2">
+            <>
 
-                            {hasPermission(`delete-${modelName}`) && deleteButton}
+                <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
 
-                            {hasPermission(`create-${modelName}`) && (
-                                <Link to={`/${modelName}/add`} className="btn btn-primary gap-2">
-                                    Add New
-                                </Link>
-                            )}
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-5 gap-6 mb-6">
-                        {hasPermission(`filter-${modelName}`) && (
-                            <div className="panel col-span-1">
-                                <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
+                    <div className={`${modelName}-table`}>
+                        <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
+                            <div className="flex items-center gap-2">
 
-                                {/* Search input */}
-                                <div className="mb-4">
-                                    <input
-                                        type="text"
-                                        placeholder="Search fields..."
-                                        className="border p-2 w-full"
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-                                </div>
+                                {hasPermission(`delete-${modelName}`) && deleteButton}
 
-                                {/* Filter by options */}
-                                <div className="mb-4">
-                                    <label className="block font-semibold">Filter by:</label>
-                                    {filteredOptions.map((option: any, index: any) => (
-                                        <div key={option.value + index}>
-                                            <div key={option.value} className="mb-2">
-                                                <label className="flex items-center cursor-pointer">
-                                                    <input type="checkbox"
-                                                           value={option.value}
-                                                           onChange={(e) => handleFieldChange(e, option)}
-                                                           checked={selectedFields.includes(option.value)}
-                                                           className="form-checkbox"/>
-                                                    <span className="text-dark">{option.label}</span>
-                                                </label>
-                                            </div>
-                                            {/* Search options and Input text for selected fields */}
-                                            {selectedFields.length > 0 && selectedFields.includes(option.value) && (
-                                                <div key={index + option.value}>
-                                                    <h3 className="text-lg font-semibold mt-4">Search Options</h3>
-                                                    <div className="mb-4">
-                                                        <div className="mb-2">
-                                                            <label className="block font-semibold">Search include
-                                                                for {option.value}:</label>
-                                                            <Select
-                                                                onChange={(e) => handleConditionChange(option.value, e)}
-                                                                placeholder="Select an include"
-                                                                options={option.conditions}/>
-                                                        </div>
-                                                        {filters[option.value] && (
-                                                            <div className="mb-2">
-
-                                                                <FilterValueField key={index + option.value}
-                                                                                  filterSelect={filters[option.value]}
-                                                                                  option={option}
-                                                                                  setFilters={setFilters}
-                                                                                  filters={filters}
-                                                                                  filterState={filterState}
-                                                                />
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    ))}
-                                </div>
-
-
-                                {/* Apply filter button */}
-                                {selectedFields.length > 0 && (
-                                    <div className="flex flex-wrap justify-between space-x-2 md:space-x-4">
-                                        <button onClick={() => applyFilters({page, pageSize, filters, sortStatus})}
-                                                className="btn btn-sm btn-primary">
-                                            Apply Filter
-                                        </button>
-
-                                        <button onClick={resetFilters} className="btn btn-sm btn-outline-primary">
-                                            Reset
-                                        </button>
-                                    </div>
-
+                                {hasPermission(`create-${modelName}`) && (
+                                    <Link to={`/${modelName}/add`} className="btn btn-primary gap-2">
+                                        Add New
+                                    </Link>
                                 )}
                             </div>
-                        )}
+                        </div>
+                        <div className="grid grid-cols-5 gap-6 mb-6">
+                            {hasPermission(`filter-${modelName}`) && (
+                                <div className="panel col-span-1">
+                                    <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
-                        <div className="panel col-span-4">
-                            <div className="datatables pagination-padding">
-                                {loading ? (
-                                    <div className='flex justify-center'>
+                                    {/* Search input */}
+                                    <div className="mb-4">
+                                        <input
+                                            type="text"
+                                            placeholder="Search fields..."
+                                            className="border p-2 w-full"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                        />
+                                    </div>
+
+                                    {/* Filter by options */}
+                                    <div className="mb-4">
+                                        <label className="block font-semibold">Filter by:</label>
+                                        {filteredOptions.map((option: any, index: any) => (
+                                            <div key={option.value + index}>
+                                                <div key={option.value} className="mb-2">
+                                                    <label className="flex items-center cursor-pointer">
+                                                        <input type="checkbox"
+                                                               value={option.value}
+                                                               onChange={(e) => handleFieldChange(e, option)}
+                                                               checked={selectedFields.includes(option.value)}
+                                                               className="form-checkbox"/>
+                                                        <span className="text-dark">{option.label}</span>
+                                                    </label>
+                                                </div>
+                                                {/* Search options and Input text for selected fields */}
+                                                {selectedFields.length > 0 && selectedFields.includes(option.value) && (
+                                                    <div key={index + option.value}>
+                                                        <h3 className="text-lg font-semibold mt-4">Search Options</h3>
+                                                        <div className="mb-4">
+                                                            <div className="mb-2">
+                                                                <label className="block font-semibold">Search include
+                                                                    for {option.value}:</label>
+                                                                <Select
+                                                                    onChange={(e) => handleConditionChange(option.value, e)}
+                                                                    placeholder="Select an include"
+                                                                    options={option.conditions}/>
+                                                            </div>
+                                                            {filters[option.value] && (
+                                                                <div className="mb-2">
+
+                                                                    <FilterValueField key={index + option.value}
+                                                                                      filterSelect={filters[option.value]}
+                                                                                      option={option}
+                                                                                      setFilters={setFilters}
+                                                                                      filters={filters}
+                                                                                      filterState={filterState}
+                                                                    />
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+
+
+                                    {/* Apply filter button */}
+                                    {selectedFields.length > 0 && (
+                                        <div className="flex justify-between space-x-2  "
+                                             style={{position: 'fixed', left: -58, zIndex: 99999, top: "50vh", transform: "rotate(90deg)"}}>
+                                            <button onClick={() => applyFilters({page, pageSize, filters, sortStatus})}
+                                                    className="btn btn-sm btn-primary">
+                                                Apply Filter
+                                            </button>
+
+                                            <button onClick={resetFilters} className="btn btn-sm btn-dark">
+                                                Reset
+                                            </button>
+                                        </div>
+
+                                    )}
+                                </div>
+                            )}
+
+                            <div className="panel col-span-4">
+                                <div className="datatables pagination-padding">
+                                    {loading ? (
+                                        <div className='flex justify-center'>
                                         <span
                                             className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
-                                    </div>
-                                ) : (
+                                        </div>
+                                    ) : (
 
-                                    <DataTable
-                                        className={`${isDark} whitespace-nowrap table-hover`}
-                                        records={records}
-                                        columns={tableColumns}
-                                        highlightOnHover
-                                        totalRecords={totalItems}
-                                        recordsPerPage={pageSize}
-                                        page={page}
-                                        onPageChange={setPage}
-                                        recordsPerPageOptions={PAGE_SIZES}
-                                        onRecordsPerPageChange={setPageSize}
-                                        sortStatus={sortStatus}
-                                        onSortStatusChange={handleSortChange}
-                                        selectedRecords={selectedRecords}
-                                        onSelectedRecordsChange={setSelectedRecords}
-                                        paginationText={({
-                                                             from,
-                                                             to,
-                                                             totalRecords
-                                                         }) => `Showing ${from} to ${to} of ${totalRecords} entries`}
-                                    />
-                                )}
+                                        <DataTable
+                                            className={`${isDark} whitespace-nowrap table-hover`}
+                                            records={records}
+                                            columns={tableColumns}
+                                            highlightOnHover
+                                            totalRecords={totalItems}
+                                            recordsPerPage={pageSize}
+                                            page={page}
+                                            onPageChange={setPage}
+                                            recordsPerPageOptions={PAGE_SIZES}
+                                            onRecordsPerPageChange={setPageSize}
+                                            sortStatus={sortStatus}
+                                            onSortStatusChange={handleSortChange}
+                                            selectedRecords={selectedRecords}
+                                            onSelectedRecordsChange={setSelectedRecords}
+                                            paginationText={({
+                                                                 from,
+                                                                 to,
+                                                                 totalRecords
+                                                             }) => `Showing ${from} to ${to} of ${totalRecords} entries`}
+                                        />
+                                    )}
+
+                                </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
+            </>
+
         )
     );
 };
