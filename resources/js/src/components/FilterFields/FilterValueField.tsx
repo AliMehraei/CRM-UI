@@ -173,11 +173,11 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
                     ),
                 }));
             } else {
-                console.error('An error occurred while fetching users', result.message);
+                console.error('An error occurred while fetching data ', result.message);
                 return [];
             }
         } catch (error) {
-            console.error('An error occurred while fetching users:', error);
+            console.error('An error occurred while fetching data : ', error);
             return [];
         }
     };
@@ -194,14 +194,14 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
                                             onChange={(e: any) => handelBetween(option.value, e)}/>,
             "not_between": () => <BetweenInputs defaultValue={defaultValue}
                                                 onChange={(e: any) => handelBetween(option.value, e)}/>,
-            "default": () => <ValueInput defaultValue={defaultValue.value}
+            "default": () => <ValueInput defaultValue={defaultValue}
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value"/>
         },
         "select": {
             "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}/>,
             "is": () => <SelectComponent options={option.options} condition="is" optionValue={option.value}/>,
-            "default": () => <ValueInput defaultValue={defaultValue.value}
+            "default": () => <ValueInput defaultValue={defaultValue}
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value that contains"/>
         },
@@ -215,7 +215,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
                                    optionValue={option.value}/>
                 </>
             ),
-            "default": () => <ValueInput defaultValue={defaultValue.value}
+            "default": () => <ValueInput defaultValue={defaultValue}
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value that contains"/>
         },
@@ -229,7 +229,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
                                                     defaultValue={defaultValue}
                                                     onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
             "default": (option: any) => <DefaultInput placeholder="Search value that contains"
-                                                      defaultValue={defaultValue.value}
+                                                      defaultValue={defaultValue}
                                                       onChange={(e: any) => handleInputValueChange(option.value, e)}
                                                       label="Value:"/>
         },
@@ -261,7 +261,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
             "after": (option: any) => <SingleDateInput defaultValue={defaultValue}
                                                        onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
             "default": (option: any) => <DefaultInput placeholder="Search value that contains"
-                                                      defaultValue={defaultValue.value}
+                                                      defaultValue={defaultValue}
                                                       onChange={(e: any) => handleInputValueChange(option.value, e)}
                                                       label="Value:"/>
         },
@@ -279,7 +279,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
             "after": (option: any) => <SingleDateInput defaultValue={defaultValue}
                                                        onChange={(e: any) => handleInputValueChange(option.value, e)}/>,
             "default": (option: any) => <DefaultInput placeholder="Search value that contains"
-                                                      defaultValue={defaultValue.value}
+                                                      defaultValue={defaultValue}
                                                       onChange={(e: any) => handleInputValueChange(option.value, e)}
                                                       label="Value:"/>
         }
@@ -288,388 +288,6 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
     if (typeConditionHandlers[type_condition]) {
         return typeConditionHandlers[type_condition][condition] ? typeConditionHandlers[type_condition][condition](option) : typeConditionHandlers[type_condition]['default'](option);
     }
-
-    /*if (type_condition == "number") {
-        switch (condition) {
-
-            case 'between':
-                return (
-                    <>
-                        <label className="block text-sm text-gray-600">From:</label>
-                        <input type="number" name="from" className="border p-2 w-full"
-                               defaultValue=defaultValue onChange={(e) => handelBetween(option.value, e)}/>
-                        <label className="block text-sm text-gray-600">To:</label>
-                        <input type="number" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                    </>
-                );
-            case 'not_between':
-                return (
-                    <>
-                        <label className="block text-sm text-gray-600">From:</label>
-                        <input type="number" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                        <label className="block text-sm text-gray-600">To:</label>
-                        <input type="number" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                    </>
-                );
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="number"
-                            placeholder={`Search value`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "select") {
-        const type_condition_ops = option.options;
-        const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
-            value: key,
-            label: type_condition_ops[key],
-        }));
-
-        switch (condition) {
-            case 'is_empty':
-            case 'is_not_empty':
-                break;
-            case 'is_not':
-            case 'is':
-                return (
-                    <>
-                        <Select placeholder="Select an option"
-                                onChange={(e) => handleSelectMultiple(option.value, e)}
-                                options={type_condition_ops_formed} isMulti={false}/>
-                    </>
-
-                );
-
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "select2_multiple_duration") {
-        const type_condition_ops = option.options;
-        const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
-            value: key,
-            label: type_condition_ops[key],
-        }));
-
-        switch (condition) {
-            case 'is_empty':
-            case 'is_not_empty':
-                break;
-            case 'is_not':
-                return (
-                    <>
-                        <Select placeholder="Select an option"
-                                onChange={(e) => handleSelectMultipleDuration(option.value, e, 'is_not')}
-                                options={type_condition_ops_formed} isMulti/>
-                    </>
-
-                );
-            case 'is':
-
-                return (
-                    <>
-                        <Select placeholder="Select an option"
-
-                                onChange={(e) => handleSelectMultipleDuration(option.value, e, 'is')}
-                                options={type_condition_ops_formed} isMulti/>
-                        <div className=" mt-4">
-
-                            <label className="block font-semibold">Duration:</label>
-
-                            <div className="mb-2">
-                                <input
-                                    type="number"
-                                    placeholder='Days'
-                                    className="border p-2 w-1/2"
-                                    min="1"
-                                    name='duration'
-                                    onChange={(event) => handleSelectMultipleDuration(option.value, event, 'is')}
-                                />
-                                <select
-                                    name='duration_condition'
-                                    className="border p-2 w-1/2"
-                                    placeholder='Select a Condition'
-                                    onChange={(event) => handleSelectMultipleDuration(option.value, event, 'is')}
-                                >
-                                    <option value="=">=</option>
-                                    <option value="<">&lt;</option>
-                                    <option value=">">&gt;</option>
-                                    <option value="<=">&lt;=</option>
-                                    <option value=">=">&gt;=</option>
-                                </select>
-                            </div>
-                        </div>
-                    </>
-                );
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "select2_multiple") {
-        const type_condition_ops = option.options;
-        const type_condition_ops_formed = Object.keys(type_condition_ops).map((key) => ({
-            value: key,
-            label: type_condition_ops[key],
-        }));
-
-        switch (condition) {
-            case 'is_empty':
-            case 'is_not_empty':
-                break;
-            case 'is_not':
-            case 'is':
-                return (
-                    <>
-                        <Select placeholder="Select an option"
-                                onChange={(e) => handleSelectMultiple(option.value, e)}
-                                options={type_condition_ops_formed} isMulti/>
-                    </>
-
-                );
-
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "select2_multiple_api_user") {
-
-        switch (condition) {
-            case 'is_empty':
-            case 'is_not_empty':
-                break;
-            case 'is_not':
-            case 'is':
-                return (
-                    <>
-                        <AsyncSelect
-                            placeholder="Type at least 2 characters to search..."
-                            loadOptions={(e) => loadAdminUsers(e, option)}
-                            onChange={(e) => handleSelectMultipleUser(option.value, e)}
-                            isMulti
-                        />
-                    </>
-                );
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "select2_multiple_api") {
-
-        switch (condition) {
-            case 'is_empty':
-            case 'is_not_empty':
-                break;
-            case 'is_not':
-            case 'is':
-                return (
-                    <>
-                        <AsyncSelect
-                            placeholder="Type at least 2 characters to search..."
-                            loadOptions={(e) => loadModels(e, option)}
-                            onChange={(e) => handleSelectMultiple(option.value, e)}
-                            isMulti
-                        />
-                    </>
-                );
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "text") {
-        switch (condition) {
-            case 'between':
-                return (
-                    <>
-                        <label className="block text-sm text-gray-600">From:</label>
-                        <input type="date" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                        <label className="block text-sm text-gray-600">To:</label>
-                        <input type="date" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                    </>
-                )
-
-            case 'is_empty':
-            case 'is_not_empty':
-
-                break;
-            case 'in_the_last':
-            case 'due_in':
-                return (
-                    <>
-                        <div className="flex">
-                            <input
-                                type="number"
-                                placeholder='2'
-                                className="border p-2 w-1/2"
-                                min="1"
-                                name='period_val'
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            />
-                            <select
-                                name='period'
-                                className="border p-2 w-1/2"
-                                defaultValue="days"
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            >
-                                <option value="days">Days</option>
-                                <option value="weeks">Weeks</option>
-                                <option value="months">Months</option>
-                            </select>
-                        </div>
-                    </>
-                );
-            case 'on':
-            case 'before':
-            case 'after':
-                return (
-                    <>
-                        <input
-                            type="date"
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    } else if (type_condition == "date") {
-        switch (condition) {
-            case 'between':
-                return (
-                    <>
-                        <label className="block text-sm text-gray-600">From:</label>
-                        <input type="date" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                        <label className="block text-sm text-gray-600">To:</label>
-                        <input type="date" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
-                    </>
-                )
-            case 'is_empty':
-            case 'is_not_empty':
-
-                break;
-            case 'in_the_last':
-            case 'due_in':
-                return (
-                    <>
-                        <div className="flex">
-                            <input
-                                type="number"
-                                placeholder='2'
-                                className="border p-2 w-1/2"
-                                min="1"
-                                name='period_val'
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            />
-                            <select
-                                name='period'
-                                className="border p-2 w-1/2"
-                                defaultValue="days"
-                                onChange={(event) => handelDueIn(option.value, event)}
-                            >
-                                <option value="days">Days</option>
-                                <option value="weeks">Weeks</option>
-                                <option value="months">Months</option>
-                            </select>
-                        </div>
-                    </>
-                );
-            case 'on':
-            case 'before':
-            case 'after':
-                return (
-                    <>
-                        <input
-                            type="date"
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-
-            default:
-                return (
-                    <>
-                        <label className="block font-semibold">Value:</label>
-                        <input
-                            type="text"
-                            placeholder={`Search value that contains`}
-                            className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
-                        />
-                    </>
-                );
-        }
-    }*/
-
 
 }
 

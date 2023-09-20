@@ -1,22 +1,22 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 
-export const BetweenInputs = ({onChange, defaultValue}: any) => {
-    return (
-        <>
-            <label className="block text-sm text-gray-600">From:</label>
-            <input defaultValue={defaultValue} type="number" name="from" className="border p-2 w-full"
-                   onChange={onChange}/>
-            <label className="block text-sm text-gray-600">To:</label>
-            <input type="number" name="to" className="border p-2 w-full" onChange={onChange}/>
-        </>
-    )
-};
+export const BetweenInputs = ({onChange, defaultValue}: any) => (
+    <>
+        <label className="block text-sm text-gray-600">From:</label>
+        <input defaultValue={defaultValue.from} type="number" name="from" className="border p-2 w-full"
+               onChange={onChange}/>
+        <label className="block text-sm text-gray-600">To:</label>
+        <input defaultValue={defaultValue.to} type="number" name="to" className="border p-2 w-full"
+               onChange={onChange}/>
+    </>
+);
 
 export const ValueInput = ({onChange, placeholder, defaultValue}: any) => (
     <>
         <label className="block font-semibold">Value:</label>
-        <input type="text" placeholder={placeholder} className="border p-2 w-full" onChange={onChange}/>
+        <input defaultValue={defaultValue} type="text" placeholder={placeholder} className="border p-2 w-full"
+               onChange={onChange}/>
     </>
 );
 
@@ -56,7 +56,7 @@ export const DefaultInput = ({placeholder, onChange, label, defaultValue}: any) 
             type="text"
             placeholder={placeholder}
             className="border p-2 w-full"
-            defaultValue={defaultValue}
+            defaultValue={defaultValue.value}
             onChange={onChange}
         />
     </>
@@ -65,9 +65,10 @@ export const DefaultInput = ({placeholder, onChange, label, defaultValue}: any) 
 export const DateRangeInput = ({onChange, defaultValue}: any) => (
     <>
         <label className="block text-sm text-gray-600">From:</label>
-        <input type="date" name="from" className="border p-2 w-full" onChange={onChange}/>
+        <input type="date" name="from" className="border p-2 w-full" onChange={onChange}
+               defaultValue={defaultValue.from}/>
         <label className="block text-sm text-gray-600">To:</label>
-        <input type="date" name="to" className="border p-2 w-full" onChange={onChange}/>
+        <input type="date" name="to" className="border p-2 w-full" onChange={onChange} defaultValue={defaultValue.to}/>
     </>
 );
 
@@ -80,13 +81,13 @@ export const PeriodInput = ({onChange, defaultValue}: any) => (
                 className="border p-2 w-1/2"
                 min="1"
                 name='period_val'
-                defaultValue={defaultValue}
+                defaultValue={defaultValue.value}
                 onChange={onChange}
             />
             <select
                 name='period'
                 className="border p-2 w-1/2"
-                defaultValue="days"
+                defaultValue={defaultValue.period}
                 onChange={onChange}
             >
                 <option value="days">Days</option>
@@ -100,6 +101,7 @@ export const PeriodInput = ({onChange, defaultValue}: any) => (
 export const SingleDateInput = ({onChange, defaultValue}: any) => (
     <>
         <input
+            defaultValue={defaultValue.value}
             type="date"
             className="border p-2 w-full"
             onChange={onChange}
@@ -107,15 +109,24 @@ export const SingleDateInput = ({onChange, defaultValue}: any) => (
     </>
 );
 
-export const AsyncMultiInput = ({placeholder, loadOptions, onChange, defaultValue}: any) => (
-    <AsyncSelect
-        placeholder={placeholder}
-        loadOptions={loadOptions}
-        onChange={onChange}
-        isMulti
-    />
-);
-export const SelectComponent = ({options, condition, optionValue, isMulti = false, handleSelectMultipleDuration, handleSelectMultiple, defaultValue}: any) => {
+export const AsyncMultiInput = ({placeholder, loadOptions, onChange, defaultValue}: any) => {
+    return (
+        <AsyncSelect
+            placeholder={placeholder}
+            loadOptions={loadOptions}
+            onChange={onChange}
+            isMulti
+        />)
+};
+export const SelectComponent = ({
+                                    options,
+                                    condition,
+                                    optionValue,
+                                    isMulti = false,
+                                    handleSelectMultipleDuration,
+                                    handleSelectMultiple,
+                                    defaultValue
+                                }: any) => {
     const optionsFormed = Object.keys(options || {}).map(key => ({value: key, label: options[key]}));
     return (
         <Select
