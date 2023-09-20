@@ -1,14 +1,17 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 
-export const BetweenInputs = ({onChange,  defaultValue}: any) => (
-    <>
-        <label className="block text-sm text-gray-600">From:</label>
-        <input defaultValue={defaultValue} type="number" name="from" className="border p-2 w-full" onChange={onChange}/>
-        <label className="block text-sm text-gray-600">To:</label>
-        <input type="number" name="to" className="border p-2 w-full" onChange={onChange}/>
-    </>
-);
+export const BetweenInputs = ({onChange, defaultValue}: any) => {
+    return (
+        <>
+            <label className="block text-sm text-gray-600">From:</label>
+            <input defaultValue={defaultValue} type="number" name="from" className="border p-2 w-full"
+                   onChange={onChange}/>
+            <label className="block text-sm text-gray-600">To:</label>
+            <input type="number" name="to" className="border p-2 w-full" onChange={onChange}/>
+        </>
+    )
+};
 
 export const ValueInput = ({onChange, placeholder, defaultValue}: any) => (
     <>
@@ -68,7 +71,7 @@ export const DateRangeInput = ({onChange, defaultValue}: any) => (
     </>
 );
 
-export const PeriodInput = ({onChange,  defaultValue}: any) => (
+export const PeriodInput = ({onChange, defaultValue}: any) => (
     <>
         <div className="flex">
             <input
