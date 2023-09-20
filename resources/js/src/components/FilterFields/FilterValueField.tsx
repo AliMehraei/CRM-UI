@@ -99,14 +99,16 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
     };
     const handleSelectMultiple = (field: any, selectedOptions: any) => {
         let transformedObject;
-
         if (Array.isArray(selectedOptions)) {
             transformedObject = {
-                options: selectedOptions.map(item => item.value)
+                options: selectedOptions.map(item => item.value),
+                fullOptions: selectedOptions,
             };
         } else {
             transformedObject = {
-                options: [selectedOptions.value]
+                options: [selectedOptions.value],
+                fullOptions: selectedOptions,
+
             };
         }
 
@@ -194,11 +196,12 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
             "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
                                                         loadOptions={(e: any) => loadAdminUsers(e, option)}
                                                         defaultValue={defaultValue}
-                                                        typeInfo={type_condition}
+                                                        filterSelect={filterSelect}
                                                         onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
             "is": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
                                                     loadOptions={(e: any) => loadAdminUsers(e, option)}
                                                     defaultValue={defaultValue}
+                                                    filterSelect={filterSelect}
                                                     onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
             "default": (option: any) => <DefaultInput placeholder="Search value that contains"
                                                       defaultValue={defaultValue}
@@ -209,10 +212,12 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
             "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
                                                         loadOptions={(e: any) => loadModels(e, option)}
                                                         defaultValue={defaultValue}
+                                                        filterSelect={filterSelect}
                                                         onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
             "is": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
                                                     loadOptions={(e: any) => loadModels(e, option)}
                                                     defaultValue={defaultValue}
+                                                    filterSelect={filterSelect}
                                                     onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
             "default": (option: any) => <DefaultInput placeholder="Search value that contains"
                                                       defaultValue={defaultValue}
