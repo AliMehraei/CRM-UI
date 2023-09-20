@@ -20,6 +20,7 @@ import taskFormSlice from './taskFormSlice'
 import authSlice from './authSlice'
 import permissionSlice from './permissionSlice'
 import userFormSlice from "./userFormSlice";
+import FilterSlice from "./filterSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -43,6 +44,7 @@ const rootReducer = combineReducers({
     auth: authSlice,
     permissions: permissionSlice,
     userForm: userFormSlice,
+    filters: FilterSlice,
 });
 
 export default configureStore({
