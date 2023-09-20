@@ -6,7 +6,7 @@ import {DeleteIcon, EditIcon} from "../../components/FormFields/CommonIcons";
 import {useDispatch} from "react-redux";
 import {useUserStatus} from "../../config/authCheck";
 import {emitter} from "../../components/Functions/CommonFunctions";
-import GenerateIndexTable from "../../components/FormFields/GenerateIndexTable";
+import GenerateIndexTable from "../../components/FilterFields/GenerateIndexTable";
 
 const List = () => {
     const dispatch = useDispatch();

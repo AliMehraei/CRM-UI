@@ -8,10 +8,10 @@ import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
 import {useUserStatus} from '../../config/authCheck';
-import LoadingSasCrm from '../../components/LoadingSasCrm';
+import LoadingSasCrm from '../LoadingSasCrm';
 import {findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
-import {DeleteIcon, EditIcon} from "./CommonIcons";
-import {renderFilterValueFiled} from "../FilterFields/FilterValueField";
+import {DeleteIcon, EditIcon} from "../FormFields/CommonIcons";
+import {renderFilterValueFiled} from "./FilterValueField";
 
 const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
@@ -144,13 +144,6 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                     const result = res.data;
                     if (result.status) {
                         applyFilters(filterOptionRef.current);
-                        /*   console.log(items);
-                           const filteredItems = items.filter((item: any) => item.id !== rowId);
-                           console.log('filtered',filteredItems.map(item=>item.id));
-                           console.log('row', rowId);
-                           setRecords(filteredItems);
-                           setInitialRecords(filteredItems);
-                           setItems(filteredItems);*/
                     } else {
                         showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
                         console.error(`Error deleting the ${modelName} : `, result.message);
