@@ -113,10 +113,11 @@ export const SingleDateInput = ({onChange, defaultValue}: any) => (
 
 export const AsyncMultiInput = ({placeholder, loadOptions, onChange, filterSelect}: any) => {
     const selectedOptions = filterSelect?.value?.fullOptions
-    const defaultValue = selectedOptions?.map((option: any) => {
-        return option.label
-    })
-    console.log("filter select : ", filterSelect)
+    const defaultValue = selectedOptions?.map((option: any) => ({
+        value: option.value,
+        label: option.label
+    }));
+
     return (
         <AsyncSelect
             placeholder={placeholder}
