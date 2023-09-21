@@ -121,7 +121,8 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
 
     const handleSelectMultipleUser = (field: any, selectedOptions: any) => {
         const userIds = {
-            options: selectedOptions.map((item: any) => item.value)
+            options: selectedOptions.map((item: any) => item.value),
+            fullOptions: selectedOptions,
         };
         handleValueChange(field, userIds);
     };
@@ -223,6 +224,15 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                                                       defaultValue={defaultValue}
                                                       onChange={(e: any) => handleInputValueChange(option.value, e)}
                                                       label="Value:"/>
+        },
+        "select2_multiple": {
+            "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
+                                             handleSelectMultiple={handleSelectMultiple} defaultValue={defaultValue}/>,
+            "is": () => <SelectComponent options={option.options} condition="is" optionValue={option.value}
+                                         handleSelectMultiple={handleSelectMultiple} defaultValue={defaultValue}/>,
+            "default": () => <ValueInput defaultValue={defaultValue}
+                                         onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                         placeholder="Search value that contains"/>
         },
         "text": {
             "between": (option: any) => <DateRangeInput defaultValue={defaultValue}
