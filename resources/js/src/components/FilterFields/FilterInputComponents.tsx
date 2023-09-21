@@ -116,6 +116,7 @@ export const AsyncMultiInput = ({placeholder, loadOptions, onChange, filterSelec
     const defaultValue = selectedOptions?.map((option: any) => {
         return option.label
     })
+    console.log("filter select : ", filterSelect)
     return (
         <AsyncSelect
             placeholder={placeholder}
@@ -135,7 +136,7 @@ export const SelectComponent = ({
                                     defaultValue
                                 }: any) => {
     const optionsFormed = Object.keys(options || {}).map(key => ({value: key, label: options[key]}));
-    defaultValue = defaultValue.options
+    defaultValue = defaultValue?.options
     let defaultOption;
     if (isMulti && Array.isArray(defaultValue)) {
         defaultOption = defaultValue.map(val => ({value: val, label: options[val]}));
