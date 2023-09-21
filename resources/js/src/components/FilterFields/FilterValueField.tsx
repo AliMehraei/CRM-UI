@@ -14,7 +14,7 @@ import {loadModels} from "../Functions/CommonFunctions";
 
 const api_instance = new api();
 
-const FilterValueField = ({filterSelect, option, setFilters, filters, filterOptionRef}: any) => {
+const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
     const dispatch = useDispatch();
     const condition = filterSelect.condition;
     const type_condition = option.type;
@@ -126,15 +126,15 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
         handleValueChange(field, userIds);
     };
 
-    const loadAdminUsers = async (inputValue: any, option: any) => {
+    const loadAdminUsers = async (inputValue: any) => {
         if (inputValue.length < 2) return [];
-        const apiUrl = option.type_info.api;
         const valField = 'id';
         const nameField = 'name';
         const avatarField = 'avatar';
         const emailField = 'email';
         try {
-            const result: any = await api_instance.loadAdminUsers(inputValue, apiUrl);
+            const result: any = await api_instance.loadAdminUsers(inputValue);
+            console.log(result);
             if (result.status) {
                 return result.data.map((user: any) => ({
                     value: user[valField],
@@ -195,12 +195,12 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
         },
         "select2_multiple_api_user": {
             "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
-                                                        loadOptions={(e: any) => loadAdminUsers(e, option)}
+                                                        loadOptions={(e: any) => loadAdminUsers(e)}
                                                         defaultValue={defaultValue}
                                                         filterSelect={filterSelect}
                                                         onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
             "is": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
-                                                    loadOptions={(e: any) => loadAdminUsers(e, option)}
+                                                    loadOptions={(e: any) => loadAdminUsers(e)}
                                                     defaultValue={defaultValue}
                                                     filterSelect={filterSelect}
                                                     onChange={(e: any) => handleSelectMultipleUser(option.value, e)}/>,
