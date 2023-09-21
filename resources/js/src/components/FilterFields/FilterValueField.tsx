@@ -107,12 +107,13 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
             transformedObject = {
                 options: selectedOptions.map(item => item.value),
                 fullOptions: selectedOptions,
+                relation: option?.relation_model
             };
         } else {
             transformedObject = {
                 options: [selectedOptions.value],
                 fullOptions: selectedOptions,
-
+                relation: option?.relation_model
             };
         }
 
