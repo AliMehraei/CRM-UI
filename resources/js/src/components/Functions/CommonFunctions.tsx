@@ -397,8 +397,8 @@ export const loadModels = async (inputValue: any, option: any) => {
     if (inputValue.length < 2) return [];
     const apiUrl = option.type_info.api;
     const apiMethod = option.type_info.method;
-    const valField = option.type_info.value_flield;
-    const labelField = option.type_info.lable_filed;
+    const valField = option.type_info.value_field;
+    const labelField = option.type_info.label_filed;
 
     try {
         const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
