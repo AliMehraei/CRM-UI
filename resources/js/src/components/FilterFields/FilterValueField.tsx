@@ -134,7 +134,6 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         const emailField = 'email';
         try {
             const result: any = await api_instance.loadAdminUsers(inputValue);
-            console.log(result);
             if (result.status) {
                 return result.data.map((user: any) => ({
                     value: user[valField],
