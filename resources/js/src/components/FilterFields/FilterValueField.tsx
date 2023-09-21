@@ -16,7 +16,13 @@ const api_instance = new api();
 
 const FilterValueField = ({filterSelect, option, setFilters, filters, filterOptionRef}: any) => {
     const dispatch = useDispatch();
-
+    const condition = filterSelect.condition;
+    const type_condition = option.type;
+    if (!option.condition[condition]) return null;
+    if (!option.condition[condition].input) {
+        return null;
+    }
+    const defaultValue = filterSelect.value;
     const handleValueChange = (field: any, value: any) => {
 
         const updatedFilters = {...filters};
@@ -65,13 +71,12 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
     };
 
     const handleSelectMultipleDuration = (field: any, event: any, condition = 'is_not') => {
+
         let combinedValue: any;
         let options: any;
-        let duration: any;
-        let duration_condition: any;
+        let duration: any = filterSelect.value.duration;
+        let duration_condition: any = filterSelect.value.duration_condition;
         if (event.target != undefined) {
-
-
             const {name, value} = event.target;
             const existingFilter = filters[field];
             const existingValue = existingFilter ? existingFilter.value : {};
@@ -82,7 +87,6 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
         } else {
             options = event.map((item: any) => item.value);
         }
-
 
         if (condition === 'is_not') {
             combinedValue = {
@@ -154,13 +158,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
         }
     };
 
-    const condition = filterSelect.condition;
-    const type_condition = option.type;
-    if (!option.condition[condition]) return null;
-    if (!option.condition[condition].input) {
-        return null;
-    }
-    const defaultValue = filterSelect.value;
+
     const typeConditionHandlers: any = {
         "number": {
             "between": () => <BetweenInputs defaultValue={defaultValue}
@@ -180,10 +178,13 @@ const FilterValueField = ({filterSelect, option, setFilters, filters, filterOpti
         },
         "select2_multiple_duration": {
             "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
+                                             handleSelectMultipleDuration={handleSelectMultipleDuration}
                                              isMulti={true}/>,
             "is": () => (
                 <>
-                    <SelectComponent options={option.options} condition="is" optionValue={option.value} isMulti={true}/>
+                    <SelectComponent options={option.options} condition="is" optionValue={option.value} isMulti={true}
+                                     defaultValue={defaultValue}
+                                     handleSelectMultipleDuration={handleSelectMultipleDuration}/>
                     <DurationInput defaultValue={defaultValue} onChange={handleSelectMultipleDuration}
                                    optionValue={option.value}/>
                 </>

@@ -30,12 +30,14 @@ export const DurationInput = ({onChange, optionValue, defaultValue}: any) => (
                 className="border p-2 w-1/2"
                 min="1"
                 name='duration'
+                defaultValue={defaultValue.duration}
                 onChange={(event) => onChange(optionValue, event, 'is')}
             />
             <select
                 name='duration_condition'
                 className="border p-2 w-1/2"
                 placeholder='Select a Condition'
+                defaultValue={defaultValue.duration_condition}
                 onChange={(event) => onChange(optionValue, event, 'is')}
             >
                 <option value="=">=</option>
@@ -114,7 +116,6 @@ export const AsyncMultiInput = ({placeholder, loadOptions, onChange, filterSelec
     const defaultValue = selectedOptions.map((option: any) => {
         return option.label
     })
-    console.log(defaultValue);
     return (
         <AsyncSelect
             placeholder={placeholder}
@@ -134,12 +135,20 @@ export const SelectComponent = ({
                                     defaultValue
                                 }: any) => {
     const optionsFormed = Object.keys(options || {}).map(key => ({value: key, label: options[key]}));
+    defaultValue = defaultValue.options
+    let defaultOption;
+    if (isMulti && Array.isArray(defaultValue)) {
+        defaultOption = defaultValue.map(val => ({value: val, label: options[val]}));
+    } else if (!isMulti && defaultValue) {
+        defaultOption = {value: defaultValue, label: options[defaultValue]};
+    }
     return (
         <Select
             placeholder="Select an option"
             onChange={(e) => (isMulti ? handleSelectMultipleDuration(optionValue, e, condition) : handleSelectMultiple(optionValue, e))}
             options={optionsFormed}
             isMulti={isMulti}
+            defaultValue={defaultOption}
         />
     );
 };
