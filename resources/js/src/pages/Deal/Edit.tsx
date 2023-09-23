@@ -9,8 +9,10 @@ import {resetForm, updateFormData} from "../../store/dealFormSlice";
 import LoadingSasCrm from "../../components/LoadingSasCrm"
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.dealForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -54,6 +56,9 @@ const Edit = () => {
         return <LoadingSasCrm/>
 
     return (
+        (!hasPermission(`update-deal`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -62,7 +67,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

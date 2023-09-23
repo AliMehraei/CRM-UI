@@ -7,8 +7,10 @@ import Api from "../../config/api";
 import { useParams } from "react-router-dom";
 import { resetForm, updateFormData } from "../../store/manufacturerFormSlice";
 import LoadingSasCrm from "../../components/LoadingSasCrm"
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.manufacturerForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -52,6 +54,9 @@ const Edit = () => {
         return <LoadingSasCrm />
 
     return (
+        (!hasPermission(`update-manufacturer`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm} />
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -60,7 +65,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

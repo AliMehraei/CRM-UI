@@ -5,8 +5,12 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import InvoiceFormFields from "./components/create/InvoiceFormFields";
 import 'flatpickr/dist/flatpickr.css';
 import {resetForm} from "../../store/invoiceFormSlice";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
+
     const formState = useSelector((state: any) => state.invoiceForm);
     const dispatch = useDispatch();
 
@@ -15,6 +19,9 @@ const Add = () => {
     });
 
     return (
+        (!hasPermission(`create-invoice`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -23,7 +30,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

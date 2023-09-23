@@ -5,8 +5,11 @@ import QuotesFormFields from "./components/create/QuotesFormFields";
 import 'flatpickr/dist/flatpickr.css';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm} from "../../store/quoteFormSlice";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.quoteForm);
 
@@ -15,6 +18,9 @@ const Add = () => {
     });
 
     return (
+        (!hasPermission(`create-quote`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -23,6 +29,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
+        )
     );
 };
 

@@ -8,8 +8,10 @@ import {useParams} from "react-router-dom";
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import AccountFormFields from "./components/edit/AccountFormFields";
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.accountForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -48,6 +50,9 @@ const Edit = () => {
     if (loading)
         return <LoadingSasCrm/>
     return (
+        (!hasPermission(`update-account`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -56,7 +61,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 
