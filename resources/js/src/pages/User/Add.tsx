@@ -5,8 +5,11 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import {resetForm} from "../../store/manufacturerFormSlice";
 import UserFormFields from "./components/create/UserFormFields";
 import 'flatpickr/dist/flatpickr.css';
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.userForm);
     const dispatch = useDispatch();
 
@@ -15,6 +18,9 @@ const Add = () => {
     });
 
     return (
+        (!hasPermission(`create-user`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -23,6 +29,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };
