@@ -15,7 +15,7 @@ export const BetweenInputs = ({onChange, defaultValue}: any) => (
 export const ValueInput = ({onChange, placeholder, defaultValue}: any) => (
     <>
         <label className="block font-semibold">Value:</label>
-        <input defaultValue={defaultValue} type="text" placeholder={placeholder} className="border p-2 w-full"
+        <input defaultValue={defaultValue.value} type="text" placeholder={placeholder} className="border p-2 w-full"
                onChange={onChange}/>
     </>
 );
