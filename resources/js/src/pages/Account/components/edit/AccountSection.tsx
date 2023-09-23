@@ -121,7 +121,7 @@ const AccountSection = () => {
             'Approved by': <input id="approved_by" name="approved_by_id" type="text" value="None"
                 placeholder="Readonly input here…"
                 className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                defaultValue={formState.approved_by.name}
+                defaultValue={formState.approved_by?.first_name + " " + formState.approved_by?.last_name}
                 disabled />,
 
             'Currency': <Select id="currency" name="currency" options={Currencies}
@@ -147,11 +147,16 @@ const AccountSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.image} alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.owner ? (
+                                <img
+                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
                                     <div
-                                        className="text-sm font-bold">{formState.owner?.name}</div>
+                                        className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div
                                         className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
@@ -175,11 +180,16 @@ const AccountSection = () => {
                     value: formState.pm_user?.id,
                     label: (
                         <div key={formState.pm_user?.id} className="flex items-center">
-                            <img src={formState.pm_user?.avatar} alt="avatar"
-                                className="w-8 h-8 mr-2 rounded-full" />
+                            {formState.pm_user ? (
+                                <img
+                                    src={formState.pm_user.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.pm_user?.name}</div>
+                                    className="text-sm font-bold">{formState.pm_user?.first_name + " " + formState.pm_user?.last_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.pm_user?.email}</div>
                             </div>

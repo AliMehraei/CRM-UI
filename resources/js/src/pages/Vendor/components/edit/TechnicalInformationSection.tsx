@@ -11,9 +11,8 @@ const TechnicalInformationSection = () => {
     const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
-
 
 
     const searchVendor = async (query: string) => {
@@ -42,14 +41,13 @@ const TechnicalInformationSection = () => {
                 id="bom_excess_total_rows"
                 name="bom_excess_total_rows"
                 className="form-input flex-1 "
+                defaultValue={formState.bom_excess_total_rows}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />),
 
 
         },
-        '': {
-            
-        }
+        '': {}
     }
     return (<>
             <div className="flex justify-between lg:flex-row flex-col">
@@ -58,7 +56,7 @@ const TechnicalInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default TechnicalInformationSection;

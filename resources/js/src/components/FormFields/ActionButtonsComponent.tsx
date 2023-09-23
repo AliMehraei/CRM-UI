@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import api from "../../config/api";
 import {useDispatch, useSelector} from "react-redux";
 import {resetErrors, updateErrors} from "../../store/formErrorsSlice";
@@ -79,6 +79,12 @@ const ActionButtonsComponent = ({formState, resetForm}: any) => {
         else
             navigate(pathToNavigate, {replace: true});
     }
+
+    useEffect(() => {
+        dispatch(resetErrors());
+        // dispatch(resetForm()); // TODO : think about this
+
+    }, []);
 
     return (
         <>

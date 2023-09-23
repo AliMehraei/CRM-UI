@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/leadFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {handleUploadFile} from "../../../../components/Functions/CommonFunctions";
+import {handleUploadFile,FirstNameTitles} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 
 const ContactInformationSection = () => {
@@ -47,12 +47,25 @@ const ContactInformationSection = () => {
 
     const fields = {
         'Contact Information': {
-            'First Name': (<input
-                id="first_name"
-                name="first_name"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
+            'First Name': (
+                <div className="flex">
+                    <Select id="prefix_first_name"
+                            name="prefix_first_name"
+                            onChange={({value}: any) => {
+                                handleChangeField('prefix_first_name', value)
+                            }}
+                            className="flex-none w-32 mr-2"
+                            options={FirstNameTitles}
+                    />
+                    <input
+                        id="first_name"
+                        required
+                        name="first_name"
+                        className="form-input flex-1 "
+                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    />
+                </div>
+                ),
             'Job Description': (
                 <Select 
                 options={JobDescription} 

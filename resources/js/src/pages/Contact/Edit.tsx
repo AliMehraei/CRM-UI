@@ -7,7 +7,7 @@ import ContactFormFields from "./components/edit/ContactFormFields";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
 import {resetForm, updateFormData} from "../../store/contactFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
 
 const Edit = () => {
     const formState = useSelector((state: any) => state.contactForm);
@@ -49,7 +49,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
 
     return (

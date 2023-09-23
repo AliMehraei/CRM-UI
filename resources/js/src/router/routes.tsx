@@ -1,5 +1,7 @@
 import {lazy} from 'react';
 import ProtectedRoute from '../components/ProtectedRoute';
+import ErrorPage from '../pages/Pages/ErroPage';
+import Logout from '../pages/Authentication/Logout';
 
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
@@ -93,14 +95,17 @@ const ImportFieldMapping = lazy(() => import('../pages/Import/FieldMapping'));
 
 const Profile = lazy(() => import('../pages/Users/Profile'));
 const AccountSetting = lazy(() => import('../pages/Users/AccountSetting'));
+
+const ListUser = lazy(() => import('../pages/User/Index'));
+const PreviewUser = lazy(() => import('../pages/User/Preview'));
+const AddUser = lazy(() => import('../pages/User/Add'));
+const EditUser = lazy(() => import('../pages/User/Edit'));
+
+
 const KnowledgeBase = lazy(() => import('../pages/Pages/KnowledgeBase'));
 const ContactForm = lazy(() => import('../pages/Pages/ContactForm'));
 const Faq = lazy(() => import('../pages/Pages/Faq'));
 const ComingSoon = lazy(() => import('../pages/Pages/ComingSoon'));
-const ERROR404 = lazy(() => import('../pages/Pages/Error404'));
-const ERROR403 = lazy(() => import('../pages/Pages/Error403'));
-const ERROR500 = lazy(() => import('../pages/Pages/Error500'));
-const ERROR503 = lazy(() => import('../pages/Pages/Error503'));
 const Maintenance = lazy(() => import('../pages/Pages/Maintenance'));
 const LoginBoxed = lazy(() => import('../pages/Authentication/LoginBoxed'));
 const RegisterBoxed = lazy(() => import('../pages/Authentication/RegisterBoxed'));
@@ -120,121 +125,195 @@ const routes = [
     {
         path: '/',
         element: <Index/>,
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/permission-denied',
-        element: <ERROR403/>,
+        element: <ErrorPage errorCode="403"/>
+
     },
     {
         path: '/index',
         element: <Index/>,
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/import/:module',
         element: <ImportCreate/>,
+        protected: true,
+        requiredPermission: 'import-product'
     },
     {
         path: '/import/:module/operation',
         element: <ImportOperation/>,
+        protected: true,
+        requiredPermission: 'import-product'
     },
     {
         path: '/import/:module/field-mapping',
         element: <ImportFieldMapping/>,
+        protected: true,
+        requiredPermission: 'import-product'
     },
 
     {
         path: '/account/list',
         element: <ListAccount/>,
+        protected: true,
+        requiredPermission: 'read-account'
     },
     {
         path: '/account/preview/:id',
         element: <PreviewAccount/>,
+        protected: true,
+        requiredPermission: 'read-account'
     },
     {
         path: '/account/add',
         element: <AddAccount/>,
+        protected: true,
+        requiredPermission: 'create-account'
     },
     {
         path: '/account/edit/:id',
         element: <EditAccount/>,
+        protected: true,
     },
     {
-        path: '/contracts',
         element: <Contracts/>,
+        protected: true,
+        requiredPermission: 'read-product',
     },
     {
         path: '/todolist',
         element: <Todolist/>,
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/invoice/list',
         element: <ListInvoice/>,
+        protected: true,
+        requiredPermission: 'read-invoice'
     },
     //task
     {
         path: '/task/list',
         element: <ListTask/>,
         protected: true,
-        requiredPermission: 'can-view-task'
+        requiredPermission: 'read-task'
     },
     {
         path: '/task/preview/:id',
         element: <PreviewTask/>,
         protected: true,
-        requiredPermission: 'can-edit-task'
+        requiredPermission: 'read-task'
     },
     {
         path: '/task/add',
         element: <AddTask/>,
-
         protected: true,
-        requiredPermission: 'can-create-task'
+        requiredPermission: 'create-task'
     },
     {
         path: '/task/edit/:id',
         element: <EditTask/>,
         protected: true,
-        requiredPermission: 'can-edit-task'
+        requiredPermission: 'update-task'
     },
     // preview page
     {
         path: '/invoice/preview/:id',
         element: <PreviewInvoice/>,
+        protected: true,
+        requiredPermission: 'read-invoice'
     },
     {
         path: '/invoice/add',
         element: <AddInvoice/>,
+        protected: true,
+        requiredPermission: 'create-invoice'
     },
     {
         path: '/invoice/edit/:id',
         element: <EditInvoice/>,
+        protected: true,
+        requiredPermission: 'update-invoice'
     },
     {
         path: '/app/setting',
         element: <Setting/>,
+        protected: true,
+        requiredPermission: 'read-product'
     },
     // Users page
     {
         path: '/users/profile',
         element: <Profile/>,
+        protected: true,
+        requiredPermission: 'read-user'
     },
     {
         path: '/users/user-account-settings',
         element: <AccountSetting/>,
+        protected: true,
+        requiredPermission: 'read-user'
     },
+
+
+    {
+        path: '/user/edit/:id',
+        element: <EditUser/>,
+        // protected: true,
+        // requiredPermission : 'update-task'
+    },
+    // preview page
+    {
+        path: '/user/preview/:id',
+        element: <PreviewUser/>,
+        // protected: true,
+        // requiredPermission : 'read-invoice'
+    },
+    {
+        path: '/user/add',
+        element: <AddUser/>,
+        // protected: true,
+        // requiredPermission: 'create-invoice'
+    },
+    {
+        path: '/user/edit/:id',
+        element: <EditUser/>,
+        // protected: true,
+        // requiredPermission: 'update-invoice'
+    },
+    {
+        path: '/user/list/',
+        element: <ListUser/>,
+        // protected: true,
+        // requiredPermission: 'update-invoice'
+    },
+
     // pages
     {
         path: '/pages/knowledge-base',
         element: <KnowledgeBase/>,
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/pages/contact-us',
         element: <ContactForm/>,
         layout: 'blank',
+        // protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/pages/faq',
         element: <Faq/>,
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/pages/coming-soon',
@@ -243,17 +322,17 @@ const routes = [
     },
     {
         path: '/pages/error404',
-        element: <ERROR404/>,
+        element: <ErrorPage errorCode="404"/>,
         layout: 'blank',
     },
     {
         path: '/pages/error500',
-        element: <ERROR500/>,
+        element: <ErrorPage errorCode="500"/>,
         layout: 'blank',
     },
     {
         path: '/pages/error503',
-        element: <ERROR503/>,
+        element: <ErrorPage errorCode="503"/>,
         layout: 'blank',
     },
     {
@@ -288,6 +367,11 @@ const routes = [
         layout: 'blank',
     },
     {
+        path: '/auth/logout',
+        element: <Logout/>,
+        protected: true,
+    },
+    {
         path: '/auth/cover-register',
         element: <RegisterCover/>,
         layout: 'blank',
@@ -305,240 +389,344 @@ const routes = [
     {
         path: '/availability/list',
         element: <ListAvailability/>,
+        protected: true,
+        requiredPermission: 'read-availability'
     },
     {
         path: '/availability/preview/:id',
         element: <PreviewAvailability/>,
+        protected: true,
+        requiredPermission: 'read-availability'
     },
     {
         path: '/availability/add',
         element: <AddAvailability/>,
+        protected: true,
+        requiredPermission: 'create-availability'
     },
     {
         path: '/availability/edit/:id',
         element: <EditAvailability/>,
+        protected: true,
+        requiredPermission: 'update-availability'
     },
 
     {
         path: '/support/list',
         element: <ListSupport/>,
+        protected: true,
+        requiredPermission: 'read-support'
     },
     {
         path: '/support/preview/:id',
         element: <PreviewSupport/>,
+        protected: true,
+        requiredPermission: 'read-support'
     },
     {
         path: '/support/add',
         element: <AddSupport/>,
+        protected: true,
+        requiredPermission: 'create-support'
     },
     {
         path: '/support/edit/:id',
         element: <EditSupport/>,
+        protected: true,
+        requiredPermission: 'update-support'
     },
 
     {
         path: '/excess/list',
         element: <ListExcess/>,
+        protected: true,
+        requiredPermission: 'read-excess'
     },
     {
         path: '/excess/preview/:id',
         element: <PreviewExcess/>,
+        protected: true,
+        requiredPermission: 'read-excess'
     },
     {
         path: '/excess/add',
         element: <AddExcess/>,
+        protected: true,
+        requiredPermission: 'create-excess'
     },
     {
         path: '/excess/edit/:id',
         element: <EditExcess/>,
+        protected: true,
+        requiredPermission: 'update-excess'
     },
     {
         path: '/manufacturer/list',
         element: <ListManufacturer/>,
+        protected: true,
+        requiredPermission: 'read-manufacturer'
     },
     {
         path: '/manufacturer/preview/:id',
         element: <PreviewManufacturer/>,
+        protected: true,
+        requiredPermission: 'read-manufacturer'
     },
     {
         path: '/manufacturer/add',
         element: <AddManufacturer/>,
+        protected: true,
+        requiredPermission: 'create-manufacturer'
     },
     {
         path: '/manufacturer/edit/:id',
         element: <EditManufacturer/>,
+        protected: true,
+        requiredPermission: 'update-manufacturer'
     },
     {
         path: '/product/list',
         element: <ListProduct/>,
-        protected: false,
-        requiredPermission: 'can-view-product'
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/product/preview/:id',
         element: <PreviewProduct/>,
-        protected: false,
-        requiredPermission: 'can-edit-product'
+        protected: true,
+        requiredPermission: 'read-product'
     },
     {
         path: '/product/add',
         element: <AddProduct/>,
-        protected: false,
-        requiredPermission: 'can-create-product'
+        protected: true,
+        requiredPermission: 'create-product'
     },
     {
         path: '/product/edit/:id',
         element: <EditProduct/>,
-        protected: false,
-        requiredPermission: 'can-edit-product'
+        protected: true,
+        requiredPermission: 'update-product'
     },
     {
         path: '/quotes/list',
         element: <ListQuotes/>,
+        protected: true,
+        requiredPermission: 'read-quote'
     },
     {
         path: '/quotes/preview/:id',
         element: <PreviewQuotes/>,
+        protected: true,
+        requiredPermission: 'read-quote'
     },
     {
         path: '/quotes/add',
         element: <AddQuotes/>,
+        protected: true,
+        requiredPermission: 'create-quote'
     },
     {
         path: '/quotes/edit/:id',
         element: <EditQuotes/>,
+        protected: true,
+        requiredPermission: 'update-quote'
     },
     {
         path: '/rfq/list',
         element: <ListRFQ/>,
+        protected: true,
+        requiredPermission: 'read-rfq'
     },
     {
         path: '/rfq/preview/:id',
         element: <PreviewRFQ/>,
+        protected: true,
+        requiredPermission: 'read-rfq'
     },
     {
         path: '/rfq/add',
         element: <AddRFQ/>,
+        protected: true,
+        requiredPermission: 'create-rfq'
     },
     {
         path: '/rfq/edit/:id',
         element: <EditRFQ/>,
+        protected: true,
+        requiredPermission: 'update-rfq'
     },
     {
         path: '/vendor_rfq/list',
         element: <ListVendorRFQ/>,
+        protected: true,
+        requiredPermission: 'read-vendor-rfq'
     },
     {
         path: '/vendor_rfq/preview/:id',
         element: <PreviewVendorRFQ/>,
+        protected: true,
+        requiredPermission: 'read-vendor-rfq'
     },
     {
         path: '/vendor_rfq/add',
         element: <AddVendorRFQ/>,
+        protected: true,
+        requiredPermission: 'create-vendor-rfq'
     },
     {
         path: '/vendor_rfq/edit/:id',
         element: <EditVendorRFQ/>,
+        protected: true,
+        requiredPermission: 'update-vendor-rfq'
     },
     {
         path: '/vendor/list',
         element: <ListVendor/>,
+        protected: true,
+        requiredPermission: 'read-vendor'
     },
     {
         path: '/vendor/preview/:id',
         element: <PreviewVendor/>,
+        protected: true,
+        requiredPermission: 'read-vendor'
     },
     {
         path: '/vendor/add',
         element: <AddVendor/>,
+        protected: true,
+        requiredPermission: 'create-vendor'
     },
     {
         path: '/vendor/edit/:id',
         element: <EditVendor/>,
+        protected: true,
+        requiredPermission: 'update-vendor'
     },
     {
         path: '/contact/list',
         element: <ListContact/>,
+        protected: true,
+        requiredPermission: 'read-contact'
     },
     {
         path: '/contact/preview/:id',
         element: <PreviewContact/>,
+        protected: true,
+        requiredPermission: 'read-contact'
     },
     {
         path: '/contact/add',
         element: <AddContact/>,
+        protected: true,
+        requiredPermission: 'create-contact'
     },
     {
         path: '/contact/edit/:id',
         element: <EditContact/>,
+        protected: true,
+        requiredPermission: 'update-contact'
     },
     {
         path: '/deal/list',
         element: <ListDeal/>,
+        protected: true,
+        requiredPermission: 'read-deal'
     },
     {
         path: '/deal/preview/:id',
         element: <PreviewDeal/>,
+        protected: true,
+        requiredPermission: 'read-deal'
     },
     {
         path: '/deal/add',
         element: <AddDeal/>,
+        protected: true,
+        requiredPermission: 'create-deal'
     },
     {
         path: '/deal/edit/:id',
         element: <EditDeal/>,
+        protected: true,
+        requiredPermission: 'update-deal'
     },
     {
         path: '/lead/list',
         element: <ListLead/>,
+        protected: true,
+        requiredPermission: 'read-lead'
     },
     {
         path: '/lead/preview/:id',
         element: <PreviewLead/>,
+        protected: true,
+        requiredPermission: 'read-lead'
     },
     {
         path: '/lead/add',
         element: <AddLead/>,
+        protected: true,
+        requiredPermission: 'create-lead'
     },
     {
         path: '/lead/edit/:id',
         element: <EditLead/>,
+        protected: true,
+        requiredPermission: 'update-lead'
     },
     {
         path: '/purchase/list',
         element: <ListPurchase/>,
+        protected: true,
+        requiredPermission: 'read-purchase-order'
     },
     {
         path: '/purchase/preview/:id',
         element: <PreviewPurchase/>,
+        protected: true,
+        requiredPermission: 'read-purchase-order'
     },
     {
         path: '/purchase/add',
         element: <AddPurchase/>,
+        protected: true,
+        requiredPermission: 'create-purchase-order'
     },
     {
         path: '/purchase/edit/:id',
         element: <EditPurchase/>,
+        protected: true,
+        requiredPermission: 'update-purchase-order'
     },
     {
         path: '/sales/list',
         element: <ListSales/>,
+        protected: true,
+        requiredPermission: 'read-sales-order'
     },
     {
         path: '/sales/preview/:id',
         element: <PreviewSales/>,
+        protected: true,
+        requiredPermission: 'read-sales-order'
     },
     {
         path: '/sales/add',
         element: <AddSales/>,
+        protected: true,
+        requiredPermission: 'create-sales-order'
     },
     {
         path: '/sales/edit/:id',
         element: <EditSales/>,
+        protected: true,
+        requiredPermission: 'update-sales-order'
     },
     {
         path: '*',
-        element: <Error/>,
+        element: <ErrorPage/>,
         layout: 'blank',
     },
 ];

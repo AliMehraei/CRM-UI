@@ -22,7 +22,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data, {headers: Headers});
     }
 
-    async getUserPremissions(data: any = null) {
+    async getUserPermissions(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data, {headers: Headers});
     }
 
@@ -71,9 +71,9 @@ class api {
 
     async loadApiModelsPost(data, url, apiMethod) {
         if (apiMethod == 'GET')
-            return await _axios.get(`${url}`, data);
+            return await _axios.get(`${API_URL_PRODUCT}${url}`, data);
         else
-            return await _axios.post(`${url}`, data, {headers: Headers});
+            return await _axios.post(`${API_URL_PRODUCT}${url}`, {query :data}, {headers: Headers});
     }
 
     async login(data: any) {
@@ -339,7 +339,7 @@ class api {
     }
 
     async fetchSinglePurchaseOrder(id: any = null) {
-        return await _axios.get(`${API_URL_PRODUCT}/purchase_order/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/${id}`);
     }
 
     async updateSinglePurchaseOrder(data) {
@@ -551,6 +551,40 @@ class api {
 
     async createSingleVendorRfq(data) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq`, data, {headers: Headers});
+    }
+
+
+    //User
+    async searchUser(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/user/search`, data, {headers: Headers});
+    }
+
+    async filterOptionUser(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/user/filter_option`);
+    }
+
+    async fetchDataUser(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/user/list`, data, {headers: Headers});
+    }
+
+    async deleteSingleUser(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/user/${id}`);
+    }
+
+    async fetchSingleUser(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/user/${id}`);
+    }
+
+    async updateSingleUser(data: any) {
+        return await _axios.put(`${API_URL_PRODUCT}/user/${data.id}`, data, {headers: Headers});
+    }
+
+    async createSingleUser(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/user`, data, {headers: Headers});
+    }
+
+    async searchRoles(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/roles/all`, data, {headers: Headers});
     }
 
     async getFormLayout(data: object) {

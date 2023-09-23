@@ -5,7 +5,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import VendorFormFields from "./components/edit/VendorFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm, updateFormData} from '../../store/vendorFormSlice';
-import LoadingAlpyn from '../../components/LoadingAlpyn';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 import Api from '../../config/api';
 
 const Edit = () => {
@@ -47,7 +47,7 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
 
     return (

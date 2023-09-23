@@ -1,4 +1,6 @@
 import api from "../../config/api";
+import {EventEmitter} from "events";
+import React from "react";
 
 const api_instance = new api();
 
@@ -51,7 +53,15 @@ export const AccountTypes = [
     {value: 'systemintegrator_it', label: 'System-Integrator It'},
     {value: 'other', label: 'Other'},
 ]
+export const FirstNameTitles = [
+    {value: "none", label: "-None-"},
+    {value: "herr", label: "Herr"},
+    {value: "frau", label: "Frau"},
+    {value: "fr.", label: "Fr."},
+    {value: "dr.", label: "Dr."},
+    {value: "prof.", label: "Prof."},
 
+];
 export const Contract = [
     {value: 'nda', label: 'NDA'},
     {value: 'quality_agreement', label: 'Quality Agreement'},
@@ -200,8 +210,8 @@ export const loadAvailability = async (query: string) => {
 
 export const searchOwners = async (e: any) => {
     const result = await api_instance.loadAdminUsers(e);
-    const valField = 'id';
-    const nameField = 'name';
+    const valField = 'userId';
+    const nameField = 'first_name';
     const avatarField = 'avatar';
     const emailField = 'email';
     if (result.status) {
@@ -209,9 +219,10 @@ export const searchOwners = async (e: any) => {
             value: user[valField],
             label: (
                 <div key={user[valField]} className="flex items-center">
-                    <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <img src={user[avatarField] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                         className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
-                        <div className="text-sm font-bold">{user[nameField]}</div>
+                        <div className="text-sm font-bold">{user[nameField] + " " + user['last_name']}</div>
                         <div className="text-xs text-gray-500">{user[emailField]}</div>
                     </div>
                 </div>
@@ -231,7 +242,8 @@ export const searchAccounts = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data[imageField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <img src={data[imageField] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                         className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
                         <div className="text-xs text-gray-500">{data[emailField]}</div>
@@ -250,7 +262,8 @@ export const searchLead = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                         className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data['company']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
@@ -269,7 +282,8 @@ export const searchContacts = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image']} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                         className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
@@ -347,3 +361,69 @@ export const searchExcess = async (query: string) => {
 export const getLayout = async (model: string) => {
     return await api_instance.getFormLayout({model: model});
 }
+export const searchRoles = async (query: string) => {
+    const valField = 'id';
+    const nameField = 'name';
+
+    const result = await api_instance.searchRoles({query: query});
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data[valField],
+            label: (
+                <div key={data[valField]} className="flex items-center">
+                    <div>
+                        <div className="text-sm font-bold">{data[nameField]}</div>
+                    </div>
+                </div>
+            ),
+        }));
+    }
+}
+
+
+export const findApiToCall = (functionName: string) => {
+    const api_instance: any = new api();
+    const methodToCall = api_instance[functionName];
+    if (typeof methodToCall !== 'function') {
+        throw new Error(`API not found : ${functionName}`)
+    }
+    return methodToCall;
+}
+
+
+export const upFirstLetter = (string: string) => {
+    return string.replace(/^./, string[0].toUpperCase())
+}
+
+export const loadModels = async (inputValue: any, option: any) => {
+
+    if (inputValue.length < 2) return [];
+    const apiUrl = option.type_info.api;
+    const apiMethod = option.type_info.method;
+    const valField = option.type_info.value_field;
+    const labelField = option.type_info.label_filed;
+
+    try {
+        const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
+        if (result.status) {
+            return result.data.data.map((model: any) => ({
+                value: model[valField],
+                label: (
+                    <div key={model[valField]} className="flex items-center">
+                        <div>
+                            <div className="text-sm font-bold">{model[labelField]}</div>
+                        </div>
+                    </div>
+                ),
+            }));
+        } else {
+            console.error('An error occurred while fetching data ', result.message);
+            return [];
+        }
+    } catch (error) {
+        console.error('An error occurred while fetching data : ', error);
+        return [];
+    }
+};
+
+export const emitter = new EventEmitter();

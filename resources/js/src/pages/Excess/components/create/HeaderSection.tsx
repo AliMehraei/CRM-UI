@@ -4,7 +4,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     Currencies, getImageSource,
     handleUploadFile,
-    searchAccounts,
+    searchAccounts, searchContacts,
     searchOwners
 } from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
@@ -68,7 +68,7 @@ const HeaderSection = () => {
                                          className="flex-1"/>,
             'Contact': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
-                                    loadOptions={searchOwners}
+                                    loadOptions={searchContacts}
                                     onChange={({value}: any) => {
                                         handleChangeField('contact_id', value)
                                     }}

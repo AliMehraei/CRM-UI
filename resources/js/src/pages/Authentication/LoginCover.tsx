@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
-import { setToken } from '../../config/config';
+import { setToken , setUserData } from '../../config/config';
 import api from '../../config/api';
 import Swal from 'sweetalert2';
 import { useUserStatus } from '../../config/authCheck';  
-import LoadingAlpyn from '../../components/LoadingAlpyn';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const LoginCover = () => {
     const api_instance = new api();
@@ -32,8 +32,8 @@ const LoginCover = () => {
         try {
             const response = await api_instance.login({ email, password });
             if (response.data.isOk && response.status === 200) {
-                // Handle successful login
                 setToken(response.data.token, 'token');
+                setUserData(response.data.user);
                 navigate('/');
             } else {
                 showMessage(`Login failed : ${response.data.message}`, 'error');
@@ -61,7 +61,7 @@ const LoginCover = () => {
     };
 
     if (isLoading || isLoggedIn) {
-        return <LoadingAlpyn />;
+        return <LoadingSasCrm />;
     }
 
     return (
