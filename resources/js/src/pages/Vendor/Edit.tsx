@@ -7,8 +7,10 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import {resetForm, updateFormData} from '../../store/vendorFormSlice';
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 import Api from '../../config/api';
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.vendorForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -51,6 +53,9 @@ const Edit = () => {
 
 
     return (
+        (!hasPermission(`update-vendor`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -59,6 +64,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };
