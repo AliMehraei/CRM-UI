@@ -5,13 +5,16 @@ import ProductFormFields from "./components/create/ProductFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
 import {resetForm, updateFormData} from "../../store/productFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
 import Api from "../../config/api";
 import FormLayoutGenerate from "../../components/FormFields/FormLayoutGenerate";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.productForm);
     const dispatch = useDispatch();
+
     const [loading, setLoading] = useState(true);
     const api = new Api();
 
@@ -37,9 +40,12 @@ const Add = () => {
     });
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
     return (
+        (!hasPermission(`create-product`) || loading) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -49,6 +55,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };
