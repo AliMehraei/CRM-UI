@@ -8,8 +8,10 @@ import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import AvailabilityFormFields from "./components/edit/AvailabilityFormFields";
 import 'flatpickr/dist/flatpickr.css';
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.availabilityForm);
     const dispatch = useDispatch();
     const api = new Api();
@@ -48,6 +50,9 @@ const Edit = () => {
         return <LoadingSasCrm/>
 
     return (
+        (!hasPermission(`update-availability`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -56,6 +61,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
+        )
     );
 };
 
