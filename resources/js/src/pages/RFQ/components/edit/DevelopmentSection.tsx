@@ -22,14 +22,14 @@ export const DevelopmentSection = () => {
                     <input id="processed_for_vrfq_round_1" type="checkbox" name="processed_for_vrfq_round_1"
                            className="form-checkbox"
                            onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                           checked={formState.processed_for_vrfq_round_1}
+                           checked={formState.processed_for_vrfq_round_1 == 'true'}
                     />
                 </Tippy>,
             'Processed for VRFQ round 2': <label className="flex items-center cursor-pointer">
                 <input id="processed_for_vrfq_round_2" type="checkbox" name="processed_for_vrfq_round_2"
                        className="form-checkbox"
                        onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                       checked={formState.processed_for_vrfq_round_2}
+                       checked={formState.processed_for_vrfq_round_2 == 'true'}
                 />
             </label>,
             'Open Status Time': <Flatpickr
@@ -39,7 +39,7 @@ export const DevelopmentSection = () => {
                     enableTime: true,
                     dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
-                    defaultDate: `${formState.open_status_date ? new Date(formState.open_status_date+' '+ formState.open_status_time) : ''}`,
+                    defaultDate: `${formState.open_status_date ? new Date(formState.open_status_date + ' ' + formState.open_status_time) : ''}`,
                 }}
                 defaultValue={formState.open_status_timestamp}
 
