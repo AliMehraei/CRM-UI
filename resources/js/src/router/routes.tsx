@@ -1,5 +1,4 @@
 import {lazy} from 'react';
-import ProtectedRoute from '../components/ProtectedRoute';
 import ErrorPage from '../pages/Pages/ErroPage';
 import Logout from '../pages/Authentication/Logout';
 
@@ -115,7 +114,7 @@ const LoginCover = lazy(() => import('../pages/Authentication/LoginCover'));
 const RegisterCover = lazy(() => import('../pages/Authentication/RegisterCover'));
 const RecoverIdCover = lazy(() => import('../pages/Authentication/RecoverIdCover'));
 const UnlockCover = lazy(() => import('../pages/Authentication/UnlockCover'));
-const Error = lazy(() => import('../components/Error'));
+// const Error = lazy(() => import('../components/Error'));
 const ListTask = lazy(() => import('../pages/Task/Index'));
 const PreviewTask = lazy(() => import('../pages/Task/Preview'));
 const AddTask = lazy(() => import('../pages/Task/Add'));
@@ -127,11 +126,6 @@ const routes = [
         element: <Index/>,
         protected: true,
         requiredPermission: 'read-product'
-    },
-    {
-        path: '/permission-denied',
-        element: <ErrorPage errorCode="403"/>
-
     },
     {
         path: '/index',
@@ -321,7 +315,12 @@ const routes = [
         layout: 'blank',
     },
     {
-        path: '/pages/error404',
+        path: '/permission-denied',
+        element: <ErrorPage errorCode="403"/>
+
+    },
+    {
+        path: '*',
         element: <ErrorPage errorCode="404"/>,
         layout: 'blank',
     },
@@ -723,11 +722,6 @@ const routes = [
         element: <EditSales/>,
         protected: true,
         requiredPermission: 'update-sales-order'
-    },
-    {
-        path: '*',
-        element: <ErrorPage/>,
-        layout: 'blank',
     },
 ];
 export {routes};
