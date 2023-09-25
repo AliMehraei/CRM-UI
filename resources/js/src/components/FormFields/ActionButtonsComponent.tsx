@@ -4,6 +4,7 @@ import api from "../../config/api";
 import {useDispatch, useSelector} from "react-redux";
 import {resetErrors, updateErrors} from "../../store/formErrorsSlice";
 import Swal from "sweetalert2";
+import {findApiToCall} from "../Functions/CommonFunctions";
 
 
 const ActionButtonsComponent = ({formState, resetForm}: any) => {
@@ -25,11 +26,7 @@ const ActionButtonsComponent = ({formState, resetForm}: any) => {
             timer: 5000,
         });
 
-        const methodToCall = api_instance[formState.api];
-        if (typeof methodToCall !== 'function') {
-            console.log('fds', 'error api');
-            return;
-        }
+        const methodToCall = await findApiToCall(formState.api);
 
         const response = await methodToCall.call(api_instance, formState);
         if (response.isOk) {
