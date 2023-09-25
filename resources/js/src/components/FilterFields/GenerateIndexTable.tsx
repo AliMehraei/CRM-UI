@@ -37,7 +37,6 @@ const GenerateIndexTable = ({modelName, tableColumns, setTableColumns}: any) => 
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
-    const [tableColumnsModified, setTableColumnsModified] = useState(false);
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'id',
