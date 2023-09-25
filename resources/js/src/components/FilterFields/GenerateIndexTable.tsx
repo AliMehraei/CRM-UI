@@ -14,7 +14,7 @@ import {resetFilterSlice} from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
 
-const GenerateIndexTable = ({modelName, tableColumns}: any) => {
+const GenerateIndexTable = ({modelName, tableColumns, setTableColumns}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -37,6 +37,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
+    const [tableColumnsModified, setTableColumnsModified] = useState(false);
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'id',
@@ -280,32 +281,6 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     }, []);
 
 
-    useEffect(() => {
-        tableColumns = tableColumns.map((col: any) => {
-            if (col.accessor === 'action') {
-                const OriginalRender = col.render;
-
-                // Overwrite the render function and add the <span>test</span>
-                col.render = ({id}: any) => (
-                    <div className="flex gap-4 items-center w-max mx-auto">
-                        {OriginalRender({id})}
-                        {hasPermission(`update-${modelName}`) && (
-                            <NavLink to={`/${modelName}/edit/${id}`} className="flex hover:text-info">
-                                <EditIcon/>
-                            </NavLink>
-                        )}
-                        {hasPermission(`delete-${modelName}`) && (
-                            <button type="button" className="flex hover:text-danger"
-                                    onClick={() => deleteRow(id)}>
-                                <DeleteIcon/>
-                            </button>
-                        )}
-                    </div>
-                );
-            }
-            return col;
-        });
-    }, [tableColumns]);
 
     const deleteButton = (<button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -334,7 +309,6 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
             <LoadingSasCrm/>
         ) : (
             <>
-
                 <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
 
                     <div className={`${modelName}-table`}>
@@ -425,7 +399,33 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                         <DataTable
                                             className={`${isDark} whitespace-nowrap table-hover`}
                                             records={records}
-                                            columns={tableColumns}
+                                            columns={[...tableColumns, {
+                                                accessor: 'action',
+                                                title: 'Actions',
+                                                sortable: false,
+                                                textAlignment: 'center',
+                                                render: ({id}: any) => (
+                                                    <>
+                                                        <div className="flex gap-4 items-center w-max mx-auto">
+                                                            {hasPermission(`update-${modelName}`) && (
+                                                                <NavLink to={`/${modelName}/edit/${id}`}
+                                                                         className="flex hover:text-info">
+                                                                    <EditIcon/>
+                                                                </NavLink>
+                                                            )}
+                                                            {hasPermission(`delete-${modelName}`) && (
+                                                                <button
+                                                                    type="button"
+                                                                    className="flex hover:text-danger"
+                                                                    onClick={() => deleteRow(id)}
+                                                                >
+                                                                    <DeleteIcon/>
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    </>
+                                                ),
+                                            }]}
                                             highlightOnHover
                                             totalRecords={totalItems}
                                             recordsPerPage={pageSize}
