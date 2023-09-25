@@ -14,7 +14,7 @@ import {resetFilterSlice} from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
 
-const GenerateIndexTable = ({modelName, tableColumns, setTableColumns}: any) => {
+const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -278,7 +278,6 @@ const GenerateIndexTable = ({modelName, tableColumns, setTableColumns}: any) => 
         fetchDataFilterOption();
         dispatch(resetFilterSlice())
     }, []);
-
 
 
     const deleteButton = (<button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
