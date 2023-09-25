@@ -50,7 +50,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         try {
             const res = await findApiToCall(`filterOption${upFirstLetter(modelName)}`).call(api_instance);
             // Transform the data
-            const transformedData = res.data.data.map((item: any) => {
+            const transformedData = res.data?.data.map((item: any) => {
                 const conditions = item.condition;
                 return {
                     ...item,
@@ -175,11 +175,11 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                 sortDirection: sortDirection,
                 filterParam: filterParam
             }).then((res: any) => {
-                setItems(res.data.data.data);
-                setTotalItems(res.data.data.total);
+                setItems(res.data?.data?.data);
+                setTotalItems(res.data?.data?.total);
                 setLoading(false);
             }).catch((error: any) => {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching data: ', error);
                 setLoading(false);
                 showMessage(`Error fetching  ${modelName} data.`, 'error');
             });
@@ -392,7 +392,13 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                     {/* Apply filter button */}
                                     {selectedFields.length > 0 && (
                                         <div className="flex justify-between space-x-2  "
-                                             style={{position: 'fixed', left: -58, zIndex: 99999, top: "50vh", transform: "rotate(90deg)"}}>
+                                             style={{
+                                                 position: 'fixed',
+                                                 left: -58,
+                                                 zIndex: 99999,
+                                                 top: "50vh",
+                                                 transform: "rotate(90deg)"
+                                             }}>
                                             <button onClick={() => applyFilters({page, pageSize, filters, sortStatus})}
                                                     className="btn btn-sm btn-primary">
                                                 Apply Filter
