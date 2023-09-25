@@ -1,17 +1,14 @@
 import {NavLink} from 'react-router-dom';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect} from 'react';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import {formatDate} from "@fullcalendar/core";
-import {DeleteIcon, EditIcon} from "../../components/FormFields/CommonIcons";
 import {useDispatch} from "react-redux";
 import {useUserStatus} from "../../config/authCheck";
-import {emitter} from "../../components/Functions/CommonFunctions";
 import GenerateIndexTable from "../../components/FilterFields/GenerateIndexTable";
 
 const List = () => {
     const dispatch = useDispatch();
     const {hasPermission} = useUserStatus();
-    const [tableColumns, setTableColumns] = useState()
     useEffect(() => {
         dispatch(setPageTitle('Product List'));
     }, [dispatch]);
