@@ -1,15 +1,15 @@
-import {Link, NavLink} from 'react-router-dom';
-import {DataTable, DataTableSortStatus} from 'mantine-datatable';
-import {useState, useEffect} from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { DataTable, DataTableSortStatus } from 'mantine-datatable';
+import { useState, useEffect } from 'react';
 import sortBy from 'lodash/sortBy';
-import {useDispatch, useSelector} from 'react-redux';
-import {IRootState} from '../../store';
-import {setPageTitle} from '../../store/themeConfigSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState } from '../../store';
+import { setPageTitle } from '../../store/themeConfigSlice';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import {renderFilterValueFiled} from '../../components/FilterValueFiled';
-import {useUserStatus} from '../../config/authCheck';
+import { renderFilterValueFiled } from '../../components/FilterValueFiled';
+import { useUserStatus } from '../../config/authCheck';
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const List = () => {
@@ -17,12 +17,12 @@ const List = () => {
     useEffect(() => {
         dispatch(setPageTitle('user List'));
     });
-    const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (!isLoading && !hasPermission('filter-user') && !hasPermission('read-user')) {
             setLoading(true);
-            return <LoadingSasCrm/>;
+            return <LoadingSasCrm />;
         }
         setLoading(false);
         return;
@@ -112,7 +112,7 @@ const List = () => {
             position: 'top',
             showConfirmButton: false,
             timer: 3000,
-            customClass: {container: 'toast'},
+            customClass: { container: 'toast' },
         });
         toast.fire({
             icon: type,
@@ -179,7 +179,7 @@ const List = () => {
         setLoading(true);
 
 
-        const {columnAccessor: sortField = '', direction: sortDirection = ''} = sortStatus;
+        const { columnAccessor: sortField = '', direction: sortDirection = '' } = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
 
         try {
@@ -239,19 +239,19 @@ const List = () => {
         // fetchDatauser(page, pageSize, filters, sortStatus);
     };
     const handleFieldChange = (event, option) => {
-        const {value, checked} = event.target;
+        const { value, checked } = event.target;
 
 
         if (checked) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                [value]: {field: value, condition: '', value: '', model: option.model, type: option.type},
+                [value]: { field: value, condition: '', value: '', model: option.model, type: option.type },
             }));
 
             setSelectedFields((prevSelectedFields) => [...prevSelectedFields, value]);
         } else {
             setFilters((prevFilters) => {
-                const updatedFilters = {...prevFilters};
+                const updatedFilters = { ...prevFilters };
                 delete updatedFilters[value];
                 return updatedFilters;
             });
@@ -265,15 +265,15 @@ const List = () => {
     };
 
     const handleSortChange = (sortStatus) => {
-        const {columnAccessor, direction = 'asc'} = sortStatus; // Destructure with a default value
-        setSortStatus({columnAccessor, direction});
+        const { columnAccessor, direction = 'asc' } = sortStatus; // Destructure with a default value
+        setSortStatus({ columnAccessor, direction });
         setPage(1);
-        fetchDatauser(page, pageSize, filters, {columnAccessor, direction});
+        fetchDatauser(page, pageSize, filters, { columnAccessor, direction });
     };
 
     const handleConditionChange = (field, event) => {
         const conditionsToClear = ['between', 'in_the_last', 'due_in'];
-        let updatedFilterValue = {...filters[field], condition: event.value};
+        let updatedFilterValue = { ...filters[field], condition: event.value };
         if (conditionsToClear.includes(updatedFilterValue.condition)) {
             updatedFilterValue.value = '';
         }
@@ -288,7 +288,7 @@ const List = () => {
 
     return (
         (!hasPermission('read-user') || loading) ? (
-            <LoadingSasCrm/>
+            <LoadingSasCrm />
         ) : (
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
                 <div className="user-table">
@@ -297,9 +297,9 @@ const List = () => {
                             {hasPermission('delete-user') && (
                                 <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
+                                        xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                         <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5"
-                                              strokeLinecap="round"></path>
+                                            strokeLinecap="round"></path>
                                         <path
                                             d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
                                             stroke="currentColor"
@@ -307,9 +307,9 @@ const List = () => {
                                             strokeLinecap="round"
                                         ></path>
                                         <path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor" strokeWidth="1.5"
-                                              strokeLinecap="round"></path>
+                                            strokeLinecap="round"></path>
                                         <path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor" strokeWidth="1.5"
-                                              strokeLinecap="round"></path>
+                                            strokeLinecap="round"></path>
                                         <path
                                             opacity="0.5"
                                             d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
@@ -352,10 +352,10 @@ const List = () => {
                                             <div key={option.value} className="mb-2">
                                                 <label className="flex items-center cursor-pointer">
                                                     <input type="checkbox"
-                                                           value={option.value}
-                                                           onChange={(e) => handleFieldChange(e, option)}
-                                                           checked={selectedFields.includes(option.value)}
-                                                           className="form-checkbox"/>
+                                                        value={option.value}
+                                                        onChange={(e) => handleFieldChange(e, option)}
+                                                        checked={selectedFields.includes(option.value)}
+                                                        className="form-checkbox" />
                                                     <span className=" text-dark">{option.label}</span>
                                                 </label>
 
@@ -375,7 +375,7 @@ const List = () => {
                                                                         <Select
                                                                             onChange={(e) => handleConditionChange(option.value, e)}
                                                                             placeholder="Select an include"
-                                                                            options={option.conditions}/>
+                                                                            options={option.conditions} />
                                                                     </div>
                                                                     {filters[option.value] != null && (
                                                                         <>
@@ -426,12 +426,12 @@ const List = () => {
                                             {
                                                 accessor: 'id',
                                                 sortable: true,
-                                                render: ({id}) => <div className="font-semibold">{id}</div>,
+                                                render: ({ id }) => <div className="font-semibold">{id}</div>,
                                             },
                                             {
                                                 accessor: 'user_name',
                                                 sortable: true,
-                                                render: ({name, id}) => (
+                                                render: ({ name, id }) => (
                                                     hasPermission('update-user') ? (
                                                         <NavLink to={`/user/edit/${id}`}>
                                                             <div
@@ -445,7 +445,7 @@ const List = () => {
                                             {
                                                 accessor: 'octo_api_id',
                                                 sortable: true,
-                                                render: ({octo_api_id}) => (
+                                                render: ({ octo_api_id }) => (
                                                     <div className="flex items-center font-semibold">
                                                         {octo_api_id}
                                                     </div>
@@ -454,9 +454,9 @@ const List = () => {
                                             {
                                                 accessor: 'owner',
                                                 sortable: true,
-                                                render: ({owner}) => (
+                                                render: ({ owner }) => (
                                                     <div className="flex items-center font-semibold">
-                                                        {owner ? owner.name : 'No Owner'}
+                                                        {owner ? owner.first_name + ' ' + owner.last_name : 'No Owner'}
                                                     </div>
                                                 ),
                                             },
@@ -464,7 +464,7 @@ const List = () => {
                                                 accessor: 'is_active',
                                                 title: 'Active',
                                                 sortable: true,
-                                                render: ({is_active}) => (
+                                                render: ({ is_active }) => (
                                                     <div className="flex items-center font-semibold">
                                                         {is_active === 1 ? 'Active' : 'Not Active'}
                                                     </div>
@@ -475,14 +475,14 @@ const List = () => {
                                                 title: 'Actions',
                                                 sortable: false,
                                                 textAlignment: 'center',
-                                                render: ({id}) => (
+                                                render: ({ id }) => (
                                                     <div className="flex gap-4 items-center w-max mx-auto">
                                                         {hasPermission('delete-user') && (
                                                             <NavLink to={`/user/edit/${id}`}
-                                                                     className="flex hover:text-info">
+                                                                className="flex hover:text-info">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                     className="w-4.5 h-4.5">
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                    className="w-4.5 h-4.5">
                                                                     <path
                                                                         opacity="0.5"
                                                                         d="M22 10.5V12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2H13.5"
@@ -522,13 +522,13 @@ const List = () => {
                                                         {/* <NavLink to="" className="flex"> */}
                                                         {hasPermission('delete-user') && (
                                                             <button type="button" className="flex hover:text-danger"
-                                                                    onClick={(e) => deleteRow(id)}>
+                                                                onClick={(e) => deleteRow(id)}>
                                                                 <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                     fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                                     className="h-5 w-5">
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                                    className="h-5 w-5">
                                                                     <path d="M20.5001 6H3.5" stroke="currentColor"
-                                                                          strokeWidth="1.5"
-                                                                          strokeLinecap="round"></path>
+                                                                        strokeWidth="1.5"
+                                                                        strokeLinecap="round"></path>
                                                                     <path
                                                                         d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
                                                                         stroke="currentColor"
@@ -536,11 +536,11 @@ const List = () => {
                                                                         strokeLinecap="round"
                                                                     ></path>
                                                                     <path opacity="0.5" d="M9.5 11L10 16"
-                                                                          stroke="currentColor" strokeWidth="1.5"
-                                                                          strokeLinecap="round"></path>
+                                                                        stroke="currentColor" strokeWidth="1.5"
+                                                                        strokeLinecap="round"></path>
                                                                     <path opacity="0.5" d="M14.5 11L14 16"
-                                                                          stroke="currentColor" strokeWidth="1.5"
-                                                                          strokeLinecap="round"></path>
+                                                                        stroke="currentColor" strokeWidth="1.5"
+                                                                        strokeLinecap="round"></path>
                                                                     <path
                                                                         opacity="0.5"
                                                                         d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
@@ -567,10 +567,10 @@ const List = () => {
                                         selectedRecords={selectedRecords}
                                         onSelectedRecordsChange={setSelectedRecords}
                                         paginationText={({
-                                                             from,
-                                                             to,
-                                                             totalRecords
-                                                         }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
+                                            from,
+                                            to,
+                                            totalRecords
+                                        }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
                                     />
                                 )}
 
