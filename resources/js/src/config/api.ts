@@ -17,6 +17,11 @@ class api {
         API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT + URL;
         API_URL_USER = import.meta.env.VITE_API_URL_USER + URL;
     }
+    async filterOption(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/filter_option`,data, {headers: Headers});
+    }
+
+
 
     async searchCategoryProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data, {headers: Headers});
@@ -30,9 +35,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data, {headers: Headers});
     }
 
-    async filterOptionProduct(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/product/filter_option`);
-    }
+    
 
     async fetchDataProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/list`, data, {headers: Headers});
@@ -123,9 +126,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor/search`, data, {headers: Headers});
     }
 
-    async filterOptionVendor(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor/filter_option`);
-    }
+   
 
     async fetchDataVendor(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor/list`, data, {headers: Headers});
@@ -147,9 +148,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor`, data, {headers: Headers});
     }
 
-    async filterOptionManufacturer(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/filter_option`);
-    }
+    
 
     async searchManufacturer(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/manufacturer/search`, data, {headers: Headers});
@@ -181,9 +180,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/rfq/search`, data, {headers: Headers});
     }
 
-    async filterOptionRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/rfq/filter_option`);
-    }
+    
 
     async fetchDataRfq(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/rfq/list`, data, {headers: Headers});
@@ -210,9 +207,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/search`, data, {headers: Headers});
     }
 
-    async filterOptionInvoice(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/invoice/filter_option`);
-    }
+    
 
     async fetchDataInvoice(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/list`, data, {headers: Headers});
@@ -239,9 +234,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/contact/search`, data, {headers: Headers});
     }
 
-    async filterOptionContact(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/contact/filter_option`);
-    }
+    
 
     async fetchDataContact(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/contact/list`, data, {headers: Headers});
@@ -268,9 +261,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/account/search`, data, {headers: Headers});
     }
 
-    async filterOptionAccount(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/account/filter_option`);
-    }
+    
 
     async fetchDataAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/account/list`, data, {headers: Headers});
@@ -297,9 +288,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data, {headers: Headers});
     }
 
-    async filterOptionLead(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/lead/filter_option`);
-    }
+    
 
     async fetchDataLead(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data, {headers: Headers});
@@ -326,9 +315,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/purchase_order/search`, data, {headers: Headers});
     }
 
-    async filterOptionPurchaseOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/filter_option`);
-    }
+    
 
     async fetchDataPurchaseOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/purchase_order/list`, data, {headers: Headers});
@@ -355,9 +342,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote/search`, data, {headers: Headers});
     }
 
-    async filterOptionQuote(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote/filter_option`);
-    }
+    
 
     async fetchDataQuote(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data, {headers: Headers});
@@ -384,9 +369,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data, {headers: Headers});
     }
 
-    async filterOptionDeal(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/deal/filter_option`);
-    }
+    
 
     async fetchDataDeal(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/deal/list`, data, {headers: Headers});
@@ -413,9 +396,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/availability/search`, data, {headers: Headers});
     }
 
-    async filterOptionAvailability(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/filter_option`);
-    }
+    
 
     async fetchDataAvailability(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/availability/list`, data, {headers: Headers});
@@ -442,9 +423,8 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/excess/search`, data, {headers: Headers});
     }
 
-    async filterOptionExcess(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess/filter_option`);
-    }
+    
+    
 
     async fetchDataExcess(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data, {headers: Headers});
@@ -471,9 +451,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/search`, data, {headers: Headers});
     }
 
-    async filterOptionSalesOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/sales_order/filter_option`);
-    }
+    
 
     async fetchDataSalesOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data, {headers: Headers});
@@ -500,9 +478,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/task/search`, data, {headers: Headers});
     }
 
-    async filterOptionTask(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/task/filter_option`);
-    }
+    
 
     async fetchDataTask(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/task/list`, data, {headers: Headers});
@@ -529,9 +505,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/search`, data, {headers: Headers});
     }
 
-    async filterOptionVendorRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/filter_option`);
-    }
+    
 
     async fetchDataVendorRfq(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/list`, data, {headers: Headers});
@@ -559,9 +533,7 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/user/search`, data, {headers: Headers});
     }
 
-    async filterOptionUser(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/user/filter_option`);
-    }
+    
 
     async fetchDataUser(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/user/list`, data, {headers: Headers});

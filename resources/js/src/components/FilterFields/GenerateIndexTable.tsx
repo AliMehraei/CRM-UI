@@ -48,7 +48,9 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await findApiToCall(`filterOption${upFirstLetter(modelName)}`).call(api_instance);
+            const res = await findApiToCall(`filterOption`).call(api_instance,{
+                model:upFirstLetter(modelName),
+            });
             // Transform the data
             const transformedData = res.data?.data.map((item: any) => {
                 const conditions = item.condition;
