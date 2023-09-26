@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import api from '../../config/api';
 import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
-import {findApiToCall, upFirstLetter} from "../Functions/CommonFunctions";
+import {findApiToCall, upFirstLetter,formattedModelName} from "../Functions/CommonFunctions";
 import {DeleteIcon, EditIcon} from "../FormFields/CommonIcons";
 import {resetFilterSlice} from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
@@ -268,7 +268,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
         filterOptionRef.current = {...filterOptionRef.current, filters};
     }, [filters]);
     useEffect(() => {
-        if (!isLoading && !hasPermission(`filter-${modelName}`) && !hasPermission(`read-${modelName}`)) {
+        if (!isLoading && !hasPermission(`filter-${formattedModelName(modelName)}`) && !hasPermission(`read-${formattedModelName(modelName)}`)) {
             setLoading(true);
         }
 
@@ -305,7 +305,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     </button>)
 
     return (
-        (!hasPermission(`read-${modelName}`) || loading) ? (
+        (!hasPermission(`read-${formattedModelName(modelName)}`) || loading) ? (
             <LoadingSasCrm/>
         ) : (
             <>
@@ -315,9 +315,9 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                         <div className="mb-4.5 px-5 flex md:items-center md:flex-row flex-col gap-5">
                             <div className="flex items-center gap-2">
 
-                                {hasPermission(`delete-${modelName}`) && deleteButton}
+                                {hasPermission(`delete-${formattedModelName(modelName)}`) && deleteButton}
 
-                                {hasPermission(`create-${modelName}`) && (
+                                {hasPermission(`create-${formattedModelName(modelName)}`) && (
                                     <Link to={`/${modelName}/add`} className="btn btn-primary gap-2">
                                         Add New
                                     </Link>
@@ -325,7 +325,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                             </div>
                         </div>
                         <div className="grid grid-cols-5 gap-6 mb-6">
-                            {hasPermission(`filter-${modelName}`) && (
+                            {hasPermission(`filter-${formattedModelName(modelName)}`) && (
                                 <div className="panel col-span-1">
                                     <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
 
@@ -407,13 +407,13 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                                 render: ({id}: any) => (
                                                     <>
                                                         <div className="flex gap-4 items-center w-max mx-auto">
-                                                            {hasPermission(`update-${modelName}`) && (
+                                                            {hasPermission(`update-${formattedModelName(modelName)}`) && (
                                                                 <NavLink to={`/${modelName}/edit/${id}`}
                                                                          className="flex hover:text-info">
                                                                     <EditIcon/>
                                                                 </NavLink>
                                                             )}
-                                                            {hasPermission(`delete-${modelName}`) && (
+                                                            {hasPermission(`delete-${formattedModelName(modelName)}`) && (
                                                                 <button
                                                                     type="button"
                                                                     className="flex hover:text-danger"

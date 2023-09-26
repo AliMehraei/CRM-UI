@@ -394,7 +394,9 @@ export const findApiToCall = (functionName: string) => {
 export const upFirstLetter = (string: string) => {
     return string.replace(/^./, string[0].toUpperCase())
 }
-
+export const formattedModelName = (string: string) => {
+    return string.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
+}
 export const loadModels = async (inputValue: any, option: any) => {
 
     if (inputValue.length < 2) return [];
