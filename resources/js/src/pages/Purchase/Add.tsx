@@ -6,8 +6,11 @@ import PurchaseOrderFormFields from "./components/create/PurchaseOrderFormFields
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
 import {resetForm} from "../../store/purchaseOrderFormSlice";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const dispatch = useDispatch();
 
@@ -16,6 +19,9 @@ const Add = () => {
     });
 
     return (
+        (!hasPermission(`create-purchase-order`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -24,6 +30,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };

@@ -8,15 +8,20 @@ import PopoverComponent from "./PopoverComponent";
 const InvoiceItemSection = () => {
     const formState = useSelector((state: any) => state.invoiceForm);
     const dispatch = useDispatch();
-    const defaultSummary = {
+
+    const [summary, setSummary] = useState({
         amount: 0,
         subtotal: 0,
         discount: 0,
         tax: 0,
         adjustment: 0,
-        grandTotal: 0,
-    }
-    const [summary, setSummary] = useState({defaultSummary, ...formState.summary});
+        grandTotal: 0
+        , ...formState.summary,
+        ...formState.tax,
+        ...formState.discount,
+        ...formState.adjustment,
+
+    });
 
     const [items, setItems] = useState<any>([]);
 
@@ -217,7 +222,7 @@ const InvoiceItemSection = () => {
                                             <td>
                                                 <input name="total" type="number"
                                                        className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
-                                                       defaultValue={item.total} disabled
+                                                       value={item.total} disabled
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
@@ -293,7 +298,7 @@ const InvoiceItemSection = () => {
                                 </div>
                                 <div className="flex items-center justify-between mt-4 font-semibold">
                                     <div className="flex-1">Grand Total(€)</div>
-                                    <input id="approved_by" name="approved_by_id" type="text" value={summary.grandTotal}
+                                    <input id="grand_total" name="grand_total" type="text" value={summary.grandTotal}
                                            className="w-64 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                            disabled/>
                                 </div>

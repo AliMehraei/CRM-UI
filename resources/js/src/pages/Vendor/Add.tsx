@@ -4,8 +4,11 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import VendorFormFields from "./components/create/VendorFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm} from "../../store/vendorFormSlice";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.vendorForm);
     const dispatch = useDispatch();
 
@@ -14,6 +17,9 @@ const Add = () => {
     });
 
     return (
+        (!hasPermission(`create-vendor`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -22,6 +28,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };

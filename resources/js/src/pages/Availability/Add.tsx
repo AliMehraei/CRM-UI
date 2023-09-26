@@ -5,8 +5,11 @@ import AvailabilityFormFields from "./components/create/AvailabilityFormFields";
 import 'flatpickr/dist/flatpickr.css';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm} from "../../store/availabilityFormSlice";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
+import {useUserStatus} from "../../config/authCheck";
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.availabilityForm);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -14,6 +17,9 @@ const Add = () => {
     });
 
     return (
+        (!hasPermission(`create-availability`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -22,6 +28,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };

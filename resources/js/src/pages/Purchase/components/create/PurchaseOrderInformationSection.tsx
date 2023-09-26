@@ -45,7 +45,7 @@ const PurchaseOrderInformationSection = () => {
                 name="po_type"
                 id="po_type"
                 onChange={({value}: any) => {
-                    handleChangeField('purchapo_typeseOrder_type', value)
+                    handleChangeField('po_type', value)
                 }}
                 className="flex-1"
                 />
