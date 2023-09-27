@@ -171,8 +171,10 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                                          placeholder="Search value"/>
         },
         "select": {
-            "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}/>,
-            "is": () => <SelectComponent options={option.options} condition="is" optionValue={option.value}/>,
+            "is_not": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
+                                             condition="is_not" optionValue={option.value}/>,
+            "is": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
+                                         condition="is" optionValue={option.value}/>,
             "default": () => <ValueInput defaultValue={defaultValue}
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value that contains"/>
