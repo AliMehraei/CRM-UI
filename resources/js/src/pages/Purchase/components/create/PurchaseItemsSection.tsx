@@ -183,7 +183,7 @@ const PurchaseItemSection = () => {
                                                     options={{
                                                         dateFormat: 'Y-m-d',
                                                         position: 'auto left',
-                                                        // defaultDate: `${formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}`,
+                                                        // defaultDate: formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : null as any,
                                                     }}
                                                     className="form-input min-w-[200px]"
                                                     // value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
@@ -197,7 +197,7 @@ const PurchaseItemSection = () => {
                                                     options={{
                                                         dateFormat: 'Y-m-d',
                                                         position: 'auto left',
-                                                        // defaultDate: `${formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}`,
+                                                        // defaultDate: formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : null as any,
                                                     }}
                                                     className="form-input flex-1 min-w-[200px]"
                                                     // value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}

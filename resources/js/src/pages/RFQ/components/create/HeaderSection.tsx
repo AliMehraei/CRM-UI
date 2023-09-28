@@ -104,8 +104,8 @@ const HeaderSection = () => {
                                   handleChangeField('status', value)
                               }} className="flex-1"/>,
 
-            'Date History': <Flatpickr name='date_history' options={{dateFormat: 'd-m-Y'}} className="form-input flex-1"
-                                       placeholder="MM DD YYYY"
+            'Date History': <Flatpickr name='date_history' options={{dateFormat: 'Y-m-d '}} className="form-input flex-1"
+                                       placeholder="YYYY-MM-DD"
                                        onChange={(_, dateString) => handleChangeField('date_history', dateString)}
             />,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
@@ -138,9 +138,9 @@ const HeaderSection = () => {
                     dispatch(updateFormData({'customer_rfq_file': `${response?.data.data.file_url}`}));
                 })}
             />,
-            'RFQ Dead Line': <Flatpickr name="rfq_dead_line" options={{dateFormat: 'd-m-Y'}}
+            'RFQ Dead Line': <Flatpickr name="rfq_dead_line" options={{dateFormat: 'Y-m-d '}}
                                         className="form-input flex-1"
-                                        placeholder="MM DD YYYY"
+                                        placeholder="YYYY-MM-DD"
                                         onChange={(_, dateString) => handleChangeField('rfq_dead_line', dateString)}
             />,
 

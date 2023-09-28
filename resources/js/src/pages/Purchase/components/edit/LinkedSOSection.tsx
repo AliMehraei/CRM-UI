@@ -136,7 +136,7 @@ const LinkedSOSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : ''}`,
+                        defaultDate: formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : null as any,
                     }}
                     name="so_requested_d_d"
                     value={formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : ''}
@@ -150,7 +150,7 @@ const LinkedSOSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : ''}`,
+                        defaultDate: formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : null as any,
                     }}
                     name="so_confirmed_d_d"
                     value={formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : ''}

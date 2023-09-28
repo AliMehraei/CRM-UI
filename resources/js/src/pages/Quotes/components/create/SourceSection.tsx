@@ -24,9 +24,9 @@ const SourceSection = () => {
 
             'Availability No': <input id="availability_no" name="availability_no" className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
-            'Availability Date': <Flatpickr name='availability_date' options={{ dateFormat: 'd-m-Y' }}
+            'Availability Date': <Flatpickr name='availability_date' options={{ dateFormat: 'Y-m-d ' }}
                 className="form-input flex-1"
-                placeholder="MM DD YYYY"
+                placeholder="YYYY-MM-DD"
                 onChange={(_,dateString) => handleChangeField('availability_date', dateString)} />,
 
             'Availability': <AsyncSelect isMulti={false} id="availability_id" name="availability_id"

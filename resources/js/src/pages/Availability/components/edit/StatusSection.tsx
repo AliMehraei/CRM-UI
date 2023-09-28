@@ -35,8 +35,8 @@ const StatusSection = () => {
 
             'Valid': <Flatpickr name="valid" id="valid"
                                 options={{
-                                    dateFormat: 'd-m-Y',
-                                    defaultDate: `${formState.valid ? new Date(formState.valid) : ''}`,
+                                    dateFormat: 'Y-m-d ',
+                                    defaultDate: formState.valid ? new Date(formState.valid) : null as any, 
                                 }}
                                 defaultValue={formState.valid}
                                 className="form-input flex-1"
