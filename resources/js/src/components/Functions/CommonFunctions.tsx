@@ -431,7 +431,7 @@ export const loadModels = async (inputValue: any, option: any) => {
 
 export const emitter = new EventEmitter();
 
-export const notifyErrorMessage = async (title: string, message: string) => {
+export const notifyErrorMessage = async (title: string) => {
     const toast = Swal.mixin({
         toast: true,
         position: 'top',
@@ -442,7 +442,5 @@ export const notifyErrorMessage = async (title: string, message: string) => {
     toast.fire({
         icon: 'error',
         title: title,
-        text: message,
-        padding: '10px 20px',
     });
 }
