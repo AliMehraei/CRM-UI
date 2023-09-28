@@ -351,7 +351,7 @@ const DealInformationSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.closing_date ? new Date(formState.closing_date) : ''}`,
+                        defaultDate: formState.closing_date ? new Date(formState.closing_date) : null as any,
                     }}
                     name="closing_date"
                     value={formState.closing_date ? new Date(formState.closing_date) : ''}

@@ -189,7 +189,7 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    defaultDate: `${item.requested_delivery_date ? new Date(item.requested_delivery_date) : ''}`,
+                                                    defaultDate: `${item.requested_delivery_date ? new Date(item.requested_delivery_date) : null as any,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
@@ -204,7 +204,7 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    defaultDate: `${item.estimated_delivery_date ? new Date(item.estimated_delivery_date) : ''}`,
+                                                    defaultDate: `${item.estimated_delivery_date ? new Date(item.estimated_delivery_date) : null as any,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"

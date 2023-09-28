@@ -40,7 +40,7 @@ const HeaderSection = () => {
                 options={{
                     dateFormat: 'Y-m-d ',
                     position: 'auto left',
-                    defaultDate: `${formState.date_of_birth ? new Date(formState.date_of_birth) : ''}`,
+                    defaultDate: formState.date_of_birth ? new Date(formState.date_of_birth) : null as any,
                 }}
                 defaultValue={formState.date_of_birth}
                 name="date_of_birth"

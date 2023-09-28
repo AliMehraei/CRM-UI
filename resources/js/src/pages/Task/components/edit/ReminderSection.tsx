@@ -47,12 +47,12 @@ const ReminderSection = () => {
                     <Flatpickr 
                         className="p-2 border rounded-md form-input flex-1"
                         data-enable-time={false}
-                        placeholder="MM DD YYYY"
+                        placeholder="YYYY-MM-DD"
                         value={selectedDate}   
                         onChange={(_,dateString) => {                          
                             setSelectedDate(dateString);
                             handleChangeField('reminder_on_date', dateString)}}
-                        options={{ dateFormat: 'd-m-Y' }}              
+                        options={{ dateFormat: 'Y-m-d ' }}              
                          />
                     
                     <label>At:</label>

@@ -38,7 +38,7 @@ const ShiftInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
-                    defaultDate: `${formState.shift_effective_from ? new Date(formState.shift_effective_from) : ''}`,
+                    defaultDate: formState.shift_effective_from ? new Date(formState.shift_effective_from) : null as any,
 
                 }}
                 defaultValue={formState.shift_effective_from}

@@ -22,7 +22,7 @@ const DescriptionInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d ',
                     position: 'auto left',
-                    defaultDate: `${formState.last_activity_date ? new Date(formState.last_activity_date) : ''}`,
+                    defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any, 
                 }}
                 name="last_activity_date"
                 value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}
