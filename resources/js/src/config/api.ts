@@ -17,10 +17,10 @@ class api {
         API_URL_PRODUCT = import.meta.env.VITE_API_URL_PRODUCT + URL;
         API_URL_USER = import.meta.env.VITE_API_URL_USER + URL;
     }
-    async filterOption(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/filter_option`,data, {headers: Headers});
-    }
 
+    async filterOption(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/filter_option`, data, {headers: Headers});
+    }
 
 
     async searchCategoryProduct(data: any = null) {
@@ -35,7 +35,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/list`, data, {headers: Headers});
@@ -76,7 +75,7 @@ class api {
         if (apiMethod == 'GET')
             return await _axios.get(`${API_URL_PRODUCT}${url}`, data);
         else
-            return await _axios.post(`${API_URL_PRODUCT}${url}`, {query :data}, {headers: Headers});
+            return await _axios.post(`${API_URL_PRODUCT}${url}`, {query: data}, {headers: Headers});
     }
 
     async login(data: any) {
@@ -126,7 +125,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor/search`, data, {headers: Headers});
     }
 
-   
 
     async fetchDataVendor(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor/list`, data, {headers: Headers});
@@ -148,7 +146,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor`, data, {headers: Headers});
     }
 
-    
 
     async searchManufacturer(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/manufacturer/search`, data, {headers: Headers});
@@ -180,7 +177,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/rfq/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataRfq(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/rfq/list`, data, {headers: Headers});
@@ -207,7 +203,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataInvoice(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/list`, data, {headers: Headers});
@@ -234,7 +229,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/contact/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataContact(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/contact/list`, data, {headers: Headers});
@@ -261,8 +255,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/account/search`, data, {headers: Headers});
     }
 
-    
-
     async fetchDataAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/account/list`, data, {headers: Headers});
     }
@@ -283,12 +275,16 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/account`, data, {headers: Headers});
     }
 
+    async checkAccountExists(data: object) {
+        return await _axios.post(`${API_URL_PRODUCT}/account/check-exists`, data, {headers: Headers});
+    }
+
+
     //lead
     async searchLead(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataLead(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data, {headers: Headers});
@@ -315,7 +311,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/purchase_order/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataPurchaseOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/purchase_order/list`, data, {headers: Headers});
@@ -342,7 +337,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataQuote(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data, {headers: Headers});
@@ -369,7 +363,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataDeal(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/deal/list`, data, {headers: Headers});
@@ -396,7 +389,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/availability/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataAvailability(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/availability/list`, data, {headers: Headers});
@@ -423,8 +415,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/excess/search`, data, {headers: Headers});
     }
 
-    
-    
 
     async fetchDataExcess(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data, {headers: Headers});
@@ -451,7 +441,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataSalesOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data, {headers: Headers});
@@ -478,7 +467,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/task/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataTask(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/task/list`, data, {headers: Headers});
@@ -505,7 +493,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataVendorRfq(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/list`, data, {headers: Headers});
@@ -533,7 +520,6 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/user/search`, data, {headers: Headers});
     }
 
-    
 
     async fetchDataUser(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/user/list`, data, {headers: Headers});
