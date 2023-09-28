@@ -1,6 +1,7 @@
 import api from "../../config/api";
 import {EventEmitter} from "events";
 import React from "react";
+import Swal from "sweetalert2";
 
 const api_instance = new api();
 
@@ -429,3 +430,19 @@ export const loadModels = async (inputValue: any, option: any) => {
 };
 
 export const emitter = new EventEmitter();
+
+export const notifyErrorMessage = async (title: string, message: string) => {
+    const toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 5000,
+    });
+
+    toast.fire({
+        icon: 'error',
+        title: title,
+        text: message,
+        padding: '10px 20px',
+    });
+}
