@@ -281,10 +281,13 @@ class api {
 
 
     //lead
+    async convertLead(data) {
+        return await _axios.post(`${API_URL_PRODUCT}/lead/convert`, data, {headers: Headers});
+    }
+
     async searchLead(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data, {headers: Headers});
     }
-
 
     async fetchDataLead(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data, {headers: Headers});
