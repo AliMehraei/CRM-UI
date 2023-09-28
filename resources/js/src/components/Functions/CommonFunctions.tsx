@@ -444,3 +444,18 @@ export const notifyErrorMessage = async (title: string) => {
         title: title,
     });
 }
+
+export const notifySuccess = async (title: string) => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: title
+    })
+}
