@@ -10,6 +10,7 @@ import Api from "../../config/api";
 import AccountExists from "./components/convert/AccountExists";
 import AccountNotExists from "./components/convert/AccountNotExists";
 import {updateFormData} from "../../store/leadFormSlice";
+import SuccessfulConvert from "./components/convert/SuccessfulConvert";
 
 const Add = () => {
     const formState = useSelector((state: any) => state.leadForm);
@@ -17,6 +18,7 @@ const Add = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [accountExists, setAccountExists] = useState(false);
+    const [successfulConvert, setSuccessfulConvert] = useState(false);
     const params = useParams();
     const leadId = params.id;
     const api = new Api();
@@ -65,7 +67,7 @@ const Add = () => {
             console.error(convertLeadResponse)
             return;
         }
-
+        setSuccessfulConvert(true);
         notifySuccess("Lead Converted Successfully.");
 
     }
@@ -85,6 +87,10 @@ const Add = () => {
     //TODO : fix permission
     if (loading || !hasPermission(`create-lead`))
         return <LoadingSasCrm/>;
+
+    if (successfulConvert)
+        return <SuccessfulConvert/>
+
 
     return (
         <div className='px-4'>
@@ -127,7 +133,6 @@ const Add = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
