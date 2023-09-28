@@ -57,6 +57,7 @@ const Add = () => {
         const convertLeadResponse = await api.convertLead({
             'id': formState.id,
             'accountExists': formState.accountExists,
+            'createNewAccount': formState.createNewAccount,
             'selectedAccount': formState.selectedAccount,
         });
         if (convertLeadResponse.status != 200) {
