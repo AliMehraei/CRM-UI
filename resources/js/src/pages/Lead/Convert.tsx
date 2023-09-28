@@ -5,7 +5,7 @@ import 'flatpickr/dist/flatpickr.css';
 import {useUserStatus} from "../../config/authCheck";
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 import {useNavigate, useParams} from "react-router-dom";
-import {notifyErrorMessage} from "../../components/Functions/CommonFunctions";
+import {notifyErrorMessage, notifySuccess} from "../../components/Functions/CommonFunctions";
 import Api from "../../config/api";
 import AccountExists from "./components/convert/AccountExists";
 import AccountNotExists from "./components/convert/AccountNotExists";
@@ -32,7 +32,9 @@ const Add = () => {
         });
         if (checkAccountResponse.status != 200)
             throw new Error(`Failed to check account exists. Status code: ${checkAccountResponse.status}`);
-        return checkAccountResponse.data.exists;
+        const exists = checkAccountResponse.data.exists;
+        dispatch(updateFormData({accountExists: exists}));
+        return exists;
     }
     const fetchLead = async () => {
         const leadResponse = await api.fetchSingleLead(leadId);
@@ -51,6 +53,21 @@ const Add = () => {
         setAccountExists(accountExists);
     }
 
+    const handleConvert = async () => {
+        const convertLeadResponse = await api.convertLead({
+            'id': formState.id,
+            'accountExists': formState.accountExists,
+            'selectedAccount': formState.selectedAccount,
+        });
+        if (convertLeadResponse.status != 200) {
+            notifyErrorMessage("Failed to convert lead")
+            console.error(convertLeadResponse)
+            return;
+        }
+
+        notifySuccess("Lead Converted Successfully.");
+
+    }
 
     useEffect(() => {
         handleDataFetching()
@@ -69,7 +86,6 @@ const Add = () => {
         return <LoadingSasCrm/>;
 
     return (
-
         <div className='px-4'>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
@@ -86,7 +102,7 @@ const Add = () => {
                         <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
                         <div className="flex gap-2.5 px-5">
-                            <button className="btn btn-primary">Convert</button>
+                            <button onClick={handleConvert} className="btn btn-primary">Convert</button>
 
                             <button onClick={() => {
                                 navigate(`/lead/list/`, {replace: true});
