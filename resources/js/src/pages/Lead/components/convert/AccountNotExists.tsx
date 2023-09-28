@@ -23,17 +23,7 @@ const AccountNotExists = () => {
                    {formState.first_name} {formState.last_name}
                 </span>
             </div>
-            <div className="flex gap-2.5 items-center">
-                <label>
-                    Owner of the New Records
-                </label>
-                <input id="exchange_rate"
-                       name="exchange_rate" type="text"
-                       className="flex-1 max-w-[300px] form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                       disabled
-                       defaultValue={`${formState.owner.first_name} ${formState.owner.last_name}`}
-                />
-            </div>
+
 
 
         </div>
