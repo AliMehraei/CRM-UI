@@ -67,6 +67,7 @@ const Add = () => {
             console.error(convertLeadResponse)
             return;
         }
+        dispatch(updateFormData({convertResponse: convertLeadResponse.data}));
         setSuccessfulConvert(true);
         notifySuccess("Lead Converted Successfully.");
 
