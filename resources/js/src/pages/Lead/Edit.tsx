@@ -19,6 +19,7 @@ const Edit = () => {
     const leadId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         const leadResponse = await api.fetchSingleLead(leadId);
@@ -29,7 +30,7 @@ const Edit = () => {
     };
 
     const handleConvertLead = async () => {
-
+        navigate(`/lead/convert/${leadId}`, {replace: true});
     }
 
     useEffect(() => {
