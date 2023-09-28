@@ -4,7 +4,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import 'flatpickr/dist/flatpickr.css';
 import {useUserStatus} from "../../config/authCheck";
 import LoadingSasCrm from '../../components/LoadingSasCrm';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {notifyErrorMessage} from "../../components/Functions/CommonFunctions";
 import Api from "../../config/api";
 import AccountExists from "./components/convert/AccountExists";
@@ -20,6 +20,8 @@ const Add = () => {
     const params = useParams();
     const leadId = params.id;
     const api = new Api();
+    const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(setPageTitle('Lead Convert'));
     });
@@ -78,7 +80,20 @@ const Add = () => {
                                 className="text-sm">({`${formState.first_name} ${formState.last_name} - ${formState.company}`})</span>
                         </div>
                         <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
                         {accountExists ? <AccountExists/> : <AccountNotExists/>}
+
+                        <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                        <div className="flex gap-2.5 px-5">
+                            <button className="btn btn-primary">Convert</button>
+
+                            <button onClick={() => {
+                                navigate(`/lead/list/`, {replace: true});
+                            }} className="btn btn-outline-dark">Cancel
+                            </button>
+
+                        </div>
                     </div>
                 </div>
             </div>

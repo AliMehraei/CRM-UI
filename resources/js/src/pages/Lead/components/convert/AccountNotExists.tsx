@@ -34,12 +34,7 @@ const AccountNotExists = () => {
                        defaultValue={`${formState.owner.first_name} ${formState.owner.last_name}`}
                 />
             </div>
-            <div className="flex gap-2.5 my-40" style={{marginTop: '5rem'}}>
-                <button className="btn btn-primary">Convert</button>
 
-                <button className="btn btn-outline-dark">Cancel</button>
-
-            </div>
 
         </div>
     );
