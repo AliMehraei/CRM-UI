@@ -7,11 +7,11 @@ const AccountExists = () => {
     const formState = useSelector((state: any) => state.leadForm);
     const [createNewAccount, setCreateNewAccount] = useState(true);
     const [selectAccountModal, setSelectAccountModal] = useState(false);
-    const [selectedAccount, setSelectedAccount] = useState(null);
+    const [selectedAccount, setSelectedAccount] = useState<any>(null);
 
     const dispatch = useDispatch();
 
-    const handleChangeOperation = (e: any) => {
+    const handleChangeOperation = () => {
         setCreateNewAccount((prevState) => !prevState);
     }
 
@@ -34,7 +34,13 @@ const AccountExists = () => {
                 <label className="flex-1 items-center cursor-pointer">
                     <input onChange={handleChangeOperation} type="radio" name="operation" className="form-radio"
                            value="false"/>
-                    <span className="text-dark dark:text-white">Add to existing account </span>
+                    <span className="text-dark dark:text-white">Add to existing account :
+                        {selectedAccount != null && (<span
+                            className="mx-2 px-3 px-7 rounded-lg bg-blue-100">
+                              {`${selectedAccount?.account_name}`}
+                        </span>)}
+
+                    </span>
                 </label>
                 <label className="flex-1 items-center cursor-pointer">
                     <input onChange={handleChangeOperation} defaultChecked type="radio" name="operation"

@@ -109,7 +109,7 @@ const MyComponent = ({selectAccountModal, setSelectAccountModal, selectedAccount
                                                             type="radio"
                                                             name="selectedAccount"
                                                             value={account.id}
-                                                            checked={selectedAccount.id === account.id}
+                                                            checked={selectedAccount?.id === account.id}
                                                             onChange={() => handleAccountSelect(account)}
                                                         />
                                                         {account.account_name}
