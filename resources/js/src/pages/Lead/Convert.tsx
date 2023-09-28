@@ -38,7 +38,6 @@ const Add = () => {
             throw new Error(`Failed to fetch lead data. Status code: ${leadResponse.status}`);
 
         const lead = leadResponse.data.data.lead;
-        console.log(lead.owner)
         dispatch(updateFormData(lead));
 
         return lead;
@@ -76,7 +75,7 @@ const Add = () => {
                         <div className="flex flex-row items-center gap-2.5">
                             <h3 className="font-bold text-xl ">Convert Lead</h3>
                             <span
-                                className="text-sm">({formState.first_name + " " + formState.last_name + " - " + formState.company})</span>
+                                className="text-sm">({`${formState.first_name} ${formState.last_name} - ${formState.company}`})</span>
                         </div>
                         <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                         {accountExists ? <AccountExists/> : <AccountNotExists/>}
