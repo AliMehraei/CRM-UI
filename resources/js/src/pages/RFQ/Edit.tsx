@@ -70,7 +70,7 @@ const Edit = () => {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate(`/quote/edit/${convertRfqResponse.data.quote.id}`, {replace: true});
+                    navigate(`/quotes/edit/${convertRfqResponse.data.quote.id}`, {replace: true});
                 }
             })
 
