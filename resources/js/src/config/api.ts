@@ -340,6 +340,9 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote/search`, data, {headers: Headers as any});
     }
 
+    async convertQuoteToSalesOrder(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/convert/sales_order/${data.id}`, data, {headers: Headers as any});
+    }
 
     async fetchDataQuote(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data, {headers: Headers as any});
