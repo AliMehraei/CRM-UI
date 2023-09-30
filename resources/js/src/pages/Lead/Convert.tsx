@@ -12,7 +12,7 @@ import AccountNotExists from "./components/convert/AccountNotExists";
 import {updateFormData} from "../../store/leadFormSlice";
 import SuccessfulConvert from "./components/convert/SuccessfulConvert";
 
-const Add = () => {
+const Convert = () => {
     const formState = useSelector((state: any) => state.leadForm);
     const {hasPermission} = useUserStatus();
     const dispatch = useDispatch();
@@ -56,21 +56,21 @@ const Add = () => {
     }
 
     const handleConvert = async () => {
-        const convertLeadResponse = await api.convertLead({
-            'id': formState.id,
-            'accountExists': formState.accountExists,
-            'createNewAccount': formState.createNewAccount,
-            'selectedAccount': formState.selectedAccount,
-        });
-        if (convertLeadResponse.status != 200) {
+        try {
+            const convertLeadResponse = await api.convertLead({
+                'id': formState.id,
+                'accountExists': formState.accountExists,
+                'createNewAccount': formState.createNewAccount,
+                'selectedAccount': formState.selectedAccount,
+            });
+            dispatch(updateFormData({convertResponse: convertLeadResponse.data}));
+            setSuccessfulConvert(true);
+            notifySuccess("Lead Converted Successfully.");
+        } catch (exception) {
             notifyErrorMessage("Failed to convert lead")
-            console.error(convertLeadResponse)
+            console.error(exception)
             return;
         }
-        dispatch(updateFormData({convertResponse: convertLeadResponse.data}));
-        setSuccessfulConvert(true);
-        notifySuccess("Lead Converted Successfully.");
-
     }
 
     useEffect(() => {
@@ -137,4 +137,4 @@ const Add = () => {
     );
 };
 
-export default Add;
+export default Convert;
