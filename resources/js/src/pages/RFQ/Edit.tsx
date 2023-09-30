@@ -6,9 +6,10 @@ import {resetForm, updateFormData} from "../../store/rfqFormSlice";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import Api from "../../config/api";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useUserStatus} from "../../config/authCheck";
 import {notifyErrorMessage, notifySuccess} from "../../components/Functions/CommonFunctions";
+import Swal from "sweetalert2";
 
 const Edit = () => {
     const {hasPermission} = useUserStatus();
@@ -18,6 +19,7 @@ const Edit = () => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const rfqId = params.id;
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(setPageTitle('RFQ Edit'));
@@ -50,11 +52,30 @@ const Edit = () => {
 
     const handleConvertRfq = async () => {
         try {
-            const convertRfqResponse = await api.convertRfqToQuote({
+            const convertRfqResponse: any = await api.convertRfqToQuote({
                 'id': formState.id,
             });
-            dispatch(updateFormData({convertResponse: convertRfqResponse.data}));
-            notifySuccess("Rfq Converted Successfully.");
+            Swal.fire({
+                title: 'Rfq Converted Successfully.',
+                html: `
+                <span class="text-blue-500">Do you want to redirect to created Quote ? </span>
+                `,
+                showCancelButton: true,
+                icon: 'success',
+                confirmButtonText: 'Redirect',
+                denyButtonText: `Close`,
+
+                customClass: {
+                    title: 'text-blue-500',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate(`/quote/edit/${convertRfqResponse.data.quote.id}`, {replace: true});
+                }
+            })
+
+            //TODO : handle status after convert;
+
         } catch (exception) {
             notifyErrorMessage("Failed to convert Rfq")
             console.error(exception)
