@@ -63,7 +63,7 @@ const SalesItemsSection = () => {
         let maxId: number;
         maxId = items?.length ? items.reduce((max: number, character: any) => (character.id > max ? character.id : max), items[0].id) : 0;
         let remainingItems = [...items, {
-            id: maxId + 1, amount: 0 ,list_price: 0
+            id: maxId + 1, amount: 0, list_price: 0
         }];
 
         setItems(remainingItems);
@@ -189,7 +189,7 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    defaultDate: `${item.requested_delivery_date ? new Date(item.requested_delivery_date) : null as any,
+                                                    defaultDate: `${item.requested_delivery_date ? (new Date(item.requested_delivery_date) as any) : ''}`,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
@@ -204,7 +204,7 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    defaultDate: `${item.estimated_delivery_date ? new Date(item.estimated_delivery_date) : null as any,
+                                                    defaultDate: `${item.estimated_delivery_date ? (new Date(item.estimated_delivery_date) as any) : ''}`,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
