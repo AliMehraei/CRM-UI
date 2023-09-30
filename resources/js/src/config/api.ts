@@ -174,8 +174,8 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/rfq/search`, data, {headers: Headers as any});
     }
 
-    async convertRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/rfq/convert/${data.id}`, data, {headers: Headers as any});
+    async convertRfqToQuote(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/convert/quote/${data.id}`, data, {headers: Headers as any});
     }
 
     async fetchDataRfq(data: any = null) {
