@@ -42,7 +42,7 @@ const HeaderSection = () => {
             padding: "10px 20px",
         });
     };
-
+    const formErrors = useSelector((state: any) => state.formErrors);
     const fields = {
         Header: {
             "First Name": (
@@ -156,7 +156,7 @@ const HeaderSection = () => {
                                             e.target.value
                                         )
                                     }
-                                    autoComplete="off" 
+                                    autoComplete="off"
                                 />
                             </div>
                             <button
@@ -175,6 +175,11 @@ const HeaderSection = () => {
                             Generate&Copy
                         </button>
                     </div>
+                    {formErrors.password && (
+                        <div className="text-red-500 mt-2">
+                            {formErrors.password}{" "}
+                        </div>
+                    )}
                 </div>
             </div>
         </>

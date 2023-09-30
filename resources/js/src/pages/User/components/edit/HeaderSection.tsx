@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/userFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Flatpickr from "react-flatpickr";
-import { generateRandomPassword , copyToClipboard } from "../../../../components/Functions/CommonFunctions";
+import {
+    generateRandomPassword,
+    copyToClipboard,
+} from "../../../../components/Functions/CommonFunctions";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -12,33 +15,33 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-    const [showPassword, setShowPassword] = useState(false); 
+    const [showPassword, setShowPassword] = useState(false);
     const [generatedPassword, setGeneratedPassword] = useState("");
     const handleGeneratePassword = () => {
         const newPassword = generateRandomPassword();
         setGeneratedPassword(newPassword);
-        copyToClipboard(newPassword); 
+        copyToClipboard(newPassword);
         handleChangeField("password", newPassword);
         showMessage(`Password copied to clipboard!`);
-
     };
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    const showMessage = (msg = '', type = 'success') => {
+    const showMessage = (msg = "", type = "success") => {
         const toast: any = Swal.mixin({
             toast: true,
-            position: 'top',
+            position: "top",
             showConfirmButton: false,
             timer: 3000,
-            customClass: {container: 'toast'},
+            customClass: { container: "toast" },
         });
         toast.fire({
             icon: type,
             title: msg,
-            padding: '10px 20px',
+            padding: "10px 20px",
         });
     };
+    const formErrors = useSelector((state: any) => state.formErrors);
 
     const fields = {
         Header: {
@@ -163,23 +166,27 @@ const HeaderSection = () => {
                                         )
                                     }
                                 />
-                              
-                        </div>
-                        <button
-                                    type="button"
-                                    onClick={togglePasswordVisibility}
-                                    className="password-toggle-button btn btn-sm btn-outline-info m-2"
-                                >
-                                    {showPassword ? "Hide" : "Show"}
-                                </button>
                             </div>
                             <button
                                 type="button"
-                                onClick={handleGeneratePassword}
-                                className="generate-password-button btn btn-sm btn-outline-primary m-2"
+                                onClick={togglePasswordVisibility}
+                                className="password-toggle-button btn btn-sm btn-outline-info m-2"
                             >
-                                Generate&Copy
+                                {showPassword ? "Hide" : "Show"}
                             </button>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={handleGeneratePassword}
+                            className="generate-password-button btn btn-sm btn-outline-primary m-2"
+                        >
+                            Generate&Copy
+                        </button>
+                        {formErrors.password && (
+                            <div className="text-red-500 mt-2">
+                                {formErrors.password}{" "}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
