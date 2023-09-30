@@ -195,7 +195,7 @@ const ContactDetailsSection = () => {
                                 />
                                 ) : null}
                             <div>
-                                <div className="text-sm font-bold">{formState.account?.name}</div>
+                                <div className="text-sm font-bold">{formState.account?.account_name}</div>
                                 <div className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
                         </div>
