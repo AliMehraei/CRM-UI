@@ -42,15 +42,20 @@ const ReminderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         if (field === 'reminder') {
             setIsReminderChecked(value);
-        } else if (field === 'unlimitedDaysBefore') {
+        } else if (field === 'unlimited_days_before') {
             setIsUnlimitedDaysBefore(value);
         }
         dispatch(updateFormData({ [field]: value }));
     };
 
     const handleDayToggle = (day: string) => {
-        setSelectedDays(prev => ({ ...prev, [day]: !prev[day] }));
+        setSelectedDays(prev => {
+            const updatedDays = { ...prev, [day]: !prev[day] };
+            dispatch(updateFormData({ selected_days: updatedDays }));
+            return updatedDays;
+        });
     };
+    
 
     return (
         <div className="p-6 border rounded-md shadow-sm bg-white">
@@ -109,7 +114,10 @@ const ReminderSection = () => {
                             value={repeatOptions.find(option => option.value === repeatFrequency)}
                             options={repeatOptions}
                             className="flex-1"
-                            onChange={({ value }: any) => setRepeatFrequency(value)}
+                            name="repeat_options"
+                            onChange={({ value }: any) => {
+                                handleChangeField('repeat_options', value)
+                                setRepeatFrequency(value)}}
                         />
                     </div>
 
@@ -125,7 +133,7 @@ const ReminderSection = () => {
                                     disabled={isUnlimitedDaysBefore}
                                     onChange={(e) => {
                                         setDaysBeforeDue(e.target.value);
-                                        handleChangeField('daysBeforeDue', e.target.value);
+                                        handleChangeField('days_before_due', e.target.value);
                                     }}
                                 />
                             </div>
@@ -135,7 +143,7 @@ const ReminderSection = () => {
                                 <input
                                     id="unlimitedDaysBefore"
                                     type="checkbox"
-                                    name="unlimitedDaysBefore"
+                                    name="unlimited_days_before"
                                     className="form-checkbox h-5 w-5 text-blue-600"
                                     checked={isUnlimitedDaysBefore}
                                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
