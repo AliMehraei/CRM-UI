@@ -13,7 +13,6 @@ const ReminderSection = () => {
     const [isReminderChecked, setIsReminderChecked] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(new Date());
-    const [isUnlimitedDaysBefore, setIsUnlimitedDaysBefore] = useState(false);
     const [daysBeforeDue, setDaysBeforeDue] = useState('');
     const [repeatFrequency, setRepeatFrequency] = useState('');
     const [selectedDays, setSelectedDays] = useState({
@@ -42,9 +41,7 @@ const ReminderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         if (field === 'reminder') {
             setIsReminderChecked(value);
-        } else if (field === 'unlimited_days_before') {
-            setIsUnlimitedDaysBefore(value);
-        }
+        } 
         dispatch(updateFormData({ [field]: value }));
     };
 
@@ -130,7 +127,6 @@ const ReminderSection = () => {
                                     min="1"
                                     className="p-2 border rounded-md form-input flex-1"
                                     value={daysBeforeDue}
-                                    disabled={isUnlimitedDaysBefore}
                                     onChange={(e) => {
                                         setDaysBeforeDue(e.target.value);
                                         handleChangeField('days_before_due', e.target.value);
@@ -138,17 +134,6 @@ const ReminderSection = () => {
                                 />
                             </div>
 
-                            <div className="flex items-center space-x-4 mb-4">
-                                <label className="w-24 text-lg">Unlimited Days:</label>
-                                <input
-                                    id="unlimitedDaysBefore"
-                                    type="checkbox"
-                                    name="unlimited_days_before"
-                                    className="form-checkbox h-5 w-5 text-blue-600"
-                                    checked={isUnlimitedDaysBefore}
-                                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                                />
-                            </div>
                         </>
                     )}
 
