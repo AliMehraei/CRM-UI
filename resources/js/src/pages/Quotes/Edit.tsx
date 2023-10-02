@@ -71,7 +71,7 @@ const Edit = () => {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate(`/sales/edit/${convertRfqResponse.data.sales_order.id}`, {replace: true});
+                    navigate(`/sales/edit/${convertRfqResponse.data.salesOrder.id}`, {replace: true});
                 }
             })
 

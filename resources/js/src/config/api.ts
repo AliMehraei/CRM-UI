@@ -447,7 +447,12 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/search`, data, {headers: Headers as any});
     }
 
-
+    // async convertSalesOrderToPurchaseOrder(data: any = null) {
+    //     return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/purchase_order/${data.id}`, data, {headers: Headers as any});
+    // }
+    async convertSalesOrderToInvoice(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/invoice/${data.id}`, data, {headers: Headers as any});
+    }
     async fetchDataSalesOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data, {headers: Headers as any});
     }
