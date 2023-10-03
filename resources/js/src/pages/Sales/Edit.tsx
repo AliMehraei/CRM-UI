@@ -84,7 +84,7 @@ const Edit = () => {
     // };
     const handleConvertSOIn = async () => {
         try {
-            const convertsalesOrderResponse: any = await api.convertQuoteToSalesOrder({
+            const convertsalesOrderResponse: any = await api.convertSalesOrderToInvoice({
                 'id': formState.id,
             });
             Swal.fire({
