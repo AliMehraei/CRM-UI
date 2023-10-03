@@ -125,20 +125,7 @@ const TaskInformationSection = () => {
                     defaultValue={Priority.find((title) => title.value == formState.priority)}
                     className="flex-1"
                 />
-            ),
-            'Repeat': (
-                <input
-                    id="repeat"
-                    type="checkbox"
-                    name="repeat"
-                    disabled
-                    className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                    defaultChecked={formState.repeat}
-
-                />
             )
-
         },
         'Description Information': {
             'Description': (
