@@ -29,8 +29,8 @@ const StatusSection = () => {
                                          }}
             />,
 
-            'Valid': <Flatpickr name="valid" id="valid" options={{dateFormat: 'd-m-Y'}} className="form-input flex-1"
-                                placeholder="MM DD YYYY"
+            'Valid': <Flatpickr name="valid" id="valid" options={{dateFormat: 'Y-m-d '}} className="form-input flex-1"
+                                placeholder="YYYY-MM-DD"
                                 onChange={(_,dateString) => handleChangeField('valid', dateString)}
             />,
 

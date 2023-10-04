@@ -74,7 +74,7 @@ const InvoiceInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.invoice_date ? new Date(formState.invoice_date) : ''}`,
+                    defaultDate: formState.invoice_date ? new Date(formState.invoice_date) : null as any,
                 }}
                 value={formState.invoice_date}
                 className="form-input flex-1"
@@ -87,7 +87,7 @@ const InvoiceInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.due_date ? new Date(formState.due_date) : ''}`,
+                    defaultDate: formState.due_date ? new Date(formState.due_date) : null as any,
                 }}
                 value={formState.invoice_date}
                 name="due_date"
@@ -128,7 +128,7 @@ const InvoiceInformationSection = () => {
                                 ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.account?.name}</div>
+                                    className="text-sm font-bold">{formState.account?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>

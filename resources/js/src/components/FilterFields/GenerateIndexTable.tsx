@@ -8,13 +8,13 @@ import Swal from 'sweetalert2';
 import api from '../../config/api';
 import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
-import {findApiToCall, upFirstLetter,formattedModelName} from "../Functions/CommonFunctions";
+import {findApiToCall, upFirstLetter, formattedModelName} from "../Functions/CommonFunctions";
 import {DeleteIcon, EditIcon} from "../FormFields/CommonIcons";
 import {resetFilterSlice} from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
 
-const GenerateIndexTable = ({modelName, tableColumns}: any) => {
+const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -48,8 +48,8 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
     const fetchDataFilterOption = async () => {
         setLoading(true);
         try {
-            const res = await findApiToCall(`filterOption`).call(api_instance,{
-                model:upFirstLetter(modelName),
+            const res = await findApiToCall(`filterOption`).call(api_instance, {
+                model: upFirstLetter(modelName),
             });
             // Transform the data
             const transformedData = res.data?.data.map((item: any) => {
@@ -318,7 +318,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                 {hasPermission(`delete-${formattedModelName(modelName)}`) && deleteButton}
 
                                 {hasPermission(`create-${formattedModelName(modelName)}`) && (
-                                    <Link to={`/${modelName}/add`} className="btn btn-primary gap-2">
+                                    <Link to={`/${frontRoute ?? modelName}/add`} className="btn btn-primary gap-2">
                                         Add New
                                     </Link>
                                 )}
@@ -408,7 +408,7 @@ const GenerateIndexTable = ({modelName, tableColumns}: any) => {
                                                     <>
                                                         <div className="flex gap-4 items-center w-max mx-auto">
                                                             {hasPermission(`update-${formattedModelName(modelName)}`) && (
-                                                                <NavLink to={`/${modelName}/edit/${id}`}
+                                                                <NavLink to={`/${frontRoute ?? modelName}/edit/${id}`}
                                                                          className="flex hover:text-info">
                                                                     <EditIcon/>
                                                                 </NavLink>

@@ -45,7 +45,7 @@ const SalesOrderInformationSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.customer_po_date ? new Date(formState.customer_po_date) : ''}`,
+                        defaultDate: formState.customer_po_date ? new Date(formState.customer_po_date) : null as any,
                     }}
                     name="customer_po_date"
                     value={formState.customer_po_date ? new Date(formState.customer_po_date) : ''}

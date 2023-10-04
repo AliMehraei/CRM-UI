@@ -1,6 +1,7 @@
 import api from "../../config/api";
 import {EventEmitter} from "events";
 import React from "react";
+import Swal from "sweetalert2";
 
 const api_instance = new api();
 
@@ -429,3 +430,51 @@ export const loadModels = async (inputValue: any, option: any) => {
 };
 
 export const emitter = new EventEmitter();
+
+export const notifyErrorMessage = async (title: string) => {
+    const toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 5000,
+    });
+
+    toast.fire({
+        icon: 'error',
+        title: title,
+    });
+}
+
+export const notifySuccess = async (title: string) => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: title
+    })
+}
+
+export function generateRandomPassword(length = 12) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+    return password;
+  }
+  
+  export function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }

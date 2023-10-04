@@ -26,6 +26,7 @@ const ListLead = lazy(() => import('../pages/Lead/Index'));
 const PreviewLead = lazy(() => import('../pages/Lead/Preview'));
 const AddLead = lazy(() => import('../pages/Lead/Add'));
 const EditLead = lazy(() => import('../pages/Lead/Edit'));
+const ConvertLead = lazy(() => import('../pages/Lead/Convert'));
 
 const ListSales = lazy(() => import('../pages/Sales/Index'));
 const PreviewSales = lazy(() => import('../pages/Sales/Preview'));
@@ -674,6 +675,12 @@ const routes = [
         element: <EditLead/>,
         protected: true,
         requiredPermission: 'update-lead'
+    },
+    {
+        path: '/lead/convert/:id',
+        element: <ConvertLead/>,
+        protected: true,
+        // requiredPermission: 'update-lead' TODO : fix here
     },
     {
         path: '/purchase/list',

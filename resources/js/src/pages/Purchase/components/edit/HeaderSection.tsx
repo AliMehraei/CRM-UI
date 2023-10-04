@@ -131,7 +131,7 @@ const HeaderSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.po_date ? new Date(formState.po_date) : ''}`,
+                        defaultDate: formState.po_date ? new Date(formState.po_date) : null as any,
                     }}
                     name="po_date"
                     value={formState.po_date ? new Date(formState.po_date) : ''}

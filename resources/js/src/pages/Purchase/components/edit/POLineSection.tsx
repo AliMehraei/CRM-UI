@@ -62,7 +62,7 @@ const POLineSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}`,
+                        defaultDate: formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : null as any,
                     }}
                     name="requested_delivery_date"
                     value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
@@ -123,7 +123,7 @@ const POLineSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.confirmed_delivery_date ? new Date(formState.confirmed_delivery_date) : ''}`,
+                        defaultDate: formState.confirmed_delivery_date ? new Date(formState.confirmed_delivery_date) : null as any,
                     }}
                     name="confirmed_delivery_date"
                     value={formState.confirmed_delivery_date ? new Date(formState.confirmed_delivery_date) : ''}

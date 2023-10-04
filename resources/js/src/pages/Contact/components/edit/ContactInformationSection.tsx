@@ -95,7 +95,8 @@ const ContactInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.last_activity_date ? new Date(formState.last_activity_date) : ''}`,
+                    defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any,
+                        
                 }}
                 className="form-input flex-1"
                 value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}

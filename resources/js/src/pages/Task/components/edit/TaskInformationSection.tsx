@@ -17,27 +17,28 @@ const TaskInformationSection = () => {
 
 
 
-
     const Priority = [
-        { value: 'none', label: '-None-' },
-        { value: 'account_contact', label: 'Account or Contact exist already' },
-        { value: 'wrong_branch', label: 'Wrong Branch' },
-        { value: 'wrong_department', label: 'Wrong Department' },
-        { value: 'does_not_exist', label: 'Does Not Exist Anymore' },
-        { value: 'bankruptcy', label: 'Bankruptcy' },
-        { value: 'other', label: 'Other' },
-
+        { value: '-None-', label: '-None-' },
+        { value: 'Account or Contact exist already', label: 'Account or Contact exist already' },
+        { value: 'Wrong Branch', label: 'Wrong Branch' },
+        { value: 'Wrong Department', label: 'Wrong Department' },
+        { value: 'Does Not Exist Anymore', label: 'Does Not Exist Anymore' },
+        { value: 'Bankruptcy', label: 'Bankruptcy' },
+        { value: 'Hoch', label: 'Hoch' },
+        { value: 'Other', label: 'Other' },
     ];
+    
     const TaskStatus = [
-        { value: 'none', label: '-None-' },
-        { value: '0_cold_task', label: '0.0 Cold task / unqualified (CLU)' },
-        { value: '1_cold_task', label: '1.0 Cold task qualified (CLQ)' },
-        { value: '2_first_contract', label: '2.0 First contact made (FCM)' },
-        { value: '3_warm_task', label: '3.0 warm task qualified (WLQ)' },
-        { value: '4_hot_task', label: '4.0 Hot task (HLQ)' },
-        { value: 'close_task', label: 'Close Task / Lost Task' },
-
+        { value: '-None-', label: '-None-' },
+        { value:'Abgeschlossen' , label: 'Abgeschlossen' },
+        { value: '0.0 Cold task / unqualified (CLU)', label: '0.0 Cold task / unqualified (CLU)' },
+        { value: '1.0 Cold task qualified (CLQ)', label: '1.0 Cold task qualified (CLQ)' },
+        { value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)' },
+        { value: '3.0 warm task qualified (WLQ)', label: '3.0 warm task qualified (WLQ)' },
+        { value: '4.0 Hot task (HLQ)', label: '4.0 Hot task (HLQ)' },
+        { value: 'Close Task / Lost Task', label: 'Close Task / Lost Task' },
     ];
+    
 
 
 
@@ -87,17 +88,20 @@ const TaskInformationSection = () => {
 
                 />
             ),
-            'Dua Date': (
-                <Flatpickr name='due_date'
-                    className="form-input flex-1"
-                    defaultValue={formState.due_date}
-                    placeholder="MM DD YYYY"
-                    options={{
-                        dateFormat: 'd-m-Y',
-                        defaultDate: `${formState.due_date ? new Date(formState.due_date) : ''}`,
-                    }}
-                    onChange={(_, dateString) => handleChangeField('due_date', dateString)} />
-            ),
+            'Due Date': (
+                <Flatpickr
+                  name='due_date'
+                  className="form-input flex-1"
+                  defaultValue={formState.due_date}
+                  placeholder="YYYY-MM-DD"
+                  options={{
+                    dateFormat: 'Y-m-d', 
+                    defaultDate: formState.due_date ? new Date(formState.due_date) : null, // Simplified defaultDate
+                  }}
+                  onChange={(_, dateString) => handleChangeField('due_date', dateString)}
+                />
+              ),
+              
             'Status': (
                 <Select
                     options={TaskStatus}
@@ -121,20 +125,7 @@ const TaskInformationSection = () => {
                     defaultValue={Priority.find((title) => title.value == formState.priority)}
                     className="flex-1"
                 />
-            ),
-            'Repeat': (
-                <input
-                    id="repeat"
-                    type="checkbox"
-                    name="repeat"
-                    disabled
-                    className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                    defaultChecked={formState.repeat}
-
-                />
             )
-
         },
         'Description Information': {
             'Description': (

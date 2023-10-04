@@ -173,7 +173,7 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    // defaultDate: `${formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}`,
+                                                    // defaultDate: formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : null as any,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
@@ -188,7 +188,7 @@ const SalesItemsSection = () => {
                                                 options={{
                                                     dateFormat: 'Y-m-d',
                                                     position: 'auto left',
-                                                    // defaultDate: `${formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}`,
+                                                    // defaultDate: formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : null as any,
                                                 }}
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"

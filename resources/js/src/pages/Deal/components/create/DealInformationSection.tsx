@@ -236,9 +236,9 @@ const DealInformationSection = () => {
                 <Flatpickr
 
                     name="closing_date"
-                    options={{ dateFormat: 'd-m-Y' }}
+                    options={{ dateFormat: 'Y-m-d ' }}
                     className="form-input flex-1"
-                    placeholder="MM DD YYYY"
+                    placeholder="YYYY-MM-DD"
                     onChange={(_,dateString) => handleChangeField('closing_date', dateString)}
 
                 />

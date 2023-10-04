@@ -132,12 +132,12 @@ const VendorRFQInformation = () => {
                 <Flatpickr
                     name="date"
                     options={{
-                        dateFormat: 'd-m-Y',
-                        defaultDate: `${formState.date ? new Date(formState.date) : ''}`,
+                        dateFormat: 'Y-m-d ',
+                        defaultDate: formState.date ? new Date(formState.date) : null as any,
                     }}
                     defaultValue={formState.date}
                     className="form-input flex-1"
-                    placeholder="MM DD YYYY"
+                    placeholder="YYYY-MM-DD"
                     onChange={(_, dateString) => handleChangeField('date', dateString)}
                 />
             ),

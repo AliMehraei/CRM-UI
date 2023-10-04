@@ -19,10 +19,7 @@ const Edit = () => {
     const leadId = params.id;
     const api = new Api();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(setPageTitle('Lead Edit'));
-    });
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         const leadResponse = await api.fetchSingleLead(leadId);
@@ -31,6 +28,14 @@ const Edit = () => {
         const lead = leadResponse.data.data.lead;
         dispatch(updateFormData(lead));
     };
+
+    const handleConvertLead = async () => {
+        navigate(`/lead/convert/${leadId}`, {replace: true});
+    }
+
+    useEffect(() => {
+        dispatch(setPageTitle('Lead Edit'));
+    });
 
 
     useEffect(() => {
@@ -54,17 +59,20 @@ const Edit = () => {
         return <LoadingSasCrm/>
 
     return (
-        (!hasPermission(`update-lead`) || loading ) ? (
+        (!hasPermission(`update-lead`) || loading) ? (
             <LoadingSasCrm/>
         ) : (
-        <div className='px-4'>
-            <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
-            <div className="flex xl:flex-row flex-col gap-2.5">
-                <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
-                    <LeadFormFields/>
+            <div className='px-4'>
+                <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
+                <div className="flex xl:flex-row flex-col gap-2.5">
+                    <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
+                        <button onClick={handleConvertLead} className="mx-5 btn btn-secondary gap-2">
+                            Convert Lead
+                        </button>
+                        <LeadFormFields/>
+                    </div>
                 </div>
             </div>
-        </div>
         )
     );
 };
