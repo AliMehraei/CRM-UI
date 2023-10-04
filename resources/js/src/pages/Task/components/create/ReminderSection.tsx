@@ -8,7 +8,7 @@ import { updateFormData } from "../../../../store/taskFormSlice";
 const ReminderSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
-    const formState = useSelector((state) => state.taskForm);
+    const formState = useSelector((state: any) => state.taskForm);
 
     const [isReminderChecked, setIsReminderChecked] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
