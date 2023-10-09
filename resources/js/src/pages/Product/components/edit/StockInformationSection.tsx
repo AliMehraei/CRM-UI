@@ -35,11 +35,11 @@ const StockInformationSection = () => {
         '': {
             'Quantity Ordered': (
                 <input
-                    id="qty_ordered"
-                    name="qty_ordered"
+                    id="quantity_ordered"
+                    name="quantity_ordered"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.qty_ordered}
+                    defaultValue={formState.quantity_ordered}
                 />
             ),
             'Quantity in Demand': (
