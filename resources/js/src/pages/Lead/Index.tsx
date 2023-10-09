@@ -12,7 +12,16 @@ const List = () => {
     useEffect(() => {
         dispatch(setPageTitle('Lead List'));
     }, [dispatch]);
+    const LeadStatus = [
+        {value: 'none', label: '-None-'},
+        {value: '0.0 Cold lead / unqualified (CLU)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead / unqualified (CLU)</>)},
+        {value: '1.0 Cold lead qualified (CLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-300 rounded-full"></span>1.0 Cold lead qualified (CLQ)</>)},
+        {value: '2.0 First contact made (FCM)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-purple-200 rounded-full"></span>2.0 First contact made (FCM)</>)},
+        {value: '3.0 warm lead qualified (WLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-300 rounded-full"></span>3.0 warm lead qualified (WLQ)</>)},
+        {value: '4.0 Hot lead (HLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-600 rounded-full"></span>4.0 Hot lead (HLQ)</>)},
+        {value: 'Close Lead / Lost Lead', label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Close Lead / Lost Lead</>)},
 
+    ];
 
     const columns: any = [
         {
@@ -63,7 +72,22 @@ const List = () => {
                 </div>
             ),
         },
-
+        {
+            accessor: 'status',
+            sortable: true,
+            render: ({ status }) => {
+                const statusObj = LeadStatus.find((title) => title.value === status);
+                return statusObj ? (
+                    <div className="flex items-center font-semibold">
+                        {statusObj.label}
+                    </div>
+                ) : (
+                    <div className="flex items-center font-semibold">
+                        {status}
+                    </div>
+                );
+            },
+        },
 
 
     ];

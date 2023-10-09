@@ -28,12 +28,12 @@ const LeadInformationSection = () => {
     ];
     const LeadStatus = [
         {value: 'none', label: '-None-'},
-        {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
-        {value: '1_cold_lead', label: '1.0 Cold lead qualified (CLQ)'},
-        {value: '2_first_contract', label: '2.0 First contact made (FCM)'},
-        {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
-        {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
-        {value: 'close_lead', label: 'Close Lead / Lost Lead'},
+        {value: '0.0 Cold lead / unqualified (CLU)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead / unqualified (CLU)</>)},
+        {value: '1.0 Cold lead qualified (CLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-300 rounded-full"></span>1.0 Cold lead qualified (CLQ)</>)},
+        {value: '2.0 First contact made (FCM)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-purple-200 rounded-full"></span>2.0 First contact made (FCM)</>)},
+        {value: '3.0 warm lead qualified (WLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-300 rounded-full"></span>3.0 warm lead qualified (WLQ)</>)},
+        {value: '4.0 Hot lead (HLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-600 rounded-full"></span>4.0 Hot lead (HLQ)</>)},
+        {value: 'Close Lead / Lost Lead', label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Close Lead / Lost Lead</>)},
 
     ];
     const CompanyType = [
