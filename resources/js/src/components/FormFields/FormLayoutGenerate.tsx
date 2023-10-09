@@ -10,7 +10,6 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
     const formErrors = useSelector((state: any) => state.formErrors);
 
     const handleChangeField = (field: any, value: any) => {
-        console.log(field, value);
         dispatch(updateFormData({[field]: value}));
     };
     type AdditionalAttribute = {

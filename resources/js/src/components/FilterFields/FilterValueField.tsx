@@ -102,7 +102,6 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         handleValueChange(field, combinedValue);
     };
     const handleSelectMultiple = (field: any, selectedOptions: any) => {
-        console.log(field, selectedOptions)
         let transformedObject;
         if (Array.isArray(selectedOptions)) {
             transformedObject = {
