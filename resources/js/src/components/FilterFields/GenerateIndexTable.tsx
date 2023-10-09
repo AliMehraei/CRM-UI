@@ -324,7 +324,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                 )}
                             </div>
                         </div>
-                        <div className="grid grid-cols-5 gap-6 mb-6">
+                        <div className="grid grid-cols-7 gap-6 mb-6">
                             {hasPermission(`filter-${formattedModelName(modelName)}`) && (
                                 <div className="panel col-span-1">
                                     <h2 className="text-xl font-bold mb-4">Filter By Fields</h2>
@@ -387,7 +387,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                 </div>
                             )}
 
-                            <div className="panel col-span-4">
+                            <div className="panel col-span-6">
                                 <div className="datatables pagination-padding">
                                     {loading ? (
                                         <div className='flex justify-center'>
