@@ -6,23 +6,27 @@ const AddressInformationSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
     const fields = {
         'Address Information': {
             'Billing Street': <input id="billing_street" name="billing_street"
+                                     required
                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                      className="form-input flex-1"/>,
             'Billing City': <input id="billing_city" name="billing_city"
+                                   required
                                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1"/>,
             'Billing State': <input id="billing_state" name="billing_state"
                                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                     className="form-input flex-1"/>,
             'Billing Code': <input id="billing_code" name="billing_code"
+                                   required
                                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1"/>,
             'Billing Country': <input id="billing_country" name="billing_country"
+                                      required
                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                       className="form-input flex-1"/>,
         },

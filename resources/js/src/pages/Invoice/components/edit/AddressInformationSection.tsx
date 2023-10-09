@@ -12,10 +12,12 @@ const AddressInformationSection = () => {
     const fields = {
         'Address Information': {
             'Billing Street': <input id="billing_street" name="billing_street"
+                                     required
                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                      defaultValue={formState.billing_street}
                                      className="form-input flex-1"/>,
             'Billing City': <input id="billing_city" name="billing_city"
+                                   required
                                    defaultValue={formState.billing_city}
                                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1"/>,
@@ -24,10 +26,12 @@ const AddressInformationSection = () => {
                                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                     className="form-input flex-1"/>,
             'Billing Code': <input id="billing_code" name="billing_code"
+                                   required
                                    defaultValue={formState.billing_code}
                                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1"/>,
             'Billing Country': <input id="billing_country" name="billing_country"
+                                      required
                                       defaultValue={formState.billing_country}
                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                                       className="form-input flex-1"/>,

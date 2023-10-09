@@ -1,14 +1,14 @@
-import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-import { setPageTitle } from '../../store/themeConfigSlice';
-import { formatDate } from "@fullcalendar/core";
-import { useDispatch } from "react-redux";
-import { useUserStatus } from "../../config/authCheck";
+import {NavLink} from 'react-router-dom';
+import {useEffect} from 'react';
+import {setPageTitle} from '../../store/themeConfigSlice';
+import {formatDate} from "@fullcalendar/core";
+import {useDispatch} from "react-redux";
+import {useUserStatus} from "../../config/authCheck";
 import GenerateIndexTable from "../../components/FilterFields/GenerateIndexTable";
 
 const List = () => {
     const dispatch = useDispatch();
-    const { hasPermission } = useUserStatus();
+    const {hasPermission} = useUserStatus();
     useEffect(() => {
         dispatch(setPageTitle('Product List'));
     }, [dispatch]);
@@ -18,12 +18,12 @@ const List = () => {
         {
             accessor: 'id',
             sortable: true,
-            render: ({ id }: any) => <div className="font-semibold">{id}</div>,
+            render: ({id}: any) => <div className="font-semibold">{id}</div>,
         },
         {
             accessor: 'product_name',
             sortable: true,
-            render: ({ product_name, id }: any) =>
+            render: ({product_name, id}: any) =>
                 hasPermission('update-product') ? (
                     <NavLink to={`/product/edit/${id}`}>
                         <div
@@ -35,8 +35,8 @@ const List = () => {
         },
         {
             accessor: 'manufacturer',
-            sortable: true,
-            render: ({ manufacturer }: any) => (
+            sortable: false,
+            render: ({manufacturer}: any) => (
                 <div className="flex items-center font-semibold">
                     {manufacturer ? manufacturer.name : 'No manufacturer'}
                 </div>
@@ -46,7 +46,7 @@ const List = () => {
             accessor: 'owner',
             title: 'Product Owner',
             sortable: false,
-            render: ({ owner }: any) =>
+            render: ({owner}: any) =>
                 <div className="font-semibold">
                     {owner ? owner.first_name + ' ' + owner.last_name : 'No Owner'}
                 </div>,
@@ -55,7 +55,7 @@ const List = () => {
             accessor: 'product_active',
             title: 'Product Active',
             sortable: true,
-            render: ({ product_active }: any) => (
+            render: ({product_active}: any) => (
                 <div className="flex items-center font-semibold">
                     {product_active === 1 ? '✔' : ''}
                 </div>
@@ -65,7 +65,7 @@ const List = () => {
             accessor: 'created_at',
             title: 'Created time',
             sortable: true,
-            render: ({ created_at }: any) => {
+            render: ({created_at}: any) => {
                 const formattedDate = formatDate(created_at);
                 return (
                     <div className="font-semibold">
@@ -77,7 +77,7 @@ const List = () => {
         {
             accessor: 'Product Type',
             sortable: true,
-            render: ({ product_type }: any) =>
+            render: ({product_type}: any) =>
                 <div className="font-semibold">{product_type}</div>,
         },
 
@@ -85,7 +85,7 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="product" tableColumns={columns} />
+            <GenerateIndexTable modelName="product" tableColumns={columns}/>
         </>
     );
 };

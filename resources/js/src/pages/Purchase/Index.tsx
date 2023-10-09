@@ -25,7 +25,7 @@ const List = () => {
             accessor: 'subject',
             sortable: true,
             render: ({ subject, id }) => (
-                hasPermission('update-purchase') ? (
+                hasPermission('update-purchase-order') ? (
                     <NavLink to={`/purchase/edit/${id}`}>
                         <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                     </NavLink>
@@ -66,7 +66,7 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="purchaseOrder" tableColumns={columns} />
+            <GenerateIndexTable modelName="purchaseOrder" tableColumns={columns} frontRoute='purchase' />
         </>
     );
 };

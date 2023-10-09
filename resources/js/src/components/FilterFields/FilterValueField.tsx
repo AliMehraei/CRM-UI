@@ -135,7 +135,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         const avatarField = 'avatar';
         const emailField = 'email';
         try {
-            const result: any = await api_instance.loadAdminUsers(inputValue);
+            const result: any = await api_instance.loadAdminUsers({'search': inputValue});
             if (result.status) {
                 return result.data.map((user: any) => ({
                     value: user[valField],
@@ -170,15 +170,15 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value"/>
         },
-        "select": {
-            "is_not": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
-                                             condition="is_not" optionValue={option.value}/>,
-            "is": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
-                                         condition="is" optionValue={option.value}/>,
-            "default": () => <ValueInput defaultValue={defaultValue}
-                                         onChange={(e: any) => handleInputValueChange(option.value, e)}
-                                         placeholder="Search value that contains"/>
-        },
+        /* "select": {
+             "is_not": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
+                                              condition="is_not" optionValue={option.value}/>,
+             "is": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
+                                          condition="is" optionValue={option.value}/>,
+             "default": () => <ValueInput defaultValue={defaultValue}
+                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                          placeholder="Search value that contains"/>
+         },*/
         "select2_multiple_duration": {
             "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
                                              handleSelectMultipleDuration={handleSelectMultipleDuration}
@@ -230,9 +230,11 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         },
         "select2_multiple": {
             "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
-                                             handleSelectMultiple={handleSelectMultiple} defaultValue={defaultValue}/>,
+                                             isMulti={true} handleSelectMultiple={handleSelectMultiple}
+                                             defaultValue={defaultValue}/>,
             "is": () => <SelectComponent options={option.options} condition="is" optionValue={option.value}
-                                         handleSelectMultiple={handleSelectMultiple} defaultValue={defaultValue}/>,
+                                         isMulti={true} handleSelectMultiple={handleSelectMultiple}
+                                         defaultValue={defaultValue}/>,
             "default": () => <ValueInput defaultValue={defaultValue}
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value that contains"/>
