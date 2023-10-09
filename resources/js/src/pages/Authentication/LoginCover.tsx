@@ -122,21 +122,7 @@ const LoginCover = () => {
                             SIGN IN
                         </button>
                     </form>
-                    <div className="relative my-7 h-5 text-center before:w-full before:h-[1px] before:absolute before:inset-0 before:m-auto before:bg-[#ebedf2]  dark:before:bg-[#253b5c]">
-                        <div className="font-bold text-white-dark bg-[#fafafa] dark:bg-[#060818] px-2 relative z-[1] inline-block">
-                            <span>OR</span>
-                        </div>
-                    </div>
-
-                    <p className="text-center">
-                        Dont&apos;t have an account ?
-                        <Link
-                            to="/auth/cover-register"
-                            className="font-bold text-primary hover:underline ltr:ml-1 rtl:mr-1"
-                        >
-                            Sign Up
-                        </Link>
-                    </p>
+                   
                 </div>
             </div>
         </div>
