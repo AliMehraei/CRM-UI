@@ -10,7 +10,7 @@ import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import {useUserStatus} from "../../config/authCheck";
 
-const Add = () => {
+const Edit = () => {
     const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const [loading, setLoading] = useState(true);
