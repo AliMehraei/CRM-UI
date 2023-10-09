@@ -102,6 +102,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         handleValueChange(field, combinedValue);
     };
     const handleSelectMultiple = (field: any, selectedOptions: any) => {
+        console.log(field, selectedOptions)
         let transformedObject;
         if (Array.isArray(selectedOptions)) {
             transformedObject = {
@@ -170,15 +171,15 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value"/>
         },
-        "select": {
-            "is_not": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
-                                             condition="is_not" optionValue={option.value}/>,
-            "is": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
-                                         condition="is" optionValue={option.value}/>,
-            "default": () => <ValueInput defaultValue={defaultValue}
-                                         onChange={(e: any) => handleInputValueChange(option.value, e)}
-                                         placeholder="Search value that contains"/>
-        },
+        /* "select": {
+             "is_not": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
+                                              condition="is_not" optionValue={option.value}/>,
+             "is": () => <SelectComponent handleSelectMultiple={handleSelectMultiple} options={option.options}
+                                          condition="is" optionValue={option.value}/>,
+             "default": () => <ValueInput defaultValue={defaultValue}
+                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                          placeholder="Search value that contains"/>
+         },*/
         "select2_multiple_duration": {
             "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
                                              handleSelectMultipleDuration={handleSelectMultipleDuration}
@@ -230,9 +231,11 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         },
         "select2_multiple": {
             "is_not": () => <SelectComponent options={option.options} condition="is_not" optionValue={option.value}
-                                             handleSelectMultiple={handleSelectMultiple} defaultValue={defaultValue}/>,
+                                             isMulti={true} handleSelectMultiple={handleSelectMultiple}
+                                             defaultValue={defaultValue}/>,
             "is": () => <SelectComponent options={option.options} condition="is" optionValue={option.value}
-                                         handleSelectMultiple={handleSelectMultiple} defaultValue={defaultValue}/>,
+                                         isMulti={true} handleSelectMultiple={handleSelectMultiple}
+                                         defaultValue={defaultValue}/>,
             "default": () => <ValueInput defaultValue={defaultValue}
                                          onChange={(e: any) => handleInputValueChange(option.value, e)}
                                          placeholder="Search value that contains"/>
