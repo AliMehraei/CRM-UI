@@ -58,7 +58,7 @@ const AccountInformationSection = () => {
                 defaultValue={formState.email}
             />),
             'Website': (<input
-                required
+
                 id="website"
                 name="website"
                 className="form-input flex-1 "
