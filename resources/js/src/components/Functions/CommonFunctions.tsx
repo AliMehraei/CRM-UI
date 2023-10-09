@@ -210,7 +210,7 @@ export const loadAvailability = async (query: string) => {
 
 
 export const searchOwners = async (e: any) => {
-    const result = await api_instance.loadAdminUsers(e);
+    const result = await api_instance.loadAdminUsers({'search': e});
     const valField = 'userId';
     const nameField = 'first_name';
     const avatarField = 'avatar';
@@ -464,17 +464,17 @@ export function generateRandomPassword(length = 12) {
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
     let password = "";
     for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset.charAt(randomIndex);
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset.charAt(randomIndex);
     }
     return password;
-  }
-  
-  export function copyToClipboard(text) {
+}
+
+export function copyToClipboard(text: any) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-  }
+}
