@@ -135,7 +135,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         const avatarField = 'avatar';
         const emailField = 'email';
         try {
-            const result: any = await api_instance.loadAdminUsers(inputValue);
+            const result: any = await api_instance.loadAdminUsers({'search': inputValue});
             if (result.status) {
                 return result.data.map((user: any) => ({
                     value: user[valField],
