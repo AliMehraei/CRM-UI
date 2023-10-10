@@ -14,17 +14,16 @@ const HeaderSection = () => {
 
 
     const AvailabilitySources = [
-        {value: 'none', label: '-None-'},
-        {value: 'email', label: 'Email'},
-        {value: 'skype_wechat', label: 'Skype/Wechat'},
-        {value: 'phone', label: 'Phone'},
-        {value: 'online', label: 'Online'},
-        {value: 'other', label: 'Other'},
-        {value: 'mouser', label: 'Web Api (Mouser)'},
-        {value: 'octopart', label: 'Web Api (Octopart)'},
-        {value: 'web', label: 'Web'},
-        {value: 'portal', label: 'Portal'},
-
+        {value: '-None-', label: '-None-'},
+        {value: 'Email', label: 'Email'},
+        {value: 'Skype/Wechat', label: 'Skype/Wechat'},
+        {value: 'Phone', label: 'Phone'},
+        {value: 'Online', label: 'Online'},
+        {value: 'Other', label: 'Other'},
+        {value: 'Web Api (Mouser)', label: 'Web Api (Mouser)'},
+        {value: 'Web Api (Octopart)', label: 'Web Api (Octopart)'},
+        {value: 'Web', label: 'Web'},
+        {value: 'Portal', label: 'Portal'},
 
     ];
 
@@ -59,7 +58,10 @@ const HeaderSection = () => {
                                            options={AvailabilitySources}
                                            onChange={({value}: any) => {
                                                handleChangeField('availability_source', value)
-                                           }} className="flex-1"/>,
+                                           }} className="flex-1"
+                                           defaultValue={AvailabilitySources.find((data) => data.value == 'Other' )}
+                                           />,
+                                           
         }
 
     }
