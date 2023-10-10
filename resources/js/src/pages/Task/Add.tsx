@@ -17,6 +17,10 @@ const Add = () => {
         dispatch(setPageTitle('Task Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-task`) ) ? (
             <LoadingSasCrm/>

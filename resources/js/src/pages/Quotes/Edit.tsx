@@ -28,6 +28,11 @@ const Edit = () => {
     });
 
     useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
+    useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
         });

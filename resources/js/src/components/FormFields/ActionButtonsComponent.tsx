@@ -8,7 +8,7 @@ import {findApiToCall} from "../Functions/CommonFunctions";
 import ErrorsAccordionComponent from "./ErrorsAccordionComponent";
 
 
-const ActionButtonsComponent = ({formState, resetForm}: any) => {
+const ActionButtonsComponent = ({formState, resetForm, disabled = false}: any) => {
     const dispatch = useDispatch();
     const themeState = useSelector((state: any) => state.themeConfig);
 
@@ -105,10 +105,10 @@ const ActionButtonsComponent = ({formState, resetForm}: any) => {
                             <button onClick={handlePreviousPage} className="btn btn-danger gap-2">
                                 Back
                             </button>
-                            <button onClick={() => submitForm('new')} className="btn btn-primary gap-2">
+                            <button disabled={disabled} onClick={() => submitForm('new')} className="btn btn-primary gap-2">
                                 Save and new
                             </button>
-                            <button onClick={() => submitForm('save')} className="btn btn-success gap-2">
+                            <button disabled={disabled} onClick={() => submitForm('save')} className="btn btn-success gap-2">
                                 Save
                             </button>
                         </div>

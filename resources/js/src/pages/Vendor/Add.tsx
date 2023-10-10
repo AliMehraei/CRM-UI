@@ -16,6 +16,10 @@ const Add = () => {
         dispatch(setPageTitle('Vendor Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-vendor`) ) ? (
             <LoadingSasCrm/>

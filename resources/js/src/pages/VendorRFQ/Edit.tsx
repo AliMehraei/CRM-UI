@@ -23,6 +23,10 @@ const Edit = () => {
         dispatch(setPageTitle('VendorRfq Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const vendorRfqResponse = await api.fetchSingleVendorRfq(vendorRfqId);
         if (vendorRfqResponse.status != 200)
