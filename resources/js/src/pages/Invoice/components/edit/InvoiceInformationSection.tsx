@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { updateFormData } from "../../../../store/invoiceFormSlice";
+import {updateFormData} from "../../../../store/invoiceFormSlice";
 import Flatpickr from "react-flatpickr";
 import Select from "react-select";
 import {
@@ -11,21 +11,31 @@ import {
     Stages,
     searchContacts, searchSalesOrder
 } from "../../../../components/Functions/CommonFunctions";
+import api from "../../../../config/api";
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.invoiceForm);
+    const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
+
+    const handleChangeAccount = async (value: string) => {
+        const accountResponse = await api_instance.fetchSingleAccount(value);
+        if (accountResponse.status != 200)
+            return;
+        const account = accountResponse.data.data.account;
+        dispatch(updateFormData({['account']: account}));
+    }
 
 
     const Statuses = [
-        { value: 'erzeugt', label: 'Erzeugt' },
-        { value: 'genehmigt', label: 'Genehmigt' },
-        { value: 'geliefert', label: 'Geliefert' },
-        { value: 'abgesagt', label: 'Abgesagt' },
+        {value: 'erzeugt', label: 'Erzeugt'},
+        {value: 'genehmigt', label: 'Genehmigt'},
+        {value: 'geliefert', label: 'Geliefert'},
+        {value: 'abgesagt', label: 'Abgesagt'},
 
 
     ];
@@ -34,32 +44,32 @@ const InvoiceInformationSection = () => {
     const fields = {
         'Invoice Information': {
             'Invoice Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchOwners}
-                className="flex-1"
-                onChange={({ value }: any) => {
-                    handleChangeField('owner_id', value)
-                }}
-                defaultValue={{
-                    value: formState.owner?.id,
-                    label: (
-                        <div key={formState.owner?.id} className="flex items-center">
-                            {formState.owner ? (
-                                <img
-                                    src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
-                                    alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full"
-                                />
-                                ) : null}
-                            <div>
-                                <div
-                                    className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
-                                <div
-                                    className="text-xs text-gray-500">{formState.owner?.email}</div>
-                            </div>
-                        </div>
-                    ),
-                }} />,
+                                          placeholder="Type at least 2 characters to search..."
+                                          loadOptions={searchOwners}
+                                          className="flex-1"
+                                          onChange={({value}: any) => {
+                                              handleChangeField('owner_id', value)
+                                          }}
+                                          defaultValue={{
+                                              value: formState.owner?.id,
+                                              label: (
+                                                  <div key={formState.owner?.id} className="flex items-center">
+                                                      {formState.owner ? (
+                                                          <img
+                                                              src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                                              alt="avatar"
+                                                              className="w-8 h-8 mr-2 rounded-full"
+                                                          />
+                                                      ) : null}
+                                                      <div>
+                                                          <div
+                                                              className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
+                                                          <div
+                                                              className="text-xs text-gray-500">{formState.owner?.email}</div>
+                                                      </div>
+                                                  </div>
+                                              ),
+                                          }}/>,
             'Subject': (
                 <input
                     id="subject"
@@ -111,8 +121,10 @@ const InvoiceInformationSection = () => {
                 placeholder="Type at least 2 characters to search..."
                 name="account_id"
                 loadOptions={searchAccounts}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('account_id', value)
+                    handleChangeAccount(value);
+
                 }}
                 className="flex-1"
                 defaultValue={{
@@ -125,7 +137,7 @@ const InvoiceInformationSection = () => {
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                                ) : null}
+                            ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.account?.account_name}</div>
@@ -137,8 +149,8 @@ const InvoiceInformationSection = () => {
                 }}
             />,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
-                className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                disabled />,
+                                    className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                                    disabled/>,
             'ZohoBooksID': (
                 <input
                     id="zoho_books_id"
@@ -157,7 +169,7 @@ const InvoiceInformationSection = () => {
                 placeholder="Type at least 2 characters to search..."
                 name="sales_order_id"
                 loadOptions={searchSalesOrder}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('sales_order_id', value)
                 }}
                 defaultValue={{
@@ -185,7 +197,7 @@ const InvoiceInformationSection = () => {
                 options={Stages}
                 defaultValue={Stages.find((data) => data.value == formState.deal_stage)}
 
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('deal_stage', value)
                 }}
             />,
@@ -203,7 +215,7 @@ const InvoiceInformationSection = () => {
                 id="status"
                 placeholder=""
                 options={Statuses}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('status', value)
                 }}
                 defaultValue={Statuses.find((data) => data.value == formState.status)}
@@ -214,7 +226,7 @@ const InvoiceInformationSection = () => {
                 placeholder="Type at least 2 characters to search..."
                 name="contact_id"
                 loadOptions={searchContacts}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('contact_id', value)
                 }}
                 defaultValue={{
@@ -229,17 +241,17 @@ const InvoiceInformationSection = () => {
                 className="flex-1"
             />,
             'Currency': <Select id="currency" name="currency" options={Currencies}
-                defaultValue={Currencies.find((data) => data.value == formState.currency)}
-                className="flex-1" />,
+                                defaultValue={Currencies.find((data) => data.value == formState.currency)}
+                                className="flex-1"/>,
 
 
         }
     }
     return (<>
-        <div className="flex justify-between lg:flex-row flex-col">
-            <GenerateFields fields={fields} />
-        </div>
-    </>
+            <div className="flex justify-between lg:flex-row flex-col">
+                <GenerateFields fields={fields}/>
+            </div>
+        </>
     )
 }
 
