@@ -85,6 +85,7 @@ const HeaderSection = () => {
                                     onChange={({value}: any) => {
                                         handleChangeField('quote_chance', value)
                                     }}
+                                    defaultValue={{value: 'unknown', label: 'Unknown'}}
             />,
             'Currency': <Select name="currency" options={Currencies}
                                 className="flex-1"
@@ -122,6 +123,7 @@ const HeaderSection = () => {
                                    onChange={({value}: any) => {
                                        handleChangeField('quote_stage', value)
                                    }}
+                                   defaultValue={{value: 'draft', label: 'Draft'}}
             />,
 
             'Quote File(Excel)': <input

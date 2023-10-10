@@ -144,7 +144,7 @@ const HeaderSection = () => {
                 onChange={({ value }: any) => {
                     handleChangeField('quote_chance', value)
                 }}
-                defaultValue={QuoteChances.find((title) => title.value == formState.quote_chance)}
+                defaultValue={QuoteChances.find((title) => title.value == formState.quote_chance)} //TODO : what should do ?
             />,
             'Currency': <Select name="currency" options={Currencies}
                 className="flex-1"
