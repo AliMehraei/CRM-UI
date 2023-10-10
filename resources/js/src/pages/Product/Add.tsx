@@ -13,7 +13,10 @@ const Add = () => {
     const formState = useSelector((state: any) => state.productForm);
     const dispatch = useDispatch();
 
-;
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
 
     useEffect(() => {
         dispatch(setPageTitle('Product Add'));

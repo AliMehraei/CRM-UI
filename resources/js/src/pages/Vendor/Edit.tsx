@@ -22,6 +22,10 @@ const Edit = () => {
         dispatch(setPageTitle('Vendor Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const vendorResponse = await api.fetchSingleVendor(vendorId);
         if (vendorResponse.status != 200)

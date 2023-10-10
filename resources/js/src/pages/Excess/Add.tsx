@@ -17,6 +17,11 @@ const Add = () => {
         dispatch(setPageTitle('Excess Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
     return (
         (!hasPermission(`create-excess`) ) ? (
             <LoadingSasCrm/>

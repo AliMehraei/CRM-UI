@@ -23,6 +23,10 @@ const Edit = () => {
         dispatch(setPageTitle('User Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const userResponse = await api.fetchSingleUser(userId);
         if (userResponse.status != 200)

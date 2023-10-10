@@ -17,6 +17,10 @@ const Add = () => {
         dispatch(setPageTitle('Quotes Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-quote`) ) ? (
             <LoadingSasCrm/>

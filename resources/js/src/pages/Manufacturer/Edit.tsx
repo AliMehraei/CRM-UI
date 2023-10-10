@@ -19,6 +19,10 @@ const Edit = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+    useEffect(() => {
         dispatch(setPageTitle('Manufacturer Edit'));
     });
 

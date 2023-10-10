@@ -25,6 +25,10 @@ const Edit = () => {
         dispatch(setPageTitle('SalesOrder Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const salesOrderResponse = await api.fetchSingleSalesOrder(salesOrderId);
         if (salesOrderResponse.status != 200)
@@ -113,7 +117,7 @@ const Edit = () => {
             return;
         }
     };
-    
+
     if (loading)
         return <LoadingSasCrm/>
 
@@ -133,7 +137,7 @@ const Edit = () => {
                                     Convert SO to Invoice
                         </button>
                     </div>
-              
+
                     <SalesOrderFormFields/>
                 </div>
             </div>

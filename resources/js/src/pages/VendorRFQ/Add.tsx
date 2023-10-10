@@ -17,6 +17,10 @@ const Add = () => {
         dispatch(setPageTitle('Vendor Rfq Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-vendor-rfq`) ) ? (
             <LoadingSasCrm/>

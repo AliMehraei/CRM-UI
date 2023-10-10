@@ -18,6 +18,11 @@ const Add = () => {
         dispatch(setPageTitle('Deal Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
     return (
         (!hasPermission(`create-deal`) ) ? (
             <LoadingSasCrm/>

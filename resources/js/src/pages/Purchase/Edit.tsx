@@ -23,6 +23,10 @@ const Edit = () => {
         dispatch(setPageTitle('PurchaseOrder Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const purchaseOrderResponse = await api.fetchSinglePurchaseOrder(purchaseOrderId);
         if (purchaseOrderResponse.status != 200)

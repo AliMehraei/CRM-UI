@@ -18,6 +18,10 @@ const Add = () => {
         dispatch(setPageTitle('Contact Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-contact`) ) ? (
             <LoadingSasCrm/>

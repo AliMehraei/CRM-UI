@@ -28,9 +28,11 @@ const ExcessLineSection = () => {
                                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
             'Quantity': <input id="quantity" type="text" name="quantity"
                                className="form-input flex-1 "
+                               required
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
             'Cost': <input id="cost" type="text" name="cost"
                            className="form-input flex-1 "
+                           required
                            onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
         },
         '': {

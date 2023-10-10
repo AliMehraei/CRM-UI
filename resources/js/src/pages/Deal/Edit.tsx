@@ -24,6 +24,10 @@ const Edit = () => {
         dispatch(setPageTitle('Deal Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const dealResponse = await api.fetchSingleDeal(dealId);
         if (dealResponse.status != 200)
