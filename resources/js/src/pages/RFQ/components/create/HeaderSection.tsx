@@ -91,18 +91,22 @@ const HeaderSection = () => {
                                   onChange={({value}: any) => {
                                       handleChangeField('rfq_source', value)
                                   }}
+                                  defaultValue={{value: 'none', label: '-None-'}}
                                   className="flex-1"/>,
 
             'RFQ Type': <Select name="rfq_type" required options={RFQTypes}
                                 onChange={({value}: any) => {
                                     handleChangeField('rfq_type', value)
                                 }}
+                                defaultValue={{value: 'none', label: '-None-'}}
                                 className="flex-1"/>,
 
             'Status': <Select name='status' required options={Statuses}
                               onChange={({value}: any) => {
                                   handleChangeField('status', value)
-                              }} className="flex-1"/>,
+                              }}
+                              defaultValue={{value: 'open', label: 'Open'}}
+                              className="flex-1"/>,
 
             'Date History': <Flatpickr name='date_history' options={{dateFormat: 'Y-m-d '}} className="form-input flex-1"
                                        placeholder="YYYY-MM-DD"

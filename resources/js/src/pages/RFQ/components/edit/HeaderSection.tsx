@@ -135,7 +135,12 @@ const HeaderSection = () => {
                                   onChange={({value}: any) => {
                                       handleChangeField('rfq_source', value)
                                   }}
-                                  defaultValue={RFQSources.find((data) => data.value == formState.rfq_source)}
+                                  defaultValue={
+                                      formState.rfq_source ?
+                                          RFQSources.find((data) => data.value == formState.rfq_source) : {
+                                              value: 'none',
+                                              label: '-None-'
+                                          }}
 
                                   className="flex-1"/>,
 
@@ -143,15 +148,23 @@ const HeaderSection = () => {
                                 onChange={({value}: any) => {
                                     handleChangeField('rfq_type', value)
                                 }}
-                                defaultValue={RFQTypes.find((data) => data.value == formState.rfq_type)}
-
+                                defaultValue={
+                                    formState.rfq_type ?
+                                        RFQTypes.find((data) => data.value == formState.rfq_type) : {
+                                            value: 'none',
+                                            label: '-None-'
+                                        }}
                                 className="flex-1"/>,
 
             'Status': <Select name='status' required options={Statuses}
                               onChange={({value}: any) => {
                                   handleChangeField('status', value)
                               }}
-                              defaultValue={Statuses.find((data) => data.value == formState.status)}
+                              defaultValue={
+                                  formState.status ?
+                                      Statuses.find((data) => data.value == formState.status) :
+                                      {value: 'open', label: 'Open'}
+                              }
                               className="flex-1"/>,
 
             'Date History': <Flatpickr name='date_history'
