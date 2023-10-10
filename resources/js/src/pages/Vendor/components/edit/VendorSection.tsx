@@ -278,15 +278,6 @@ const VendorSection = () => {
                     }}
                 />
             ),
-            'Vendor Number': (
-                <input
-                    id="vendor_number"
-                    name="vendor_number"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.vendor_number}
-                />
-            ),
             'Portal Access': (
                 <Select
                     options={PortalAccess}
