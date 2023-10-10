@@ -146,7 +146,8 @@ const EditReminderSection = () => {
                                 setSelectedTime(time[0]);
                                 handleChangeField("reminder_on_time", time[0]);
                             }}
-                        /> //TODO:: fix this 
+                        /> 
+                        {/* TODO:: fix this  */}
 
                         <label>Notify Type:</label>
                         <Select
