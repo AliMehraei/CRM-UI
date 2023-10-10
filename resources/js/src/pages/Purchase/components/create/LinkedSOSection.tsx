@@ -60,7 +60,7 @@ const LinkedSOSection = () => {
                     name="quantity_so"
                     className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
                     disabled
-                    value={formState.sales_order.quantity}
+                    value={formState.sales_order?.quantity}
                 />
             ),
             'Resale': (
@@ -69,7 +69,7 @@ const LinkedSOSection = () => {
                     name="resale"
                     className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
                     disabled
-                    value={formState.sales_order.resale_price}
+                    value={formState.sales_order?.resale_price}
                 />
             ),
             'SO Status': (
@@ -78,7 +78,7 @@ const LinkedSOSection = () => {
                     name="so_status"
                     className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
                     disabled
-                    value={formState.sales_order.status}
+                    value={formState.sales_order?.status}
                 />
             ),
 
@@ -91,7 +91,7 @@ const LinkedSOSection = () => {
                     name="so_requested_d_d"
                     className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
                     disabled
-                    value={formState.sales_order.requested_delivery_date}
+                    value={formState.sales_order?.requested_delivery_date}
                 />
             ),
             'Confirmed D.D.': (
@@ -109,7 +109,7 @@ const LinkedSOSection = () => {
                     name="dc_so"
                     className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
                     disabled
-                    value={formState.sales_order.dc}
+                    value={formState.sales_order?.dc}
                 />
             ),
 
@@ -120,7 +120,7 @@ const LinkedSOSection = () => {
                     name="spq_so"
                     className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
                     disabled
-                    value={formState.sales_order.spq}
+                    value={formState.sales_order?.spq}
                 />
             ),
 
