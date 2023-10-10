@@ -3,7 +3,6 @@ import HeaderSection from "./HeaderSection";
 import StatusSection from "./StatusSection";
 import QuoteLineSection from "./QuoteLineSection";
 import PriceBreakSection from "./PriceBreakSetion";
-import CreatedSection from "./CreatedSection";
 import DevelopmentSection from "./DevelopmentSection";
 
 
@@ -19,8 +18,6 @@ const AvailabilityFormFields = () => {
             <PriceBreakSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <DevelopmentSection/>
-            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <CreatedSection/>
         </div>
     )
 
