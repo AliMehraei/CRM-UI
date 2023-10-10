@@ -10,7 +10,7 @@ const SearchOptionComponent = ({option, handleConditionChange, filters, filterSt
             <h3 className="text-lg font-semibold mt-4">Search Options</h3>
             <div className="mb-4">
                 <div className="mb-2">
-                    <label className="block font-semibold">Search include for {option.value}:</label>
+                    <label className="block font-semibold">Search include for {option.label}:</label>
                     <Select
                         onChange={(e) => handleConditionChange(option.value, e)}
                         placeholder="Select an include"
