@@ -63,7 +63,7 @@ const LinkedAvailabilitySection = () => {
                 <AsyncSelect
                     isMulti={false}
                     id="availability_id"
-                    required
+
                     placeholder="Type at least 2 characters to search..."
                     name="availability_id"
                     loadOptions={searchAvailability}

@@ -62,7 +62,6 @@ const HeaderSection = () => {
             'Quote Name': (
                 <AsyncSelect
                     isMulti={false}
-                    required
                     id="quote_id"
                     placeholder="Type at least 2 characters to search..."
                     name="quote_id"

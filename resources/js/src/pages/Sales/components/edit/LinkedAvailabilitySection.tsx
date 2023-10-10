@@ -4,8 +4,10 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchAccounts,searchContacts,searchSalesOrder,Currencies
-    ,searchLead,searchQuote,searchInvoice,searchOwners, searchRFQ, searchProducts, searchAvailability} from "../../../../components/Functions/CommonFunctions";
+import {
+    searchAccounts, searchContacts, searchSalesOrder, Currencies
+    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, searchProducts, searchAvailability
+} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
 const LinkedAvailabilitySection = () => {
@@ -15,7 +17,6 @@ const LinkedAvailabilitySection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
 
 
     const LeadSourceOption = [
@@ -53,7 +54,7 @@ const LinkedAvailabilitySection = () => {
         {value: 'close_lead', label: 'Close Lead / Lost Lead'},
 
     ];
-    let StageOption =StageExcessOption;
+    let StageOption = StageExcessOption;
 
     const fields = {
         'Linked Availability': {
@@ -63,7 +64,6 @@ const LinkedAvailabilitySection = () => {
                 <AsyncSelect
                     isMulti={false}
                     id="availability_id"
-                    required
                     placeholder="Type at least 2 characters to search..."
                     name="availability_id"
                     loadOptions={searchAvailability}
@@ -86,54 +86,54 @@ const LinkedAvailabilitySection = () => {
 
             'Availability No': (
                 <input
-                id="availability_no"
-                name="availability_no"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.availability_no}
+                    id="availability_no"
+                    name="availability_no"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.availability_no}
                 />
             ),
             'Availability Cost': (
                 <input
-                type="number"
+                    type="number"
 
-                id="availability_cost"
-                name="availability_cost"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.availability_cost}
+                    id="availability_cost"
+                    name="availability_cost"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.availability_cost}
                 />
             ),
         },
         '': {
             'Availability Quantity': (
                 <input
-                type="number"
+                    type="number"
 
-                id="availability_quantity"
-                name="availability_quantity"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.availability_quantity}
+                    id="availability_quantity"
+                    name="availability_quantity"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.availability_quantity}
                 />
             ),
 
             'Availability LT': (
                 <input
-                id="availability_lt"
-                name="availability_lt"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.availability_lt}
+                    id="availability_lt"
+                    name="availability_lt"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.availability_lt}
                 />
             ),
             'Availability DC': (
                 <input
-                id="availability_dc"
-                name="availability_dc"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.availability_dc}
+                    id="availability_dc"
+                    name="availability_dc"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.availability_dc}
                 />
             ),
 
