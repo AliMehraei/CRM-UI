@@ -23,6 +23,10 @@ const Edit = () => {
         dispatch(setPageTitle('Invoice Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const invoiceResponse = await api.fetchSingleInvoice(invoiceId);
         if (invoiceResponse.status != 200)

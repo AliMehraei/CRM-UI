@@ -24,6 +24,11 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('RFQ Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);

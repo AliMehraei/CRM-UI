@@ -18,6 +18,11 @@ const Add = () => {
         dispatch(setPageTitle('Invoice Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
     return (
         (!hasPermission(`create-invoice`) ) ? (
             <LoadingSasCrm/>

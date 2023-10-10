@@ -15,6 +15,10 @@ const Add = () => {
         dispatch(setPageTitle('RFQ Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
 
     return (
         (!hasPermission(`create-rfq`) ) ? (

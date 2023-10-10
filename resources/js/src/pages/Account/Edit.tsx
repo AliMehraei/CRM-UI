@@ -22,6 +22,11 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Account Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleAccount',

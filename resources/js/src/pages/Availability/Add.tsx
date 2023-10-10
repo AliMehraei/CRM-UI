@@ -16,6 +16,10 @@ const Add = () => {
         dispatch(setPageTitle('Availability Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-availability`) ) ? (
             <LoadingSasCrm/>

@@ -17,6 +17,10 @@ const Add = () => {
         dispatch(setPageTitle('Sales Order Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-sales-order`) ) ? (
             <LoadingSasCrm/>

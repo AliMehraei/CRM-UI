@@ -16,6 +16,10 @@ const Add = () => {
         dispatch(setPageTitle('Manufacturer Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-manufacturer`) ) ? (
             <LoadingSasCrm/>

@@ -21,6 +21,10 @@ const Edit = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const leadResponse = await api.fetchSingleLead(leadId);
         if (leadResponse.status != 200)

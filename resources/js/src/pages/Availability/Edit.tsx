@@ -22,6 +22,11 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Availability Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);

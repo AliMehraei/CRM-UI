@@ -23,6 +23,10 @@ const Edit = () => {
         dispatch(setPageTitle('Task Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const taskResponse = await api.fetchSingleTask(taskId);
         if (taskResponse.status != 200)
