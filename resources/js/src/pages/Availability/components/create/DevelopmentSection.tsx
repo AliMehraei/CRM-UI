@@ -15,11 +15,6 @@ const DevelopmentSection = () => {
                                          className="form-checkbox"
                                          onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
 
-        },
-        '': {
-            'Portal Availability Id': <input id="portal_availability_id" name="portal_availability_id"
-                                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                                             className="form-input flex-1 "/>,
         }
     }
     return (<>
