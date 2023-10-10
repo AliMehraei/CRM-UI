@@ -22,6 +22,10 @@ const Edit = () => {
         dispatch(setPageTitle('Excess Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     const fetchData = async () => {
         const excessResponse = await api.fetchSingleExcess(excessId);
         if (excessResponse.status != 200)

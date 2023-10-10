@@ -17,6 +17,10 @@ const Add = () => {
         dispatch(setPageTitle('Account Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-product`) ) ? (
             <LoadingSasCrm/>

@@ -1,72 +1,31 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
-import { updateFormData } from "../../../../store/purchaseOrderFormSlice";
+import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import Select from "react-select";
 import {
-    searchAccounts, searchContacts, searchSalesOrder, Currencies
-    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ
+     searchSalesOrder,
 } from "../../../../components/Functions/CommonFunctions";
-import Flatpickr from "react-flatpickr";
 
 const LinkedSOSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.purchaseOrderForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
 
-
-    const SOStatusOption = [
-        { value: 'none', label: '-None-' },
-        { value: 'draft', label: 'Draft' },
-        { value: 'request_for_approval', label: 'Request For Approval' },
-        { value: 'approved', label: 'Approved' },
-        { value: 'confirmed', label: 'Confirmed' },
-        { value: 'packed', label: 'Packed' },
-        { value: 'shipped', label: 'Shipped' },
-
-    ];
+    const handleChangeSalesOrder = async (value: string) => {
+        const response = await api_instance.fetchSingleSalesOrder(value);
+        if (response.status != 200)
+            return;
+        const account = response.data.data.salesOrder;
+        dispatch(updateFormData({['sales_order']: account}));
+    }
 
     const fields = {
         'Linked SO': {
-
-
-            'Account Name': (
-                <AsyncSelect
-                    isMulti={false}
-                    id="account_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="account_id"
-                    loadOptions={searchAccounts}
-                    onChange={({ value }: any) => {
-                        handleChangeField('account_id', value)
-                    }}
-                    className="flex-1"
-                    defaultValue={{
-                        value: formState.account?.id,
-                        label: (
-                            <div key={formState.account?.id} className="flex items-center">
-                                {formState.account ? (
-                                <img
-                                    src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
-                                    alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full"
-                                />
-                                ) : null}
-                                <div>
-                                    <div className="text-sm font-bold">{formState.account?.account_name}</div>
-                                    <div className="text-xs text-gray-500">{formState.account?.email}</div>
-                                </div>
-                            </div>
-                        ),
-                    }}
-                />
-            ),
-
 
 
             'SO Number': (
@@ -76,15 +35,16 @@ const LinkedSOSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="sales_order_id"
                     loadOptions={searchSalesOrder}
-                    onChange={({ value }: any) => {
-                        handleChangeField('sales_order_id', value)
+                    onChange={({value}: any) => {
+                        handleChangeField('sales_order_id', value);
+                        handleChangeSalesOrder(value);
                     }}
                     className="flex-1"
                     defaultValue={{
                         value: formState.sales_order_id,
                         label: (
                             <div key={formState.sales_order_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.sales_order?.subject}</div>
@@ -92,39 +52,45 @@ const LinkedSOSection = () => {
                             </div>
                         )
                     }}
+
+                />
+            ),
+
+            'Account Name': (
+                <input
+                    id="account_id"
+                    name="account_id"
+                    value={formState.sales_order?.account?.account_name}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
                 />
             ),
 
             'Quantity SO': (
                 <input
                     id="quantity_so"
-                    type="number"
                     name="quantity_so"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.quantity_so}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.quantity}
                 />
             ),
             'Resale': (
                 <input
                     id="resale"
-                    type="number"
                     name="resale"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.resale}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.resale_price}
                 />
             ),
             'SO Status': (
-                <Select
-                    options={SOStatusOption}
-                    name="so_status"
+                <input
                     id="so_status"
-                    onChange={({ value }: any) => {
-                        handleChangeField('so_status', value)
-                    }}
-                    className="flex-1"
-                    defaultValue={SOStatusOption.find((title) => title.value == formState.so_status)}
+                    name="so_status"
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.status}
                 />
             ),
 
@@ -132,62 +98,52 @@ const LinkedSOSection = () => {
         },
         '': {
             'Requested D.D.': (
-                <Flatpickr
-                    options={{
-                        dateFormat: 'Y-m-d ',
-                        position: 'auto left',
-                        defaultDate: formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : null as any,
-                    }}
+                <input
+                    id="so_requested_d_d"
                     name="so_requested_d_d"
-                    value={formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : ''}
-                    className="form-input flex-1"
-                    onChange={(_, dateString) => handleChangeField('so_requested_d_d', dateString)} // Update the field value on change
-
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.requested_delivery_date}
                 />
             ),
             'Confirmed D.D.': (
-                <Flatpickr
-                    options={{
-                        dateFormat: 'Y-m-d ',
-                        position: 'auto left',
-                        defaultDate: formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : null as any,
-                    }}
+                //TODO : what value should set ?
+                <input
+                    id="so_confirmed_d_d"
                     name="so_confirmed_d_d"
-                    value={formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : ''}
-                    className="form-input flex-1"
-                    onChange={(_, dateString) => handleChangeField('so_confirmed_d_d', dateString)} // Update the field value on change
-
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
                 />
             ),
             'D/C': (
                 <input
                     id="dc_so"
                     name="dc_so"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.dc_so}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.dc}
                 />
             ),
-
 
 
             'SPQ SO': (
                 <input
                     id="spq_so"
                     name="spq_so"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.spq_so}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.spq}
                 />
             ),
 
 
         }
     }
+
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields} />
+                <GenerateFields fields={fields}/>
             </div>
         </>
     )

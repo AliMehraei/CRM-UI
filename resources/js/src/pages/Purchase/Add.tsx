@@ -18,6 +18,11 @@ const Add = () => {
         dispatch(setPageTitle('Purchase Order Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
     return (
         (!hasPermission(`create-purchase-order`) ) ? (
             <LoadingSasCrm/>

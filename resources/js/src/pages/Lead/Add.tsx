@@ -17,6 +17,11 @@ const Add = () => {
         dispatch(setPageTitle('Lead Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
     return (
         (!hasPermission(`create-lead`) ) ? (
             <LoadingSasCrm/>

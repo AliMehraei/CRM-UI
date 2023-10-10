@@ -24,6 +24,11 @@ const Edit = () => {
         dispatch(setPageTitle('Product Edit'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
+
     const fetchData = async () => {
         const productResponse = await api.fetchSingleProduct(productId);
         if (productResponse.status != 200)

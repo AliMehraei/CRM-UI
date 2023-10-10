@@ -17,6 +17,10 @@ const Add = () => {
         dispatch(setPageTitle('User Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
         (!hasPermission(`create-user`) ) ? (
             <LoadingSasCrm/>
