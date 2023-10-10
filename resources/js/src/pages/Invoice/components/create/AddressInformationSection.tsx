@@ -9,7 +9,6 @@ const AddressInformationSection = () => {
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
-        dispatch(updateFormData({['account_' + field]: value}));
     };
     const fields = {
         'Address Information': {
