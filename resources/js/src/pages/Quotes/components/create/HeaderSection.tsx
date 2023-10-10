@@ -9,9 +9,10 @@ import {
     searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
+import Api from "../../../../config/api";
 
 const HeaderSection = () => {
-
+    const api_instance = new Api();
     const QuoteChances = [
         {value: 'none', label: '-None-'},
         {value: 'high', label: 'High'},
@@ -35,6 +36,16 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
+
+    const handleChangeAccount = async (value: string) => {
+        const accountResponse = await api_instance.fetchSingleAccount(value);
+        if (accountResponse.status != 200)
+            return;
+        const account = accountResponse.data.data.account;
+        dispatch(updateFormData({['account']: account}));
+    }
+
+
     const fields = {
         'Header': {
             'Account Name': <AsyncSelect
@@ -46,6 +57,7 @@ const HeaderSection = () => {
                 loadOptions={searchAccounts}
                 onChange={({value}: any) => {
                     handleChangeField('account_id', value)
+                    handleChangeAccount(value);
                 }}
                 className="flex-1"/>,
             'Contact Name': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
