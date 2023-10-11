@@ -113,7 +113,6 @@ const AccountSection = () => {
                 name="business_account"
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by_id" type="text" value="None"
                                   placeholder="Readonly input here…"
