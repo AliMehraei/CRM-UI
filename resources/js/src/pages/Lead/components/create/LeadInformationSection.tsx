@@ -222,6 +222,7 @@ const LeadInformationSection = () => {
                     onChange={({value}: any) => {
                         handleChangeField('lead_source', value)
                     }}
+                    defaultValue={{value: 'exhibitor_list', label: 'Exhibitor List'}}
                     className="flex-1"
                 />
             ),
@@ -240,6 +241,7 @@ const LeadInformationSection = () => {
                     type="checkbox"
                     name="email_opt_out"
                     className="form-checkbox"
+                    defaultChecked={true}
                     onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
