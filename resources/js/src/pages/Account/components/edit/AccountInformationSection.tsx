@@ -100,7 +100,7 @@ const AccountInformationSection = () => {
                                 ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.parent?.name}</div>
+                                    className="text-sm font-bold">{formState.parent?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.parent?.email}</div>
                             </div>
@@ -162,7 +162,7 @@ const AccountInformationSection = () => {
                                 ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.child?.name}</div>
+                                    className="text-sm font-bold">{formState.child?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.child?.email}</div>
                             </div>
