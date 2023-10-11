@@ -45,6 +45,26 @@ const HeaderSection = () => {
             return;
         const account = accountResponse.data.data.account;
         dispatch(updateFormData({['account']: account}));
+
+
+        const addressFields = [
+            'billing_street',
+            'billing_city',
+            'billing_state',
+            'billing_code',
+            'billing_country',
+            'shipping_street',
+            'shipping_city',
+            'shipping_state',
+            'shipping_code',
+            'shipping_country',
+        ];
+
+        const formDataUpdate: any = {};
+        addressFields.forEach(field => {
+            formDataUpdate[field] = account[field] ?? null;
+        });
+        dispatch(updateFormData(formDataUpdate));
     }
 
     const fields = {
