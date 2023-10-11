@@ -1,6 +1,5 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     AccountTypes, Contract, Currencies, getImageSource,
@@ -12,7 +11,6 @@ import ClearButtonComponent from "../../../../components/FormFields/ClearButtonC
 
 const AccountSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.accountForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -93,7 +91,7 @@ const AccountSection = () => {
                 placeholder="Select Product Type..."
                 options={Contract}
                 onChange={({value}: any) => {
-                    handleChangeField('contract_id', value)
+                    handleChangeField('contract', value)
                 }}
             />,
             'Contract Attachment': (<input
