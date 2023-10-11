@@ -20,8 +20,32 @@ const LinkedSOSection = () => {
         const response = await api_instance.fetchSingleSalesOrder(value);
         if (response.status != 200)
             return;
-        const account = response.data.data.salesOrder;
-        dispatch(updateFormData({['sales_order']: account}));
+        const salesOrder = response.data.data.salesOrder;
+        dispatch(updateFormData({['sales_order']: salesOrder}));
+        const account = salesOrder.account
+        if (account == null)
+            return;
+
+        const addressFields = [
+            'billing_street',
+            'billing_city',
+            'billing_state',
+            'billing_code',
+            'billing_country',
+            'shipping_street',
+            'shipping_city',
+            'shipping_state',
+            'shipping_code',
+            'shipping_country',
+        ];
+
+        const formDataUpdate: any = {};
+        addressFields.forEach(field => {
+            formDataUpdate[field] = account[field] ?? null;
+        });
+        dispatch(updateFormData(formDataUpdate));
+
+
     }
 
     const fields = {
