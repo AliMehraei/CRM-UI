@@ -583,6 +583,14 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/form/layout`, data);
     }
 
+    async fetchAttachments(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/attachment/fetch`, data);
+    }
+
+    async deleteAttachments(id: any) {
+        return await _axios.delete(`${API_URL_PRODUCT}/attachment/delete/${id}`);
+    }
+
 }
 
 export default api
