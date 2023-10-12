@@ -45,6 +45,16 @@ export const handleUploadFile = (e: any, callBack: any) => {
         }).catch();
     }
 };
+
+export const handleUploadAttachments = (e: any, modelName: string, modelId: string, callBack: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+        api_instance.uploadAttachments(e.target.files, modelName, modelId).then((response) => {
+            callBack(response)
+        }).catch();
+    }
+};
+
+
 export const AccountTypes = [
     {value: '-None-', label: '-None-'},
     {value: 'EMS', label: 'EMS'},
