@@ -7,6 +7,7 @@ import DescriptionInformationSection from "./DescriptionInformationSection";
 import TechnicalInformationSection from "./TechnicalInformationSection";
 import Unused from "./Unused";
 import AddressInformationSection from "./AddressInformationSection";
+import AttachmentSection from "../../../../components/FormFields/AttachmentSection";
 
 
 const AccountFormFields = () => {
@@ -27,6 +28,8 @@ const AccountFormFields = () => {
             <TechnicalInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <Unused/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <AttachmentSection/>
 
         </div>
     )
