@@ -7,7 +7,7 @@ const thumbsContainer: any = {
     flexWrap: 'wrap',
     marginTop: 16
 };
-const baseStyle = {
+const baseStyle: any = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
@@ -106,7 +106,7 @@ const AttachmentSection = () => {
                 />
                 {hoveredIndex === index && (
                     <div
-                        style={{
+                       /* style={{
                             position: 'absolute',
                             top: '50%',
                             left: '50%',
@@ -114,12 +114,13 @@ const AttachmentSection = () => {
                             color: 'red',
                             cursor: 'pointer',
                             zIndex: 1, // Ensure the cross is above the blurred image
-                        }}
+                        }}*/
                         onClick={() => {
-                            // Handle click event, e.g., remove the file
+                            console.log("clicked")
                         }}
                     >
                         &#10006;
+                       <h1 className="red">red cross</h1>
                     </div>
                 )}
             </div>
@@ -134,7 +135,7 @@ const AttachmentSection = () => {
 
     return (
         <section className="container">
-            <div {...getRootProps({className: 'dropzone'})}>
+            <div {...getRootProps({className: 'dropzone'})} style={baseStyle}>
                 <input {...getInputProps()} />
                 <p>Drag 'n' drop some files here, or click to select files</p>
             </div>
