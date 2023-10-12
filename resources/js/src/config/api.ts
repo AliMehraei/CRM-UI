@@ -117,27 +117,6 @@ class api {
         }
     }
 
-    async uploadAttachments(files: any, modelName: string, modelId: string) {
-        try {
-            const formData = new FormData();
-            formData.append('files', files);
-
-            const response = await _axios.post(`${API_URL_PRODUCT}/upload`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-            if (response.status === 200) {
-                return response; // Assuming the server returns the URL of the uploaded image
-            } else {
-                throw new Error('File upload failed');
-            }
-        } catch (error) {
-            console.error('Error uploading image:', error);
-            return null;
-        }
-    }
 
     //vendor
     async searchVendor(data: any = null) {
@@ -581,6 +560,33 @@ class api {
 
     async getFormLayout(data: object) {
         return await _axios.post(`${API_URL_PRODUCT}/form/layout`, data);
+    }
+
+    async uploadAttachments(files: any, modelName: string, modelId: string) {
+        try {
+            const formData = new FormData();
+
+            files.forEach((file: any, index: any) => {
+                formData.append(`files[${index}]`, file);
+            });
+            formData.append('modelName', modelName);
+            formData.append('modelId', modelId);
+
+            const response = await _axios.post(`${API_URL_PRODUCT}/attachment/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if (response.status === 200) {
+                return response; // Assuming the server returns the URL of the uploaded image
+            } else {
+                throw new Error('File upload failed');
+            }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+        }
     }
 
     async fetchAttachments(data: any) {
