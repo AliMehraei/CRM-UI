@@ -34,8 +34,7 @@ const ErrorsAccordionComponent = () => {
                                     <div key={key}
                                          className="flex items-center p-3.5 rounded text-danger bg-danger-light dark:bg-danger-dark-light">
                                           <span className="ltr:pr-2 rtl:pl-2">
-                                              <strong
-                                                  className="ltr:mr-1 rtl:ml-1">{key}</strong> <> {value} </>.
+                                              <> {value} </>.
                                           </span>
                                     </div>
                                 ))}
