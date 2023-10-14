@@ -597,6 +597,35 @@ class api {
         return await _axios.delete(`${API_URL_PRODUCT}/attachment/delete/${id}`);
     }
 
+    async downloadAttachment(id: string, originalName: string) {
+        const downloadEndpoint = `${API_URL_PRODUCT}/attachment/download/${id}`;
+
+        // Make a request to initiate the download
+        _axios({
+            method: 'post',
+            url: downloadEndpoint,
+            responseType: 'blob', // Important for handling binary data (like files)
+        })
+            .then(response => {
+                if (response.status != 200)
+                    throw Error(response);
+                // Create a Blob from the response data
+                const blob = new Blob([response.data], {type: response.headers['content-type']});
+
+                // Create a link element and simulate a click to trigger the download
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = originalName ?? 's';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error downloading attachment:', error);
+                // Handle error as needed
+            });
+    }
+
 }
 
 export default api
