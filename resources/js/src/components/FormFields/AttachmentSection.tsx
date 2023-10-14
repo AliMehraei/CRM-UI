@@ -47,9 +47,11 @@ const AttachmentSection = ({modelName, modelId}: any) => {
         }).then((result) => {
             if (result.value) {
                 api_instance.deleteAttachments(attachmentId)
-                    .then((response) => {
-                        response.status == 200
+                    .then(() => {
+                        setFiles((prevFiles: any) =>
+                            prevFiles.filter((file: any) => file.id != attachmentId));
                     }).catch((error) => {
+                    console.log(error);
 
                 })
             }
@@ -95,7 +97,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
                 />
                 {hoveredIndex === index && (
                     <div
-                        onClick={() => handleDeleteAttachment(index)}
+                        onClick={() => handleDeleteAttachment(file.id)}
                         className="cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-center text-red-700 bg-opacity-70 p-2 rounded"
                     >
                         &#10006; Delete
