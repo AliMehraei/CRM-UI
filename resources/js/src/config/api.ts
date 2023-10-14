@@ -594,7 +594,7 @@ class api {
     }
 
     async deleteAttachments(id: any) {
-        return await _axios.delete(`${API_URL_PRODUCT}/attachment/delete/${id}`);
+        return await _axios.post(`${API_URL_PRODUCT}/attachment/delete/${id}`);
     }
 
     async downloadAttachment(id: string, originalName: string) {
