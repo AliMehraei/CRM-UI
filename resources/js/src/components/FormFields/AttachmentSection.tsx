@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import Api from "../../config/api";
+import GenerateFields from "./GenerateFields";
+import Swal from "sweetalert2";
 
 const thumbsContainer: any = {
     display: 'flex',
@@ -53,9 +55,9 @@ const AttachmentSection = ({modelName, modelId}: any) => {
     const [files, setFiles] = useState([]);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const {getRootProps, getInputProps} = useDropzone({
-        accept: {
-            'image/*': []
-        },
+        /*accept: {
+            'image/!*': []
+        },*/
         onDrop: (acceptedFiles: any) => {
             handleUploadAttachment(acceptedFiles);
             setFiles(acceptedFiles.map((file: any) => Object.assign(file, {
@@ -80,18 +82,34 @@ const AttachmentSection = ({modelName, modelId}: any) => {
         });
     }
     const handleDeleteAttachment: any = (attachmentId: string) => {
-        api_instance.deleteAttachments(attachmentId)
-            .then((response) => {
-                response.status == 200
-            }).catch((error) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            padding: '2em',
+            customClass: 'sweet-alerts',
+        }).then((result) => {
+            if (result.value) {
+                api_instance.deleteAttachments(attachmentId)
+                    .then((response) => {
+                        response.status == 200
+                    }).catch((error) => {
 
-        })
+                })
+            }
+        });
+    }
+
+    const handleDownload = (file: any) => {
+        // api_instance.downloadAttachment({attachmentId: file.id, modelId: modelId, modelName: modelName})
     }
 
     useEffect(() => {
         api_instance.fetchAttachments({modelId: modelId, modelName: modelName})
             .then(response => {
-                console.log(response)
+                setFiles(response.data.attachments);
             }).catch((error: any) => {
             console.log(error)
         });
@@ -105,20 +123,14 @@ const AttachmentSection = ({modelName, modelId}: any) => {
 
 
     const thumbs = files.map((file: any, index: number) => (
-        <div
-            className="relative  m-2"
-            style={thumb}
-            key={file.name}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={handleMouseLeave}
-            onClick={handleDeleteAttachment}
-        >
-            <div
-                style={thumbInner}
+        <div style={thumb} className="relative">
+            <div style={thumbInner}
+                 onMouseEnter={() => handleMouseEnter(index)}
+                 onMouseLeave={handleMouseLeave}
             >
                 <img
-                    alt={file.name}
-                    src={file.preview}
+                    alt={file.original_name}
+                    src="/assets/images/filethumbnail.png"
                     style={{
                         ...img,
                         filter: hoveredIndex === index ? 'blur(8px)' : 'none',
@@ -127,28 +139,41 @@ const AttachmentSection = ({modelName, modelId}: any) => {
                         URL.revokeObjectURL(file.preview);
                     }}
                 />
-                {/* Add a message on top of the image */}
                 {hoveredIndex === index && (
                     <div
-                        className="cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-center text-red-700 bg-opacity-70 p-2 rounded">
-                        &#10006;
-                        Delete
-                    </div>)}
+                        onClick={() => handleDeleteAttachment(index)}
+                        className="cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-bold text-center text-red-700 bg-opacity-70 p-2 rounded"
+                    >
+                        &#10006; Delete
+                    </div>
+                )}
+                <div
+                    className="absolute bottom-0 left-0 right-0 bg-opacity-50 backdrop-filter backdrop-blur-md text-white text-center text-blue-950">
+                    {file.original_name?.length > 10 ? file.original_name?.substring(0, 10) + '...' : file.original_name}
+                </div>
             </div>
-
+            <button onClick={() => {
+                handleDownload(file);
+            }} className="cursor-pointer mt-3 text-center btn btn-primary w-20 h-7">
+                Download
+            </button>
         </div>
+
     ));
 
     return (
-        <section className="container">
-            <div {...getRootProps({className: 'dropzone'})} style={baseStyle}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
-            </div>
-            <aside style={thumbsContainer}>
-                {thumbs}
-            </aside>
-        </section>
+        <div className="flex justify-between lg:flex-row flex-col mb-10">
+            <section className="container">
+                <div {...getRootProps({className: 'dropzone'})} style={baseStyle}>
+                    <input {...getInputProps()} />
+                    <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+                <aside style={thumbsContainer}>
+                    {thumbs}
+                </aside>
+            </section>
+        </div>
+
     );
 };
 
