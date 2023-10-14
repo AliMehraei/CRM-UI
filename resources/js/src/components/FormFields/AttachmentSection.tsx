@@ -3,52 +3,7 @@ import {useDropzone} from 'react-dropzone';
 import Api from "../../config/api";
 import GenerateFields from "./GenerateFields";
 import Swal from "sweetalert2";
-
-const thumbsContainer: any = {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 16
-};
-const baseStyle: any = {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: '#eeeeee',
-    borderStyle: 'dashed',
-    backgroundColor: '#fafafa',
-    color: '#bdbdbd',
-    outline: 'none',
-    transition: 'border .24s ease-in-out'
-};
-
-const thumb: any = {
-    display: 'inline-block',
-    borderRadius: 2,
-    border: '1px solid #eaeaea',
-    marginBottom: 8,
-    marginRight: 8,
-    width: 100,
-    height: 100,
-    padding: 4,
-    boxSizing: 'border-box'
-};
-
-const thumbInner = {
-    display: 'flex',
-    minWidth: 0,
-    overflow: 'hidden'
-};
-
-const img = {
-    display: 'block',
-    width: 'auto',
-    height: '100%'
-};
+import {baseStyle, img, thumb, thumbInner, thumbsContainer} from "./AttachmentSectionStyle";
 
 
 const AttachmentSection = ({modelName, modelId}: any) => {
@@ -103,7 +58,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
     }
 
     const handleDownload = (file: any) => {
-        // api_instance.downloadAttachment({attachmentId: file.id, modelId: modelId, modelName: modelName})
+        api_instance.deleteAttachments({attachmentId: file.id, modelId: modelId, modelName: modelName})
     }
 
     useEffect(() => {
