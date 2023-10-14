@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import Api from "../../config/api";
-import GenerateFields from "./GenerateFields";
 import Swal from "sweetalert2";
 import {baseStyle, img, thumb, thumbInner, thumbsContainer} from "./AttachmentSectionStyle";
 
 
 const AttachmentSection = ({modelName, modelId}: any) => {
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<any>([]);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const {getRootProps, getInputProps} = useDropzone({
         /*accept: {
@@ -15,9 +14,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
         },*/
         onDrop: (acceptedFiles: any) => {
             handleUploadAttachment(acceptedFiles);
-            setFiles(acceptedFiles.map((file: any) => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            })));
+
         }
     });
     const api_instance = new Api();
@@ -30,10 +27,12 @@ const AttachmentSection = ({modelName, modelId}: any) => {
 
     const handleUploadAttachment = (files: any) => {
         api_instance.uploadAttachments(files, modelName, modelId)
-            .then((response) => {
-                console.log(response);
+            .then((response: any) => {
+                if (response.status != 200)
+                    throw Error(response);
+                setFiles((prevFiles: any) => [...prevFiles, ...response.data?.data]);
             }).catch((error) => {
-            console.log(error);
+            console.error(error);
         });
     }
     const handleDeleteAttachment: any = (attachmentId: string) => {
@@ -58,7 +57,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
     }
 
     const handleDownload = (file: any) => {
-        api_instance.deleteAttachments({attachmentId: file.id, modelId: modelId, modelName: modelName})
+        api_instance.downloadAttachment(file.id, file.original_name);
     }
 
     useEffect(() => {
@@ -78,7 +77,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
 
 
     const thumbs = files.map((file: any, index: number) => (
-        <div style={thumb} className="relative">
+        <div key={file.id} style={thumb} className="relative">
             <div style={thumbInner}
                  onMouseEnter={() => handleMouseEnter(index)}
                  onMouseLeave={handleMouseLeave}
