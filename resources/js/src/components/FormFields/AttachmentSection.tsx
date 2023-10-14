@@ -3,16 +3,25 @@ import {useDropzone} from 'react-dropzone';
 import Api from "../../config/api";
 import Swal from "sweetalert2";
 import {baseStyle, img, thumb, thumbInner, thumbsContainer} from "./AttachmentSectionStyle";
+import {notifyErrorMessage} from "../Functions/CommonFunctions";
 
 
 const AttachmentSection = ({modelName, modelId}: any) => {
     const [files, setFiles] = useState<any>([]);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const {getRootProps, getInputProps} = useDropzone({
-        /*accept: {
-            'image/!*': []
-        },*/
-        onDrop: (acceptedFiles: any) => {
+        accept: {
+            "image/*": [".png", ".gif", ".jpeg", ".jpg"],
+            "application/pdf": [".pdf"],
+            "text/plain": [".txt"],
+            "text/csv": [".csv"],
+            "application/msword": [".doc", ".docx"],
+            "application/vnd.ms-excel": [".xls", ".xlsx"],
+            "application/vnd.ms-powerpoint": [".ppt", ".pptx"],
+        },
+        onDrop: (acceptedFiles: any, fileRejections) => {
+            if (fileRejections.length > 0)
+                notifyErrorMessage("Some files did not upload");
             handleUploadAttachment(acceptedFiles);
 
         }
@@ -32,6 +41,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
                     throw Error(response);
                 setFiles((prevFiles: any) => [...prevFiles, ...response.data?.data]);
             }).catch((error) => {
+            notifyErrorMessage("Files did not upload");
             console.error(error);
         });
     }
