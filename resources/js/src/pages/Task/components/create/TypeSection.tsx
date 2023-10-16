@@ -39,11 +39,13 @@ const TypeSection = () => {
     };
 
     const userableType = [
+        { value: null, label: "-None-" },
         { value: "App\\Models\\Lead", label: "Lead" },
         { value: "App\\Models\\Contact", label: "Contact" },
     ];
 
     const moduleableType = [
+        { value: null, label: "-None-" },
         { value: "App\\Models\\Account", label: "Account", api: searchAccounts },
         { value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor },
         { value: "App\\Models\\Quote", label: "Quote", api: searchQuote },
