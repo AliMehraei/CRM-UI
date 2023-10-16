@@ -90,6 +90,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
 
     const thumbs = files.map((file: any, index: number) => (
         <div key={file.id} style={thumb} className="relative">
+            
             <div style={thumbInner}
                  onMouseEnter={() => handleMouseEnter(index)}
                  onMouseLeave={handleMouseLeave}
@@ -129,6 +130,8 @@ const AttachmentSection = ({modelName, modelId}: any) => {
 
     return (
         <div className="flex justify-between lg:flex-row flex-col mb-10">
+            <label key="Attachment" className="ltr:mr-2 rtl:ml-2 w-1/3 mb-0 mt-2">
+            Attachment</label>
             <section className="container">
                 <div {...getRootProps({className: 'dropzone'})} style={baseStyle}>
                     <input {...getInputProps()} />
