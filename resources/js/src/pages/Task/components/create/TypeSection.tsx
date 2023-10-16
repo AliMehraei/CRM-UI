@@ -62,13 +62,11 @@ const TypeSection = () => {
     ];
     const searchModule = (e: any) => {
         const module: any = moduleableType.find(m => m.value === selectedModule) ?? {
-            value: "App\\Models\\Account",
-            label: "Account",
+            value: null,
+            label: null,
             api: searchAccounts
         }
-        console.log('====================================');
-        console.log(module.api);
-        console.log('====================================');
+        
         return module.api.call(null, e);
 
     }
