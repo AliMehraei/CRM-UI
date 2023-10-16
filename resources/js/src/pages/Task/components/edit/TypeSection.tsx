@@ -57,33 +57,38 @@ const TypeSection = () => {
     const [selectedModule, setSelectedModule] = useState(formState.moduleable_type);
     const [selectedUserableId, setSelectedUserableId] = useState(
         {
-            value: formState.userable?.id,
+            value: formState.userable ? formState.userable.id : null,
             label: (
-                <div key={formState.userable?.id} className="flex items-center">
+                <div key={formState.userable ? formState.userable.id : 'default-key'} className="flex items-center">
                     {formState.userable ? (
-                                <img
-                                    src={formState.userable.image ?? '/assets/images/user-profile.jpeg'}
-                                    alt="avatar"
-                                    className="w-8 h-8 mr-2 rounded-full"
-                                />
-                                ) : null}
-                    <div>
-                        <div className="text-sm font-bold">{`${formState.userable?.first_name} ${formState.userable?.last_name}`}</div>
-                        <div className="text-xs text-gray-500">{formState.userable?.email}</div>
-                    </div>
+                        <>
+                            <img
+                                src={formState.userable.image ?? '/assets/images/user-profile.jpeg'}
+                                alt="avatar"
+                                className="w-8 h-8 mr-2 rounded-full"
+                            />
+                            <div>
+                                <div className="text-sm font-bold">{`${formState.userable.first_name} ${formState.userable.last_name}`}</div>
+                                <div className="text-xs text-gray-500">{formState.userable.email}</div>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="text-sm font-bold"></div>
+                    )}
                 </div>
             ),
         }
     );
-    const labelMField = moduleableType.find(module => module.value === formState.moduleable_type)?.labelFelid;
+    
+    const labelMField = moduleableType.find(module => module.value === formState.moduleable_type)?.labelFelid || null;
     const [selectedModuleableId, setSelectedModuleableId] = useState(
         {
-            value: formState.moduleable?.id,
+            value: formState.moduleable ? formState.moduleable.id : null,
             label: (
                 <div key={formState.moduleable?.id} className="flex items-center">
                     <div>
                         <div className="text-sm font-bold">
-                            {formState.moduleable[labelMField]}
+                        {formState.moduleable ? formState.moduleable[labelMField] : null}
                         </div>
                     </div>
                 </div>
@@ -94,8 +99,8 @@ const TypeSection = () => {
 
     const searchModule = (e: any) => {
         const module: any = moduleableType.find(m => m.value === selectedModule) ?? {
-            value: "App\\Models\\Account",
-            label: "Account",
+            value: null,
+            label: null,
             api: searchAccounts
         }
         return module.api.call(null, e);
