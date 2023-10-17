@@ -345,7 +345,7 @@ export const searchSalesOrder = async (query: string) => {
 };
 
 export const getImageSource = (image: string) => {
-    return image && image !== '' ? image : 'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png'; // todo : change this
+    return image && image !== '' ? image : '/assets/images/default-placeholder.png'; // todo : change this
 };
 
 
