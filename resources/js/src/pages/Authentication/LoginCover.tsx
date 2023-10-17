@@ -66,7 +66,7 @@ const LoginCover = () => {
 
     return (
         <div className="flex min-h-screen">
-            <div className="bg-gradient-to-t from-[#4A90E2] to-[#203A43] w-1/2 min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4">
+            <div className="bg-gradient-to-t from-[#26a7de] to-[#26a7de] w-1/2 min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4">
                 <div className="w-full mx-auto mb-5">
                     <img
                         src="/assets/images/sascrm-cover.png"
@@ -105,15 +105,7 @@ const LoginCover = () => {
                             />
                         </div>
                         <div>
-                            <label className="cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="form-checkbox"
-                                />
-                                <span className="text-white-dark">
-                                    Remember me
-                                </span>
-                            </label>
+                           
                         </div>
                         <button
                             type="submit"

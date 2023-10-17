@@ -6,35 +6,35 @@ import Swal from "sweetalert2";
 const api_instance = new api();
 
 export const PortalAccess = [
-    {value: 'none', label: '-None-'},
-    {value: 'waiting', label: 'Waiting'},
-    {value: 'confirmed', label: 'Confirmed'},
-    {value: 'rejected', label: 'Rejected'},
+    {value: '-None-', label: '-None-'},
+    {value: 'Waiting', label: 'Waiting'},
+    {value: 'Confirmed', label: 'Confirmed'},
+    {value: 'Rejected', label: 'Rejected'},
 ]
 export const Currencies = [
     {value: 'EUR', label: 'EUR'},
     {value: 'USD', label: 'USD'},
 ]
 export const ApproveChangesOption = [
-    {value: 'none', label: '-None-'},
-    {value: 'yes', label: 'Yes'},
-    {value: 'no', label: 'No'},
+    {value: '-None-', label: '-None-'},
+    {value: 'Yes', label: 'Yes'},
+    {value: 'No', label: 'No'},
 ]
 export const StatusOption = [
-    {value: 'draft', label: 'Draft'},
-    {value: 'approved', label: 'Approved'},
-    {value: 'confirmed', label: 'Confirmed'},
-    {value: 'closed', label: 'Closed'},
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Approved', label: 'Approved'},
+    {value: 'Confirmed', label: 'Confirmed'},
+    {value: 'Closed', label: 'Closed'},
 ];
 export const Stages = [
-    {value: 'none', label: '-None-'},
-    {value: 'draft', label: 'Draft'},
-    {value: 'no_feedback', label: 'No Feedback'},
-    {value: 'negotiation_price', label: 'Negotiation Price'},
-    {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-    {value: 'open', label: 'Open'},
-    {value: 'lost', label: 'Lost'},
-    {value: 'won', label: 'Won'},
+    {value: '-None-', label: '-None-'},
+    {value: 'Draft', label: 'Draft'},
+    {value: 'No Feedback', label: 'No Feedback'},
+    {value: 'Negotiation Price', label: 'Negotiation Price'},
+    {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
+    {value: 'Open', label: 'Open'},
+    {value: 'Lost', label: 'Lost'},
+    {value: 'Won', label: 'Won'},
 ];
 
 
@@ -45,29 +45,39 @@ export const handleUploadFile = (e: any, callBack: any) => {
         }).catch();
     }
 };
+
+export const handleUploadAttachments = (e: any, modelName: string, modelId: string, callBack: any) => {
+    if (e.target.files && e.target.files.length > 0) {
+        api_instance.uploadAttachments(e.target.files, modelName, modelId).then((response) => {
+            callBack(response)
+        }).catch();
+    }
+};
+
+
 export const AccountTypes = [
-    {value: 'none', label: '-None-'},
-    {value: 'ems', label: 'EMS'},
-    {value: 'odm', label: 'ODM(EMS + Development)'},
-    {value: 'oem', label: 'OEM'},
-    {value: 'reseller', label: 'Reseller'},
-    {value: 'systemintegrator_it', label: 'System-Integrator It'},
-    {value: 'other', label: 'Other'},
+    {value: '-None-', label: '-None-'},
+    {value: 'EMS', label: 'EMS'},
+    {value: 'ODM (EMS + Development)', label: 'ODM (EMS + Development)'},
+    {value: 'OEM', label: 'OEM'},
+    {value: 'Reseller', label: 'Reseller'},
+    {value: 'System-Integrator It', label: 'System-Integrator It'},
+    {value: 'Other', label: 'Other'},
 ]
 export const FirstNameTitles = [
-    {value: "none", label: "-None-"},
-    {value: "herr", label: "Herr"},
-    {value: "frau", label: "Frau"},
-    {value: "fr.", label: "Fr."},
-    {value: "dr.", label: "Dr."},
-    {value: "prof.", label: "Prof."},
+    {value: "-None-", label: "-None-"},
+    {value: "Herr", label: "Herr"},
+    {value: "Frau", label: "Frau"},
+    {value: "Fr.", label: "Fr."},
+    {value: "Dr.", label: "Dr."},
+    {value: "Prof.", label: "Prof."},
 
 ];
 export const Contract = [
-    {value: 'nda', label: 'NDA'},
-    {value: 'quality_agreement', label: 'Quality Agreement'},
-    {value: 'logistic_agreement', label: 'Logistic Agreement'},
-    {value: 'other_agreement', label: 'Other Agreement'},
+    {value: 'NDA', label: 'NDA'},
+    {value: 'Quality Agreement', label: 'Quality Agreement'},
+    {value: 'Logistic Agreement', label: 'Logistic Agreement'},
+    {value: 'Other Agreement', label: 'Other Agreement'},
 
 ];
 
@@ -335,7 +345,7 @@ export const searchSalesOrder = async (query: string) => {
 };
 
 export const getImageSource = (image: string) => {
-    return image && image !== '' ? image : 'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png'; // todo : change this
+    return image && image !== '' ? image : '/assets/images/default-placeholder.png'; 
 };
 
 

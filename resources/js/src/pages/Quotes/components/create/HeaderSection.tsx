@@ -9,9 +9,10 @@ import {
     searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
+import Api from "../../../../config/api";
 
 const HeaderSection = () => {
-
+    const api_instance = new Api();
     const QuoteChances = [
         {value: 'none', label: '-None-'},
         {value: 'high', label: 'High'},
@@ -35,6 +36,36 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
+
+     const handleChangeAccount = async (value: string) => {
+        const accountResponse = await api_instance.fetchSingleAccount(value);
+        if (accountResponse.status != 200)
+            return;
+        const account = accountResponse.data.data.account;
+        dispatch(updateFormData({['account']: account}));
+
+
+        const addressFields = [
+            'billing_street',
+            'billing_city',
+            'billing_state',
+            'billing_code',
+            'billing_country',
+            'shipping_street',
+            'shipping_city',
+            'shipping_state',
+            'shipping_code',
+            'shipping_country',
+        ];
+
+        const formDataUpdate: any = {};
+        addressFields.forEach(field => {
+            formDataUpdate[field] = account[field] ?? null;
+        });
+        dispatch(updateFormData(formDataUpdate));
+    }
+
+
     const fields = {
         'Header': {
             'Account Name': <AsyncSelect
@@ -46,6 +77,7 @@ const HeaderSection = () => {
                 loadOptions={searchAccounts}
                 onChange={({value}: any) => {
                     handleChangeField('account_id', value)
+                    handleChangeAccount(value);
                 }}
                 className="flex-1"/>,
             'Contact Name': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
@@ -85,6 +117,7 @@ const HeaderSection = () => {
                                     onChange={({value}: any) => {
                                         handleChangeField('quote_chance', value)
                                     }}
+                                    defaultValue={{value: 'unknown', label: 'Unknown'}}
             />,
             'Currency': <Select name="currency" options={Currencies}
                                 className="flex-1"
@@ -122,6 +155,7 @@ const HeaderSection = () => {
                                    onChange={({value}: any) => {
                                        handleChangeField('quote_stage', value)
                                    }}
+                                   defaultValue={{value: 'draft', label: 'Draft'}}
             />,
 
             'Quote File(Excel)': <input

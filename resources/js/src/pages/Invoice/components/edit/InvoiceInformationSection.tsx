@@ -22,12 +22,32 @@ const InvoiceInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const handleChangeAccount = async (value: string) => {
+     const handleChangeAccount = async (value: string) => {
         const accountResponse = await api_instance.fetchSingleAccount(value);
         if (accountResponse.status != 200)
             return;
         const account = accountResponse.data.data.account;
         dispatch(updateFormData({['account']: account}));
+
+
+        const addressFields = [
+            'billing_street',
+            'billing_city',
+            'billing_state',
+            'billing_code',
+            'billing_country',
+            'shipping_street',
+            'shipping_city',
+            'shipping_state',
+            'shipping_code',
+            'shipping_country',
+        ];
+
+        const formDataUpdate: any = {};
+        addressFields.forEach(field => {
+            formDataUpdate[field] = account[field] ?? null;
+        });
+        dispatch(updateFormData(formDataUpdate));
     }
 
 
@@ -56,7 +76,7 @@ const InvoiceInformationSection = () => {
                                                   <div key={formState.owner?.id} className="flex items-center">
                                                       {formState.owner ? (
                                                           <img
-                                                              src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                                              src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
                                                               alt="avatar"
                                                               className="w-8 h-8 mr-2 rounded-full"
                                                           />

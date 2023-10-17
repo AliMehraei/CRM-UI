@@ -27,7 +27,15 @@ const AccountSection = () => {
 
     ];
 
+    const rating = [
+        {value: "none", label: "-None-"},
+        {value: "rfq", label: "RFQ"},
+        {value: "quote", label: "Quote"},
+        {value: "so", label: "SO"},
+        {value: "no_action", label: "No Action"},
+        {value: "inactive", label: "Inactive"},
 
+    ]
     const fields = {
         'Account': {
             'Account Image': (<div className="">
@@ -150,7 +158,7 @@ const AccountSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                        src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -227,7 +235,12 @@ const AccountSection = () => {
                     defaultValue={formState.lead_reference}
 
                 />,
-
+            'Account Rating': <Select id="rating" name="rating" options={rating}
+                                      onChange={({value}: any) => {
+                                          handleChangeField('rating', value)
+                                      }}
+                                      defaultValue={{value: "no_action", label: "No Action"}}
+                                      className="flex-1"/>,
         }
     }
     return (

@@ -117,6 +117,7 @@ class api {
         }
     }
 
+
     //vendor
     async searchVendor(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor/search`, data, {headers: Headers as any});
@@ -453,6 +454,7 @@ class api {
     async convertSalesOrderToInvoice(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/invoice/${data.id}`, data, {headers: Headers as any});
     }
+
     async fetchDataSalesOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data, {headers: Headers as any});
     }
@@ -558,6 +560,70 @@ class api {
 
     async getFormLayout(data: object) {
         return await _axios.post(`${API_URL_PRODUCT}/form/layout`, data);
+    }
+
+    async uploadAttachments(files: any, modelName: string, modelId: string) {
+        try {
+            const formData = new FormData();
+
+            files.forEach((file: any, index: any) => {
+                formData.append(`files[${index}]`, file);
+            });
+            formData.append('modelName', modelName);
+            formData.append('modelId', modelId);
+
+            const response = await _axios.post(`${API_URL_PRODUCT}/attachment/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if (response.status === 200) {
+                return response; // Assuming the server returns the URL of the uploaded image
+            } else {
+                throw new Error('File upload failed');
+            }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+        }
+    }
+
+    async fetchAttachments(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/attachment/fetch`, data);
+    }
+
+    async deleteAttachments(id: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/attachment/delete/${id}`);
+    }
+
+    async downloadAttachment(id: string, originalName: string) {
+        const downloadEndpoint = `${API_URL_PRODUCT}/attachment/download/${id}`;
+
+        // Make a request to initiate the download
+        _axios({
+            method: 'post',
+            url: downloadEndpoint,
+            responseType: 'blob', // Important for handling binary data (like files)
+        })
+            .then(response => {
+                if (response.status != 200)
+                    throw Error(response);
+                // Create a Blob from the response data
+                const blob = new Blob([response.data], {type: response.headers['content-type']});
+
+                // Create a link element and simulate a click to trigger the download
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = originalName ?? 's';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error downloading attachment:', error);
+                // Handle error as needed
+            });
     }
 
 }

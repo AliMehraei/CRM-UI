@@ -6,6 +6,10 @@ const initState = {
     createRoute: "/rfq/add",
     redirectTo: "/rfq/edit/:id",
     action: "create",
+    rfq_source: 'none',
+    rfq_type: 'none',
+    status: 'open',
+
 };
 
 const formSlice = createSlice({
