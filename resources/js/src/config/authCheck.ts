@@ -93,6 +93,7 @@ export const useUserStatus = (): UserStatus => {
           updateStatus(userPermissions, userDetails);
         } else {
           setIsLoggedIn(false);
+          handleLogout(); 
         }
       } catch (error) {
         handleApiError(error);
