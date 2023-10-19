@@ -241,7 +241,7 @@ const routes = [
         path: '/app/setting',
         element: <Setting/>,
         protected: true,
-        requiredPermission: 'read-product'
+        requiredPermission: 'read-setting-group'
     },
     // Users page
     {
