@@ -41,7 +41,7 @@ const Index = () => {
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
                 <li>
-                    <Link to="/app/setting" className="text-primary hover:underline">
+                    <Link to="/setting/list" className="text-primary hover:underline">
                         Setting
                     </Link>
                 </li>
@@ -67,7 +67,7 @@ const Index = () => {
                                             <h5 className="text-dark text-lg font-semibold mb-3.5  dark:text-white-light">{data.label}</h5>
                                             {data.items.map((item) => (
                                                 <div key={item.id} className="text-black  hover:underline" id="general_accountInfo" migrationid="" data-permission="true" data-cid="permission">
-                                                    <Link to={`/app/${item.uri}`}>{item.label}</Link>
+                                                    <Link to={`/${item.uri}`}>{item.label}</Link>
                                                 </div>
                                             ))}
                                         </div>

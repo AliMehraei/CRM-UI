@@ -6,6 +6,7 @@ const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
 const Contracts = lazy(() => import('../pages/Contracts'));
 const Setting = lazy(() => import('../pages/Setting/Index'));
+const PersonalSettings = lazy(() => import('../pages/Setting/PersonalSettings'));
 
 const ListAccount = lazy(() => import('../pages/Account/Index'));
 const PreviewAccount = lazy(() => import('../pages/Account/Preview'));
@@ -237,9 +238,16 @@ const routes = [
         protected: true,
         requiredPermission: 'update-invoice'
     },
+    //setting page
     {
         path: '/setting/list',
         element: <Setting/>,
+        protected: true,
+        requiredPermission: 'read-setting-group'
+    },
+    {
+        path: '/setting/personal_settings',
+        element: <PersonalSettings/>,
         protected: true,
         requiredPermission: 'read-setting-group'
     },
