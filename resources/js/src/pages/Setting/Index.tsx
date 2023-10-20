@@ -9,7 +9,6 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import api from "../../config/api";
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 import {useUserStatus} from '../../config/authCheck';
-
 const Index = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -58,7 +57,6 @@ const Index = () => {
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 mb-6 text-white">
                             {settingData.map((data) => (
-                        
                                     <div key={data.id} className="h-full flex-wrap w-full justify-center mb-5 ">
                                         <div className="h-full border border-gray-500/20 rounded-md shadow-[rgb(31_45_61_/_10%)_0px_2px_10px_1px] dark:shadow-[0_2px_11px_0_rgb(6_8_24_/_39%)] p-6 pt-12 mt-8 relative">
                                             <div className="bg-primary absolute text-white-light ltr:left-6 rtl:right-6 -top-8 w-16 h-16 rounded-md flex items-center justify-center mb-5 mx-auto">
