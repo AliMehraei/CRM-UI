@@ -5,7 +5,7 @@ import Logout from '../pages/Authentication/Logout';
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
 const Contracts = lazy(() => import('../pages/Contracts'));
-const Setting = lazy(() => import('../pages/App/Index'));
+const Setting = lazy(() => import('../pages/Setting/Index'));
 
 const ListAccount = lazy(() => import('../pages/Account/Index'));
 const PreviewAccount = lazy(() => import('../pages/Account/Preview'));
@@ -238,7 +238,7 @@ const routes = [
         requiredPermission: 'update-invoice'
     },
     {
-        path: '/app/setting',
+        path: '/setting/list',
         element: <Setting/>,
         protected: true,
         requiredPermission: 'read-setting-group'

@@ -254,7 +254,7 @@ const Header = () => {
                                 className="flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
 
 
-                                <Link to="/app/setting">
+                                <Link to="/setting/list">
                                     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
                                         <g id="Layer_65" data-name="Layer 65">
                                             <path
