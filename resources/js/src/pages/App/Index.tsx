@@ -7,6 +7,8 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import Dropdown from '../../components/Dropdown';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import api from "../../config/api";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
+import {useUserStatus} from '../../config/authCheck';
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -15,6 +17,8 @@ const Index = () => {
     });
     const [settingData, setSettingData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
+
     const api_instance = new api();
 
     const fetchSetting = async () => {
@@ -27,7 +31,7 @@ const Index = () => {
             setSettingData(result.data.data);
         }
     }
-
+    
     useEffect(() => {
         // Call the fetchSetting function when the component mounts
         fetchSetting();
@@ -47,13 +51,10 @@ const Index = () => {
 
 
              
-                   
+           
                     
-                    {loading ? (
-                        <div className='flex justify-center'>
-                            <span
-                                className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
-                        </div>
+                    {(!hasPermission(`read-setting-group`) || loading)  ? (
+                        <LoadingSasCrm/>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 mb-6 text-white">
                             {settingData.map((data) => (
