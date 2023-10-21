@@ -7,6 +7,7 @@ import { useUserStatus } from "../../config/authCheck";
 import api from "../../config/api";
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 import LeftMenuSetting from '../../components/FilterFields/LeftMenuSetting';
+import { getUserData } from '../../config/config';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -14,6 +15,9 @@ const List = () => {
     const { hasPermission } = useUserStatus();
     const api_instance = new api();
     const [searchQuery, setSearchQuery] = useState('');
+    const user = getUserData();
+    const [activeTab, setActiveTab] = useState('Personal Settings');
+
     useEffect(() => {
         dispatch(setPageTitle('Personal Settings'));
     }, [dispatch]);
@@ -50,15 +54,63 @@ const List = () => {
                            
 
                             <div className="panel col-span-6">
-                                <div className="datatables pagination-padding">
+                                <div className="">
                                     {loading ? (
                                         <div className='flex justify-center'>
                                         <span
                                             className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                         </div>
                                     ) : (
+                                        <div className="border rounded-lg shadow-lg bg-white p-5">
+                                            <div className="flex justify-start items-center space-x-6 mb-6">
+                                            <button 
+                                                onClick={() => setActiveTab('Personal Settings')} 
+                                                className={`text-xl py-2 px-4 rounded ${activeTab === 'Personal Settings' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:bg-gray-200'}`}>
+                                                Personal Settings
+                                            </button>
+                                            <button 
+                                                onClick={() => setActiveTab('Keyboard Shortcuts')} 
+                                                className={`text-xl py-2 px-4 rounded ${activeTab === 'Keyboard Shortcuts' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:bg-gray-200'}`}>
+                                                Keyboard Shortcuts
+                                            </button>
+                                            </div>
+                                            
+                                            {activeTab === 'Personal Settings' && (
+                                            <div>
+                                                <div className="flex items-start mb-6">
+                                                <div className="w-16 h-16 bg-gray-300 rounded-full mr-5"></div>
+                                                <div>
+                                                    <h3 className="text-lg font-semibold mb-1">Davood Fouladi <span className="ml-2 bg-gray-200 text-sm px-2 py-1 rounded-full">Administrator</span></h3>
+                                                    <p className="text-gray-600 mb-1">CEO at Pure42</p>
+                                                    <p className="text-gray-600">davood@pure42.io</p>
+                                                </div>
+                                                </div>
 
-                                        <div>personal setting</div>
+                                                <div className="border-t pt-5">
+                                                <h4 className="text-lg font-bold mb-4">User Information</h4>
+                                                <div className="flex mb-2">
+                                                    <label className="w-32 font-semibold" htmlFor="firstName">First Name:</label>
+                                                    <input className="border rounded px-2 py-1" id="firstName" defaultValue="Davood" />
+                                                </div>
+                                                <div className="flex mb-2">
+                                                    <label className="w-32 font-semibold" htmlFor="lastName">Last Name:</label>
+                                                    <input className="border rounded px-2 py-1" id="lastName" defaultValue="Fouladi" />
+                                                </div>
+                                                {/* ... Add other user input fields here */}
+                                                </div>
+                                            </div>
+                                            )}
+
+                                            {activeTab === 'Keyboard Shortcuts' && (
+                                            <div>
+                                                {/* Content for keyboard shortcuts */}
+                                                Here you can define keyboard shortcuts.
+                                            </div>
+                                            )}
+                                        </div>
+                                          
+                                     
+
                                     )}
 
                                 </div>
