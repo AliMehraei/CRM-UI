@@ -96,7 +96,7 @@ const LeftMenuSetting = ({frontRoute}: any) => {
                           <li key={item.id}>
                             <Link
                               to={`/${item.uri}`}
-                              className="text-primary hover:underline"
+                              className="text-primary hover:underline block py-2 rounded-md transition-colors duration-300 hover:bg-primary-light hover:text-black"
                             >
                               {item.label}
                             </Link>
