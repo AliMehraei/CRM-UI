@@ -53,15 +53,14 @@ const List = () => {
                         <LeftMenuSetting  frontRoute='sales'/>
                            
 
-                            <div className="panel col-span-6">
-                                <div className="">
+                            <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
                                     {loading ? (
                                         <div className='flex justify-center'>
                                         <span
                                             className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                         </div>
                                     ) : (
-                                        <div className="border rounded-lg shadow-lg bg-white p-5">
+                                        <div className="">
                                             <div className="flex justify-start items-center space-x-6 mb-6">
                                             <button 
                                                 onClick={() => setActiveTab('Personal Settings')} 
@@ -118,7 +117,6 @@ const List = () => {
                             </div>
                         </div>
                     </div>
-                </div>
             </>
 
         )
