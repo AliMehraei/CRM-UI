@@ -199,7 +199,7 @@ const HeaderSection = () => {
                                               <div key={formState.owner?.id} className="flex items-center">
                                                   {formState.owner ? (
                                                       <img
-                                                          src={formState.owner.image ?? '/assets/images/user-profile.jpeg'}
+                                                          src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
                                                           alt="avatar"
                                                           className="w-8 h-8 mr-2 rounded-full"
                                                       />

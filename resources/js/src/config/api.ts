@@ -117,6 +117,12 @@ class api {
         }
     }
 
+    async displayImage(model: any,attribute: any,path:any) {
+        const base64Path=btoa(path);
+        return await _axios.get(`${API_URL_PRODUCT}/display-image/${model}/${attribute}/${base64Path}`);
+    }
+
+
 
     //vendor
     async searchVendor(data: any = null) {
@@ -554,14 +560,18 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/user`, data, {headers: Headers as any});
     }
 
+    //role
+
     async searchRoles(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/roles/all`, data, {headers: Headers as any});
     }
 
+    //layout
     async getFormLayout(data: object) {
         return await _axios.post(`${API_URL_PRODUCT}/form/layout`, data);
     }
 
+    //attachment
     async uploadAttachments(files: any, modelName: string, modelId: string) {
         try {
             const formData = new FormData();
@@ -624,6 +634,17 @@ class api {
                 console.error('Error downloading attachment:', error);
                 // Handle error as needed
             });
+    }
+
+
+    //setting
+    async searchSetting(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/setting/search`, data, {headers: Headers as any});
+    }
+
+
+    async fetchDataSetting(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/setting/list`, data, {headers: Headers as any});
     }
 
 }
