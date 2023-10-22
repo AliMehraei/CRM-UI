@@ -50,7 +50,7 @@ const List = () => {
                         
                         <div className="grid grid-cols-7 gap-6 mb-6">
                             
-                        <LeftMenuSetting  frontRoute='sales'/>
+                        <LeftMenuSetting  frontRouteName='personal_settings'/>
                            
 
                             <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
