@@ -77,11 +77,11 @@ const List = () => {
                                             {activeTab === 'Personal Settings' && (
                                             <div>
                                                 <div className="flex items-start mb-6">
-                                                <div className="w-16 h-16 bg-gray-300 rounded-full mr-5"></div>
+                                                <img src={`${user?.avatar ? user?.avatar : '/assets/images/user-profile.jpeg'} `} alt="userProfile" className="w-16 h-16  rounded-full mr-5" />
                                                 <div>
-                                                    <h3 className="text-lg font-semibold mb-1">Davood Fouladi <span className="ml-2 bg-gray-200 text-sm px-2 py-1 rounded-full">Administrator</span></h3>
-                                                    <p className="text-gray-600 mb-1">CEO at Pure42</p>
-                                                    <p className="text-gray-600">davood@pure42.io</p>
+                                                    <h3 className="text-lg font-semibold mb-1">{user?.first_name} {user?.last_name} <span className="ml-2 bg-gray-200 text-sm px-2 py-1 rounded-full">Administrator</span></h3>
+                                                    <p className="text-gray-600 mb-1">{user?.website}</p>
+                                                    <p className="text-gray-600">{user?.email}</p>
                                                 </div>
                                                 </div>
 
@@ -89,11 +89,11 @@ const List = () => {
                                                 <h4 className="text-lg font-bold mb-4">User Information</h4>
                                                 <div className="flex mb-2">
                                                     <label className="w-32 font-semibold" htmlFor="firstName">First Name:</label>
-                                                    <input className="border rounded px-2 py-1" id="firstName" defaultValue="Davood" />
+                                                    <input className="border rounded px-2 py-1" id="firstName" defaultValue={user?.first_name} />
                                                 </div>
                                                 <div className="flex mb-2">
                                                     <label className="w-32 font-semibold" htmlFor="lastName">Last Name:</label>
-                                                    <input className="border rounded px-2 py-1" id="lastName" defaultValue="Fouladi" />
+                                                    <input className="border rounded px-2 py-1" id="lastName" defaultValue={user?.last_name} />
                                                 </div>
                                                 {/* ... Add other user input fields here */}
                                                 </div>
