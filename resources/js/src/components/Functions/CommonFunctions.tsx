@@ -38,7 +38,7 @@ export const Stages = [
 ];
 
 
-export const handleUploadFile = (e: any, callBack: any, modelName: any | null) => {
+export const handleUploadFile = (e: any, callBack: any, modelName = null) => {
     if (e.target.files && e.target.files.length > 0) {
         api_instance.uploadFile(e.target.files[0], modelName).then((response) => {
             callBack(response)
