@@ -4,10 +4,11 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleVendor",
-    createRoute:"/vendor/add",
+    createRoute: "/vendor/add",
     redirectTo: "/vendor/edit/:id",
     action: "create",
-   
+    approved_status: 'draft',
+
 
 };
 
