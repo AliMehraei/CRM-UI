@@ -65,14 +65,16 @@ const HeaderSection = () => {
     const fields = {
 
         'Header': {
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+            'Account Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
                                              handleChangeField('account_id', value)
                                          }}
                                          className="flex-1"/>,
-            'Contact': <AsyncSelect isMulti={false} id="contact" name="contact_id"
+            'Contact': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchContacts}
                                     onChange={({value}: any) => {
@@ -120,7 +122,8 @@ const HeaderSection = () => {
                                     className="form-input flex-1 "/>,
         },
         '': {
-            'RFQ Owner': <AsyncSelect isMulti={false} id="owner_id"
+            'RFQ Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id"
                                       placeholder="Type at least 2 characters to search..."
                                       loadOptions={searchOwners}
                                       onChange={({value}: any) => {
@@ -155,7 +158,8 @@ const HeaderSection = () => {
                                 }}
             />,
 
-            'Vendor RFQs Line': <AsyncSelect id="vendor_rfqs_line"
+            'Vendor RFQs Line': <AsyncSelect
+                    defaultOptions={true} id="vendor_rfqs_line"
                                              name="vendor_rfqs_line"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor}

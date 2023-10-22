@@ -78,6 +78,7 @@ const ProductInformationSection = () => {
             ),
             'Manufacturer': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="manufacturer_id"
@@ -104,6 +105,7 @@ const ProductInformationSection = () => {
             ),
             'RFQ (Alternative)': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={true}
                     id="rfqs_id"
                     placeholder="Type at least 2 characters to search..."
@@ -140,6 +142,7 @@ const ProductInformationSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
                     placeholder="Type at least 2 characters to search..."
@@ -185,6 +188,7 @@ const ProductInformationSection = () => {
             ),
             'Product Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."

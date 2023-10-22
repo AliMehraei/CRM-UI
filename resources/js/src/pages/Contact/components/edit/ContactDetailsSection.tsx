@@ -173,6 +173,7 @@ const ContactDetailsSection = () => {
         },
         '': {
             'Account Name': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="account_id"
                 required
@@ -213,6 +214,7 @@ const ContactDetailsSection = () => {
 
             />,
             'Contact Owner': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="owner_id"
                 placeholder="Type at least 2 characters to search..."

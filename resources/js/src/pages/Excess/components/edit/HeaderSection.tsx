@@ -58,7 +58,8 @@ const HeaderSection = () => {
                         alt="img" className="mt-4 w-20 h-20 rounded" />
                 </div>
             ,
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+            'Account Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
                 required
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}
@@ -86,7 +87,8 @@ const HeaderSection = () => {
                     ),
                 }}
                 className="flex-1" />,
-            'Contact': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
+            'Contact': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="contact_id" name="contact_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchContacts}
                 onChange={({ value }: any) => {
@@ -130,7 +132,8 @@ const HeaderSection = () => {
 
         },
         '': {
-            'Excess Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
+            'Excess Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchOwners}
                 onChange={({ value }: any) => {

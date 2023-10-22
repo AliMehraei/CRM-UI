@@ -63,7 +63,8 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
                             options={options}
                             onChange={({value}: any) => handleChangeField(attribute.name, value)}/>,
             'selectApi':
-                <AsyncSelect isMulti={false} className="flex-1" placeholder="Type at least 2 characters to search..."
+                <AsyncSelect
+                    defaultOptions={true} isMulti={false} className="flex-1" placeholder="Type at least 2 characters to search..."
                              name={attribute.name}
                              loadOptions={loadOptions}
                              styles={{
@@ -73,7 +74,8 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
                                  handleChangeField(attribute.name, value)
                              }}/>,
             'multiSelectApi':
-                <AsyncSelect isMulti={true} className="flex-1 	"
+                <AsyncSelect
+                    defaultOptions={true} isMulti={true} className="flex-1 	"
                              placeholder="Type at least 2 characters to search..."
                              name={attribute.name}
                              loadOptions={loadOptions}

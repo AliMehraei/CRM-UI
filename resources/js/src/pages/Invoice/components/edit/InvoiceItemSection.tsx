@@ -144,7 +144,8 @@ const InvoiceItemSection = () => {
                                                 {item.id}
                                             </td>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="product_id" name="product_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {

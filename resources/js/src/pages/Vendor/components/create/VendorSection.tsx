@@ -97,6 +97,7 @@ const VendorSection = () => {
             ),
             'Contracts': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="contracts"
                     placeholder="Type at least 2 characters to search..."
@@ -120,6 +121,7 @@ const VendorSection = () => {
             ),
             'Strong Lines': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="strong_lines"
                     placeholder="Type at least 2 characters to search..."
@@ -133,6 +135,7 @@ const VendorSection = () => {
             ),
             'Line Card': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="line_card"
                     placeholder="Type at least 2 characters to search..."
@@ -168,6 +171,7 @@ const VendorSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by"
                     placeholder="Type at least 2 characters to search..."
@@ -184,6 +188,7 @@ const VendorSection = () => {
 
             'Vendor Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -245,6 +250,7 @@ const VendorSection = () => {
             ),
             'Parent Vendor': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="parent_vendor_id"
                     placeholder="Type at least 2 characters to search..."

@@ -61,7 +61,8 @@ const InvoiceInformationSection = () => {
 
     const fields = {
         'Invoice Information': {
-            'Invoice Owner': <AsyncSelect isMulti={false}
+            'Invoice Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false}
                                           id="owner_id" name="owner_id"
                                           placeholder="Type at least 2 characters to search..."
                                           loadOptions={searchOwners}
@@ -111,6 +112,7 @@ const InvoiceInformationSection = () => {
                 />
             ),
             'Account Name': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="account_id"
                 placeholder="Type at least 2 characters to search..."
@@ -137,6 +139,7 @@ const InvoiceInformationSection = () => {
         },
         '': {
             'Sales Order': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="sales_order_id"
                 placeholder="Type at least 2 characters to search..."
@@ -180,6 +183,7 @@ const InvoiceInformationSection = () => {
                 }}
             />,
             'Contact Name': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="contact_id"
                 placeholder="Type at least 2 characters to search..."

@@ -29,7 +29,8 @@ const HeaderSection = () => {
 
     const fields = {
         'Header': {
-            'Vendor': <AsyncSelect required isMulti={false} id="vendor_id" name="vendor_id"
+            'Vendor': <AsyncSelect
+                    defaultOptions={true} required isMulti={false} id="vendor_id" name="vendor_id"
                                    placeholder="Type at least 2 characters to search..."
                                    loadOptions={searchVendor}
                                    onChange={({value}: any) => {
@@ -41,7 +42,8 @@ const HeaderSection = () => {
                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
         },
         '': {
-            'Availability Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
+            'Availability Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
                                                placeholder="Type at least 2 characters to search..."
                                                loadOptions={searchOwners}
                                                onChange={({value}: any) => {
@@ -61,7 +63,7 @@ const HeaderSection = () => {
                                            }} className="flex-1"
                                            defaultValue={AvailabilitySources.find((data) => data.value == 'Other' )}
                                            />,
-                                           
+
         }
 
     }

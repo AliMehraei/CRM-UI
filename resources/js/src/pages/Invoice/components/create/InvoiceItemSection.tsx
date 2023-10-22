@@ -175,6 +175,7 @@ const InvoiceItemSection = () => {
                                             </td>
                                             <td>
                                                 <AsyncSelect
+                    defaultOptions={true}
                                                     isMulti={false}
                                                     placeholder="Type at least 2 characters to search..."
                                                     name="product_id"

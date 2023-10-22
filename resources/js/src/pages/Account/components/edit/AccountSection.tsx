@@ -144,6 +144,7 @@ const AccountSection = () => {
         '': {
             'Account Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -176,6 +177,7 @@ const AccountSection = () => {
                 />
             ),
             'PM User': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="pm_user_id"
                 placeholder="Type at least 2 characters to search..."

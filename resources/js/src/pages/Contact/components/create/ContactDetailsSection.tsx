@@ -18,7 +18,7 @@ const ContactDetailsSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-   
+
 
     const jobDescriptions = [
         {value: "none", label: "-None-"},
@@ -163,6 +163,7 @@ const ContactDetailsSection = () => {
         },
         '': {
             'Account Name': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 required
                 id="account_id"
@@ -184,6 +185,7 @@ const ContactDetailsSection = () => {
                                       defaultValue={{value: "none", label: "-None-"}}
             />,
             'Contact Owner': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="owner_id"
                 placeholder="Type at least 2 characters to search..."

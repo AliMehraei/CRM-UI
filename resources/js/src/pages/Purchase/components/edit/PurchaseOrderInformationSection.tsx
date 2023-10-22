@@ -53,6 +53,7 @@ const PurchaseOrderInformationSection = () => {
             ),
             'Parent PO No.': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="parent_po_id"
                     placeholder="Type at least 2 characters to search..."

@@ -69,7 +69,8 @@ const HeaderSection = () => {
 
     const fields = {
         'Header': {
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+            'Account Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
@@ -97,7 +98,8 @@ const HeaderSection = () => {
                                              ),
                                          }}
                                          className="flex-1"/>,
-            'Contact Name': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
+            'Contact Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="contact_id" name="contact_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchContacts}
                                          onChange={({value}: any) => {
@@ -125,7 +127,8 @@ const HeaderSection = () => {
                                          }}
 
                                          className="flex-1"/>,
-            'RFQ': <AsyncSelect isMulti={false} id="rfq_id" name="rfq_id"
+            'RFQ': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="rfq_id" name="rfq_id"
                                 placeholder="Type at least 2 characters to search..."
                                 loadOptions={searchRFQ}
                                 onChange={({value}: any) => {
@@ -154,7 +157,8 @@ const HeaderSection = () => {
                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                               defaultValue={formState.subject}
             />,
-            'Converted by': <AsyncSelect isMulti={false} id="converted_by_id" name="converted_by_id"
+            'Converted by': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="converted_by_id" name="converted_by_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchOwners}
                                          className="flex-1"
@@ -187,7 +191,8 @@ const HeaderSection = () => {
             />,
         },
         '': {
-            'Quote Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
+            'Quote Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
                                         placeholder="Type at least 2 characters to search..."
                                         loadOptions={searchOwners}
                                         onChange={({value}: any) => {
@@ -215,7 +220,8 @@ const HeaderSection = () => {
                                         }}
                                         className="flex-1"/>,
 
-            'PM User': <AsyncSelect required isMulti={false} id="pm_user_id" name="pm_user_id"
+            'PM User': <AsyncSelect
+                    defaultOptions={true} required isMulti={false} id="pm_user_id" name="pm_user_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchOwners}
                                     onChange={({value}: any) => {
@@ -243,7 +249,8 @@ const HeaderSection = () => {
                                     }}
                                     className="flex-1"/>,
 
-            'Deals Name': <AsyncSelect isMulti={false} id="deal_id" name="deal_id"
+            'Deals Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="deal_id" name="deal_id"
                                        placeholder="Type at least 2 characters to search..."
                                        loadOptions={searchDeals}
                                        onChange={({value}: any) => {
