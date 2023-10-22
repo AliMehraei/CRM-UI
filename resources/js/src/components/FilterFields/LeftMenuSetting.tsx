@@ -91,7 +91,7 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
               <li key={data.id} className="group">
                 <div
                   onClick={() => toggleMenuItem(data.id)} // Toggle the expanded state on click
-                  className="group flex items-center justify-between py-2 px-4 hover:bg-primary-light hover:text-black rounded-md transition-colors duration-300 cursor-pointer"
+                  className="group flex items-center justify-between py-2 px-4 hover:bg-primary-light hover:text-primary rounded-md transition-colors duration-300 cursor-pointer"
                 >
                   {data.label}
                   <svg
