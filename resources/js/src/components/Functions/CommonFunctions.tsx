@@ -38,9 +38,9 @@ export const Stages = [
 ];
 
 
-export const handleUploadFile = (e: any, callBack: any) => {
+export const handleUploadFile = (e: any, callBack: any, modelName: any | null) => {
     if (e.target.files && e.target.files.length > 0) {
-        api_instance.uploadFile(e.target.files[0]).then((response) => {
+        api_instance.uploadFile(e.target.files[0], modelName).then((response) => {
             callBack(response)
         }).catch();
     }
@@ -345,7 +345,7 @@ export const searchSalesOrder = async (query: string) => {
 };
 
 export const getImageSource = (image: string) => {
-    return image && image !== '' ? image : '/assets/images/default-placeholder.png'; 
+    return image && image !== '' ? image : '/assets/images/default-placeholder.png';
 };
 
 
@@ -488,3 +488,7 @@ export function copyToClipboard(text: any) {
     document.execCommand('copy');
     document.body.removeChild(textarea);
 }
+
+
+export const displayImage = async (model: string, attribute: string, path: string) =>
+    await api_instance.displayImage(model, attribute, path);
