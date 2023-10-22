@@ -20,6 +20,8 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
   }, [dispatch]);
   const [settingData, setSettingData] = useState([]);
   // Use state to track the expanded state of menu items
+  
+  const [frontRouteId, setFrontRouteId] = useState(null);
   const [expandedItems, setExpandedItems] = useState({});
 
   const fetchSetting = async () => {
@@ -50,21 +52,38 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
       const areChildItemsMatching = data.items.some((item) =>
         item.label.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      const areChildItemsExpend = data.items.some((item) =>
+        frontRouteName === item.name
+      );
+      if (areChildItemsExpend) {
+        setFrontRouteId(data.id);
+        setExpandedItems((prevExpandedItems) => ({
+          ...prevExpandedItems,
+          [data.id]: true,
+        }));
+      }
       return isMainMenuItemMatching || areChildItemsMatching;
     });
+
     setFilteredSettingData(filteredData);
+    
     // Expand all groups when search results are found
-    if (filteredData.length > 0 && searchQuery != '') {
-      const expandedItemsCopy = { ...expandedItems };
-      for (const data of filteredData) {
-        expandedItemsCopy[data.id] = true;
+    if (filteredData.length > 0 ) {
+      if(searchQuery != ''){
+        const expandedItemsCopy = { ...expandedItems };
+        for (const data of filteredData) {
+          expandedItemsCopy[data.id] = true;
+        }
+        setExpandedItems(expandedItemsCopy);
       }
-      setExpandedItems(expandedItemsCopy);
+      else {
+        setExpandedItems({
+          [frontRouteId]: true,
+        });
+      }
     }
-    else {
-      setExpandedItems({});
-    }
-  }, [searchQuery, settingData]);
+    
+  }, [searchQuery, settingData,frontRouteName]);
 
   return (
     !hasPermission('read-setting-group') || loading ? (
