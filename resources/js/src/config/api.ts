@@ -117,6 +117,12 @@ class api {
         }
     }
 
+    async displayImage(model: any,attribute: any,path:any) {
+        const base64Path=btoa(path);
+        return await _axios.get(`${API_URL_PRODUCT}/display-image/${model}/${attribute}/${base64Path}`);
+    }
+
+
 
     //vendor
     async searchVendor(data: any = null) {
