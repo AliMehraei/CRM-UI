@@ -4,8 +4,9 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {Currencies, PortalAccess} from "../../../../components/Functions/CommonFunctions";
+import {Currencies, getImageSource, PortalAccess} from "../../../../components/Functions/CommonFunctions";
 import {handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -55,17 +56,34 @@ const VendorSection = () => {
 
     const fields = {
         'Vendor Information': {
-            'Vendor Image': (<input
-                    id="vendor_image"
-                    key="vendor_image"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="image/*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                    })}
-                    name="vendorImage"
-                />
+            'Vendor Image': (
+                <div className="">
+                    <div className="flex">
+                        <input
+                            id="vendor_image"
+                            key="vendor_image"
+                            type="file"
+                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
+                            accept="image/*"
+                            onChange={(e) => handleUploadFile(e, (response: any) => {
+                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
+                            })}
+                            name="vendor_image"
+                        />
+                        <ClearButtonComponent callBack={() => {
+                            const fileInput = document.getElementById('vendor_image') as HTMLInputElement | null;
+                            if (fileInput) {
+                                fileInput.value = '';
+                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
+                            }
+                            dispatch(updateFormData({'image': null}));
+                        }}/>
+                    </div>
+                    <img
+                        id="vendor_image_preview"
+                        src={getImageSource(formState.image || formState.oldImage)}
+                        alt="img" className="mt-4 w-20 h-20 rounded"/>
+                </div>
             ),
             'Vendor Name': (
                 <input
