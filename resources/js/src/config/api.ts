@@ -95,11 +95,11 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/change-locale/${locale}`);
     }
 
-    async uploadFile(file: any) {
+    async uploadFile(file: any, modelName: any) {
         try {
             const formData = new FormData();
             formData.append('file', file);
-
+            formData.append('modelName', modelName);
             const response = await _axios.post(`${API_URL_PRODUCT}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -117,11 +117,10 @@ class api {
         }
     }
 
-    async displayImage(model: any,attribute: any,path:any) {
-        const base64Path=btoa(path);
+    async displayImage(model: any, attribute: any, path: any) {
+        const base64Path = btoa(path);
         return await _axios.get(`${API_URL_PRODUCT}/display-image/${model}/${attribute}/${base64Path}`);
     }
-
 
 
     //vendor
@@ -618,7 +617,7 @@ class api {
         })
             .then(response => {
                 if (response.status != 200)
-                    throw Error(response);
+                    throw Error(response.statusText);
                 // Create a Blob from the response data
                 const blob = new Blob([response.data], {type: response.headers['content-type']});
 
