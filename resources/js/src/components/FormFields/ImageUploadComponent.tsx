@@ -1,9 +1,16 @@
-import {getImageSource, handleUploadFile} from "../Functions/CommonFunctions";
+import {displayImage, getImageSource, handleUploadFile} from "../Functions/CommonFunctions";
 import ClearButtonComponent from "./ClearButtonComponent";
 import {useDispatch} from "react-redux";
+import {useEffect} from "react";
 
 const ImageUploadComponent = ({formState, modelName, id, formAttribute, updateFormData}: any) => {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (formState[formAttribute]) {
+            dispatch(updateFormData({[`${formAttribute}_preview`]: displayImage(formState[formAttribute])}));
+        }
+    }, []);
 
     return (
         <div className="">
@@ -27,11 +34,13 @@ const ImageUploadComponent = ({formState, modelName, id, formAttribute, updateFo
                         fileInput.dispatchEvent(new Event('change', {bubbles: true}));
                     }
                     dispatch(updateFormData({[formAttribute]: null}));
+                    dispatch(updateFormData({[`${formAttribute}_preview`]: null}));
+
                 }}/>
             </div>
             <img
                 id={`${id ?? formAttribute}_preview`}
-                src={formState[formAttribute] ? formState[`${formAttribute}_preview`] : getImageSource(formState.oldImage)}
+                src={formState[`${formAttribute}_preview`] ? formState[`${formAttribute}_preview`] : getImageSource(formState.oldImage)}
                 alt="img" className="mt-4 w-20 h-20 rounded"/>
         </div>
     )
