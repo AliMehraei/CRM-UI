@@ -80,7 +80,7 @@ const HeaderSection = () => {
                         <div key={formState.account?.id} className="flex items-center">
                             {formState.account ? (
                                 <img
-                                    src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.account.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
