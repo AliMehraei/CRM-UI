@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchAccounts, searchContacts, searchSalesOrder, Currencies
-    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ
+    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
@@ -76,7 +76,7 @@ const DealInformationSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                        src={displayImage(formState.owner.avatar)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />

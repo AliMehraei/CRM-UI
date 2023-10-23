@@ -9,7 +9,7 @@ import {
     searchAccounts,
     searchOwners,
     Stages,
-    searchContacts, searchSalesOrder
+    searchContacts, searchSalesOrder, displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import api from "../../../../config/api";
 
@@ -77,7 +77,7 @@ const InvoiceInformationSection = () => {
                                                   <div key={formState.owner?.id} className="flex items-center">
                                                       {formState.owner ? (
                                                           <img
-                                                              src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                                              src={displayImage(formState.owner.avatar)}
                                                               alt="avatar"
                                                               className="w-8 h-8 mr-2 rounded-full"
                                                           />

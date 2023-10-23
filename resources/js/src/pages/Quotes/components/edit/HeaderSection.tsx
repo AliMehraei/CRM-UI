@@ -4,7 +4,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import {
-    Currencies,
+    Currencies, displayImage,
     searchAccounts, searchContacts, searchDeals,
     searchOwners,
     searchRFQ
@@ -205,7 +205,7 @@ const HeaderSection = () => {
                                                 <div key={formState.owner?.id} className="flex items-center">
                                                     {formState.owner ? (
                                                         <img
-                                                            src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                                            src={displayImage(formState.owner.avatar)}
                                                             alt="avatar"
                                                             className="w-8 h-8 mr-2 rounded-full"
                                                         />
@@ -234,7 +234,7 @@ const HeaderSection = () => {
                                             <div key={formState.pm_user?.id} className="flex items-center">
                                                 {formState.pm_user ? (
                                                     <img
-                                                        src={formState.pm_user.image ?? '/assets/images/user-profile.jpeg'}
+                                                        src={displayImage(formState.pm_user.image)}
                                                         alt="avatar"
                                                         className="w-8 h-8 mr-2 rounded-full"
                                                     />
