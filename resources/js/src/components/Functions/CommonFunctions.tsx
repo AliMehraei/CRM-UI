@@ -3,6 +3,7 @@ import {EventEmitter} from "events";
 import React, {ChangeEvent} from "react";
 import Swal from "sweetalert2";
 
+
 const api_instance = new api();
 
 export const PortalAccess = [
@@ -499,3 +500,9 @@ export const displayImage = (field: any) =>
     field ? `data:${field['mime']};base64,${field['file']}` : '/assets/images/user-profile.jpeg';
 
 
+export const displayFile = async (model: any, attribute: any, path: any) => {
+    const response = await api_instance.displayFile(model, attribute, path)
+    const blob = new Blob([response.data], {type: response.headers['content-type']});
+    return window.URL.createObjectURL(blob);
+
+}

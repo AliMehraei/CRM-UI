@@ -1,9 +1,30 @@
-import {handleUploadFile} from "../Functions/CommonFunctions";
+import {displayFile, displayImage, handleUploadFile} from "../Functions/CommonFunctions";
 import {useDispatch} from "react-redux";
 import ClearButtonComponent from "./ClearButtonComponent";
+import {useEffect} from "react";
 
 const FileUploadComponent = ({updateFormData, formState, modelName, id, formAttribute}: any) => {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (formState[formAttribute]) {
+            displayFile(modelName, formAttribute, formState[formAttribute]).then((data) => {
+                // const blob = new Blob([new Uint8Array(data)]);
+
+                dispatch(updateFormData({[`${formAttribute}_preview`]: data}));
+
+            })
+        }
+    }, []);
+    const download = (field: any) => {
+        console.log(field);
+        const pdfLink = `${field.file}`;
+        const anchorElement = document.createElement('a');
+        const fileName = `test.png`;
+        anchorElement.href = pdfLink;
+        anchorElement.download = fileName;
+        anchorElement.click();
+    }
 
     return (
         <div className="flex">
@@ -23,7 +44,8 @@ const FileUploadComponent = ({updateFormData, formState, modelName, id, formAttr
                 })}
                 name={id ?? formAttribute}
             />
-            <a disabled={!formState[formAttribute]} className="btn btn-outline-primary cursor-pointer"
+
+             <a disabled={!formState[formAttribute]} className="btn btn-outline-primary cursor-pointer"
                href={formState[`${formAttribute}_preview`] ?? formState[formAttribute]}
                target="_blank"
                {...({} as React.ButtonHTMLAttributes<HTMLAnchorElement>)}
