@@ -235,7 +235,7 @@ export const searchOwners = async (e: any) => {
             value: user[valField],
             label: (
                 <div key={user[valField]} className="flex items-center">
-                    <img src={user[avatarField] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(user[avatarField])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{user[nameField] + " " + user['last_name']}</div>
@@ -495,5 +495,7 @@ export function copyToClipboard(text: any) {
 }
 
 
-export const displayImage = async (model: string, attribute: string, path: string) =>
-    await api_instance.displayImage(model, attribute, path);
+export const displayImage = (field: any) =>
+    field ? `data:${field['mime']};base64,${field['file']}` : '/assets/images/user-profile.jpeg';
+
+
