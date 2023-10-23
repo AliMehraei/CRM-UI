@@ -14,7 +14,8 @@ const SourceSection = () => {
     };
     const fields = {
         'Source': {
-            'Vendor': <AsyncSelect isMulti={false} id="vendor_id" name="vendor_id"
+            'Vendor': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="vendor_id" name="vendor_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchVendor}
                 onChange={({ value }: any) => {
@@ -29,7 +30,8 @@ const SourceSection = () => {
                 placeholder="YYYY-MM-DD"
                 onChange={(_,dateString) => handleChangeField('availability_date', dateString)} />,
 
-            'Availability': <AsyncSelect isMulti={false} id="availability_id" name="availability_id"
+            'Availability': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="availability_id" name="availability_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={loadAvailability}
                 onChange={({ value }: any) => {

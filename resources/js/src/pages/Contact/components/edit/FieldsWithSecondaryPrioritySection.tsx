@@ -31,6 +31,7 @@ const FieldsWithSecondaryPrioritySection = () => {
     const fields = {
         'Fields with Secondary Priority': {
             'Approved By': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="approved_by"
                 placeholder="Type at least 2 characters to search..."

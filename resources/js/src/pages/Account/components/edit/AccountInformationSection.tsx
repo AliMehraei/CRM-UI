@@ -79,6 +79,7 @@ const AccountInformationSection = () => {
             />),
 
             'Parent Account': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="parent_account_id"
                 placeholder="Type at least 2 characters to search..."
@@ -141,6 +142,7 @@ const AccountInformationSection = () => {
             />,
 
             'Child Account': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="child_account_id"
                 placeholder="Type at least 2 characters to search..."

@@ -84,7 +84,8 @@ const RequestedProductsSection = () => {
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="rfq_id" name="rfq_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="rfq_id" name="rfq_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchRFQ}
                                                              onChange={({value}: any) => {
@@ -101,7 +102,8 @@ const RequestedProductsSection = () => {
                                                        defaultValue={item.rfq_owner_name}/>
                                             </td>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="product_id" name="product_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
@@ -118,7 +120,8 @@ const RequestedProductsSection = () => {
                                                        defaultValue={item.alt_product}/>
                                             </td>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="manufacturer_id" name="manufacturer_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="manufacturer_id" name="manufacturer_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchManufacturer}
                                                              onChange={({value}: any) => {

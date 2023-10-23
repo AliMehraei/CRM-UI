@@ -5,7 +5,9 @@ import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {Currencies, PortalAccess} from "../../../../components/Functions/CommonFunctions";
-import {handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import {searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -55,16 +57,12 @@ const VendorSection = () => {
 
     const fields = {
         'Vendor Information': {
-            'Vendor Image': (<input
-                    id="vendor_image"
-                    key="vendor_image"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="image/*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                    })}
-                    name="vendorImage"
+            'Vendor Image': (
+                <ImageUploadComponent formState={formState}
+                                      modelName={'vendor'}
+                                      id={'vendor_image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
                 />
             ),
             'Vendor Name': (
@@ -79,6 +77,7 @@ const VendorSection = () => {
             ),
             'Contracts': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="contracts"
                     placeholder="Type at least 2 characters to search..."
@@ -102,6 +101,7 @@ const VendorSection = () => {
             ),
             'Strong Lines': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="strong_lines"
                     placeholder="Type at least 2 characters to search..."
@@ -115,6 +115,7 @@ const VendorSection = () => {
             ),
             'Line Card': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="line_card"
                     placeholder="Type at least 2 characters to search..."
@@ -150,6 +151,7 @@ const VendorSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by"
                     placeholder="Type at least 2 characters to search..."
@@ -166,6 +168,7 @@ const VendorSection = () => {
 
             'Vendor Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -200,33 +203,26 @@ const VendorSection = () => {
                 />
             ),
             'ISO Upload': (
-                <input
+                <FileUploadComponent
                     id="iso_upload"
-                    key="iso_upload"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'iso_upload', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="iso_upload"
+                    modelName={'vendor'}
+                    updateFormDate={updateFormData}
+                    formState={formState}
+                    formAttribute='iso_upload'
                 />
             ),
             'Doc Upload': (
-                <input
+                <FileUploadComponent
                     id="doc_upload"
-                    key="doc_upload"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'doc_upload', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="doc_upload"
+                    modelName={'vendor'}
+                    updateFormDate={updateFormData}
+                    formState={formState}
+                    formAttribute='doc_upload'
                 />
             ),
             'Parent Vendor': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="parent_vendor_id"
                     placeholder="Type at least 2 characters to search..."

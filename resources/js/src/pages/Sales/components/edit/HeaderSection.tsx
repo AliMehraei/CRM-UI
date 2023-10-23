@@ -32,6 +32,7 @@ const HeaderSection = () => {
 
             'Account Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="account_id"
@@ -57,6 +58,7 @@ const HeaderSection = () => {
             ),
             'Contact Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="contact_id"
@@ -90,6 +92,7 @@ const HeaderSection = () => {
             ),
             'Quote Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="quote_id"
                     placeholder="Type at least 2 characters to search..."
@@ -127,6 +130,7 @@ const HeaderSection = () => {
         '': {
             'Deals Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="deal_id"
@@ -161,6 +165,7 @@ const HeaderSection = () => {
             ),
             'SalesOrders Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="owner_id"
@@ -194,6 +199,7 @@ const HeaderSection = () => {
             ),
             'Sales Person': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="sales_person_id"
@@ -226,6 +232,7 @@ const HeaderSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
                     required

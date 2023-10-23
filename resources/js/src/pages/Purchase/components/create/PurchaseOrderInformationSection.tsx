@@ -4,9 +4,11 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchAccounts,searchContacts,searchSalesOrder,Currencies
-    ,searchLead,searchQuote,searchInvoice,searchOwners, searchRFQ, searchPurchaseOrder, StatusOption, handleUploadFile} from "../../../../components/Functions/CommonFunctions";
-import Flatpickr from "react-flatpickr";
+import {
+    searchPurchaseOrder,
+    StatusOption,
+} from "../../../../components/Functions/CommonFunctions";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const PurchaseOrderInformationSection = () => {
     const dispatch = useDispatch();
@@ -15,7 +17,6 @@ const PurchaseOrderInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
 
 
     const POTypeOption = [
@@ -36,22 +37,22 @@ const PurchaseOrderInformationSection = () => {
     ];
 
 
-
     const fields = {
         'PurchaseOrders Information': {
             'PO Type': (
                 <Select
-                options={POTypeOption}
-                name="po_type"
-                id="po_type"
-                onChange={({value}: any) => {
-                    handleChangeField('po_type', value)
-                }}
-                className="flex-1"
+                    options={POTypeOption}
+                    name="po_type"
+                    id="po_type"
+                    onChange={({value}: any) => {
+                        handleChangeField('po_type', value)
+                    }}
+                    className="flex-1"
                 />
             ),
             'Parent PO No.': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="parent_po_id"
                     placeholder="Type at least 2 characters to search..."
@@ -66,14 +67,12 @@ const PurchaseOrderInformationSection = () => {
             ),
             'ZohoBooksID': (
                 <input
-                id="zoho_books_id"
-                name="zoho_books_id"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    id="zoho_books_id"
+                    name="zoho_books_id"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-
-
 
 
         },
@@ -89,46 +88,43 @@ const PurchaseOrderInformationSection = () => {
             ),
             'Status': (
                 <Select
-                options={StatusOption}
-                name="status"
-                id="status"
-                onChange={({value}: any) => {
-                    handleChangeField('status', value)
-                }}
-                className="flex-1"
+                    options={StatusOption}
+                    name="status"
+                    id="status"
+                    onChange={({value}: any) => {
+                        handleChangeField('status', value)
+                    }}
+                    className="flex-1"
                 />
             ),
             'Carrier': (
                 <Select
-                options={CarrierOption}
-                name="carrier"
-                id="carrier"
-                onChange={({value}: any) => {
-                    handleChangeField('carrier', value)
-                }}
-                className="flex-1"
+                    options={CarrierOption}
+                    name="carrier"
+                    id="carrier"
+                    onChange={({value}: any) => {
+                        handleChangeField('carrier', value)
+                    }}
+                    className="flex-1"
                 />
             ),
-            'AWB':(
+            'AWB': (
                 <input
-                id="awb"
-                name="awb"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />
+                    id="awb"
+                    name="awb"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                />
             ),
-            'Confirmation Vendor': (<input
-                id="confirmation_vendor"
-                key="confirmation_vendor"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({field: 'confirmation_vendor', value: `${response?.data.data.file_url}`}));
-                })}
-                name="confirmation_vendorFile"
-            />
-        ),
+            'Confirmation Vendor': (
+                <FileUploadComponent
+                    id={'confirmation_vendor'}
+                    modelName="purchaseOrder"
+                    formState={formState}
+                    formAttribute={'confirmation_vendor'}
+                    updateFormdata={updateFormData}
+                />
+            ),
 
 
         }

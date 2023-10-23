@@ -31,6 +31,7 @@ const SOLineSection = () => {
 
             'Product Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="product_id"

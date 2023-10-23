@@ -366,6 +366,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                 return (
                     <>
                         <AsyncSelect
+                    defaultOptions={true}
                             placeholder="Type at least 2 characters to search..."
                             loadOptions={(e) => loadAdminUsers(e, option)}
                             onChange={(e) => handleSelectMultipleUser(option.value, e)}
@@ -397,6 +398,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                 return (
                     <>
                         <AsyncSelect
+                    defaultOptions={true}
                             placeholder="Type at least 2 characters to search..."
                             loadOptions={(e) => loadModels(e, option)}
                             onChange={(e) => handleSelectMultiple(option.value, e)}

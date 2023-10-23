@@ -27,7 +27,7 @@ const TaskInformationSection = () => {
         { value: 'Hoch', label: 'Hoch' },
         { value: 'Other', label: 'Other' },
     ];
-    
+
     const TaskStatus = [
         { value: '-None-', label: '-None-' },
         { value:'Abgeschlossen' , label: 'Abgeschlossen' },
@@ -38,7 +38,7 @@ const TaskInformationSection = () => {
         { value: '4.0 Hot task (HLQ)', label: '4.0 Hot task (HLQ)' },
         { value: 'Close Task / Lost Task', label: 'Close Task / Lost Task' },
     ];
-    
+
 
 
 
@@ -46,6 +46,7 @@ const TaskInformationSection = () => {
         'Task Information': {
             'Task Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -95,13 +96,13 @@ const TaskInformationSection = () => {
                   defaultValue={formState.due_date}
                   placeholder="YYYY-MM-DD"
                   options={{
-                    dateFormat: 'Y-m-d', 
+                    dateFormat: 'Y-m-d',
                     defaultDate: formState.due_date ? new Date(formState.due_date) : null, // Simplified defaultDate
                   }}
                   onChange={(_, dateString) => handleChangeField('due_date', dateString)}
                 />
               ),
-              
+
             'Status': (
                 <Select
                     options={TaskStatus}

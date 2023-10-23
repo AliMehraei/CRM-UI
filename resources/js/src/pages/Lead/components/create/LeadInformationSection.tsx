@@ -1,15 +1,13 @@
 import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
-import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {getImageSource, handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
-import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import {searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 
 const LeadInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.leadForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -91,33 +89,12 @@ const LeadInformationSection = () => {
     const fields = {
         'Lead Information': {
             'Lead Image': (
-                <div className="">
-                    <div className="flex">
-                        <input
-                            id="image"
-                            key="image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="leadImage"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
+                <ImageUploadComponent formState={formState}
+                                      modelName={'lead'}
+                                      id={'image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ),
             'Status': (
                 <Select
@@ -157,6 +134,7 @@ const LeadInformationSection = () => {
             ),
             'Lead Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."

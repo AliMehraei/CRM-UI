@@ -79,7 +79,7 @@ const TypeSection = () => {
             ),
         }
     );
-    
+
     const labelMField = moduleableType.find(module => module.value === formState.moduleable_type)?.labelFelid || null;
     const [selectedModuleableId, setSelectedModuleableId] = useState(
         {
@@ -125,6 +125,7 @@ const TypeSection = () => {
                         options={userableType}
                     />
                     <AsyncSelect
+                    defaultOptions={true}
                         key={selectedType}
                         isMulti={false}
                         id="userable_id"
@@ -160,6 +161,7 @@ const TypeSection = () => {
                         options={moduleableType}
                     />
                     <AsyncSelect
+                    defaultOptions={true}
                         key={selectedModule}
                         isMulti={false}
                         id="moduleable_id"

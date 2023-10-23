@@ -36,6 +36,7 @@ const VendorRFQInformation = () => {
             />),
             'Vendor Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
@@ -82,6 +83,7 @@ const VendorRFQInformation = () => {
             ),
             'Related RFQs': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={true}
                     id="related_rfqs_id"
                     placeholder="Type at least 2 characters to search..."
@@ -113,6 +115,7 @@ const VendorRFQInformation = () => {
             ),
             'Vendor RFQ Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."

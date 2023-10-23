@@ -37,7 +37,8 @@ const LineCardSection = () => {
 
     const fields = {
         'Line Card': {
-            'Vendor_Line Card': <AsyncSelect isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
+            'Vendor_Line Card': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor}
                                              className="flex-1"
@@ -60,7 +61,8 @@ const LineCardSection = () => {
             />,
         },
         '': {
-            'Vendor_Strong Lines': <AsyncSelect isMulti={false} id="vendor_strong_lines_id"
+            'Vendor_Strong Lines': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="vendor_strong_lines_id"
                                                 name="vendor_strong_lines_id"
                                                 placeholder="Type at least 2 characters to search..."
                                                 loadOptions={searchVendor}

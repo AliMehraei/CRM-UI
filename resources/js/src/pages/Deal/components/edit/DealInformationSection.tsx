@@ -60,6 +60,7 @@ const DealInformationSection = () => {
         'Deals Information': {
             'Deals Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -101,6 +102,7 @@ const DealInformationSection = () => {
             ),
             'Account Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="account_id"
                     placeholder="Type at least 2 characters to search..."
@@ -164,6 +166,7 @@ const DealInformationSection = () => {
             ),
             'Contact Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="contact_id"
                     placeholder="Type at least 2 characters to search..."
@@ -196,6 +199,7 @@ const DealInformationSection = () => {
             ),
             'Lead': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="lead_id"
                     placeholder="Type at least 2 characters to search..."
@@ -221,6 +225,7 @@ const DealInformationSection = () => {
             ),
             'RFQ': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="rfq_id"
                     placeholder="Type at least 2 characters to search..."
@@ -246,6 +251,7 @@ const DealInformationSection = () => {
             ),
             'Quote': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="quote_id"
                     placeholder="Type at least 2 characters to search..."
@@ -271,6 +277,7 @@ const DealInformationSection = () => {
             ),
             'Sales Order': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="sales_order_id"
                     placeholder="Type at least 2 characters to search..."
@@ -296,6 +303,7 @@ const DealInformationSection = () => {
             ),
             'Invoice': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="invoice_id"
                     placeholder="Type at least 2 characters to search..."

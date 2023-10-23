@@ -14,6 +14,7 @@ const RoleSection = () => {
     const fields = {
         'Roles': {
             'Roles': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={true}
                 id="roles_id"
                 placeholder="Type at least 2 characters to search..."
