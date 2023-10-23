@@ -4,13 +4,14 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     Currencies,
-    handleUploadFile, searchAccounts,
+     searchAccounts,
     searchContacts,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
 import {searchOwners} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/rfqFormSlice";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 
 const HeaderSection = () => {
@@ -67,61 +68,61 @@ const HeaderSection = () => {
 
         'Header': {
             'Account Name': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
-                                         placeholder="Type at least 2 characters to search..."
-                                         loadOptions={searchAccounts}
-                                         onChange={({value}: any) => {
-                                             handleChangeField('account_id', value)
-                                         }}
-                                         defaultValue={{
-                                             value: formState.account?.id,
-                                             label: (
-                                                 <div key={formState.account?.id} className="flex items-center">
-                                                     {formState.account ? (
-                                                         <img
-                                                             src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
-                                                             alt="avatar"
-                                                             className="w-8 h-8 mr-2 rounded-full"
-                                                         />
-                                                     ) : null}
-                                                     <div>
-                                                         <div
-                                                             className="text-sm font-bold">{formState.account?.account_name}</div>
-                                                         <div
-                                                             className="text-xs text-gray-500">{formState.account?.email}</div>
-                                                     </div>
-                                                 </div>
-                                             ),
-                                         }}
-                                         className="flex-1"/>,
+                defaultOptions={true} isMulti={false} id="account_id" name="account_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchAccounts}
+                onChange={({value}: any) => {
+                    handleChangeField('account_id', value)
+                }}
+                defaultValue={{
+                    value: formState.account?.id,
+                    label: (
+                        <div key={formState.account?.id} className="flex items-center">
+                            {formState.account ? (
+                                <img
+                                    src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
+                            <div>
+                                <div
+                                    className="text-sm font-bold">{formState.account?.account_name}</div>
+                                <div
+                                    className="text-xs text-gray-500">{formState.account?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"/>,
 
             'Contact': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="contact" name="contact_id"
-                                    placeholder="Type at least 2 characters to search..."
-                                    loadOptions={searchContacts}
-                                    onChange={({value}: any) => {
-                                        handleChangeField('contact_id', value)
-                                    }}
-                                    defaultValue={{
-                                        value: formState.contact?.id,
-                                        label: (
-                                            <div key={formState.contact?.id} className="flex items-center">
-                                                {formState.contact ? (
-                                                    <img
-                                                        src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
-                                                        alt="avatar"
-                                                        className="w-8 h-8 mr-2 rounded-full"
-                                                    />
-                                                ) : null}
-                                                <div>
-                                                    <div className="text-sm font-bold">{formState.contact?.name}</div>
-                                                    <div
-                                                        className="text-xs text-gray-500">{formState.contact?.email}</div>
-                                                </div>
-                                            </div>
-                                        ),
-                                    }}
-                                    className="flex-1"/>,
+                defaultOptions={true} isMulti={false} id="contact" name="contact_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchContacts}
+                onChange={({value}: any) => {
+                    handleChangeField('contact_id', value)
+                }}
+                defaultValue={{
+                    value: formState.contact?.id,
+                    label: (
+                        <div key={formState.contact?.id} className="flex items-center">
+                            {formState.contact ? (
+                                <img
+                                    src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
+                            <div>
+                                <div className="text-sm font-bold">{formState.contact?.name}</div>
+                                <div
+                                    className="text-xs text-gray-500">{formState.contact?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"/>,
             'Customer RFQ No': <input id="customer_rfq_no" name="customer_rfq_no"
                                       className="form-input flex-1 "
                                       defaultValue={formState.customer_rfq_no}
@@ -190,33 +191,33 @@ const HeaderSection = () => {
         },
         '': {
             'RFQ Owner': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="owner_id"
-                                      placeholder="Type at least 2 characters to search..."
-                                      loadOptions={searchOwners}
-                                      onChange={({value}: any) => {
-                                          handleChangeField('owner_id', value)
-                                      }}
-                                      defaultValue={{
-                                          value: formState.owner?.id,
-                                          label: (
-                                              <div key={formState.owner?.id} className="flex items-center">
-                                                  {formState.owner ? (
-                                                      <img
-                                                          src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
-                                                          alt="avatar"
-                                                          className="w-8 h-8 mr-2 rounded-full"
-                                                      />
-                                                  ) : null}
-                                                  <div>
-                                                      <div
-                                                          className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
-                                                      <div
-                                                          className="text-xs text-gray-500">{formState.owner?.email}</div>
-                                                  </div>
-                                              </div>
-                                          ),
-                                      }}
-                                      className="flex-1"/>,
+                defaultOptions={true} isMulti={false} id="owner_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchOwners}
+                onChange={({value}: any) => {
+                    handleChangeField('owner_id', value)
+                }}
+                defaultValue={{
+                    value: formState.owner?.id,
+                    label: (
+                        <div key={formState.owner?.id} className="flex items-center">
+                            {formState.owner ? (
+                                <img
+                                    src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
+                            <div>
+                                <div
+                                    className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
+                                <div
+                                    className="text-xs text-gray-500">{formState.owner?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"/>,
             'Deal Stage': <Select name="deal_stage" options={DealStages}
                                   onChange={({value}: any) => {
                                       handleChangeField('deal_stage', value)
@@ -224,18 +225,15 @@ const HeaderSection = () => {
                                   defaultValue={DealStages.find((data) => data.value == formState.deal_stage)}
                                   className="flex-1"/>,
 
-            'Customer RFQ File': <div className="flex"><input
-                name="customer_rfq_file"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({'customer_rfq_file': `${response?.data.data.file_url}`}));
-                })}
-            />
-                <a className="btn ml-1 btn-outline-primary" href={formState.customer_rfq_file}
-                   target="_blank">Download</a>
-            </div>,
+            'Customer RFQ File':
+                <FileUploadComponent
+                    id={'customer_rfq_file'}
+                    modelName="rfq"
+                    formState={formState}
+                    formAttribute={'customer_rfq_file'}
+                    updateFormdata={updateFormData}
+                />
+            ,
             'RFQ Dead Line': <Flatpickr name="rfq_dead_line"
                                         options={{
                                             dateFormat: 'Y-m-d ',
@@ -257,29 +255,29 @@ const HeaderSection = () => {
             />,
 
             'Vendor RFQs Line': <AsyncSelect
-                    defaultOptions={true} id="vendor_rfqs_line"
-                                             name="vendor_rfqs_line"
-                                             placeholder="Type at least 2 characters to search..."
-                                             loadOptions={searchVendor}
-                                             onChange={(values: any) => {
-                                                 handleChangeField('vendor_rfqs_lines', values.map((v: any) => v.value))
-                                             }}
-                                             defaultValue={formState.vendor_rfqs_line
-                                                 ? formState.vendor_rfqs_line.map((data: any) => ({
-                                                     value: data.id,
-                                                     label: (
-                                                         <div key={data.id} className="flex items-center">
-                                                             <div>
-                                                                 <div
-                                                                     className="text-sm font-bold">{data.vendor_name}</div>
-                                                             </div>
-                                                         </div>
-                                                     ),
-                                                 }))
-                                                 : []
-                                             }
-                                             isMulti={true}
-                                             className="flex-1"/>,
+                defaultOptions={true} id="vendor_rfqs_line"
+                name="vendor_rfqs_line"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchVendor}
+                onChange={(values: any) => {
+                    handleChangeField('vendor_rfqs_lines', values.map((v: any) => v.value))
+                }}
+                defaultValue={formState.vendor_rfqs_line
+                    ? formState.vendor_rfqs_line.map((data: any) => ({
+                        value: data.id,
+                        label: (
+                            <div key={data.id} className="flex items-center">
+                                <div>
+                                    <div
+                                        className="text-sm font-bold">{data.vendor_name}</div>
+                                </div>
+                            </div>
+                        ),
+                    }))
+                    : []
+                }
+                isMulti={true}
+                className="flex-1"/>,
         }
 
     }
