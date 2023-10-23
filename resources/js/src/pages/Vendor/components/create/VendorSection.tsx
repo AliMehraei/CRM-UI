@@ -4,9 +4,10 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {Currencies, getImageSource, PortalAccess} from "../../../../components/Functions/CommonFunctions";
-import {handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
-import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import {Currencies, PortalAccess} from "../../../../components/Functions/CommonFunctions";
+import {searchOwners} from "../../../../components/Functions/CommonFunctions";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -57,33 +58,12 @@ const VendorSection = () => {
     const fields = {
         'Vendor Information': {
             'Vendor Image': (
-                <div className="">
-                    <div className="flex">
-                        <input
-                            id="vendor_image"
-                            key="vendor_image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="vendor_image"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('vendor_image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="vendor_image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
+                <ImageUploadComponent formState={formState}
+                                      modelName={'vendor'}
+                                      id={'vendor_image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ),
             'Vendor Name': (
                 <input
@@ -223,29 +203,21 @@ const VendorSection = () => {
                 />
             ),
             'ISO Upload': (
-                <input
+                <FileUploadComponent
                     id="iso_upload"
-                    key="iso_upload"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'iso_upload', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="iso_upload"
+                    modelName={'vendor'}
+                    updateFormDate={updateFormData}
+                    formState={formState}
+                    formAttribute='iso_upload'
                 />
             ),
             'Doc Upload': (
-                <input
+                <FileUploadComponent
                     id="doc_upload"
-                    key="doc_upload"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    accept="*"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({field: 'doc_upload', value: `${response?.data.data.file_url}`}));
-                    })}
-                    name="doc_upload"
+                    modelName={'vendor'}
+                    updateFormDate={updateFormData}
+                    formState={formState}
+                    formAttribute='doc_upload'
                 />
             ),
             'Parent Vendor': (
