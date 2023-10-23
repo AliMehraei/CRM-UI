@@ -95,11 +95,13 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/change-locale/${locale}`);
     }
 
-    async uploadFile(file: any, modelName: any) {
+    async uploadFile(file: any, modelName: string, type: string) {
         try {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('modelName', modelName);
+            formData.append('type', type);
+
             const response = await _axios.post(`${API_URL_PRODUCT}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
