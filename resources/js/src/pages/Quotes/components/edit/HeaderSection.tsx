@@ -4,12 +4,13 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import {
-    Currencies, handleUploadFile,
+    Currencies,
     searchAccounts, searchContacts, searchDeals,
     searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import Api from "../../../../config/api";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const HeaderSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
@@ -278,19 +279,13 @@ const HeaderSection = () => {
             />,
 
             'Quote File(Excel)':
-                <div className="flex">
-                    <input
-                        name="quote_file"
-                        type="file"
-                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                        accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
-                        onChange={(e) => handleUploadFile(e, (response: any) => {
-                            dispatch(updateFormData({'quote_file': `${response?.data.data.file_url}`}));
-                        })}
-                    />
-                    <a className="ml-1 cursor-pointer btn btn-outline-primary" href={formState.quote_file}
-                       target="_blank">Download</a>
-                </div>
+                <FileUploadComponent
+                    id={'quote_file'}
+                    modelName="quote"
+                    formState={formState}
+                    formAttribute={'quote_file'}
+                    updateFormdata={updateFormData}
+                />
             ,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
