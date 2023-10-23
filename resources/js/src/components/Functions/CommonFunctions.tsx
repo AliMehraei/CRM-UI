@@ -1,6 +1,6 @@
 import api from "../../config/api";
 import {EventEmitter} from "events";
-import React from "react";
+import React, {ChangeEvent} from "react";
 import Swal from "sweetalert2";
 
 const api_instance = new api();
@@ -38,9 +38,14 @@ export const Stages = [
 ];
 
 
-export const handleUploadFile = (e: any, callBack: any, modelName = null) => {
+export const handleUploadFile = (
+    e: ChangeEvent<HTMLInputElement>,
+    modelName: string,
+    type: string,
+    callBack: (response: any) => void) => {
+
     if (e.target.files && e.target.files.length > 0) {
-        api_instance.uploadFile(e.target.files[0], modelName).then((response) => {
+        api_instance.uploadFile(e.target.files[0], modelName, type).then((response) => {
             callBack(response)
         }).catch();
     }
