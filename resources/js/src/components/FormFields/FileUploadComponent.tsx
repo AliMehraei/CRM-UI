@@ -34,7 +34,7 @@ const FileUploadComponent = ({updateFormData, formState, modelName, id, formAttr
                 type="file"
                 className="form-input mr-1 file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                 // accept="image/*"
-                onChange={(e) => handleUploadFile(e, modelName, 'attachment', (response: any) => {
+                onChange={(e) => handleUploadFile(e, modelName, 'attachments', (response: any) => {
                     dispatch(updateFormData({
                         [formAttribute]: `${response?.data.data.file_asset_path}`
                     }));
@@ -45,7 +45,7 @@ const FileUploadComponent = ({updateFormData, formState, modelName, id, formAttr
                 name={id ?? formAttribute}
             />
 
-             <a disabled={!formState[formAttribute]} className="btn btn-outline-primary cursor-pointer"
+            <a disabled={!formState[formAttribute]} className="btn btn-outline-primary cursor-pointer"
                href={formState[`${formAttribute}_preview`] ?? formState[formAttribute]}
                target="_blank"
                {...({} as React.ButtonHTMLAttributes<HTMLAnchorElement>)}

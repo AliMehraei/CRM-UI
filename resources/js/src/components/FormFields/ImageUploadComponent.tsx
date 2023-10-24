@@ -21,7 +21,7 @@ const ImageUploadComponent = ({formState, modelName, id, formAttribute, updateFo
                     type="file"
                     className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
                     accept="image/*"
-                    onChange={(e) => handleUploadFile(e, modelName, 'image', (response: any) => {
+                    onChange={(e) => handleUploadFile(e, modelName, 'images', (response: any) => {
                         dispatch(updateFormData({[`${formAttribute}_preview`]: e.target.files && URL.createObjectURL(e.target.files[0])}));
                         dispatch(updateFormData({[`${formAttribute}`]: `${response?.data.data.file_asset_path}`}));
                     })}
