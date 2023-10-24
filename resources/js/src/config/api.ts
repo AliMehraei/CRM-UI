@@ -650,6 +650,30 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/setting/list`, data, {headers: Headers as any});
     }
 
+    async searchCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/call/search`, data, {headers: Headers as any});
+    }
+
+    async fetchDataCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/call/list`, data, {headers: Headers as any});
+    }
+
+    async deleteSingleCall(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/call/${id}`);
+    }
+
+    async fetchSingleCall(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/call/${id}`);
+    }
+
+    async updateSingleCall(data: any) {
+        return await _axios.put(`${API_URL_PRODUCT}/call/${data.id}`, data, {headers: Headers as any});
+    }
+
+    async createSingleCall(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/call`, data, {headers: Headers as any});
+    }
+
 }
 
 export default api
