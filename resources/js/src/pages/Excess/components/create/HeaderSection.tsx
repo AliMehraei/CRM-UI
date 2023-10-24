@@ -31,10 +31,10 @@ const HeaderSection = () => {
         'Header': {
             'Excess Image':
                 <ImageUploadComponent
-                    id={'excess_image'}
+                    id={'image'}
                     modelName="excess"
                     formState={formState}
-                    formAttribute={'excess_image'}
+                    formAttribute={'image'}
                     updateFormdata={updateFormData}
                 />
             ,
