@@ -24,8 +24,8 @@ const List = () => {
             title: 'Call subject',
             sortable: false,
             render: ({subject, id}: any) => (
-                hasPermission('update-task') ? (
-                    <NavLink to={`/task/edit/${id}`}>
+                hasPermission('update-call') ? (
+                    <NavLink to={`/call/edit/${id}`}>
                         <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
                     </NavLink>
                 ) : (
@@ -49,7 +49,7 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="task" tableColumns={columns}/>
+            <GenerateIndexTable modelName="call" tableColumns={columns}/>
         </>
     );
 };
