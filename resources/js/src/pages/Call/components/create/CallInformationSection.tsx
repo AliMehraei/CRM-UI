@@ -14,6 +14,8 @@ const CallInformationSection = () => {
 
     const RelatableList: any = [];
 
+    const CallTypes: any = [];
+
     const fields = {
         'Call Information': {
             'Call To': <div className="flex">
@@ -50,6 +52,14 @@ const CallInformationSection = () => {
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             </div>,
+            'Call Type': <Select id="relatable"
+                                 name="relatable"
+                                 onChange={({value}: any) => {
+                                     handleChangeField('relatable', value)
+                                 }}
+                                 className="flex-none w-32 mr-2"
+                                 options={CallTypes}/>,
+
 
         }
     }
