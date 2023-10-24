@@ -28,6 +28,8 @@ const QuoteItemSection = () => {
             ...formState.items[id],
             [field]: value,
         };
+        const amount = (parseFloat(updatedItem.quantity) || 0) * (parseFloat(updatedItem.list_price) || 0)
+        updatedItem['amount'] = amount;
 
         const updatedItems = {
             ...formState.items,
@@ -95,7 +97,8 @@ const QuoteItemSection = () => {
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="product_id" name="product_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
@@ -163,8 +166,9 @@ const QuoteItemSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <input name="amount" type="text" className="form-input min-w-[200px]"
-                                                       defaultValue={item.amount}
+                                                <input disabled name="amount" type="text"
+                                                       className="form-input min-w-[200px] disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                                                       value={item.amount}
                                                        onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>

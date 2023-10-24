@@ -54,7 +54,7 @@ const DevelopmentSection = () => {
                     options={{
                         dateFormat: 'Y-m-d',
                         position: 'auto left',
-                        defaultDate: `${formState.last_modified ? new Date(formState.last_modified) : ''}`,
+                        defaultDate: formState.last_modified ? new Date(formState.last_modified) : null as any,
                     }}
                     className="form-input flex-1"
                     value={formState.last_modified ? new Date(formState.last_modified) : ''}
@@ -69,7 +69,7 @@ const DevelopmentSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.created_date ? new Date(formState.created_date) : ''}`,
+                    defaultDate: formState.created_date ? new Date(formState.created_date) : null as any,
                 }}
                 className="form-input flex-1"
                 value={formState.created_date ? new Date(formState.created_date) : ''}

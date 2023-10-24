@@ -59,13 +59,16 @@ const TermsSection = () => {
 
         },
         '': {
-            'Vat NO': (<input
-                id="vat_no"
-                required
-                name="vat_no"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-            />),
+            'Vat No': (
+                <input
+                    id="vat_no"
+                    required
+                    name="vat_no"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.vat_no}
+                />
+            ),
             'Forwarder': (<input
                 id="forwarder"
                 name="forwarder"

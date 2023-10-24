@@ -7,9 +7,13 @@ import DescriptionInformationSection from "./DescriptionInformationSection";
 import TechnicalInformationSection from "./TechnicalInformationSection";
 import Unused from "./Unused";
 import AddressInformationSection from "./AddressInformationSection";
+import AttachmentSection from "../../../../components/FormFields/AttachmentSection";
+import {useParams} from "react-router-dom";
 
 
 const AccountFormFields = () => {
+    const params = useParams();
+    const accountId = params.id;
     return (
         <div className="mt-8 px-4">
             <AccountSection key="invoiceInformation"/>
@@ -27,6 +31,8 @@ const AccountFormFields = () => {
             <TechnicalInformationSection/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <Unused/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <AttachmentSection modelId={accountId} modelName={'account'}/>
 
         </div>
     )

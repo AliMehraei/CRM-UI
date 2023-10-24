@@ -1,14 +1,18 @@
 import AsyncSelect from "react-select/async";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess, searchOwners, searchRFQ, searchManufacturer } from "../../../../components/Functions/CommonFunctions";
+import {
+
+    searchOwners,
+    searchRFQ,
+    searchManufacturer, displayImage
+} from "../../../../components/Functions/CommonFunctions";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
@@ -21,21 +25,15 @@ const ProductInformationSection = () => {
     ];
 
 
-
     const fields = {
         'Product Information': {
-            'Product Image': (<input
-                id="image"
-                key="image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ 'image': `${response?.data.data.file_url}` }));
-                })}
-
-                name="image"
-            />
+            'Product Image': (
+                <ImageUploadComponent formState={formState}
+                                      modelName={'product'}
+                                      id={'image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ),
 
             'Product Name': (
@@ -59,6 +57,7 @@ const ProductInformationSection = () => {
             ),
             'Manufacturer': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="manufacturer_id"
@@ -85,17 +84,18 @@ const ProductInformationSection = () => {
             ),
             'RFQ (Alternative)': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={true}
-                    id="rfq_id"
+                    id="rfqs_id"
                     placeholder="Type at least 2 characters to search..."
-                    name="rfq_id"
+                    name="rfqs_id"
                     loadOptions={searchRFQ}
-                    onChange={({ value }: any) => {
-                        handleChangeField('rfq_id', value)
+                    onChange={(values: any) => {
+                        handleChangeField('rfqs_id', values.map((v: any) => v.value))
                     }}
                     className="flex-1"
-                    defaultValue={formState.rfq
-                        ? formState.rfq.map((rfq: any) => ({
+                    defaultValue={formState.rfqs
+                        ? formState.rfqs.map((rfq: any) => ({
                             value: rfq.id,
                             label: (
                                 <div key={rfq.id} className="flex items-center">
@@ -121,6 +121,7 @@ const ProductInformationSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
                     placeholder="Type at least 2 characters to search..."
@@ -134,9 +135,16 @@ const ProductInformationSection = () => {
                         value: formState.approved_by?.id,
                         label: (
                             <div key={formState.approved_by?.id} className="flex items-center">
-                                <img src={formState.approved_by?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.approved_by ? (
+                                <img
+                                    src={formState.approved_by.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.approved_by?.name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>
                                 </div>
                             </div>
@@ -159,6 +167,7 @@ const ProductInformationSection = () => {
             ),
             'Product Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -172,9 +181,16 @@ const ProductInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.owner ? (
+                                <img
+                                    src={displayImage(formState.owner.avatar)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>

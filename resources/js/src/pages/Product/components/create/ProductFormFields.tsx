@@ -1,36 +1,43 @@
-import React from "react";
-import SupplyChainSection from "./SupplyChainSection";
+import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
+import Select from "react-select";
+import {RequiredComponent} from "../../../../components/FormFields/RequiredComponent";
 import ProductInformationSection from "./ProductInformationSection";
-import StockInformationSection from "./StockInformationSection";
-import PhysicalPropertiesSection from "./PhysicalPropertiesSection";
+import SupplyChainSection from "./SupplyChainSection";
 import TechDataSection from "./TechDataSection";
+import PhysicalPropertiesSection from "./PhysicalPropertiesSection";
 import DimensionsSection from "./DimensionsSection";
+import StockInformationSection from "./StockInformationSection";
 import AlternativesSection from "./AlternativesSection";
 import ExportImportDataSection from "./ExportImportDataSection";
 import APIDataSection from "./APIDataSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
+
 const ProductFormFields = () => {
+
     return (
         <div className="mt-8 px-4">
-            <ProductInformationSection key="productInfo" />
+
+            <ProductInformationSection key="productInfo"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <SupplyChainSection key="SupplyChain"  />
+            <SupplyChainSection key="SupplyChain"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <PhysicalPropertiesSection key="PhysicalProperties"  />
+            <PhysicalPropertiesSection key="PhysicalProperties"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <TechDataSection key="TechData"  />
+            <TechDataSection key="TechData"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <DimensionsSection key="Dimensions"  />
+            <DimensionsSection key="Dimensions"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <StockInformationSection key="StockInformation"  />
+            <StockInformationSection key="StockInformation"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <AlternativesSection key="Alternatives"  />
+            <AlternativesSection key="Alternatives"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <ExportImportDataSection key="ExportImportData"  />
+            <ExportImportDataSection key="ExportImportData"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <APIDataSection key="APIData"  />
+            <APIDataSection key="APIData"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-            <DescriptionInformationSection key="DescriptionInformation"  />
+            <DescriptionInformationSection key="DescriptionInformation"/>
+            
         </div>
     )
 

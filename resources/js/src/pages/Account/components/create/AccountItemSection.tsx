@@ -6,7 +6,7 @@ const AccountItemSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.accountForm);
 
-    const [items, setItems] = useState<any>([{id: 1,},]);
+    const [items, setItems] = useState<any>([{id: 0,},]);
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatedItem = {
             ...formState.forecasts[id],

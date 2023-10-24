@@ -5,8 +5,12 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import 'flatpickr/dist/flatpickr.css';
 import ContactFormFields from "./components/create/ContactFormFields";
 import {resetForm} from "../../store/contactFormSlice";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
+
     const formState = useSelector((state: any) => state.contactForm);
     const dispatch = useDispatch();
 
@@ -14,7 +18,14 @@ const Add = () => {
         dispatch(setPageTitle('Contact Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
+        (!hasPermission(`create-contact`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -23,7 +34,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

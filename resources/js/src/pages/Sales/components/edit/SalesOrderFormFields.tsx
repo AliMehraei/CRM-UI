@@ -8,7 +8,11 @@ import AddressInformationSection from "./AddressInformationSection";
 import TermsConditionsSection from "./TermsConditionsSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
 import TechnicalInformationSection from "./TechnicalInformationSection";
+import {useParams} from "react-router-dom";
+import AttachmentSection from "../../../../components/FormFields/AttachmentSection";
 const SalesOrderFormFields = () => {
+    const params = useParams();
+    const modelId = params.id;
     return (
         <div className="mt-8 px-4">
             <HeaderSection key="HeaderSection" />
@@ -28,6 +32,8 @@ const SalesOrderFormFields = () => {
             <DescriptionInformationSection key="DescriptionInformationSection"  />
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <TechnicalInformationSection key="TechnicalInformationSection"  />
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <AttachmentSection modelId={modelId} modelName={'salesOrder'}/>
         </div>
     )
 

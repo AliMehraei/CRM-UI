@@ -2,14 +2,13 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    getImageSource,
-    handleUploadFile,
     searchAccounts,
-    searchOwners
+    searchOwners,
+    FirstNameTitles, displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/contactFormSlice";
-import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 
 const ContactDetailsSection = () => {
     const dispatch = useDispatch();
@@ -18,15 +17,7 @@ const ContactDetailsSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-    const firstNameTitles = [
-        {value: "none", label: "-None-"},
-        {value: "herr", label: "Herr"},
-        {value: "frau", label: "Frau"},
-        {value: "fr.", label: "Fr."},
-        {value: "dr.", label: "Dr."},
-        {value: "prof.", label: "Prof."},
 
-    ];
     const jobDescriptions = [
         {value: "none", label: "-None-"},
         {value: "buyer", label: "Buyer"},
@@ -93,33 +84,12 @@ const ContactDetailsSection = () => {
     const fields = {
         'Contact Details': {
             'Contact Image':
-                <div className="">
-                    <div className="flex">
-                        <input
-                            id="image"
-                            key="image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="image"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="contact_image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
+                <ImageUploadComponent formState={formState}
+                                      modelName={'contact'}
+                                      id={'image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ,
             'First Name': (
                 <div className="flex">
@@ -129,8 +99,8 @@ const ContactDetailsSection = () => {
                                 handleChangeField('prefix_first_name', value)
                             }}
                             className="flex-none w-32 mr-2"
-                            options={firstNameTitles}
-                            defaultValue={firstNameTitles.find((title) => title.value == formState.prefix_first_name)}
+                            options={FirstNameTitles}
+                            defaultValue={FirstNameTitles.find((title) => title.value == formState.prefix_first_name)}
 
                     />
                     <input
@@ -160,7 +130,7 @@ const ContactDetailsSection = () => {
                 <Select id="job_description"
                         name="job_description"
                         onChange={({value}: any) => {
-                            handleChangeField('double_check_status', value)
+                            handleChangeField('job_description', value)
                         }}
                         className="flex-1"
                         options={jobDescriptions}
@@ -180,6 +150,7 @@ const ContactDetailsSection = () => {
         },
         '': {
             'Account Name': <AsyncSelect
+                defaultOptions={true}
                 isMulti={false}
                 id="account_id"
                 required
@@ -194,9 +165,15 @@ const ContactDetailsSection = () => {
                     value: formState.account?.id,
                     label: (
                         <div key={formState.account?.id} className="flex items-center">
-                            <img src={formState.account?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                            {formState.account ? (
+                                <img
+                                    src={displayImage(formState.account.image)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
                             <div>
-                                <div className="text-sm font-bold">{formState.account?.name}</div>
+                                <div className="text-sm font-bold">{formState.account?.account_name}</div>
                                 <div className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
                         </div>
@@ -214,6 +191,7 @@ const ContactDetailsSection = () => {
 
             />,
             'Contact Owner': <AsyncSelect
+                defaultOptions={true}
                 isMulti={false}
                 id="owner_id"
                 placeholder="Type at least 2 characters to search..."
@@ -227,9 +205,16 @@ const ContactDetailsSection = () => {
                     value: formState.owner?.id,
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
-                            <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                            {formState.owner ? (
+                                <img
+                                    src={displayImage(formState.owner.avatar)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
                             <div>
-                                <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                <div
+                                    className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                 <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                             </div>
                         </div>

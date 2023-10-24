@@ -3,10 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import Select from "react-select";
-import {searchAccounts,searchContacts,searchSalesOrder,Currencies
-    ,searchLead,searchQuote,searchInvoice,searchOwners, searchRFQ} from "../../../../components/Functions/CommonFunctions";
-import Flatpickr from "react-flatpickr";
+import {
+     searchSalesOrder,
+} from "../../../../components/Functions/CommonFunctions";
 
 const LinkedSOSection = () => {
     const dispatch = useDispatch();
@@ -17,59 +16,53 @@ const LinkedSOSection = () => {
     };
 
 
+    const handleChangeSalesOrder = async (value: string) => {
+        const response = await api_instance.fetchSingleSalesOrder(value);
+        if (response.status != 200)
+            return;
+        const salesOrder = response.data.data.salesOrder;
+        dispatch(updateFormData({['sales_order']: salesOrder}));
+        const account = salesOrder.account
+        if (account == null)
+            return;
 
-    const SOStatusOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'request_for_approval', label: 'Request For Approval'},
-        {value: 'approved', label: 'Approved'},
-        {value: 'confirmed', label: 'Confirmed'},
-        {value: 'packed', label: 'Packed'},
-        {value: 'shipped', label: 'Shipped'},
+        const addressFields = [
+            'billing_street',
+            'billing_city',
+            'billing_state',
+            'billing_code',
+            'billing_country',
+            'shipping_street',
+            'shipping_city',
+            'shipping_state',
+            'shipping_code',
+            'shipping_country',
+        ];
 
-    ];
+        const formDataUpdate: any = {};
+        addressFields.forEach(field => {
+            formDataUpdate[field] = account[field] ?? null;
+        });
+        dispatch(updateFormData(formDataUpdate));
+
+
+    }
 
     const fields = {
         'Linked SO': {
 
 
-            'Account Name': (
-                <AsyncSelect
-                    isMulti={false}
-                    id="account_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="account_id"
-                    loadOptions={searchAccounts}
-                    onChange={({value}: any) => {
-                        handleChangeField('account_id', value)
-                    }}
-                    className="flex-1"
-                    defaultValue={{
-                        value: formState.account?.id,
-                        label: (
-                            <div key={formState.account?.id} className="flex items-center">
-                                <img src={formState.account?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
-                                <div>
-                                    <div className="text-sm font-bold">{formState.account?.account_name}</div>
-                                    <div className="text-xs text-gray-500">{formState.account?.email}</div>
-                                </div>
-                            </div>
-                        ),
-                    }}
-                />
-            ),
-
-
-
             'SO Number': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="sales_order_id"
                     placeholder="Type at least 2 characters to search..."
                     name="sales_order_id"
                     loadOptions={searchSalesOrder}
                     onChange={({value}: any) => {
-                        handleChangeField('sales_order_id', value)
+                        handleChangeField('sales_order_id', value);
+                        handleChangeSalesOrder(value);
                     }}
                     className="flex-1"
                     defaultValue={{
@@ -84,39 +77,45 @@ const LinkedSOSection = () => {
                             </div>
                         )
                     }}
+
+                />
+            ),
+
+            'Account Name': (
+                <input
+                    id="account_id"
+                    name="account_id"
+                    value={formState.sales_order?.account?.account_name}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
                 />
             ),
 
             'Quantity SO': (
                 <input
                     id="quantity_so"
-                    type="number"
                     name="quantity_so"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.quantity_so}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.quantity}
                 />
             ),
             'Resale': (
                 <input
                     id="resale"
-                    type="number"
                     name="resale"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.resale}
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.resale_price}
                 />
             ),
             'SO Status': (
-                <Select
-                options={SOStatusOption}
-                name="so_status"
-                id="so_status"
-                onChange={({value}: any) => {
-                    handleChangeField('so_status', value)
-                }}
-                className="flex-1"
-                defaultValue={SOStatusOption.find((title) => title.value == formState.so_status)}
+                <input
+                    id="so_status"
+                    name="so_status"
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.status}
                 />
             ),
 
@@ -124,58 +123,48 @@ const LinkedSOSection = () => {
         },
         '': {
             'Requested D.D.': (
-                <Flatpickr
-                    options={{
-                        dateFormat: 'Y-m-d ',
-                        position: 'auto left',
-                        defaultDate: `${formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : ''}`,
-                    }}
+                <input
+                    id="so_requested_d_d"
                     name="so_requested_d_d"
-                    value={formState.so_requested_d_d ? new Date(formState.so_requested_d_d) : ''}
-                    className="form-input flex-1"
-                    onChange={(_,dateString) => handleChangeField('so_requested_d_d', dateString)} // Update the field value on change
-
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.requested_delivery_date}
                 />
             ),
             'Confirmed D.D.': (
-                <Flatpickr
-                    options={{
-                        dateFormat: 'Y-m-d ',
-                        position: 'auto left',
-                        defaultDate: `${formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : ''}`,
-                    }}
+                //TODO : what value should set ?
+                <input
+                    id="so_confirmed_d_d"
                     name="so_confirmed_d_d"
-                    value={formState.so_confirmed_d_d ? new Date(formState.so_confirmed_d_d) : ''}
-                    className="form-input flex-1"
-                    onChange={(_,dateString) => handleChangeField('so_confirmed_d_d', dateString)} // Update the field value on change
-
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
                 />
             ),
             'D/C': (
                 <input
-                    id="dc"
-                    name="dc"
-                    className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.dc}
+                    id="dc_so"
+                    name="dc_so"
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.dc}
                 />
             ),
 
 
-
-            'SPQ SO':(
+            'SPQ SO': (
                 <input
-                id="spq_so"
-                name="spq_so"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.spq_so}
-            />
+                    id="spq_so"
+                    name="spq_so"
+                    className="form-input disabled:pointer-events-none bg-[#eee] flex-1 "
+                    disabled
+                    value={formState.sales_order?.spq}
+                />
             ),
 
 
         }
     }
+
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">

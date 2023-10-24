@@ -10,7 +10,7 @@ const PhysicalPropertiesSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
+
     const packageOptions = [
         { label: '-None-', value: 'none' },
         { label: 'SMD', value: 'smd' },
@@ -18,32 +18,32 @@ const PhysicalPropertiesSection = () => {
         { label: 'Peripheral', value: 'peripheral' },
         { label: 'Other', value: 'other' },
     ];
-   
-    
+
+
 
 
     const fields = {
         'Product Information': {
             'Package': (
-                <Select 
-                options={packageOptions} 
-                name="package" 
-                id="package"       
+                <Select
+                options={packageOptions}
+                name="package"
+                id="package"
                 onChange={({value}: any) => {
                     handleChangeField('package', value)
-                }} 
+                }}
                 className="flex-1"
                 defaultValue={{ label: '-None-', value: 'none' }}
                 />
             ),
-           
+
             'Case/Package': (
                 <input
                 id="case_package"
                 name="case_package"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+
                 />
             ),
             'Packaging': (
@@ -52,7 +52,7 @@ const PhysicalPropertiesSection = () => {
                 name="packaging"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+
                 />
             ),
             'Number of Pins': (
@@ -61,18 +61,18 @@ const PhysicalPropertiesSection = () => {
                 name="number_of_pins"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+
                 />
             ),
-          
-            
+
+
         },
         '': {
-            
+
             'Weight': (
                 <input
-                    id="Weight"
-                    name="Weight"
+                    id="weight"
+                    name="weight"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
@@ -96,9 +96,9 @@ const PhysicalPropertiesSection = () => {
                     // defaultValue={formState.name}
                 />
             ),
-           
-            
-            
+
+
+
         }
     }
     return (

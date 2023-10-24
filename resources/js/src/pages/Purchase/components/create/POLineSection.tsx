@@ -73,6 +73,7 @@ const POLineSection = () => {
 
             'Product Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="product_id"
                     placeholder="Type at least 2 characters to search..."

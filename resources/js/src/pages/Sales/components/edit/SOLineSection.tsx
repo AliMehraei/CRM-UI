@@ -62,7 +62,7 @@ const SOLineSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}`,
+                        defaultDate: formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : null as any,
                     }}
                     name="requested_delivery_date"
                     value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
@@ -74,6 +74,7 @@ const SOLineSection = () => {
 
             'Product Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="product_id"
@@ -133,7 +134,7 @@ const SOLineSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}`,
+                        defaultDate: formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : null as any,
                     }}
                     name="estimated_delivery_date"
                     value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}

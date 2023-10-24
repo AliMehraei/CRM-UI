@@ -1,14 +1,13 @@
-import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    searchAccounts, searchContacts, Currencies
-    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, searchSalesOrder, StatusOption, handleUploadFile
+    StatusOption,
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const SalesOrderInformationSection = () => {
     const dispatch = useDispatch();
@@ -45,7 +44,7 @@ const SalesOrderInformationSection = () => {
                     options={{
                         dateFormat: 'Y-m-d ',
                         position: 'auto left',
-                        defaultDate: `${formState.customer_po_date ? new Date(formState.customer_po_date) : ''}`,
+                        defaultDate: formState.customer_po_date ? new Date(formState.customer_po_date) : null as any,
                     }}
                     name="customer_po_date"
                     value={formState.customer_po_date ? new Date(formState.customer_po_date) : ''}
@@ -55,32 +54,25 @@ const SalesOrderInformationSection = () => {
                 />
             ),
             'PO Upload': (
-                <div className="flex">
-                    <input
-                        id="po_upload"
-                        key="po_upload"
-                        type="file"
-                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                        accept="*"
-                        onChange={(e) => handleUploadFile(e, (response: any) => {
-                            dispatch(updateFormData({'po_upload': `${response?.data.data.file_url}`}));
-                        })}
-                        name="po_upload"
-                    />
-                    <a className="ml-1 btn btn-outline-primary" href={formState.po_upload} target="_blank">Download</a>
-                </div>
+                <FileUploadComponent
+                    id={'po_upload'}
+                    modelName="salesOrder"
+                    formState={formState}
+                    formAttribute={'po_upload'}
+                    updateFormdata={updateFormData}
+                />
 
             ),
             'SO Type': (
                 <Select
                     options={SOTypeOption}
-                    name="po_type"
-                    id="po_type"
+                    name="so_type"
+                    id="so_type"
                     onChange={({value}: any) => {
-                        handleChangeField('po_type', value)
+                        handleChangeField('so_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={SOTypeOption.find((title) => title.value == formState.po_type)}
+                    defaultValue={SOTypeOption.find((title) => title.value == formState.so_type)}
                 />
             ),
             'Parent SO Nr.': (

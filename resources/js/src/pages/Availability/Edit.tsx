@@ -3,13 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import {resetForm, updateFormData} from "../../store/availabilityFormSlice";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import AvailabilityFormFields from "./components/edit/AvailabilityFormFields";
 import 'flatpickr/dist/flatpickr.css';
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.availabilityForm);
     const dispatch = useDispatch();
     const api = new Api();
@@ -20,6 +22,11 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Availability Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -45,9 +52,12 @@ const Edit = () => {
     };
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
     return (
+        (!hasPermission(`update-availability`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -56,6 +66,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
+        )
     );
 };
 

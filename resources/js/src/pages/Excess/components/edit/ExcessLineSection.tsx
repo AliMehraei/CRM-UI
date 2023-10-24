@@ -17,7 +17,8 @@ const ExcessLineSection = () => {
 
     const fields = {
         'Excess Line': {
-            'Product name': <AsyncSelect isMulti={false} id="product_name" name="product_name"
+            'Product name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_name" name="product_name"
                                          required
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchProducts}
@@ -40,10 +41,12 @@ const ExcessLineSection = () => {
             'Quantity': <input id="quantity" type="text" name="quantity"
                                className="form-input flex-1 "
                                defaultValue={formState.quantity}
+                               required
                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
             'Cost': <input id="cost" type="text" name="cost"
                            className="form-input flex-1 "
                            defaultValue={formState.cost}
+                           required
                            onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
         },
         '': {

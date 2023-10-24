@@ -1,43 +1,23 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
-import { updateFormData } from "../../../../store/productFormSlice";
+import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess } from "../../../../components/Functions/CommonFunctions";
 
 const TechDataSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
-    const searchProduct = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'product_name';
-
-        const result = await api_instance.searchProduct({ query: query });
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
     const searchCategoryProduct = async (query: string) => {
         const valField = 'id';
         const nameField = 'name';
 
-        const result = await api_instance.searchCategoryProduct({ query: query });
+        const result = await api_instance.searchCategoryProduct({query: query});
 
         if (result.status) {
             return result.data.data.map((data: any) => ({
@@ -55,7 +35,7 @@ const TechDataSection = () => {
 
 
     const duplicatedOptions = [
-        { label: '-None-', value: 'none' },
+        {label: '-None-', value: 'none'},
         {
             label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
             value: 'must_be_deleted'
@@ -74,7 +54,7 @@ const TechDataSection = () => {
         },
     ];
     const usageUnitOptions = [
-        { label: 'PCS', value: 'pcs' },
+        {label: 'PCS', value: 'pcs'},
     ];
 
 
@@ -82,13 +62,14 @@ const TechDataSection = () => {
         'Tech Data': {
             'Category': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="product_category_id"
                     placeholder="Type at least 2 characters to search..."
                     name="product_category_id"
                     loadOptions={searchCategoryProduct}
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('product_category_id', value)
                     }}
                     className="flex-1"
@@ -96,7 +77,7 @@ const TechDataSection = () => {
                         value: formState.product_category_id,
                         label: (
                             <div key={formState.product_category_id}
-                                className="flex items-center">
+                                 className="flex items-center">
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.category?.name}</div>
@@ -350,11 +331,11 @@ const TechDataSection = () => {
                     options={usageUnitOptions}
                     name="usage_unit"
                     id="usage_unit"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('usage_unit', value)
                     }}
                     className="flex-1"
-                    defaultValue={formState.usage_unit}
+                    defaultValue={usageUnitOptions.find(data => data.value == formState.usage_unit)}
                 />
             ),
             'Unit Price': (
@@ -462,7 +443,7 @@ const TechDataSection = () => {
                     options={duplicatedOptions}
                     name="duplicated_status"
                     id="duplicated_status"
-                    onChange={({ value }: any) => {
+                    onChange={({value}: any) => {
                         handleChangeField('duplicated_status', value)
                     }}
                     className="flex-1"
@@ -484,7 +465,7 @@ const TechDataSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields} />
+                <GenerateFields fields={fields}/>
             </div>
         </>
     )

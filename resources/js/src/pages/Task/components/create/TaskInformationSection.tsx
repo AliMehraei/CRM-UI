@@ -19,32 +19,33 @@ const TaskInformationSection = () => {
 
 
     const Priority = [
-        {value: 'none', label: '-None-'},
-        {value: 'account_contact', label: 'Account or Contact exist already'},
-        {value: 'wrong_branch', label: 'Wrong Branch'},
-        {value: 'wrong_department', label: 'Wrong Department'},
-        {value: 'does_not_exist', label: 'Does Not Exist Anymore'},
-        {value: 'bankruptcy', label: 'Bankruptcy'},
-        {value: 'other', label: 'Other'},
-
+        { value: '-None-', label: '-None-' },
+        { value: 'Account or Contact exist already', label: 'Account or Contact exist already' },
+        { value: 'Wrong Branch', label: 'Wrong Branch' },
+        { value: 'Wrong Department', label: 'Wrong Department' },
+        { value: 'Does Not Exist Anymore', label: 'Does Not Exist Anymore' },
+        { value: 'Bankruptcy', label: 'Bankruptcy' },
+        { value: 'Hoch', label: 'Hoch' },
+        { value: 'Other', label: 'Other' },
     ];
+
     const TaskStatus = [
-        {value: 'none', label: '-None-'},
-        {value: '0_cold_task', label: '0.0 Cold task / unqualified (CLU)'},
-        {value: '1_cold_task', label: '1.0 Cold task qualified (CLQ)'},
-        {value: '2_first_contract', label: '2.0 First contact made (FCM)'},
-        {value: '3_warm_task', label: '3.0 warm task qualified (WLQ)'},
-        {value: '4_hot_task', label: '4.0 Hot task (HLQ)'},
-        {value: 'close_task', label: 'Close Task / Lost Task'},
-
+        { value: '-None-', label: '-None-' },
+        { value:'Abgeschlossen' , label: 'Abgeschlossen' },
+        { value: '0.0 Cold task / unqualified (CLU)', label: '0.0 Cold task / unqualified (CLU)' },
+        { value: '1.0 Cold task qualified (CLQ)', label: '1.0 Cold task qualified (CLQ)' },
+        { value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)' },
+        { value: '3.0 warm task qualified (WLQ)', label: '3.0 warm task qualified (WLQ)' },
+        { value: '4.0 Hot task (HLQ)', label: '4.0 Hot task (HLQ)' },
+        { value: 'Close Task / Lost Task', label: 'Close Task / Lost Task' },
     ];
-
 
 
     const fields = {
         'Task Information': {
             'Task Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -67,9 +68,9 @@ const TaskInformationSection = () => {
                 />
             ),
             'Due Date': (
-                <Flatpickr name='due_date' options={{ dateFormat: 'd-m-Y' }}
+                <Flatpickr name='due_date' options={{ dateFormat: 'Y-m-d ' }}
                 className="form-input flex-1"
-                placeholder="MM DD YYYY"
+                placeholder="YYYY-MM-DD"
                 onChange={(_,dateString) => handleChangeField('due_date', dateString)} />
             ),
             'Status': (
@@ -94,31 +95,21 @@ const TaskInformationSection = () => {
                 className="flex-1"
                 />
             ),
-            'Repeat':(
-                <input
-                id="repeat"
-                type="checkbox"
-                name="repeat"
-                disabled
-                className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
-                />
-            )
-            
+
         },
         'Description Information': {
             'Description': (
-                <textarea 
-                id="description" 
-                rows={6} 
+                <textarea
+                id="description"
+                rows={6}
                 name="description"
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.description}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
-                
+
             ),
-            
+
         }
     }
     return (

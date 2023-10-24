@@ -6,10 +6,12 @@ import 'flatpickr/dist/flatpickr.css';
 import {resetForm, updateFormData} from "../../store/accountFormSlice";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
-import LoadingAlpyn from "../../components/LoadingAlpyn";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
 import AccountFormFields from "./components/edit/AccountFormFields";
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.accountForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -20,6 +22,11 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Account Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleAccount',
@@ -46,8 +53,11 @@ const Edit = () => {
         dispatch(updateFormData(account));
     };
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
     return (
+        (!hasPermission(`update-account`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -56,7 +66,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

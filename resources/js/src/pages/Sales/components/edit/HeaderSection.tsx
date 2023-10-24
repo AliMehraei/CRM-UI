@@ -4,8 +4,10 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchContacts,Currencies
-    ,searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals} from "../../../../components/Functions/CommonFunctions";
+import {
+    searchContacts, Currencies
+    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals, displayImage
+} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
 const HeaderSection = () => {
@@ -25,37 +27,38 @@ const HeaderSection = () => {
     ];
 
 
-
     const fields = {
         'Header': {
 
             'Account Name': (
                 <AsyncSelect
-                isMulti={false}
-                required
-                id="account_id"
-                placeholder="Type at least 2 characters to search..."
-                name="account_id"
-                loadOptions={searchAccounts}
-                onChange={({value}: any) => {
-                    handleChangeField('account_id', value)
-                }}
-                className="flex-1"
-                defaultValue={{
-                    value: formState.account?.id,
-                    label: (
-                        <div key={formState.account?.id} className="flex items-center">
-                            <div>
-                                <div className="text-sm font-bold">{formState.account?.account_name}</div>
-                                <div className="text-xs text-gray-500">{formState.account?.email}</div>
+                    defaultOptions={true}
+                    isMulti={false}
+                    required
+                    id="account_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="account_id"
+                    loadOptions={searchAccounts}
+                    onChange={({value}: any) => {
+                        handleChangeField('account_id', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={{
+                        value: formState.account?.id,
+                        label: (
+                            <div key={formState.account?.id} className="flex items-center">
+                                <div>
+                                    <div className="text-sm font-bold">{formState.account?.account_name}</div>
+                                    <div className="text-xs text-gray-500">{formState.account?.email}</div>
+                                </div>
                             </div>
-                        </div>
-                    ),
-                }}
-            />
+                        ),
+                    }}
+                />
             ),
             'Contact Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="contact_id"
@@ -70,9 +73,16 @@ const HeaderSection = () => {
                         value: formState.contact?.id,
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
-                                <img src={formState.contact?.image} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.contact ? (
+                                    <img
+                                        src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.contact?.first_name + ' '+ formState.contact?.last_name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.contact?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
                                 </div>
                             </div>
@@ -82,8 +92,8 @@ const HeaderSection = () => {
             ),
             'Quote Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
-                    required
                     id="quote_id"
                     placeholder="Type at least 2 characters to search..."
                     name="quote_id"
@@ -104,24 +114,23 @@ const HeaderSection = () => {
             ),
             'Currency': (
                 <Select
-                options={Currencies}
-                name="currency"
-                id="currency"
-                onChange={({value}: any) => {
-                    handleChangeField('currency', value)
-                }}
-                className="flex-1"
-                defaultValue={Currencies.find((title) => title.value == formState.currency)}
+                    options={Currencies}
+                    name="currency"
+                    id="currency"
+                    onChange={({value}: any) => {
+                        handleChangeField('currency', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={Currencies.find((title) => title.value == formState.currency)}
                 />
             ),
-
-
 
 
         },
         '': {
             'Deals Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="deal_id"
@@ -144,18 +153,19 @@ const HeaderSection = () => {
             ),
             'Deal Stage': (
                 <Select
-                options={DealStageOption}
-                name="deal_stage"
-                id="deal_stage"
-                onChange={({value}: any) => {
-                    handleChangeField('deal_stage', value)
-                }}
-                className="flex-1"
-                defaultValue={DealStageOption.find((title) => title.value == formState.deal_stage)}
+                    options={DealStageOption}
+                    name="deal_stage"
+                    id="deal_stage"
+                    onChange={({value}: any) => {
+                        handleChangeField('deal_stage', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={DealStageOption.find((title) => title.value == formState.deal_stage)}
                 />
             ),
             'SalesOrders Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="owner_id"
@@ -170,9 +180,16 @@ const HeaderSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.owner ? (
+                                    <img
+                                        src={displayImage(formState.owner.avatar)}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>
@@ -182,6 +199,7 @@ const HeaderSection = () => {
             ),
             'Sales Person': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="sales_person_id"
@@ -196,7 +214,13 @@ const HeaderSection = () => {
                         value: formState.sales_person?.id,
                         label: (
                             <div key={formState.sales_person?.id} className="flex items-center">
-                                <img src={formState.sales_person?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.sales_person ? (
+                                    <img
+                                        src={formState.sales_person.image ?? '/assets/images/user-profile.jpeg'}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
+                                ) : null}
                                 <div>
                                     <div className="text-sm font-bold">{formState.sales_person?.name}</div>
                                     <div className="text-xs text-gray-500">{formState.sales_person?.email}</div>
@@ -208,6 +232,7 @@ const HeaderSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
                     required
@@ -222,9 +247,16 @@ const HeaderSection = () => {
                         value: formState.approved_by?.id,
                         label: (
                             <div key={formState.approved_by?.id} className="flex items-center">
-                                <img src={formState.approved_by?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                                {formState.approved_by ? (
+                                    <img
+                                        src={formState.approved_by.image ?? '/assets/images/user-profile.jpeg'}
+                                        alt="avatar"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.approved_by?.name}</div>
+                                    <div
+                                        className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>
                                 </div>
                             </div>
@@ -234,10 +266,10 @@ const HeaderSection = () => {
             ),
             'Exchange Rate': (
                 <input id="exchange_rate"
-                    name="exchange_rate" type="text"
-                    className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                    disabled
-                    defaultValue={formState.exchange_rate ?? 1}
+                       name="exchange_rate" type="text"
+                       className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                       disabled
+                       defaultValue={formState.exchange_rate ?? 1}
                 />
             ),
 

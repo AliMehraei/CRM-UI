@@ -2,7 +2,7 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {searchAccounts} from "../../../../components/Functions/CommonFunctions";
+import {displayImage, searchAccounts} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
@@ -58,7 +58,7 @@ const AccountInformationSection = () => {
                 defaultValue={formState.email}
             />),
             'Website': (<input
-                required
+
                 id="website"
                 name="website"
                 className="form-input flex-1 "
@@ -79,6 +79,7 @@ const AccountInformationSection = () => {
             />),
 
             'Parent Account': <AsyncSelect
+                defaultOptions={true}
                 isMulti={false}
                 id="parent_account_id"
                 placeholder="Type at least 2 characters to search..."
@@ -91,11 +92,16 @@ const AccountInformationSection = () => {
                     value: formState.parent?.id,
                     label: (
                         <div key={formState.parent?.id} className="flex items-center">
-                            <img src={formState.parent?.image} alt="avatar"
-                                 className="w-8 h-8 mr-2 rounded-full"/>
+                            {formState.parent ? (
+                                <img
+                                    src={displayImage(formState.parent.image)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.parent?.name}</div>
+                                    className="text-sm font-bold">{formState.parent?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.parent?.email}</div>
                             </div>
@@ -136,6 +142,7 @@ const AccountInformationSection = () => {
             />,
 
             'Child Account': <AsyncSelect
+                defaultOptions={true}
                 isMulti={false}
                 id="child_account_id"
                 placeholder="Type at least 2 characters to search..."
@@ -147,14 +154,19 @@ const AccountInformationSection = () => {
                 defaultValue={{
                     value: formState.child?.id,
                     label: (
-                        <div key={formState.parent?.id} className="flex items-center">
-                            <img src={formState.parent?.image} alt="avatar"
-                                 className="w-8 h-8 mr-2 rounded-full"/>
+                        <div key={formState.child?.id} className="flex items-center">
+                            {formState.child ? (
+                                <img
+                                    src={displayImage(formState.child.image)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.parent?.name}</div>
+                                    className="text-sm font-bold">{formState.child?.account_name}</div>
                                 <div
-                                    className="text-xs text-gray-500">{formState.parent?.email}</div>
+                                    className="text-xs text-gray-500">{formState.child?.email}</div>
                             </div>
                         </div>
                     ),

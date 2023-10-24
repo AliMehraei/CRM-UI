@@ -14,7 +14,8 @@ export const LineSection = () => {
     };
     const fields = {
         'RFQ Line': {
-            'Product Name': <AsyncSelect isMulti={false} id="product_id"
+            'Product Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchProducts}
                                          onChange={({value}: any) => {
@@ -47,7 +48,8 @@ export const LineSection = () => {
                                    className="form-input flex-1 "/>,
         },
         '': {
-            'Alternative Products': <AsyncSelect id="alternative_products" name="alternative_products"
+            'Alternative Products': <AsyncSelect
+                    defaultOptions={true} id="alternative_products" name="alternative_products"
                                                  placeholder="Type at least 2 characters to search..."
                                                  loadOptions={searchProducts}
                                                  onChange={(values: any) => {
@@ -68,7 +70,8 @@ export const LineSection = () => {
                                                      : []
                                                  }
                                                  className="flex-1"/>,
-            'Availability': <AsyncSelect isMulti={false} id="availability" name="availability_id"
+            'Availability': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="availability" name="availability_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAvailability}
                                          onChange={({value}: any) => {
@@ -84,7 +87,8 @@ export const LineSection = () => {
                                              ),
                                          }}
                                          className="flex-1"/>,
-            'Excess': <AsyncSelect isMulti={false} id="excess_id"
+            'Excess': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="excess_id"
                                    name="excess_id"
                                    placeholder="Type at least 2 characters to search..."
                                    loadOptions={searchExcess}

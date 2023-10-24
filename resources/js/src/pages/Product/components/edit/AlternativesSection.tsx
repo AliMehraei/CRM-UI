@@ -22,6 +22,7 @@ const AlternativesSection = () => {
 
             'Alternative MPN 1': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
 
                     id="alternative_mpn_1_id"
@@ -48,6 +49,7 @@ const AlternativesSection = () => {
             ),
             'Alternative MPN 2': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
 
                     id="alternative_mpn_2_id"
@@ -78,6 +80,7 @@ const AlternativesSection = () => {
         '': {
             'Alternative MPN 3': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
 
                     id="alternative_mpn_3_id"
@@ -104,6 +107,7 @@ const AlternativesSection = () => {
             ),
             'Alternative MPN 4': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
 
                     id="alternative_mpn_4_id"

@@ -1,46 +1,20 @@
 import AsyncSelect from "react-select/async";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    handleUploadFile,
-    Currencies,
-    PortalAccess,
+    displayImage,
     searchOwners,
-    getImageSource
 } from "../../../../components/Functions/CommonFunctions";
-import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 
 const LeadInformationSection = () => {
     const dispatch = useDispatch();
-    const api_instance = new api();
     const formState = useSelector((state: any) => state.leadForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-
-    const searchLead = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'lead_name';
-
-        const result = await api_instance.searchLead({ query: query });
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
-    };
-
 
     const LostReason = [
         { value: 'none', label: '-None-' },
@@ -53,13 +27,13 @@ const LeadInformationSection = () => {
 
     ];
     const LeadStatus = [
-        { value: 'none', label: '-None-' },
-        { value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)' },
-        { value: '1_cold_lead', label: '1.0 Cold lead qualified (CLQ)' },
-        { value: '2_first_contract', label: '2.0 First contact made (FCM)' },
-        { value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)' },
-        { value: '4_hot_lead', label: '4.0 Hot lead (HLQ)' },
-        { value: 'close_lead', label: 'Close Lead / Lost Lead' },
+        {value: 'none', label: '-None-'},
+        {value: '0.0 Cold lead / unqualified (CLU)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead / unqualified (CLU)</>)},
+        {value: '1.0 Cold lead qualified (CLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-300 rounded-full"></span>1.0 Cold lead qualified (CLQ)</>)},
+        {value: '2.0 First contact made (FCM)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-purple-200 rounded-full"></span>2.0 First contact made (FCM)</>)},
+        {value: '3.0 warm lead qualified (WLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-300 rounded-full"></span>3.0 warm lead qualified (WLQ)</>)},
+        {value: '4.0 Hot lead (HLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-600 rounded-full"></span>4.0 Hot lead (HLQ)</>)},
+        {value: 'Close Lead / Lost Lead', label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Close Lead / Lost Lead</>)},
 
     ];
     const CompanyType = [
@@ -93,33 +67,12 @@ const LeadInformationSection = () => {
     const fields = {
         'Lead Information': {
             'Lead Image': (
-                <div className="">
-                    <div className="flex">
-                        <input
-                            id="image"
-                            key="image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="image"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
+                <ImageUploadComponent formState={formState}
+                                      modelName={'lead'}
+                                      id={'image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ),
             'Status': (
                 <Select
@@ -156,6 +109,7 @@ const LeadInformationSection = () => {
             ),
             'Lead Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -169,9 +123,15 @@ const LeadInformationSection = () => {
                         value: formState.owner?.id,
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
-                                <img src={formState.owner?.avatar} alt="avatar" className="w-8 h-8 mr-2 rounded-full" />
+                               {formState.owner ? (
+                                <img
+                                    src={displayImage(formState.owner.avatar)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                                ) : null}
                                 <div>
-                                    <div className="text-sm font-bold">{formState.owner?.name}</div>
+                                    <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
                             </div>

@@ -9,16 +9,46 @@ import {
     searchAccounts,
     searchOwners,
     Stages,
-    searchContacts, searchSalesOrder
+    searchContacts, searchSalesOrder, displayImage
 } from "../../../../components/Functions/CommonFunctions";
+import api from "../../../../config/api";
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.invoiceForm);
+    const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
+
+     const handleChangeAccount = async (value: string) => {
+        const accountResponse = await api_instance.fetchSingleAccount(value);
+        if (accountResponse.status != 200)
+            return;
+        const account = accountResponse.data.data.account;
+        dispatch(updateFormData({['account']: account}));
+
+
+        const addressFields = [
+            'billing_street',
+            'billing_city',
+            'billing_state',
+            'billing_code',
+            'billing_country',
+            'shipping_street',
+            'shipping_city',
+            'shipping_state',
+            'shipping_code',
+            'shipping_country',
+        ];
+
+        const formDataUpdate: any = {};
+        addressFields.forEach(field => {
+            formDataUpdate[field] = account[field] ?? null;
+        });
+        dispatch(updateFormData(formDataUpdate));
+    }
 
 
     const Statuses = [
@@ -33,7 +63,8 @@ const InvoiceInformationSection = () => {
 
     const fields = {
         'Invoice Information': {
-            'Invoice Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
+            'Invoice Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
                                           placeholder="Type at least 2 characters to search..."
                                           loadOptions={searchOwners}
                                           className="flex-1"
@@ -44,11 +75,16 @@ const InvoiceInformationSection = () => {
                                               value: formState.owner?.id,
                                               label: (
                                                   <div key={formState.owner?.id} className="flex items-center">
-                                                      <img src={formState.owner?.avatar} alt="avatar"
-                                                           className="w-8 h-8 mr-2 rounded-full"/>
+                                                      {formState.owner ? (
+                                                          <img
+                                                              src={displayImage(formState.owner.avatar)}
+                                                              alt="avatar"
+                                                              className="w-8 h-8 mr-2 rounded-full"
+                                                          />
+                                                      ) : null}
                                                       <div>
                                                           <div
-                                                              className="text-sm font-bold">{formState.owner?.name}</div>
+                                                              className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                                           <div
                                                               className="text-xs text-gray-500">{formState.owner?.email}</div>
                                                       </div>
@@ -69,12 +105,12 @@ const InvoiceInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.invoice_date ? new Date(formState.invoice_date) : ''}`,
+                    defaultDate: formState.invoice_date ? new Date(formState.invoice_date) : null as any,
                 }}
                 value={formState.invoice_date}
                 className="form-input flex-1"
                 name="invoice_date"
-                onChange={(_,dateString) => handleChangeField('invoice_date', dateString)}
+                onChange={(_, dateString) => handleChangeField('invoice_date', dateString)}
 
 
             />,
@@ -82,12 +118,12 @@ const InvoiceInformationSection = () => {
                 options={{
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
-                    defaultDate: `${formState.due_date ? new Date(formState.due_date) : ''}`,
+                    defaultDate: formState.due_date ? new Date(formState.due_date) : null as any,
                 }}
                 value={formState.invoice_date}
                 name="due_date"
                 className="form-input flex-1"
-                onChange={(_,dateString) => handleChangeField('due_date', dateString)}
+                onChange={(_, dateString) => handleChangeField('due_date', dateString)}
 
 
             />,
@@ -101,6 +137,7 @@ const InvoiceInformationSection = () => {
                 />
             ),
             'Account Name': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="account_id"
                 placeholder="Type at least 2 characters to search..."
@@ -108,17 +145,24 @@ const InvoiceInformationSection = () => {
                 loadOptions={searchAccounts}
                 onChange={({value}: any) => {
                     handleChangeField('account_id', value)
+                    handleChangeAccount(value);
+
                 }}
                 className="flex-1"
                 defaultValue={{
                     value: formState.account?.id,
                     label: (
                         <div key={formState.account?.id} className="flex items-center">
-                            <img src={formState.account?.image} alt="avatar"
-                                 className="w-8 h-8 mr-2 rounded-full"/>
+                            {formState.account ? (
+                                <img
+                                    src={displayImage(formState.account.image)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
                             <div>
                                 <div
-                                    className="text-sm font-bold">{formState.account?.name}</div>
+                                    className="text-sm font-bold">{formState.account?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
@@ -142,6 +186,7 @@ const InvoiceInformationSection = () => {
         },
         '': {
             'Sales Order': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="sales_order_id"
                 placeholder="Type at least 2 characters to search..."
@@ -199,6 +244,7 @@ const InvoiceInformationSection = () => {
                 defaultValue={Statuses.find((data) => data.value == formState.status)}
             />,
             'Contact Name': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="contact_id"
                 placeholder="Type at least 2 characters to search..."

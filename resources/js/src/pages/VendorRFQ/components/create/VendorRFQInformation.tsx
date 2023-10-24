@@ -36,6 +36,7 @@ const VendorRFQInformation = () => {
             />),
             'Vendor Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
@@ -82,13 +83,14 @@ const VendorRFQInformation = () => {
             ),
             'Related RFQs': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={true}
-                    id="related_rfqs"
+                    id="related_rfqs_id"
                     placeholder="Type at least 2 characters to search..."
-                    name="related_rfqs"
+                    name="related_rfqs_id"
                     loadOptions={searchRFQ}
-                    onChange={({ value }: any) => {
-                        handleChangeField('related_rfqs', value)
+                    onChange={(values: any) => {
+                        handleChangeField('related_rfqs_id', values.map((v: any) => v.value))
                     }}
                     className="flex-1"
                 />
@@ -104,15 +106,16 @@ const VendorRFQInformation = () => {
                 <Flatpickr
                 name="date"
                 options={{
-                    dateFormat: 'd-m-Y',
+                    dateFormat: 'Y-m-d ',
                 }}
                 className="form-input flex-1"
-                placeholder="MM DD YYYY"
+                placeholder="YYYY-MM-DD"
                 onChange={(_,dateString) => handleChangeField('date', dateString)}
                 />
             ),
             'Vendor RFQ Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."

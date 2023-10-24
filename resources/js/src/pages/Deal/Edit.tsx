@@ -6,11 +6,13 @@ import DealFormFields from "./components/edit/DealFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
 import {resetForm, updateFormData} from "../../store/dealFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn"
+import LoadingSasCrm from "../../components/LoadingSasCrm"
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.dealForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -21,6 +23,10 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Deal Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
 
     const fetchData = async () => {
         const dealResponse = await api.fetchSingleDeal(dealId);
@@ -43,7 +49,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleDeal',
-            redirectTo: 'updateSingleDeal',
+            redirectTo: '/deal/edit/:id',
             action: 'edit'
         };
 
@@ -51,9 +57,12 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
     return (
+        (!hasPermission(`update-deal`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -62,7 +71,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

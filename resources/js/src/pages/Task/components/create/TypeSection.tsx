@@ -39,11 +39,13 @@ const TypeSection = () => {
     };
 
     const userableType = [
+        { value: null, label: "-None-" },
         { value: "App\\Models\\Lead", label: "Lead" },
         { value: "App\\Models\\Contact", label: "Contact" },
     ];
 
     const moduleableType = [
+        { value: null, label: "-None-" },
         { value: "App\\Models\\Account", label: "Account", api: searchAccounts },
         { value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor },
         { value: "App\\Models\\Quote", label: "Quote", api: searchQuote },
@@ -60,13 +62,11 @@ const TypeSection = () => {
     ];
     const searchModule = (e: any) => {
         const module: any = moduleableType.find(m => m.value === selectedModule) ?? {
-            value: "App\\Models\\Account",
-            label: "Account",
+            value: null,
+            label: null,
             api: searchAccounts
         }
-        console.log('====================================');
-        console.log(module.api);
-        console.log('====================================');
+
         return module.api.call(null, e);
 
     }
@@ -91,6 +91,7 @@ const TypeSection = () => {
                         options={userableType}
                     />
                     <AsyncSelect
+                    defaultOptions={true}
                         key={selectedType}
                         isMulti={false}
                         id="userable_id"
@@ -126,6 +127,7 @@ const TypeSection = () => {
                         options={moduleableType}
                     />
                     <AsyncSelect
+                    defaultOptions={true}
                         key={selectedModule}
                         isMulti={false}
                         id="moduleable_id"

@@ -5,10 +5,12 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import VendorFormFields from "./components/edit/VendorFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import {resetForm, updateFormData} from '../../store/vendorFormSlice';
-import LoadingAlpyn from '../../components/LoadingAlpyn';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 import Api from '../../config/api';
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.vendorForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -19,6 +21,10 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Vendor Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
 
     const fetchData = async () => {
         const vendorResponse = await api.fetchSingleVendor(vendorId);
@@ -47,10 +53,13 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
 
     return (
+        (!hasPermission(`update-vendor`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -59,6 +68,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
+        )
 
     );
 };

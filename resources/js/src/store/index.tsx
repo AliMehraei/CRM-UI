@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import themeConfigSlice from './themeConfigSlice';
 import rfqFormSlice from "./rfqFormSlice";
 import manufacturerFormSlice from "./manufacturerFormSlice";
@@ -17,6 +17,10 @@ import salesOrderFormSlice from "./salesOrderFormSlice";
 import vendorRfqFormSlice from "./vendorRfqFormSlice";
 import availabilityFormSlice from "./availabilityFormSlice";
 import taskFormSlice from './taskFormSlice'
+import authSlice from './authSlice'
+import permissionSlice from './permissionSlice'
+import userFormSlice from "./userFormSlice";
+import FilterSlice from "./filterSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -37,7 +41,10 @@ const rootReducer = combineReducers({
     vendorRfqForm: vendorRfqFormSlice,
     availabilityForm: availabilityFormSlice,
     taskForm: taskFormSlice,
-
+    auth: authSlice,
+    permissions: permissionSlice,
+    userForm: userFormSlice,
+    filters: FilterSlice,
 });
 
 export default configureStore({

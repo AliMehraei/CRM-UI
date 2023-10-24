@@ -6,10 +6,12 @@ import ActionButtonsComponent from "../../components/FormFields/ActionButtonsCom
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import {resetForm, updateFormData} from "../../store/invoiceFormSlice";
-import LoadingAlpyn from "../../components/LoadingAlpyn"
+import LoadingSasCrm from "../../components/LoadingSasCrm"
 import 'flatpickr/dist/flatpickr.css';
+import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.invoiceForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -20,6 +22,10 @@ const Edit = () => {
     useEffect(() => {
         dispatch(setPageTitle('Invoice Edit'));
     });
+
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
 
     const fetchData = async () => {
         const invoiceResponse = await api.fetchSingleInvoice(invoiceId);
@@ -49,9 +55,12 @@ const Edit = () => {
     }, []);
 
     if (loading)
-        return <LoadingAlpyn/>
+        return <LoadingSasCrm/>
 
     return (
+        (!hasPermission(`update-invoice`) || loading ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -60,7 +69,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

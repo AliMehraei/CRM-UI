@@ -2,14 +2,14 @@ import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    Currencies, getImageSource,
-    handleUploadFile,
-    searchAccounts,
+    Currencies, displayImage,
+    searchAccounts, searchContacts,
     searchOwners
 } from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/excessFormSlice";
-import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -30,79 +30,71 @@ const HeaderSection = () => {
     const fields = {
         'Header': {
             'Excess Image':
-                <div className="">
-                    <div className="flex">
-                        <input
-                            id="excess_image"
-                            key="excess_image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'excess_image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="excess_image"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('excess_image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'excess_image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="excess_image_preview"
-                        src={getImageSource(formState.excess_image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
+                <ImageUploadComponent
+                    id={'image'}
+                    modelName="excess"
+                    formState={formState}
+                    formAttribute={'image'}
+                    updateFormdata={updateFormData}
+                />
             ,
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
-                                         required
-                                         placeholder="Type at least 2 characters to search..."
-                                         loadOptions={searchAccounts}
-                                         onChange={({value}: any) => {
-                                             handleChangeField('account_id', value)
-                                         }}
-                                         defaultValue={{
-                                             value: formState.account?.id,
-                                             label: (
-                                                 <div key={formState.account?.id} className="flex items-center">
-                                                     <img src={formState.account?.image} alt="avatar"
-                                                          className="w-8 h-8 mr-2 rounded-full"/>
-                                                     <div>
-                                                         <div
-                                                             className="text-sm font-bold">{formState.account?.name}</div>
-                                                         <div
-                                                             className="text-xs text-gray-500">{formState.account?.email}</div>
-                                                     </div>
-                                                 </div>
-                                             ),
-                                         }}
-                                         className="flex-1"/>,
-            'Contact': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
-                                    placeholder="Type at least 2 characters to search..."
-                                    loadOptions={searchOwners}
-                                    onChange={({value}: any) => {
-                                        handleChangeField('contact_id', value)
-                                    }}
-                                    defaultValue={{
-                                        value: formState.contact?.id,
-                                        label: (
-                                            <div key={formState.contact?.id} className="flex items-center">
-                                                <img src={formState.contact?.image} alt="avatar"
-                                                     className="w-8 h-8 mr-2 rounded-full"/>
-                                                <div>
-                                                    <div
-                                                        className="text-sm font-bold">{formState.contact?.name}</div>
-                                                    <div
-                                                        className="text-xs text-gray-500">{formState.contact?.email}</div>
-                                                </div>
-                                            </div>
-                                        ),
-                                    }}
-                                    className="flex-1"/>,
+            'Account Name': <AsyncSelect
+                defaultOptions={true} isMulti={false} id="account_id" name="account_id"
+                required
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchAccounts}
+                onChange={({value}: any) => {
+                    handleChangeField('account_id', value)
+                }}
+                defaultValue={{
+                    value: formState.account?.id,
+                    label: (
+                        <div key={formState.account?.id} className="flex items-center">
+                            {formState.account ? (
+                                <img
+                                    src={displayImage(formState.account.image)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
+                            <div>
+                                <div
+                                    className="text-sm font-bold">{formState.account?.account_name}</div>
+                                <div
+                                    className="text-xs text-gray-500">{formState.account?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"/>,
+            'Contact': <AsyncSelect
+                defaultOptions={true} isMulti={false} id="contact_id" name="contact_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchContacts}
+                onChange={({value}: any) => {
+                    handleChangeField('contact_id', value)
+                }}
+                defaultValue={{
+                    value: formState.contact?.id,
+                    label: (
+                        <div key={formState.contact?.id} className="flex items-center">
+                            {formState.contact ? (
+                                <img
+                                    src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
+                            <div>
+                                <div
+                                    className="text-sm font-bold">{formState.contact?.name}</div>
+                                <div
+                                    className="text-xs text-gray-500">{formState.contact?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"/>,
             'Email': <input id="email" type="text" name="email"
                             className="form-input flex-1 "
                             defaultValue={formState.email}
@@ -120,41 +112,41 @@ const HeaderSection = () => {
 
         },
         '': {
-            'Excess Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
-                                         placeholder="Type at least 2 characters to search..."
-                                         loadOptions={searchOwners}
-                                         onChange={({value}: any) => {
-                                             handleChangeField('owner_id', value)
-                                         }}
-                                         defaultValue={{
-                                             value: formState.owner?.id,
-                                             label: (
-                                                 <div key={formState.owner?.id} className="flex items-center">
-                                                     <img src={formState.owner?.image} alt="avatar"
-                                                          className="w-8 h-8 mr-2 rounded-full"/>
-                                                     <div>
-                                                         <div
-                                                             className="text-sm font-bold">{formState.owner?.name}</div>
-                                                         <div
-                                                             className="text-xs text-gray-500">{formState.owner?.email}</div>
-                                                     </div>
-                                                 </div>
-                                             ),
-                                         }}
-                                         className="flex-1"/>,
-            'Excess File': <div className="flex">
-                <input
-                    id="excess_file"
-                    key="excess_file"
-                    type="file"
-                    className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                    onChange={(e) => handleUploadFile(e, (response: any) => {
-                        dispatch(updateFormData({'excess_file': `${response?.data.data.file_url}`}));
-                    })}
-                    name="excess_file"
-                />
-                <a className="ml-1 btn btn-outline-primary cursor-pointer" href={formState.excess_file} target="_blank">Download</a>
-            </div>,
+            'Excess Owner': <AsyncSelect
+                defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchOwners}
+                onChange={({value}: any) => {
+                    handleChangeField('owner_id', value)
+                }}
+                defaultValue={{
+                    value: formState.owner?.id,
+                    label: (
+                        <div key={formState.owner?.id} className="flex items-center">
+                            {formState.owner ? (
+                                <img
+                                    src={displayImage(formState.owner.avatar)}
+                                    alt="avatar"
+                                    className="w-8 h-8 mr-2 rounded-full"
+                                />
+                            ) : null}
+                            <div>
+                                <div
+                                    className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
+                                <div
+                                    className="text-xs text-gray-500">{formState.owner?.email}</div>
+                            </div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"/>,
+            'Excess File': <FileUploadComponent
+                id={'excess_file'}
+                modelName="excess"
+                formState={formState}
+                formAttribute={'excess_file'}
+                updateFormdata={updateFormData}
+            />,
 
             'Excess Source': <Select name="excess_source" id="excess_source" options={ExcessSources}
                                      onChange={({value}: any) => {

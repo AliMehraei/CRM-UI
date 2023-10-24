@@ -4,17 +4,19 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     Currencies,
-    handleUploadFile, searchAccounts,
+     searchAccounts,
     searchContacts,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
 import {searchOwners} from "../../../../components/Functions/CommonFunctions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/rfqFormSlice";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.rfqFormSlice);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -65,14 +67,16 @@ const HeaderSection = () => {
     const fields = {
 
         'Header': {
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+            'Account Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
                                              handleChangeField('account_id', value)
                                          }}
                                          className="flex-1"/>,
-            'Contact': <AsyncSelect isMulti={false} id="contact" name="contact_id"
+            'Contact': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchContacts}
                                     onChange={({value}: any) => {
@@ -91,21 +95,25 @@ const HeaderSection = () => {
                                   onChange={({value}: any) => {
                                       handleChangeField('rfq_source', value)
                                   }}
+                                  defaultValue={{value: 'none', label: '-None-'}}
                                   className="flex-1"/>,
 
             'RFQ Type': <Select name="rfq_type" required options={RFQTypes}
                                 onChange={({value}: any) => {
                                     handleChangeField('rfq_type', value)
                                 }}
+                                defaultValue={{value: 'none', label: '-None-'}}
                                 className="flex-1"/>,
 
             'Status': <Select name='status' required options={Statuses}
                               onChange={({value}: any) => {
                                   handleChangeField('status', value)
-                              }} className="flex-1"/>,
+                              }}
+                              defaultValue={{value: 'open', label: 'Open'}}
+                              className="flex-1"/>,
 
-            'Date History': <Flatpickr name='date_history' options={{dateFormat: 'd-m-Y'}} className="form-input flex-1"
-                                       placeholder="MM DD YYYY"
+            'Date History': <Flatpickr name='date_history' options={{dateFormat: 'Y-m-d '}} className="form-input flex-1"
+                                       placeholder="YYYY-MM-DD"
                                        onChange={(_, dateString) => handleChangeField('date_history', dateString)}
             />,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
@@ -116,7 +124,8 @@ const HeaderSection = () => {
                                     className="form-input flex-1 "/>,
         },
         '': {
-            'RFQ Owner': <AsyncSelect isMulti={false} id="owner_id"
+            'RFQ Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id"
                                       placeholder="Type at least 2 characters to search..."
                                       loadOptions={searchOwners}
                                       onChange={({value}: any) => {
@@ -129,18 +138,16 @@ const HeaderSection = () => {
                                   }}
                                   className="flex-1"/>,
 
-            'Customer RFQ File': <input
-                name="customer_rfq_file"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({'customer_rfq_file': `${response?.data.data.file_url}`}));
-                })}
+            'Customer RFQ File': <FileUploadComponent
+                id={'customer_rfq_file'}
+                modelName="rfq"
+                formState={formState}
+                formAttribute={'customer_rfq_file'}
+                updateFormdata={updateFormData}
             />,
-            'RFQ Dead Line': <Flatpickr name="rfq_dead_line" options={{dateFormat: 'd-m-Y'}}
+            'RFQ Dead Line': <Flatpickr name="rfq_dead_line" options={{dateFormat: 'Y-m-d '}}
                                         className="form-input flex-1"
-                                        placeholder="MM DD YYYY"
+                                        placeholder="YYYY-MM-DD"
                                         onChange={(_, dateString) => handleChangeField('rfq_dead_line', dateString)}
             />,
 
@@ -151,7 +158,8 @@ const HeaderSection = () => {
                                 }}
             />,
 
-            'Vendor RFQs Line': <AsyncSelect id="vendor_rfqs_line"
+            'Vendor RFQs Line': <AsyncSelect
+                    defaultOptions={true} id="vendor_rfqs_line"
                                              name="vendor_rfqs_line"
                                              placeholder="Type at least 2 characters to search..."
                                              loadOptions={searchVendor}

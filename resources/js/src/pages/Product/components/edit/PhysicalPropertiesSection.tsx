@@ -12,72 +12,70 @@ const PhysicalPropertiesSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
+
     const packageOptions = [
-        { label: '-None-', value: 'none' },
-        { label: 'SMD', value: 'smd' },
-        { label: 'THT', value: 'tht' },
-        { label: 'Peripheral', value: 'peripheral' },
-        { label: 'Other', value: 'other' },
+        {label: '-None-', value: 'none'},
+        {label: 'SMD', value: 'smd'},
+        {label: 'THT', value: 'tht'},
+        {label: 'Peripheral', value: 'peripheral'},
+        {label: 'Other', value: 'other'},
     ];
-   
-    
 
 
     const fields = {
         'Physical Properties': {
             'Package': (
-                <Select 
-                options={packageOptions} 
-                name="package" 
-                id="package"       
-                onChange={({value}: any) => {
-                    handleChangeField('package', value)
-                }} 
-                className="flex-1"
-                defaultValue={packageOptions.find((title) => title.value == formState.package)}
+                <Select
+                    options={packageOptions}
+                    name="package"
+                    id="package"
+                    onChange={({value}: any) => {
+                        handleChangeField('package', value)
+                    }}
+                    className="flex-1"
+                    defaultValue={packageOptions.find((title) => title.value == formState.package)}
                 />
             ),
-           
+
             'Case/Package': (
                 <input
-                id="case_package"
-                name="case_package"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.case_package}
+                    id="case_package"
+                    name="case_package"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.case_package}
                 />
             ),
             'Packaging': (
                 <input
-                id="packaging"
-                name="packaging"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.packaging}
+                    id="packaging"
+                    name="packaging"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.packaging}
                 />
             ),
             'Number of Pins': (
                 <input
-                id="number_of_pins"
-                name="number_of_pins"
-                className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                defaultValue={formState.number_of_pins}
-                />
-            ),
-          
-            
-        },
-        '': {
-            
-            'Weight': (
-                <input
-                    id="Weight"
-                    name="Weight"
+                    id="number_of_pins"
+                    name="number_of_pins"
                     className="form-input flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-                    defaultValue={formState.Weight}
+                    defaultValue={formState.number_of_pins}
+                />
+            ),
+
+
+        },
+        '': {
+
+            'Weight': (
+                <input
+                    id="weight"
+                    name="weight"
+                    className="form-input flex-1 "
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    defaultValue={formState.weight}
                 />
             ),
             'Case Code (Imperial)': (
@@ -98,9 +96,8 @@ const PhysicalPropertiesSection = () => {
                     defaultValue={formState.case_code_metric}
                 />
             ),
-           
-            
-            
+
+
         }
     }
     return (

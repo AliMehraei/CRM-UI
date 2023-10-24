@@ -4,8 +4,11 @@ import { setPageTitle } from '../../store/themeConfigSlice';
 import ManufacturerFormFields from "./components/create/ManufacturerFormFields";
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import { resetForm } from "../../store/manufacturerFormSlice";
+import {useUserStatus} from "../../config/authCheck";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
+    const {hasPermission} = useUserStatus();
     const formState = useSelector((state: any) => state.manufacturerForm);
     const dispatch = useDispatch();
 
@@ -13,7 +16,14 @@ const Add = () => {
         dispatch(setPageTitle('Manufacturer Add'));
     });
 
+    useEffect(() => {
+        dispatch(resetForm());
+    }, []);
+
     return (
+        (!hasPermission(`create-manufacturer`) ) ? (
+            <LoadingSasCrm/>
+        ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm} />
             <div className="flex xl:flex-row flex-col gap-2.5">
@@ -22,7 +32,7 @@ const Add = () => {
                 </div>
             </div>
         </div>
-
+        )
     );
 };
 

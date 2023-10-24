@@ -15,7 +15,8 @@ const SourceSection = () => {
     };
     const fields = {
         'Source': {
-            'Vendor': <AsyncSelect isMulti={false} id="vendor_id" name="vendor_id"
+            'Vendor': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="vendor_id" name="vendor_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchVendor}
                 onChange={({ value }: any) => {
@@ -37,15 +38,16 @@ const SourceSection = () => {
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
             'Availability Date': <Flatpickr name='availability_date'
                 options={{
-                    dateFormat: 'd-m-Y',
-                    defaultDate: `${formState.availability_date ? new Date(formState.availability_date) : ''}`,
+                    dateFormat: 'Y-m-d ',
+                    defaultDate: formState.availability_date ? new Date(formState.availability_date) : null as any,
                 }}
                 defaultValue={formState.availability_date}
                 className="form-input flex-1"
-                placeholder="MM DD YYYY"
+                placeholder="YYYY-MM-DD"
                 onChange={(_,dateString) => handleChangeField('availability_date', dateString)} />,
 
-            'Availability': <AsyncSelect isMulti={false} id="availability_id" name="availability_id"
+            'Availability': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="availability_id" name="availability_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={loadAvailability}
                 onChange={({ value }: any) => {

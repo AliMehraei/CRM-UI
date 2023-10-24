@@ -30,6 +30,7 @@ const FieldsWithSecondaryPrioritySection = () => {
     const fields = {
         'Fields with Secondary Priority': {
             'Approved By': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="approved_by"
                 placeholder="Type at least 2 characters to search..."
@@ -54,7 +55,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 <Select id="contact_activity"
                     name="contact_activity"
                     onChange={({ value }: any) => {
-                        handleChangeField('double_check_status', value)
+                        handleChangeField('contact_activity', value)
                     }}
                     className="flex-1"
                     options={activities}
