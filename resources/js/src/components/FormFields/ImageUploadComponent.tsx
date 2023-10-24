@@ -7,8 +7,8 @@ const ImageUploadComponent = ({formState, modelName, id, formAttribute, updateFo
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (formState[formAttribute]) {
-            dispatch(updateFormData({[`${formAttribute}_preview`]: displayImage(formState[formAttribute])}));
+        if (formState[`${formAttribute}_data`]) {
+            dispatch(updateFormData({[`${formAttribute}_preview`]: displayImage(formState[`${formAttribute}_data`])}));
         }
     }, []);
 
