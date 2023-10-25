@@ -6,6 +6,12 @@ const initState = {
     createRoute: "/call/add",
     redirectTo: "/call/edit/:id",
     action: "create",
+    callable: "contact",
+    relatable: "account",
+    call_type: "ausgehend",
+    subject: "Outgoing call to Unknown",
+    call_purpose: "none",
+    call_result: "none",
 };
 
 const callFormSlice = createSlice({
