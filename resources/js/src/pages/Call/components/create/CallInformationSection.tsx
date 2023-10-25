@@ -86,11 +86,11 @@ const CallInformationSection = () => {
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             </div>,
-            'Call Type': <Select id="call_type" name="call_type" required
+            'Call Type': <Select id="type" name="type" required
                                  options={CallTypes}
                                  defaultValue={{value: 'ausgehend', label: 'Ausgehend'}}
                                  onChange={({value}: any) => {
-                                     handleChangeField('call_type', value)
+                                     handleChangeField('type', value)
                                  }} className="flex-1"/>,
             'Outgoing Call Status': <input id="outgoing_call_status" name="outgoing_call_status" type="text"
                                            placeholder="Readonly input here…"

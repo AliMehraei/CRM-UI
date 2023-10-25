@@ -8,7 +8,7 @@ const initState = {
     action: "create",
     callable: "contact",
     relatable: "account",
-    call_type: "ausgehend",
+    type: "ausgehend",
     subject: "Outgoing call to Unknown",
     call_purpose: "none",
     call_result: "none",
