@@ -56,7 +56,7 @@ const Preview = () => {
         ) : (
             <div>
                 <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
-                    <button type="button" className="btn btn-primary gap-2" onClick={() => exportTable()}>
+                    <button type="button" className="btn btn-info gap-2" onClick={() => exportTable()}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M6 17.9827C4.44655 17.9359 3.51998 17.7626 2.87868 17.1213C2 16.2426 2 14.8284 2 12C2 9.17157 2 7.75736 2.87868 6.87868C3.75736 6 5.17157 6 8 6H16C18.8284 6 20.2426 6 21.1213 6.87868C22 7.75736 22 9.17157 22 12C22 14.8284 22 16.2426 21.1213 17.1213C20.48 17.7626 19.5535 17.9359 18 17.9827"
@@ -84,7 +84,7 @@ const Preview = () => {
                         Print
                     </button>
                     {!loading && hasPermission(`create-account`) ? (
-                        <Link to="/account/add" className="btn btn-secondary gap-2">
+                        <Link to="/account/add" className="btn btn-primary gap-2">
                             <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -94,7 +94,7 @@ const Preview = () => {
                     ) : null}
 
                     {!loading && hasPermission(`update-account`) ? (
-                        <Link to={`/account/edit/${accountId}`} className="btn btn-warning gap-2">
+                        <Link to={`/account/edit/${accountId}`} className="btn btn-success gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
                                 <path
                             opacity="0.5"
@@ -365,10 +365,10 @@ const Preview = () => {
                     <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
                         <h2 className='text-base'>Description Information</h2>
                         <div className="flex justify-between flex-col gap-6 ">
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Description :</div>
-                                <div>{formState.description}</div>
+                            <div className="flex items-center w-full justify-between ">
+                                <div className="text-white-dark">Description :</div> 
                             </div>
+                            <div className='w-full'>{formState.description}</div>
                             <div className="flex items-center w-full justify-between mb-2">
                                 <div className="text-white-dark">Last Activity Date :</div>
                                 <div>{formState.last_activity_date}</div>
