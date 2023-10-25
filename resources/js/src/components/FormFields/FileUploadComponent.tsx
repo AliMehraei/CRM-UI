@@ -1,28 +1,22 @@
 import {displayFile, displayImage, handleUploadFile} from "../Functions/CommonFunctions";
 import {useDispatch} from "react-redux";
 import ClearButtonComponent from "./ClearButtonComponent";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 const FileUploadComponent = ({updateFormData, formState, modelName, id, formAttribute}: any) => {
     const dispatch = useDispatch();
+    const [firstRender, setFirstRender] = useState(true);
 
-    useEffect(() => {
-        if (formState[formAttribute]) {
-            displayFile(modelName, formAttribute, formState[formAttribute]).then((data) => {
-                // const blob = new Blob([new Uint8Array(data)]);
-
-                dispatch(updateFormData({[`${formAttribute}_preview`]: data}));
-
-            })
-        }
-    }, []);
-    const download = (field: any) => {
-        console.log(field);
-        const pdfLink = `${field.file}`;
+    const download = async () => {
+        let data = null;
+        if (firstRender)
+            data = await displayFile(modelName, formAttribute, formState[formAttribute])
+        else
+            data = formState[`${formAttribute}_preview`];
         const anchorElement = document.createElement('a');
-        const fileName = `test.png`;
-        anchorElement.href = pdfLink;
-        anchorElement.download = fileName;
+        anchorElement.href = data;
+        anchorElement.target = '_blank';
+        anchorElement.download = formState[formAttribute].split('/').pop();
         anchorElement.click();
     }
 
@@ -41,15 +35,15 @@ const FileUploadComponent = ({updateFormData, formState, modelName, id, formAttr
                     dispatch(updateFormData({
                         [`${formAttribute}_preview`]: e.target.files && URL.createObjectURL(e.target.files[0]),
                     }))
+                    setFirstRender(false);
                 })}
                 name={id ?? formAttribute}
             />
 
-            <a disabled={!formState[formAttribute]} className="btn btn-outline-primary cursor-pointer"
-               href={formState[`${formAttribute}_preview`] ?? formState[formAttribute]}
-               target="_blank"
-               {...({} as React.ButtonHTMLAttributes<HTMLAnchorElement>)}
-            >Download</a>
+            <button disabled={!formState[formAttribute]} className="btn btn-outline-primary cursor-pointer"
+                    onClick={download}
+            >Download
+            </button>
             <ClearButtonComponent callBack={() => {
                 const fileInput = document.getElementById(id ?? formAttribute) as HTMLInputElement | null;
                 if (fileInput) {
