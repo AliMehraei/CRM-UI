@@ -1,11 +1,12 @@
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 
 const OutcomeOfOutGoingCall = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.callForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -23,12 +24,13 @@ const OutcomeOfOutGoingCall = () => {
         'Purpose Of Outgoing Call': {
             'Call Result': <Select id="call_result" name="call_result"
                                    options={CallOutcome}
-                                   defaultValue={{value: 'none', label: 'None'}}
+                                   defaultValue={CallOutcome.find((data: any) => data.value == formState.call_result)}
                                    onChange={({value}: any) => {
                                        handleChangeField('call_result', value)
                                    }} className="flex-1"/>,
             'Description': <input id="description" name="description"
                                   className="form-input flex-1 "
+                                  defaultValue={formState.description}
                                   onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 

@@ -1,11 +1,12 @@
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 
 const CallInformationSection = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.callForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -59,13 +60,14 @@ const CallInformationSection = () => {
                         }}
                         className="flex-none w-64 mr-2"
                         options={CallableList}
-                        defaultValue={{value: 'Contact', label: 'Contact'}}
+                        defaultValue={CallableList.find((data: any) => data.value == formState.callable)}
                 />
                 <input
                     id="callable_to"
                     required
                     name="callable_to"
                     className="form-input flex-1 "
+                    defaultValue={formState.callable_to}
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             </div>,
@@ -77,18 +79,20 @@ const CallInformationSection = () => {
                         }}
                         className="flex-none w-64 mr-2"
                         options={RelatableList}
-                        defaultValue={{value: 'account', label: 'Account'}}
+                        defaultValue={RelatableList.find((data: any) => data.value == formState.relatable)}
                 />
                 <input
                     id="relatable_to"
                     name="relatable_to"
                     className="form-input flex-1 "
+                    defaultValue={formState.relatable_to}
+
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                 />
             </div>,
             'Call Type': <Select id="type" name="type" required
                                  options={CallTypes}
-                                 defaultValue={{value: 'ausgehend', label: 'Ausgehend'}}
+                                 defaultValue={CallTypes.find((data: any) => data.value == formState.type)}
                                  onChange={({value}: any) => {
                                      handleChangeField('type', value)
                                  }} className="flex-1"/>,
@@ -105,6 +109,7 @@ const CallInformationSection = () => {
                     enableTime: true,
                     dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
+                    defaultDate: formState.call_start_time ? new Date(formState.call_start_time) : null as any,
                 }}
                 onChange={(_, dateString) => handleChangeField('call_start_time', dateString)}
                 className="form-input flex-1"
@@ -117,25 +122,28 @@ const CallInformationSection = () => {
                     className="form-input mr-2 flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                     placeholder="Minutes"
+                    defaultValue={formState.call_duration_minutes}
                 />
                 <input
                     id="call_duration_second"
                     required
-                    name="call_duration"
+                    name="call_duration_second"
                     className="form-input ml-2 flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                     placeholder="Seconds"
+                    defaultValue={formState.call_duration_second}
 
                 />
             </div>,
             'Subject': <input required id="subject" name="subject"
                               className="form-input flex-1 "
-                              defaultValue="Outgoing call to Unknown"
+                              defaultValue={formState.subject}
                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Voice Recording': <input id="voice_recording" name="voice_recording"
                                       className="form-input flex-1 "
+                                      defaultValue={formState.voice_recording}
                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
 
