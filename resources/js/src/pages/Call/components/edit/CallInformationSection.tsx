@@ -74,7 +74,6 @@ const CallInformationSection = () => {
         ),
     });
     const labelMField: any = RelatableList.find(module => module.value === formState.relatable_type)?.labelField;
-    console.log(labelMField)
     const [relatableValue, setRelatableValue] = useState<any>({
         value: formState.relatable ? formState.relatable.id : null,
         label: (
