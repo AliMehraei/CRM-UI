@@ -31,7 +31,7 @@ const Edit = () => {
         if (excessResponse.status != 200)
             return
         const excess = excessResponse.data.data.excess;
-        excess.oldImage = excess.excess_image;
+        excess.oldImage = excess.image;
         dispatch(updateFormData(excess));
     };
 

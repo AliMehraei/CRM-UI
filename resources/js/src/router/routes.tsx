@@ -121,6 +121,10 @@ const ListTask = lazy(() => import('../pages/Task/Index'));
 const PreviewTask = lazy(() => import('../pages/Task/Preview'));
 const AddTask = lazy(() => import('../pages/Task/Add'));
 const EditTask = lazy(() => import('../pages/Task/Edit'));
+
+const ListCall = lazy(() => import('../pages/Call/Index'));
+const AddCall = lazy(() => import('../pages/Call/Add'));
+const EditCall = lazy(() => import('../pages/Call/Edit'));
 const routes = [
     // dashboard
     {
@@ -737,6 +741,25 @@ const routes = [
         element: <EditSales/>,
         protected: true,
         requiredPermission: 'update-sales-order'
+    },
+
+    {
+        path: '/call/list',
+        element: <ListCall/>,
+        protected: true,
+        requiredPermission: 'read-call'
+    },
+    {
+        path: '/call/add',
+        element: <AddCall/>,
+        protected: true,
+        requiredPermission: 'create-call'
+    },
+    {
+        path: '/call/edit/:id',
+        element: <EditCall/>,
+        protected: true,
+        requiredPermission: 'update-call'
     },
 ];
 export {routes};

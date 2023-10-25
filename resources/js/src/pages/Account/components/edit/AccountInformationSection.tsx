@@ -1,24 +1,24 @@
 import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { searchAccounts } from "../../../../components/Functions/CommonFunctions";
+import {displayImage, searchAccounts} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-import { updateFormData } from "../../../../store/accountFormSlice";
+import {updateFormData} from "../../../../store/accountFormSlice";
 
 const AccountInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.accountForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
     const doubleCheckStatuses = [
-        { value: "none", label: "-None-" },
-        { value: "back_to_lead", label: "Back to lead" },
-        { value: "converted_to_lead", label: "Converted to lead" },
-        { value: "must_be_deleted", label: "Must be deleted" },
+        {value: "none", label: "-None-"},
+        {value: "back_to_lead", label: "Back to lead"},
+        {value: "converted_to_lead", label: "Converted to lead"},
+        {value: "must_be_deleted", label: "Must be deleted"},
     ];
 
 
@@ -79,26 +79,26 @@ const AccountInformationSection = () => {
             />),
 
             'Parent Account': <AsyncSelect
-                    defaultOptions={true}
+                defaultOptions={true}
                 isMulti={false}
                 id="parent_account_id"
                 placeholder="Type at least 2 characters to search..."
                 name="parent_account_id"
                 loadOptions={searchAccounts}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('parent_account_id', value)
                 }}
                 defaultValue={{
                     value: formState.parent?.id,
                     label: (
                         <div key={formState.parent?.id} className="flex items-center">
-                            {formState.parent  ? (
+                            {formState.parent ? (
                                 <img
-                                    src={formState.parent.image ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.parent.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                                ) : null}
+                            ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.parent?.account_name}</div>
@@ -133,7 +133,7 @@ const AccountInformationSection = () => {
             'Double Check Status': <Select
                 id="double_check_status"
                 name="double_check_status"
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('double_check_status', value)
                 }}
                 className="flex-1"
@@ -142,26 +142,26 @@ const AccountInformationSection = () => {
             />,
 
             'Child Account': <AsyncSelect
-                    defaultOptions={true}
+                defaultOptions={true}
                 isMulti={false}
                 id="child_account_id"
                 placeholder="Type at least 2 characters to search..."
                 name="child_account_id"
                 loadOptions={searchAccounts}
-                onChange={({ value }: any) => {
+                onChange={({value}: any) => {
                     handleChangeField('child_account_id', value)
                 }}
                 defaultValue={{
                     value: formState.child?.id,
                     label: (
                         <div key={formState.child?.id} className="flex items-center">
-                           {formState.child ? (
+                            {formState.child ? (
                                 <img
-                                    src={formState.child.image ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.child.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                                ) : null}
+                            ) : null}
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.child?.account_name}</div>
@@ -195,7 +195,7 @@ const AccountInformationSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields} />
+                <GenerateFields fields={fields}/>
             </div>
         </>
     )

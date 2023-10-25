@@ -3,8 +3,8 @@ import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    Currencies,
-     searchAccounts,
+    Currencies, displayImage,
+    searchAccounts,
     searchContacts,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
@@ -80,7 +80,7 @@ const HeaderSection = () => {
                         <div key={formState.account?.id} className="flex items-center">
                             {formState.account ? (
                                 <img
-                                    src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.account.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
@@ -203,7 +203,7 @@ const HeaderSection = () => {
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
                                 <img
-                                    src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.owner.avatar)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />

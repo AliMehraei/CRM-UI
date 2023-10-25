@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {  searchOwners, searchVendor } from "../../../../components/Functions/CommonFunctions";
+import {displayImage, searchOwners, searchVendor} from "../../../../components/Functions/CommonFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/availabilityFormSlice";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
@@ -74,7 +74,7 @@ const HeaderSection = () => {
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
                                 <img
-                                    src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.owner.avatar)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
