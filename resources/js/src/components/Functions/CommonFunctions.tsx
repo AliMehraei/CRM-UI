@@ -252,14 +252,13 @@ export const searchAccounts = async (e: any) => {
     const result = await api_instance.searchAccount({query: e});
     const valField = 'id';
     const nameField = 'account_name';
-    const imageField = 'image';
     const emailField = 'email';
     if (result.status === 200) {
         return result.data.data.map((data: any) => ({
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data[imageField] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(data['image_data'])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
@@ -279,7 +278,7 @@ export const searchLead = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(data['image_data'])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data['company']}</div>
@@ -299,7 +298,7 @@ export const searchContacts = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(data['image_data'])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
