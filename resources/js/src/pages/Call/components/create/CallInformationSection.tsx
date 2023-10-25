@@ -26,10 +26,10 @@ import {useState} from "react";
 const CallInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.callForm);
-    const [selectedCallable, setSelectedCallable] = useState("App\\Models\\Contact");
-    const [selectedRelated, setSelectedRelated] = useState("App\\Models\\Account");
-    const [selectedCallableTo, setSelectedCallableTo] = useState<any>(null);
-    const [selectedRelatedTo, setSelectedRelatedTo] = useState<any>(null);
+    const [callableType, setCallableType] = useState("App\\Models\\Contact");
+    const [relatableType, setRelatable] = useState("App\\Models\\Account");
+    const [callableValue, setCallableValue] = useState<any>(null);
+    const [relatableValue, setRelatableValue] = useState<any>(null);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -92,7 +92,7 @@ const CallInformationSection = () => {
         {value: 'verpasst', label: 'Verpasst'},
     ];
     const searchModule = (e: any) => {
-        const module: any = RelatableList.find(m => m.value === selectedRelated) ?? {
+        const module: any = RelatableList.find(m => m.value === relatableType) ?? {
             value: null,
             label: null,
             api: searchAccounts
@@ -103,60 +103,59 @@ const CallInformationSection = () => {
     const fields = {
         'Call Information': {
             'Call To': <div className="flex">
-                <Select id="callable"
-                        name="callable"
+                <Select id="callable_type"
+                        name="callable_type"
                         onChange={({value}: any) => {
-                            setSelectedCallable(value);
-                            setSelectedCallableTo(null);
-                            handleChangeField('callable', value)
-                            handleChangeField('callable_to', null);
-
+                            setCallableType(value);
+                            setCallableValue(null);
+                            handleChangeField('callable_type', value)
+                            handleChangeField('callable_id', null);
                         }}
-                        defaultValue={CallableList.find((data) => data.value == formState.callable)}
+                        defaultValue={CallableList.find((data) => data.value == formState.callable_type)}
                         className="flex-none w-64 mr-2"
                         options={CallableList}
                 />
                 <AsyncSelect
                     isMulti={false}
-                    id="callable_to"
+                    id="callable_id"
                     placeholder="Type at least 2 characters to search..."
-                    name="callable_to"
-                    value={selectedCallableTo}
+                    name="callable_id"
+                    value={callableValue}
                     menuPortalTarget={document.body}
-                    loadOptions={selectedCallable === "App\\Models\\Lead" ? searchLead : searchContacts}
+                    loadOptions={callableType === "App\\Models\\Lead" ? searchLead : searchContacts}
                     onChange={({value, label}: any) => {
-                        setSelectedCallableTo({value, label})
-                        handleChangeField('callable_to', value);
+                        setCallableValue({value, label})
+                        handleChangeField('callable_id', value);
                     }}
                     className="flex-1"
                     required
                 />
             </div>,
             'Related To': <div className="flex">
-                <Select id="relatable"
-                        name="relatable"
+                <Select id="relatable_type"
+                        name="relatable_type"
                         onChange={({value}: any) => {
-                            setSelectedRelated(value);
-                            setSelectedRelatedTo(null);
-                            handleChangeField('relatable_to', null);
-                            handleChangeField('relatable', value)
+                            setRelatable(value);
+                            setRelatableValue(null);
+                            handleChangeField('relatable_type', value)
+                            handleChangeField('relatable_id', null);
                         }}
                         className="flex-none w-64 mr-2"
                         options={RelatableList}
-                        defaultValue={RelatableList.find((data) => data.value == formState.relatable)}
+                        defaultValue={RelatableList.find((data) => data.value == formState.relatable_type)}
                 />
                 <AsyncSelect
                     isMulti={false}
-                    id="relatable_to"
+                    id="relatable_id"
                     menuPortalTarget={document.body}
                     placeholder="Type at least 2 characters to search..."
-                    name="relatable_to"
+                    name="relatable_id"
                     loadOptions={(e) => searchModule(e)}
                     onChange={({value, label}: any) => {
-                        setSelectedRelatedTo({value, label});
-                        handleChangeField('relatable_to', value);
+                        setRelatableValue({value, label});
+                        handleChangeField('relatable_id', value);
                     }}
-                    value={selectedRelatedTo}
+                    value={relatableValue}
                     className="flex-1"
                     required
                 />
