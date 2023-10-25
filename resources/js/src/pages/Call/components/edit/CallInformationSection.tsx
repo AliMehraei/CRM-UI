@@ -5,6 +5,7 @@ import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 import AsyncSelect from "react-select/async";
 import {
+    displayImage,
     searchAccounts, searchAvailability,
     searchContacts, searchDeals, searchExcess, searchInvoice,
     searchLead, searchManufacturer, searchProducts, searchPurchaseOrder, searchQuote, searchRFQ, searchSalesOrder,
@@ -12,74 +13,87 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 import {useState} from "react";
 
+const CallableList = [
+    {value: "App\\Models\\Lead", label: "Lead"},
+    {value: "App\\Models\\Contact", label: "Contact"},
+];
+
+const RelatableList = [
+    {value: "App\\Models\\Account", label: "Account", api: searchAccounts, labelField: 'account_name'},
+    {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor, labelField: 'vendor_name'},
+    {value: "App\\Models\\Quote", label: "Quote", api: searchQuote, labelField: 'subject'},
+    {value: "App\\Models\\Rfq", label: "Rfq", api: searchRFQ, labelField: 'rfq_name'},
+    {value: "App\\Models\\Excess", label: "Excess", api: searchExcess, labelField: 'excess_name'},
+    {
+        value: "App\\Models\\Availability",
+        label: "Availability",
+        api: searchAvailability,
+        labelField: 'availability_name'
+    },
+    {value: "App\\Models\\Product", label: "Product", api: searchProducts, labelField: 'product_name'},
+    {value: "App\\Models\\Manufacturer", label: "Manufacturer", api: searchManufacturer, labelField: 'name'},
+    {value: "App\\Models\\Deal", label: "Deals", api: searchDeals, labelField: 'deal_name'},
+    {value: "App\\Models\\SalesOrder", label: "Sales Order", api: searchSalesOrder, labelField: 'subject'},
+    {value: "App\\Models\\PurchaseOrder", label: "Purchase Order", api: searchPurchaseOrder, labelField: 'subject'},
+    {value: "App\\Models\\Invoice", label: "Invoice", api: searchInvoice, labelField: 'subject'},
+    {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", api: searchVendorRFQ, labelField: 'vendor_rfq_name'},
+];
+
+
+const CallTypes: any = [
+    {value: 'ausgehend', label: 'Ausgehend'},
+    {value: 'eingehend', label: 'Eingehend'},
+    {value: 'verpasst', label: 'Verpasst'},
+];
 const CallInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.callForm);
     const [callableType, setCallableType] = useState("App\\Models\\Contact");
     const [relatableType, setRelatable] = useState("App\\Models\\Account");
-    const [callableValue, setCallableValue] = useState<any>(null);
-    const [relatableValue, setRelatableValue] = useState<any>(null);
+    const [callableValue, setCallableValue] = useState<any>({
+        value: formState.callable ? formState.callable.id : null,
+        label: (
+            <div key={formState.callable ? formState.callable.id : 'default-key'} className="flex items-center">
+                {formState.callable ? (
+                    <>
+                        <img
+                            src={displayImage(formState?.callable?.image_data)}
+                            alt="avatar"
+                            className="w-8 h-8 mr-2 rounded-full"
+                        />
+                        <div>
+                            <div
+                                className="text-sm font-bold">{`${formState.callable.first_name} ${formState.callable.last_name}`}</div>
+                            <div className="text-xs text-gray-500">{formState.callable.email}</div>
+                        </div>
+                    </>
+                ) : (
+                    <div className="text-sm font-bold"></div>
+                )}
+            </div>
+        ),
+    });
+    const labelMField: any = RelatableList.find(module => module.value === formState.relatable_type)?.labelField;
+    console.log(labelMField)
+    const [relatableValue, setRelatableValue] = useState<any>({
+        value: formState.relatable ? formState.relatable.id : null,
+        label: (
+            <div key={formState.relatable?.id} className="flex items-center">
+                <div>
+                    <div className="text-sm font-bold">
+                        {formState.relatable ? formState.relatable[labelMField] : null}
+                    </div>
+                </div>
+            </div>
+        ),
+
+    });
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const CallableList = [
-        {value: "App\\Models\\Lead", label: "Lead"},
-        {value: "App\\Models\\Contact", label: "Contact"},
-    ];
 
-    const RelatableList = [
-        {value: "App\\Models\\Account", label: "Account", api: searchAccounts},
-        {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor},
-        {value: "App\\Models\\Quote", label: "Quote", api: searchQuote},
-        {value: "App\\Models\\Rfq", label: "Rfq", api: searchRFQ},
-        {value: "App\\Models\\Excess", label: "Excess", api: searchExcess},
-        {value: "App\\Models\\Availability", label: "Availability", api: searchAvailability},
-        {value: "App\\Models\\Product", label: "Product", api: searchProducts},
-        {value: "App\\Models\\Manufacturer", label: "Manufacturer", api: searchManufacturer},
-        {value: "App\\Models\\Deal", label: "Deals", api: searchDeals},
-        {value: "App\\Models\\SalesOrder", label: "Sales Order", api: searchSalesOrder},
-        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order", api: searchPurchaseOrder},
-        {value: "App\\Models\\Invoice", label: "Invoice", api: searchInvoice},
-        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", api: searchVendorRFQ},
-    ];
-    /*  const CallableList: any = [
-          {value: 'lead', label: 'Lead'},
-          {value: 'contact', label: 'Contact'},
-      ];
-
-      const RelatableList: any = [
-          {value: 'account', label: 'Account'},
-          {value: 'vendor', label: 'Vendor'},
-          {value: 'rfq', label: 'RFQ'},
-          {value: 'quote', label: 'Quote'},
-          {value: 'excess', label: 'Excess'},
-          {value: 'availability', label: 'Availability'},
-          {value: 'product', label: 'Product'},
-          {value: 'history_po_so', label: 'History PO/SO'},
-          {value: 'manufacture', label: 'Manufacture'},
-          {value: 'availability_x_rfq', label: 'Availability_X_Rfq'},
-          {value: 'availability_x_quote', label: 'Availability_X_Quote'},
-          {value: 'vendor_x_manufacture', label: 'Vendor_X_Manufacture'},
-          {value: 'vendor_x_manufacture_2', label: 'Vendor_X_Manufacture2'},
-          {value: 'product_api', label: 'Product Api'},
-          {value: 'alternative_products_in_rfq', label: 'Alternatives Products in RFQ'},
-          {value: 'deals', label: 'Deals'},
-          {value: 'forecast_custom', label: 'Forecast Custom'},
-          {value: 'sales_order', label: 'Sales Order'},
-          {value: 'purchase_order', label: 'Purchase Order'},
-          {value: 'invoice', label: 'Invoice'},
-          {value: 'so_x_po', label: 'SO_X_PO'},
-          {value: 'vendor_rfq', label: 'Vendor Rfq'},
-          {value: 'vendor_rfq_related_rfq', label: "Vendor RFQ's related RFQ"},
-        ];*/
-
-    const CallTypes: any = [
-        {value: 'ausgehend', label: 'Ausgehend'},
-        {value: 'eingehend', label: 'Eingehend'},
-        {value: 'verpasst', label: 'Verpasst'},
-    ];
     const searchModule = (e: any) => {
         const module: any = RelatableList.find(m => m.value === relatableType) ?? {
             value: null,
