@@ -23,6 +23,7 @@ const PurposeOfOutGoingCall = () => {
         'Purpose Of Outgoing Call': {
             'Call Purpose': <Select id="call_purpose" name="call_purpose"
                                     options={CallPurposes}
+                                    menuPortalTarget={document.body}
                                     defaultValue={{value: 'none', label: 'None'}}
                                     onChange={({value}: any) => {
                                         handleChangeField('call_purpose', value)
