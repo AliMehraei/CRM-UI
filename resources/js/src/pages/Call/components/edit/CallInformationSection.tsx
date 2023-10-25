@@ -125,13 +125,13 @@ const CallInformationSection = () => {
                     defaultValue={formState.call_duration_minutes}
                 />
                 <input
-                    id="call_duration_second"
+                    id="call_duration_seconds"
                     required
-                    name="call_duration_second"
+                    name="call_duration_seconds"
                     className="form-input ml-2 flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                     placeholder="Seconds"
-                    defaultValue={formState.call_duration_second}
+                    defaultValue={formState.call_duration_seconds}
 
                 />
             </div>,
