@@ -3,52 +3,92 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
+import AsyncSelect from "react-select/async";
+import {
+    searchAccounts, searchAvailability,
+    searchContacts, searchDeals, searchExcess, searchInvoice,
+    searchLead, searchManufacturer, searchProducts, searchPurchaseOrder, searchQuote, searchRFQ, searchSalesOrder,
+    searchVendor, searchVendorRFQ
+} from "../../../../components/Functions/CommonFunctions";
+import {useState} from "react";
 
 const CallInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.callForm);
+    const [selectedCallable, setSelectedCallable] = useState("App\\Models\\Contact");
+    const [selectedRelated, setSelectedRelated] = useState("App\\Models\\Account");
+    const [selectedCallableTo, setSelectedCallableTo] = useState<any>(null);
+    const [selectedRelatedTo, setSelectedRelatedTo] = useState<any>(null);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const CallableList: any = [
-        {value: 'lead', label: 'Lead'},
-        {value: 'contact', label: 'Contact'},
+    const CallableList = [
+        {value: "App\\Models\\Lead", label: "Lead"},
+        {value: "App\\Models\\Contact", label: "Contact"},
     ];
 
-    const RelatableList: any = [
-        {value: 'account', label: 'Account'},
-        {value: 'vendor', label: 'Vendor'},
-        {value: 'rfq', label: 'RFQ'},
-        {value: 'quote', label: 'Quote'},
-        {value: 'excess', label: 'Excess'},
-        {value: 'availability', label: 'Availability'},
-        {value: 'product', label: 'Product'},
-        {value: 'history_po_so', label: 'History PO/SO'},
-        {value: 'manufacture', label: 'Manufacture'},
-        {value: 'availability_x_rfq', label: 'Availability_X_Rfq'},
-        {value: 'availability_x_quote', label: 'Availability_X_Quote'},
-        {value: 'vendor_x_manufacture', label: 'Vendor_X_Manufacture'},
-        {value: 'vendor_x_manufacture_2', label: 'Vendor_X_Manufacture2'},
-        {value: 'product_api', label: 'Product Api'},
-        {value: 'alternative_products_in_rfq', label: 'Alternatives Products in RFQ'},
-        {value: 'deals', label: 'Deals'},
-        {value: 'forecast_custom', label: 'Forecast Custom'},
-        {value: 'sales_order', label: 'Sales Order'},
-        {value: 'purchase_order', label: 'Purchase Order'},
-        {value: 'invoice', label: 'Invoice'},
-        {value: 'so_x_po', label: 'SO_X_PO'},
-        {value: 'vendor_rfq', label: 'Vendor Rfq'},
-        {value: 'vendor_rfq_related_rfq', label: "Vendor RFQ's related RFQ"},
-
+    const RelatableList = [
+        {value: "App\\Models\\Account", label: "Account", api: searchAccounts},
+        {value: "App\\Models\\Vendor", label: "Vendor", api: searchVendor},
+        {value: "App\\Models\\Quote", label: "Quote", api: searchQuote},
+        {value: "App\\Models\\Rfq", label: "Rfq", api: searchRFQ},
+        {value: "App\\Models\\Excess", label: "Excess", api: searchExcess},
+        {value: "App\\Models\\Availability", label: "Availability", api: searchAvailability},
+        {value: "App\\Models\\Product", label: "Product", api: searchProducts},
+        {value: "App\\Models\\Manufacturer", label: "Manufacturer", api: searchManufacturer},
+        {value: "App\\Models\\Deal", label: "Deals", api: searchDeals},
+        {value: "App\\Models\\SalesOrder", label: "Sales Order", api: searchSalesOrder},
+        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order", api: searchPurchaseOrder},
+        {value: "App\\Models\\Invoice", label: "Invoice", api: searchInvoice},
+        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", api: searchVendorRFQ},
     ];
+    /*  const CallableList: any = [
+          {value: 'lead', label: 'Lead'},
+          {value: 'contact', label: 'Contact'},
+      ];
+
+      const RelatableList: any = [
+          {value: 'account', label: 'Account'},
+          {value: 'vendor', label: 'Vendor'},
+          {value: 'rfq', label: 'RFQ'},
+          {value: 'quote', label: 'Quote'},
+          {value: 'excess', label: 'Excess'},
+          {value: 'availability', label: 'Availability'},
+          {value: 'product', label: 'Product'},
+          {value: 'history_po_so', label: 'History PO/SO'},
+          {value: 'manufacture', label: 'Manufacture'},
+          {value: 'availability_x_rfq', label: 'Availability_X_Rfq'},
+          {value: 'availability_x_quote', label: 'Availability_X_Quote'},
+          {value: 'vendor_x_manufacture', label: 'Vendor_X_Manufacture'},
+          {value: 'vendor_x_manufacture_2', label: 'Vendor_X_Manufacture2'},
+          {value: 'product_api', label: 'Product Api'},
+          {value: 'alternative_products_in_rfq', label: 'Alternatives Products in RFQ'},
+          {value: 'deals', label: 'Deals'},
+          {value: 'forecast_custom', label: 'Forecast Custom'},
+          {value: 'sales_order', label: 'Sales Order'},
+          {value: 'purchase_order', label: 'Purchase Order'},
+          {value: 'invoice', label: 'Invoice'},
+          {value: 'so_x_po', label: 'SO_X_PO'},
+          {value: 'vendor_rfq', label: 'Vendor Rfq'},
+          {value: 'vendor_rfq_related_rfq', label: "Vendor RFQ's related RFQ"},
+        ];*/
 
     const CallTypes: any = [
         {value: 'ausgehend', label: 'Ausgehend'},
         {value: 'eingehend', label: 'Eingehend'},
         {value: 'verpasst', label: 'Verpasst'},
     ];
+    const searchModule = (e: any) => {
+        const module: any = RelatableList.find(m => m.value === selectedRelated) ?? {
+            value: null,
+            label: null,
+            api: searchAccounts
+        }
+        return module.api.call(null, e);
+    }
+
 
     const fields = {
         'Call Information': {
@@ -56,39 +96,61 @@ const CallInformationSection = () => {
                 <Select id="callable"
                         name="callable"
                         onChange={({value}: any) => {
+                            setSelectedCallable(value);
+                            setSelectedCallableTo(null);
                             handleChangeField('callable', value)
+                            handleChangeField('callable_to', null);
+
                         }}
+                        defaultValue={CallableList.find((data) => data.value == formState.callable)}
                         className="flex-none w-64 mr-2"
                         options={CallableList}
-                        defaultValue={CallableList.find((data: any) => data.value == formState.callable)}
                 />
-                <input
+                <AsyncSelect
+                    isMulti={false}
                     id="callable_to"
-                    required
+                    placeholder="Type at least 2 characters to search..."
                     name="callable_to"
-                    className="form-input flex-1 "
-                    defaultValue={formState.callable_to}
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    value={selectedCallableTo}
+                    menuPortalTarget={document.body}
+                    loadOptions={selectedCallable === "App\\Models\\Lead" ? searchLead : searchContacts}
+                    onChange={({value, label}: any) => {
+                        setSelectedCallableTo({value, label})
+                        handleChangeField('callable_to', value);
+                    }}
+                    className="flex-1"
+                    required
                 />
             </div>,
             'Related To': <div className="flex">
                 <Select id="relatable"
                         name="relatable"
                         onChange={({value}: any) => {
+                            setSelectedRelated(value);
+                            setSelectedRelatedTo(null);
+                            handleChangeField('relatable_to', null);
                             handleChangeField('relatable', value)
                         }}
                         className="flex-none w-64 mr-2"
                         options={RelatableList}
-                        defaultValue={RelatableList.find((data: any) => data.value == formState.relatable)}
+                        defaultValue={RelatableList.find((data) => data.value == formState.relatable)}
                 />
-                <input
+                <AsyncSelect
+                    isMulti={false}
                     id="relatable_to"
+                    menuPortalTarget={document.body}
+                    placeholder="Type at least 2 characters to search..."
                     name="relatable_to"
-                    className="form-input flex-1 "
-                    defaultValue={formState.relatable_to}
-
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    loadOptions={(e) => searchModule(e)}
+                    onChange={({value, label}: any) => {
+                        setSelectedRelatedTo({value, label});
+                        handleChangeField('relatable_to', value);
+                    }}
+                    value={selectedRelatedTo}
+                    className="flex-1"
+                    required
                 />
+
             </div>,
             'Call Type': <Select id="type" name="type" required
                                  options={CallTypes}
