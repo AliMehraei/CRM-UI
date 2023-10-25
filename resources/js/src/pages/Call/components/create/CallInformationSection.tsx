@@ -121,7 +121,7 @@ const CallInformationSection = () => {
                 <input
                     id="call_duration_second"
                     required
-                    name="call_duration"
+                    name="call_duration_second"
                     className="form-input ml-2 flex-1 "
                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                     placeholder="Seconds"
