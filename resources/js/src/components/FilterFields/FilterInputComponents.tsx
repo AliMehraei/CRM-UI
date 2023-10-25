@@ -120,6 +120,7 @@ export const AsyncMultiInput = ({placeholder, loadOptions, onChange, filterSelec
 
     return (
         <AsyncSelect
+                    defaultOptions={true}
             placeholder={placeholder}
             loadOptions={loadOptions}
             onChange={onChange}

@@ -4,11 +4,12 @@ import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    handleUploadFile,
+
     searchOwners,
     searchRFQ,
-    searchManufacturer
+    searchManufacturer, displayImage
 } from "../../../../components/Functions/CommonFunctions";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
@@ -26,18 +27,13 @@ const ProductInformationSection = () => {
 
     const fields = {
         'Product Information': {
-            'Product Image': (<input
-                id="image"
-                key="image"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({ 'image': `${response?.data.data.file_url}` }));
-                })}
-
-                name="image"
-            />
+            'Product Image': (
+                <ImageUploadComponent formState={formState}
+                                      modelName={'product'}
+                                      id={'image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ),
 
             'Product Name': (
@@ -61,6 +57,7 @@ const ProductInformationSection = () => {
             ),
             'Manufacturer': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="manufacturer_id"
@@ -87,6 +84,7 @@ const ProductInformationSection = () => {
             ),
             'RFQ (Alternative)': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={true}
                     id="rfqs_id"
                     placeholder="Type at least 2 characters to search..."
@@ -123,6 +121,7 @@ const ProductInformationSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
                     placeholder="Type at least 2 characters to search..."
@@ -168,6 +167,7 @@ const ProductInformationSection = () => {
             ),
             'Product Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -183,7 +183,7 @@ const ProductInformationSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                 <img
-                                    src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.owner.avatar)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />

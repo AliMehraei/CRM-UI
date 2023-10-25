@@ -1,0 +1,44 @@
+import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import {useDispatch} from "react-redux";
+import {updateFormData} from "../../../../store/callFormSlice";
+import Select from "react-select";
+import Flatpickr from "react-flatpickr";
+
+const OutcomeOfOutGoingCall = () => {
+    const dispatch = useDispatch();
+
+    const handleChangeField = (field: any, value: any) => {
+        dispatch(updateFormData({[field]: value}));
+    };
+
+    const CallOutcome: any = [
+        {value: 'none', label: 'None - Interessiert'},
+        {value: 'interessiert', label: 'Interessiert'},
+        {value: 'not_interested', label: 'Nicht interessiert'},
+        {value: 'no_response_busy', label: 'Keine Antwort/besetzt'},
+        {value: 'more_information', label: 'Wünscht mehr Information'},
+        {value: 'callback_requested', label: 'Wünscht Rückruf'},
+    ];
+    const fields = {
+        'Purpose Of Outgoing Call': {
+            'Call Result': <Select id="call_result" name="call_result"
+                                   options={CallOutcome}
+                                   defaultValue={{value: 'none', label: 'None'}}
+                                   onChange={({value}: any) => {
+                                       handleChangeField('call_result', value)
+                                   }} className="flex-1"/>,
+            'Description': <input id="description" name="description"
+                                  className="form-input flex-1 "
+                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+            />,
+
+
+        }
+    }
+    return (<>
+        <div className="flex justify-between lg:flex-row flex-col">
+            <GenerateFields fields={fields}/>
+        </div>
+    </>)
+}
+export default OutcomeOfOutGoingCall;

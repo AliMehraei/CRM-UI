@@ -1,7 +1,8 @@
 import api from "../../config/api";
 import {EventEmitter} from "events";
-import React from "react";
+import React, {ChangeEvent} from "react";
 import Swal from "sweetalert2";
+
 
 const api_instance = new api();
 
@@ -38,9 +39,14 @@ export const Stages = [
 ];
 
 
-export const handleUploadFile = (e: any, callBack: any) => {
+export const handleUploadFile = (
+    e: ChangeEvent<HTMLInputElement>,
+    modelName: string,
+    type: string,
+    callBack: (response: any) => void) => {
+
     if (e.target.files && e.target.files.length > 0) {
-        api_instance.uploadFile(e.target.files[0]).then((response) => {
+        api_instance.uploadFile(e.target.files[0], modelName, type).then((response) => {
             callBack(response)
         }).catch();
     }
@@ -230,7 +236,7 @@ export const searchOwners = async (e: any) => {
             value: user[valField],
             label: (
                 <div key={user[valField]} className="flex items-center">
-                    <img src={user[avatarField] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(user[avatarField])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{user[nameField] + " " + user['last_name']}</div>
@@ -345,7 +351,7 @@ export const searchSalesOrder = async (query: string) => {
 };
 
 export const getImageSource = (image: string) => {
-    return image && image !== '' ? image : '/assets/images/default-placeholder.png'; 
+    return image && image !== '' ? image : '/assets/images/default-placeholder.png';
 };
 
 
@@ -487,4 +493,16 @@ export function copyToClipboard(text: any) {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
+}
+
+
+export const displayImage = (field: any) =>
+    field ? `data:${field['mime']};base64,${field['file']}` : '/assets/images/user-profile.jpeg';
+
+
+export const displayFile = async (model: any, attribute: any, path: any) => {
+    const response = await api_instance.displayFile(model, attribute, path)
+    const blob = new Blob([response.data], {type: response.headers['content-type']});
+    return window.URL.createObjectURL(blob);
+
 }

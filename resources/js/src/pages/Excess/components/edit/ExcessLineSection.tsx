@@ -17,7 +17,8 @@ const ExcessLineSection = () => {
 
     const fields = {
         'Excess Line': {
-            'Product name': <AsyncSelect isMulti={false} id="product_name" name="product_name"
+            'Product name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_name" name="product_name"
                                          required
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchProducts}

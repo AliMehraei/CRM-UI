@@ -61,7 +61,8 @@ const AttachmentSection = ({modelName, modelId}: any) => {
                         setFiles((prevFiles: any) =>
                             prevFiles.filter((file: any) => file.id != attachmentId));
                     }).catch((error) => {
-                    console.log(error);
+                    notifyErrorMessage("Error deleting attachment");
+                    console.error(error);
 
                 })
             }
@@ -77,7 +78,8 @@ const AttachmentSection = ({modelName, modelId}: any) => {
             .then(response => {
                 setFiles(response.data.attachments);
             }).catch((error: any) => {
-            console.log(error)
+            notifyErrorMessage("Error Fetching attachments")
+            console.error(error)
         });
 
     }, [modelId, modelName]);

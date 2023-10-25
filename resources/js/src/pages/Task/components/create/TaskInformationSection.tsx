@@ -28,7 +28,7 @@ const TaskInformationSection = () => {
         { value: 'Hoch', label: 'Hoch' },
         { value: 'Other', label: 'Other' },
     ];
-    
+
     const TaskStatus = [
         { value: '-None-', label: '-None-' },
         { value:'Abgeschlossen' , label: 'Abgeschlossen' },
@@ -45,6 +45,7 @@ const TaskInformationSection = () => {
         'Task Information': {
             'Task Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -94,21 +95,21 @@ const TaskInformationSection = () => {
                 className="flex-1"
                 />
             ),
-            
+
         },
         'Description Information': {
             'Description': (
-                <textarea 
-                id="description" 
-                rows={6} 
+                <textarea
+                id="description"
+                rows={6}
                 name="description"
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.description}
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
-                
+
             ),
-            
+
         }
     }
     return (

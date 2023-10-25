@@ -90,7 +90,8 @@ const OfferedProductsSection = () => {
                                     return (
                                         <tr className="align-top" key={item.id}>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="product_id" name="product_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
@@ -101,7 +102,8 @@ const OfferedProductsSection = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <AsyncSelect isMulti={false} id="manufacturer_id" name="manufacturer_id"
+                                                <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="manufacturer_id" name="manufacturer_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchManufacturer}
                                                              onChange={({value}: any) => {

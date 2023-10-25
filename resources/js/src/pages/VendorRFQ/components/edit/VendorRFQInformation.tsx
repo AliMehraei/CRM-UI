@@ -5,7 +5,7 @@ import {updateFormData} from "../../../../store/vendorRfqFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    Currencies,
+    Currencies, displayImage,
     handleUploadFile,
     searchOwners,
     searchRFQ,
@@ -43,6 +43,7 @@ const VendorRFQInformation = () => {
             />),
             'Vendor Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
@@ -99,6 +100,7 @@ const VendorRFQInformation = () => {
             ),
             'Related RFQs': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={true}
                     id="related_rfqs_id"
                     placeholder="Type at least 2 characters to search..."
@@ -143,6 +145,7 @@ const VendorRFQInformation = () => {
             ),
             'Vendor RFQ Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -158,7 +161,7 @@ const VendorRFQInformation = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                        src={displayImage(formState.owner.avatar)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />

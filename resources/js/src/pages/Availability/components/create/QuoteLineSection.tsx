@@ -14,7 +14,8 @@ const QuoteLineSection = () => {
 
     const fields = {
         'Quote Line': {
-            'Product name': <AsyncSelect required isMulti={false} id="product_id" name="product_id"
+            'Product name': <AsyncSelect
+                    defaultOptions={true} required isMulti={false} id="product_id" name="product_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchProducts}
                                          onChange={({value}: any) => {

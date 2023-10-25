@@ -3,12 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    AccountTypes, Contract, Currencies, getImageSource,
+    AccountTypes, Contract, Currencies, displayImage, getImageSource,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const AccountSection = () => {
     const dispatch = useDispatch();
@@ -38,33 +40,12 @@ const AccountSection = () => {
     ]
     const fields = {
         'Account': {
-            'Account Image': (<div className="">
-                    <div className="flex">
-                        <input
-                            id="account_image"
-                            key="account_image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="account_image"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('account_image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="manufacturer_image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
+            'Account Image': (<ImageUploadComponent formState={formState}
+                                                    modelName={'account'}
+                                                    id={'account_image'}
+                                                    formAttribute={'image'}
+                                                    updateFormData={updateFormData}
+                />
             ),
             'Account Name': (
                 <input
@@ -100,24 +81,13 @@ const AccountSection = () => {
 
             />,
             'Contract Attachment': (
-                <div className="flex">
-                    <input
-                        id="contract_attachment"
-                        key="contract_attachment"
-                        type="file"
-                        className="form-input mr-1 file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                        accept="image/*"
-                        onChange={(e) => handleUploadFile(e, (response: any) => {
-                            dispatch(updateFormData({
-                                field: 'contract_attachment',
-                                value: `${response?.data.data.file_url}`
-                            }));
-                        })}
-                        name="contract_attachment"
-                    />
-                    <a className="btn btn-outline-primary" href={formState.contract_attachment}
-                       target="_blank">Download</a>
-                </div>
+                <FileUploadComponent
+                    id="contract_attachment"
+                    updateFormData={updateFormData}
+                    formState={formState}
+                    modelName='account'
+                    formAttribute='contract_attachment'
+                />
             ),
             'Business Account': <input
                 id="is_business"
@@ -144,6 +114,7 @@ const AccountSection = () => {
         '': {
             'Account Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -158,7 +129,7 @@ const AccountSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                        src={displayImage(formState.owner.avatar)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -176,6 +147,7 @@ const AccountSection = () => {
                 />
             ),
             'PM User': <AsyncSelect
+                    defaultOptions={true}
                 isMulti={false}
                 id="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
@@ -191,7 +163,7 @@ const AccountSection = () => {
                         <div key={formState.pm_user?.id} className="flex items-center">
                             {formState.pm_user ? (
                                 <img
-                                    src={formState.pm_user.image ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.pm_user.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />

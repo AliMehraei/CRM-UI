@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { IRootState } from '../../store';
-import { toggleTheme } from '../../store/themeConfigSlice';
-import { useTranslation } from 'react-i18next';
-import { toggleSidebar } from '../../store/themeConfigSlice';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, NavLink, useNavigate, useLocation} from 'react-router-dom';
+import {IRootState} from '../../store';
+import {toggleTheme} from '../../store/themeConfigSlice';
+import {useTranslation} from 'react-i18next';
+import {toggleSidebar} from '../../store/themeConfigSlice';
 import i18next from 'i18next';
 import Dropdown from '../Dropdown';
-import { useUserStatus } from '../../config/authCheck';
+import {useUserStatus} from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
-import { getUserData } from '../../config/config';
+import {getUserData} from '../../config/config';
+import {displayImage} from "../Functions/CommonFunctions";
 
 const Header = () => {
-   // const { isLoggedIn, isLoading, hasPermission,user} = useUserStatus();
+    // const { isLoggedIn, isLoading, hasPermission,user} = useUserStatus();
     const navigate = useNavigate();
     const location = useLocation();
     const user = getUserData();
@@ -64,7 +65,7 @@ const Header = () => {
     const dispatch = useDispatch();
 
     function createMarkup(messages: any) {
-        return { __html: messages };
+        return {__html: messages};
     }
 
     const [messages, setMessages] = useState([
@@ -131,7 +132,7 @@ const Header = () => {
 
     const [flag, setFlag] = useState(themeConfig.locale);
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     return (
         <header className={themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''}>
@@ -142,10 +143,10 @@ const Header = () => {
                         <Link to="/" className="main-logo flex items-center shrink-0">
                             {themeConfig.isDarkMode ? (
                                 <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo-light.webp"
-                                    alt="logo" />
+                                     alt="logo"/>
                             ) : (
                                 <img className="w-24 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/logo.webp"
-                                    alt="logo" />
+                                     alt="logo"/>
                             )}
                         </Link>
 
@@ -158,11 +159,11 @@ const Header = () => {
                             }}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 7L4 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 7L4 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                                 <path opacity="0.5" d="M20 12L4 12" stroke="currentColor" strokeWidth="1.5"
-                                    strokeLinecap="round" />
-                                <path d="M20 17L4 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                                      strokeLinecap="round"/>
+                                <path d="M20 17L4 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                             </svg>
                         </button>
                     </div>
@@ -172,9 +173,9 @@ const Header = () => {
 
                             <li>
                                 <Link to="/todolist"
-                                    className="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
+                                      className="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             opacity="0.5"
                                             d="M22 10.5V12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2H13.5"
@@ -213,24 +214,24 @@ const Header = () => {
                                         placeholder="Search..."
                                     />
                                     <button type="button"
-                                        className="absolute w-9 h-9 inset-0 ltr:right-auto rtl:left-auto appearance-none peer-focus:text-primary">
+                                            className="absolute w-9 h-9 inset-0 ltr:right-auto rtl:left-auto appearance-none peer-focus:text-primary">
                                         <svg className="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" strokeWidth="1.5"
-                                                opacity="0.5" />
+                                                    opacity="0.5"/>
                                             <path d="M18.5 18.5L22 22" stroke="currentColor" strokeWidth="1.5"
-                                                strokeLinecap="round" />
+                                                  strokeLinecap="round"/>
                                         </svg>
                                     </button>
                                     <button type="button"
-                                        className="hover:opacity-80 sm:hidden block absolute top-1/2 -translate-y-1/2 ltr:right-2 rtl:left-2"
-                                        onClick={() => setSearch(false)}>
+                                            className="hover:opacity-80 sm:hidden block absolute top-1/2 -translate-y-1/2 ltr:right-2 rtl:left-2"
+                                            onClick={() => setSearch(false)}>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <circle opacity="0.5" cx="12" cy="12" r="10" stroke="currentColor"
-                                                strokeWidth="1.5" />
+                                                    strokeWidth="1.5"/>
                                             <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="currentColor"
-                                                strokeWidth="1.5" strokeLinecap="round" />
+                                                  strokeWidth="1.5" strokeLinecap="round"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -241,11 +242,11 @@ const Header = () => {
                                 className="search_btn sm:hidden p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:bg-white-light/90 dark:hover:bg-dark/60"
                             >
                                 <svg className="w-4.5 h-4.5 mx-auto dark:text-[#d0d2d6]" width="20" height="20"
-                                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" strokeWidth="1.5"
-                                        opacity="0.5" />
+                                            opacity="0.5"/>
                                     <path d="M18.5 18.5L22 22" stroke="currentColor" strokeWidth="1.5"
-                                        strokeLinecap="round" />
+                                          strokeLinecap="round"/>
                                 </svg>
                             </button>
                         </div>
@@ -254,13 +255,13 @@ const Header = () => {
                                 className="flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60">
 
 
-                                <Link to="/app/setting">
+                                <Link to="/setting/list">
                                     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
                                         <g id="Layer_65" data-name="Layer 65">
                                             <path
-                                                d="M32,21.54A10.47,10.47,0,0,0,21.54,32c.57,13.88,20.35,13.88,20.92,0A10.47,10.47,0,0,0,32,21.54Zm0,17.92A7.46,7.46,0,0,1,24.54,32c.35-9.88,14.58-9.88,14.92,0A7.46,7.46,0,0,1,32,39.46Z" />
+                                                d="M32,21.54A10.47,10.47,0,0,0,21.54,32c.57,13.88,20.35,13.88,20.92,0A10.47,10.47,0,0,0,32,21.54Zm0,17.92A7.46,7.46,0,0,1,24.54,32c.35-9.88,14.58-9.88,14.92,0A7.46,7.46,0,0,1,32,39.46Z"/>
                                             <path
-                                                d="M53.94,26.57H50.72a18.83,18.83,0,0,0-1.65-4l2.28-2.28a1.49,1.49,0,0,0,0-2.12l-5.56-5.56a1.49,1.49,0,0,0-2.12,0l-2.28,2.28a18.83,18.83,0,0,0-4-1.65V10.06a1.5,1.5,0,0,0-1.5-1.5H28.07a1.5,1.5,0,0,0-1.5,1.5v3.22a18.83,18.83,0,0,0-4,1.65l-2.28-2.28a1.49,1.49,0,0,0-2.12,0l-5.56,5.56a1.49,1.49,0,0,0,0,2.12l2.28,2.28a18.83,18.83,0,0,0-1.65,4H10.06a1.5,1.5,0,0,0-1.5,1.5v7.86a1.5,1.5,0,0,0,1.5,1.5h3.22a18.83,18.83,0,0,0,1.65,4l-2.28,2.28a1.49,1.49,0,0,0,0,2.12l5.56,5.56a1.49,1.49,0,0,0,2.12,0l2.28-2.28a18.83,18.83,0,0,0,4,1.65v3.22a1.5,1.5,0,0,0,1.5,1.5h7.86a1.5,1.5,0,0,0,1.5-1.5V50.72a18.83,18.83,0,0,0,4-1.65l2.28,2.28a1.49,1.49,0,0,0,2.12,0l5.56-5.56a1.49,1.49,0,0,0,0-2.12l-2.28-2.28a18.83,18.83,0,0,0,1.65-4h3.22a1.5,1.5,0,0,0,1.5-1.5V28.07A1.5,1.5,0,0,0,53.94,26.57Zm-1.5,7.86H49.56l-.13,0a1.51,1.51,0,0,0-1.33,1.16,17.07,17.07,0,0,1-2.28,5.45,1.55,1.55,0,0,0,0,1.16,22.12,22.12,0,0,0,2.36,2.51l-3.44,3.44-2-2a1.53,1.53,0,0,0-1.89-.22,15.85,15.85,0,0,1-5.22,2.17,1.53,1.53,0,0,0-1.18,1.49v2.85H29.57V49.59a1.54,1.54,0,0,0-.91-1.4,17,17,0,0,1-5.49-2.26,1.53,1.53,0,0,0-1.89.22l-2,2-3.44-3.44,2-2a1.54,1.54,0,0,0,.22-1.89,17,17,0,0,1-2.26-5.49,1.51,1.51,0,0,0-1.4-.91H11.56V29.57a25.3,25.3,0,0,0,3.4-.1,1.52,1.52,0,0,0,.93-1.06,16.19,16.19,0,0,1,2.18-5.24,1.54,1.54,0,0,0-.22-1.89l-2-2,3.44-3.44,2,2a1.54,1.54,0,0,0,1.87.21,17,17,0,0,1,5.49-2.26,1.54,1.54,0,0,0,.91-1.4V11.56h4.86v2.85a1.54,1.54,0,0,0,.91,1.4,17,17,0,0,1,5.49,2.26,1.54,1.54,0,0,0,1.87-.21l2-2,3.44,3.44a23,23,0,0,0-2.36,2.51,1.55,1.55,0,0,0,0,1.16,17.07,17.07,0,0,1,2.28,5.45,1.54,1.54,0,0,0,1.46,1.18h2.88Z" />
+                                                d="M53.94,26.57H50.72a18.83,18.83,0,0,0-1.65-4l2.28-2.28a1.49,1.49,0,0,0,0-2.12l-5.56-5.56a1.49,1.49,0,0,0-2.12,0l-2.28,2.28a18.83,18.83,0,0,0-4-1.65V10.06a1.5,1.5,0,0,0-1.5-1.5H28.07a1.5,1.5,0,0,0-1.5,1.5v3.22a18.83,18.83,0,0,0-4,1.65l-2.28-2.28a1.49,1.49,0,0,0-2.12,0l-5.56,5.56a1.49,1.49,0,0,0,0,2.12l2.28,2.28a18.83,18.83,0,0,0-1.65,4H10.06a1.5,1.5,0,0,0-1.5,1.5v7.86a1.5,1.5,0,0,0,1.5,1.5h3.22a18.83,18.83,0,0,0,1.65,4l-2.28,2.28a1.49,1.49,0,0,0,0,2.12l5.56,5.56a1.49,1.49,0,0,0,2.12,0l2.28-2.28a18.83,18.83,0,0,0,4,1.65v3.22a1.5,1.5,0,0,0,1.5,1.5h7.86a1.5,1.5,0,0,0,1.5-1.5V50.72a18.83,18.83,0,0,0,4-1.65l2.28,2.28a1.49,1.49,0,0,0,2.12,0l5.56-5.56a1.49,1.49,0,0,0,0-2.12l-2.28-2.28a18.83,18.83,0,0,0,1.65-4h3.22a1.5,1.5,0,0,0,1.5-1.5V28.07A1.5,1.5,0,0,0,53.94,26.57Zm-1.5,7.86H49.56l-.13,0a1.51,1.51,0,0,0-1.33,1.16,17.07,17.07,0,0,1-2.28,5.45,1.55,1.55,0,0,0,0,1.16,22.12,22.12,0,0,0,2.36,2.51l-3.44,3.44-2-2a1.53,1.53,0,0,0-1.89-.22,15.85,15.85,0,0,1-5.22,2.17,1.53,1.53,0,0,0-1.18,1.49v2.85H29.57V49.59a1.54,1.54,0,0,0-.91-1.4,17,17,0,0,1-5.49-2.26,1.53,1.53,0,0,0-1.89.22l-2,2-3.44-3.44,2-2a1.54,1.54,0,0,0,.22-1.89,17,17,0,0,1-2.26-5.49,1.51,1.51,0,0,0-1.4-.91H11.56V29.57a25.3,25.3,0,0,0,3.4-.1,1.52,1.52,0,0,0,.93-1.06,16.19,16.19,0,0,1,2.18-5.24,1.54,1.54,0,0,0-.22-1.89l-2-2,3.44-3.44,2,2a1.54,1.54,0,0,0,1.87.21,17,17,0,0,1,5.49-2.26,1.54,1.54,0,0,0,.91-1.4V11.56h4.86v2.85a1.54,1.54,0,0,0,.91,1.4,17,17,0,0,1,5.49,2.26,1.54,1.54,0,0,0,1.87-.21l2-2,3.44,3.44a23,23,0,0,0-2.36,2.51,1.55,1.55,0,0,0,0,1.16,17.07,17.07,0,0,1,2.28,5.45,1.54,1.54,0,0,0,1.46,1.18h2.88Z"/>
                                         </g>
                                     </svg>
                                 </Link>
@@ -272,32 +273,32 @@ const Header = () => {
                             {themeConfig.theme === 'light' ? (
                                 <button
                                     className={`${themeConfig.theme === 'light' &&
-                                        'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
-                                        }`}
+                                    'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
+                                    }`}
                                     onClick={() => {
                                         setTheme('dark');
                                         dispatch(toggleTheme('dark'));
                                     }}
                                 >
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="1.5" />
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="1.5"/>
                                         <path d="M12 2V4" stroke="currentColor" strokeWidth="1.5"
-                                            strokeLinecap="round" />
+                                              strokeLinecap="round"/>
                                         <path d="M12 20V22" stroke="currentColor" strokeWidth="1.5"
-                                            strokeLinecap="round" />
+                                              strokeLinecap="round"/>
                                         <path d="M4 12L2 12" stroke="currentColor" strokeWidth="1.5"
-                                            strokeLinecap="round" />
+                                              strokeLinecap="round"/>
                                         <path d="M22 12L20 12" stroke="currentColor" strokeWidth="1.5"
-                                            strokeLinecap="round" />
+                                              strokeLinecap="round"/>
                                         <path opacity="0.5" d="M19.7778 4.22266L17.5558 6.25424" stroke="currentColor"
-                                            strokeWidth="1.5" strokeLinecap="round" />
+                                              strokeWidth="1.5" strokeLinecap="round"/>
                                         <path opacity="0.5" d="M4.22217 4.22266L6.44418 6.25424" stroke="currentColor"
-                                            strokeWidth="1.5" strokeLinecap="round" />
+                                              strokeWidth="1.5" strokeLinecap="round"/>
                                         <path opacity="0.5" d="M6.44434 17.5557L4.22211 19.7779" stroke="currentColor"
-                                            strokeWidth="1.5" strokeLinecap="round" />
+                                              strokeWidth="1.5" strokeLinecap="round"/>
                                         <path opacity="0.5" d="M19.7778 19.7773L17.5558 17.5551" stroke="currentColor"
-                                            strokeWidth="1.5" strokeLinecap="round" />
+                                              strokeWidth="1.5" strokeLinecap="round"/>
                                     </svg>
                                 </button>
                             ) : (
@@ -306,15 +307,15 @@ const Header = () => {
                             {themeConfig.theme === 'dark' && (
                                 <button
                                     className={`${themeConfig.theme === 'dark' &&
-                                        'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
-                                        }`}
+                                    'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
+                                    }`}
                                     onClick={() => {
                                         setTheme('system');
                                         dispatch(toggleTheme('system'));
                                     }}
                                 >
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M21.0672 11.8568L20.4253 11.469L21.0672 11.8568ZM12.1432 2.93276L11.7553 2.29085V2.29085L12.1432 2.93276ZM21.25 12C21.25 17.1086 17.1086 21.25 12 21.25V22.75C17.9371 22.75 22.75 17.9371 22.75 12H21.25ZM12 21.25C6.89137 21.25 2.75 17.1086 2.75 12H1.25C1.25 17.9371 6.06294 22.75 12 22.75V21.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75V1.25C6.06294 1.25 1.25 6.06294 1.25 12H2.75ZM15.5 14.25C12.3244 14.25 9.75 11.6756 9.75 8.5H8.25C8.25 12.5041 11.4959 15.75 15.5 15.75V14.25ZM20.4253 11.469C19.4172 13.1373 17.5882 14.25 15.5 14.25V15.75C18.1349 15.75 20.4407 14.3439 21.7092 12.2447L20.4253 11.469ZM9.75 8.5C9.75 6.41182 10.8627 4.5828 12.531 3.57467L11.7553 2.29085C9.65609 3.5593 8.25 5.86509 8.25 8.5H9.75ZM12 2.75C11.9115 2.75 11.8077 2.71008 11.7324 2.63168C11.6686 2.56527 11.6538 2.50244 11.6503 2.47703C11.6461 2.44587 11.6482 2.35557 11.7553 2.29085L12.531 3.57467C13.0342 3.27065 13.196 2.71398 13.1368 2.27627C13.0754 1.82126 12.7166 1.25 12 1.25V2.75ZM21.7092 12.2447C21.6444 12.3518 21.5541 12.3539 21.523 12.3497C21.4976 12.3462 21.4347 12.3314 21.3683 12.2676C21.2899 12.1923 21.25 12.0885 21.25 12H22.75C22.75 11.2834 22.1787 10.9246 21.7237 10.8632C21.286 10.804 20.7293 10.9658 20.4253 11.469L21.7092 12.2447Z"
                                             fill="currentColor"
@@ -325,24 +326,24 @@ const Header = () => {
                             {themeConfig.theme === 'system' && (
                                 <button
                                     className={`${themeConfig.theme === 'system' &&
-                                        'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
-                                        }`}
+                                    'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
+                                    }`}
                                     onClick={() => {
                                         setTheme('light');
                                         dispatch(toggleTheme('light'));
                                     }}
                                 >
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M3 9C3 6.17157 3 4.75736 3.87868 3.87868C4.75736 3 6.17157 3 9 3H15C17.8284 3 19.2426 3 20.1213 3.87868C21 4.75736 21 6.17157 21 9V14C21 15.8856 21 16.8284 20.4142 17.4142C19.8284 18 18.8856 18 17 18H7C5.11438 18 4.17157 18 3.58579 17.4142C3 16.8284 3 15.8856 3 14V9Z"
                                             stroke="currentColor"
                                             strokeWidth="1.5"
                                         />
                                         <path opacity="0.5" d="M22 21H2" stroke="currentColor" strokeWidth="1.5"
-                                            strokeLinecap="round" />
+                                              strokeLinecap="round"/>
                                         <path opacity="0.5" d="M15 15H9" stroke="currentColor" strokeWidth="1.5"
-                                            strokeLinecap="round" />
+                                              strokeLinecap="round"/>
                                     </svg>
                                 </button>
                             )}
@@ -354,7 +355,7 @@ const Header = () => {
                                 placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
                                 btnClassName="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60"
                                 button={<img className="w-5 h-5 object-cover rounded-full"
-                                    src={`/assets/images/flags/${flag.toUpperCase()}.svg`} alt="flag" />}
+                                             src={`/assets/images/flags/${flag.toUpperCase()}.svg`} alt="flag"/>}
                             >
                                 <ul className="!px-2 text-dark dark:text-white-dark grid grid-cols-2 gap-2 font-semibold dark:text-white-light/90 w-[280px]">
                                     {themeConfig.languageList.map((item: any) => {
@@ -369,7 +370,7 @@ const Header = () => {
                                                     }}
                                                 >
                                                     <img src={`/assets/images/flags/${item.code.toUpperCase()}.svg`}
-                                                        alt="flag" className="w-5 h-5 object-cover rounded-full" />
+                                                         alt="flag" className="w-5 h-5 object-cover rounded-full"/>
                                                     <span className="ltr:ml-3 rtl:mr-3">{item.name}</span>
                                                 </button>
                                             </li>
@@ -385,7 +386,7 @@ const Header = () => {
                                 btnClassName="block p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60"
                                 button={
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M22 10C22.0185 10.7271 22 11.0542 22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H13"
                                             stroke="currentColor"
@@ -398,7 +399,7 @@ const Header = () => {
                                             strokeWidth="1.5"
                                             strokeLinecap="round"
                                         />
-                                        <circle cx="19" cy="5" r="3" stroke="currentColor" strokeWidth="1.5" />
+                                        <circle cx="19" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
                                     </svg>
                                 }
                             >
@@ -436,16 +437,16 @@ const Header = () => {
                                                                 {message.time}
                                                             </span>
                                                             <button type="button"
-                                                                className="text-neutral-300 hover:text-danger"
-                                                                onClick={() => removeMessage(message.id)}>
+                                                                    className="text-neutral-300 hover:text-danger"
+                                                                    onClick={() => removeMessage(message.id)}>
                                                                 <svg width="20" height="20" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <circle opacity="0.5" cx="12" cy="12" r="10"
-                                                                        stroke="currentColor" strokeWidth="1.5" />
+                                                                            stroke="currentColor" strokeWidth="1.5"/>
                                                                     <path
                                                                         d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5"
                                                                         stroke="currentColor" strokeWidth="1.5"
-                                                                        strokeLinecap="round" />
+                                                                        strokeLinecap="round"/>
                                                                 </svg>
                                                             </button>
                                                         </div>
@@ -454,7 +455,7 @@ const Header = () => {
                                             </li>
                                             <li className="border-t border-white-light text-center dark:border-white/10 mt-5">
                                                 <button type="button"
-                                                    className="text-primary font-semibold group dark:text-gray-400 justify-center !py-4 !h-[48px]">
+                                                        className="text-primary font-semibold group dark:text-gray-400 justify-center !py-4 !h-[48px]">
                                                     <span className="group-hover:underline ltr:mr-1 rtl:ml-1">VIEW ALL ACTIVITIES</span>
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -465,7 +466,7 @@ const Header = () => {
                                                         strokeWidth="1.5"
                                                     >
                                                         <path strokeLinecap="round" strokeLinejoin="round"
-                                                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                                              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                                     </svg>
                                                 </button>
                                             </li>
@@ -473,7 +474,7 @@ const Header = () => {
                                     ) : (
                                         <li className="mb-5" onClick={(e) => e.stopPropagation()}>
                                             <button type="button"
-                                                className="!grid place-content-center hover:!bg-transparent text-lg min-h-[200px]">
+                                                    className="!grid place-content-center hover:!bg-transparent text-lg min-h-[200px]">
                                                 <div
                                                     className="mx-auto ring-4 ring-primary/30 rounded-full mb-4 text-white">
                                                     <svg
@@ -507,7 +508,7 @@ const Header = () => {
                                 button={
                                     <span>
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M19.0001 9.7041V9C19.0001 5.13401 15.8661 2 12.0001 2C8.13407 2 5.00006 5.13401 5.00006 9V9.7041C5.00006 10.5491 4.74995 11.3752 4.28123 12.0783L3.13263 13.8012C2.08349 15.3749 2.88442 17.5139 4.70913 18.0116C9.48258 19.3134 14.5175 19.3134 19.291 18.0116C21.1157 17.5139 21.9166 15.3749 20.8675 13.8012L19.7189 12.0783C19.2502 11.3752 19.0001 10.5491 19.0001 9.7041Z"
                                                 stroke="currentColor"
@@ -515,9 +516,9 @@ const Header = () => {
                                             />
                                             <path
                                                 d="M7.5 19C8.15503 20.7478 9.92246 22 12 22C14.0775 22 15.845 20.7478 16.5 19"
-                                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                                                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                                             <path d="M12 6V10" stroke="currentColor" strokeWidth="1.5"
-                                                strokeLinecap="round" />
+                                                  strokeLinecap="round"/>
                                         </svg>
                                         <span className="flex absolute w-3 h-3 ltr:right-0 rtl:left-0 top-0">
                                             <span
@@ -546,8 +547,8 @@ const Header = () => {
                                                             <div className="grid place-content-center rounded">
                                                                 <div className="w-12 h-12 relative">
                                                                     <img className="w-12 h-12 rounded-full object-cover"
-                                                                        alt="profile"
-                                                                        src={`/assets/images/${notification.profile}`} />
+                                                                         alt="profile"
+                                                                         src={`/assets/images/${notification.profile}`}/>
                                                                     <span
                                                                         className="bg-success w-2 h-2 rounded-full block absolute right-[6px] bottom-0"></span>
                                                                 </div>
@@ -568,14 +569,14 @@ const Header = () => {
                                                                     onClick={() => removeNotification(notification.id)}
                                                                 >
                                                                     <svg width="20" height="20" viewBox="0 0 24 24"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <circle opacity="0.5" cx="12" cy="12" r="10"
-                                                                            stroke="currentColor"
-                                                                            strokeWidth="1.5" />
+                                                                                stroke="currentColor"
+                                                                                strokeWidth="1.5"/>
                                                                         <path
                                                                             d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5"
                                                                             stroke="currentColor" strokeWidth="1.5"
-                                                                            strokeLinecap="round" />
+                                                                            strokeLinecap="round"/>
                                                                     </svg>
                                                                 </button>
                                                             </div>
@@ -594,7 +595,7 @@ const Header = () => {
                                     ) : (
                                         <li onClick={(e) => e.stopPropagation()}>
                                             <button type="button"
-                                                className="!grid place-content-center hover:!bg-transparent text-lg min-h-[200px]">
+                                                    className="!grid place-content-center hover:!bg-transparent text-lg min-h-[200px]">
                                                 <div className="mx-auto ring-4 ring-primary/30 rounded-full mb-4">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -621,71 +622,55 @@ const Header = () => {
                         </div>
                         <div className="dropdown shrink-0 flex">
                             {user ?
-                             (<Dropdown
-                                offset={[0, 8]}
-                                placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                btnClassName="relative group block"
-                                button={<img
-                                    className="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-                                    src="/assets/images/user-profile.jpeg" alt="userProfile" />}
-                            >
-                                <ul className="text-dark dark:text-white-dark !py-0 w-[230px] font-semibold dark:text-white-light/90">
-                                    <li>
-                                        <div className="flex items-center px-4 py-4">
-                                            <img className="rounded-md w-10 h-10 object-cover"
-                                                src="/assets/images/user-profile.jpeg" alt="userProfile" />
-                                            <div className="ltr:pl-4 rtl:pr-4">
-                                                <h4 className="text-base">
-                                                    {user?.last_name}
-                                                    <span
-                                                        className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
-                                                </h4>
-                                                <button
-                                                    type="button"
-                                                    className="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white truncate w-32"
-                                                >
-                                                {user?.email}
-                                                </button>
+                                (<Dropdown
+                                    offset={[0, 8]}
+                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
+                                    btnClassName="relative group block"
+                                    button={<img
+                                        className="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
+                                        src={`${displayImage(user?.avatar)} `}
+                                        alt="userProfile"/>}
+                                >
+                                    <ul className="text-dark dark:text-white-dark !py-0 w-[230px] font-semibold dark:text-white-light/90">
+                                        <li>
+                                            <div className="flex items-center px-4 py-4">
+                                                <img className="rounded-md w-10 h-10 object-cover"
+                                                     src={`${displayImage(user?.avatar)} `}
+                                                     alt="userProfile"/>
+                                                <div className="ltr:pl-4 rtl:pr-4">
+                                                    <h4 className="text-base">
+                                                        {user?.last_name}
+                                                        <span
+                                                            className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
+                                                    </h4>
+                                                    <button
+                                                        type="button"
+                                                        className="text-black/60 hover:text-primary dark:text-dark-light/60 dark:hover:text-white truncate w-32"
+                                                    >
+                                                        {user?.email}
+                                                    </button>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <Link to="/users/profile" className="dark:hover:text-white">
-                                            <svg className="ltr:mr-2 rtl:ml-2" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
-                                                <path
-                                                    opacity="0.5"
-                                                    d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                />
-                                            </svg>
-                                            Profile
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/apps/mailbox" className="dark:hover:text-white">
-                                            <svg className="ltr:mr-2 rtl:ml-2" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    opacity="0.5"
-                                                    d="M2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C22 6.34315 22 8.22876 22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12Z"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                />
-                                                <path
-                                                    d="M6 8L8.1589 9.79908C9.99553 11.3296 10.9139 12.0949 12 12.0949C13.0861 12.0949 14.0045 11.3296 15.8411 9.79908L18 8"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                    strokeLinecap="round"
-                                                />
-                                            </svg>
-                                            Inbox
-                                        </Link>
-                                    </li>
-                                    <li>
+                                        </li>
+                                        <li>
+                                            <Link to="/setting/personal_settings" className="dark:hover:text-white">
+                                                <svg className="ltr:mr-2 rtl:ml-2" width="18" height="18"
+                                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="12" cy="6" r="4" stroke="currentColor"
+                                                            strokeWidth="1.5"/>
+                                                    <path
+                                                        opacity="0.5"
+                                                        d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.5"
+                                                    />
+                                                </svg>
+                                                Profile
+                                            </Link>
+                                        </li>
+
+                                        {/* <li>
                                         <Link to="/auth/boxed-lockscreen" className="dark:hover:text-white">
                                             <svg className="ltr:mr-2 rtl:ml-2" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -713,27 +698,28 @@ const Header = () => {
                                             </svg>
                                             Lock Screen
                                         </Link>
-                                    </li>
-                                    <li className="border-t border-white-light dark:border-white-light/10">
-                                        <Link to="/auth/logout" className="text-danger !py-3">
-                                            <svg className="ltr:mr-2 rtl:ml-2 rotate-90" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    opacity="0.5"
-                                                    d="M17 9.00195C19.175 9.01406 20.3529 9.11051 21.1213 9.8789C22 10.7576 22 12.1718 22 15.0002V16.0002C22 18.8286 22 20.2429 21.1213 21.1215C20.2426 22.0002 18.8284 22.0002 16 22.0002H8C5.17157 22.0002 3.75736 22.0002 2.87868 21.1215C2 20.2429 2 18.8286 2 16.0002L2 15.0002C2 12.1718 2 10.7576 2.87868 9.87889C3.64706 9.11051 4.82497 9.01406 7 9.00195"
-                                                    stroke="currentColor"
-                                                    strokeWidth="1.5"
-                                                    strokeLinecap="round"
-                                                />
-                                                <path d="M12 15L12 2M12 2L15 5.5M12 2L9 5.5" stroke="currentColor"
-                                                    strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                            Sign Out
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </Dropdown>)
-                            :  "" }
+                                    </li> */}
+                                        <li className="border-t border-white-light dark:border-white-light/10">
+                                            <Link to="/auth/logout" className="text-danger !py-3">
+                                                <svg className="ltr:mr-2 rtl:ml-2 rotate-90" width="18" height="18"
+                                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        opacity="0.5"
+                                                        d="M17 9.00195C19.175 9.01406 20.3529 9.11051 21.1213 9.8789C22 10.7576 22 12.1718 22 15.0002V16.0002C22 18.8286 22 20.2429 21.1213 21.1215C20.2426 22.0002 18.8284 22.0002 16 22.0002H8C5.17157 22.0002 3.75736 22.0002 2.87868 21.1215C2 20.2429 2 18.8286 2 16.0002L2 15.0002C2 12.1718 2 10.7576 2.87868 9.87889C3.64706 9.11051 4.82497 9.01406 7 9.00195"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.5"
+                                                        strokeLinecap="round"
+                                                    />
+                                                    <path d="M12 15L12 2M12 2L15 5.5M12 2L9 5.5" stroke="currentColor"
+                                                          strokeWidth="1.5" strokeLinecap="round"
+                                                          strokeLinejoin="round"/>
+                                                </svg>
+                                                Sign Out
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </Dropdown>)
+                                : ""}
 
                         </div>
                     </div>
@@ -746,7 +732,7 @@ const Header = () => {
                         <NavLink to="/" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         opacity="0.5"
                                         d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z"
@@ -767,7 +753,7 @@ const Header = () => {
                         <NavLink to="/account/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5"></circle>
                                     <path
                                         d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
@@ -784,20 +770,20 @@ const Header = () => {
                         <NavLink to="/lead/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5"></circle>
                                     <path opacity="0.5" d="M18 9C19.6569 9 21 7.88071 21 6.5C21 5.11929 19.6569 4 18 4"
-                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                     <path opacity="0.5" d="M6 9C4.34315 9 3 7.88071 3 6.5C3 5.11929 4.34315 4 6 4"
-                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                     <ellipse cx="12" cy="17" rx="6" ry="4" stroke="currentColor"
-                                        strokeWidth="1.5"></ellipse>
+                                             strokeWidth="1.5"></ellipse>
                                     <path opacity="0.5"
-                                        d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14"
-                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                          d="M20 19C21.7542 18.6153 23 17.6411 23 16.5C23 15.3589 21.7542 14.3847 20 14"
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                     <path opacity="0.5"
-                                        d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14"
-                                        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                                          d="M4 19C2.24575 18.6153 1 17.6411 1 16.5C1 15.3589 2.24575 14.3847 4 14"
+                                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                                 </svg>
                                 <span className="px-1">{t('Leads')}</span>
                             </div>
@@ -819,7 +805,7 @@ const Header = () => {
                         <NavLink to="/contact/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5"></circle>
                                     <path
                                         d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18"
@@ -836,7 +822,7 @@ const Header = () => {
                         <NavLink to="/sales/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M22 7L14.6203 14.3347C13.6227 15.3263 13.1238 15.822 12.5051 15.822C11.8864 15.8219 11.3876 15.326 10.3902 14.3342L10.1509 14.0962C9.15254 13.1035 8.65338 12.6071 8.03422 12.6074C7.41506 12.6076 6.91626 13.1043 5.91867 14.0977L2 18M22 7V12.5458M22 7H16.4179"
                                         stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
@@ -852,7 +838,7 @@ const Header = () => {
                         <NavLink to="/quotes/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <g opacity="0.5">
                                         <path
                                             d="M14 2.75C15.9068 2.75 17.2615 2.75159 18.2892 2.88976C19.2952 3.02503 19.8749 3.27869 20.2981 3.7019C20.7213 4.12511 20.975 4.70476 21.1102 5.71085C21.2484 6.73851 21.25 8.09318 21.25 10C21.25 10.4142 21.5858 10.75 22 10.75C22.4142 10.75 22.75 10.4142 22.75 10V9.94359C22.75 8.10583 22.75 6.65019 22.5969 5.51098C22.4392 4.33856 22.1071 3.38961 21.3588 2.64124C20.6104 1.89288 19.6614 1.56076 18.489 1.40314C17.3498 1.24997 15.8942 1.24998 14.0564 1.25H14C13.5858 1.25 13.25 1.58579 13.25 2C13.25 2.41421 13.5858 2.75 14 2.75Z"
@@ -899,7 +885,7 @@ const Header = () => {
                         <NavLink to="/rfq/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <g opacity="0.5">
                                         <path
                                             d="M14 2.75C15.9068 2.75 17.2615 2.75159 18.2892 2.88976C19.2952 3.02503 19.8749 3.27869 20.2981 3.7019C20.7213 4.12511 20.975 4.70476 21.1102 5.71085C21.2484 6.73851 21.25 8.09318 21.25 10C21.25 10.4142 21.5858 10.75 22 10.75C22.4142 10.75 22.75 10.4142 22.75 10V9.94359C22.75 8.10583 22.75 6.65019 22.5969 5.51098C22.4392 4.33856 22.1071 3.38961 21.3588 2.64124C20.6104 1.89288 19.6614 1.56076 18.489 1.40314C17.3498 1.24997 15.8942 1.24998 14.0564 1.25H14C13.5858 1.25 13.25 1.58579 13.25 2C13.25 2.41421 13.5858 2.75 14 2.75Z"
@@ -948,10 +934,10 @@ const Header = () => {
                         <NavLink to="/product/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.5"
-                                        d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z"
-                                        fill="currentColor"></path>
+                                          d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z"
+                                          fill="currentColor"></path>
                                     <path
                                         d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z"
                                         fill="currentColor"></path>
@@ -966,10 +952,10 @@ const Header = () => {
                         <NavLink to="/availability/list" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.5"
-                                        d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z"
-                                        fill="currentColor"></path>
+                                          d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z"
+                                          fill="currentColor"></path>
                                     <path
                                         d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z"
                                         fill="currentColor"></path>
@@ -986,7 +972,7 @@ const Header = () => {
                         <button type="button" className="nav-link">
                             <div className="flex items-center">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <g opacity="0.5">
                                         <path
                                             d="M14 2.75C15.9068 2.75 17.2615 2.75159 18.2892 2.88976C19.2952 3.02503 19.8749 3.27869 20.2981 3.7019C20.7213 4.12511 20.975 4.70476 21.1102 5.71085C21.2484 6.73851 21.25 8.09318 21.25 10C21.25 10.4142 21.5858 10.75 22 10.75C22.4142 10.75 22.75 10.4142 22.75 10V9.94359C22.75 8.10583 22.75 6.65019 22.5969 5.51098C22.4392 4.33856 22.1071 3.38961 21.3588 2.64124C20.6104 1.89288 19.6614 1.56076 18.489 1.40314C17.3498 1.24997 15.8942 1.24998 14.0564 1.25H14C13.5858 1.25 13.25 1.58579 13.25 2C13.25 2.41421 13.5858 2.75 14 2.75Z"
@@ -1026,9 +1012,9 @@ const Header = () => {
                             </div>
                             <div className="right_arrow">
                                 <svg className="rotate-90" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5"
-                                        strokeLinecap="round" strokeLinejoin="round" />
+                                          strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
                             </div>
                         </button>
@@ -1090,6 +1076,9 @@ const Header = () => {
                             </li>
                             <li>
                                 <NavLink to="/user/list">{t('User')}</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/call/list">{t('Call')}</NavLink>
                             </li>
                         </ul>
                     </li>

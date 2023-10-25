@@ -4,12 +4,13 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/quoteFormSlice";
 import {
-    Currencies, handleUploadFile,
+    Currencies, displayImage,
     searchAccounts, searchContacts, searchDeals,
     searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import Api from "../../../../config/api";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const HeaderSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
@@ -69,7 +70,8 @@ const HeaderSection = () => {
 
     const fields = {
         'Header': {
-            'Account Name': <AsyncSelect isMulti={false} id="account_id" name="account_id"
+            'Account Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
@@ -82,7 +84,7 @@ const HeaderSection = () => {
                                                  <div key={formState.account?.id} className="flex items-center">
                                                      {formState.account ? (
                                                          <img
-                                                             src={formState.account.image ?? '/assets/images/user-profile.jpeg'}
+                                                             src={displayImage(formState.account.image)}
                                                              alt="avatar"
                                                              className="w-8 h-8 mr-2 rounded-full"
                                                          />
@@ -97,7 +99,8 @@ const HeaderSection = () => {
                                              ),
                                          }}
                                          className="flex-1"/>,
-            'Contact Name': <AsyncSelect isMulti={false} id="contact_id" name="contact_id"
+            'Contact Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="contact_id" name="contact_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchContacts}
                                          onChange={({value}: any) => {
@@ -125,7 +128,8 @@ const HeaderSection = () => {
                                          }}
 
                                          className="flex-1"/>,
-            'RFQ': <AsyncSelect isMulti={false} id="rfq_id" name="rfq_id"
+            'RFQ': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="rfq_id" name="rfq_id"
                                 placeholder="Type at least 2 characters to search..."
                                 loadOptions={searchRFQ}
                                 onChange={({value}: any) => {
@@ -154,7 +158,8 @@ const HeaderSection = () => {
                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}
                               defaultValue={formState.subject}
             />,
-            'Converted by': <AsyncSelect isMulti={false} id="converted_by_id" name="converted_by_id"
+            'Converted by': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="converted_by_id" name="converted_by_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchOwners}
                                          className="flex-1"
@@ -187,7 +192,8 @@ const HeaderSection = () => {
             />,
         },
         '': {
-            'Quote Owner': <AsyncSelect isMulti={false} id="owner_id" name="owner_id"
+            'Quote Owner': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
                                         placeholder="Type at least 2 characters to search..."
                                         loadOptions={searchOwners}
                                         onChange={({value}: any) => {
@@ -199,7 +205,7 @@ const HeaderSection = () => {
                                                 <div key={formState.owner?.id} className="flex items-center">
                                                     {formState.owner ? (
                                                         <img
-                                                            src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                                            src={displayImage(formState.owner.avatar)}
                                                             alt="avatar"
                                                             className="w-8 h-8 mr-2 rounded-full"
                                                         />
@@ -215,7 +221,8 @@ const HeaderSection = () => {
                                         }}
                                         className="flex-1"/>,
 
-            'PM User': <AsyncSelect required isMulti={false} id="pm_user_id" name="pm_user_id"
+            'PM User': <AsyncSelect
+                    defaultOptions={true} required isMulti={false} id="pm_user_id" name="pm_user_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchOwners}
                                     onChange={({value}: any) => {
@@ -227,7 +234,7 @@ const HeaderSection = () => {
                                             <div key={formState.pm_user?.id} className="flex items-center">
                                                 {formState.pm_user ? (
                                                     <img
-                                                        src={formState.pm_user.image ?? '/assets/images/user-profile.jpeg'}
+                                                        src={displayImage(formState.pm_user.image)}
                                                         alt="avatar"
                                                         className="w-8 h-8 mr-2 rounded-full"
                                                     />
@@ -243,7 +250,8 @@ const HeaderSection = () => {
                                     }}
                                     className="flex-1"/>,
 
-            'Deals Name': <AsyncSelect isMulti={false} id="deal_id" name="deal_id"
+            'Deals Name': <AsyncSelect
+                    defaultOptions={true} isMulti={false} id="deal_id" name="deal_id"
                                        placeholder="Type at least 2 characters to search..."
                                        loadOptions={searchDeals}
                                        onChange={({value}: any) => {
@@ -271,19 +279,13 @@ const HeaderSection = () => {
             />,
 
             'Quote File(Excel)':
-                <div className="flex">
-                    <input
-                        name="quote_file"
-                        type="file"
-                        className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                        accept="image/*,.zip,.pdf,.xls,.xlsx,.txt.doc,.docx"
-                        onChange={(e) => handleUploadFile(e, (response: any) => {
-                            dispatch(updateFormData({'quote_file': `${response?.data.data.file_url}`}));
-                        })}
-                    />
-                    <a className="ml-1 cursor-pointer btn btn-outline-primary" href={formState.quote_file}
-                       target="_blank">Download</a>
-                </div>
+                <FileUploadComponent
+                    id={'quote_file'}
+                    modelName="quote"
+                    formState={formState}
+                    formAttribute={'quote_file'}
+                    updateFormdata={updateFormData}
+                />
             ,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"

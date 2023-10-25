@@ -82,6 +82,7 @@ const TechDataSection = () => {
         'Tech Data': {
             'Category': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="product_category_id"

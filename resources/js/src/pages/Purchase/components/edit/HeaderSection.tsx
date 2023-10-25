@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchContacts, Currencies
-    , searchOwners, searchVendor, searchAvailability
+    , searchOwners, searchVendor, searchAvailability, displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
@@ -26,6 +26,7 @@ const HeaderSection = () => {
 
             'Vendor Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="vendor_id"
@@ -51,6 +52,7 @@ const HeaderSection = () => {
             ),
             'Contact Name': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="contact_id"
                     placeholder="Type at least 2 characters to search..."
@@ -82,6 +84,7 @@ const HeaderSection = () => {
             ),
             'Availability No': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="availability_id"
                     placeholder="Type at least 2 characters to search..."
@@ -142,6 +145,7 @@ const HeaderSection = () => {
             ),
             'PurchaseOrders Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -157,7 +161,7 @@ const HeaderSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                 <img
-                                    src={formState.owner.avatar ?? '/assets/images/user-profile.jpeg'}
+                                    src={displayImage(formState.owner.avatar)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
@@ -173,6 +177,7 @@ const HeaderSection = () => {
             ),
             'Approved By': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
                     placeholder="Type at least 2 characters to search..."

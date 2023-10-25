@@ -8,6 +8,8 @@ import {
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
+import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const AccountSection = () => {
     const dispatch = useDispatch();
@@ -38,34 +40,12 @@ const AccountSection = () => {
     const fields = {
         'Account': {
             'Account Image': (
-                <div className="">
-                    <div className="flex">
-                        <input
-                            id="account_image"
-                            key="account_image"
-                            type="file"
-                            className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                            accept="image/*"
-                            onChange={(e) => handleUploadFile(e, (response: any) => {
-                                dispatch(updateFormData({'image': `${response?.data.data.file_url}`}));
-                            })}
-                            name="account_image"
-                        />
-                        <ClearButtonComponent callBack={() => {
-                            const fileInput = document.getElementById('account_image') as HTMLInputElement | null;
-                            if (fileInput) {
-                                fileInput.value = '';
-                                fileInput.dispatchEvent(new Event('change', {bubbles: true}));
-                            }
-                            dispatch(updateFormData({'image': null}));
-                        }}/>
-                    </div>
-                    <img
-                        id="manufacturer_image_preview"
-                        src={getImageSource(formState.image || formState.oldImage)}
-                        alt="img" className="mt-4 w-20 h-20 rounded"/>
-                </div>
-
+                <ImageUploadComponent formState={formState}
+                                      modelName={'account'}
+                                      id={'account_image'}
+                                      formAttribute={'image'}
+                                      updateFormData={updateFormData}
+                />
             ),
             'Account Name': (
                 <input
@@ -94,17 +74,15 @@ const AccountSection = () => {
                     handleChangeField('contract', value)
                 }}
             />,
-            'Contract Attachment': (<input
-                id="contract_attachment"
-                key="contract_attachment"
-                type="file"
-                className="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary flex-1"
-                accept="image/*"
-                onChange={(e) => handleUploadFile(e, (response: any) => {
-                    dispatch(updateFormData({field: 'contract_attachment', value: `${response?.data.data.file_url}`}));
-                })}
-                name="contract_attachment"
-            />),
+            'Contract Attachment': (
+                <FileUploadComponent
+                    id="contract_attachment"
+                    updateFormData={updateFormData}
+                    formState={formState}
+                    modelName='account'
+                    formAttribute='contract_attachment'
+                />
+            ),
             'Business Account': <input
                 id="is_business"
                 type="checkbox"
@@ -126,6 +104,7 @@ const AccountSection = () => {
         '': {
             'Account Owner': (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
@@ -138,6 +117,7 @@ const AccountSection = () => {
                 />
             ),
             'PM User': <AsyncSelect
+                defaultOptions={true}
                 isMulti={false}
                 id="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
