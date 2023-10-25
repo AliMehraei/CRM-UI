@@ -48,8 +48,8 @@ const CallTypes: any = [
 const CallInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.callForm);
-    const [callableType, setCallableType] = useState("App\\Models\\Contact");
-    const [relatableType, setRelatable] = useState("App\\Models\\Account");
+    const [callableType, setCallableType] = useState(formState.callable_type);
+    const [relatableType, setRelatable] = useState(formState.relatable_type);
     const [callableValue, setCallableValue] = useState<any>({
         value: formState.callable ? formState.callable.id : null,
         label: (
@@ -101,6 +101,7 @@ const CallInformationSection = () => {
         }
         return module.api.call(null, e);
     }
+
 
     const fields = {
         'Call Information': {
