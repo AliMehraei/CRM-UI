@@ -4,7 +4,7 @@ import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 
-const PureposeOfOutGoingCall = () => {
+const PurposeOfOutGoingCall = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: any, value: any) => {
@@ -41,4 +41,4 @@ const PureposeOfOutGoingCall = () => {
         </div>
     </>)
 }
-export default PureposeOfOutGoingCall;
+export default PurposeOfOutGoingCall;
