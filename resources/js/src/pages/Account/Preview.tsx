@@ -35,7 +35,6 @@ const Preview = () => {
     useEffect(() => {
         if (formState.contract_attachment) {
             displayFile('account', 'contract_attachment', formState.contract_attachment).then((data) => {
-                console.log(data);
                 dispatch(updateFormData({ [`contract_attachment_preview`]: data }));
             })
         }
@@ -136,7 +135,7 @@ const Preview = () => {
                             <div>Account Owner : <strong>{formState.owner?.first_name} {formState.owner?.last_name} </strong></div>
                             <div>PM User : <strong>{formState.pm_user?.first_name} {formState.pm_user?.last_name} </strong></div>
                             <div>Created By : <strong>{formState.creator?.first_name} {formState.creator?.last_name}</strong> </div>
-                            <div>Modifed By : <strong>{formState.modifier?.first_name} {formState.modifier?.last_name} </strong></div>
+                            <div>Modified By : <strong>{formState.modifier?.first_name} {formState.modifier?.last_name} </strong></div>
                         </div>
                     </div>
 
