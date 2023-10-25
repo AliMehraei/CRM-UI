@@ -1,141 +1,102 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
+import Api from "../../config/api";
+import LoadingSasCrm from "../../components/LoadingSasCrm";
+import { useUserStatus } from "../../config/authCheck";
+import { resetForm, updateFormData } from "../../store/accountFormSlice";
+import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
 
 const Preview = () => {
+    const { hasPermission } = useUserStatus();
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const params = useParams();
+    const accountId = params.id;
+    const api = new Api();
+    const formState = useSelector((state: any) => state.accountForm);
+
     useEffect(() => {
-        dispatch(setPageTitle('Invoice Preview'));
+        dispatch(setPageTitle('Account Preview'));
     });
     const exportTable = () => {
         window.print();
     };
 
-    const items = [
-        {
-            id: 1,
-            title: 'Calendar App Customization',
-            quantity: 1,
-            price: '120',
-            amount: '120',
-        },
-        {
-            id: 2,
-            title: 'Chat App Customization',
-            quantity: 1,
-            price: '230',
-            amount: '230',
-        },
-        {
-            id: 3,
-            title: 'Laravel Integration',
-            quantity: 1,
-            price: '405',
-            amount: '405',
-        },
-        {
-            id: 4,
-            title: 'Backend UI Design',
-            quantity: 1,
-            price: '2500',
-            amount: '2500',
-        },
-    ];
+    const fetchData = async () => {
+        const accountResponse = await api.fetchSingleAccount(accountId);
+        if (accountResponse.status != 200)
+            return;
+        const account = accountResponse.data.data.account;
+        dispatch(updateFormData(account));
 
-    const columns = [
-        {
-            key: 'id',
-            label: 'S.NO',
-        },
-        {
-            key: 'title',
-            label: 'ITEMS',
-        },
-        {
-            key: 'quantity',
-            label: 'QTY',
-        },
-        {
-            key: 'price',
-            label: 'PRICE',
-            class: 'ltr:text-right rtl:text-left',
-        },
-        {
-            key: 'amount',
-            label: 'AMOUNT',
-            class: 'ltr:text-right rtl:text-left',
-        },
-    ];
+    };
+    useEffect(() => {
+        if (formState.contract_attachment) {
+            displayFile('account', 'contract_attachment', formState.contract_attachment).then((data) => {
+                console.log(data);
+                dispatch(updateFormData({ [`contract_attachment_preview`]: data }));
+            })
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchData().then(() => {
+            setLoading(false);
+
+        });
+    }, [accountId]);
+    if (loading)
+        return <LoadingSasCrm />;
 
     return (
-        <div>
-            <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
-                <button type="button" className="btn btn-info gap-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
-                        <path
-                            d="M17.4975 18.4851L20.6281 9.09373C21.8764 5.34874 22.5006 3.47624 21.5122 2.48782C20.5237 1.49939 18.6511 2.12356 14.906 3.37189L5.57477 6.48218C3.49295 7.1761 2.45203 7.52305 2.13608 8.28637C2.06182 8.46577 2.01692 8.65596 2.00311 8.84963C1.94433 9.67365 2.72018 10.4495 4.27188 12.0011L4.55451 12.2837C4.80921 12.5384 4.93655 12.6658 5.03282 12.8075C5.22269 13.0871 5.33046 13.4143 5.34393 13.7519C5.35076 13.9232 5.32403 14.1013 5.27057 14.4574C5.07488 15.7612 4.97703 16.4131 5.0923 16.9147C5.32205 17.9146 6.09599 18.6995 7.09257 18.9433C7.59255 19.0656 8.24576 18.977 9.5522 18.7997L9.62363 18.79C9.99191 18.74 10.1761 18.715 10.3529 18.7257C10.6738 18.745 10.9838 18.8496 11.251 19.0285C11.3981 19.1271 11.5295 19.2585 11.7923 19.5213L12.0436 19.7725C13.5539 21.2828 14.309 22.0379 15.1101 21.9985C15.3309 21.9877 15.5479 21.9365 15.7503 21.8474C16.4844 21.5244 16.8221 20.5113 17.4975 18.4851Z"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                        />
-                        <path opacity="0.5" d="M6 18L21 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                    Send Invoice
-                </button>
+        (!hasPermission(`read-account`) || loading) ? (
+            <LoadingSasCrm />
+        ) : (
+            <div>
+                <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
+                    <button type="button" className="btn btn-primary gap-2" onClick={() => exportTable()}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6 17.9827C4.44655 17.9359 3.51998 17.7626 2.87868 17.1213C2 16.2426 2 14.8284 2 12C2 9.17157 2 7.75736 2.87868 6.87868C3.75736 6 5.17157 6 8 6H16C18.8284 6 20.2426 6 21.1213 6.87868C22 7.75736 22 9.17157 22 12C22 14.8284 22 16.2426 21.1213 17.1213C20.48 17.7626 19.5535 17.9359 18 17.9827"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                            />
+                            <path opacity="0.5" d="M9 10H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <path d="M19 14L5 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <path
+                                d="M18 14V16C18 18.8284 18 20.2426 17.1213 21.1213C16.2426 22 14.8284 22 12 22C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V14"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                            />
+                            <path
+                                opacity="0.5"
+                                d="M17.9827 6C17.9359 4.44655 17.7626 3.51998 17.1213 2.87868C16.2427 2 14.8284 2 12 2C9.17158 2 7.75737 2 6.87869 2.87868C6.23739 3.51998 6.06414 4.44655 6.01733 6"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                            />
+                            <circle opacity="0.5" cx="17" cy="10" r="1" fill="currentColor" />
+                            <path opacity="0.5" d="M15 16.5H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <path opacity="0.5" d="M13 19H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                        Print
+                    </button>
+                    {!loading && hasPermission(`create-account`) ? (
+                        <Link to="/account/add" className="btn btn-secondary gap-2">
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Create
+                        </Link>
+                    ) : null}
 
-                <button type="button" className="btn btn-primary gap-2" onClick={() => exportTable()}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M6 17.9827C4.44655 17.9359 3.51998 17.7626 2.87868 17.1213C2 16.2426 2 14.8284 2 12C2 9.17157 2 7.75736 2.87868 6.87868C3.75736 6 5.17157 6 8 6H16C18.8284 6 20.2426 6 21.1213 6.87868C22 7.75736 22 9.17157 22 12C22 14.8284 22 16.2426 21.1213 17.1213C20.48 17.7626 19.5535 17.9359 18 17.9827"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                        />
-                        <path opacity="0.5" d="M9 10H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        <path d="M19 14L5 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        <path
-                            d="M18 14V16C18 18.8284 18 20.2426 17.1213 21.1213C16.2426 22 14.8284 22 12 22C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V14"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                        />
-                        <path
-                            opacity="0.5"
-                            d="M17.9827 6C17.9359 4.44655 17.7626 3.51998 17.1213 2.87868C16.2427 2 14.8284 2 12 2C9.17158 2 7.75737 2 6.87869 2.87868C6.23739 3.51998 6.06414 4.44655 6.01733 6"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                        />
-                        <circle opacity="0.5" cx="17" cy="10" r="1" fill="currentColor" />
-                        <path opacity="0.5" d="M15 16.5H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        <path opacity="0.5" d="M13 19H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                    Print
-                </button>
-
-                <button type="button" className="btn btn-success gap-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
-                        <path
-                            opacity="0.5"
-                            d="M17 9.00195C19.175 9.01406 20.3529 9.11051 21.1213 9.8789C22 10.7576 22 12.1718 22 15.0002V16.0002C22 18.8286 22 20.2429 21.1213 21.1215C20.2426 22.0002 18.8284 22.0002 16 22.0002H8C5.17157 22.0002 3.75736 22.0002 2.87868 21.1215C2 20.2429 2 18.8286 2 16.0002L2 15.0002C2 12.1718 2 10.7576 2.87868 9.87889C3.64706 9.11051 4.82497 9.01406 7 9.00195"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                        ></path>
-                        <path d="M12 2L12 15M12 15L9 11.5M12 15L15 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    </svg>
-                    Download
-                </button>
-
-                <Link to="/apps/invoice/add" className="btn btn-secondary gap-2">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                    Create
-                </Link>
-
-                <Link to="/apps/invoice/edit" className="btn btn-warning gap-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
-                        <path
+                    {!loading && hasPermission(`update-account`) ? (
+                        <Link to={`/account/edit/${accountId}`} className="btn btn-warning gap-2">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
+                                <path
                             opacity="0.5"
                             d="M22 10.5V12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2H13.5"
                             stroke="currentColor"
@@ -153,134 +114,323 @@ const Preview = () => {
                             stroke="currentColor"
                             strokeWidth="1.5"
                         ></path>
-                    </svg>
-                    Edit
-                </Link>
-            </div>
-            <div className="panel">
-                <div className="flex justify-between flex-wrap gap-4 px-4">
-                    <div className="text-2xl font-semibold uppercase">Invoice</div>
-                    <div className="shrink-0">
-                        <img src="/assets/images/logo.svg" alt="img" className="w-14 ltr:ml-auto rtl:mr-auto" />
-                    </div>
-                </div>
-                <div className="ltr:text-right rtl:text-left px-4">
-                    <div className="space-y-1 mt-6 text-white-dark">
-                        <div>13 Tetrick Road, Cypress Gardens, Florida, 33884, US</div>
-                        <div>vristo@gmail.com</div>
-                        <div>+1 (070) 123-4567</div>
-                    </div>
-                </div>
+                            </svg>
+                            Edit
+                        </Link>
+                    ) : null}
 
-                <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                    <div className="flex-1">
-                        <div className="space-y-1 text-white-dark">
-                            <div>Issue For:</div>
-                            <div className="text-black dark:text-white font-semibold">John Doe</div>
-                            <div>405 Mulberry Rd. Mc Grady, NC, 28649</div>
-                            <div>redq@company.com</div>
-                            <div>(128) 666 070</div>
+                </div>
+                <div className="panel">
+                    <div className="flex justify-between flex-wrap gap-4 px-4">
+                        <div className="text-2xl font-semibold uppercase">Account</div>
+                        <div className="shrink-0">
+                            <img src={displayImage(formState.image_data)} alt="account image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         </div>
                     </div>
-                    <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                        <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Invoice :</div>
-                                <div>#8701</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Issue Date :</div>
-                                <div>13 Sep 2022</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Order ID :</div>
-                                <div>#OD-85794</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between">
-                                <div className="text-white-dark">Shipment ID :</div>
-                                <div>#SHP-8594</div>
-                            </div>
+                    <div className="px-4">
+                        <div className="space-y-1 mt-6 text-base text-gray-700">
+                            <div>Account Name : <strong>{formState.account_name}</strong></div>
+                            <div>Phone : <strong>{formState.phone}</strong></div>
+                            <div>Website : <strong><a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a></strong></div>
+                            <div>Account Site: <strong>{formState.shipping_city} | {formState.account_name}</strong></div>
+                            <div>Account Owner : <strong>{formState.owner?.first_name} {formState.owner?.last_name} </strong></div>
+                            <div>PM User : <strong>{formState.pm_user?.first_name} {formState.pm_user?.last_name} </strong></div>
+                            <div>Created By : <strong>{formState.creator?.first_name} {formState.creator?.last_name}</strong> </div>
+                            <div>Modifed By : <strong>{formState.modifier?.first_name} {formState.modifier?.last_name} </strong></div>
                         </div>
-                        <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Bank Name:</div>
-                                <div className="whitespace-nowrap">Bank Of America</div>
+                    </div>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+
+                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Cotract Attachment :</div>
+                                    <div>
+                                        <a disabled={!formState.contract_attachment} className="btn btn-sm btn-outline-primary cursor-pointer"
+                                            href={formState.contract_attachment_preview ?? formState.contract_attachment}
+                                            target="__blank"
+                                            {...({} as React.ButtonHTMLAttributes<HTMLAnchorElement>)}
+                                        >Download</a></div>
+                                    {/* TODO: fix download file */}
+
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Account Type :</div>
+                                    <div>{formState.account_type}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Contracts :</div>
+                                    {/* TODO: add account Contracts*/}
+                                    <div>not Sets</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between">
+                                    <div className="text-white-dark">Business Account :</div>
+                                    <div>{formState.business_account ? 'Yes' : 'No'}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Currency:</div>
+                                    <div>{formState.currency}</div>
+                                </div>
                             </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Account Number:</div>
-                                <div>1234567890</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">SWIFT Code:</div>
-                                <div>S58K796</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">IBAN:</div>
-                                <div>L5698445485</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Country:</div>
-                                <div>United States</div>
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Approved by :</div>
+                                    <div className="whitespace-nowrap">{formState.approvedBy?.first_name} {formState.approvedBy?.last_name}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">TAM :</div>
+                                    <div>{formState.tam}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Exchagne Rate :</div>
+                                    <div>{formState.exchange_rate}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Lead Reference :</div>
+                                    <div>{formState.lead_reference}</div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="table-responsive mt-6">
-                    <table className="table-striped">
-                        <thead>
-                            <tr>
-                                {columns.map((column) => {
-                                    return (
-                                        <th key={column.key} className={column?.class}>
-                                            {column.label}
-                                        </th>
-                                    );
-                                })}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {items.map((item) => {
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.id}</td>
-                                        <td>{item.title}</td>
-                                        <td>{item.quantity}</td>
-                                        <td className="ltr:text-right rtl:text-left">${item.price}</td>
-                                        <td className="ltr:text-right rtl:text-left">${item.amount}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="grid sm:grid-cols-2 grid-cols-1 px-4 mt-6">
-                    <div></div>
-                    <div className="ltr:text-right rtl:text-left space-y-2">
-                        <div className="flex items-center">
-                            <div className="flex-1">Subtotal</div>
-                            <div className="w-[37%]">$3255</div>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                        <h2 className='text-base'>Account Information</h2>
+                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Primary First Name :</div>
+                                    <div>
+                                        {formState.primary_first_name}
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Account Number :</div>
+                                    <div>
+                                        {formState.account_number}
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Phone :</div>
+                                    <div>{formState.phone}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Fax :</div>
+                                    <div>{formState.fax}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between">
+                                    <div className="text-white-dark"> Email :</div>
+                                    <div>
+                                        <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>
+                                            {formState.email}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Website:</div>
+                                    <div><a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a></div>
+                                </div>
+                            </div>
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Primary Last Name :</div>
+                                    <div>
+                                        {formState.primary_last_name}
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Parent Account :</div>
+                                    <div>{formState.parent?.first_name} {formState.parent?.last_name}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Child Account :</div>
+                                    <div>{formState.child?.first_name} {formState.child?.last_name}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Double Check Status :</div>
+                                    <div>{formState.double_check_status}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">DCheck :</div>
+                                    <div>{formState.business_account ? 'Yes' : 'No'}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Has No Contacts :</div>
+                                    <div>{formState.business_account ? 'Yes' : 'No'}</div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <div className="flex-1">Tax</div>
-                            <div className="w-[37%]">$700</div>
+                    </div>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                        <h2 className='text-base'>Terms and Shipping</h2>
+                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Incoterms :</div>
+                                    <div>
+                                        {formState.incoterm}
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Payment Terms :</div>
+                                    <div>
+                                        {formState.payment_term}
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Credit Line :</div>
+                                    <div>{formState.credit_line}</div>
+                                </div>
+
+                            </div>
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">VAT No :</div>
+                                    <div>
+                                        {formState.vat_no}
+                                    </div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Forwarder :</div>
+                                    <div>{formState.parent?.forwarder}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Child Account :</div>
+                                    <div>{formState.child?.first_name} {formState.child?.last_name}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Forwarder Account no :</div>
+                                    <div>{formState.forwarder_account_no}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <div className="flex-1">Shipping Rate</div>
-                            <div className="w-[37%]">$0</div>
+                    </div>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                        <h2 className='text-base'>Address Information</h2>
+                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Billing Street :</div>
+                                    <div>{formState.billing_street}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Billing City :</div>
+                                    <div>{formState.billing_city}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Billing Code :</div>
+                                    <div>{formState.billing_code}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Billing State :</div>
+                                    <div>{formState.billing_state}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Billing Country :</div>
+                                    <div>{formState.billing_country}</div>
+                                </div>
+
+                            </div>
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Shipping Street :</div>
+                                    <div>{formState.shipping_street}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Shipping City :</div>
+                                    <div>{formState.shipping_city}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Shipping Code :</div>
+                                    <div>{formState.shipping_code}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Shipping State :</div>
+                                    <div>{formState.shipping_state}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark"> Shipping Country :</div>
+                                    <div>{formState.shipping_country}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <div className="flex-1">Discount</div>
-                            <div className="w-[37%]">$10</div>
+                    </div>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                        <h2 className='text-base'>Description Information</h2>
+                        <div className="flex justify-between flex-col gap-6 ">
+                            <div className="flex items-center w-full justify-between mb-2">
+                                <div className="text-white-dark">Description :</div>
+                                <div>{formState.description}</div>
+                            </div>
+                            <div className="flex items-center w-full justify-between mb-2">
+                                <div className="text-white-dark">Last Activity Date :</div>
+                                <div>{formState.last_activity_date}</div>
+                            </div>
                         </div>
-                        <div className="flex items-center font-semibold text-lg">
-                            <div className="flex-1">Grand Total</div>
-                            <div className="w-[37%]">$3945</div>
+                    </div>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                        <h2 className='text-base'>Technical information</h2>
+                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">ZohoBooksID :</div>
+                                    <div>{formState.zoho_books_id}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">BooksID EUR :</div>
+                                    <div>{formState.books_id_eur}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">BooksID USD :</div>
+                                    <div>{formState.books_id_usd}</div>
+                                </div>
+                            </div>
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">BOM/Excess Total Uploading Rows :</div>
+                                    <div>{formState.bom_total_row}</div>
+                                </div>
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Account Margin :</div>
+                                    <div>{formState.account_margin}</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                        <h2 className='text-base'>Unused information</h2>
+                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Purchasing Volume Current :</div>
+                                    <div>{formState.purchasing_volume_current}</div>
+                                </div>
+                            </div>
+                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
+
+                                <div className="flex items-center w-full justify-between mb-2">
+                                    <div className="text-white-dark">Annual Revenue :</div>
+                                    <div>{formState.annual_revenue}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        )
     );
 };
 
