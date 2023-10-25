@@ -1,24 +1,24 @@
-import {Link, NavLink} from 'react-router-dom';
-import {DataTable, DataTableSortStatus} from 'mantine-datatable';
-import {useEffect, useRef, useState} from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { DataTable, DataTableSortStatus } from 'mantine-datatable';
+import { useEffect, useRef, useState } from 'react';
 import sortBy from 'lodash/sortBy';
-import {useDispatch, useSelector} from 'react-redux';
-import {IRootState} from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState } from '../../store';
 import Swal from 'sweetalert2';
 import api from '../../config/api';
-import {useUserStatus} from '../../config/authCheck';
+import { useUserStatus } from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
-import {findApiToCall, upFirstLetter, formattedModelName} from "../Functions/CommonFunctions";
-import {DeleteIcon, EditIcon} from "../FormFields/CommonIcons";
-import {resetFilterSlice} from "../../store/filterSlice";
+import { findApiToCall, upFirstLetter, formattedModelName } from "../Functions/CommonFunctions";
+import { DeleteIcon, EditIcon, ViewIcon } from "../FormFields/CommonIcons";
+import { resetFilterSlice } from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
 
-const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
+const GenerateIndexTable = ({ modelName, tableColumns, frontRoute }: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
-    const {hasPermission, isLoading, isLoggedIn} = useUserStatus();
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(false);
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
@@ -81,7 +81,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
         });
     };
 
-    const applyFilters = ({page, pageSize, filters, sortStatus}: any) => {
+    const applyFilters = ({ page, pageSize, filters, sortStatus }: any) => {
         setResetFilter(false);
         scrollToTop();
         fetchModelData(page, pageSize, filters, sortStatus);
@@ -101,7 +101,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
             position: 'top',
             showConfirmButton: false,
             timer: 3000,
-            customClass: {container: 'toast'},
+            customClass: { container: 'toast' },
         });
         toast.fire({
             icon: type,
@@ -166,7 +166,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
 
     const fetchModelData = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
-        const {columnAccessor: sortField = '', direction: sortDirection = ''}: any = sortStatus;
+        const { columnAccessor: sortField = '', direction: sortDirection = '' }: any = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
 
@@ -203,16 +203,16 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
     };
 
     const handleFieldChange = (event: any, option: any) => {
-        const {value, checked}: any = event.target;
+        const { value, checked }: any = event.target;
         if (checked) {
             setFilters((prevFilters: any) => ({
                 ...prevFilters,
-                [value]: {field: value, condition: '', value: '', model: option.model, type: option.type},
+                [value]: { field: value, condition: '', value: '', model: option.model, type: option.type },
             }));
             setSelectedFields((prevSelectedFields: any) => [...prevSelectedFields, value]);
         } else {
             setFilters((prevFilters: any) => {
-                const updatedFilters = {...prevFilters};
+                const updatedFilters = { ...prevFilters };
                 delete updatedFilters[value];
                 return updatedFilters;
             });
@@ -223,15 +223,15 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
     };
 
     const handleSortChange = (sortStatus: any) => {
-        const {columnAccessor, direction = 'asc'} = sortStatus;
-        setSortStatus({columnAccessor, direction});
+        const { columnAccessor, direction = 'asc' } = sortStatus;
+        setSortStatus({ columnAccessor, direction });
         setPage(1);
-        fetchModelData(page, pageSize, filters, {columnAccessor, direction});
+        fetchModelData(page, pageSize, filters, { columnAccessor, direction });
     };
 
     const handleConditionChange = (field: any, event: any) => {
         const conditionsToClear = ['between', 'in_the_last', 'due_in'];
-        let updatedFilterValue: any = {...(filters[field] as object), condition: event.value};
+        let updatedFilterValue: any = { ...(filters[field] as object), condition: event.value };
         if (conditionsToClear.includes(updatedFilterValue.condition)) {
             updatedFilterValue.value = '';
         }
@@ -246,7 +246,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
     useEffect(() => {
         const data = sortBy(items, sortStatus.columnAccessor);
         const reversedData = sortStatus.direction !== 'asc' ? data.reverse() : data;
-        filterOptionRef.current = {...filterOptionRef.current, sortStatus};
+        filterOptionRef.current = { ...filterOptionRef.current, sortStatus };
         setInitialRecords(reversedData);
     }, [items, sortStatus]);
 
@@ -256,16 +256,16 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
 
     useEffect(() => {
         setRecords([...initialRecords.slice(0, pageSize)]);
-        filterOptionRef.current = {...filterOptionRef.current, page, pageSize};
+        filterOptionRef.current = { ...filterOptionRef.current, page, pageSize };
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
-        filterOptionRef.current = {...filterOptionRef.current, page, pageSize, sortStatus};
+        filterOptionRef.current = { ...filterOptionRef.current, page, pageSize, sortStatus };
         fetchModelData(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, resetFilter]);
 
     useEffect(() => {
-        filterOptionRef.current = {...filterOptionRef.current, filters};
+        filterOptionRef.current = { ...filterOptionRef.current, filters };
     }, [filters]);
     useEffect(() => {
         if (!isLoading && !hasPermission(`filter-${formattedModelName(modelName)}`) && !hasPermission(`read-${formattedModelName(modelName)}`)) {
@@ -284,7 +284,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
 
     const deleteButton = (<button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-             className="h-5 w-5">
+            className="h-5 w-5">
             <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
             <path
                 d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
@@ -306,7 +306,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
 
     return (
         (!hasPermission(`read-${formattedModelName(modelName)}`) || loading) ? (
-            <LoadingSasCrm/>
+            <LoadingSasCrm />
         ) : (
             <>
                 <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
@@ -346,7 +346,7 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                         {filteredOptions.map((option: any, index: any) => (
                                             <div key={option.value + index}>
                                                 <CheckboxComponent option={option} handleFieldChange={handleFieldChange}
-                                                                   selectedFields={selectedFields}/>
+                                                    selectedFields={selectedFields} />
 
                                                 {selectedFields.includes(option.value) && (
                                                     <SearchOptionComponent
@@ -366,15 +366,15 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                     {/* Apply filter button */}
                                     {selectedFields.length > 0 && (
                                         <div className="flex justify-between space-x-2  "
-                                             style={{
-                                                 position: 'fixed',
-                                                 left: -58,
-                                                 zIndex: 99999,
-                                                 top: "50vh",
-                                                 transform: "rotate(90deg)"
-                                             }}>
-                                            <button onClick={() => applyFilters({page, pageSize, filters, sortStatus})}
-                                                    className="btn btn-sm btn-primary">
+                                            style={{
+                                                position: 'fixed',
+                                                left: -58,
+                                                zIndex: 99999,
+                                                top: "50vh",
+                                                transform: "rotate(90deg)"
+                                            }}>
+                                            <button onClick={() => applyFilters({ page, pageSize, filters, sortStatus })}
+                                                className="btn btn-sm btn-primary">
                                                 Apply Filter
                                             </button>
 
@@ -391,8 +391,8 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                 <div className="datatables pagination-padding">
                                     {loading ? (
                                         <div className='flex justify-center'>
-                                        <span
-                                            className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
+                                            <span
+                                                className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                         </div>
                                     ) : (
 
@@ -404,13 +404,13 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                                 title: 'Actions',
                                                 sortable: false,
                                                 textAlignment: 'center',
-                                                render: ({id}: any) => (
+                                                render: ({ id }: any) => (
                                                     <>
                                                         <div className="flex gap-4 items-center w-max mx-auto">
                                                             {hasPermission(`update-${formattedModelName(modelName)}`) && (
                                                                 <NavLink to={`/${frontRoute ?? modelName}/edit/${id}`}
-                                                                         className="flex hover:text-info">
-                                                                    <EditIcon/>
+                                                                    className="flex hover:text-info">
+                                                                    <EditIcon />
                                                                 </NavLink>
                                                             )}
                                                             {hasPermission(`delete-${formattedModelName(modelName)}`) && (
@@ -419,8 +419,14 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                                                     className="flex hover:text-danger"
                                                                     onClick={() => deleteRow(id)}
                                                                 >
-                                                                    <DeleteIcon/>
+                                                                    <DeleteIcon />
                                                                 </button>
+                                                            )}
+                                                            {hasPermission(`read-${formattedModelName(modelName)}`) && (
+                                                                <NavLink to={`/${frontRoute ?? modelName}/preview/${id}`}
+                                                                    className="flex hover:text-info">
+                                                                    <ViewIcon />
+                                                                </NavLink>
                                                             )}
                                                         </div>
                                                     </>
@@ -438,10 +444,10 @@ const GenerateIndexTable = ({modelName, tableColumns, frontRoute}: any) => {
                                             selectedRecords={selectedRecords}
                                             onSelectedRecordsChange={setSelectedRecords}
                                             paginationText={({
-                                                                 from,
-                                                                 to,
-                                                                 totalRecords
-                                                             }) => `Showing ${from} to ${to} of ${totalRecords} entries`}
+                                                from,
+                                                to,
+                                                totalRecords
+                                            }) => `Showing ${from} to ${to} of ${totalRecords} entries`}
                                         />
                                     )}
 
