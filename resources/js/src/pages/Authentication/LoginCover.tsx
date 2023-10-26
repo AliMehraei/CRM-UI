@@ -66,13 +66,15 @@ const LoginCover = () => {
 
     return (
         <div className="flex min-h-screen">
-            <div className="bg-gradient-to-t from-[#26a7de] to-[#26a7de] w-1/2 min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4">
+            <div className="bg-gradient-to-t from-[#001F3F] to-[#3b82f6] w-1/2 min-h-screen hidden lg:flex flex-col items-center justify-center text-white dark:text-black p-4">
                 <div className="w-full mx-auto mb-5">
                     <img
                         src="/assets/images/sascrm-cover.png"
                         alt="SasCrm"
-                        className="lg:max-w-[370px] xl:max-w-[500px] mx-auto"
+                        className="lg:max-w-[370px] xl:max-w-[400px] mx-auto"
                     />
+                   
+
                 </div>
                 <h3 className="text-3xl font-bold mb-4 text-center">
                     Your Gateway to CRM Success.
@@ -81,7 +83,7 @@ const LoginCover = () => {
             </div>
             <div className="w-full lg:w-1/2 relative flex justify-center items-center">
                 <div className="max-w-[480px] p-5 md:p-10">
-                    <h2 className="font-bold text-3xl mb-3">Sign In</h2>
+                    <h2 className="font-bold text-3xl mb-3 text-center"><span className="text-blue-500">BLUE</span><span className="text-[#001F3F]"></span> CRM</h2>
                     <p className="mb-7">
                         Enter your email and password to login
                     </p>
@@ -105,16 +107,16 @@ const LoginCover = () => {
                             />
                         </div>
                         <div>
-                           
+
                         </div>
                         <button
                             type="submit"
-                            className="btn btn-primary w-full"
-                        >
+                            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-700 focus:ring-2 focus:ring-blue-200 active:bg-blue-800" >
                             SIGN IN
                         </button>
+
                     </form>
-                   
+
                 </div>
             </div>
         </div>
