@@ -105,31 +105,49 @@ const Preview = () => {
             {label: "Sales Total", value: `${formState.total}`}, //TODO : where is it ?
             {
                 label: "GP Total",
-                value: parseFloat(formState.list_price) - parseFloat(formState.availability.availability_cost) * parseFloat(formState.Quantity)
+                value: parseFloat(formState.list_price) - parseFloat(formState.availability?.availability_cost) * parseFloat(formState.Quantity)
             },
             {
                 label: "Margin",
-                value: (1 - (parseFloat(formState.availability.availability_cost) / parseFloat(formState.list_price))) * 100
+                value: (1 - (parseFloat(formState.availability?.availability_cost) / parseFloat(formState.list_price))) * 100
             },
         ],
         'rightObjects': [
             {label: "Resale Price", value: `${formState.list_price}`},
-            {label: "Cost Vendor", value: `${formState.availability.availability_cost}`},
+            {label: "Cost Vendor", value: `${formState.availability?.availability_cost}`},
         ],
     }
 
     const LinkedAvailabilitySection = {
         'leftObjects': [
-            {label: "Availability Name", value: `${formState.availability.name}`},
-            {label: "Availability No", value: `${formState.availability.availability_no}`},
-            {label: "Availability Cost", value: `${formState.availability.availability_cost}`},
+            {label: "Availability Name", value: `${formState.availability?.name}`},
+            {label: "Availability No", value: `${formState.availability?.availability_no}`},
+            {label: "Availability Cost", value: `${formState.availability?.availability_cost}`},
         ],
         'rightObjects': [
-            {label: "Availability Quantity", value: `${formState.availability.quantity}`},
-            {label: "Availability LT", value: `${formState.availability.lead_time}`},
-            {label: "Availability DC", value: `${formState.availability.date_code}`},
+            {label: "Availability Quantity", value: `${formState.availability?.quantity}`},
+            {label: "Availability LT", value: `${formState.availability?.lead_time}`},
+            {label: "Availability DC", value: `${formState.availability?.date_code}`},
         ],
     }
+
+    const AddressInformationSection = {
+        'leftObjects': [
+            {label: "Billing Street", value: `${formState.billing_street}`},
+            {label: "Billing City", value: `${formState.billing_city}`},
+            {label: "Billing State", value: `${formState.billing_state}`},
+            {label: "Billing Code", value: `${formState.billing_code}`},
+            {label: "Billing Country", value: `${formState.billing_country}`},
+        ],
+        'rightObjects': [
+            {label: "Shipping Street", value: `${formState.shipping_street}`},
+            {label: "Shipping City", value: `${formState.shipping_city}`},
+            {label: "Shipping State", value: `${formState.shipping_state}`},
+            {label: "Shipping Code", value: `${formState.shipping_code}`},
+            {label: "Shipping Country", value: `${formState.shipping_country}`},
+        ],
+    }
+
     if (loading)
         return <LoadingSasCrm/>;
     return (
@@ -183,8 +201,22 @@ const Preview = () => {
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
+                    <InformationSectionPreview
+                        title="Address Information"
+                        leftObjects={AddressInformationSection.leftObjects}
+                        rightObjects={AddressInformationSection.rightObjects}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
                     <MultipleLineSectionPreview
-                        sectionTitle="Description Information"
+                        sectionTitle="Terms And Conditions"
+                        data={[
+                            {label: 'Terms and Conditions', value: formState.terms_and_conditions},
+                        ]}/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <MultipleLineSectionPreview
+                        sectionTitle="Description "
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
