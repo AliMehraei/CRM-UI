@@ -10,6 +10,7 @@ import { displayImage, displayFile } from '../../components/Functions/CommonFunc
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
+import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
