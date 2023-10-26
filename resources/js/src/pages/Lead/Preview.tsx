@@ -9,6 +9,7 @@ import { resetForm, updateFormData } from "../../store/leadFormSlice";
 import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
 import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
+import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -25,7 +26,6 @@ const Preview = () => {
     const exportTable = () => {
         window.print();
     };
-
     const fetchData = async () => {
         const modelResponse = await api.fetchSingleLead(modelID);
         if (modelResponse.status != 200)
@@ -33,7 +33,6 @@ const Preview = () => {
         const model = modelResponse.data.data.lead;
         dispatch(updateFormData(model));
     };
-
     const LeadStatus = [
         { value: 'none', label: '-None-' },
         { value: '0.0 Cold lead / unqualified (CLU)', label: (<> <span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead / unqualified (CLU)</>) },
@@ -42,13 +41,11 @@ const Preview = () => {
         { value: '3.0 warm lead qualified (WLQ)', label: (<> <span className="inline-block w-4 h-4 mr-2 bg-orange-300 rounded-full"></span>3.0 warm lead qualified (WLQ)</>) },
         { value: '4.0 Hot lead (HLQ)', label: (<> <span className="inline-block w-4 h-4 mr-2 bg-orange-600 rounded-full"></span>4.0 Hot lead (HLQ)</>) },
         { value: 'Close Lead / Lost Lead', label: (<> <span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Close Lead / Lost Lead</>) },
-
     ];
     const getStatusLabel = (status) => {
         const statusObj = LeadStatus.find(item => item.value === status);
         return statusObj ? statusObj.label : status;
     };
-
     const headerDataToDisplay = [
         { label: "Lead Status", value: getStatusLabel(formState.status) },
         { label: "Full Name", value: `${formState.prefix_first_name} ${formState.first_name} ${formState.last_name}` },
@@ -59,7 +56,6 @@ const Preview = () => {
         { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
         { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
     ];
-
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -67,7 +63,6 @@ const Preview = () => {
     }, [modelID]);
     if (loading)
         return <LoadingSasCrm />;
-
     return (
         (!hasPermission(`read-lead`) || loading) ? (
             <LoadingSasCrm />
@@ -93,166 +88,51 @@ const Preview = () => {
                     <InfoListComponent data={headerDataToDisplay} />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Lead Information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Website :</div>
-                                    <div>
-                                        <a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a>
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Lost Reason :</div>
-                                    <div>
-                                        {formState.lost_reason}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Lost Reason Comment :</div>
-                                    <div>
-                                        {formState.lost_reason_comment}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Lead Source :</div>
-                                    <div>{formState.lead_source}</div>
-                                </div>
-
-
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Industry :</div>
-                                    <div>
-                                        {formState.industry}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Email Opt Out :</div>
-                                    <div>{formState.email_opt_out ? 'Yes' : 'No'}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between">
-                                    <div className="text-white-dark"> Company :</div>
-                                    <div>
-                                        {formState.company}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Company Type :</div>
-                                    <div>{formState.company_type}</div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
+                    <InformationSectionPreview
+                        title="Lead Information"
+                        leftObjects={[
+                            { label: "Website", value: <a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a> },
+                            { label: "Lost Reason", value: formState.lost_reason },
+                            { label: "Lost Reason Comment", value: formState.lost_reason_comment },
+                            { label: "Lead Source", value: formState.lead_source },
+                        ]}
+                        rightObjects={[
+                            { label: "Industry", value: formState.industry },
+                            { label: "Email Opt Out", value: formState.email_opt_out ? 'Yes' : 'No' },
+                            { label: "Company", value: formState.company },
+                            { label: "Company Type", value: formState.company_type },
+                        ]}
+                    />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Contact Information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> First Name :</div>
-                                    <div>
-                                        {formState.first_name}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Last Number :</div>
-                                    <div>
-                                        {formState.last_name}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Phone :</div>
-                                    <div>{formState.phone}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Mobile :</div>
-                                    <div>{formState.mobile}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between">
-                                    <div className="text-white-dark"> Email :</div>
-                                    <div>
-                                        <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>
-                                            {formState.email}
-                                        </a>
-                                    </div>
-                                </div>
+                    <InformationSectionPreview
+                        title="Contact Information"
+                        leftObjects={[
+                            { label: "First Name", value: formState.first_name },
+                            { label: "Last Name", value: formState.last_name },
+                            { label: "Phone", value: formState.phone },
+                            { label: "Mobile", value: formState.mobile },
+                            { label: "Email", value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a> },
+                        ]}
+                        rightObjects={[
+                            { label: "Job Description", value: formState.job_description },
+                            { label: "Contact LinkedIn", value: formState.linkedin_contact },
+                            { label: "Company LinkedIn", value: formState.linkedin_company },
+                        ]}
+                    />
 
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Job Description :</div>
-                                    <div>{formState.job_description} </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between">
-                                    <div className="text-white-dark"> Contact LinkedIn :</div>
-                                    <div>
-                                        {formState.linkedin_contact}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between">
-                                    <div className="text-white-dark"> Company LinkedIn :</div>
-                                    <div>
-                                        {formState.linkedin_company}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Address Information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">City :</div>
-                                    <div>
-                                        {formState.city}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Address :</div>
-                                    <div>
-                                        {formState.address}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Zip Code :</div>
-                                    <div>{formState.zip_code}</div>
-                                </div>
-
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Country :</div>
-                                    <div>
-                                        {formState.country}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">State :</div>
-                                    <div>{formState.state}</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Communication Details / History</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-
-
-                            </div>
-
-                        </div>
-                    </div>
+                    <InformationSectionPreview
+                        title="Address Information"
+                        leftObjects={[
+                            { label: "City", value: formState.city },
+                            { label: "Address", value: formState.address },
+                            { label: "Zip Code", value: formState.zip_code },
+                        ]}
+                        rightObjects={[
+                            { label: "Country", value: formState.country },
+                            { label: "State", value: formState.state }
+                        ]}
+                    />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
                         <h2 className='text-base'>Communication Details / History</h2>
@@ -274,65 +154,34 @@ const Preview = () => {
                     </div>
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Fields with Secondary Priority</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">No.of Employees :</div>
-                                    <div>{formState.company_employee_count}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Title :</div>
-                                    <div>{formState.books_id_eur}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Currency :</div>
-                                    <div>{formState.currency}</div>
-                                </div>
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
 
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Lead Reference :</div>
-                                    <div>{formState.exchange_rate}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Job Position :</div>
-                                    <div>{formState.job_position}</div>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-
+                    <InformationSectionPreview
+                        title="Fields with Secondary Priority"
+                        leftObjects={[
+                            { label: "No.of Employees", value: formState.company_employee_count },
+                            { label: "Title", value: formState.books_id_eur },
+                            { label: "Currency", value: formState.currency }
+                        ]}
+                        rightObjects={[
+                            { label: "Lead Reference", value: formState.exchange_rate },
+                            { label: "Job Position", value: formState.job_position }
+                        ]}
+                    />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Development information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Imported Qualification Status :</div>
-                                    <div>{formState.imported_qualification_status}</div>
-                                </div>
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Last Modified :</div>
-                                    <div>{formState.last_modified}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Created Date :</div>
-                                    <div>{formState.created_date}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <InformationSectionPreview
+                        title="Development information"
+                        leftObjects={[
+                            { label: "Imported Qualification Status", value: formState.imported_qualification_status }
+                        ]}
+                        rightObjects={[
+                            { label: "Last Modified", value: formState.last_modified },
+                            { label: "Created Date", value: formState.created_date }
+                        ]}
+                    />
                 </div>
             </div>
         )
     );
 };
-
 export default Preview;
