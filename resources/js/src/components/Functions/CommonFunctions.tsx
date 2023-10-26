@@ -81,9 +81,10 @@ export const FirstNameTitles = [
 ];
 export const Contract = [
     {value: 'NDA', label: 'NDA'},
-    {value: 'Quality Agreement', label: 'Quality Agreement'},
+    {value: 'Quality', label: 'Quality'},
     {value: 'Logistic Agreement', label: 'Logistic Agreement'},
-    {value: 'Other Agreement', label: 'Other Agreement'},
+    {value: 'Franchise Agreement', label: 'Franchise Agreement'},
+    {value: 'Other', label: 'Other'},
 
 ];
 
@@ -252,14 +253,13 @@ export const searchAccounts = async (e: any) => {
     const result = await api_instance.searchAccount({query: e});
     const valField = 'id';
     const nameField = 'account_name';
-    const imageField = 'image';
     const emailField = 'email';
     if (result.status === 200) {
         return result.data.data.map((data: any) => ({
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data[imageField] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(data['image_data'])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
@@ -279,7 +279,7 @@ export const searchLead = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(data['image_data'])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data['company']}</div>
@@ -299,7 +299,7 @@ export const searchContacts = async (e: any) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <img src={data['image'] ?? '/assets/images/user-profile.jpeg'} alt="avatar"
+                    <img src={displayImage(data['image_data'])} alt="avatar"
                          className="w-8 h-8 mr-2 rounded-full"/>
                     <div>
                         <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
@@ -506,3 +506,8 @@ export const displayFile = async (model: any, attribute: any, path: any) => {
     return window.URL.createObjectURL(blob);
 
 }
+
+export const getStatusLabel = (status: any, statuses: any) => {
+    const statusObj = statuses.find((item: any) => item.value === status);
+    return statusObj ? statusObj.label : status;
+};

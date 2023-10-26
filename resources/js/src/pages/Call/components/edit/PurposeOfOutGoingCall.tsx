@@ -1,11 +1,12 @@
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 
-const PureposeOfOutGoingCall = () => {
+const PurposeOfOutGoingCall = () => {
     const dispatch = useDispatch();
+    const formState = useSelector((state: any) => state.callForm);
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -23,13 +24,15 @@ const PureposeOfOutGoingCall = () => {
         'Purpose Of Outgoing Call': {
             'Call Purpose': <Select id="call_purpose" name="call_purpose"
                                     options={CallPurposes}
-                                    defaultValue={{value: 'none', label: 'None'}}
+                                    menuPortalTarget={document.body}
+                                    defaultValue={CallPurposes.find((data: any) => data.value == formState.call_purpose)}
                                     onChange={({value}: any) => {
                                         handleChangeField('call_purpose', value)
                                     }} className="flex-1"/>,
             'Call Agenda': <input id="call_agenda" name="call_agenda"
                                   className="form-input flex-1 "
                                   onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  defaultValue={formState.call_agenda}
             />,
 
 
@@ -41,4 +44,4 @@ const PureposeOfOutGoingCall = () => {
         </div>
     </>)
 }
-export default PureposeOfOutGoingCall;
+export default PurposeOfOutGoingCall;

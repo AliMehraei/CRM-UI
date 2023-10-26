@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {Currencies, PortalAccess} from "../../../../components/Functions/CommonFunctions";
+import {Contract, Currencies, PortalAccess} from "../../../../components/Functions/CommonFunctions";
 import {searchOwners} from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
@@ -75,20 +75,17 @@ const VendorSection = () => {
                     // defaultValue={formState.name}
                 />
             ),
-            'Contracts': (
-                <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="contracts"
-                    placeholder="Type at least 2 characters to search..."
-                    name="contracts"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('contracts', value)
-                    }}
-                    className="flex-1"
-                />
-            ),
+            'Contracts': <Select
+                isMulti={true}
+                name="contract"
+                id="contract"
+                placeholder="Select Contract Type..."
+                options={Contract}
+                onChange={(values: any) => {
+                    handleChangeField('contract', values.map((v: any) => v.value))
+                }}
+            />,
+
             'SL Contains all MFRs': (
                 <input
                     id="is_active"
