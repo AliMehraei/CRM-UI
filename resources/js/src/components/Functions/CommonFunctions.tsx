@@ -507,7 +507,7 @@ export const displayFile = async (model: any, attribute: any, path: any) => {
 
 }
 
-const getStatusLabel = (status: any, statuses: any) => {
+export const getStatusLabel = (status: any, statuses: any) => {
     const statusObj = statuses.find((item: any) => item.value === status);
     return statusObj ? statusObj.label : status;
 };
