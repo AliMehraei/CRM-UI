@@ -81,9 +81,10 @@ export const FirstNameTitles = [
 ];
 export const Contract = [
     {value: 'NDA', label: 'NDA'},
-    {value: 'Quality Agreement', label: 'Quality Agreement'},
+    {value: 'Quality', label: 'Quality'},
     {value: 'Logistic Agreement', label: 'Logistic Agreement'},
-    {value: 'Other Agreement', label: 'Other Agreement'},
+    {value: 'Franchise Agreement', label: 'Franchise Agreement'},
+    {value: 'Other', label: 'Other'},
 
 ];
 
