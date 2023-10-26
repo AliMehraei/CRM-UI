@@ -81,9 +81,10 @@ export const FirstNameTitles = [
 ];
 export const Contract = [
     {value: 'NDA', label: 'NDA'},
-    {value: 'Quality Agreement', label: 'Quality Agreement'},
+    {value: 'Quality', label: 'Quality'},
     {value: 'Logistic Agreement', label: 'Logistic Agreement'},
-    {value: 'Other Agreement', label: 'Other Agreement'},
+    {value: 'Franchise Agreement', label: 'Franchise Agreement'},
+    {value: 'Other', label: 'Other'},
 
 ];
 
@@ -505,3 +506,8 @@ export const displayFile = async (model: any, attribute: any, path: any) => {
     return window.URL.createObjectURL(blob);
 
 }
+
+export const getStatusLabel = (status: any, statuses: any) => {
+    const statusObj = statuses.find((item: any) => item.value === status);
+    return statusObj ? statusObj.label : status;
+};
