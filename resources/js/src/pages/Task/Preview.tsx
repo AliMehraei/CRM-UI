@@ -79,7 +79,7 @@ const Preview = () => {
             {label: "Status", value: getStatusLabel(formState.status, TaskStatus)},
         ],
         'rightObjects': [
-            {label: "Priority", value: getStatusLabel(formState.priority, TaskStatus)},
+            {label: "Priority", value: getStatusLabel(formState.priority, Priority)},
             {label: "Repeat", value: formState.repeat},
 
             {label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}`},
