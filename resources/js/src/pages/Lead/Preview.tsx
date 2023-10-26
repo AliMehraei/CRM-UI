@@ -10,6 +10,7 @@ import { displayImage, displayFile } from '../../components/Functions/CommonFunc
 import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
+import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -134,28 +135,14 @@ const Preview = () => {
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Communication Details / History</h2>
-                        <div className="flex justify-between flex-col gap-6 ">
-                            <div className="flex items-center w-full justify-between ">
-                                <div className="text-white-dark">Description :</div>
-                            </div>
-                            <div className='w-full'>{formState.description}</div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Details and notes:</div>
-                                <div>{formState.detail_note}</div>
-                            </div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">LinkedIn Communication :</div>
-                                <div className='flex'>{formState.linkedin_communication}</div>
-                            </div>
-
-                        </div>
-                    </div>
-
+                    <MultipleLineSectionPreview
+                        sectionTitle="Communication Details / History"
+                        data={[
+                            { label: 'Description', value: formState.description },
+                            { label: 'Details and notes', value: formState.detail_note },
+                            { label: 'LinkedIn Communication', value: formState.linkedin_communication },
+                        ]} />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-
-
                     <InformationSectionPreview
                         title="Fields with Secondary Priority"
                         leftObjects={[

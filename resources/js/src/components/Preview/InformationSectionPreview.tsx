@@ -2,7 +2,7 @@ import React from 'react';
 
 const InformationSectionPreview = ({ title, leftObjects, rightObjects }) => {
     return (
-        <div>
+        <>
             <h2 className='text-base'>{title}</h2>
             <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
                 <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
@@ -16,7 +16,7 @@ const InformationSectionPreview = ({ title, leftObjects, rightObjects }) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
