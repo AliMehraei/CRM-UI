@@ -106,7 +106,7 @@ const Preview = () => {
                                 )
                             },
                             { label: "Account Type", value: formState.account_type },
-                            { label: "Contracts", value: formState.account_contracts },  
+                            { label: "Contracts", value: formState.account_contracts },
                             { label: "Business Account", value: formState.business_account ? 'Yes' : 'No' },
                             { label: "Currency", value: formState.currency },
                         ]}
@@ -156,41 +156,41 @@ const Preview = () => {
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
-    title="Terms and Shipping"
-    leftObjects={[
-        { label: "Incoterms", value: formState.incoterm },
-        { label: "Payment Terms", value: formState.payment_term },
-        { label: "Credit Line", value: formState.credit_line }
-    ]}
-    rightObjects={[
-        { label: "VAT No", value: formState.vat_no },
-        { label: "Forwarder", value: formState.parent?.forwarder },
-        { 
-            label: "Child Account", 
-            value: `${formState.child?.first_name} ${formState.child?.last_name}` 
-        },
-        { label: "Forwarder Account no", value: formState.forwarder_account_no }
-    ]}
-/>
+                        title="Terms and Shipping"
+                        leftObjects={[
+                            { label: "Incoterms", value: formState.incoterm },
+                            { label: "Payment Terms", value: formState.payment_term },
+                            { label: "Credit Line", value: formState.credit_line }
+                        ]}
+                        rightObjects={[
+                            { label: "VAT No", value: formState.vat_no },
+                            { label: "Forwarder", value: formState.parent?.forwarder },
+                            {
+                                label: "Child Account",
+                                value: `${formState.child?.first_name} ${formState.child?.last_name}`
+                            },
+                            { label: "Forwarder Account no", value: formState.forwarder_account_no }
+                        ]}
+                    />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
-    title="Address Information"
-    leftObjects={[
-        { label: "Billing Street", value: formState.billing_street },
-        { label: "Billing City", value: formState.billing_city },
-        { label: "Billing Code", value: formState.billing_code },
-        { label: "Billing State", value: formState.billing_state },
-        { label: "Billing Country", value: formState.billing_country }
-    ]}
-    rightObjects={[
-        { label: "Shipping Street", value: formState.shipping_street },
-        { label: "Shipping City", value: formState.shipping_city },
-        { label: "Shipping Code", value: formState.shipping_code },
-        { label: "Shipping State", value: formState.shipping_state },
-        { label: "Shipping Country", value: formState.shipping_country }
-    ]}
-/>
+                        title="Address Information"
+                        leftObjects={[
+                            { label: "Billing Street", value: formState.billing_street },
+                            { label: "Billing City", value: formState.billing_city },
+                            { label: "Billing Code", value: formState.billing_code },
+                            { label: "Billing State", value: formState.billing_state },
+                            { label: "Billing Country", value: formState.billing_country }
+                        ]}
+                        rightObjects={[
+                            { label: "Shipping Street", value: formState.shipping_street },
+                            { label: "Shipping City", value: formState.shipping_city },
+                            { label: "Shipping Code", value: formState.shipping_code },
+                            { label: "Shipping State", value: formState.shipping_state },
+                            { label: "Shipping Country", value: formState.shipping_country }
+                        ]}
+                    />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <MultipleLineSectionPreview
