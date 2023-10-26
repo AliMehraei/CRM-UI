@@ -5,6 +5,7 @@ import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
+    Contract,
 
     Currencies, displayImage,
     PortalAccess,
@@ -61,11 +62,11 @@ const VendorSection = () => {
 
     const fields = {
         'Vendor Information': {
-            'Vendor Image': ( <ImageUploadComponent formState={formState}
-                                                    modelName={'vendor'}
-                                                    id={'vendor_image'}
-                                                    formAttribute={'image'}
-                                                    updateFormData={updateFormData}
+            'Vendor Image': (<ImageUploadComponent formState={formState}
+                                                   modelName={'vendor'}
+                                                   id={'vendor_image'}
+                                                   formAttribute={'image'}
+                                                   updateFormData={updateFormData}
                 />
             ),
             'Vendor Name': (
@@ -78,20 +79,23 @@ const VendorSection = () => {
                     defaultValue={formState.vendor_name}
                 />
             ),
-            'Contracts': (
-                <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={true}
-                    id="contracts_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="contracts_id"
-                    loadOptions={searchVendor}  //TODO : fix here
-                    onChange={(values: any) => {
-                        handleChangeField('contracts_id', values.map((v: any) => v.value))
-                    }}
-                    className="flex-1"
-                />
-            ),
+            'Contracts': <Select
+                isMulti={true}
+                name="contract"
+                id="contract"
+                placeholder="Select Contract Type..."
+                options={Contract}
+                onChange={(values: any) => {
+                    handleChangeField('contract', values.map((v: any) => v.value))
+                }}
+                defaultValue={formState.contract
+                    ? formState.contract.map((contract: any) => ({
+                        value: contract,
+                        label: contract
+                    }))
+                    : []
+                }
+            />,
             'SL Contains all MFRs': (
                 <input
                     id="is_active"

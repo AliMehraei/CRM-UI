@@ -66,13 +66,15 @@ const AccountSection = () => {
                 }}
             />,
             'Contracts': <Select
+                isMulti={true}
                 name="contract"
                 id="contract"
-                placeholder="Select Product Type..."
+                placeholder="Select Contract Type..."
                 options={Contract}
-                onChange={({value}: any) => {
-                    handleChangeField('contract', value)
+                onChange={(values: any) => {
+                    handleChangeField('contract', values.map((v: any) => v.value))
                 }}
+
             />,
             'Contract Attachment': (
                 <FileUploadComponent
