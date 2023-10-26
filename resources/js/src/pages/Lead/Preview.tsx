@@ -7,6 +7,7 @@ import LoadingSasCrm from "../../components/LoadingSasCrm";
 import { useUserStatus } from "../../config/authCheck";
 import { resetForm, updateFormData } from "../../store/leadFormSlice";
 import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
+import InfoListComponent from '../../components/InfoListComponent';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -31,13 +32,7 @@ const Preview = () => {
         const model = modelResponse.data.data.lead;
         dispatch(updateFormData(model));
     };
-    // useEffect(() => {
-    //     if (formState.contract_attachment) {
-    //         displayFile('account', 'contract_attachment', formState.contract_attachment).then((data) => {
-    //             dispatch(updateFormData({ [`contract_attachment_preview`]: data }));
-    //         })
-    //     }
-    // }, []);
+
     const LeadStatus = [
         { value: 'none', label: '-None-' },
         { value: '0.0 Cold lead / unqualified (CLU)', label: (<> <span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead / unqualified (CLU)</>) },
@@ -48,10 +43,22 @@ const Preview = () => {
         { value: 'Close Lead / Lost Lead', label: (<> <span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Close Lead / Lost Lead</>) },
 
     ];
-    function getStatusLabel(statusValue) {
-        const statusObj = LeadStatus.find((title) => title.value === statusValue);
-        return statusObj ? statusObj.label : statusValue;
-    }
+    const getStatusLabel = (status) => {
+        const statusObj = LeadStatus.find(item => item.value === status);
+        return statusObj ? statusObj.label : status;
+    };
+    
+    const headerDataToDisplay = [
+        { label: "Lead Status", value: getStatusLabel(formState.status) },
+        { label: "Full Name", value: `${formState.prefix_first_name} ${formState.first_name} ${formState.last_name}` },
+        { label: "Email", value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a> },
+        { label: "Company", value: formState.company },
+        { label: "Website", value: <a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a> },
+        { label: "Account Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
+        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+    ];
+    
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -137,27 +144,8 @@ const Preview = () => {
                             <img src={displayImage(formState.image_data)} alt="Lead image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         </div>
                     </div>
-                    <div className="px-4">
-                        <div className="space-y-1 mt-6 text-base text-gray-700">
-                            <div>Lead Status :
-                                <strong className="items-center font-semibold">
-                                    {getStatusLabel(formState.status)}
-                                </strong>
-                            </div>
-                            <div>Full Name : <strong>{formState.prefix_first_name} {formState.first_name} {formState.last_name}</strong></div>
-                            <div>Email : <strong>
-                                <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>
-                                    {formState.email}
-                                </a>
-                            </strong>
-                            </div>
-                            <div>Company : <strong>{formState.company}</strong></div>
-                            <div>Website : <strong><a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a></strong></div>
-                            <div>Account Owner : <strong>{formState.owner?.first_name} {formState.owner?.last_name} </strong></div>
-                            <div>Created By : <strong>{formState.creator?.first_name} {formState.creator?.last_name}</strong> </div>
-                            <div>Modified By : <strong>{formState.modifier?.first_name} {formState.modifier?.last_name} </strong></div>
-                        </div>
-                    </div>
+                    <InfoListComponent data={headerDataToDisplay} />
+
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
                         <h2 className='text-base'>Lead Information</h2>

@@ -7,6 +7,7 @@ import LoadingSasCrm from "../../components/LoadingSasCrm";
 import { useUserStatus } from "../../config/authCheck";
 import { resetForm, updateFormData } from "../../store/accountFormSlice";
 import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
+import InfoListComponent from "../../components/InfoListComponent";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -39,6 +40,18 @@ const Preview = () => {
             })
         }
     }, []);
+
+    const headerDataToDisplay = [
+        { label: "Account Name", value: formState.account_name },
+        { label: "Phone", value: formState.phone },
+        { label: "Website", value: <a className='text-primary' target='_blank' rel='noreferrer' href={formState.website}>{formState.website}</a> },
+        { label: "Account Site", value: `${formState.shipping_city} | ${formState.account_name}` },
+        { label: "Account Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
+        { label: "PM User", value: `${formState.pm_user?.first_name} ${formState.pm_user?.last_name}` },
+        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+    ];
+    
 
     useEffect(() => {
         fetchData().then(() => {
@@ -91,7 +104,6 @@ const Preview = () => {
                             Create
                         </Link>
                     ) : null}
-
                     {!loading && hasPermission(`update-account`) ? (
                         <Link to={`/account/edit/${accountId}`} className="btn btn-success gap-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
@@ -126,18 +138,7 @@ const Preview = () => {
                             <img src={displayImage(formState.image_data)} alt="account image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         </div>
                     </div>
-                    <div className="px-4">
-                        <div className="space-y-1 mt-6 text-base text-gray-700">
-                            <div>Account Name : <strong>{formState.account_name}</strong></div>
-                            <div>Phone : <strong>{formState.phone}</strong></div>
-                            <div>Website : <strong><a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a></strong></div>
-                            <div>Account Site: <strong>{formState.shipping_city} | {formState.account_name}</strong></div>
-                            <div>Account Owner : <strong>{formState.owner?.first_name} {formState.owner?.last_name} </strong></div>
-                            <div>PM User : <strong>{formState.pm_user?.first_name} {formState.pm_user?.last_name} </strong></div>
-                            <div>Created By : <strong>{formState.creator?.first_name} {formState.creator?.last_name}</strong> </div>
-                            <div>Modified By : <strong>{formState.modifier?.first_name} {formState.modifier?.last_name} </strong></div>
-                        </div>
-                    </div>
+                    <InfoListComponent data={headerDataToDisplay} />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
