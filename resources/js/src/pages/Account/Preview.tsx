@@ -9,13 +9,14 @@ import { resetForm, updateFormData } from "../../store/accountFormSlice";
 import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
+import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const accountId = params.id;
+    const modelId = params.id;
     const api = new Api();
     const formState = useSelector((state: any) => state.accountForm);
 
@@ -27,7 +28,7 @@ const Preview = () => {
     };
 
     const fetchData = async () => {
-        const accountResponse = await api.fetchSingleAccount(accountId);
+        const accountResponse = await api.fetchSingleAccount(modelId);
         if (accountResponse.status != 200)
             return;
         const account = accountResponse.data.data.account;
@@ -59,7 +60,7 @@ const Preview = () => {
             setLoading(false);
 
         });
-    }, [accountId]);
+    }, [modelId]);
     if (loading)
         return <LoadingSasCrm />;
 
@@ -72,7 +73,7 @@ const Preview = () => {
                     <ActionButtonsPreview
                         loading={loading}
                         hasPermission={hasPermission}
-                        modelId={accountId}
+                        modelId={modelId}
                         exportTable={exportTable}
                         routeModel="account"
                         permissionModel="account"
@@ -88,241 +89,116 @@ const Preview = () => {
                     <InfoListComponent data={headerDataToDisplay} />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
+                    <InformationSectionPreview
+                        title="General Information"
+                        leftObjects={[
+                            {
+                                label: "Contract Attachment",
+                                value: (
+                                    <a
+                                        disabled={!formState.contract_attachment}
+                                        className="btn btn-sm btn-outline-primary cursor-pointer"
+                                        href={formState.contract_attachment_preview ?? formState.contract_attachment}
+                                        target="__blank"
+                                    >
+                                        Download
+                                    </a>
+                                )
+                            },
+                            { label: "Account Type", value: formState.account_type },
+                            { label: "Contracts", value: formState.account_contracts },  
+                            { label: "Business Account", value: formState.business_account ? 'Yes' : 'No' },
+                            { label: "Currency", value: formState.currency },
+                        ]}
+                        rightObjects={[
+                            {
+                                label: "Approved by",
+                                value: `${formState.approvedBy?.first_name} ${formState.approvedBy?.last_name}`
+                            },
+                            { label: "TAM", value: formState.tam },
+                            { label: "Exchange Rate", value: formState.exchange_rate },
+                            { label: "Lead Reference", value: formState.lead_reference },
+                        ]}
+                    />
 
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Cotract Attachment :</div>
-                                    <div>
-                                        <a disabled={!formState.contract_attachment} className="btn btn-sm btn-outline-primary cursor-pointer"
-                                            href={formState.contract_attachment_preview ?? formState.contract_attachment}
-                                            target="__blank"
-                                            {...({} as React.ButtonHTMLAttributes<HTMLAnchorElement>)}
-                                        >Download</a></div>
-                                    {/* TODO: fix download file */}
-
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Account Type :</div>
-                                    <div>{formState.account_type}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Contracts :</div>
-                                    {/* TODO: add account Contracts*/}
-                                    <div>not Sets</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between">
-                                    <div className="text-white-dark">Business Account :</div>
-                                    <div>{formState.business_account ? 'Yes' : 'No'}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Currency:</div>
-                                    <div>{formState.currency}</div>
-                                </div>
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Approved by :</div>
-                                    <div className="whitespace-nowrap">{formState.approvedBy?.first_name} {formState.approvedBy?.last_name}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">TAM :</div>
-                                    <div>{formState.tam}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Exchagne Rate :</div>
-                                    <div>{formState.exchange_rate}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Lead Reference :</div>
-                                    <div>{formState.lead_reference}</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Account Information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Primary First Name :</div>
-                                    <div>
-                                        {formState.primary_first_name}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Account Number :</div>
-                                    <div>
-                                        {formState.account_number}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Phone :</div>
-                                    <div>{formState.phone}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Fax :</div>
-                                    <div>{formState.fax}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between">
-                                    <div className="text-white-dark"> Email :</div>
-                                    <div>
-                                        <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>
-                                            {formState.email}
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Website:</div>
-                                    <div><a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a></div>
-                                </div>
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Primary Last Name :</div>
-                                    <div>
-                                        {formState.primary_last_name}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Parent Account :</div>
-                                    <div>{formState.parent?.first_name} {formState.parent?.last_name}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Child Account :</div>
-                                    <div>{formState.child?.first_name} {formState.child?.last_name}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Double Check Status :</div>
-                                    <div>{formState.double_check_status}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">DCheck :</div>
-                                    <div>{formState.business_account ? 'Yes' : 'No'}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Has No Contacts :</div>
-                                    <div>{formState.business_account ? 'Yes' : 'No'}</div>
-                                </div>
+                    <InformationSectionPreview
+                        title="Account Information"
+                        leftObjects={[
+                            { label: "Primary First Name", value: formState.primary_first_name },
+                            { label: "Account Number", value: formState.account_number },
+                            { label: "Phone", value: formState.phone },
+                            { label: "Fax", value: formState.fax },
+                            {
+                                label: "Email",
+                                value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a>
+                            },
+                            {
+                                label: "Website",
+                                value: <a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a>
+                            }
+                        ]}
+                        rightObjects={[
+                            { label: "Primary Last Name", value: formState.primary_last_name },
+                            {
+                                label: "Parent Account",
+                                value: `${formState.parent?.first_name} ${formState.parent?.last_name}`
+                            },
+                            {
+                                label: "Child Account",
+                                value: `${formState.child?.first_name} ${formState.child?.last_name}`
+                            },
+                            { label: "Double Check Status", value: formState.double_check_status },
+                            { label: "DCheck", value: formState.business_account ? 'Yes' : 'No' },
+                            { label: "Has No Contacts", value: formState.business_account ? 'Yes' : 'No' },
+                        ]}
+                    />
 
-                            </div>
-                        </div>
-                    </div>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Terms and Shipping</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Incoterms :</div>
-                                    <div>
-                                        {formState.incoterm}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Payment Terms :</div>
-                                    <div>
-                                        {formState.payment_term}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Credit Line :</div>
-                                    <div>{formState.credit_line}</div>
-                                </div>
+                    <InformationSectionPreview
+    title="Terms and Shipping"
+    leftObjects={[
+        { label: "Incoterms", value: formState.incoterm },
+        { label: "Payment Terms", value: formState.payment_term },
+        { label: "Credit Line", value: formState.credit_line }
+    ]}
+    rightObjects={[
+        { label: "VAT No", value: formState.vat_no },
+        { label: "Forwarder", value: formState.parent?.forwarder },
+        { 
+            label: "Child Account", 
+            value: `${formState.child?.first_name} ${formState.child?.last_name}` 
+        },
+        { label: "Forwarder Account no", value: formState.forwarder_account_no }
+    ]}
+/>
 
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">VAT No :</div>
-                                    <div>
-                                        {formState.vat_no}
-                                    </div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Forwarder :</div>
-                                    <div>{formState.parent?.forwarder}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Child Account :</div>
-                                    <div>{formState.child?.first_name} {formState.child?.last_name}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Forwarder Account no :</div>
-                                    <div>{formState.forwarder_account_no}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Address Information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Billing Street :</div>
-                                    <div>{formState.billing_street}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Billing City :</div>
-                                    <div>{formState.billing_city}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Billing Code :</div>
-                                    <div>{formState.billing_code}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Billing State :</div>
-                                    <div>{formState.billing_state}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Billing Country :</div>
-                                    <div>{formState.billing_country}</div>
-                                </div>
+                    <InformationSectionPreview
+    title="Address Information"
+    leftObjects={[
+        { label: "Billing Street", value: formState.billing_street },
+        { label: "Billing City", value: formState.billing_city },
+        { label: "Billing Code", value: formState.billing_code },
+        { label: "Billing State", value: formState.billing_state },
+        { label: "Billing Country", value: formState.billing_country }
+    ]}
+    rightObjects={[
+        { label: "Shipping Street", value: formState.shipping_street },
+        { label: "Shipping City", value: formState.shipping_city },
+        { label: "Shipping Code", value: formState.shipping_code },
+        { label: "Shipping State", value: formState.shipping_state },
+        { label: "Shipping Country", value: formState.shipping_country }
+    ]}
+/>
 
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Shipping Street :</div>
-                                    <div>{formState.shipping_street}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Shipping City :</div>
-                                    <div>{formState.shipping_city}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Shipping Code :</div>
-                                    <div>{formState.shipping_code}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Shipping State :</div>
-                                    <div>{formState.shipping_state}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark"> Shipping Country :</div>
-                                    <div>{formState.shipping_country}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Description Information</h2>
-                        <div className="flex justify-between flex-col gap-6 ">
-                            <div className="flex items-center w-full justify-between ">
-                                <div className="text-white-dark">Description :</div>
-                            </div>
-                            <div className='w-full'>{formState.description}</div>
-                            <div className="flex items-center w-full justify-between mb-2">
-                                <div className="text-white-dark">Last Activity Date :</div>
-                                <div>{formState.last_activity_date}</div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <MultipleLineSectionPreview
+                        sectionTitle="Description Information"
+                        data={[
+                            { label: 'Description', value: formState.description },
+                            { label: 'Last Activity Date', value: formState.last_activity_date },
+                        ]} />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
                         <h2 className='text-base'>Technical information</h2>
