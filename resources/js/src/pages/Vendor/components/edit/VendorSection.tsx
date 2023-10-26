@@ -236,19 +236,21 @@ const VendorSection = () => {
             'ISO Upload': (
                 <FileUploadComponent
                     id="iso_upload"
-                    modelName={'vendor'}
-                    updateFormDate={updateFormData}
+                    updateFormData={updateFormData}
                     formState={formState}
+                    modelName='vendor'
                     formAttribute='iso_upload'
+                   
                 />
             ),
             'Doc Upload': (
                 <FileUploadComponent
                     id="doc_upload"
-                    modelName={'vendor'}
-                    updateFormDate={updateFormData}
+                    updateFormData={updateFormData}
                     formState={formState}
+                    modelName='vendor'
                     formAttribute='doc_upload'
+                   
                 />
             ),
             'Parent Vendor': (
