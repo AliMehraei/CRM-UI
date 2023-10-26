@@ -68,19 +68,19 @@ const FieldsWithSecondaryPrioritySection = () => {
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
-            'private_email': <input
+            'Private Email': <input
                 id="private_email"
                 name="private_email"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
-            'secondary_email': <input
+            'Secondary Email': <input
                 id="secondary_email"
                 name="secondary_email"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
             />,
-            'portal_operation_tag': <input
+            'Portal Operation Tag': <input
                 id="portal_operation_tag"
                 name="portal_operation_tag"
                 className="form-input flex-1 "
@@ -96,7 +96,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 className="form-checkbox"
                 onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
             />,
-            'lead_reference': <input
+            'Lead Reference': <input
                 id="lead_reference"
                 name="lead_reference"
                 className="form-input flex-1 "
