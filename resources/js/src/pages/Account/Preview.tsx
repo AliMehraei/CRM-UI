@@ -10,6 +10,7 @@ import { displayImage, displayFile } from '../../components/Functions/CommonFunc
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
+import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -19,21 +20,18 @@ const Preview = () => {
     const modelId = params.id;
     const api = new Api();
     const formState = useSelector((state: any) => state.accountForm);
-
     useEffect(() => {
         dispatch(setPageTitle('Account Preview'));
     });
     const exportTable = () => {
         window.print();
     };
-
     const fetchData = async () => {
         const accountResponse = await api.fetchSingleAccount(modelId);
         if (accountResponse.status != 200)
             return;
         const account = accountResponse.data.data.account;
         dispatch(updateFormData(account));
-
     };
     useEffect(() => {
         if (formState.contract_attachment) {
@@ -42,7 +40,6 @@ const Preview = () => {
             })
         }
     }, []);
-
     const headerDataToDisplay = [
         { label: "Account Name", value: formState.account_name },
         { label: "Phone", value: formState.phone },
@@ -53,8 +50,6 @@ const Preview = () => {
         { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
         { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
     ];
-
-
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -63,7 +58,6 @@ const Preview = () => {
     }, [modelId]);
     if (loading)
         return <LoadingSasCrm />;
-
     return (
         (!hasPermission(`read-account`) || loading) ? (
             <LoadingSasCrm />
@@ -106,7 +100,7 @@ const Preview = () => {
                                 )
                             },
                             { label: "Account Type", value: formState.account_type },
-                            { label: "Contracts", value: formState.account_contracts },  
+                            { label: "Contracts", value: formState.account_contracts },
                             { label: "Business Account", value: formState.business_account ? 'Yes' : 'No' },
                             { label: "Currency", value: formState.currency },
                         ]}
@@ -156,41 +150,41 @@ const Preview = () => {
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
-    title="Terms and Shipping"
-    leftObjects={[
-        { label: "Incoterms", value: formState.incoterm },
-        { label: "Payment Terms", value: formState.payment_term },
-        { label: "Credit Line", value: formState.credit_line }
-    ]}
-    rightObjects={[
-        { label: "VAT No", value: formState.vat_no },
-        { label: "Forwarder", value: formState.parent?.forwarder },
-        { 
-            label: "Child Account", 
-            value: `${formState.child?.first_name} ${formState.child?.last_name}` 
-        },
-        { label: "Forwarder Account no", value: formState.forwarder_account_no }
-    ]}
-/>
+                        title="Terms and Shipping"
+                        leftObjects={[
+                            { label: "Incoterms", value: formState.incoterm },
+                            { label: "Payment Terms", value: formState.payment_term },
+                            { label: "Credit Line", value: formState.credit_line }
+                        ]}
+                        rightObjects={[
+                            { label: "VAT No", value: formState.vat_no },
+                            { label: "Forwarder", value: formState.parent?.forwarder },
+                            {
+                                label: "Child Account",
+                                value: `${formState.child?.first_name} ${formState.child?.last_name}`
+                            },
+                            { label: "Forwarder Account no", value: formState.forwarder_account_no }
+                        ]}
+                    />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
-    title="Address Information"
-    leftObjects={[
-        { label: "Billing Street", value: formState.billing_street },
-        { label: "Billing City", value: formState.billing_city },
-        { label: "Billing Code", value: formState.billing_code },
-        { label: "Billing State", value: formState.billing_state },
-        { label: "Billing Country", value: formState.billing_country }
-    ]}
-    rightObjects={[
-        { label: "Shipping Street", value: formState.shipping_street },
-        { label: "Shipping City", value: formState.shipping_city },
-        { label: "Shipping Code", value: formState.shipping_code },
-        { label: "Shipping State", value: formState.shipping_state },
-        { label: "Shipping Country", value: formState.shipping_country }
-    ]}
-/>
+                        title="Address Information"
+                        leftObjects={[
+                            { label: "Billing Street", value: formState.billing_street },
+                            { label: "Billing City", value: formState.billing_city },
+                            { label: "Billing Code", value: formState.billing_code },
+                            { label: "Billing State", value: formState.billing_state },
+                            { label: "Billing Country", value: formState.billing_country }
+                        ]}
+                        rightObjects={[
+                            { label: "Shipping Street", value: formState.shipping_street },
+                            { label: "Shipping City", value: formState.shipping_city },
+                            { label: "Shipping Code", value: formState.shipping_code },
+                            { label: "Shipping State", value: formState.shipping_state },
+                            { label: "Shipping Country", value: formState.shipping_country }
+                        ]}
+                    />
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <MultipleLineSectionPreview
@@ -200,61 +194,31 @@ const Preview = () => {
                             { label: 'Last Activity Date', value: formState.last_activity_date },
                         ]} />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Technical information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">ZohoBooksID :</div>
-                                    <div>{formState.zoho_books_id}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">BooksID EUR :</div>
-                                    <div>{formState.books_id_eur}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">BooksID USD :</div>
-                                    <div>{formState.books_id_usd}</div>
-                                </div>
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">BOM/Excess Total Uploading Rows :</div>
-                                    <div>{formState.bom_total_row}</div>
-                                </div>
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Account Margin :</div>
-                                    <div>{formState.account_margin}</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
+                    <InformationSectionPreview
+                        title="Technical information"
+                        leftObjects={[
+                            { label: "ZohoBooksID", value: formState.zoho_books_id },
+                            { label: "BooksID EUR", value: formState.books_id_eur },
+                            { label: "BooksID USD", value: formState.books_id_usd }
+                        ]}
+                        rightObjects={[
+                            { label: "BOM/Excess Total Uploading Rows", value: formState.bom_total_row },
+                            { label: "Account Margin", value: formState.account_margin }
+                        ]}
+                    />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <div className="flex justify-between lg:flex-row flex-col gap-6 flex-wrap">
-                        <h2 className='text-base'>Unused information</h2>
-                        <div className="flex justify-between sm:flex-row flex-col gap-6 lg:w-2/3">
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Purchasing Volume Current :</div>
-                                    <div>{formState.purchasing_volume_current}</div>
-                                </div>
-                            </div>
-                            <div className="xl:1/3 lg:w-2/5 sm:w-1/2">
-
-                                <div className="flex items-center w-full justify-between mb-2">
-                                    <div className="text-white-dark">Annual Revenue :</div>
-                                    <div>{formState.annual_revenue}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <InformationSectionPreview
+                        title="Unused information"
+                        leftObjects={[
+                            { label: "Purchasing Volume Current", value: formState.purchasing_volume_current }
+                        ]}
+                        rightObjects={[
+                            { label: "Annual Revenue", value: formState.annual_revenue }
+                        ]}
+                    />
                 </div>
             </div>
         )
     );
 };
-
 export default Preview;
