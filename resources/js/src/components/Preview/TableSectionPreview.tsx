@@ -1,6 +1,7 @@
 import React from 'react';
 
-const TableSectionPreview = ({ title, items, columns }) => {
+const TableSectionPreview = ({ title, items, columns,total=null,discount=null,
+    tax=null,subtotal=null}) => {
     return (
 
         <div className=" justify-between ">
@@ -37,26 +38,30 @@ const TableSectionPreview = ({ title, items, columns }) => {
                 <div className="grid sm:grid-cols-2 grid-cols-1 px-4 mt-6">
                     <div></div>
                     <div className="ltr:text-right rtl:text-left space-y-2">
+                        {subtotal && (
                         <div className="flex items-center">
                             <div className="flex-1">Subtotal</div>
-                            <div className="w-[37%]">$3255</div>
+                            <div className="w-[37%]">${subtotal}</div>
                         </div>
+                         )}
+                        {tax && (
                         <div className="flex items-center">
                             <div className="flex-1">Tax</div>
-                            <div className="w-[37%]">$700</div>
+                            <div className="w-[37%]">${tax}</div>
                         </div>
-                        <div className="flex items-center">
-                            <div className="flex-1">Shipping Rate</div>
-                            <div className="w-[37%]">$0</div>
-                        </div>
+                        )}
+                        {discount && (
                         <div className="flex items-center">
                             <div className="flex-1">Discount</div>
-                            <div className="w-[37%]">$10</div>
+                            <div className="w-[37%]">${discount}</div>
                         </div>
+                         )}
+                        {total && (
                         <div className="flex items-center font-semibold text-lg">
-                            <div className="flex-1">Grand Total</div>
-                            <div className="w-[37%]">$3945</div>
+                            <div className="flex-1">Total</div>
+                            <div className="w-[37%]">${total}</div>
                         </div>
+                        )}
                     </div>
                 </div>
             </div>
