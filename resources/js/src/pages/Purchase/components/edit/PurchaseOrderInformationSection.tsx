@@ -132,7 +132,7 @@ const PurchaseOrderInformationSection = () => {
                     modelName="purchaseOrder"
                     formState={formState}
                     formAttribute={'confirmation_vendor'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ),
 

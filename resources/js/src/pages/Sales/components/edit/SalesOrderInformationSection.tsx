@@ -59,7 +59,7 @@ const SalesOrderInformationSection = () => {
                     modelName="salesOrder"
                     formState={formState}
                     formAttribute={'po_upload'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
 
             ),

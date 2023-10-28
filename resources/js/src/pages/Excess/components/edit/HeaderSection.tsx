@@ -35,7 +35,7 @@ const HeaderSection = () => {
                     modelName="excess"
                     formState={formState}
                     formAttribute={'image'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'Account Name': <AsyncSelect
@@ -145,7 +145,7 @@ const HeaderSection = () => {
                 modelName="excess"
                 formState={formState}
                 formAttribute={'excess_file'}
-                updateFormdata={updateFormData}
+                updateFormData={updateFormData}
             />,
 
             'Excess Source': <Select name="excess_source" id="excess_source" options={ExcessSources}
