@@ -47,12 +47,12 @@ const Preview = () => {
     }, []);
     const headerDataToDisplay = [
         { label: "Vendor Name", value: formState.vendor_name },
-        { label: "Vendor Site", value: `${formState.vendor_name} | ${formState.city}` },
+        { label: "Vendor Site", value: `${formState.vendor_name ?? ''} | ${formState.city ?? ''}` },
         { label: "Vendor Source", value: formState.vendor_source },
-        { label: "Vendor Type", value: `${formState.vendor_type}` },
-        { label: "Vendor Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
-        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+        { label: "Vendor Type", value: formState.vendor_type },
+        { label: "Vendor Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
     useEffect(() => {
         fetchData().then(() => {
@@ -103,7 +103,7 @@ const Preview = () => {
                         rightObjects={[
                             {
                                 label: "Approved by",
-                                value: `${formState.approvedBy?.first_name} ${formState.approvedBy?.last_name}`
+                                value: `${formState.approvedBy?.first_name ?? ''} ${formState.approvedBy?.last_name ?? ''}`
                             },
                             {
                                 label: "ISO Upload", value: (
@@ -128,7 +128,7 @@ const Preview = () => {
                                     </a>)
                             },
                             { label: "Vendor Number", value: formState.vendor_number },
-                            { label: "Parent Vendor", value: `${formState.parent?.first_name} ${formState.parent?.last_name}` },
+                            { label: "Parent Vendor", value: `${formState.parent?.first_name ?? ''} ${formState.parent?.last_name ?? ''}` },
                             { label: "Portal Access", value: formState.portal_access },
 
                         ]}
