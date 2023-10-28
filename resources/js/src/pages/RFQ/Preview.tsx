@@ -10,6 +10,7 @@ import {displayImage, displayFile, getStatusLabel, StatusOption} from '../../com
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -33,13 +34,7 @@ const Preview = () => {
         const model = modelResponse.data.data.rfq;
         dispatch(updateFormData(model));
     };
-    useEffect(() => {
-        if (formState.contract_attachment) {
-            displayFile('account', 'customer_rfq_file', formState.contract_attachment).then((data) => {
-                dispatch(updateFormData({[`customer_rfq_file_preview`]: data}));
-            })
-        }
-    }, []);
+
 
     useEffect(() => {
         fetchData().then(() => {
@@ -82,13 +77,11 @@ const Preview = () => {
             {label: "Lost Reason Comment", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "PM User", value: `${formState.pm_user?.first_name} ${formState.pm_user?.last_name}`},
             {
-                label: "Customer RFQ File", value: (<a
-                    disabled={!formState.contract_attachment}
-                    className="btn btn-sm btn-outline-primary cursor-pointer"
-                    href={formState.customer_rfq_file_preview ?? formState.contract_attachment}
-                    target="_blank">
-                    Download
-                </a>)
+                label: "Customer RFQ File", value: (<AttachmentDownloadButton
+                    formAttribute={"customer_rfq_file"}
+                    modelName="rfq"
+                    formState={formState}
+                />)
             },
             {label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}`},
             {label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}`},
