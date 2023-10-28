@@ -148,7 +148,7 @@ const Preview = () => {
             {label: "Shipping Country", value: `${formState.shipping_country}`},
         ],
     }
-    
+
 
     const columns = [
         {
@@ -167,17 +167,14 @@ const Preview = () => {
         {
             key: 'list_price',
             label: 'List Price',
-            class: 'ltr:text-right rtl:text-left',
         },
         {
             key: 'date_code',
             label: 'Date Code',
-            class: 'ltr:text-right rtl:text-left',
         },
         {
             key: 'amount',
             label: 'Amount',
-            class: 'ltr:text-right rtl:text-left',
         },
         {
             key: 'requested_delivery_date',
