@@ -231,7 +231,7 @@ const HeaderSection = () => {
                     modelName="rfq"
                     formState={formState}
                     formAttribute={'customer_rfq_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'RFQ Dead Line': <Flatpickr name="rfq_dead_line"
