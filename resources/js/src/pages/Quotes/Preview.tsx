@@ -11,6 +11,7 @@ import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -41,7 +42,13 @@ const Preview = () => {
             setLoading(false);
         });
     }, [modelID]);
-
+    useEffect(() => {
+        if (formState.quote_file) {
+            displayFile('quote', 'quote_file', formState.quote_file).then((data) => {
+                dispatch(updateFormData({ [`quote_file_preview`]: data })); //TODO Fix
+            })
+        }
+    }, []);
     const SOTypeOption = [
         {value: 'none', label: '-None-'},
         {value: 'single_order', label: 'Single Order'},
@@ -53,30 +60,31 @@ const Preview = () => {
 
     const quoteHeaderSection = {
         'leftObjects': [
-            {label: "Account Name", value: `${formState.account?.account_name}`},
             {
-                label: "Contact Name",
-                value: `${formState.contact ? formState.contact?.first_name + ' ' + formState.contact?.last_name : ''}`
+                label: "Converted By",
+                value: `${formState.converted_by ? formState.converted_by?.first_name + ' ' + formState.converted_by?.last_name : ''}`
             },
-            {label: "Quote Name", value: formState.qoute?.subject},
+            {label: "Customer RFQ No", value: formState.customer_rfq_no},
+            {label: "Quote Chance", value: `${formState.quote_chance}`},
             {label: "Currency", value: `${formState.currency}`},
 
         ],
         'rightObjects': [
-            {label: "SO Number", value: `${formState.so_number}`},
+            {label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}`},
             {label: "Deals Name", value: `${formState.deal?.deal_name}`},
-            {label: "Deal Stage", value: `${formState.deal?.deal_stage}`},
-            {label: "Lost Reason", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
-            {label: "Lost Reason Comment", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
-            {label: "SO Date", value: `${formState.so_date}`},
-            {label: "Owner Name", value: `${formState.owner?.first_name} ${formState.owner?.last_name}`},
-            {
-                label: "Quote Person",
-                value: `${formState.quote_person?.first_name} ${formState.quote_person?.last_name}`
-            },
-            {label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}`},
-            {label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}`},
-            {label: "Approved By", value: `${formState.approved_by?.first_name} ${formState.approved_by?.last_name}`},
+            {label: "Quote Stage", value: `${formState.quote_stage}`},
+            {label: "Quote File(Excel)", value:(
+                <a
+                    disabled={!formState.quote_file}
+                    className="btn btn-sm btn-outline-primary cursor-pointer"
+                    href={formState.quote_file ?? formState.quote_file}
+                    target="__blank"
+                >
+                    Download
+                </a>
+            )},
+       
+            
             {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
         ],
     };
@@ -84,50 +92,46 @@ const Preview = () => {
     const QuoteInformationSection =
         {
             'leftObjects': [
-                {label: "Purchase Order", value: `${formState.purchase_order}`},
-                {label: "Customer PO date", value: `${formState.customer_po_date}`},
-                {label: "PO upload", value: `${formState.po_upload} `},  //TODO : what about here ?
-                {label: "SO Type", value: getStatusLabel(formState.so_type, SOTypeOption)},
-                {label: "Parent SO Nr", value: formState.parent_so_nr},
+                {label: "Quote valid", value: `${formState.quote_valid}`},
+                {label: "Proactive Offer", value: `${formState.proactive_offer}`},
+                
             ],
             'rightObjects': [
-                {label: "Subject", value: `${formState.subject}`},
-                {label: "Pending", value: `${formState.pending}`},
-                {label: "Status", value: `${getStatusLabel(formState.subject, StatusOption)}`},
-                {label: "ZohoBooksId", value: `${formState.zoho_books_id}`},
+                {label: "Rating", value: `${formState.rating}`},
+               
 
             ],
         }
 
 
-    const SOLineSection = {
+    const QuoteLineSection = {
         'leftObjects': [
-            {label: "Quote Total", value: `${formState.total}`}, //TODO : where is it ?
+            {label: "Product Name", value: `${formState.product?.product_name}`}, //TODO : where is it ?
             {
-                label: "GP Total",
-                value: parseFloat(formState.list_price) - parseFloat(formState.availability?.availability_cost) * parseFloat(formState.Quantity)
+                label: "Customer part ID",
+                value: `${formState.customer_part_id}`
             },
-            {
-                label: "Margin",
-                value: (1 - (parseFloat(formState.availability?.availability_cost) / parseFloat(formState.list_price))) * 100
-            },
+           
         ],
         'rightObjects': [
-            {label: "Resale Price", value: `${formState.list_price}`},
-            {label: "Cost Vendor", value: `${formState.availability?.availability_cost}`},
+            {label: "Quantity", value: `${formState.quantity}`},
+            {label: "List Price", value: `${formState.list_price}`},
+            {label: "Lead Time", value: `${formState.lead_time}`},
         ],
     }
 
-    const LinkedAvailabilitySection = {
+    const SourceSection = {
         'leftObjects': [
-            {label: "Availability Name", value: `${formState.availability?.name}`},
-            {label: "Availability No", value: `${formState.availability?.availability_no}`},
-            {label: "Availability Cost", value: `${formState.availability?.availability_cost}`},
+            {label: "Vendor", value: `${formState.vendor?.vendor_name}`},
+            {label: "Availability No", value: `${formState.availability_no}`},
+            {label: "Availability Date", value: `${formState.availability_date}`},
+            {label: "Availability", value: `${formState.availability?.availability_name}`},
         ],
         'rightObjects': [
-            {label: "Availability Quantity", value: `${formState.availability?.quantity}`},
-            {label: "Availability LT", value: `${formState.availability?.lead_time}`},
-            {label: "Availability DC", value: `${formState.availability?.date_code}`},
+            {label: "Cost", value: `${formState.cost}`},
+            {label: "LT vendor", value: `${formState.lt_vendor}`},
+            {label: "SPQ", value: `${formState.spq}`},
+            {label: "Quantity in Stock", value: `${formState.quantity_in_stock}`},
         ],
     }
 
@@ -148,6 +152,56 @@ const Preview = () => {
         ],
     }
 
+
+    const columns = [
+        {
+            key: 'product_name',
+            label: 'Product Name',
+            model:'product',
+        },
+        {
+            key: 'customer_part_id',
+            label: 'Customer Part ID',
+        },
+         {
+            key: 'quantity',
+            label: 'Quantity',
+        },
+         {
+            key: 'spq',
+            label: 'SPQ',
+        },
+        {
+            key: 'list_price',
+            label: 'List Price',
+        },
+        {
+            key: 'lead_time',
+            label: 'Lead Time',
+        },
+        {
+            key: 'date_code',
+            label: 'Date Code',
+        },
+        {
+            key: 'amount',
+            label: 'Amount',
+        },
+        {
+            key: 'comment',
+            label: 'Comment',
+        },
+        
+    ];
+    const headerDataToDisplay = [
+        { label: "Account Name", value: `${formState.account?.account_name ?? ''} ` },
+        { label: "Contact Name", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''} ` },
+        { label: "RFQ Name", value: `${formState.rfq?.rfq_name ?? ''} ` },
+        { label: "Subject", value: `${formState.subject ?? ''} ` },
+        { label: "Quote Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
+    ];
     if (loading)
         return <LoadingSasCrm/>;
     return (
@@ -161,18 +215,20 @@ const Preview = () => {
                         hasPermission={hasPermission}
                         modelId={modelID}
                         exportTable={exportTable}
-                        routeModel="quote"
+                        routeModel="quotes"
                         permissionModel="quote"
                     />
                 </div>
                 <div className="panel">
                     <div className="flex justify-between flex-wrap gap-4 px-4">
-                        <div className="text-2xl font-semibold uppercase">Quote Order</div>
+                        <div className="text-2xl font-semibold uppercase">Quote</div>
                         <div className="shrink-0">
-                            <img src={displayImage(formState.image_data)} alt="Quote Order image"
+                            <img src={displayImage(formState.image_data)} alt="Quote image"
                                  className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
+                    <InfoListComponent data={headerDataToDisplay} />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Header"
                         leftObjects={quoteHeaderSection.leftObjects}
@@ -181,23 +237,29 @@ const Preview = () => {
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
                     <InformationSectionPreview
-                        title="Quote Order Information"
+                        title="Status"
                         leftObjects={QuoteInformationSection.leftObjects}
                         rightObjects={QuoteInformationSection.rightObjects}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
+                    <TableSectionPreview
+                        title="Quote Items"
+                        items={formState.items}
+                        columns={columns}
+                        total={formState.quote_total}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
-                        title="SO Line"
-                        leftObjects={SOLineSection.leftObjects}
-                        rightObjects={SOLineSection.rightObjects}
+                        title="Quote Line"
+                        leftObjects={QuoteLineSection.leftObjects}
+                        rightObjects={QuoteLineSection.rightObjects}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
                     <InformationSectionPreview
-                        title="Linked Availability"
-                        leftObjects={LinkedAvailabilitySection.leftObjects}
-                        rightObjects={LinkedAvailabilitySection.rightObjects}
+                        title="Source"
+                        leftObjects={SourceSection.leftObjects}
+                        rightObjects={SourceSection.rightObjects}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
