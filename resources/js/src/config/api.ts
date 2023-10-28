@@ -121,7 +121,8 @@ class api {
 
     async displayFile(model: any, attribute: any, path: any) {
         const base64Path = btoa(path);
-        return await _axios.get(`${API_URL_PRODUCT}/display-file/${model}/${attribute}/${base64Path}`,{
+        return await _axios.get(`${API_URL_PRODUCT}/display-file/${model}/${attribute}/${base64Path}`, {
+            headers: Headers as any,
             responseType: 'blob'
         });
     }
