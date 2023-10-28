@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TableSectionPreview = ({ title, items, columns,total=null,discount=null,
-    tax=null,subtotal=null}) => {
+    tax=null,subtotal=null,adjustment=null}) => {
     return (
 
         <div className=" justify-between ">
@@ -41,25 +41,32 @@ const TableSectionPreview = ({ title, items, columns,total=null,discount=null,
                         {subtotal && (
                         <div className="flex items-center">
                             <div className="flex-1">Subtotal</div>
-                            <div className="w-[37%]">${subtotal}</div>
+                            <div className="w-[37%]">€{subtotal}</div>
                         </div>
                          )}
                         {tax && (
                         <div className="flex items-center">
                             <div className="flex-1">Tax</div>
-                            <div className="w-[37%]">${tax}</div>
+                            <div className="w-[37%]">€{tax}</div>
                         </div>
                         )}
                         {discount && (
                         <div className="flex items-center">
                             <div className="flex-1">Discount</div>
-                            <div className="w-[37%]">${discount}</div>
+                            <div className="w-[37%]">€{discount}</div>
                         </div>
                          )}
+                        {adjustment && (
+                        <div className="flex items-center font-semibold text-lg">
+                            <div className="flex-1">Adjustment</div>
+                            <div className="w-[37%]">€{adjustment}</div>
+                        </div>
+                        )}
+
                         {total && (
                         <div className="flex items-center font-semibold text-lg">
                             <div className="flex-1">Total</div>
-                            <div className="w-[37%]">${total}</div>
+                            <div className="w-[37%]">€{total}</div>
                         </div>
                         )}
                     </div>
