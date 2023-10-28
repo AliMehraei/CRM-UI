@@ -35,7 +35,7 @@ const Preview = () => {
     };
     useEffect(() => {
         if (formState.contract_attachment) {
-            displayFile('account', 'availability_file', formState.availability_file).then((data) => {
+            displayFile('availability', 'availability_file', formState.availability_file).then((data) => {
                 dispatch(updateFormData({ [`availability_file_preview`]: data }));
             })
         }
