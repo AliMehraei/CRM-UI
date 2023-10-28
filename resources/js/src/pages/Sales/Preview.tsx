@@ -148,59 +148,44 @@ const Preview = () => {
             {label: "Shipping Country", value: `${formState.shipping_country}`},
         ],
     }
-    const items = [
-        {
-            id: 1,
-            title: 'Calendar App Customization',
-            quantity: 1,
-            price: '120',
-            amount: '120',
-        },
-        {
-            id: 2,
-            title: 'Chat App Customization',
-            quantity: 1,
-            price: '230',
-            amount: '230',
-        },
-        {
-            id: 3,
-            title: 'Laravel Integration',
-            quantity: 1,
-            price: '405',
-            amount: '405',
-        },
-        {
-            id: 4,
-            title: 'Backend UI Design',
-            quantity: 1,
-            price: '2500',
-            amount: '2500',
-        },
-    ];
+    
 
     const columns = [
         {
-            key: 'id',
-            label: 'S.NO',
-        },
-        {
-            key: 'title',
-            label: 'ITEMS',
+            key: 'product_name',
+            label: 'Product Name',
+            model:'product',
         },
         {
             key: 'quantity',
-            label: 'QTY',
+            label: 'Quantity',
         },
         {
-            key: 'price',
-            label: 'PRICE',
+            key: 'customer_part_id',
+            label: 'Customer Part ID',
+        },
+        {
+            key: 'list_price',
+            label: 'List Price',
+            class: 'ltr:text-right rtl:text-left',
+        },
+        {
+            key: 'date_code',
+            label: 'Date Code',
             class: 'ltr:text-right rtl:text-left',
         },
         {
             key: 'amount',
-            label: 'AMOUNT',
+            label: 'Amount',
             class: 'ltr:text-right rtl:text-left',
+        },
+        {
+            key: 'requested_delivery_date',
+            label: 'Requested Delivery Date',
+        },
+        {
+            key: 'estimated_delivery_date',
+            label: 'Estimated Delivery Date',
         },
     ];
 
@@ -244,8 +229,9 @@ const Preview = () => {
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <TableSectionPreview
                         title="Ordered Items"
-                        items={items}
+                        items={formState.items}
                         columns={columns}
+                        total={formState.sales_total}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview

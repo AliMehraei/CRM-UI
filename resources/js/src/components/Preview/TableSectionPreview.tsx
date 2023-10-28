@@ -24,11 +24,11 @@ const TableSectionPreview = ({ title, items, columns,total=null,discount=null,
                             {items.map((item) => {
                                 return (
                                     <tr key={item.id}>
-                                        <td>{item.id}</td>
-                                        <td>{item.title}</td>
-                                        <td>{item.quantity}</td>
-                                        <td className="ltr:text-right rtl:text-left">${item.price}</td>
-                                        <td className="ltr:text-right rtl:text-left">${item.amount}</td>
+                                        {columns.map((column) => (
+                                            <td key={column.key}>
+                                                {column.model ? item[column.model.key] : item[column.key]}
+                                            </td>
+                                        ))}
                                     </tr>
                                 );
                             })}
