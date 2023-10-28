@@ -41,13 +41,13 @@ const Preview = () => {
         }
     }, []);
     const headerDataToDisplay = [
-        { label: "Account Name", value:`${formState.account?.account_name}}` },
+        { label: "Account Name", value:`${formState.account?.account_name ?? ''}}` },
         { label: "Excess Name", value:`${formState.excess_name}` },
-        { label: "Contact", value: `${formState.contact?.first_name} ${formState.contact?.last_name}`},
+        { label: "Contact", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''}`},
         { label: "Email", value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a> },
-        { label: "Excess Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
-        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+        { label: "Excess Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
     useEffect(() => {
         fetchData().then(() => {
@@ -127,8 +127,8 @@ const Preview = () => {
                     <InformationSectionPreview
                         title="Excess Line"
                         leftObjects={[
-                            { label: "Product name", value: formState.product?.product_name },
-                            { label: "Customer Internal No.", value: formState.customer_internal_no },
+                            { label: "Product name", value: formState.product?.product_name ?? '' },
+                            { label: "Customer Internal No.", value: formState.customer_internal_no ?? ''},
                             { label: "Quantity", value: formState.quantity }
                         ]}
                         rightObjects={[
