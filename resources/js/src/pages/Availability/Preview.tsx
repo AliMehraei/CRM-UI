@@ -11,6 +11,7 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -48,7 +49,33 @@ const Preview = () => {
         { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
         { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
-    
+
+    const priceBreakColumns = [
+        {
+            key: 'cost_3000',
+            label: 'Cost_3000',
+        },
+        {
+            key: 'cost_1000',
+            label: 'Cost_1000',
+        },      {
+            key: 'cost_500',
+            label: 'cost_500',
+        },      {
+            key: 'cost_250',
+            label: 'Cost_250',
+        },      {
+            key: 'cost_25',
+            label: 'Cost_25',
+        },      {
+            key: 'cost_10',
+            label: 'Cost_10',
+        },      {
+            key: 'cost_1',
+            label: 'Cost_1',
+        },
+    ];
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -149,37 +176,12 @@ const Preview = () => {
                             { label: "Portal Availability Id", value: formState.portal_availability_id },
                         ]}
                     />
-
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    <h2 className='font-bold'>Price-Breaks</h2>
-                    <table className="table-auto">
-                        <thead>
-                            <tr>
-                                <th>Cost_3000</th>
-                                <th>Cost_1000</th>
-                                <th>Cost_500</th>
-                                <th>Cost_250</th>
-                                <th>Cost_100</th>
-                                <th>Cost_25</th>
-                                <th>Cost_10</th>
-                                <th>Cost_1</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {formState.price_breaks.map((item) => (
-                                <tr key={item.id}>
-                                    <td>{item.cost_3000 || '-'}</td>
-                                    <td>{item.cost_1000 || '-'}</td>
-                                    <td>{item.cost_500 || '-'}</td>
-                                    <td>{item.cost_250 || '-'}</td>
-                                    <td>{item.cost_100 || '-'}</td>
-                                    <td>{item.cost_25 || '-'}</td>
-                                    <td>{item.cost_10 || '-'}</td>
-                                    <td>{item.cost_1 || '-'}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <TableSectionPreview
+                        title="Price-Breaks Items"
+                        items={formState.price_breaks}
+                        columns={priceBreakColumns}
+                    />
                 </div>
             </div>
         )
