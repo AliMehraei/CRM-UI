@@ -49,13 +49,13 @@ const Preview = () => {
     };
     const headerDataToDisplay = [
         { label: "Lead Status", value: getStatusLabel(formState.status) },
-        { label: "Full Name", value: `${formState.prefix_first_name} ${formState.first_name} ${formState.last_name}` },
+        { label: "Full Name", value: `${formState.prefix_first_name ?? ''} ${formState.first_name ?? ''} ${formState.last_name ?? ''}` },
         { label: "Email", value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a> },
         { label: "Company", value: formState.company },
         { label: "Website", value: <a className='text-primary' target='_blank' href={formState.website}>{formState.website}</a> },
-        { label: "Account Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
-        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+        { label: "Account Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
     useEffect(() => {
         fetchData().then(() => {

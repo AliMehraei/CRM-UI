@@ -47,9 +47,9 @@ const Preview = () => {
     }, []);
     const headerDataToDisplay = [
         { label: "Vendor Name", value: formState.vendor_name },
-        { label: "Vendor Site", value: `${formState.vendor_name} | ${formState.city}` },
+        { label: "Vendor Site", value: `${formState.vendor_name ?? ''} | ${formState.city ?? ''}` },
         { label: "Vendor Source", value: formState.vendor_source },
-        { label: "Vendor Type", value: `${formState.vendor_type}` },
+        { label: "Vendor Type", value: formState.vendor_type },
         { label: "Vendor Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
         { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
         { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }

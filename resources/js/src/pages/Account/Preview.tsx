@@ -44,7 +44,7 @@ const Preview = () => {
         { label: "Account Name", value: formState.account_name },
         { label: "Phone", value: formState.phone },
         { label: "Website", value: <a className='text-primary' target='_blank' rel='noreferrer' href={formState.website}>{formState.website}</a> },
-        { label: "Account Site", value: `${formState.shipping_city} | ${formState.account_name}` },
+        { label: "Account Site", value: `${formState.shipping_city ?? ''} | ${formState.account_name ?? ''}` },
         { label: "Account Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
         { label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}` },
         { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },

@@ -42,7 +42,7 @@ const Preview = () => {
     }, []);
     const headerDataToDisplay = [
         { label: "Account Name", value:`${formState.account?.account_name ?? ''}}` },
-        { label: "Excess Name", value:`${formState.excess_name}` },
+        { label: "Excess Name", value:formState.excess_name },
         { label: "Contact", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''}`},
         { label: "Email", value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a> },
         { label: "Excess Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
