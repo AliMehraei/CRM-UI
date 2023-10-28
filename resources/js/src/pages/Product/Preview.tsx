@@ -36,13 +36,12 @@ const Preview = () => {
     };
 
     const headerDataToDisplay = [
-        { label: "Manufacture", value: formState.manufacturer?.name },
+        { label: "Manufacture", value: formState.manufacturer?.name ?? ''},
         { label: "Part Description", value: formState.part_description },
-        { label: "Manufacture", value: formState.manufacturer?.name },
-        { label: "Product Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
-        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` },
-        { label: "Approved By", value: `${formState.approvedBy?.first_name} ${formState.approvedBy?.last_name}` }
+        { label: "Product Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name?? ''} ${formState.modifier?.last_name ?? ''}` },
+        { label: "Approved By", value: `${formState.approvedBy?.first_name ?? ''} ${formState.approvedBy?.last_name ?? ''}` }
     ];
     useEffect(() => {
         fetchData().then(() => {
@@ -68,7 +67,7 @@ const Preview = () => {
                 </div>
                 <div className="panel">
                     <div className="flex justify-between flex-wrap gap-4 px-4">
-                        <div className="text-2xl font-semibold uppercase">Lead</div>
+                        <div className="text-2xl font-semibold uppercase">Product</div>
                         <div className="shrink-0">
                             <img src={displayImage(formState.image_data)} alt="product image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         </div>
@@ -210,13 +209,13 @@ const Preview = () => {
                     <InformationSectionPreview
                         title="Alternatives"
                         leftObjects={[
-                            { label: "Alternative MPN 1", value: formState.alternative_mpn1?.product_name },
-                            { label: "Alternative MPN 2", value: formState.alternative_mpn2?.product_name },
+                            { label: "Alternative MPN 1", value: formState.alternative_mpn1?.product_name ?? '' },
+                            { label: "Alternative MPN 2", value: formState.alternative_mpn2?.product_name ?? ''},
 
                         ]}
                         rightObjects={[
-                            { label: "Alternative MPN 3", value: formState.alternative_mpn3?.product_name },
-                            { label: "Alternative MPN 4", value: formState.alternative_mpn4?.product_name },
+                            { label: "Alternative MPN 3", value: formState.alternative_mpn3?.product_name ?? '' },
+                            { label: "Alternative MPN 4", value: formState.alternative_mpn4?.product_name ?? '' },
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
