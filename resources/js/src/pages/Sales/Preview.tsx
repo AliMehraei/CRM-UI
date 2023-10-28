@@ -70,14 +70,7 @@ const Preview = () => {
             {label: "Lost Reason", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "Lost Reason Comment", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "SO Date", value: `${formState.so_date}`},
-            {label: "Owner Name", value: `${formState.owner?.first_name} ${formState.owner?.last_name}`},
-            {
-                label: "Sales Person",
-                value: `${formState.sales_person?.first_name} ${formState.sales_person?.last_name}`
-            },
-            {label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}`},
-            {label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}`},
-            {label: "Approved By", value: `${formState.approved_by?.first_name} ${formState.approved_by?.last_name}`},
+            
             {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
         ],
     };
@@ -185,7 +178,17 @@ const Preview = () => {
             label: 'Estimated Delivery Date',
         },
     ];
-
+    const headerDataToDisplay = [
+       
+        { label: "Sales Order Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        {label: "Sales Person",
+            value: `${formState.sales_person?.first_name ?? ''} ${formState.sales_person?.last_name ?? ''}`
+        },
+       
+        {label: "Approved By", value: `${formState.approved_by?.first_name ?? ''} ${formState.approved_by?.last_name ?? ''}`},
+        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
+    ];
     if (loading)
         return <LoadingSasCrm/>;
     return (
@@ -211,6 +214,8 @@ const Preview = () => {
                                  className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
+                    <InfoListComponent data={headerDataToDisplay} />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Header"
                         leftObjects={salesOrderHeaderSection.leftObjects}
