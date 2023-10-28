@@ -211,6 +211,7 @@ const Preview = () => {
                                  className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Header"
                         leftObjects={salesOrderHeaderSection.leftObjects}
