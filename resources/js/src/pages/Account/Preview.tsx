@@ -11,6 +11,7 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentDownloadButton from '../../components/FormFields/AttachmentDownloadButton';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -33,13 +34,7 @@ const Preview = () => {
         const account = accountResponse.data.data.account;
         dispatch(updateFormData(account));
     };
-    useEffect(() => {
-        if (formState.contract_attachment) {
-            displayFile('account', 'contract_attachment', formState.contract_attachment).then((data) => {
-                dispatch(updateFormData({ [`contract_attachment_preview`]: data }));
-            })
-        }
-    }, []);
+
     const headerDataToDisplay = [
         { label: "Account Name", value: formState.account_name },
         { label: "Phone", value: formState.phone },
@@ -89,14 +84,11 @@ const Preview = () => {
                             {
                                 label: "Contract Attachment",
                                 value: (
-                                    <a
-                                        disabled={!formState.contract_attachment}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.contract_attachment_preview ?? formState.contract_attachment}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>
+                                    <AttachmentDownloadButton
+                                        formAttribute={"contract_attachment"}
+                                        modelName="account"
+                                        formState={formState}
+                                    />
                                 )
                             },
                             { label: "Account Type", value: formState.account_type },

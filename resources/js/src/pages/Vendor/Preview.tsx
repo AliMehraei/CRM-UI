@@ -11,6 +11,7 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentDownloadButton from '../../components/FormFields/AttachmentDownloadButton';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -33,18 +34,6 @@ const Preview = () => {
         const model = modelResponse.data.data.vendor;
         dispatch(updateFormData(model));
     };
-    useEffect(() => {
-        if (formState.iso_upload) {
-            displayFile('vendor', 'iso_upload', formState.iso_upload).then((data) => {
-                dispatch(updateFormData({ [`iso_upload_preview`]: data }));
-            })
-        }
-        if (formState.doc_upload) {
-            displayFile('vendor', 'doc_upload', formState.doc_upload).then((data) => {
-                dispatch(updateFormData({ [`doc_upload_preview`]: data }));
-            })
-        }
-    }, []);
     const headerDataToDisplay = [
         { label: "Vendor Name", value: formState.vendor_name },
         { label: "Vendor Site", value: `${formState.vendor_name ?? ''} | ${formState.city ?? ''}` },
@@ -107,25 +96,21 @@ const Preview = () => {
                             },
                             {
                                 label: "ISO Upload", value: (
-                                    <a
-                                        disabled={!formState.iso_upload}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.iso_upload_preview ?? formState.iso_upload}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>)
+                                    <AttachmentDownloadButton
+                                        formAttribute={"iso_upload"}
+                                        modelName="vendor"
+                                        formState={formState}
+                                    />)
                             },
                             {
                                 label: "Doc Upload", value: (
-                                    <a
-                                        disabled={!formState.doc_upload}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.doc_upload_preview ?? formState.doc_upload}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>)
+                                    <AttachmentDownloadButton
+                                        formAttribute={"doc_upload"}
+                                        modelName="vendor"
+                                        formState={formState}
+                                    />
+                                )
+
                             },
                             { label: "Vendor Number", value: formState.vendor_number },
                             { label: "Parent Vendor", value: `${formState.parent?.first_name ?? ''} ${formState.parent?.last_name ?? ''}` },
@@ -142,7 +127,7 @@ const Preview = () => {
                             { label: "Last Name", value: formState.last_name },
                             { label: "Phone", value: formState.phone },
                             { label: "Mobile", value: formState.mobile },
-                         
+
                         ]}
                         rightObjects={[
                             {
@@ -200,7 +185,7 @@ const Preview = () => {
                         title="Technical information"
                         leftObjects={[
                             { label: "BOM/Excess Total Uploading Rows", value: formState.bom_excess_total_rows },
-                            
+
                         ]}
                         rightObjects={[
                         ]}

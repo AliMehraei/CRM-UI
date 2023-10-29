@@ -12,6 +12,7 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
+import AttachmentDownloadButton from '../../components/FormFields/AttachmentDownloadButton';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -34,13 +35,6 @@ const Preview = () => {
         const model = modelResponse.data.data.availability;
         dispatch(updateFormData(model));
     };
-    useEffect(() => {
-        if (formState.contract_attachment) {
-            displayFile('availability', 'availability_file', formState.availability_file).then((data) => {
-                dispatch(updateFormData({ [`availability_file_preview`]: data }));
-            })
-        }
-    }, []);
     const headerDataToDisplay = [
         { label: "Vendor Name", value: formState.vendor?.vendor_name ?? '' },
         { label: "Vendor Quote No", value: formState.vendor_quote_no },
@@ -58,19 +52,19 @@ const Preview = () => {
         {
             key: 'cost_1000',
             label: 'Cost_1000',
-        },      {
+        }, {
             key: 'cost_500',
             label: 'cost_500',
-        },      {
+        }, {
             key: 'cost_250',
             label: 'Cost_250',
-        },      {
+        }, {
             key: 'cost_25',
             label: 'Cost_25',
-        },      {
+        }, {
             key: 'cost_10',
             label: 'Cost_10',
-        },      {
+        }, {
             key: 'cost_1',
             label: 'Cost_1',
         },
@@ -118,14 +112,11 @@ const Preview = () => {
                             {
                                 label: "Availability File",
                                 value: (
-                                    <a
-                                        disabled={!formState.availability_file}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.availability_file_preview ?? formState.availability_file}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>
+                                    <AttachmentDownloadButton
+                                        formAttribute={"availability_file"}
+                                        modelName="availability"
+                                        formState={formState}
+                                    />
                                 )
                             },
                         ]}
