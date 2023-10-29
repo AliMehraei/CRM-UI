@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -11,6 +11,7 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -189,11 +190,13 @@ const Preview = () => {
                     <InformationSectionPreview
                         title="Development"
                         leftObjects={Development.leftObjects}
-                        rightObjects={Development.rightObjects}
+                        rightObjects={null}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
+                    <AttachmentSection modelId={modelID} modelName={'rfq'}/>
                 </div>
             </div>
         )

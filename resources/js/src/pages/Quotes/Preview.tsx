@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -12,6 +12,8 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -45,7 +47,7 @@ const Preview = () => {
     useEffect(() => {
         if (formState.quote_file) {
             displayFile('quote', 'quote_file', formState.quote_file).then((data) => {
-                dispatch(updateFormData({ [`quote_file_preview`]: data })); //TODO Fix
+                dispatch(updateFormData({[`quote_file_preview`]: data})); //TODO Fix
             })
         }
     }, []);
@@ -73,18 +75,17 @@ const Preview = () => {
             {label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}`},
             {label: "Deals Name", value: `${formState.deal?.deal_name}`},
             {label: "Quote Stage", value: `${formState.quote_stage}`},
-            {label: "Quote File(Excel)", value:(
-                <a
-                    disabled={!formState.quote_file}
-                    className="btn btn-sm btn-outline-primary cursor-pointer"
-                    href={formState.quote_file ?? formState.quote_file}
-                    target="__blank"
-                >
-                    Download
-                </a>
-            )},
-       
-            
+            {
+                label: "Quote File(Excel)", value: (
+                    <AttachmentDownloadButton
+                        formAttribute={"quote_file"}
+                        modelName="quote"
+                        formState={formState}
+                    />
+                )
+            },
+
+
             {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
         ],
     };
@@ -94,11 +95,11 @@ const Preview = () => {
             'leftObjects': [
                 {label: "Quote valid", value: `${formState.quote_valid}`},
                 {label: "Proactive Offer", value: `${formState.proactive_offer}`},
-                
+
             ],
             'rightObjects': [
                 {label: "Rating", value: `${formState.rating}`},
-               
+
 
             ],
         }
@@ -111,7 +112,7 @@ const Preview = () => {
                 label: "Customer part ID",
                 value: `${formState.customer_part_id}`
             },
-           
+
         ],
         'rightObjects': [
             {label: "Quantity", value: `${formState.quantity}`},
@@ -157,17 +158,17 @@ const Preview = () => {
         {
             key: 'product_name',
             label: 'Product Name',
-            model:'product',
+            model: 'product',
         },
         {
             key: 'customer_part_id',
             label: 'Customer Part ID',
         },
-         {
+        {
             key: 'quantity',
             label: 'Quantity',
         },
-         {
+        {
             key: 'spq',
             label: 'SPQ',
         },
@@ -191,16 +192,16 @@ const Preview = () => {
             key: 'comment',
             label: 'Comment',
         },
-        
+
     ];
     const headerDataToDisplay = [
-        { label: "Account Name", value: `${formState.account?.account_name ?? ''} ` },
-        { label: "Contact Name", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''} ` },
-        { label: "RFQ Name", value: `${formState.rfq?.rfq_name ?? ''} ` },
-        { label: "Subject", value: `${formState.subject ?? ''} ` },
-        { label: "Quote Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
-        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
-        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
+        {label: "Account Name", value: `${formState.account?.account_name ?? ''} `},
+        {label: "Contact Name", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''} `},
+        {label: "RFQ Name", value: `${formState.rfq?.rfq_name ?? ''} `},
+        {label: "Subject", value: `${formState.subject ?? ''} `},
+        {label: "Quote Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}`},
+        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}`},
+        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}`}
     ];
     if (loading)
         return <LoadingSasCrm/>;
@@ -227,7 +228,7 @@ const Preview = () => {
                                  className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
-                    <InfoListComponent data={headerDataToDisplay} />
+                    <InfoListComponent data={headerDataToDisplay}/>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Header"
@@ -282,6 +283,10 @@ const Preview = () => {
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelID} modelName={'quote'}/>
                 </div>
             </div>
         )

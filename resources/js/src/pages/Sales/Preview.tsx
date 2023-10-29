@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -12,6 +12,7 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -70,7 +71,7 @@ const Preview = () => {
             {label: "Lost Reason", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "Lost Reason Comment", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "SO Date", value: `${formState.so_date}`},
-            
+
             {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
         ],
     };
@@ -87,7 +88,7 @@ const Preview = () => {
             'rightObjects': [
                 {label: "Subject", value: `${formState.subject}`},
                 {label: "Pending", value: `${formState.pending}`},
-                {label: "Status", value: `${getStatusLabel(formState.subject, StatusOption)}`},
+                {label: "Status", value: `${getStatusLabel(formState.status, StatusOption)}`},
                 {label: "ZohoBooksId", value: `${formState.zoho_books_id}`},
 
             ],
@@ -147,7 +148,7 @@ const Preview = () => {
         {
             key: 'product_name',
             label: 'Product Name',
-            model:'product',
+            model: 'product',
         },
         {
             key: 'quantity',
@@ -179,15 +180,19 @@ const Preview = () => {
         },
     ];
     const headerDataToDisplay = [
-       
-        { label: "Sales Order Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
-        {label: "Sales Person",
+
+        {label: "Sales Order Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}`},
+        {
+            label: "Sales Person",
             value: `${formState.sales_person?.first_name ?? ''} ${formState.sales_person?.last_name ?? ''}`
         },
-       
-        {label: "Approved By", value: `${formState.approved_by?.first_name ?? ''} ${formState.approved_by?.last_name ?? ''}`},
-        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
-        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
+
+        {
+            label: "Approved By",
+            value: `${formState.approved_by?.first_name ?? ''} ${formState.approved_by?.last_name ?? ''}`
+        },
+        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}`},
+        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}`}
     ];
     if (loading)
         return <LoadingSasCrm/>;
@@ -214,7 +219,7 @@ const Preview = () => {
                                  className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
-                    <InfoListComponent data={headerDataToDisplay} />
+                    <InfoListComponent data={headerDataToDisplay}/>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Header"
@@ -269,6 +274,10 @@ const Preview = () => {
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelID} modelName={'salesOrder'}/>
                 </div>
             </div>
         )

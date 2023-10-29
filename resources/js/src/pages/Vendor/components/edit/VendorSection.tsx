@@ -8,8 +8,8 @@ import {
     Contract,
 
     Currencies, displayImage,
-    PortalAccess,
-    searchOwners
+    PortalAccess, searchManufacturer,
+    searchOwners, searchVendor
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
@@ -108,31 +108,55 @@ const VendorSection = () => {
             ),
             'Strong Lines': (
                 <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="strong_lines"
+                    defaultOptions={true} id="strong_line_ids"
+                    name="strong_line_ids"
                     placeholder="Type at least 2 characters to search..."
-                    name="strong_lines"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('strong_lines', value)
+                    loadOptions={searchManufacturer}
+                    onChange={(values: any) => {
+                        handleChangeField('strong_line_ids', values.map((v: any) => v.value))
                     }}
-                    className="flex-1"
-                />
+                    defaultValue={formState.strong_lines
+                        ? formState.strong_lines.map((data: any) => ({
+                            value: data.id,
+                            label: (
+                                <div key={data.id} className="flex items-center">
+                                    <div>
+                                        <div
+                                            className="text-sm font-bold">{data.name}</div>
+                                    </div>
+                                </div>
+                            ),
+                        }))
+                        : []
+                    }
+                    isMulti={true}
+                    className="flex-1"/>
             ),
             'Line Card': (
                 <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="line_card"
+                    defaultOptions={true} id="line_card_ids"
+                    name="line_card_ids"
                     placeholder="Type at least 2 characters to search..."
-                    name="line_card"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('line_card', value)
+                    loadOptions={searchManufacturer}
+                    onChange={(values: any) => {
+                        handleChangeField('line_card_ids', values.map((v: any) => v.value))
                     }}
-                    className="flex-1"
-                />
+                    defaultValue={formState.line_cards
+                        ? formState.line_cards.map((data: any) => ({
+                            value: data.id,
+                            label: (
+                                <div key={data.id} className="flex items-center">
+                                    <div>
+                                        <div
+                                            className="text-sm font-bold">{data.name}</div>
+                                    </div>
+                                </div>
+                            ),
+                        }))
+                        : []
+                    }
+                    isMulti={true}
+                    className="flex-1"/>
             ),
             'Approve status': (
                 <Select
@@ -240,7 +264,7 @@ const VendorSection = () => {
                     formState={formState}
                     modelName='vendor'
                     formAttribute='iso_upload'
-                   
+
                 />
             ),
             'Doc Upload': (
@@ -250,7 +274,7 @@ const VendorSection = () => {
                     formState={formState}
                     modelName='vendor'
                     formAttribute='doc_upload'
-                   
+
                 />
             ),
             'Parent Vendor': (

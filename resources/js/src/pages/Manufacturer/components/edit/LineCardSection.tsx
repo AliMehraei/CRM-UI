@@ -38,50 +38,52 @@ const LineCardSection = () => {
     const fields = {
         'Line Card': {
             'Vendor_Line Card': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="vendor_line_card_id" name="vendor_line_card_id"
-                                             placeholder="Type at least 2 characters to search..."
-                                             loadOptions={searchVendor}
-                                             className="flex-1"
-                                             onChange={({value}: any) => {
-                                                 handleChangeField('vendor_line_card_id', value)
-                                             }}
-                // value={defaultLineCard}
-                                             defaultValue={{
-                                                 value: formState.vendor_line_card_id,
-                                                 label: (
-                                                     <div key={formState.vendor_line_card_id}
-                                                          className="flex items-center">
-                                                         <div>
-                                                             <div
-                                                                 className="text-sm font-bold">{formState.vendor_line_card?.vendor_name}</div>
-                                                         </div>
-                                                     </div>
-                                                 )
-                                             }}
+                defaultOptions={true} isMulti={true} id="vendor_line_card_id" name="vendor_line_card_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchVendor}
+                className="flex-1"
+                onChange={(values: any) => {
+                    handleChangeField('vendor_line_card_ids', values.map((v: any) => v.value))
+                }}
+
+                defaultValue={formState.vendor_line_cards
+                    ? formState.vendor_line_cards.map((data: any) => ({
+                        value: data.id,
+                        label: (
+                            <div key={data.id} className="flex items-center">
+                                <div>
+                                    <div className="text-sm font-bold">{data.vendor_name}</div>
+                                </div>
+                            </div>
+                        ),
+                    }))
+                    : []
+                }
             />,
         },
         '': {
             'Vendor_Strong Lines': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="vendor_strong_lines_id"
-                                                name="vendor_strong_lines_id"
-                                                placeholder="Type at least 2 characters to search..."
-                                                loadOptions={searchVendor}
-                                                className="flex-1"
-                                                onChange={({value}: any) => {
-                                                    handleChangeField('vendor_strong_lines_id', value)
-                                                }}
-                                                defaultValue={{
-                                                    value: formState.vendor_strong_lines_id,
-                                                    label: (
-                                                        <div key={formState.vendor_strong_lines_id}
-                                                             className="flex items-center">
-                                                            <div>
-                                                                <div
-                                                                    className="text-sm font-bold">{formState.vendor_strong_lines?.vendor_name}</div>
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                }}
+                defaultOptions={true} isMulti={true} id="vendor_strong_lines_id"
+                name="vendor_strong_lines_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchVendor}
+                className="flex-1"
+                onChange={(values: any) => {
+                    handleChangeField('vendor_strong_lines_ids', values.map((v: any) => v.value))
+                }}
+                defaultValue={formState.vendor_strong_lines
+                    ? formState.vendor_strong_lines.map((data: any) => ({
+                        value: data.id,
+                        label: (
+                            <div key={data.id} className="flex items-center">
+                                <div>
+                                    <div className="text-sm font-bold">{data.vendor_name}</div>
+                                </div>
+                            </div>
+                        ),
+                    }))
+                    : []
+                }
 
             />,
         }
