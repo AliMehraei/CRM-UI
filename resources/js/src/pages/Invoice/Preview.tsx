@@ -61,31 +61,22 @@ const Preview = () => {
     const invoiceHeaderSection = {
         'leftObjects': [
             {
-                label: "Converted By",
-                value: `${formState.converted_by ? formState.converted_by?.first_name + ' ' + formState.converted_by?.last_name : ''}`
+                label: "Due Date",
+                value: `${formState.due_date ?? ''}`
             },
-            {label: "Customer RFQ No", value: formState.customer_rfq_no},
-            {label: "Invoice Chance", value: `${formState.invoice_chance}`},
-            {label: "Currency", value: `${formState.currency}`},
+            {label: "Sales Commission", value: formState.sales_commission},
+            {label: "Exchange Rate", value: `${formState.exchange_rate}`},
+            {label: "ZohoBooksID", value: `${formState.zoho_books_id}`},
 
         ],
         'rightObjects': [
-            {label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}`},
-            {label: "Deals Name", value: `${formState.deal?.deal_name}`},
+            {label: "Deal Stage", value: `${formState.deal_stage ?? ''} `},
+            {label: "Excise Duty", value: `${formState.excise_duty}`},
             {label: "Invoice Stage", value: `${formState.invoice_stage}`},
-            {label: "Invoice File(Excel)", value:(
-                <a
-                    disabled={!formState.invoice_file}
-                    className="btn btn-sm btn-outline-primary cursor-pointer"
-                    href={formState.invoice_file ?? formState.invoice_file}
-                    target="__blank"
-                >
-                    Download
-                </a>
-            )},
+            {label: "Status", value:`${formState.status}`},
        
             
-            {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
+            {label: "Currency", value: `${formState.currency}`},
         ],
     };
 
@@ -195,9 +186,11 @@ const Preview = () => {
     ];
     const headerDataToDisplay = [
         { label: "Account Name", value: `${formState.account?.account_name ?? ''} ` },
-        { label: "Contact Name", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''} ` },
-        { label: "RFQ Name", value: `${formState.rfq?.rfq_name ?? ''} ` },
+        { label: "Contact Name", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "Sales Order", value: `${formState.sales_order?.subject ?? ''} ${formState.contact?.last_name ?? ''} ` },
+        { label: "Purchase Order", value: `${formState.purchase_order ?? ''} ` },
         { label: "Subject", value: `${formState.subject ?? ''} ` },
+        { label: "Invoice Date", value: `${formState.invoice_date ?? ''} ` },
         { label: "Invoice Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
         {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
         {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
@@ -237,11 +230,11 @@ const Preview = () => {
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
                     <InformationSectionPreview
-                        title="Status"
-                        leftObjects={InvoiceInformationSection.leftObjects}
-                        rightObjects={InvoiceInformationSection.rightObjects}
+                        title="Address Information"
+                        leftObjects={AddressInformationSection.leftObjects}
+                        rightObjects={AddressInformationSection.rightObjects}
                     />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <TableSectionPreview
                         title="Invoice Items"
                         items={formState.items}
@@ -251,26 +244,6 @@ const Preview = () => {
                         discount={formState.discount}
                         tax={formState.tax}
                         adjustment={formState.adjustment}
-                    />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-                    <InformationSectionPreview
-                        title="Invoice Line"
-                        leftObjects={InvoiceLineSection.leftObjects}
-                        rightObjects={InvoiceLineSection.rightObjects}
-                    />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
-                    <InformationSectionPreview
-                        title="Source"
-                        leftObjects={SourceSection.leftObjects}
-                        rightObjects={SourceSection.rightObjects}
-                    />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
-                    <InformationSectionPreview
-                        title="Address Information"
-                        leftObjects={AddressInformationSection.leftObjects}
-                        rightObjects={AddressInformationSection.rightObjects}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
