@@ -35,7 +35,41 @@ const Preview = () => {
         dispatch(updateFormData(model));
     };
 
+    const CallableList = [
+        {value: "App\\Models\\Lead", label: "Lead"},
+        {value: "App\\Models\\Contact", label: "Contact"},
+    ];
+    const CallableType = CallableList.find((item) => item.value === formState.callable_type);
 
+    const RelatableList = [
+        {value: "App\\Models\\Account", label: "Account", labelField: 'account_name'},
+        {value: "App\\Models\\Vendor", label: "Vendor", labelField: 'vendor_name'},
+        {value: "App\\Models\\Quote", label: "Quote", labelField: 'subject'},
+        {value: "App\\Models\\Rfq", label: "Rfq", labelField: 'rfq_name'},
+        {value: "App\\Models\\Excess", label: "Excess", labelField: 'excess_name'},
+        {
+            value: "App\\Models\\Availability",
+            label: "Availability",
+            labelField: 'availability_name'
+        },
+        {value: "App\\Models\\Product", label: "Product", labelField: 'product_name'},
+        {value: "App\\Models\\Manufacturer", label: "Manufacturer", labelField: 'name'},
+        {value: "App\\Models\\Deal", label: "Deals", labelField: 'deal_name'},
+        {value: "App\\Models\\SalesOrder", label: "Sales Order", labelField: 'subject'},
+        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order", labelField: 'subject'},
+        {value: "App\\Models\\Invoice", label: "Invoice", labelField: 'subject'},
+        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", labelField: 'vendor_rfq_name'},
+    ];
+    const relatableType = RelatableList.find((item) => item.value === formState.relatable_type);
+
+   
+    const relatedToLabel =
+    relatableType && formState.relatable[relatableType.labelField]
+        ? formState.relatable[relatableType.labelField]
+        :  'Unknown';
+    
+    
+    
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -62,7 +96,7 @@ const Preview = () => {
         {value: '4.0 Hot call (HLQ)', label: '4.0 Hot call (HLQ)'},
         {value: 'Close Call / Lost Call', label: 'Close Call / Lost Call'},
     ];
-
+    
     const callInformationSection = {
         'leftObjects': [
             {label: "Call Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}`},
@@ -70,13 +104,13 @@ const Preview = () => {
             {label: "Due Date", value: formState.due_date},
             {
                 label: "Call To",
-                value: `${formState.callable?.name ?? formState.callable?.first_name + ' ' + formState.callable?.last_name} `
+                value: CallableType?.label+': '+`${formState.callable?.name ?? formState.callable?.first_name + ' ' + formState.callable?.last_name} `
             },
             {
-                label: "Related To",
-                value: `${formState.relatable?.name ?? formState.relatable?.first_name + ' ' + formState.relatable?.last_name}`  //TODO : fix here for all modules
+                label: 'Related To',
+            value: relatableType?.label+': '+ relatedToLabel,
             },
-            {label: "Status", value: getStatusLabel(formState.status, CallStatus)},
+            {label: "Call Type",value: `${formState.type}`},
         ],
         'rightObjects': [
             {label: "Priority", value: getStatusLabel(formState.priority, Priority)},
@@ -89,7 +123,7 @@ const Preview = () => {
         ],
     };
 
-
+    
     if (loading)
         return <LoadingSasCrm/>;
     return (
