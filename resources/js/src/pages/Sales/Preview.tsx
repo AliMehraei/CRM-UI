@@ -70,7 +70,7 @@ const Preview = () => {
             {label: "Lost Reason", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "Lost Reason Comment", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "SO Date", value: `${formState.so_date}`},
-            
+
             {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
         ],
     };
@@ -87,7 +87,7 @@ const Preview = () => {
             'rightObjects': [
                 {label: "Subject", value: `${formState.subject}`},
                 {label: "Pending", value: `${formState.pending}`},
-                {label: "Status", value: `${getStatusLabel(formState.subject, StatusOption)}`},
+                {label: "Status", value: `${getStatusLabel(formState.status, StatusOption)}`},
                 {label: "ZohoBooksId", value: `${formState.zoho_books_id}`},
 
             ],
@@ -179,12 +179,12 @@ const Preview = () => {
         },
     ];
     const headerDataToDisplay = [
-       
+
         { label: "Sales Order Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
         {label: "Sales Person",
             value: `${formState.sales_person?.first_name ?? ''} ${formState.sales_person?.last_name ?? ''}`
         },
-       
+
         {label: "Approved By", value: `${formState.approved_by?.first_name ?? ''} ${formState.approved_by?.last_name ?? ''}`},
         {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
         {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
