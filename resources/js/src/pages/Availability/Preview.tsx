@@ -5,7 +5,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
-import {resetForm, updateFormData} from "../../store/availabilityFormSlice";
+import { updateFormData} from "../../store/availabilityFormSlice";
 import {displayImage, displayFile} from '../../components/Functions/CommonFunctions';
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
@@ -36,13 +36,6 @@ const Preview = () => {
         const model = modelResponse.data.data.availability;
         dispatch(updateFormData(model));
     };
-    useEffect(() => {
-        if (formState.contract_attachment) {
-            displayFile('availability', 'availability_file', formState.availability_file).then((data) => {
-                dispatch(updateFormData({[`availability_file_preview`]: data}));
-            })
-        }
-    }, []);
     const headerDataToDisplay = [
         {label: "Vendor Name", value: formState.vendor?.vendor_name ?? ''},
         {label: "Vendor Quote No", value: formState.vendor_quote_no},
@@ -88,10 +81,10 @@ const Preview = () => {
         });
     }, [modelId]);
     if (loading)
-        return <LoadingSasCrm/>;
+        return <LoadingSasCrm />;
     return (
         (!hasPermission(`read-availability`) || loading) ? (
-            <LoadingSasCrm/>
+            <LoadingSasCrm />
         ) : (
             <div>
                 <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">

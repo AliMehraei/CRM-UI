@@ -12,6 +12,7 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -36,6 +37,18 @@ const Preview = () => {
         dispatch(updateFormData(model));
     };
 
+    const  vendorStrongLine = [
+        {
+            key: 'vendor_name',
+            label: 'Vendor Name',
+        },
+    ];
+    const  vendorLineCard = [
+        {
+            key: 'vendor_name',
+            label: 'Vendor Name',
+        },
+    ];
 
     const headerDataToDisplay = [
         {label: "Manufacturer Name", value: formState.name},
@@ -69,16 +82,21 @@ const Preview = () => {
                     <div className="flex justify-between flex-wrap gap-4 px-4">
                         <div className="text-2xl font-semibold uppercase">Manufacturer</div>
                         <div className="shrink-0">
-                            <img src={displayImage(formState.image_data)} alt="Lead image"
-                                 className="w-20 ltr:ml-auto rtl:mr-auto"/>
+                            <img src={displayImage(formState.image_data)} alt="Manufacturer image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         </div>
                     </div>
-                    <InfoListComponent data={headerDataToDisplay}/>
-
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    <InfoListComponent data={headerDataToDisplay} />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <MultipleLineSectionPreview
+                        sectionTitle="Alias Name(s)"
+                        data={[
+                            { label: 'Name', value: formState.alias_names },
+                        ]} />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
                         title="Manufacture Information"
                         leftObjects={[
+                            { label: "Octo API Id", value: formState.octo_api_id },
                             {label: "Alias Names", value: formState.alias_names},
                             {label: "Octo API Id", value: formState.octo_api_id},
                         ]}
@@ -87,8 +105,19 @@ const Preview = () => {
                             {label: "Currency", value: formState.currency},
                         ]}
                     />
+                  <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <TableSectionPreview
+                        title="Vendor Strong Lines Items"
+                        items={formState.vendor_strong_lines}
+                        columns={vendorStrongLine}
+                    />
+                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <TableSectionPreview
+                        title="Vendor Line Cards Items"
+                        items={formState.vendor_line_cards}
+                        columns={vendorLineCard}
+                    />
 
-                    {/* TODO: add Vendor_Line Card & Vendor_Strong Lines */}
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 

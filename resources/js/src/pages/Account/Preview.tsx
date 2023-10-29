@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -35,13 +35,7 @@ const Preview = () => {
         const account = accountResponse.data.data.account;
         dispatch(updateFormData(account));
     };
-    useEffect(() => {
-        if (formState.contract_attachment) {
-            displayFile('account', 'contract_attachment', formState.contract_attachment).then((data) => {
-                dispatch(updateFormData({ [`contract_attachment_preview`]: data }));
-            })
-        }
-    }, []);
+
     const headerDataToDisplay = [
         { label: "Account Name", value: formState.account_name },
         { label: "Phone", value: formState.phone },
@@ -205,6 +199,7 @@ const Preview = () => {
                             { label: "Account Margin", value: formState.account_margin }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
                         title="Unused information"
                         leftObjects={[
