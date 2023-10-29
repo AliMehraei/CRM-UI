@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -11,6 +11,7 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -142,7 +143,7 @@ const Preview = () => {
                             { label: "Last Name", value: formState.last_name },
                             { label: "Phone", value: formState.phone },
                             { label: "Mobile", value: formState.mobile },
-                         
+
                         ]}
                         rightObjects={[
                             {
@@ -200,7 +201,7 @@ const Preview = () => {
                         title="Technical information"
                         leftObjects={[
                             { label: "BOM/Excess Total Uploading Rows", value: formState.bom_excess_total_rows },
-                            
+
                         ]}
                         rightObjects={[
                         ]}
@@ -215,6 +216,9 @@ const Preview = () => {
                             { label: "ZohoBooksID", value: formState.zoho_book_id }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelId} modelName={'vendor'}/>
                 </div>
             </div>
         )

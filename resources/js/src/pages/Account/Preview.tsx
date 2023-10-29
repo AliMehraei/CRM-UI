@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -11,6 +11,8 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -89,14 +91,11 @@ const Preview = () => {
                             {
                                 label: "Contract Attachment",
                                 value: (
-                                    <a
-                                        disabled={!formState.contract_attachment}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.contract_attachment_preview ?? formState.contract_attachment}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>
+                                    <AttachmentDownloadButton
+                                        formAttribute={"contract_attachment"}
+                                        modelName="account"
+                                        formState={formState}
+                                    />
                                 )
                             },
                             { label: "Account Type", value: formState.account_type },
@@ -206,7 +205,6 @@ const Preview = () => {
                             { label: "Account Margin", value: formState.account_margin }
                         ]}
                     />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
                         title="Unused information"
                         leftObjects={[
@@ -216,6 +214,10 @@ const Preview = () => {
                             { label: "Annual Revenue", value: formState.annual_revenue }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+
+                    <AttachmentSection modelId={modelId} modelName={'account'}/>
+
                 </div>
             </div>
         )

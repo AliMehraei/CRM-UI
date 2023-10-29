@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -13,6 +13,7 @@ import InformationSectionPreview from '../../components/Preview/InformationSecti
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -283,6 +284,10 @@ const Preview = () => {
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelID} modelName={'purchaseOrder'}/>
                 </div>
             </div>
         )

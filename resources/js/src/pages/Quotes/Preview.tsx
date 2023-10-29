@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -12,6 +12,7 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -83,8 +84,8 @@ const Preview = () => {
                     Download
                 </a>
             )},
-       
-            
+
+
             {label: "Exchange Rate ", value: `${formState.exchange_rate}`},
         ],
     };
@@ -94,11 +95,11 @@ const Preview = () => {
             'leftObjects': [
                 {label: "Quote valid", value: `${formState.quote_valid}`},
                 {label: "Proactive Offer", value: `${formState.proactive_offer}`},
-                
+
             ],
             'rightObjects': [
                 {label: "Rating", value: `${formState.rating}`},
-               
+
 
             ],
         }
@@ -111,7 +112,7 @@ const Preview = () => {
                 label: "Customer part ID",
                 value: `${formState.customer_part_id}`
             },
-           
+
         ],
         'rightObjects': [
             {label: "Quantity", value: `${formState.quantity}`},
@@ -191,7 +192,7 @@ const Preview = () => {
             key: 'comment',
             label: 'Comment',
         },
-        
+
     ];
     const headerDataToDisplay = [
         { label: "Account Name", value: `${formState.account?.account_name ?? ''} ` },
@@ -282,6 +283,10 @@ const Preview = () => {
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelID} modelName={'quote'}/>
                 </div>
             </div>
         )

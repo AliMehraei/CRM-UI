@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -11,6 +11,7 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -30,8 +31,8 @@ const Preview = () => {
         const modelResponse = await api.fetchSingleExcess(modelId);
         if (modelResponse.status != 200)
             return;
-        const model = modelResponse.data.data.excess;        
-        dispatch(updateFormData(model));        
+        const model = modelResponse.data.data.excess;
+        dispatch(updateFormData(model));
     };
     useEffect(() => {
         if (formState.excess_file) {
@@ -86,7 +87,7 @@ const Preview = () => {
                         title="General Information"
                         leftObjects={[
                             { label: "Portal Excess Id", value: formState.portal_excess_id },
-                            { label: "Excess Source", value: formState.excess_source },           
+                            { label: "Excess Source", value: formState.excess_source },
                             {
                                 label: "Secondary Email",
                                 value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.secondary_email}>{formState.secondary_email}</a>
@@ -190,6 +191,10 @@ const Preview = () => {
                             { label: "Annual Revenue", value: formState.annual_revenue }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelId} modelName={'excess'}/>
+
                 </div>
             </div>
         )
