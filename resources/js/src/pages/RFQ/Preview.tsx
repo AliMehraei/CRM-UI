@@ -5,7 +5,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
-import {updateFormData} from "../../store/RfqFormSlice";
+import {updateFormData} from "../../store/rfqFormSlice";
 import {displayImage, displayFile, getStatusLabel, StatusOption} from '../../components/Functions/CommonFunctions';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
