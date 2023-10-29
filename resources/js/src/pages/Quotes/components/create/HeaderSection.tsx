@@ -174,7 +174,7 @@ const HeaderSection = () => {
                     modelName="quote"
                     formState={formState}
                     formAttribute={'quote_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"

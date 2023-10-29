@@ -70,15 +70,22 @@ const AccountSection = () => {
 
             />,
             'Contracts': <Select
+                isMulti={true}
                 name="contract"
                 id="contract"
-                placeholder="Select Contract..."
+                placeholder="Select Contract Type..."
                 options={Contract}
-                onChange={({value}: any) => {
-                    handleChangeField('contract', value)
+                onChange={(values: any) => {
+                    handleChangeField('contract', values.map((v: any) => v.value))
                 }}
-                defaultValue={Contract.find((data) => data.value == formState.contract)}
 
+                defaultValue={formState.contract
+                    ? formState.contract.map((contract: any) => ({
+                        value: contract,
+                        label: contract
+                    }))
+                    : []
+                }
             />,
             'Contract Attachment': (
                 <FileUploadComponent
@@ -147,7 +154,7 @@ const AccountSection = () => {
                 />
             ),
             'PM User': <AsyncSelect
-                    defaultOptions={true}
+                defaultOptions={true}
                 isMulti={false}
                 id="pm_user_id"
                 placeholder="Type at least 2 characters to search..."

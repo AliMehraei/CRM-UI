@@ -93,7 +93,7 @@ const SalesItemsSection = () => {
 
                     <div className="mt-8">
                         <div className="overflow-x-auto	w-11/12">
-                            <table className="table-auto w-5">
+                            <table className="table-auto overflow-scroll w-full">
                                 <thead>
                                 <tr>
                                     <th className="w-1">Product Name</th>
@@ -242,6 +242,15 @@ const SalesItemsSection = () => {
                                 <button type="button" className="btn btn-primary" onClick={() => addItem()}>
                                     Add Item
                                 </button>
+                            </div>
+                            <div className="sm:w-2/5">
+                                
+                                <div className="flex items-center justify-between mt-4 font-semibold">
+                                    <div className="flex-1">Total(€)</div>
+                                    <input id="grand_total" name="grand_total" type="text" value={formState.sales_total}
+                                           className="w-64 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                                           disabled/>
+                                </div>
                             </div>
                         </div>
                     </div>

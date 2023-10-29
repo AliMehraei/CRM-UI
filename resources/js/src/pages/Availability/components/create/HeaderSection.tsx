@@ -59,7 +59,7 @@ const HeaderSection = () => {
                     modelName="availability"
                     formState={formState}
                     formAttribute={'availability_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'Availability Source': <Select id="availability_source" name="availability_source" required
