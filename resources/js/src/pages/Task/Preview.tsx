@@ -41,6 +41,40 @@ const Preview = () => {
             setLoading(false);
         });
     }, [modelID]);
+
+    const UserabelList = [
+        {value: "App\\Models\\Lead", label: "Lead"},
+        {value: "App\\Models\\Contact", label: "Contact"},
+    ];
+    const UserabelType = UserabelList.find((item) => item.value === formState.userable_type);
+
+    const ModuleableList = [
+        {value: "App\\Models\\Account", label: "Account", labelField: 'account_name'},
+        {value: "App\\Models\\Vendor", label: "Vendor", labelField: 'vendor_name'},
+        {value: "App\\Models\\Quote", label: "Quote", labelField: 'subject'},
+        {value: "App\\Models\\Rfq", label: "Rfq", labelField: 'rfq_name'},
+        {value: "App\\Models\\Excess", label: "Excess", labelField: 'excess_name'},
+        {
+            value: "App\\Models\\Availability",
+            label: "Availability",
+            labelField: 'availability_name'
+        },
+        {value: "App\\Models\\Product", label: "Product", labelField: 'product_name'},
+        {value: "App\\Models\\Manufacturer", label: "Manufacturer", labelField: 'name'},
+        {value: "App\\Models\\Deal", label: "Deals", labelField: 'deal_name'},
+        {value: "App\\Models\\SalesOrder", label: "Sales Order", labelField: 'subject'},
+        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order", labelField: 'subject'},
+        {value: "App\\Models\\Invoice", label: "Invoice", labelField: 'subject'},
+        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", labelField: 'vendor_rfq_name'},
+    ];
+    const moduleableType = ModuleableList.find((item) => item.value === formState.moduleable_type);
+
+   
+    const relatedToLabel =
+    moduleableType && formState.moduleable[moduleableType.labelField]
+        ? formState.moduleable[moduleableType.labelField]
+        :  'Unknown';
+
     const Priority = [
         {value: '-None-', label: '-None-'},
         {value: 'Account or Contact exist already', label: 'Account or Contact exist already'},
@@ -69,12 +103,12 @@ const Preview = () => {
             {label: "Subject", value: `${formState.subject}`},
             {label: "Due Date", value: formState.due_date},
             {
-                label: "Contact Name",
-                value: `${formState.userable?.name ?? formState.userable?.first_name + ' ' + formState.userable?.last_name} `
+                label: "Contact | Contact",
+                value: UserabelType?.label+': '+`${formState.userable?.name ?? formState.userable?.first_name + ' ' + formState.userable?.last_name} `
             },
             {
                 label: "Related To",
-                value: `${formState.moduleable?.name ?? formState.moduleable?.first_name + ' ' + formState.moduleable?.last_name}`  //TODO : fix here for all modules
+                value: moduleableType?.label+': '+relatedToLabel
             },
             {label: "Status", value: getStatusLabel(formState.status, TaskStatus)},
         ],
