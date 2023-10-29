@@ -9,22 +9,22 @@ const Development = () => {
     const api_instance = new api();
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({ [field]: value }));
+        dispatch(updateFormData({[field]: value}));
     };
 
 
     const fields = {
         'Development': {
             'Requested Products JSON': (
-                <textarea 
-                id="requested_products" 
-                rows={2} 
-                name="requested_products"
-                className="form-textarea flex-1"
-                placeholder=""
-                defaultValue={formState.requested_products}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
-                
+                <textarea
+                    id="requested_products"
+                    rows={2}
+                    name="requested_products"
+                    className="form-textarea flex-1"
+                    placeholder=""
+                    defaultValue={formState.requested_products.map((data: any) => data?.product?.product_name)}
+                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+
             ),
         },
         '': {
@@ -38,7 +38,7 @@ const Development = () => {
                     defaultChecked={formState.is_full}
                 />
             ),
-            
+
         }
     }
     return (<>
@@ -48,7 +48,7 @@ const Development = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default Development;
