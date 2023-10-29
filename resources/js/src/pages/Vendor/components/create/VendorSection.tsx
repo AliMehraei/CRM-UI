@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {Contract, Currencies, PortalAccess} from "../../../../components/Functions/CommonFunctions";
+import {Contract, Currencies, PortalAccess, searchManufacturer} from "../../../../components/Functions/CommonFunctions";
 import {searchOwners} from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
@@ -98,31 +98,28 @@ const VendorSection = () => {
             ),
             'Strong Lines': (
                 <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="strong_lines"
+                    defaultOptions={true} id="strong_line_ids"
+                    name="strong_line_ids"
                     placeholder="Type at least 2 characters to search..."
-                    name="strong_lines"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('strong_lines', value)
+                    loadOptions={searchManufacturer}
+                    onChange={(values: any) => {
+                        handleChangeField('strong_line_ids', values.map((v: any) => v.value))
                     }}
-                    className="flex-1"
-                />
+
+                    isMulti={true}
+                    className="flex-1"/>
             ),
             'Line Card': (
                 <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="line_card"
+                    defaultOptions={true} id="line_card_ids"
+                    name="line_card_ids"
                     placeholder="Type at least 2 characters to search..."
-                    name="line_card"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('line_card', value)
+                    loadOptions={searchManufacturer}
+                    onChange={(values: any) => {
+                        handleChangeField('line_card_ids', values.map((v: any) => v.value))
                     }}
-                    className="flex-1"
-                />
+                    isMulti={true}
+                    className="flex-1"/>
             ),
             'Approve status': (
                 <Select

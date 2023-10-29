@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -11,6 +11,7 @@ import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -34,11 +35,11 @@ const Preview = () => {
         const model = modelResponse.data.data.contact;
         dispatch(updateFormData(model));
     };
-   
+
     const headerDataToDisplay = [
         { label: "First Name", value: `${formState.prefix_first_name} ${formState.first_name}` },
         { label: "Last Name", value: `${formState.last_name}` },
-        
+
         { label: "Job Description", value: formState.job_description },
         { label: "Contact Type", value: formState.contact_type },
         { label: "Account Name", value:  formState.account?.account_name },
@@ -173,6 +174,10 @@ const Preview = () => {
                             { label: "D Check", value: formState.d_check ? 'Yes':'No'},
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+
+                    <AttachmentSection modelId={modelID} modelName={'contact'}/>
+
                 </div>
             </div>
         )

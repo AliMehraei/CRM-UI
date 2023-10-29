@@ -11,7 +11,8 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
-import AttachmentDownloadButton from '../../components/FormFields/AttachmentDownloadButton';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -181,6 +182,10 @@ const Preview = () => {
                             { label: "Annual Revenue", value: formState.annual_revenue }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelId} modelName={'excess'}/>
+
                 </div>
             </div>
         )

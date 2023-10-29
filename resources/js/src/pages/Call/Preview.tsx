@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
-import {resetForm, updateFormData} from "../../store/taskFormSlice";
+import {resetForm, updateFormData} from "../../store/callFormSlice";
 import {displayImage, displayFile, getStatusLabel} from '../../components/Functions/CommonFunctions';
 import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
-import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -20,36 +19,29 @@ const Preview = () => {
     const params = useParams();
     const modelID = params.id;
     const api = new Api();
-    const formState = useSelector((state: any) => state.taskForm);
+    const formState = useSelector((state: any) => state.callForm);
 
     useEffect(() => {
-        dispatch(setPageTitle('Task Preview'));
+        dispatch(setPageTitle('Call Preview'));
     });
     const exportTable = () => {
         window.print();
     };
     const fetchData = async () => {
-        const modelResponse = await api.fetchSingleTask(modelID);
+        const modelResponse = await api.fetchSingleCall(modelID);
         if (modelResponse.status != 200)
             return
-        const model = modelResponse.data.data.task;
+        const model = modelResponse.data.data.call;
         dispatch(updateFormData(model));
     };
 
-
-    useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
-    }, [modelID]);
-
-    const UserabelList = [
+    const CallableList = [
         {value: "App\\Models\\Lead", label: "Lead"},
         {value: "App\\Models\\Contact", label: "Contact"},
     ];
-    const UserabelType = UserabelList.find((item) => item.value === formState.userable_type);
+    const CallableType = CallableList.find((item) => item.value === formState.callable_type);
 
-    const ModuleableList = [
+    const RelatableList = [
         {value: "App\\Models\\Account", label: "Account", labelField: 'account_name'},
         {value: "App\\Models\\Vendor", label: "Vendor", labelField: 'vendor_name'},
         {value: "App\\Models\\Quote", label: "Quote", labelField: 'subject'},
@@ -68,14 +60,21 @@ const Preview = () => {
         {value: "App\\Models\\Invoice", label: "Invoice", labelField: 'subject'},
         {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", labelField: 'vendor_rfq_name'},
     ];
-    const moduleableType = ModuleableList.find((item) => item.value === formState.moduleable_type);
+    const relatableType = RelatableList.find((item) => item.value === formState.relatable_type);
 
    
     const relatedToLabel =
-    moduleableType && formState.moduleable[moduleableType.labelField]
-        ? formState.moduleable[moduleableType.labelField]
+    relatableType && formState.relatable[relatableType.labelField]
+        ? formState.relatable[relatableType.labelField]
         :  'Unknown';
-
+    
+    
+    
+    useEffect(() => {
+        fetchData().then(() => {
+            setLoading(false);
+        });
+    }, [modelID]);
     const Priority = [
         {value: '-None-', label: '-None-'},
         {value: 'Account or Contact exist already', label: 'Account or Contact exist already'},
@@ -87,31 +86,31 @@ const Preview = () => {
         {value: 'Other', label: 'Other'},
     ];
 
-    const TaskStatus = [
+    const CallStatus = [
         {value: '-None-', label: '-None-'},
         {value: 'Abgeschlossen', label: 'Abgeschlossen'},
-        {value: '0.0 Cold task / unqualified (CLU)', label: '0.0 Cold task / unqualified (CLU)'},
-        {value: '1.0 Cold task qualified (CLQ)', label: '1.0 Cold task qualified (CLQ)'},
+        {value: '0.0 Cold call / unqualified (CLU)', label: '0.0 Cold call / unqualified (CLU)'},
+        {value: '1.0 Cold call qualified (CLQ)', label: '1.0 Cold call qualified (CLQ)'},
         {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
-        {value: '3.0 warm task qualified (WLQ)', label: '3.0 warm task qualified (WLQ)'},
-        {value: '4.0 Hot task (HLQ)', label: '4.0 Hot task (HLQ)'},
-        {value: 'Close Task / Lost Task', label: 'Close Task / Lost Task'},
+        {value: '3.0 warm call qualified (WLQ)', label: '3.0 warm call qualified (WLQ)'},
+        {value: '4.0 Hot call (HLQ)', label: '4.0 Hot call (HLQ)'},
+        {value: 'Close Call / Lost Call', label: 'Close Call / Lost Call'},
     ];
-
-    const taskInformationSection = {
+    
+    const callInformationSection = {
         'leftObjects': [
-            {label: "Task Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}`},
+            {label: "Call Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}`},
             {label: "Subject", value: `${formState.subject}`},
             {label: "Due Date", value: formState.due_date},
             {
-                label: "Contact | Contact",
-                value: UserabelType?.label+': '+`${formState.userable?.name ?? formState.userable?.first_name + ' ' + formState.userable?.last_name} `
+                label: "Call To",
+                value: CallableType?.label+': '+`${formState.callable?.name ?? formState.callable?.first_name + ' ' + formState.callable?.last_name} `
             },
             {
-                label: "Related To",
-                value: moduleableType?.label+': '+relatedToLabel
+                label: 'Related To',
+            value: relatableType?.label+': '+ relatedToLabel,
             },
-            {label: "Status", value: getStatusLabel(formState.status, TaskStatus)},
+            {label: "Call Type",value: `${formState.type}`},
         ],
         'rightObjects': [
             {label: "Priority", value: getStatusLabel(formState.priority, Priority)},
@@ -124,11 +123,11 @@ const Preview = () => {
         ],
     };
 
-
+    
     if (loading)
         return <LoadingSasCrm/>;
     return (
-        (!hasPermission(`read-task`) || loading) ? (
+        (!hasPermission(`read-call`) || loading) ? (
             <LoadingSasCrm/>
         ) : (
             <div>
@@ -138,22 +137,22 @@ const Preview = () => {
                         hasPermission={hasPermission}
                         modelId={modelID}
                         exportTable={exportTable}
-                        routeModel="task"
-                        permissionModel="task"
+                        routeModel="call"
+                        permissionModel="call"
                     />
                 </div>
                 <div className="panel">
                     <div className="flex justify-between flex-wrap gap-4 px-4">
-                        <div className="text-2xl font-semibold uppercase">Task</div>
+                        <div className="text-2xl font-semibold uppercase">Call</div>
                         <div className="shrink-0">
-                            <img src={displayImage(formState.image_data)} alt="Task image"
+                            <img src={displayImage(formState.image_data)} alt="Call image"
                                  className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
                     <InformationSectionPreview
-                        title="Task Information"
-                        leftObjects={taskInformationSection.leftObjects}
-                        rightObjects={taskInformationSection.rightObjects}
+                        title="Call Information"
+                        leftObjects={callInformationSection.leftObjects}
+                        rightObjects={callInformationSection.rightObjects}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
 
@@ -162,10 +161,6 @@ const Preview = () => {
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
-
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
-                    <AttachmentSection modelId={modelID} modelName={'task'}/>
                 </div>
             </div>
         )

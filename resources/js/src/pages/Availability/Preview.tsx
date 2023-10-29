@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { setPageTitle } from '../../store/themeConfigSlice';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, useParams} from 'react-router-dom';
+import {setPageTitle} from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
-import { useUserStatus } from "../../config/authCheck";
-import { resetForm, updateFormData } from "../../store/availabilityFormSlice";
-import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
+import {useUserStatus} from "../../config/authCheck";
+import { updateFormData} from "../../store/availabilityFormSlice";
+import {displayImage, displayFile} from '../../components/Functions/CommonFunctions';
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
-import AttachmentDownloadButton from '../../components/FormFields/AttachmentDownloadButton';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
-    const { hasPermission } = useUserStatus();
+    const {hasPermission} = useUserStatus();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -36,12 +37,15 @@ const Preview = () => {
         dispatch(updateFormData(model));
     };
     const headerDataToDisplay = [
-        { label: "Vendor Name", value: formState.vendor?.vendor_name ?? '' },
-        { label: "Vendor Quote No", value: formState.vendor_quote_no },
-        { label: "Vendor Source", value: formState.availability_source },
-        { label: "Availability Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
-        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
+        {label: "Vendor Name", value: formState.vendor?.vendor_name ?? ''},
+        {label: "Vendor Quote No", value: formState.vendor_quote_no},
+        {label: "Vendor Source", value: formState.availability_source},
+        {
+            label: "Availability Owner",
+            value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}`
+        },
+        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}`},
+        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}`}
     ];
 
     const priceBreakColumns = [
@@ -97,16 +101,17 @@ const Preview = () => {
                     <div className="flex justify-between flex-wrap gap-4 px-4">
                         <div className="text-2xl font-semibold uppercase">Availability</div>
                         <div className="shrink-0">
-                            <img src={displayImage(formState.image_data)} alt="vendor image" className="w-20 ltr:ml-auto rtl:mr-auto" />
+                            <img src={displayImage(formState.image_data)} alt="vendor image"
+                                 className="w-20 ltr:ml-auto rtl:mr-auto"/>
                         </div>
                     </div>
-                    <InfoListComponent data={headerDataToDisplay} />
+                    <InfoListComponent data={headerDataToDisplay}/>
 
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Availability Information"
                         leftObjects={[
-                            { label: "Availability Name", value: formState.availability_name },
+                            {label: "Availability Name", value: formState.availability_name},
                         ]}
                         rightObjects={[
                             {
@@ -122,57 +127,61 @@ const Preview = () => {
                         ]}
                     />
 
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Status Information"
                         leftObjects={[
-                            { label: "Availability Type", value: formState.availability_type },
-                            { label: "Valid", value: formState.valid },
+                            {label: "Availability Type", value: formState.availability_type},
+                            {label: "Valid", value: formState.valid},
                         ]}
                         rightObjects={[
-                            { label: "Availability Date", value: formState.created_at },
-                            { label: "Availability No", value: formState.availability_no },
-                            { label: "Rating", value: formState.rating },
+                            {label: "Availability Date", value: formState.created_at},
+                            {label: "Availability No", value: formState.availability_no},
+                            {label: "Rating", value: formState.rating},
 
                         ]}
                     />
 
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Quote Line"
                         leftObjects={[
-                            { label: "Product name", value: formState.product?.product_name ?? '' },
-                            { label: "SKU name", value: formState.quantity },
-                            { label: "In Stock Quantity", value: formState.in_stock_quantity },
-                            { label: "Currency", value: formState.currency },
-                            { label: "Cost", value: formState.cost },
-                            { label: "Exchange Rate", value: formState.exchange_rate },
+                            {label: "Product name", value: formState.product?.product_name ?? ''},
+                            {label: "SKU name", value: formState.quantity},
+                            {label: "In Stock Quantity", value: formState.in_stock_quantity},
+                            {label: "Currency", value: formState.currency},
+                            {label: "Cost", value: formState.cost},
+                            {label: "Exchange Rate", value: formState.exchange_rate},
                         ]}
                         rightObjects={[
-                            { label: "Lead Time", value: formState.vat_no },
-                            { label: "Date Code", value: formState.forwarder },
-                            { label: "SPQ", value: formState.forwarder_account_no },
-                            { label: "MOQ", value: formState.forwarder_account_no },
-                            { label: "Comment", value: formState.comment }
+                            {label: "Lead Time", value: formState.vat_no},
+                            {label: "Date Code", value: formState.forwarder},
+                            {label: "SPQ", value: formState.forwarder_account_no},
+                            {label: "MOQ", value: formState.forwarder_account_no},
+                            {label: "Comment", value: formState.comment}
                         ]}
                     />
 
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Development Information"
                         leftObjects={[
-                            { label: "From Our Inventory", value: formState.from_our_inventory ? "Yes" : "No" },
+                            {label: "From Our Inventory", value: formState.from_our_inventory ? "Yes" : "No"},
                         ]}
                         rightObjects={[
-                            { label: "Portal Availability Id", value: formState.portal_availability_id },
+                            {label: "Portal Availability Id", value: formState.portal_availability_id},
                         ]}
                     />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <TableSectionPreview
                         title="Price-Breaks Items"
                         items={formState.price_breaks}
                         columns={priceBreakColumns}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelId} modelName={'availability'}/>
+
                 </div>
             </div>
         )
