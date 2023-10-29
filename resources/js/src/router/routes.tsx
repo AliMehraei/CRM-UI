@@ -125,6 +125,8 @@ const EditTask = lazy(() => import('../pages/Task/Edit'));
 const ListCall = lazy(() => import('../pages/Call/Index'));
 const AddCall = lazy(() => import('../pages/Call/Add'));
 const EditCall = lazy(() => import('../pages/Call/Edit'));
+const PreviewCall = lazy(() => import('../pages/Call/Preview'));
+
 const routes = [
     // dashboard
     {
@@ -760,6 +762,12 @@ const routes = [
         element: <EditCall/>,
         protected: true,
         requiredPermission: 'update-call'
+    },
+    {
+        path: '/call/preview/:id',
+        element: <PreviewCall/>,
+        protected: true,
+        requiredPermission: 'read-call'
     },
 ];
 export {routes};
