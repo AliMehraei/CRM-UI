@@ -68,7 +68,7 @@ const Preview = () => {
                 Lead</>)
         },
     ];
-    const getStatusLabel = (status) => {
+    const getStatusLabel = (status: any) => {
         const statusObj = LeadStatus.find(item => item.value === status);
         return statusObj ? statusObj.label : status;
     };
