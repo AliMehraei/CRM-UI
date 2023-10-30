@@ -609,7 +609,7 @@ const Header = () => {
                                                     <h4 className="text-base">
                                                         {user?.last_name}
                                                         <span
-                                                            className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
+                                                            className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">{user?.roles[0]?.name}</span>
                                                     </h4>
                                                     <button
                                                         type="button"

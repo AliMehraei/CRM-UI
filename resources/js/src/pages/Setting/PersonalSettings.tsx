@@ -83,7 +83,7 @@ const List = () => {
                                                     <div>
                                                         <h3 className="text-lg font-semibold mb-1">{user?.first_name} {user?.last_name}
                                                             <span
-                                                                className="ml-2 bg-gray-200 text-sm px-2 py-1 rounded-full">Administrator</span>
+                                                                className="ml-2 bg-gray-200 text-sm px-2 py-1 rounded-full">{user?.roles[0]?.name}</span>
                                                         </h3>
                                                         <p className="text-gray-600 mb-1">{user?.website}</p>
                                                         <p className="text-gray-600">{user?.email}</p>
