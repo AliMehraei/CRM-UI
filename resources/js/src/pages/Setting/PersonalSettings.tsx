@@ -78,7 +78,7 @@ const List = () => {
                                             <div>
                                                 <div className="flex items-start mb-6">
                                                     <img
-                                                        src={`${displayImage(user?.avatar)} `}
+                                                        src={`${displayImage(user?.avatar_data)} `}
                                                         alt="userProfile" className="w-16 h-16  rounded-full mr-5"/>
                                                     <div>
                                                         <h3 className="text-lg font-semibold mb-1">{user?.first_name} {user?.last_name}
