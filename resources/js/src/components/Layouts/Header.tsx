@@ -596,20 +596,20 @@ const Header = () => {
                                     btnClassName="relative group block"
                                     button={<img
                                         className="w-9 h-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-                                        src={`${displayImage(user?.avatar)} `}
+                                        src={`${displayImage(user?.avatar_data)} `}
                                         alt="userProfile"/>}
                                 >
                                     <ul className="text-dark dark:text-white-dark !py-0 w-[230px] font-semibold dark:text-white-light/90">
                                         <li>
                                             <div className="flex items-center px-4 py-4">
                                                 <img className="rounded-md w-10 h-10 object-cover"
-                                                     src={`${displayImage(user?.avatar)} `}
+                                                     src={`${displayImage(user?.avatar_data)} `}
                                                      alt="userProfile"/>
                                                 <div className="ltr:pl-4 rtl:pr-4">
                                                     <h4 className="text-base">
                                                         {user?.last_name}
                                                         <span
-                                                            className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">Pro</span>
+                                                            className="text-xs bg-success-light rounded text-success px-1 ltr:ml-2 rtl:ml-2">{user?.roles[0]?.name}</span>
                                                     </h4>
                                                     <button
                                                         type="button"
