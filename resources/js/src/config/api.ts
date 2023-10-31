@@ -675,6 +675,13 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/call`, data, {headers: Headers as any});
     }
 
+    async globalSearch(text: string) {
+        const data = {
+            search: text
+        }
+        return await _axios.post(`${API_URL_PRODUCT}/global-search`, data, {headers: Headers as any});
+    }
+
 }
 
 export default api
