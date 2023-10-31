@@ -11,11 +11,15 @@ import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import { log } from 'console';
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
+    const [relatedToLabel, setRelatedToLabel] = useState('');
+    const [relatableType, setRelatableType] = useState({});
+    const [CallableType, setCallableType] = useState({});
     const params = useParams();
     const modelID = params.id;
     const api = new Api();
@@ -39,7 +43,6 @@ const Preview = () => {
         {value: "App\\Models\\Lead", label: "Lead"},
         {value: "App\\Models\\Contact", label: "Contact"},
     ];
-    const CallableType = CallableList.find((item) => item.value === formState.callable_type);
 
     const RelatableList = [
         {value: "App\\Models\\Account", label: "Account", labelField: 'account_name'},
@@ -60,13 +63,6 @@ const Preview = () => {
         {value: "App\\Models\\Invoice", label: "Invoice", labelField: 'subject'},
         {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", labelField: 'vendor_rfq_name'},
     ];
-    const relatableType = RelatableList.find((item) => item.value === formState.relatable_type);
-
-   
-    const relatedToLabel =
-    relatableType && formState.relatable[relatableType.labelField]
-        ? formState.relatable[relatableType.labelField]
-        :  'Unknown';
     
     
     
@@ -75,6 +71,17 @@ const Preview = () => {
             setLoading(false);
         });
     }, [modelID]);
+    useEffect(() => {
+        const rel = RelatableList.find((item) => item.value === formState.relatable_type)
+        setRelatableType(rel);
+        if(formState.relatable)  {  
+            setRelatedToLabel(formState.relatable[rel?.labelField]);
+        
+        }
+
+        setCallableType(CallableList.find((item) => item.value === formState.callable_type));
+
+    }, [formState.relatable_type]);
     const Priority = [
         {value: '-None-', label: '-None-'},
         {value: 'Account or Contact exist already', label: 'Account or Contact exist already'},
@@ -86,16 +93,7 @@ const Preview = () => {
         {value: 'Other', label: 'Other'},
     ];
 
-    const CallStatus = [
-        {value: '-None-', label: '-None-'},
-        {value: 'Abgeschlossen', label: 'Abgeschlossen'},
-        {value: '0.0 Cold call / unqualified (CLU)', label: '0.0 Cold call / unqualified (CLU)'},
-        {value: '1.0 Cold call qualified (CLQ)', label: '1.0 Cold call qualified (CLQ)'},
-        {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
-        {value: '3.0 warm call qualified (WLQ)', label: '3.0 warm call qualified (WLQ)'},
-        {value: '4.0 Hot call (HLQ)', label: '4.0 Hot call (HLQ)'},
-        {value: 'Close Call / Lost Call', label: 'Close Call / Lost Call'},
-    ];
+    
     
     const callInformationSection = {
         'leftObjects': [

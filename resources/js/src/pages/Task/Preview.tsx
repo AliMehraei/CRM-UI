@@ -16,6 +16,9 @@ import AttachmentSection from "../../components/FormFields/AttachmentSection";
 const Preview = () => {
     const {hasPermission} = useUserStatus();
     const dispatch = useDispatch();
+    const [relatedToLabel, setRelatedToLabel] = useState('');
+    const [moduleableType, setModuleableType] = useState({});
+    const [UserabelType, setUserabelType] = useState({});
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const modelID = params.id;
@@ -47,8 +50,7 @@ const Preview = () => {
         {value: "App\\Models\\Lead", label: "Lead"},
         {value: "App\\Models\\Contact", label: "Contact"},
     ];
-    const UserabelType = UserabelList.find((item) => item.value === formState.userable_type);
-
+    
     const ModuleableList = [
         {value: "App\\Models\\Account", label: "Account", labelField: 'account_name'},
         {value: "App\\Models\\Vendor", label: "Vendor", labelField: 'vendor_name'},
@@ -68,14 +70,21 @@ const Preview = () => {
         {value: "App\\Models\\Invoice", label: "Invoice", labelField: 'subject'},
         {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", labelField: 'vendor_rfq_name'},
     ];
-    const moduleableType = ModuleableList.find((item) => item.value === formState.moduleable_type);
-
+    
    
-    const relatedToLabel =
-    moduleableType && formState.moduleable[moduleableType.labelField]
-        ? formState.moduleable[moduleableType.labelField]
-        :  'Unknown';
+   
 
+    useEffect(() => {
+        const rel = ModuleableList.find((item) => item.value === formState.moduleable_type)
+        setModuleableType(rel);
+        if(formState.moduleable)  {  
+            setRelatedToLabel(formState.moduleable[rel?.labelField]);
+        
+        }
+
+        setUserabelType(UserabelList.find((item) => item.value === formState.userable_type));
+
+    }, [formState.moduleable_type]);
     const Priority = [
         {value: '-None-', label: '-None-'},
         {value: 'Account or Contact exist already', label: 'Account or Contact exist already'},
