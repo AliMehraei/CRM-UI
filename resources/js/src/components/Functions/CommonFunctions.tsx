@@ -230,7 +230,7 @@ export const searchOwners = async (e: any) => {
     const result = await api_instance.loadAdminUsers({'search': e});
     const valField = 'userId';
     const nameField = 'first_name';
-    const avatarField = 'avatar';
+    const avatarField = 'avatar_data';
     const emailField = 'email';
     if (result.status) {
         return result.data.map((user: any) => ({

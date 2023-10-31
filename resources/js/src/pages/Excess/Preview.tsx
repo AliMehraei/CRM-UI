@@ -11,6 +11,8 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -30,24 +32,17 @@ const Preview = () => {
         const modelResponse = await api.fetchSingleExcess(modelId);
         if (modelResponse.status != 200)
             return;
-        const model = modelResponse.data.data.excess;        
-        dispatch(updateFormData(model));        
+        const model = modelResponse.data.data.excess;
+        dispatch(updateFormData(model));
     };
-    useEffect(() => {
-        if (formState.excess_file) {
-            displayFile('excess', 'excess_file', formState.excess_file).then((data) => {
-                dispatch(updateFormData({ [`excess_file_preview`]: data }));
-            })
-        }
-    }, []);
     const headerDataToDisplay = [
-        { label: "Account Name", value:`${formState.account?.account_name}}` },
-        { label: "Excess Name", value:`${formState.excess_name}` },
-        { label: "Contact", value: `${formState.contact?.first_name} ${formState.contact?.last_name}`},
+        { label: "Account Name", value: `${formState.account?.account_name ?? ''}` },
+        { label: "Excess Name", value: formState.excess_name },
+        { label: "Contact", value: `${formState.contact?.first_name ?? ''} ${formState.contact?.last_name ?? ''}` },
         { label: "Email", value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.email}>{formState.email}</a> },
-        { label: "Excess Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
-        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+        { label: "Excess Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
     useEffect(() => {
         fetchData().then(() => {
@@ -86,7 +81,7 @@ const Preview = () => {
                         title="General Information"
                         leftObjects={[
                             { label: "Portal Excess Id", value: formState.portal_excess_id },
-                            { label: "Excess Source", value: formState.excess_source },           
+                            { label: "Excess Source", value: formState.excess_source },
                             {
                                 label: "Secondary Email",
                                 value: <a className='text-primary' target='_blank' rel='noopener noreferrer' href={'mailto:' + formState.secondary_email}>{formState.secondary_email}</a>
@@ -97,14 +92,11 @@ const Preview = () => {
                             {
                                 label: "Excess File",
                                 value: (
-                                    <a
-                                        disabled={!formState.excess_file}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.excess_file_preview ?? formState.excess_file}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>
+                                    <AttachmentDownloadButton
+                                        formAttribute={"excess_file"}
+                                        modelName="excess"
+                                        formState={formState}
+                                    />
                                 )
                             },
                             { label: "Exchange Rate", value: formState.exchange_rate },
@@ -127,12 +119,12 @@ const Preview = () => {
                     <InformationSectionPreview
                         title="Excess Line"
                         leftObjects={[
-                            { label: "Product name", value: formState.product?.product_name },
-                            { label: "Customer Internal No.", value: formState.customer_internal_no },
+                            { label: "Product name", value: formState.product?.product_name ?? '' },
+                            { label: "Customer Internal No.", value: formState.customer_internal_no ?? '' },
                             { label: "Quantity", value: formState.quantity }
                         ]}
                         rightObjects={[
-                            { label: "Cost", value: formState.cost},
+                            { label: "Cost", value: formState.cost },
                             { label: "Date Code", value: formState.date_code },
                             { label: "SPQ", value: formState.spq },
                             { label: "MOQ", value: formState.moq },
@@ -190,6 +182,10 @@ const Preview = () => {
                             { label: "Annual Revenue", value: formState.annual_revenue }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelId} modelName={'excess'}/>
+
                 </div>
             </div>
         )

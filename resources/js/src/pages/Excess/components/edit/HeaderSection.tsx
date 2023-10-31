@@ -35,7 +35,7 @@ const HeaderSection = () => {
                     modelName="excess"
                     formState={formState}
                     formAttribute={'image'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'Account Name': <AsyncSelect
@@ -125,7 +125,7 @@ const HeaderSection = () => {
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
                                 <img
-                                    src={displayImage(formState.owner.avatar)}
+                                    src={displayImage(formState.owner.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
@@ -145,7 +145,7 @@ const HeaderSection = () => {
                 modelName="excess"
                 formState={formState}
                 formAttribute={'excess_file'}
-                updateFormdata={updateFormData}
+                updateFormData={updateFormData}
             />,
 
             'Excess Source': <Select name="excess_source" id="excess_source" options={ExcessSources}

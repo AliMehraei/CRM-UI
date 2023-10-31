@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {setPageTitle} from '../../store/themeConfigSlice';
@@ -11,10 +11,14 @@ import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
     const dispatch = useDispatch();
+    const [relatedToLabel, setRelatedToLabel] = useState('');
+    const [moduleableType, setModuleableType] = useState({});
+    const [UserabelType, setUserabelType] = useState({});
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const modelID = params.id;
@@ -41,6 +45,46 @@ const Preview = () => {
             setLoading(false);
         });
     }, [modelID]);
+
+    const UserabelList = [
+        {value: "App\\Models\\Lead", label: "Lead"},
+        {value: "App\\Models\\Contact", label: "Contact"},
+    ];
+    
+    const ModuleableList = [
+        {value: "App\\Models\\Account", label: "Account", labelField: 'account_name'},
+        {value: "App\\Models\\Vendor", label: "Vendor", labelField: 'vendor_name'},
+        {value: "App\\Models\\Quote", label: "Quote", labelField: 'subject'},
+        {value: "App\\Models\\Rfq", label: "Rfq", labelField: 'rfq_name'},
+        {value: "App\\Models\\Excess", label: "Excess", labelField: 'excess_name'},
+        {
+            value: "App\\Models\\Availability",
+            label: "Availability",
+            labelField: 'availability_name'
+        },
+        {value: "App\\Models\\Product", label: "Product", labelField: 'product_name'},
+        {value: "App\\Models\\Manufacturer", label: "Manufacturer", labelField: 'name'},
+        {value: "App\\Models\\Deal", label: "Deals", labelField: 'deal_name'},
+        {value: "App\\Models\\SalesOrder", label: "Sales Order", labelField: 'subject'},
+        {value: "App\\Models\\PurchaseOrder", label: "Purchase Order", labelField: 'subject'},
+        {value: "App\\Models\\Invoice", label: "Invoice", labelField: 'subject'},
+        {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", labelField: 'vendor_rfq_name'},
+    ];
+    
+   
+   
+
+    useEffect(() => {
+        const rel = ModuleableList.find((item) => item.value === formState.moduleable_type)
+        setModuleableType(rel);
+        if(formState.moduleable)  {  
+            setRelatedToLabel(formState.moduleable[rel?.labelField]);
+        
+        }
+
+        setUserabelType(UserabelList.find((item) => item.value === formState.userable_type));
+
+    }, [formState.moduleable_type]);
     const Priority = [
         {value: '-None-', label: '-None-'},
         {value: 'Account or Contact exist already', label: 'Account or Contact exist already'},
@@ -69,12 +113,12 @@ const Preview = () => {
             {label: "Subject", value: `${formState.subject}`},
             {label: "Due Date", value: formState.due_date},
             {
-                label: "Contact Name",
-                value: `${formState.userable?.name ?? formState.userable?.first_name + ' ' + formState.userable?.last_name} `
+                label: "Contact | Contact",
+                value: UserabelType?.label+': '+`${formState.userable?.name ?? formState.userable?.first_name + ' ' + formState.userable?.last_name} `
             },
             {
                 label: "Related To",
-                value: `${formState.moduleable?.name ?? formState.moduleable?.first_name + ' ' + formState.moduleable?.last_name}`  //TODO : fix here for all modules
+                value: moduleableType?.label+': '+relatedToLabel
             },
             {label: "Status", value: getStatusLabel(formState.status, TaskStatus)},
         ],
@@ -127,6 +171,10 @@ const Preview = () => {
                         data={[
                             {label: 'Description', value: formState.description},
                         ]}/>
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+
+                    <AttachmentSection modelId={modelID} modelName={'task'}/>
                 </div>
             </div>
         )

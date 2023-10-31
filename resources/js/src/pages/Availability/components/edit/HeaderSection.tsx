@@ -74,7 +74,7 @@ const HeaderSection = () => {
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
                                 <img
-                                    src={displayImage(formState.owner.avatar)}
+                                    src={displayImage(formState.owner.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
@@ -94,7 +94,7 @@ const HeaderSection = () => {
                 modelName="availability"
                 formState={formState}
                 formAttribute={'availability_file'}
-                updateFormdata={updateFormData}
+                updateFormData={updateFormData}
             />,
 
             'Availability Source': <Select id="availability_source" name="availability_source" required

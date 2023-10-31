@@ -205,7 +205,7 @@ const HeaderSection = () => {
                                                 <div key={formState.owner?.id} className="flex items-center">
                                                     {formState.owner ? (
                                                         <img
-                                                            src={displayImage(formState.owner.avatar)}
+                                                            src={displayImage(formState.owner.avatar_data)}
                                                             alt="avatar"
                                                             className="w-8 h-8 mr-2 rounded-full"
                                                         />
@@ -234,7 +234,7 @@ const HeaderSection = () => {
                                             <div key={formState.pm_user?.id} className="flex items-center">
                                                 {formState.pm_user ? (
                                                     <img
-                                                        src={displayImage(formState.pm_user.image)}
+                                                        src={displayImage(formState.pm_user.avatar_data)}
                                                         alt="avatar"
                                                         className="w-8 h-8 mr-2 rounded-full"
                                                     />
@@ -284,7 +284,7 @@ const HeaderSection = () => {
                     modelName="quote"
                     formState={formState}
                     formAttribute={'quote_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"

@@ -11,6 +11,8 @@ import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
+import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -33,22 +35,16 @@ const Preview = () => {
         const account = accountResponse.data.data.account;
         dispatch(updateFormData(account));
     };
-    useEffect(() => {
-        if (formState.contract_attachment) {
-            displayFile('account', 'contract_attachment', formState.contract_attachment).then((data) => {
-                dispatch(updateFormData({ [`contract_attachment_preview`]: data }));
-            })
-        }
-    }, []);
+
     const headerDataToDisplay = [
         { label: "Account Name", value: formState.account_name },
         { label: "Phone", value: formState.phone },
         { label: "Website", value: <a className='text-primary' target='_blank' rel='noreferrer' href={formState.website}>{formState.website}</a> },
-        { label: "Account Site", value: `${formState.shipping_city} | ${formState.account_name}` },
-        { label: "Account Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
-        { label: "PM User", value: `${formState.pm_user?.first_name} ${formState.pm_user?.last_name}` },
-        { label: "Created By", value: `${formState.creator?.first_name} ${formState.creator?.last_name}` },
-        { label: "Modified By", value: `${formState.modifier?.first_name} ${formState.modifier?.last_name}` }
+        { label: "Account Site", value: `${formState.shipping_city ?? ''} | ${formState.account_name ?? ''}` },
+        { label: "Account Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
+        { label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}` },
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
     useEffect(() => {
         fetchData().then(() => {
@@ -89,14 +85,11 @@ const Preview = () => {
                             {
                                 label: "Contract Attachment",
                                 value: (
-                                    <a
-                                        disabled={!formState.contract_attachment}
-                                        className="btn btn-sm btn-outline-primary cursor-pointer"
-                                        href={formState.contract_attachment_preview ?? formState.contract_attachment}
-                                        target="__blank"
-                                    >
-                                        Download
-                                    </a>
+                                    <AttachmentDownloadButton
+                                        formAttribute={"contract_attachment"}
+                                        modelName="account"
+                                        formState={formState}
+                                    />
                                 )
                             },
                             { label: "Account Type", value: formState.account_type },
@@ -107,7 +100,7 @@ const Preview = () => {
                         rightObjects={[
                             {
                                 label: "Approved by",
-                                value: `${formState.approvedBy?.first_name} ${formState.approvedBy?.last_name}`
+                                value: `${formState.approvedBy?.first_name ?? ''} ${formState.approvedBy?.last_name ?? ''}`
                             },
                             { label: "TAM", value: formState.tam },
                             { label: "Exchange Rate", value: formState.exchange_rate },
@@ -136,11 +129,11 @@ const Preview = () => {
                             { label: "Primary Last Name", value: formState.primary_last_name },
                             {
                                 label: "Parent Account",
-                                value: `${formState.parent?.first_name} ${formState.parent?.last_name}`
+                                value: `${formState.parent?.first_name ?? ''} ${formState.parent?.last_name ?? ''}`
                             },
                             {
                                 label: "Child Account",
-                                value: `${formState.child?.first_name} ${formState.child?.last_name}`
+                                value: `${formState.child?.first_name ?? ''} ${formState.child?.last_name ?? ''}`
                             },
                             { label: "Double Check Status", value: formState.double_check_status },
                             { label: "DCheck", value: formState.business_account ? 'Yes' : 'No' },
@@ -158,10 +151,10 @@ const Preview = () => {
                         ]}
                         rightObjects={[
                             { label: "VAT No", value: formState.vat_no },
-                            { label: "Forwarder", value: formState.parent?.forwarder },
+                            { label: "Forwarder", value: formState.parent?.forwarder ?? '' },
                             {
                                 label: "Child Account",
-                                value: `${formState.child?.first_name} ${formState.child?.last_name}`
+                                value: `${formState.child?.first_name ?? ''} ${formState.child?.last_name ?? ''}`
                             },
                             { label: "Forwarder Account no", value: formState.forwarder_account_no }
                         ]}
@@ -216,6 +209,10 @@ const Preview = () => {
                             { label: "Annual Revenue", value: formState.annual_revenue }
                         ]}
                     />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+
+                    <AttachmentSection modelId={modelId} modelName={'account'}/>
+
                 </div>
             </div>
         )

@@ -203,7 +203,7 @@ const HeaderSection = () => {
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
                                 <img
-                                    src={displayImage(formState.owner.avatar)}
+                                    src={displayImage(formState.owner.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
@@ -231,7 +231,7 @@ const HeaderSection = () => {
                     modelName="rfq"
                     formState={formState}
                     formAttribute={'customer_rfq_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'RFQ Dead Line': <Flatpickr name="rfq_dead_line"
