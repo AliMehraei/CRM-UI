@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import AsyncSelect from "react-select/async";
-import {searchContacts, searchLead} from "../../Functions/CommonFunctions";
+import Api from "../../../config/api";
 
 const SearchSection = () => {
     const [search, setSearch] = useState(false);
+    const [timer, setTimer] = useState<any>(null)
 
+    const api_instance = new Api();
     const CustomDropDownIndicator = () => <>
         <button type="button"
                 className="absolute w-9 h-9 inset-0 ltr:left-auto rtl:left-auto appearance-none peer-focus:text-primary">
@@ -29,6 +31,49 @@ const SearchSection = () => {
         </button>
     </>
 
+    const loadOptions = (inputValue: any, callback: any) => {
+        clearTimeout(timer);
+        const fetchData = async () => {
+            try {
+                const response = await api_instance.globalSearch(inputValue);
+                const data = response.data;
+
+                const groupedOptions = data.reduce((acc: any, item: any) => {
+                    const groupLabel = item.group;
+
+                    if (!acc[groupLabel]) {
+                        acc[groupLabel] = [];
+                    }
+
+                    acc[groupLabel].push({
+                        value: item.id,
+                        label: item.name,
+                    });
+
+                    return acc;
+                }, {});
+
+                const options = Object.entries(groupedOptions).map(([label, optionsInGroup]) => ({
+                    label,
+                    options: optionsInGroup,
+                }));
+
+                callback(options);
+            } catch (error) {
+                console.error('Error fetching options:', error);
+                callback([]);
+            }
+        };
+
+        const newTimer = setTimeout(() => {
+            fetchData()
+        }, 500)
+
+        setTimer(newTimer)
+
+    };
+
+
     return (
         <>
             <form
@@ -41,21 +86,20 @@ const SearchSection = () => {
                             DropdownIndicator: CustomDropDownIndicator,
                         }}
                         styles={{
-                            control: (baseStyles, state) => ({
+                            control: (baseStyles) => ({
                                 ...baseStyles,
-                                width: '250px',  // Adjust the width as needed
-                                height: '40px', // Adjust the height as needed
+                                width: '250px',
+                                height: '40px',
                             }),
                         }}
+                        loadOptions={loadOptions}
                         isMulti={false}
-                        id="callable_id"
                         placeholder="Search..."
-                        name="callable_id"
+                        name="global_search"
                         menuPortalTarget={document.body}
                         className="flex-1"
                         required
                     />
-
 
                 </div>
             </form>
