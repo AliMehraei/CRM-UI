@@ -26,26 +26,16 @@ const EditReminderSection = () => {
     };
 
     const [selectedDays, setSelectedDays] = useState(initialSelectedDays);
-    // Convert the selected_days string to an array when formState changes
+
     useEffect(() => {
-        if (formState.selected_days) {
-            try {
-                const selectedDaysObj = JSON.parse(formState.selected_days);
-                const selectedDaysArray = Object.keys(selectedDaysObj).filter(
-                    (day) => selectedDaysObj[day]
-                );
-                setSelectedDays((prev) => ({
-                    ...prev,
-                    ...selectedDaysArray.reduce((acc, day) => {
-                        acc[day] = true;
-                        return acc;
-                    }, {}),
-                }));
-            } catch (error) {
-                console.error("Error parsing selected_days:", error);
-            }
+        if (typeof formState.selected_days === 'object') {
+            setSelectedDays((prev) => ({
+                ...prev,
+                ...formState.selected_days,
+            }));
         }
     }, [formState.selected_days]);
+    
     const reminderType = [
         { value: "email", label: "Email" },
         { value: "popup", label: "PopUp" },
