@@ -24,10 +24,10 @@ const EditReminderSection = () => {
         Saturday: false,
         Sunday: false,
     };
-    
+
     const [selectedDays, setSelectedDays] = useState(initialSelectedDays);
-       // Convert the selected_days string to an array when formState changes
-       useEffect(() => {
+    // Convert the selected_days string to an array when formState changes
+    useEffect(() => {
         if (formState.selected_days) {
             try {
                 const selectedDaysObj = JSON.parse(formState.selected_days);
@@ -69,11 +69,9 @@ const EditReminderSection = () => {
     };
 
     const handleDayToggle = (day) => {
-        setSelectedDays((prev) => {
-            const updatedDays = { ...prev, [day]: !prev[day] };
-            dispatch(updateFormData({ selected_days: updatedDays }));
-            return updatedDays;
-        });
+        const updatedSelectedDays = { ...selectedDays, [day]: !selectedDays[day] };
+        setSelectedDays(updatedSelectedDays);
+        dispatch(updateFormData({ selected_days: updatedSelectedDays }));
     };
 
     // Function to check all days
@@ -123,7 +121,11 @@ const EditReminderSection = () => {
 
             {isReminderChecked && (
                 <div>
+                    <div className="flex items-center space-x-4 my-2">
+                    <label>Next Reminder At:</label> <span>{formState.next_reminder_at}</span>
+                    </div>
                     <div className="flex items-center space-x-4 my-4">
+
                         <label>On:</label>
                         <Flatpickr
                             className="p-2 border rounded-md form-input flex-1"
@@ -146,7 +148,7 @@ const EditReminderSection = () => {
                                 setSelectedTime(time[0]);
                                 handleChangeField("reminder_on_time", time[0]);
                             }}
-                        /> 
+                        />
                         {/* TODO:: fix this  */}
 
                         <label>Notify Type:</label>
