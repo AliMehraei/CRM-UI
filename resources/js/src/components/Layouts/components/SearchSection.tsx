@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import AsyncSelect from "react-select/async";
 import Api from "../../../config/api";
+import Select from "react-select";
 
 const SearchSection = () => {
     const [search, setSearch] = useState(false);
@@ -36,29 +37,17 @@ const SearchSection = () => {
         const fetchData = async () => {
             try {
                 const response = await api_instance.globalSearch(inputValue);
-                const data = response.data;
+                let data = Object.values(response.data);
+                data = data.flatMap((item: any) => {
+                    const group = Object.keys(item)[0]; // Assuming each item has only one key
+                    const options = item[group].map((entry: any) => ({
+                        value: entry.id,
+                        label: entry.account_name || `${entry.first_name} ${entry.last_name}`,
+                    }));
+                    return {label: group, options};
+                })
 
-                const groupedOptions = data.reduce((acc: any, item: any) => {
-                    const groupLabel = item.group;
-
-                    if (!acc[groupLabel]) {
-                        acc[groupLabel] = [];
-                    }
-
-                    acc[groupLabel].push({
-                        value: item.id,
-                        label: item.name,
-                    });
-
-                    return acc;
-                }, {});
-
-                const options = Object.entries(groupedOptions).map(([label, optionsInGroup]) => ({
-                    label,
-                    options: optionsInGroup,
-                }));
-
-                callback(options);
+                callback(data);
             } catch (error) {
                 console.error('Error fetching options:', error);
                 callback([]);
