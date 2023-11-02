@@ -79,15 +79,20 @@ const SearchSection = () => {
                                 ...baseStyles,
                                 width: '250px',
                                 height: '40px',
+                                zIndex: 9999,
+
+                            }),
+                            menu: (base) => ({
+                                ...base,
+                                zIndex: 9999,
                             }),
                         }}
                         loadOptions={loadOptions}
                         isMulti={false}
                         placeholder="Search..."
                         name="global_search"
-                        menuPortalTarget={document.body}
                         className="flex-1"
-                        required
+                        menuPlacement="auto" // or "bottom" based on your preference
                     />
 
                 </div>
