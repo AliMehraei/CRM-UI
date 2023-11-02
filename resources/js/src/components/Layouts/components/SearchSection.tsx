@@ -55,7 +55,7 @@ const SearchSection = () => {
                             ),
                         })
                     });
-                    return {label: group, options};
+                    return {label: (<a href={`/${modelRouteMap[group]}/list`}>{group}</a>), options};
                 })
                 callback(data);
             } catch (error) {
