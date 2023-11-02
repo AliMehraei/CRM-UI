@@ -511,3 +511,25 @@ export const getStatusLabel = (status: any, statuses: any) => {
     const statusObj = statuses.find((item: any) => item.value === status);
     return statusObj ? statusObj.label : status;
 };
+
+
+export const modelRouteMap: any = {
+    'Account': 'account',
+    'Lead': 'lead',
+    'Task': 'task',
+    'Contact': 'contact',
+    'SalesOrder': 'sales',
+    'Quote': 'quote',
+    'Rfq': 'rfq',
+    'Product': 'product',
+    'Availability': 'availability',
+    'Excess': 'excess',
+    'Manufacturer': 'manufacturer',
+    'Invoice': 'invoice',
+    'Vendor': 'vendor',
+    'VendorRfq': 'vendor_rfq',
+    'PurchaseOrder': 'purchase',
+    'Deal': 'deal',
+    'User': 'user',
+    'Call': 'call',
+};
