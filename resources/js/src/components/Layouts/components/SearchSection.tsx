@@ -2,10 +2,13 @@ import React, {useState} from 'react';
 import AsyncSelect from "react-select/async";
 import Api from "../../../config/api";
 import Select from "react-select";
+import {modelRouteMap} from "../../Functions/CommonFunctions";
+import {useNavigate} from "react-router-dom";
 
 const SearchSection = () => {
     const [search, setSearch] = useState(false);
     const [timer, setTimer] = useState<any>(null)
+    const navigate = useNavigate();
 
     const api_instance = new Api();
     const CustomDropDownIndicator = () => <>
@@ -40,13 +43,20 @@ const SearchSection = () => {
                 let data = Object.values(response.data);
                 data = data.flatMap((item: any) => {
                     const group = Object.keys(item)[0]; // Assuming each item has only one key
-                    const options = item[group].map((entry: any) => ({
-                        value: entry.id,
-                        label: entry.account_name || `${entry.first_name} ${entry.last_name}`,
-                    }));
+                    const options = item[group].map((entry: any) => {
+                        entry.group = group;
+                        const entryPath = `/${modelRouteMap[group]}/preview/${entry.id}`;
+                        return ({
+                            value: entry,
+                            label: (
+                                <a href={entryPath}>
+                                    {entry.model_label_field}
+                                </a>
+                            ),
+                        })
+                    });
                     return {label: group, options};
                 })
-
                 callback(data);
             } catch (error) {
                 console.error('Error fetching options:', error);
@@ -79,12 +89,6 @@ const SearchSection = () => {
                                 ...baseStyles,
                                 width: '250px',
                                 height: '40px',
-                                zIndex: 9999,
-
-                            }),
-                            menu: (base) => ({
-                                ...base,
-                                zIndex: 9999,
                             }),
                         }}
                         loadOptions={loadOptions}
@@ -93,6 +97,15 @@ const SearchSection = () => {
                         name="global_search"
                         className="flex-1"
                         menuPlacement="auto" // or "bottom" based on your preference
+                        onChange={(e: any) => {
+                            if (e.value == null)
+                                return;
+                            const model = e.value.group;
+                            const id = e.value.id;
+                            const entryPath = `/${modelRouteMap[model]}/preview/${id}`;
+                            navigate(entryPath);
+
+                        }}
                     />
 
                 </div>
