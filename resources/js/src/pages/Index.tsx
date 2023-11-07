@@ -770,14 +770,40 @@ const Index = () => {
                                 currentAmount={salesOrderData.ytd?.closed_so?.total_so}
                                 lastPeriodAmount={salesOrderData.last_year?.closed_so?.total_so}
                                 sectionTitle="Sales Order (Closed) YTD"
-                                firstColor="yellow-500"
-                                secondColor="yellow-400"
+                                firstColor="cyan-500"
+                                secondColor="cyan-400"
                                 currentTitle="This Year"
                                 lastPeriodTitle="Last Year"
                                 currentAverage={parseFloat(salesOrderData.ytd?.closed_so?.average_so ?? "0")}
                                 currentCount={salesOrderData.ytd?.closed_so?.count_so}
                                 lastPeriodAverage={parseFloat(salesOrderData.last_year?.closed_so?.average_so ?? "0")}
                                 lastPeriodCount={salesOrderData.last_year?.closed_so?.count_so}
+                            />
+                            <LastPeriodCompareWidget
+                                currentAmount={salesOrderData.mtd?.total_so}
+                                lastPeriodAmount={salesOrderData.last_month?.total_so}
+                                sectionTitle="Sales Order MTD"
+                                firstColor="fuchsia-500"
+                                secondColor="fuchsia-400"
+                                currentTitle="This Month"
+                                lastPeriodTitle="Last Month"
+                                currentAverage={parseFloat(salesOrderData.mtd?.average_so ?? "0")}
+                                currentCount={salesOrderData.mtd?.count_so}
+                                lastPeriodAverage={parseFloat(salesOrderData.last_month?.average_so ?? "0")}
+                                lastPeriodCount={salesOrderData.last_month?.count_so}
+                            />
+                            <LastPeriodCompareWidget
+                                currentAmount={salesOrderData.mtd?.closed_so?.total_so}
+                                lastPeriodAmount={salesOrderData.last_month?.closed_so?.total_so}
+                                sectionTitle="Sales Order (Closed) MTD"
+                                firstColor="violet-500"
+                                secondColor="violet-400"
+                                currentTitle="This Month"
+                                lastPeriodTitle="Last Month"
+                                currentAverage={parseFloat(salesOrderData.mtd?.closed_so?.average_so ?? "0")}
+                                currentCount={salesOrderData.mtd?.closed_so?.count_so}
+                                lastPeriodAverage={parseFloat(salesOrderData.last_month?.closed_so?.average_so ?? "0")}
+                                lastPeriodCount={salesOrderData.last_month?.closed_so?.count_so}
                             />
                         </>
                     ) : (
@@ -787,27 +813,27 @@ const Index = () => {
 
 
 
-                    <LastPeriodCompareWidget
-                        currentAmount={75}
-                        lastPeriodAmount={60}
-                        sectionTitle="User Engagement"
-                        isCurrency={false}
-                        firstColor="cyan-500"
-                        secondColor="cyan-400"
-                        currentTitle="Active Users"
-                        lastPeriodTitle="Previous Period"
-                    />
+                    {/*<LastPeriodCompareWidget*/}
+                    {/*    currentAmount={75}*/}
+                    {/*    lastPeriodAmount={60}*/}
+                    {/*    sectionTitle="User Engagement"*/}
+                    {/*    isCurrency={false}*/}
+                    {/*    firstColor="cyan-500"*/}
+                    {/*    secondColor="cyan-400"*/}
+                    {/*    currentTitle="Active Users"*/}
+                    {/*    lastPeriodTitle="Previous Period"*/}
+                    {/*/>*/}
 
-                    <LastPeriodCompareWidget
-                        currentAmount={7500}
-                        lastPeriodAmount={7000}
-                        sectionTitle="Sales"
-                        currency="USD"
-                        firstColor="fuchsia-500"
-                        secondColor="fuchsia-400"
-                        currentTitle="This Quarter"
-                        lastPeriodTitle="Last Quarter"
-                    />
+                    {/*<LastPeriodCompareWidget*/}
+                    {/*    currentAmount={7500}*/}
+                    {/*    lastPeriodAmount={7000}*/}
+                    {/*    sectionTitle="Sales"*/}
+                    {/*    currency="USD"*/}
+                    {/*    firstColor="fuchsia-500"*/}
+                    {/*    secondColor="fuchsia-400"*/}
+                    {/*    currentTitle="This Quarter"*/}
+                    {/*    lastPeriodTitle="Last Quarter"*/}
+                    {/*/>*/}
                 </div>
 
             </div>
