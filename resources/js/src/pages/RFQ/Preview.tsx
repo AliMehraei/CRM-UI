@@ -132,7 +132,7 @@ const Preview = () => {
     if (loading)
         return <LoadingSasCrm/>;
     return (
-        (!hasPermission(`read-sales-order`) || loading) ? (
+        (!hasPermission(`read-rfq`) || loading) ? (
             <LoadingSasCrm/>
         ) : (
             <div>
@@ -143,7 +143,7 @@ const Preview = () => {
                         modelId={modelID}
                         exportTable={exportTable}
                         routeModel="rfq"
-                        permissionModel="sales-order"
+                        permissionModel="rfq"
                     />
                 </div>
                 <div className="panel">
