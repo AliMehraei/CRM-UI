@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Select from "react-select";
 
 interface FilterModalProps {
@@ -42,6 +42,44 @@ const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any
         {value: 'User', label: 'User'},
     ];
     const [selectedOptions, setSelectedOptions] = useState<any>([]);
+    const handleChangeFilters = (selection: any, actionMeta: any) => {
+        // When "All Modules" is selected, ensure all options are selected
+        const isAllModulesSelected = selection.some((option: any) => option.value === 'All Modules');
+        if (isAllModulesSelected) {
+            setSelectedOptions(ModuleOptions);
+            return;
+        }
+
+        switch (actionMeta.action) {
+            case 'select-option':
+                setSelectedOptions(selection);
+                break;
+            case 'deselect-option':
+                setSelectedOptions(selection);
+                break;
+            case 'remove-value':
+                // When removing an option, if "All Modules" is the one being removed,
+                // clear the selection, otherwise update the selection normally.
+                if (actionMeta.removedValue.value === 'All Modules') {
+                    setSelectedOptions([]);
+                } else {
+                    setSelectedOptions(selection);
+                }
+                break;
+            case 'clear':
+                // Handle the action when the user clears all selections
+                setSelectedOptions([]);
+                break;
+            default:
+                // It's a good idea to handle the default case, even if just to log unexpected actions
+                console.warn(`Unknown action: ${actionMeta.action}`);
+                break;
+        }
+    }
+
+    useEffect(() => {
+        setFilters(selectedOptions.map((option: any) => option.value))
+    }, [selectedOptions]);
 
     if (!isOpen) return null;
 
@@ -62,40 +100,7 @@ const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any
                                 name="modules"
                                 options={ModuleOptions}
                                 value={selectedOptions} // This should be the array of currently selected options
-                                onChange={(selection, actionMeta) => {
-                                    // When "All Modules" is selected, ensure all options are selected
-                                    const isAllModulesSelected = selection.some((option: any) => option.value === 'All Modules');
-                                    if (isAllModulesSelected) {
-                                        setSelectedOptions(ModuleOptions);
-                                        return;
-                                    }
-
-                                    switch (actionMeta.action) {
-                                        case 'select-option':
-                                            setSelectedOptions(selection);
-                                            break;
-                                        case 'deselect-option':
-                                            setSelectedOptions(selection);
-                                            break;
-                                        case 'remove-value':
-                                            // When removing an option, if "All Modules" is the one being removed,
-                                            // clear the selection, otherwise update the selection normally.
-                                            if (actionMeta.removedValue.value === 'All Modules') {
-                                                setSelectedOptions([]);
-                                            } else {
-                                                setSelectedOptions(selection);
-                                            }
-                                            break;
-                                        case 'clear':
-                                            // Handle the action when the user clears all selections
-                                            setSelectedOptions([]);
-                                            break;
-                                        default:
-                                            // It's a good idea to handle the default case, even if just to log unexpected actions
-                                            console.warn(`Unknown action: ${actionMeta.action}`);
-                                            break;
-                                    }
-                                }}
+                                onChange={handleChangeFilters}
                                 className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                         </div>

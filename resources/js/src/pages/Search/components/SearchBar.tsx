@@ -3,6 +3,7 @@ import FilterModal from './FilterModal';
 
 const SearchBar = () => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+    const [filters, setFilters] = useState<any>();
 
     const handleFilterClick = () => {
         setIsFilterModalOpen(true);
@@ -12,7 +13,8 @@ const SearchBar = () => {
         setIsFilterModalOpen(false);
     };
 
-    const handleApplyFilters = () => {
+    const handleApplyFilters = (filters: any) => {
+        setFilters(filters)
         setIsFilterModalOpen(false);
     };
 
