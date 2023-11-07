@@ -6,16 +6,46 @@ import ReactApexChart from 'react-apexcharts';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Dropdown from '../components/Dropdown';
 import { setPageTitle } from '../store/themeConfigSlice';
+import LastPeriodCompareWidget from "../components/Reports/LastPeriodCompareWidget";
+import Api from "../config/api";
+import LoadingSasCrm from "../components/LoadingSasCrm";
+import { useUserStatus } from "../config/authCheck";
+import {updateFormData} from "../store/accountFormSlice";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Index = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('CRM Admin'));
     });
+    const api = new Api();
+
+    const [loading, setLoading] = useState(true);
+    const [salesOrderData, setSalesOrderData] = useState(null);
+    const { hasPermission } = useUserStatus();
+    const fetchData = async () => {
+        try {
+            const dashboardResponse = await api.dashboardData();
+            if (dashboardResponse.status === 200) {
+                setSalesOrderData(dashboardResponse.data.data.sales_order);
+            } else {
+                console.error('Failed to fetch dashboard data:', dashboardResponse);
+            }
+        } catch (error) {
+            console.error('An error occurred while fetching dashboard data:', error);
+        } finally {
+            setLoading(false);
+
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark' ? true : false;
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 
-    const [loading] = useState(false);
 
     //Revenue Chart
     const revenueChart: any = {
@@ -706,6 +736,9 @@ const Index = () => {
     };
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
                 <li>
@@ -713,195 +746,96 @@ const Index = () => {
                         Dashboard
                     </Link>
                 </li>
-                
+
             </ul>
             <div className="pt-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 text-white">
-                    <div className="panel bg-gradient-to-r from-cyan-500 to-cyan-400">
-                        <div className="flex justify-between">
-                            <div className="ltr:mr-1 rtl:ml-1 text-md font-semibold">Users Visit</div>
-                            <div className="dropdown">
-                                <Dropdown
-                                    offset={[0, 5]}
-                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                    btnClassName="hover:opacity-80"
-                                    button={
-                                        <svg className="w-5 h-5 opacity-70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle opacity="0.5" cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle cx="19" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                        </svg>
-                                    }
-                                >
-                                    <ul className="text-black dark:text-white-dark">
-                                        <li>
-                                            <button type="button">View Report</button>
-                                        </li>
-                                        <li>
-                                            <button type="button">Edit Report</button>
-                                        </li>
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-5">
-                            <div className="text-3xl font-bold ltr:mr-3 rtl:ml-3"> $170.46 </div>
-                            <div className="badge bg-white/30">+ 2.35% </div>
-                        </div>
-                        <div className="flex items-center font-semibold mt-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ltr:mr-2 rtl:ml-2">
-                                <path
-                                    opacity="0.5"
-                                    d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                />
-                                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                            Last Week 44,700
-                        </div>
-                    </div>
 
-                    {/* Sessions */}
-                    <div className="panel bg-gradient-to-r from-violet-500 to-violet-400">
-                        <div className="flex justify-between">
-                            <div className="ltr:mr-1 rtl:ml-1 text-md font-semibold">Sessions</div>
-                            <div className="dropdown">
-                                <Dropdown
-                                    offset={[0, 5]}
-                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                    btnClassName="hover:opacity-80"
-                                    button={
-                                        <svg className="w-5 h-5 opacity-70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle opacity="0.5" cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle cx="19" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                        </svg>
-                                    }
-                                >
-                                    <ul className="text-black dark:text-white-dark">
-                                        <li>
-                                            <button type="button">View Report</button>
-                                        </li>
-                                        <li>
-                                            <button type="button">Edit Report</button>
-                                        </li>
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-5">
-                            <div className="text-3xl font-bold ltr:mr-3 rtl:ml-3"> 74,137 </div>
-                            <div className="badge bg-white/30">- 2.35% </div>
-                        </div>
-                        <div className="flex items-center font-semibold mt-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ltr:mr-2 rtl:ml-2">
-                                <path
-                                    opacity="0.5"
-                                    d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                />
-                                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                            Last Week 84,709
-                        </div>
-                    </div>
+                    {salesOrderData ? (
+                        <>
+                            <LastPeriodCompareWidget
+                                currentAmount={salesOrderData.ytd?.total_so}
+                                lastPeriodAmount={salesOrderData.last_year?.total_so}
+                                sectionTitle="Sales Order YTD"
+                                firstColor="blue-500"
+                                secondColor="blue-400"
+                                currentTitle="This Year"
+                                lastPeriodTitle="Last Year"
+                                currentAverage={parseFloat(salesOrderData.ytd?.average_so ?? "0")}
+                                currentCount={salesOrderData.ytd?.count_so}
+                                lastPeriodAverage={parseFloat(salesOrderData.last_year?.average_so ?? "0")}
+                                lastPeriodCount={salesOrderData.last_year?.count_so}
+                            />
+                            <LastPeriodCompareWidget
+                                currentAmount={salesOrderData.ytd?.closed_so?.total_so}
+                                lastPeriodAmount={salesOrderData.last_year?.closed_so?.total_so}
+                                sectionTitle="Sales Order (Closed) YTD"
+                                firstColor="cyan-500"
+                                secondColor="cyan-400"
+                                currentTitle="This Year"
+                                lastPeriodTitle="Last Year"
+                                currentAverage={parseFloat(salesOrderData.ytd?.closed_so?.average_so ?? "0")}
+                                currentCount={salesOrderData.ytd?.closed_so?.count_so}
+                                lastPeriodAverage={parseFloat(salesOrderData.last_year?.closed_so?.average_so ?? "0")}
+                                lastPeriodCount={salesOrderData.last_year?.closed_so?.count_so}
+                            />
+                            <LastPeriodCompareWidget
+                                currentAmount={salesOrderData.mtd?.total_so}
+                                lastPeriodAmount={salesOrderData.last_month?.total_so}
+                                sectionTitle="Sales Order MTD"
+                                firstColor="fuchsia-500"
+                                secondColor="fuchsia-400"
+                                currentTitle="This Month"
+                                lastPeriodTitle="Last Month"
+                                currentAverage={parseFloat(salesOrderData.mtd?.average_so ?? "0")}
+                                currentCount={salesOrderData.mtd?.count_so}
+                                lastPeriodAverage={parseFloat(salesOrderData.last_month?.average_so ?? "0")}
+                                lastPeriodCount={salesOrderData.last_month?.count_so}
+                            />
+                            <LastPeriodCompareWidget
+                                currentAmount={salesOrderData.mtd?.closed_so?.total_so}
+                                lastPeriodAmount={salesOrderData.last_month?.closed_so?.total_so}
+                                sectionTitle="Sales Order (Closed) MTD"
+                                firstColor="violet-500"
+                                secondColor="violet-400"
+                                currentTitle="This Month"
+                                lastPeriodTitle="Last Month"
+                                currentAverage={parseFloat(salesOrderData.mtd?.closed_so?.average_so ?? "0")}
+                                currentCount={salesOrderData.mtd?.closed_so?.count_so}
+                                lastPeriodAverage={parseFloat(salesOrderData.last_month?.closed_so?.average_so ?? "0")}
+                                lastPeriodCount={salesOrderData.last_month?.closed_so?.count_so}
+                            />
+                        </>
+                    ) : (
+                        <LoadingSpinner />
+                    )}
 
-                    {/*  Time On-Site */}
-                    <div className="panel bg-gradient-to-r from-blue-500 to-blue-400">
-                        <div className="flex justify-between">
-                            <div className="ltr:mr-1 rtl:ml-1 text-md font-semibold">Time On-Site</div>
-                            <div className="dropdown">
-                                <Dropdown
-                                    offset={[0, 5]}
-                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                    btnClassName="hover:opacity-80"
-                                    button={
-                                        <svg className="w-5 h-5 opacity-70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle opacity="0.5" cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle cx="19" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                        </svg>
-                                    }
-                                >
-                                    <ul className="text-black dark:text-white-dark">
-                                        <li>
-                                            <button type="button">View Report</button>
-                                        </li>
-                                        <li>
-                                            <button type="button">Edit Report</button>
-                                        </li>
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-5">
-                            <div className="text-3xl font-bold ltr:mr-3 rtl:ml-3"> 38,085 </div>
-                            <div className="badge bg-white/30">+ 1.35% </div>
-                        </div>
-                        <div className="flex items-center font-semibold mt-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ltr:mr-2 rtl:ml-2">
-                                <path
-                                    opacity="0.5"
-                                    d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                />
-                                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                            Last Week 37,894
-                        </div>
-                    </div>
 
-                    {/* Bounce Rate */}
-                    <div className="panel bg-gradient-to-r from-fuchsia-500 to-fuchsia-400">
-                        <div className="flex justify-between">
-                            <div className="ltr:mr-1 rtl:ml-1 text-md font-semibold">Bounce Rate</div>
-                            <div className="dropdown">
-                                <Dropdown
-                                    offset={[0, 5]}
-                                    placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                    btnClassName="hover:opacity-80"
-                                    button={
-                                        <svg className="w-5 h-5 opacity-70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle opacity="0.5" cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                            <circle cx="19" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" />
-                                        </svg>
-                                    }
-                                >
-                                    <ul className="text-black dark:text-white-dark">
-                                        <li>
-                                            <button type="button">View Report</button>
-                                        </li>
-                                        <li>
-                                            <button type="button">Edit Report</button>
-                                        </li>
-                                    </ul>
-                                </Dropdown>
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-5">
-                            <div className="text-3xl font-bold ltr:mr-3 rtl:ml-3"> 49.10% </div>
-                            <div className="badge bg-white/30">- 0.35% </div>
-                        </div>
-                        <div className="flex items-center font-semibold mt-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ltr:mr-2 rtl:ml-2">
-                                <path
-                                    opacity="0.5"
-                                    d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                />
-                                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                            Last Week 50.01%
-                        </div>
-                    </div>
+
+
+                    {/*<LastPeriodCompareWidget*/}
+                    {/*    currentAmount={75}*/}
+                    {/*    lastPeriodAmount={60}*/}
+                    {/*    sectionTitle="User Engagement"*/}
+                    {/*    isCurrency={false}*/}
+                    {/*    firstColor="cyan-500"*/}
+                    {/*    secondColor="cyan-400"*/}
+                    {/*    currentTitle="Active Users"*/}
+                    {/*    lastPeriodTitle="Previous Period"*/}
+                    {/*/>*/}
+
+                    {/*<LastPeriodCompareWidget*/}
+                    {/*    currentAmount={7500}*/}
+                    {/*    lastPeriodAmount={7000}*/}
+                    {/*    sectionTitle="Sales"*/}
+                    {/*    currency="USD"*/}
+                    {/*    firstColor="fuchsia-500"*/}
+                    {/*    secondColor="fuchsia-400"*/}
+                    {/*    currentTitle="This Quarter"*/}
+                    {/*    lastPeriodTitle="Last Quarter"*/}
+                    {/*/>*/}
                 </div>
 
-             
             </div>
             <div className="pt-5">
                 <div className="grid xl:grid-cols-3 gap-6 mb-6">
@@ -2517,8 +2451,9 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-        
+
         </div>
+        )
     );
 };
 
