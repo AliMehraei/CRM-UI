@@ -13,16 +13,16 @@ interface LastPeriodCompareWidgetProps {
 }
 
 const LastPeriodCompareWidget: React.FC<LastPeriodCompareWidgetProps> = ({
-                                                                             currentAmount,
-                                                                             lastPeriodAmount,
-                                                                             sectionTitle,
-                                                                             isCurrency = true,
-                                                                             currency = 'EUR',
-                                                                             firstColor = 'blue-500',
-                                                                             secondColor = 'blue-400',
-                                                                             currentTitle = 'Current Month',
-                                                                             lastPeriodTitle = 'Last Month'
-                                                                         }) => {
+     currentAmount,
+     lastPeriodAmount,
+     sectionTitle,
+     isCurrency = true,
+     currency = 'EUR',
+     firstColor = 'blue-500',
+     secondColor = 'blue-400',
+     currentTitle = 'Current Month',
+     lastPeriodTitle = 'Last Month'
+}) => {
     const percentageChange = ((currentAmount - lastPeriodAmount) / lastPeriodAmount) * 100;
 
     const formatAmount = (amount: number): string => {
