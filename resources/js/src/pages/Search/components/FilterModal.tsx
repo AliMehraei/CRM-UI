@@ -1,6 +1,7 @@
 // FilterModal.tsx
 import React, { useState } from 'react';
-
+import AsyncSelect from "react-select/async";
+import Select from "react-select";
 interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -21,6 +22,29 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApp
     // Optionally call onApply if you want the reset to be applied immediately
     // onApply(defaultFilters);
   };
+  const ModuleOptions=[
+    {value: 'All Modules', label: 'All Modules'},
+    {value: 'Invoices', label: 'Invoices'},
+    {value: 'Sales Orders', label: 'Sales Orders'},
+    {value: 'Purchase order', label: 'Purchase order'},
+    {value: 'RFQ', label: 'RFQ'},
+    {value: 'Quote', label: 'Quote'},
+    {value: 'Availability', label: 'Availability'},
+    {value: 'Account', label: 'Account'},
+    {value: 'Lead', label: 'Lead'},
+    {value: 'Contact', label: 'Contact'},
+    
+    {value: 'Vendor', label: 'Vendor'},
+   
+    {value: 'Call', label: 'Call'},
+    {value: 'Product', label: 'Product'},
+    {value: 'VendorRFQ', label: 'VendorRFQ'},
+    {value: 'Tasks', label: 'Tasks'},
+    {value: 'Manufacturer', label: 'Manufacturer'},
+    {value: 'Excess', label: 'Excess'},
+    {value: 'User', label: 'User'},
+  ];
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   if (!isOpen) return null;
 
@@ -32,19 +56,50 @@ export const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApp
           <div className="mt-2 px-7 py-3">
             <div className="mb-4">
               <label htmlFor="modules" className="block text-gray-700 text-sm font-bold mb-2">Modules</label>
-              <select 
-                id="modules" 
-                name="modules" 
-                value={filters.modules}
-                onChange={(e) => setFilters({ ...filters, modules: e.target.value })}
-                className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              >
-                <option>All Modules</option>
-                <option>Invoices</option>
-                <option>Estimates</option>
-                <option>Sales Orders</option>
-                <option>Tasks</option>
-              </select>
+           
+              <Select
+  isMulti={true}
+  id="modules"
+  placeholder="Type at least 2 characters to search..."
+  name="modules"
+  options={ModuleOptions}
+  value={selectedOptions} // This should be the array of currently selected options
+  onChange={(selection, actionMeta) => {
+    // When "All Modules" is selected, ensure all options are selected
+    const isAllModulesSelected = selection.some(option => option.value === 'All Modules');
+    if (isAllModulesSelected) {
+      setSelectedOptions(ModuleOptions);
+      return;
+    }
+
+    switch (actionMeta.action) {
+      case 'select-option':
+        setSelectedOptions(selection);
+        break;
+      case 'deselect-option':
+        setSelectedOptions(selection);
+        break;
+      case 'remove-value':
+        // When removing an option, if "All Modules" is the one being removed,
+        // clear the selection, otherwise update the selection normally.
+        if (actionMeta.removedValue.value === 'All Modules') {
+          setSelectedOptions([]);
+        } else {
+          setSelectedOptions(selection);
+        }
+        break;
+      case 'clear':
+        // Handle the action when the user clears all selections
+        setSelectedOptions([]);
+        break;
+      default:
+        // It's a good idea to handle the default case, even if just to log unexpected actions
+        console.warn(`Unknown action: ${actionMeta.action}`);
+        break;
+    }
+  }}
+  className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+/>
             </div>
             {/* Add more filter options here */}
           </div>
