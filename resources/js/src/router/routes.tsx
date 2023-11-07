@@ -127,6 +127,9 @@ const AddCall = lazy(() => import('../pages/Call/Add'));
 const EditCall = lazy(() => import('../pages/Call/Edit'));
 const PreviewCall = lazy(() => import('../pages/Call/Preview'));
 
+const ListSearch = lazy(() => import('../pages/Search/Index'));
+
+
 const routes = [
     // dashboard
     {
@@ -769,5 +772,14 @@ const routes = [
         protected: true,
         requiredPermission: 'read-call'
     },
+
+    {
+        path: '/search',
+        element: <ListSearch/>,
+        protected: false,
+    },
+
+    
+
 ];
 export {routes};
