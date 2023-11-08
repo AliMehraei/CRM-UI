@@ -114,6 +114,8 @@ const OpenQuotes = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
+                        <h5 className="font-semibold text-lg">Open Quotes</h5>
+
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
                                 <LoadingSpinner/>
