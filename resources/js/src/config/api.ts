@@ -693,6 +693,10 @@ class api {
     async dashboardBookingRevenue() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-revenue`, {headers: Headers as any});
     }
+
+    async dashboardBillingYtdSales() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/billing-ytd-sales`, {headers: Headers as any});
+    }
 }
 
 export default api
