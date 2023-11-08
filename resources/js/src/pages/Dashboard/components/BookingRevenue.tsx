@@ -124,6 +124,8 @@ const BookingRevenue = () => {
                 colChart.series = [responseData.series];
                 colChart.options.xaxis.categories = responseData.options;
                 setChartData(colChart)
+                setLoading(false);
+
             } else {
                 console.error('Failed to fetch Open Quotes:', response);
             }
@@ -132,9 +134,7 @@ const BookingRevenue = () => {
         }
     };
     useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
+        fetchData();
     }, []);
 
     return (

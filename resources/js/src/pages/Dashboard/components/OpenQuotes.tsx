@@ -103,6 +103,7 @@ const OpenQuotes = () => {
                 colChart.series = [responseData.series];
                 colChart.options.xaxis.categories = responseData.options;
                 setChartData(colChart)
+                setLoading(false);
             } else {
                 console.error('Failed to fetch Open Quotes:', response);
             }
@@ -111,9 +112,7 @@ const OpenQuotes = () => {
         }
     };
     useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
+        fetchData();
     }, []);
 
     return (
