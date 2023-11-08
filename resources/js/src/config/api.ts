@@ -690,6 +690,9 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/open-quotes`, {headers: Headers as any});
     }
 
+    async dashboardBookingRevenue() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-revenue`, {headers: Headers as any});
+    }
 }
 
 export default api
