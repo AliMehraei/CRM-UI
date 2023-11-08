@@ -16,6 +16,7 @@ import OpenQuotes from "./Dashboard/components/OpenQuotes";
 import BookingRevenue from "./Dashboard/components/BookingRevenue";
 import BillingYtdSales from "./Dashboard/components/BillingYtdSales";
 import BookingGp from "./Dashboard/components/BookingGp";
+import MtdBlilling from "./Dashboard/components/MtdBlilling";
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -152,14 +153,13 @@ const Index = () => {
                 </div>
                 <OpenQuotes/>
                 <div className="flex flex-row gap-5">
-
                     <BookingRevenue/>
                     <BillingYtdSales/>
                 </div>
 
                 <div className="flex flex-row gap-5">
-
                     <BookingGp/>
+                    <MtdBlilling/>
                 </div>
             </div>
         )
