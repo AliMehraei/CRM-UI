@@ -701,6 +701,10 @@ class api {
     async dashboardBookingGp() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-gp`, {headers: Headers as any});
     }
+
+    async dashboardBookingSalesYtd() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-sales-ytd`, {headers: Headers as any});
+    }
 }
 
 export default api
