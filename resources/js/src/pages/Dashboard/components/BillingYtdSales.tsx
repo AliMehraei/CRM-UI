@@ -55,7 +55,7 @@ const BillingYtdSales = () => {
             },
             xaxis: {
                 title: {
-                    text: 'Quote Owner',
+                    text: 'Invoice Owner',
                 },
                 categories: [],
                 axisBorder: {
@@ -64,7 +64,7 @@ const BillingYtdSales = () => {
             },
             yaxis: {
                 title: {
-                    text: 'Sum of Total Sales',
+                    text: 'Sum of Total ',
                 },
                 opposite: false,
                 labels: {
@@ -116,7 +116,7 @@ const BillingYtdSales = () => {
     }, []);
 
     return (
-        <div className="pt-5 flex-grow">
+        <div className="pt-5 flex-1">
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
