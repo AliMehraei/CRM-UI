@@ -14,6 +14,7 @@ import {updateFormData} from "../store/accountFormSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
 import OpenQuotes from "./Dashboard/components/OpenQuotes";
 import BookingRevenue from "./Dashboard/components/BookingRevenue";
+import BillingYtdSales from "./Dashboard/components/BillingYtdSales";
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -152,7 +153,7 @@ const Index = () => {
                 <div className="flex flex-row gap-5">
 
                     <BookingRevenue />
-                    <BookingRevenue/>
+                    <BillingYtdSales/>
                 </div>
             </div>
         )
