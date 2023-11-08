@@ -17,6 +17,8 @@ import BookingRevenue from "./Dashboard/components/BookingRevenue";
 import BillingYtdSales from "./Dashboard/components/BillingYtdSales";
 import BookingGp from "./Dashboard/components/BookingGp";
 import MtdBlilling from "./Dashboard/components/MtdBlilling";
+import BookingSalesYtd from "./Dashboard/components/BookingSalesYtd";
+import YTDBilling from "./Dashboard/components/YTDBilling";
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -160,6 +162,10 @@ const Index = () => {
                 <div className="flex flex-row gap-5">
                     <BookingGp/>
                     <MtdBlilling/>
+                </div>
+                <div className="flex flex-row gap-5">
+                    <BookingSalesYtd/>
+                    <YTDBilling/>
                 </div>
             </div>
         )

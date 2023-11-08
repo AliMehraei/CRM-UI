@@ -681,6 +681,7 @@ class api {
         }
         return await _axios.post(`${API_URL_PRODUCT}/global-search`, data, {headers: Headers as any});
     }
+
     async globalSearchFull(data: any) {
         // data = {
         //     search: text,
@@ -712,6 +713,11 @@ class api {
     async dashboardBookingSalesYtd() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-sales-ytd`, {headers: Headers as any});
     }
+
+    async dashboardYtdBilling() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/ytd-billing`, {headers: Headers as any});
+    }
+
 }
 
 export default api
