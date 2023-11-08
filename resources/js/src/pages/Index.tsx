@@ -1,22 +1,17 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {IRootState} from '../store';
-import ReactApexChart from 'react-apexcharts';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import Dropdown from '../components/Dropdown';
+import {useDispatch} from 'react-redux';
 import {setPageTitle} from '../store/themeConfigSlice';
 import LastPeriodCompareWidget from "../components/Reports/LastPeriodCompareWidget";
 import Api from "../config/api";
 import LoadingSasCrm from "../components/LoadingSasCrm";
 import {useUserStatus} from "../config/authCheck";
-import {updateFormData} from "../store/accountFormSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
 import OpenQuotes from "./Dashboard/components/OpenQuotes";
 import BookingRevenue from "./Dashboard/components/BookingRevenue";
 import BillingYtdSales from "./Dashboard/components/BillingYtdSales";
 import BookingGp from "./Dashboard/components/BookingGp";
-import MtdBlilling from "./Dashboard/components/MtdBlilling";
+import MtdBilling from "./Dashboard/components/MtdBilling";
 import BookingSalesYtd from "./Dashboard/components/BookingSalesYtd";
 import YTDBilling from "./Dashboard/components/YTDBilling";
 
@@ -161,7 +156,7 @@ const Index = () => {
 
                 <div className="flex flex-row gap-5">
                     <BookingGp/>
-                    <MtdBlilling/>
+                    <MtdBilling/>
                 </div>
                 <div className="flex flex-row gap-5">
                     <BookingSalesYtd/>

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import Api from "../../../config/api";
 
-const BookingGp = () => {
+const MtdBilling = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -163,4 +163,4 @@ const BookingGp = () => {
     )
 }
 
-export default BookingGp;
+export default MtdBilling;
