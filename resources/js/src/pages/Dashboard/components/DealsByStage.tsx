@@ -74,10 +74,10 @@ const DealsByStage = () => {
                 setChartData(colChart)
                 setLoading(false);
             } else {
-                console.error('Failed to fetch Billing YTD Sales:', response);
+                console.error('Failed to fetch Deals By Stage:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching Billing YTD Sales: ', error);
+            console.error('An error occurred while fetching Deals By Stage: ', error);
         }
     };
     useEffect(() => {
@@ -90,7 +90,7 @@ const DealsByStage = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">Billing YTD Sales</h5>
+                        <h5 className="font-semibold text-lg">Deals By Stage</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
