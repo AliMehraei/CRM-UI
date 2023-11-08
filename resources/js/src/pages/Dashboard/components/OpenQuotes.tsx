@@ -69,6 +69,13 @@ const OpenQuotes = () => {
                 opposite: false,
                 labels: {
                     offsetX: 0,
+                    formatter: function (val: any) {
+                        return new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'EUR',
+                            minimumFractionDigits: 2,
+                        }).format(val);
+                    },
                 },
             },
             tooltip: {
@@ -93,7 +100,7 @@ const OpenQuotes = () => {
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
-                colChart.series = responseData.series;
+                colChart.series = [responseData.series];
                 colChart.options.xaxis.categories = responseData.options;
                 setChartData(colChart)
             } else {
