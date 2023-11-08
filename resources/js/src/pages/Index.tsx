@@ -15,6 +15,7 @@ import MtdBilling from "./Dashboard/components/MtdBilling";
 import BookingSalesYtd from "./Dashboard/components/BookingSalesYtd";
 import YTDBilling from "./Dashboard/components/YTDBilling";
 import Rfq from "./Dashboard/components/Rfq";
+import CallAmount from "./Dashboard/components/CallAmount";
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -166,6 +167,7 @@ const Index = () => {
                 <div className="flex flex-row gap-5">
                     <Rfq/>
                 </div>
+                <CallAmount/>
             </div>
         )
     );
