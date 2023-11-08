@@ -9,27 +9,6 @@ const BillingYtdSales = () => {
     const columnChart: any = {
         series: [],
         options: {
-            annotations: {
-                yaxis: [
-                    {
-                        y: 500000, // Your target value
-                        borderColor: '#110a0a', // Color of the line
-                        label: {
-                            show: true,
-                            text: 'Benchmark',
-                            position: 'middle', // Position the label in the middle
-                            textAnchor: 'start', // Align the text to the start of the line
-                            offsetX: 0,
-                            offsetY: 0,
-                            style: {
-                                color: '#110f0f', // Color of the label
-                                background: '#ecc9c9', // Background color of the label
-                            },
-                            textAlign: 'center', // Center the text along the y-axis
-                        },
-                    },
-                ],
-            },
             chart: {
                 height: 300,
                 type: 'bar',
