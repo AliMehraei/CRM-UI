@@ -1,39 +1,13 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Api from "../../../config/api";
 
 const OpenQuotes = () => {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null);
-
-    // const fetchData = async () => {
-    //     try {
-    //         const dashboardResponse = await api.dashboardData();
-    //         if (dashboardResponse.status === 200) {
-    //             setSalesOrderData(dashboardResponse.data.data.sales_order);
-    //         } else {
-    //             console.error('Failed to fetch dashboard data:', dashboardResponse);
-    //         }
-    //     } catch (error) {
-    //         console.error('An error occurred while fetching dashboard data:', error);
-    //     } finally {
-    //         setLoading(false);
-    //
-    //     }
-    // };
-
-    useEffect(() => {
-        // fetchData();
-        setLoading(false);
-    }, []);
-
+    const api_instance = new Api();
     const columnChart: any = {
-        series: [
-            {
-                name: 'Net Profit',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-            },
-        ],
+        series: [],
         options: {
             chart: {
                 height: 300,
@@ -83,7 +57,7 @@ const OpenQuotes = () => {
                 title: {
                     text: 'Quote Owner',
                 },
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                categories: [],
                 axisBorder: {
                     color: '#e0e6ed',
                 },
@@ -111,6 +85,30 @@ const OpenQuotes = () => {
             },
         },
     };
+    const [chartData, setChartData] = useState<any>(columnChart);
+
+    const fetchData = async () => {
+        try {
+            const response = await api_instance.dashboardOpenQuotes();
+            if (response.status === 200) {
+                const responseData = response.data.data;
+                const colChart = columnChart;
+                colChart.series = responseData.series;
+                colChart.options.xaxis.categories = responseData.options;
+                setChartData(colChart)
+            } else {
+                console.error('Failed to fetch Open Quotes:', response);
+            }
+        } catch (error) {
+            console.error('An error occurred while fetching Open Quotes: ', error);
+        }
+    };
+    useEffect(() => {
+        fetchData().then(() => {
+            setLoading(false);
+        });
+    }, []);
+
     return (
         <div className="pt-5">
             <div className="grid  gap-6 mb-6">
@@ -120,9 +118,10 @@ const OpenQuotes = () => {
                             {loading ? (
                                 <LoadingSpinner/>
                             ) : (
-                                <ReactApexChart series={columnChart.series} options={columnChart.options}
-                                                className="rounded-lg bg-white dark:bg-black" type="bar" height={300}/>
-
+                                <ReactApexChart
+                                    series={chartData.series}
+                                    options={chartData.options as any}
+                                    className="rounded-lg bg-white dark:bg-black" type="bar" height={300}/>
                             )}
                         </div>
                     </div>
