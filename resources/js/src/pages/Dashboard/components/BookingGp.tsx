@@ -40,7 +40,7 @@ const BookingGp = () => {
                     show: true,
                 },
             },
-            colors: ['#ffad19'],
+            colors: ['#349aff'],
             dataLabels: {
                 enabled: true,
                 formatter: function (val: any) {
