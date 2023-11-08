@@ -1,15 +1,24 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import {useDispatch} from "react-redux";
 import Sidebar from './components/Sidebar';
 import SearchBar from "./components/SearchBar";
+import SearchResults from "./components/SearchResults";
+import Api from "../../config/api";
 
 const Index = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageTitle('Search'));
     }, [dispatch]);
+    const [searchResults, setSearchResults] = useState([]);
+    const api_instance = new Api();
 
+    // Assume you have a function to fetch search results
+    const handleSearch = async (query:string) => {
+        const results =await api_instance.globalSearchFull({search:query});
+        setSearchResults(results.data);
+    };
 
     return (
         <>
@@ -22,7 +31,8 @@ const Index = () => {
                             <Sidebar/>
                         </div>
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
-                            <SearchBar/>
+                            <SearchBar onSearch={handleSearch}/>
+                            <SearchResults results={searchResults} />
                         </div>
 
                     </div>
