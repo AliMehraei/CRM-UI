@@ -718,6 +718,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/ytd-billing`, {headers: Headers as any});
     }
 
+    async dashboardRfq() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/rfq`, {headers: Headers as any});
+    }
+
 }
 
 export default api
