@@ -105,10 +105,10 @@ const BillingYtdSales = () => {
                 setChartData(colChart)
                 setLoading(false);
             } else {
-                console.error('Failed to fetch Open Quotes:', response);
+                console.error('Failed to fetch Billing YTD Sales:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching Open Quotes: ', error);
+            console.error('An error occurred while fetching Billing YTD Sales: ', error);
         }
     };
     useEffect(() => {
@@ -120,7 +120,7 @@ const BillingYtdSales = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">Open Quotes</h5>
+                        <h5 className="font-semibold text-lg">Billing YTD Sales</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (

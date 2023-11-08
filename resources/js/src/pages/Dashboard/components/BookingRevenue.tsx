@@ -127,10 +127,10 @@ const BookingRevenue = () => {
                 setLoading(false);
 
             } else {
-                console.error('Failed to fetch Open Quotes:', response);
+                console.error('Failed to fetch Booking Revenue:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching Open Quotes: ', error);
+            console.error('An error occurred while fetching Booking Revenue: ', error);
         }
     };
     useEffect(() => {
@@ -142,7 +142,7 @@ const BookingRevenue = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">Open Quotes</h5>
+                        <h5 className="font-semibold text-lg">Booking Revenue</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
