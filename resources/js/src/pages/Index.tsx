@@ -16,6 +16,7 @@ import BookingSalesYtd from "./Dashboard/components/BookingSalesYtd";
 import YTDBilling from "./Dashboard/components/YTDBilling";
 import Rfq from "./Dashboard/components/Rfq";
 import CallAmount from "./Dashboard/components/CallAmount";
+import DealsByStage from "./Dashboard/components/DealsByStage";
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -165,6 +166,7 @@ const Index = () => {
                     <YTDBilling/>
                 </div>
                 <div className="flex flex-row gap-5">
+                    <DealsByStage/>
                     <Rfq/>
                 </div>
                 <CallAmount/>

@@ -722,6 +722,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/rfq`, {headers: Headers as any});
     }
 
+    async dashboardDealsByStage() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/deals-by-stage`, {headers: Headers as any});
+    }
+
     async dashboardCallAmount() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/call-amount`, {headers: Headers as any});
     }
