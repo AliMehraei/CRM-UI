@@ -691,7 +691,7 @@ class api {
     }
 
     async dashboardData() {
-        return await _axios.get(`${API_URL_PRODUCT}/dashboard-data`, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`, {headers: Headers as any});
     }
 
     async dashboardOpenQuotes() {
