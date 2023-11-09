@@ -8,54 +8,43 @@ const DealsByStage = () => {
     const api_instance = new Api();
     const columnChart: any = {
 
-        series: [
-            {
-                name: "",
-                data: [200, 5000, 548, 740, 880, 990, 1100, 1380],
-            },
-        ],
+        series: [{
+            data: [44, 55, 41, 64, 22, 43, 21]
+        }],
         options: {
             chart: {
                 type: 'bar',
-                height: 350,
+                height: 430
             },
             plotOptions: {
                 bar: {
-                    borderRadius: 0,
                     horizontal: true,
-                    distributed: true,
-                    barHeight: '80%',
-                    isFunnel: true,
-                },
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
             },
-            colors: [
-                '#F44F5E',
-                '#E55A89',
-                '#D863B1',
-                '#CA6CD8',
-                '#B57BED',
-                '#8D95EB',
-                '#62ACEA',
-                '#4BC3E6',
-            ],
+            colors: ['#ffad19'],
+
             dataLabels: {
                 enabled: true,
-                formatter: function (val, opt) {
-                    return opt.w.globals.labels[opt.dataPointIndex]
-                },
-                dropShadow: {
-                    enabled: true,
-                },
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#101310']
+                }
             },
-            title: {
-                text: 'Pyramid Chart',
-                align: 'middle',
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#fff']
+            },
+            tooltip: {
+                shared: true,
+                intersect: false
             },
             xaxis: {
-                categories: ['Sweets', 'Processed Foods', 'Healthy Fats', 'Meat', 'Beans & Legumes', 'Dairy', 'Fruits & Vegetables', 'Grains'],
-            },
-            legend: {
-                show: false,
+                categories: [2001, 2002, 2003, 2004, 2005, 2006, 2007],
             },
         },
 
@@ -68,6 +57,8 @@ const DealsByStage = () => {
             const response = await api_instance.dashboardDealsByStage();
             if (response.status === 200) {
                 const responseData = response.data.data;
+                console.log(responseData)
+
                 const colChart = columnChart;
                 colChart.series = [responseData.series];
                 colChart.options.xaxis.categories = responseData.options;
@@ -81,7 +72,7 @@ const DealsByStage = () => {
         }
     };
     useEffect(() => {
-        // fetchData();
+        fetchData();
         setLoading(false);
     }, []);
 
@@ -96,10 +87,14 @@ const DealsByStage = () => {
                             {loading ? (
                                 <LoadingSpinner/>
                             ) : (
-                                <ReactApexChart
-                                    series={chartData.series}
-                                    options={chartData.options as any}
-                                    className="rounded-lg bg-white dark:bg-black" type="bar" height={300}/>
+                                <>
+                                    {console.log(chartData)}
+                                    <ReactApexChart
+                                        series={chartData.series}
+                                        options={chartData.options as any}
+                                        className="rounded-lg bg-white dark:bg-black" type="bar" height={500}/>
+                                </>
+
                             )}
                         </div>
                     </div>
