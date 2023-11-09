@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {setPageTitle} from '../store/themeConfigSlice';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setPageTitle } from '../store/themeConfigSlice';
 import LastPeriodCompareWidget from "../components/Reports/LastPeriodCompareWidget";
 import Api from "../config/api";
 import LoadingSasCrm from "../components/LoadingSasCrm";
-import {useUserStatus} from "../config/authCheck";
+import { useUserStatus } from "../config/authCheck";
 import LoadingSpinner from "../components/LoadingSpinner";
 import OpenQuotes from "./Dashboard/components/OpenQuotes";
 import BookingRevenue from "./Dashboard/components/BookingRevenue";
@@ -27,7 +27,7 @@ const Index = () => {
 
     const [loading, setLoading] = useState(true);
     const [salesOrderData, setSalesOrderData] = useState(null);
-    const {hasPermission} = useUserStatus();
+    const { hasPermission } = useUserStatus();
     const fetchData = async () => {
         try {
             const dashboardResponse = await api.dashboardData();
@@ -53,7 +53,7 @@ const Index = () => {
 
     return (
         (loading) ? (
-            <LoadingSasCrm/>
+            <LoadingSasCrm />
         ) : (
             <div>
                 <ul className="flex space-x-2 rtl:space-x-reverse">
@@ -66,65 +66,65 @@ const Index = () => {
                 </ul>
                 <div className="pt-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 text-white">
-
                         {salesOrderData ? (
                             <>
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.ytd?.total_so}
-                                    lastPeriodAmount={salesOrderData.last_year?.total_so}
+                                    currentAmount={salesOrderData.ytd?.total_so || 0}
+                                    lastPeriodAmount={salesOrderData.last_year?.total_so || 0}
                                     sectionTitle="Sales Order YTD"
                                     firstColor="blue-500"
                                     secondColor="blue-400"
                                     currentTitle="This Year"
                                     lastPeriodTitle="Last Year"
                                     currentAverage={parseFloat(salesOrderData.ytd?.average_so ?? "0")}
-                                    currentCount={salesOrderData.ytd?.count_so}
+                                    currentCount={salesOrderData.ytd?.count_so || 0}
                                     lastPeriodAverage={parseFloat(salesOrderData.last_year?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_year?.count_so}
+                                    lastPeriodCount={salesOrderData.last_year?.count_so || 0}
                                 />
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.ytd?.closed_so?.total_so}
-                                    lastPeriodAmount={salesOrderData.last_year?.closed_so?.total_so}
+                                    currentAmount={salesOrderData.ytd?.closed_so?.total_so || 0}
+                                    lastPeriodAmount={salesOrderData.last_year?.closed_so?.total_so || 0}
                                     sectionTitle="Sales Order (Closed) YTD"
                                     firstColor="cyan-500"
                                     secondColor="cyan-400"
                                     currentTitle="This Year"
                                     lastPeriodTitle="Last Year"
                                     currentAverage={parseFloat(salesOrderData.ytd?.closed_so?.average_so ?? "0")}
-                                    currentCount={salesOrderData.ytd?.closed_so?.count_so}
+                                    currentCount={salesOrderData.ytd?.closed_so?.count_so || 0}
                                     lastPeriodAverage={parseFloat(salesOrderData.last_year?.closed_so?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_year?.closed_so?.count_so}
+                                    lastPeriodCount={salesOrderData.last_year?.closed_so?.count_so || 0}
                                 />
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.mtd?.total_so}
-                                    lastPeriodAmount={salesOrderData.last_month?.total_so}
+                                    currentAmount={salesOrderData.mtd?.total_so || 0}
+                                    lastPeriodAmount={salesOrderData.last_month?.total_so || 0}
                                     sectionTitle="Sales Order MTD"
                                     firstColor="fuchsia-500"
                                     secondColor="fuchsia-400"
                                     currentTitle="This Month"
                                     lastPeriodTitle="Last Month"
                                     currentAverage={parseFloat(salesOrderData.mtd?.average_so ?? "0")}
-                                    currentCount={salesOrderData.mtd?.count_so}
+                                    currentCount={salesOrderData.mtd?.count_so || 0}
                                     lastPeriodAverage={parseFloat(salesOrderData.last_month?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_month?.count_so}
+                                    lastPeriodCount={salesOrderData.last_month?.count_so || 0}
                                 />
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.mtd?.closed_so?.total_so}
-                                    lastPeriodAmount={salesOrderData.last_month?.closed_so?.total_so}
+                                    currentAmount={salesOrderData.mtd?.closed_so?.total_so || 0}
+                                    lastPeriodAmount={salesOrderData.last_month?.closed_so?.total_so || 0}
                                     sectionTitle="Sales Order (Closed) MTD"
                                     firstColor="violet-500"
                                     secondColor="violet-400"
                                     currentTitle="This Month"
                                     lastPeriodTitle="Last Month"
                                     currentAverage={parseFloat(salesOrderData.mtd?.closed_so?.average_so ?? "0")}
-                                    currentCount={salesOrderData.mtd?.closed_so?.count_so}
+                                    currentCount={salesOrderData.mtd?.closed_so?.count_so || 0}
                                     lastPeriodAverage={parseFloat(salesOrderData.last_month?.closed_so?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_month?.closed_so?.count_so}
+                                    lastPeriodCount={salesOrderData.last_month?.closed_so?.count_so || 0}
                                 />
                             </>
                         ) : (
-                            <LoadingSpinner/>
+                            <LoadingSpinner />
                         )}
+
 
 
                         {/*<LastPeriodCompareWidget*/}
@@ -151,25 +151,25 @@ const Index = () => {
                     </div>
 
                 </div>
-                <OpenQuotes/>
+                <OpenQuotes />
                 <div className="flex flex-row gap-5">
-                    <BookingRevenue/>
-                    <BillingYtdSales/>
+                    <BookingRevenue />
+                    <BillingYtdSales />
                 </div>
 
                 <div className="flex flex-row gap-5">
-                    <BookingGp/>
-                    <MtdBilling/>
+                    <BookingGp />
+                    <MtdBilling />
                 </div>
                 <div className="flex flex-row gap-5">
-                    <BookingSalesYtd/>
-                    <YTDBilling/>
+                    <BookingSalesYtd />
+                    <YTDBilling />
                 </div>
                 <div className="flex flex-row gap-5">
-                    <DealsByStage/>
-                    <Rfq/>
+                    <DealsByStage />
+                    <Rfq />
                 </div>
-                <CallAmount/>
+                <CallAmount />
             </div>
         )
     );
