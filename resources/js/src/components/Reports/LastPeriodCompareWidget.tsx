@@ -64,8 +64,8 @@ const LastPeriodCompareWidget: React.FC<LastPeriodCompareWidgetProps> = ({
     const percentageChangeAmount = calculatePercentageChange(currentAmount, lastPeriodAmount);
     const percentageChangeCount = calculatePercentageChange(currentCount, lastPeriodCount);
     const percentageChangeAverage = calculatePercentageChange(currentAverage, lastPeriodAverage);
-    const gradientClass = `panel bg-gradient-to-r from-${firstColor} to-${secondColor}`;
-    // const gradientClass = `panel bg-gradient-to-r from-cyan-500 to-cyan-400`;
+    // const gradientClass = `panel bg-gradient-to-r from-${firstColor} to-${secondColor}`;
+    const gradientClass = `panel bg-gradient-to-r from-cyan-500 to-cyan-400`;
 
     return (
             <div className={gradientClass}>

@@ -70,6 +70,7 @@ const Index = () => {
                         {salesOrderData ? (
                             <>
                                 <LastPeriodCompareWidget
+
                                     currentAmount={salesOrderData.ytd?.total_so}
                                     lastPeriodAmount={salesOrderData.last_year?.total_so}
                                     sectionTitle="Sales Order YTD"
