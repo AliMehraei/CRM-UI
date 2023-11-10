@@ -209,7 +209,7 @@ const Preview = () => {
                         hasPermission={hasPermission}
                         modelId={modelID}
                         exportTable={exportTable}
-                        routeModel="invoices"
+                        routeModel="invoice"
                         permissionModel="invoice"
                     />
                 </div>

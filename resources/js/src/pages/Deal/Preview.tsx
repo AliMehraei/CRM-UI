@@ -5,7 +5,7 @@ import {setPageTitle} from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
-import {resetForm, updateFormData} from "../../store/accountFormSlice";
+import {resetForm, updateFormData} from "../../store/dealFormSlice";
 import {displayImage, displayFile} from '../../components/Functions/CommonFunctions';
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
@@ -20,7 +20,7 @@ const Preview = () => {
     const params = useParams();
     const modelId = params.id;
     const api = new Api();
-    const formState = useSelector((state: any) => state.accountForm);
+    const formState = useSelector((state: any) => state.dealForm);
     useEffect(() => {
         dispatch(setPageTitle('Deal Preview'));
     });
@@ -52,7 +52,7 @@ const Preview = () => {
     if (loading)
         return <LoadingSasCrm/>;
     return (
-        (!hasPermission(`read-account`) || loading) ? (
+        (!hasPermission(`read-deal`) || loading) ? (
             <LoadingSasCrm/>
         ) : (
             <div>
@@ -62,8 +62,8 @@ const Preview = () => {
                         hasPermission={hasPermission}
                         modelId={modelId}
                         exportTable={exportTable}
-                        routeModel="account"
-                        permissionModel="account"
+                        routeModel="deal"
+                        permissionModel="deal"
                     />
                 </div>
                 <div className="panel">

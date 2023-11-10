@@ -682,6 +682,53 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/global-search`, data, {headers: Headers as any});
     }
 
+    async globalSearchFull(data: any) {
+        // data = {
+        //     search: text,
+        //     page: int
+        // }
+        return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data, {headers: Headers as any});
+    }
+
+    async dashboardData() {
+        return await _axios.get(`${API_URL_PRODUCT}/dashboard-data`, {headers: Headers as any});
+    }
+
+    async dashboardOpenQuotes() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/open-quotes`, {headers: Headers as any});
+    }
+
+    async dashboardBookingRevenue() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-revenue`, {headers: Headers as any});
+    }
+
+    async dashboardBillingYtdSales() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/billing-ytd-sales`, {headers: Headers as any});
+    }
+
+    async dashboardBookingGp() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-gp`, {headers: Headers as any});
+    }
+
+    async dashboardBookingSalesYtd() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-sales-ytd`, {headers: Headers as any});
+    }
+
+    async dashboardYtdBilling() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/ytd-billing`, {headers: Headers as any});
+    }
+
+    async dashboardRfq() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/rfq`, {headers: Headers as any});
+    }
+
+    async dashboardDealsByStage() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/deals-by-stage`, {headers: Headers as any});
+    }
+
+    async dashboardCallAmount() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/call-amount`, {headers: Headers as any});
+    }
 }
 
 export default api

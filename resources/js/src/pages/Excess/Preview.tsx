@@ -53,7 +53,7 @@ const Preview = () => {
     if (loading)
         return <LoadingSasCrm />;
     return (
-        (!hasPermission(`read-account`) || loading) ? (
+        (!hasPermission(`read-excess`) || loading) ? (
             <LoadingSasCrm />
         ) : (
             <div>
