@@ -1,80 +1,18 @@
 import React from 'react';
+import Call from "./ItemInfo/Call";
+import Contact from "./ItemInfo/Contact";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
         switch (selectedItem.group) {
             case 'Call':
-                return (
-                    <>
-                        <div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Call Start Time:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.call_start_time}</span>
-                            </div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Call Duration:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.call_duration}</span>
-                            </div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Call Type:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.type}</span>
-                            </div>
-                        </div>
-                        <div>
-
-                        </div>
-                    </>
-                );
+                return <Call
+                    selectedItem={selectedItem}
+                />
             case 'Contact':
-                return (
-                    <>
-                        <div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Account Name:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.account?.account_name}</span>
-                            </div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Email:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.email}</span>
-                            </div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Phone:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.phone}</span>
-                            </div>
-                            <div className="mb-4">
-                                <span className="text-sm font-bold">Contact Status:</span>
-                                <span className="text-sm ml-2">{selectedItem.val?.contact_status}</span>
-                            </div>
-                        </div>
-                       <div>
-                           <div className="mb-4">
-                               <span className="text-sm font-bold">Contact Type:</span>
-                               <span className="text-sm ml-2">{selectedItem.val?.contact_type}</span>
-                           </div>
-                           <div className="mb-4">
-                               <span className="text-sm font-bold">Mailing Country:</span>
-                               <span className="text-sm ml-2">{selectedItem.val?.mailing_country}</span>
-                           </div>
-                           <div className="mb-4">
-                               <span className="text-sm font-bold">Mailing City:</span>
-                               <span className="text-sm ml-2">{selectedItem.val?.mailing_city}</span>
-                           </div>
-                           <div className="mb-4">
-                               <span className="text-sm font-bold">Mailing Street:</span>
-                               <span className="text-sm ml-2">{selectedItem.val?.mailing_street}</span>
-                           </div>
-                           <div className="mb-4">
-                               <span className="text-sm font-bold">Mailing Zip:</span>
-                               <span className="text-sm ml-2">{selectedItem.val?.mailing_code}</span>
-                           </div>
-                           <div className="mb-4">
-                               <span className="text-sm font-bold">Last Activity Date:</span>
-                               <span className="text-sm ml-2">{selectedItem.val?.last_activity}</span>
-                           </div>
-                       </div>
-
-                    </>
-                );
+                return <Contact
+                    selectedItem={selectedItem}
+                />
             default:
                 return null; // No additional details for other groups
         }
@@ -96,9 +34,6 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                     </div>
 
 
-
-
-
                 </div>
 
                 <div>
@@ -106,7 +41,6 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                         <span className="text-sm font-bold">Owner:</span>
                         <span className="text-sm ml-2">{selectedItem.val.owner.first_name} {selectedItem.val.owner.last_name}</span>
                     </div>
-
 
                 </div>
             </div>
