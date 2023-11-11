@@ -9,6 +9,7 @@ import Vendor from "./ItemInfo/Vendor";
 import PurchaseOrder from "./ItemInfo/PurchaseOrder";
 import Quote from "./ItemInfo/Qoute";
 import Excess from "./ItemInfo/Excess";
+import Rfq from "./ItemInfo/Rfq";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
@@ -51,6 +52,10 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 />
             case 'Excess':
                 return <Excess
+                    selectedItem={selectedItem}
+                />
+            case 'Rfq':
+                return <Rfq
                     selectedItem={selectedItem}
                 />
             default:
