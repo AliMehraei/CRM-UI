@@ -32,7 +32,7 @@ const Index = () => {
         try {
             const dashboardResponse = await api.dashboardData();
             if (dashboardResponse.status === 200) {
-                setSalesOrderData(dashboardResponse.data.data.sales_order);
+                setSalesOrderData(dashboardResponse.data.data.sales_order);                                
             } else {
                 console.error('Failed to fetch dashboard data:', dashboardResponse);
             }
@@ -69,61 +69,62 @@ const Index = () => {
                         {salesOrderData ? (
                             <>
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.ytd?.total_so || 0}
-                                    lastPeriodAmount={salesOrderData.last_year?.total_so || 0}
+                                    currentAmount={salesOrderData.ytd?.all?.total || 0}
+                                    lastPeriodAmount={salesOrderData.last_year?.all?.total || 0}
                                     sectionTitle="Sales Order YTD"
                                     firstColor="blue-500"
                                     secondColor="blue-400"
                                     currentTitle="This Year"
                                     lastPeriodTitle="Last Year"
-                                    currentAverage={parseFloat(salesOrderData.ytd?.average_so ?? "0")}
-                                    currentCount={salesOrderData.ytd?.count_so || 0}
-                                    lastPeriodAverage={parseFloat(salesOrderData.last_year?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_year?.count_so || 0}
+                                    currentAverage={parseFloat(salesOrderData.ytd?.all?.average || "0")}
+                                    currentCount={salesOrderData.ytd?.all?.count || 0}
+                                    lastPeriodAverage={parseFloat(salesOrderData.last_year?.all?.average || "0")}
+                                    lastPeriodCount={salesOrderData.last_year?.all?.count || 0}
                                 />
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.ytd?.closed_so?.total_so || 0}
-                                    lastPeriodAmount={salesOrderData.last_year?.closed_so?.total_so || 0}
+                                    currentAmount={salesOrderData.ytd?.closed?.total || 0}
+                                    lastPeriodAmount={salesOrderData.last_year?.closed?.total || 0}
                                     sectionTitle="Sales Order (Closed) YTD"
                                     firstColor="cyan-500"
                                     secondColor="cyan-400"
                                     currentTitle="This Year"
                                     lastPeriodTitle="Last Year"
-                                    currentAverage={parseFloat(salesOrderData.ytd?.closed_so?.average_so ?? "0")}
-                                    currentCount={salesOrderData.ytd?.closed_so?.count_so || 0}
-                                    lastPeriodAverage={parseFloat(salesOrderData.last_year?.closed_so?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_year?.closed_so?.count_so || 0}
+                                    currentAverage={parseFloat(salesOrderData.ytd?.closed?.average || "0")}
+                                    currentCount={salesOrderData.ytd?.closed?.count || 0}
+                                    lastPeriodAverage={parseFloat(salesOrderData.last_year?.closed?.average || "0")}
+                                    lastPeriodCount={salesOrderData.last_year?.closed.count || 0}
                                 />
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.mtd?.total_so || 0}
-                                    lastPeriodAmount={salesOrderData.last_month?.total_so || 0}
+                                    currentAmount={salesOrderData.mtd?.all?.total || 0}
+                                    lastPeriodAmount={salesOrderData.last_month?.all?.total || 0}
                                     sectionTitle="Sales Order MTD"
                                     firstColor="fuchsia-500"
                                     secondColor="fuchsia-400"
                                     currentTitle="This Month"
                                     lastPeriodTitle="Last Month"
-                                    currentAverage={parseFloat(salesOrderData.mtd?.average_so ?? "0")}
-                                    currentCount={salesOrderData.mtd?.count_so || 0}
-                                    lastPeriodAverage={parseFloat(salesOrderData.last_month?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_month?.count_so || 0}
+                                    currentAverage={parseFloat(salesOrderData.mtd?.all?.average || "0")}
+                                    currentCount={salesOrderData.mtd?.all?.count || 0}
+                                    lastPeriodAverage={parseFloat(salesOrderData.last_month?.all?.average || "0")}
+                                    lastPeriodCount={salesOrderData.last_month.all.count || 0}
                                 />
                                 <LastPeriodCompareWidget
-                                    currentAmount={salesOrderData.mtd?.closed_so?.total_so || 0}
-                                    lastPeriodAmount={salesOrderData.last_month?.closed_so?.total_so || 0}
+                                    currentAmount={salesOrderData.mtd?.closed?.total || 0}
+                                    lastPeriodAmount={salesOrderData.last_month?.closed?.total || 0}
                                     sectionTitle="Sales Order (Closed) MTD"
                                     firstColor="violet-500"
                                     secondColor="violet-400"
                                     currentTitle="This Month"
                                     lastPeriodTitle="Last Month"
-                                    currentAverage={parseFloat(salesOrderData.mtd?.closed_so?.average_so ?? "0")}
-                                    currentCount={salesOrderData.mtd?.closed_so?.count_so || 0}
-                                    lastPeriodAverage={parseFloat(salesOrderData.last_month?.closed_so?.average_so ?? "0")}
-                                    lastPeriodCount={salesOrderData.last_month?.closed_so?.count_so || 0}
+                                    currentAverage={parseFloat(salesOrderData.mtd?.closed?.average || "0")}
+                                    currentCount={salesOrderData.mtd?.closed?.count || 0}
+                                    lastPeriodAverage={parseFloat(salesOrderData.last_month?.closed?.average || "0")}
+                                    lastPeriodCount={salesOrderData.last_month?.closed?.count || 0}
                                 />
                             </>
                         ) : (
                             <LoadingSpinner />
                         )}
+
 
 
 
