@@ -685,7 +685,8 @@ class api {
     async globalSearchFull(data: any) {
         // data = {
         //     search: text,
-        //     page: int
+        //     page: int,
+        //     filters: array
         // }
         return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data, {headers: Headers as any});
     }

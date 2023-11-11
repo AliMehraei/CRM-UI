@@ -22,13 +22,7 @@ const CallAmount = () => {
             colors: ['#ffad19'],
             dataLabels: {
                 enabled: true,
-                formatter: function (val: any) {
-                    return new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'EUR',
-                        minimumFractionDigits: 2,
-                    }).format(val);
-                },
+
                 offsetY: -20,
                 style: {
                     fontSize: '12px',
@@ -69,26 +63,11 @@ const CallAmount = () => {
                 opposite: false,
                 labels: {
                     offsetX: 0,
-                    formatter: function (val: any) {
-                        return new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'EUR',
-                            minimumFractionDigits: 2,
-                        }).format(val);
-                    },
+
                 },
             },
             tooltip: {
                 theme: 'light',
-                y: {
-                    formatter: function (val: any) {
-                        return new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'EUR',
-                            minimumFractionDigits: 2,
-                        }).format(val);
-                    },
-                },
             },
         },
     };

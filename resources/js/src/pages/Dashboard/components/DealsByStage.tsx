@@ -57,7 +57,6 @@ const DealsByStage = () => {
             const response = await api_instance.dashboardDealsByStage();
             if (response.status === 200) {
                 const responseData = response.data.data;
-                console.log(responseData)
 
                 const colChart = columnChart;
                 colChart.series = [responseData.series];
@@ -73,7 +72,6 @@ const DealsByStage = () => {
     };
     useEffect(() => {
         fetchData();
-        setLoading(false);
     }, []);
 
     return (
@@ -88,7 +86,6 @@ const DealsByStage = () => {
                                 <LoadingSpinner/>
                             ) : (
                                 <>
-                                    {console.log(chartData)}
                                     <ReactApexChart
                                         series={chartData.series}
                                         options={chartData.options as any}

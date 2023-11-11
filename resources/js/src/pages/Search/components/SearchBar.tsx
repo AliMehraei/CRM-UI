@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import FilterModal from './FilterModal';
 import Api from "../../../config/api";
 
-const SearchBar = ({ onSearch }:any) => {
+const SearchBar = ({ setFilters,filters,setQuery,query }:any) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-    const [filters, setFilters] = useState<any>();
+    // const [filters_bar, setFiltersBar] = useState<any>();
     const [inputValue, setInputValue] = useState(""); // Added state to keep track of input value
 
     const handleFilterClick = () => {
@@ -15,12 +15,12 @@ const SearchBar = ({ onSearch }:any) => {
         setIsFilterModalOpen(false);
     };
 
-    const handleApplyFilters = (filters: any) => {
+    const handleApplyFilters = () => {
         setFilters(filters);
         setIsFilterModalOpen(false);
     };
     const handleSearchClick = () => {
-        onSearch(inputValue);
+        setQuery(inputValue);
     };
 
 
