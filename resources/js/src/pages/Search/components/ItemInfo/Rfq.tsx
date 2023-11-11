@@ -61,10 +61,10 @@ const Rfq = ({selectedItem}:any) => {
                     <span className="text-sm ml-2">{selectedItem.val?.quantity}</span>
                 </div>
 
-                {/*<div className="mb-4">*/}
-                {/*    <span className="text-sm font-bold">Vendor_RFQs_Line:</span>*/}
-                {/*    <span className="text-sm ml-2">{selectedItem.val?.resale}</span>*/}
-                {/*</div>*/}
+                <div className="mb-4">
+                    <span className="text-sm font-bold">Vendor_RFQs_Line:</span>
+                    <span className="text-sm ml-2">{selectedItem.val?.vendorRfqsLine?.vendor_name}</span>
+                </div>
 
 
 
