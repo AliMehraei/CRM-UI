@@ -3,6 +3,9 @@ import Call from "./ItemInfo/Call";
 import Contact from "./ItemInfo/Contact";
 import Account from "./ItemInfo/Account";
 import Lead from "./ItemInfo/Lead";
+import SalesOrder from "./ItemInfo/SalesOrder";
+import Availability from "./ItemInfo/Availability";
+import Vendor from "./ItemInfo/Vendor";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
@@ -21,6 +24,18 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 />
             case 'Lead':
                 return <Lead
+                    selectedItem={selectedItem}
+                />
+            case 'SalesOrder':
+                return <SalesOrder
+                    selectedItem={selectedItem}
+                />
+            case 'Availability':
+                return <Availability
+                    selectedItem={selectedItem}
+                />
+            case 'Vendor':
+                return <Vendor
                     selectedItem={selectedItem}
                 />
             default:
