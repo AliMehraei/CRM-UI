@@ -2,6 +2,7 @@ import React from 'react';
 import Call from "./ItemInfo/Call";
 import Contact from "./ItemInfo/Contact";
 import Account from "./ItemInfo/Account";
+import Lead from "./ItemInfo/Lead";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
@@ -16,6 +17,10 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 />
             case 'Account':
                 return <Account
+                    selectedItem={selectedItem}
+                />
+            case 'Lead':
+                return <Lead
                     selectedItem={selectedItem}
                 />
             default:
