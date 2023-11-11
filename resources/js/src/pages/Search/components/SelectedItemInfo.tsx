@@ -6,6 +6,7 @@ import Lead from "./ItemInfo/Lead";
 import SalesOrder from "./ItemInfo/SalesOrder";
 import Availability from "./ItemInfo/Availability";
 import Vendor from "./ItemInfo/Vendor";
+import PurchaseOrder from "./ItemInfo/PurchaseOrder";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
@@ -36,6 +37,10 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 />
             case 'Vendor':
                 return <Vendor
+                    selectedItem={selectedItem}
+                />
+            case 'PurchaseOrder':
+                return <PurchaseOrder
                     selectedItem={selectedItem}
                 />
             default:
