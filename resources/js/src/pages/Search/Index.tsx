@@ -16,16 +16,27 @@ const Index = () => {
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
     const [filters, setFilters] = useState([]);
-    // Assume you have a function to fetch search results
+
     const handleSearch = async () => {
-        const results =await api_instance.globalSearchFull({search:query,
-            filters:filters,page:page});
+        const results = await api_instance.globalSearchFull({
+            search: query,
+            filters: filters, page: page
+        });
         setSearchResults(results.data);
     };
+
     useEffect(() => {
-        console.log(page)
+        const url = new URL(window.location.href);
+
+        const params = new URLSearchParams(url.search);
+
+        const textSearch = params.get('text');
+        setQuery(textSearch ?? '');
+    }, []);
+
+    useEffect(() => {
         handleSearch();
-    }, [page,filters,query]);
+    }, [page, filters, query]);
 
 
     return (
@@ -39,8 +50,8 @@ const Index = () => {
                             <Sidebar/>
                         </div>
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
-                            <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters} />
-                            <SearchResults results={searchResults} setPage={setPage} page={page} />
+                            <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters}/>
+                            <SearchResults results={searchResults} setPage={setPage} page={page}/>
                         </div>
 
                     </div>

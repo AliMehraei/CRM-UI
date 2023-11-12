@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import FilterModal from './FilterModal';
-import Api from "../../../config/api";
 
-const SearchBar = ({ setFilters,filters,setQuery,query }:any) => {
+const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-    // const [filters_bar, setFiltersBar] = useState<any>();
-    const [inputValue, setInputValue] = useState(""); // Added state to keep track of input value
+    const [inputValue, setInputValue] = useState(); // Added state to keep track of input value
 
     const handleFilterClick = () => {
         setIsFilterModalOpen(true);
@@ -25,18 +23,23 @@ const SearchBar = ({ setFilters,filters,setQuery,query }:any) => {
 
 
     // Function to update the inputValue state as the user types in the search field
-    const handleInputChange = (e:any) => {
+    const handleInputChange = (e: any) => {
         setInputValue(e.target.value);
     };
+
+    useEffect(() => {
+        setInputValue(query);
+    }, [query]);
+
 
     return (
         <div>
             <div className="flex justify-between items-center p-4 bg-white shadow">
                 <input
                     type="text"
-                    placeholder="Search everything"
+                    placeholder={"Search everything"}
                     className="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
-                    value={inputValue}
+                    defaultValue={query}
                     onChange={handleInputChange} // Set the onChange event to handleInputChange
                 />
                 <button
