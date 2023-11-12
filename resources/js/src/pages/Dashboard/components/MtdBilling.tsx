@@ -117,7 +117,7 @@ const MtdBilling = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardBookingGp();
+            const response = await api_instance.dashboardMtdBilling();
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
