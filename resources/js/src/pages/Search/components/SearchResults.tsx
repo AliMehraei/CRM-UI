@@ -6,7 +6,7 @@ import {isEmptyChildren} from "formik";
 import {modelRouteMap} from "../../../components/Functions/CommonFunctions";
 import SelectedItemInfo from "./SelectedItemInfo";
 
-const SearchResults = ({ results }:any) => {
+const SearchResults = ({ results,page,setPage }:any) => {
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
     const handleSelectItem = (groupName:any,val:any) => {
@@ -17,6 +17,28 @@ const SearchResults = ({ results }:any) => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     };
     const isSelectedItemEmpty = isEmptyObject(selectedItem);
+    const handleScroll = () => {
+        const scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight =
+            document.documentElement.scrollHeight || document.body.scrollHeight;
+        const clientHeight =
+            document.documentElement.clientHeight || window.innerHeight;
+        console.log(results.length)
+        if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
+
+            // User has reached the bottom of the page
+            setPage((prevPage:number)=> prevPage + 1); // Increment the page
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [page]); // Re-run the effect when the page changes
     return (
         <div className="flex">
             {/* Sidebar for search results */}
