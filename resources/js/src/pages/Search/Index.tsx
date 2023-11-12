@@ -39,27 +39,25 @@ const Index = () => {
         handleSearch().then(() => setLoading(false));
     }, [page, filters, query]);
 
-
     return (
-        <>
-            <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-
-                <div className={`personal-setting-table`}>
-
-                    <div className="grid grid-cols-7 gap-6 mb-6">
-                        <div className='panel col-span-1'>
-                            <Sidebar/>
+        <div className="h-[calc(100vh_-_205px)]">
+            <div className="panel px-0 border-white-light dark:border-[#1b2e4b] h-full">
+                <div className={`personal-setting-table h-full`}>
+                    <div className="grid grid-cols-7 gap-6 h-full">
+                        <div className='col-span-1 h-full'>
+                             <Sidebar />
                         </div>
-                        <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
-                            <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters}/>
-                            <SearchResults results={searchResults} setPage={setPage} page={page} loading={loading}/>
+                        <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
+                             <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters} />
+                             <SearchResults results={searchResults} setPage={setPage} page={page} loading={loading} />
                         </div>
-
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
+
+
 };
 
 export default Index;

@@ -31,18 +31,18 @@ const SearchResults = ({results, page, setPage, loading}: any) => {
         }
     };
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [page]); // Re-run the effect when the page changes
+    // useEffect(() => {
+    //     window.addEventListener("scroll", handleScroll);
+    //
+    //     return () => {
+    //         window.removeEventListener("scroll", handleScroll);
+    //     };
+    // }, [page]); // Re-run the effect when the page changes
 
     if (loading)
         return <LoadingSpinner/>
     return (
-        <div className="flex ">
+        <div className="flex max-h-[600px]">
             {/* Sidebar for search results */}
             <div className="w-1/3 bg-white overflow-auto">
                 {results.map((result: any, index: any) => (
@@ -64,7 +64,7 @@ const SearchResults = ({results, page, setPage, loading}: any) => {
 
                     />
                 ) : (
-                    <div className="flex justify-center items-center h-full">
+                    <div className="flex justify-center items-center min-h-[600px]">
                         <p>Select an item to view details</p>
                     </div>
                 )}
