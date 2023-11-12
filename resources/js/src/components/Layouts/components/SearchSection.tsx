@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import AsyncSelect from "react-select/async";
 import Api from "../../../config/api";
-import Select from "react-select";
 import {modelRouteMap} from "../../Functions/CommonFunctions";
 import {useNavigate} from "react-router-dom";
 
 const SearchSection = () => {
     const [search, setSearch] = useState(false);
+    const [text, setText] = useState('');
     const [timer, setTimer] = useState<any>(null)
     const navigate = useNavigate();
 
@@ -36,10 +36,12 @@ const SearchSection = () => {
     </>
 
     const loadOptions = (inputValue: any, callback: any) => {
+        setText(inputValue);
         clearTimeout(timer);
         const fetchData = async () => {
             try {
                 const response = await api_instance.globalSearch(inputValue);
+                console.log(inputValue);
                 let data = Object.values(response.data);
                 data = data.flatMap((item: any) => {
                     const group = Object.keys(item)[0]; // Assuming each item has only one key
@@ -57,34 +59,38 @@ const SearchSection = () => {
                     });
                     return {label: (<a href={`/${modelRouteMap[group]}/list`}>{group}</a>), options};
                 })
-                data.unshift({label: ( <div className="flex  justify-end items-center space-x-2">
-                    <a className="font-bold  text-blue-500 hover:text-blue-800" href={`/search`}>
-                    Search Result
-                    </a>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
-
-                </div>)})
+                data.unshift({label: (<SearchResultButton searchText={inputValue}/>)})
                 callback(data);
             } catch (error) {
                 console.error('Error fetching options:', error);
-                callback([{label: ( <div className="flex justify-end items-center space-x-2">
-                <a className="font-bold  text-blue-500 hover:text-blue-800" href={`/search`}>
-                  Search Result
-                </a>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
-
-              </div>)}]);
+                callback([{label: (<SearchResultButton searchText={inputValue}/>)}]);
             }
         };
 
         const newTimer = setTimeout(() => {
-            fetchData()
+            fetchData();
         }, 500)
 
         setTimer(newTimer)
 
     };
 
+    const SearchResultButton = ({searchText}: any) => (
+        <div className="flex justify-end items-center space-x-2">
+            <a className="font-bold  text-blue-500 hover:text-blue-800" href={`/search?text=${searchText}`}>
+                Search Result
+            </a>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5"
+                      d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z"
+                      fill="currentColor"></path>
+                <path
+                    d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z"
+                    fill="currentColor"></path>
+            </svg>
+
+        </div>
+    )
 
     return (
         <>
@@ -107,21 +113,18 @@ const SearchSection = () => {
                         loadOptions={loadOptions}
                         defaultOptions={[
                             {
-                              label: (
-                                <div className="flex justify-end items-center space-x-2">
-                                  <a className="font-bold  text-blue-500 hover:text-blue-800" href={`/search`}>
-                                    Search Result
-                                  </a>
-                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.5" d="M20.3133 11.1566C20.3133 16.2137 16.2137 20.3133 11.1566 20.3133C6.09956 20.3133 2 16.2137 2 11.1566C2 6.09956 6.09956 2 11.1566 2C16.2137 2 20.3133 6.09956 20.3133 11.1566Z" fill="currentColor"></path><path d="M17.1001 18.1219L20.7664 21.7882C21.0487 22.0705 21.5064 22.0705 21.7887 21.7882C22.071 21.5059 22.071 21.0482 21.7887 20.7659L18.1224 17.0996C17.809 17.4666 17.4671 17.8085 17.1001 18.1219Z" fill="currentColor"></path></svg>
-
-                                </div>
-                              ),
+                                label: (
+                                    <SearchResultButton searchText={text}/>
+                                ),
                             },
-                          ]} 
+                        ]}
                         isMulti={false}
                         placeholder="Search..."
                         name="global_search"
                         className="flex-1"
+                        onMenuClose={() => {
+                            setText("")
+                        }}
                         menuPlacement="auto" // or "bottom" based on your preference
                         onChange={(e: any) => {
                             if (e.value == null)
