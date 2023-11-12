@@ -32,7 +32,7 @@ const Index = () => {
         try {
             const dashboardResponse = await api.dashboardData();
             if (dashboardResponse.status === 200) {
-                setSalesOrderData(dashboardResponse.data.data.sales_order);                                
+                setSalesOrderData(dashboardResponse.data.data.sales_order);
             } else {
                 console.error('Failed to fetch dashboard data:', dashboardResponse);
             }
@@ -92,7 +92,7 @@ const Index = () => {
                                     currentAverage={parseFloat(salesOrderData.ytd?.closed?.average || "0")}
                                     currentCount={salesOrderData.ytd?.closed?.count || 0}
                                     lastPeriodAverage={parseFloat(salesOrderData.last_year?.closed?.average || "0")}
-                                    lastPeriodCount={salesOrderData.last_year?.closed.count || 0}
+                                    lastPeriodCount={salesOrderData.last_year?.closed?.count || 0}
                                 />
                                 <LastPeriodCompareWidget
                                     currentAmount={salesOrderData.mtd?.all?.total || 0}
@@ -105,7 +105,7 @@ const Index = () => {
                                     currentAverage={parseFloat(salesOrderData.mtd?.all?.average || "0")}
                                     currentCount={salesOrderData.mtd?.all?.count || 0}
                                     lastPeriodAverage={parseFloat(salesOrderData.last_month?.all?.average || "0")}
-                                    lastPeriodCount={salesOrderData.last_month.all.count || 0}
+                                    lastPeriodCount={salesOrderData.last_month.all?.count || 0}
                                 />
                                 <LastPeriodCompareWidget
                                     currentAmount={salesOrderData.mtd?.closed?.total || 0}
