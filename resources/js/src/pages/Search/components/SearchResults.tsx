@@ -5,15 +5,16 @@ import SearchBar from "./SearchBar";
 import {isEmptyChildren} from "formik";
 import {modelRouteMap} from "../../../components/Functions/CommonFunctions";
 import SelectedItemInfo from "./SelectedItemInfo";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
-const SearchResults = ({ results,page,setPage }:any) => {
+const SearchResults = ({results, page, setPage, loading}: any) => {
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
-    const handleSelectItem = (groupName:any,val:any) => {
-        setSelectedItem({ group: groupName, val: val });
+    const handleSelectItem = (groupName: any, val: any) => {
+        setSelectedItem({group: groupName, val: val});
         setItemPath(`/${modelRouteMap[groupName]}/preview/${val.id}`)
     };
-    const isEmptyObject = (obj:any) => {
+    const isEmptyObject = (obj: any) => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     };
     const isSelectedItemEmpty = isEmptyObject(selectedItem);
@@ -24,11 +25,9 @@ const SearchResults = ({ results,page,setPage }:any) => {
             document.documentElement.scrollHeight || document.body.scrollHeight;
         const clientHeight =
             document.documentElement.clientHeight || window.innerHeight;
-        console.log(results.length)
         if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
-
             // User has reached the bottom of the page
-            setPage((prevPage:number)=> prevPage + 1); // Increment the page
+            setPage((prevPage: number) => prevPage + 1); // Increment the page
         }
     };
 
@@ -39,15 +38,18 @@ const SearchResults = ({ results,page,setPage }:any) => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [page]); // Re-run the effect when the page changes
+
+    if (loading)
+        return <LoadingSpinner/>
     return (
-        <div className="flex">
+        <div className="flex ">
             {/* Sidebar for search results */}
             <div className="w-1/3 bg-white overflow-auto">
-                {results.map((result:any, index:any) => (
+                {results.map((result: any, index: any) => (
                     <SearchResultItem
                         key={index}
                         item={result}
-                        onSelect={(val:any) => handleSelectItem(Object.keys(result)[0],val)}
+                        onSelect={(val: any) => handleSelectItem(Object.keys(result)[0], val)}
                     />
                 ))}
             </div>

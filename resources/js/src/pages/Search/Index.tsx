@@ -16,8 +16,9 @@ const Index = () => {
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
     const [filters, setFilters] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     const handleSearch = async () => {
+        setLoading(true);
         const results = await api_instance.globalSearchFull({
             search: query,
             filters: filters, page: page
@@ -35,7 +36,7 @@ const Index = () => {
     }, []);
 
     useEffect(() => {
-        handleSearch();
+        handleSearch().then(() => setLoading(false));
     }, [page, filters, query]);
 
 
@@ -51,7 +52,7 @@ const Index = () => {
                         </div>
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
                             <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters}/>
-                            <SearchResults results={searchResults} setPage={setPage} page={page}/>
+                            <SearchResults results={searchResults} setPage={setPage} page={page} loading={loading}/>
                         </div>
 
                     </div>
