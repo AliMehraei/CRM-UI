@@ -104,10 +104,8 @@ const MtdBilling = () => {
             const response = await api_instance.dashboardMtdBilling();
             if (response.status === 200) {
                 const responseData = response.data.data;
-                console.log(responseData);
                 const colChart = columnChart;
                 colChart.series = responseData.series;
-                console.log(colChart.series)
                 colChart.options.xaxis.categories = responseData.options;
                 setChartData(colChart)
                 setLoading(false);
