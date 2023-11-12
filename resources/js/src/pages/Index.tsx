@@ -7,16 +7,16 @@ import Api from "../config/api";
 import LoadingSasCrm from "../components/LoadingSasCrm";
 import { useUserStatus } from "../config/authCheck";
 import LoadingSpinner from "../components/LoadingSpinner";
-import OpenQuotes from "./Dashboard/components/OpenQuotes";
-import BookingRevenue from "./Dashboard/components/BookingRevenue";
-import BillingYtdSales from "./Dashboard/components/BillingYtdSales";
-import BookingGp from "./Dashboard/components/BookingGp";
-import MtdBilling from "./Dashboard/components/MtdBilling";
-import BookingSalesYtd from "./Dashboard/components/BookingSalesYtd";
-import YTDBilling from "./Dashboard/components/YTDBilling";
-import Rfq from "./Dashboard/components/Rfq";
-import CallAmount from "./Dashboard/components/CallAmount";
-import DealsByStage from "./Dashboard/components/DealsByStage";
+import OpenQuotes from "./Dashboard/components/admin/OpenQuotes";
+import BookingRevenue from "./Dashboard/components/admin/BookingRevenue";
+import BillingYtdSales from "./Dashboard/components/admin/BillingYtdSales";
+import BookingGp from "./Dashboard/components/admin/BookingGp";
+import MtdBilling from "./Dashboard/components/admin/MtdBilling";
+import BookingSalesYtd from "./Dashboard/components/admin/BookingSalesYtd";
+import YTDBilling from "./Dashboard/components/admin/YTDBilling";
+import Rfq from "./Dashboard/components/admin/Rfq";
+import CallAmount from "./Dashboard/components/admin/CallAmount";
+import DealsByStage from "./Dashboard/components/admin/DealsByStage";
 
 const Index = () => {
     const dispatch = useDispatch();

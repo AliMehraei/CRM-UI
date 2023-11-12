@@ -1,9 +1,9 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Api from "../../../config/api";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import Api from "../../../../config/api";
 
-const BookingRevenue = () => {
+const BookingGp = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -12,7 +12,7 @@ const BookingRevenue = () => {
             annotations: {
                 yaxis: [
                     {
-                        y: 500000, // Your target value
+                        y: 50000, // Your target value
                         borderColor: '#110a0a', // Color of the line
                         label: {
                             show: true,
@@ -40,7 +40,7 @@ const BookingRevenue = () => {
                     show: true,
                 },
             },
-            colors: ['#ffad19'],
+            colors: ['#349aff'],
             dataLabels: {
                 enabled: true,
                 formatter: function (val: any) {
@@ -85,7 +85,7 @@ const BookingRevenue = () => {
             },
             yaxis: {
                 title: {
-                    text: 'Sum of Total ',
+                    text: 'Sum of GP ',
                 },
                 opposite: false,
                 labels: {
@@ -117,7 +117,7 @@ const BookingRevenue = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardBookingRevenue();
+            const response = await api_instance.dashboardBookingGp();
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
@@ -127,10 +127,10 @@ const BookingRevenue = () => {
                 setLoading(false);
 
             } else {
-                console.error('Failed to fetch Booking Revenue:', response);
+                console.error('Failed to fetch Booking GP:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching Booking Revenue: ', error);
+            console.error('An error occurred while fetching Booking GP: ', error);
         }
     };
     useEffect(() => {
@@ -142,7 +142,7 @@ const BookingRevenue = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">Booking Revenue</h5>
+                        <h5 className="font-semibold text-lg">Booking GP</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
@@ -163,4 +163,4 @@ const BookingRevenue = () => {
     )
 }
 
-export default BookingRevenue;
+export default BookingGp;

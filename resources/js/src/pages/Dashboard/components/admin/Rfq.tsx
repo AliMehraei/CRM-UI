@@ -1,7 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Api from "../../../config/api";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import Api from "../../../../config/api";
 
 const Rfq = () => {
     const [loading, setLoading] = useState(true);

@@ -1,87 +1,71 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Api from "../../../config/api";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import Api from "../../../../config/api";
 
-const MtdBilling = () => {
+const BookingSalesYtd = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
-
-        series: [{
-            name: 'PRODUCT A',
-            data: [44, 55, 41, 67, 22, 43]
-        }, {
-            name: 'PRODUCT B',
-            data: [13, 23, 20, 8, 13, 27]
-        }, {
-            name: 'PRODUCT C',
-            data: [11, 17, 15, 15, 21, 14]
-        }, {
-            name: 'PRODUCT D',
-            data: [21, 7, 25, 13, 22, 8]
-        }],
+        series: [],
         options: {
-
             chart: {
+                height: 300,
                 type: 'bar',
-                height: 350,
-                stacked: true,
-                toolbar: {
-                    show: false
-                },
                 zoom: {
-                    enabled: true
+                    enabled: true,
                 },
-                dataLabels: {
-                    enabled: false,
-
-                }
+                toolbar: {
+                    show: true,
+                },
             },
+            colors: ['#ffad19'],
             dataLabels: {
-                enabled: false,
-
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: 'bottom',
-                        offsetX: -10,
-                        offsetY: 0
-                    }
+                enabled: true,
+                formatter: function (val: any) {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'EUR',
+                        minimumFractionDigits: 2,
+                    }).format(val);
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
                 }
-            }],
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent'],
+            },
             plotOptions: {
                 bar: {
                     horizontal: false,
-                    borderRadius: 10,
+                    columnWidth: '55%',
+                    endingShape: 'rounded',
                     dataLabels: {
-                        enabled: false,
-                        total: {
-                            enabled: false,
-                        }
+                        position: 'top',
                     }
                 },
-                dataLabels: {
-                    total: {
-                        enabled: false,
-                    }
-                }
+            },
+            grid: {
+                borderColor: '#e0e6ed',
             },
             xaxis: {
-                categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT',
-                    '01/05/2011 GMT', '01/06/2011 GMT'
-                ],
-            },
-            legend: {
-                position: 'right',
-                offsetY: 40
-            },
-            fill: {
-                opacity: 1
+                title: {
+                    text: 'Created Time',
+                },
+                categories: [],
+                axisBorder: {
+                    color: '#e0e6ed',
+                },
             },
             yaxis: {
+                title: {
+                    text: 'Sum of Sub Total ',
+                },
                 opposite: false,
                 labels: {
                     offsetX: 0,
@@ -94,27 +78,37 @@ const MtdBilling = () => {
                     },
                 },
             },
+            tooltip: {
+                theme: 'light',
+                y: {
+                    formatter: function (val: any) {
+                        return new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'EUR',
+                            minimumFractionDigits: 2,
+                        }).format(val);
+                    },
+                },
+            },
         },
     };
-
     const [chartData, setChartData] = useState<any>(columnChart);
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardMtdBilling();
+            const response = await api_instance.dashboardBookingSalesYtd();
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
-                colChart.series = responseData.series;
+                colChart.series = [responseData.series];
                 colChart.options.xaxis.categories = responseData.options;
                 setChartData(colChart)
                 setLoading(false);
-
             } else {
-                console.error('Failed to fetch MTD Billing Inc.Backlog:', response);
+                console.error('Failed to fetch Booking Sales YTD:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching MTD Billing Inc.Backlog: ', error);
+            console.error('An error occurred while fetching Booking Sales YTD: ', error);
         }
     };
     useEffect(() => {
@@ -126,7 +120,7 @@ const MtdBilling = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">MTD Billing Inc.Backlog</h5>
+                        <h5 className="font-semibold text-lg">Booking Sales YTD</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
@@ -147,4 +141,4 @@ const MtdBilling = () => {
     )
 }
 
-export default MtdBilling;
+export default BookingSalesYtd;

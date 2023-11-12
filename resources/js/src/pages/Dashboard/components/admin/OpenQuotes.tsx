@@ -1,9 +1,9 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Api from "../../../config/api";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import Api from "../../../../config/api";
 
-const BookingSalesYtd = () => {
+const OpenQuotes = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -19,7 +19,7 @@ const BookingSalesYtd = () => {
                     show: true,
                 },
             },
-            colors: ['#ffad19'],
+            colors: ['#ff8b60'],
             dataLabels: {
                 enabled: true,
                 formatter: function (val: any) {
@@ -55,7 +55,7 @@ const BookingSalesYtd = () => {
             },
             xaxis: {
                 title: {
-                    text: 'Created Time',
+                    text: 'Quote Owner',
                 },
                 categories: [],
                 axisBorder: {
@@ -64,7 +64,7 @@ const BookingSalesYtd = () => {
             },
             yaxis: {
                 title: {
-                    text: 'Sum of Sub Total ',
+                    text: 'Sum of Total Sales',
                 },
                 opposite: false,
                 labels: {
@@ -96,7 +96,7 @@ const BookingSalesYtd = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardBookingSalesYtd();
+            const response = await api_instance.dashboardOpenQuotes();
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
@@ -105,10 +105,10 @@ const BookingSalesYtd = () => {
                 setChartData(colChart)
                 setLoading(false);
             } else {
-                console.error('Failed to fetch Booking Sales YTD:', response);
+                console.error('Failed to fetch Open Quotes:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching Booking Sales YTD: ', error);
+            console.error('An error occurred while fetching Open Quotes: ', error);
         }
     };
     useEffect(() => {
@@ -116,11 +116,11 @@ const BookingSalesYtd = () => {
     }, []);
 
     return (
-        <div className="pt-5 flex-1">
+        <div className="pt-5">
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">Booking Sales YTD</h5>
+                        <h5 className="font-semibold text-lg">Open Quotes</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
@@ -141,4 +141,4 @@ const BookingSalesYtd = () => {
     )
 }
 
-export default BookingSalesYtd;
+export default OpenQuotes;

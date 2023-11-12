@@ -1,9 +1,9 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Api from "../../../config/api";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import Api from "../../../../config/api";
 
-const YtdBilling = () => {
+const BookingRevenue = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -117,7 +117,7 @@ const YtdBilling = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardYtdBilling();
+            const response = await api_instance.dashboardBookingRevenue();
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
@@ -127,10 +127,10 @@ const YtdBilling = () => {
                 setLoading(false);
 
             } else {
-                console.error('Failed to fetch YTD Billing:', response);
+                console.error('Failed to fetch Booking Revenue:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching YTD Billing: ', error);
+            console.error('An error occurred while fetching Booking Revenue: ', error);
         }
     };
     useEffect(() => {
@@ -142,7 +142,7 @@ const YtdBilling = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">YTD Billing</h5>
+                        <h5 className="font-semibold text-lg">Booking Revenue</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
@@ -163,4 +163,4 @@ const YtdBilling = () => {
     )
 }
 
-export default YtdBilling;
+export default BookingRevenue;

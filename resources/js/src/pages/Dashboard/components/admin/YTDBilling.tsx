@@ -1,14 +1,35 @@
 import ReactApexChart from "react-apexcharts";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import Api from "../../../config/api";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import Api from "../../../../config/api";
 
-const BillingYtdSales = () => {
+const YtdBilling = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
         series: [],
         options: {
+            annotations: {
+                yaxis: [
+                    {
+                        y: 500000, // Your target value
+                        borderColor: '#110a0a', // Color of the line
+                        label: {
+                            show: true,
+                            text: 'Benchmark',
+                            position: 'middle', // Position the label in the middle
+                            textAnchor: 'start', // Align the text to the start of the line
+                            offsetX: 0,
+                            offsetY: 0,
+                            style: {
+                                color: '#110f0f', // Color of the label
+                                background: '#ecc9c9', // Background color of the label
+                            },
+                            textAlign: 'center', // Center the text along the y-axis
+                        },
+                    },
+                ],
+            },
             chart: {
                 height: 300,
                 type: 'bar',
@@ -55,7 +76,7 @@ const BillingYtdSales = () => {
             },
             xaxis: {
                 title: {
-                    text: 'Invoice Owner',
+                    text: 'Created Time',
                 },
                 categories: [],
                 axisBorder: {
@@ -96,7 +117,7 @@ const BillingYtdSales = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardBillingYtdSales();
+            const response = await api_instance.dashboardYtdBilling();
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
@@ -104,11 +125,12 @@ const BillingYtdSales = () => {
                 colChart.options.xaxis.categories = responseData.options;
                 setChartData(colChart)
                 setLoading(false);
+
             } else {
-                console.error('Failed to fetch Billing YTD Sales:', response);
+                console.error('Failed to fetch YTD Billing:', response);
             }
         } catch (error) {
-            console.error('An error occurred while fetching Billing YTD Sales: ', error);
+            console.error('An error occurred while fetching YTD Billing: ', error);
         }
     };
     useEffect(() => {
@@ -120,7 +142,7 @@ const BillingYtdSales = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">Billing YTD Sales</h5>
+                        <h5 className="font-semibold text-lg">YTD Billing</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
@@ -141,4 +163,4 @@ const BillingYtdSales = () => {
     )
 }
 
-export default BillingYtdSales;
+export default YtdBilling;
