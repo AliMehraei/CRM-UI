@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import FilterModal from './FilterModal';
 
-const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
+const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [inputValue, setInputValue] = useState(); // Added state to keep track of input value
 
@@ -13,12 +13,14 @@ const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
         setIsFilterModalOpen(false);
     };
 
-    const handleApplyFilters = () => {
-        setFilters(filters);
+    const handleApplyFilters = (val: any) => {
+        setFilters(val);
         setIsFilterModalOpen(false);
     };
     const handleSearchClick = () => {
         setQuery(inputValue);
+        handleSearch();
+
     };
 
 
@@ -31,6 +33,11 @@ const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
         setInputValue(query);
     }, [query]);
 
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            handleSearchClick()
+        }
+    };
 
     return (
         <div>
@@ -40,6 +47,7 @@ const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
                     placeholder={"Search everything"}
                     className="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
                     defaultValue={query}
+                    onKeyDown={handleKeyDown} // Add the onKeyDown event handler
                     onChange={handleInputChange} // Set the onChange event to handleInputChange
                 />
                 <button

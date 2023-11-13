@@ -5,26 +5,28 @@ interface FilterModalProps {
     isOpen: boolean;
     onClose: () => void;
     onApply: (filters: any) => void;
+
 }
 
-const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any) => {
-    const defaultFilters = {
-        modules: 'All Modules',
-    };
+const FilterModal: React.FC<FilterModalProps> = ({
+     isOpen, onClose, onApply
+    }: any) => {
+    const defaultFilters = ['All'];
 
     const [filters, setFilters] = useState<any>(defaultFilters);
 
     const handleResetFilters = () => {
-        setFilters(defaultFilters);
+        // setFilters([]);
+        setSelectedOptions([]);
         // Optionally call onApply if you want the reset to be applied immediately
-        // onApply(defaultFilters);
+        onApply([]);
     };
     const ModuleOptions: any = [
-        {value: 'All Modules', label: 'All Modules'},
-        {value: 'Invoices', label: 'Invoices'},
-        {value: 'Sales Orders', label: 'Sales Orders'},
-        {value: 'Purchase order', label: 'Purchase order'},
-        {value: 'RFQ', label: 'RFQ'},
+        {value: 'All', label: 'All Modules'},
+        {value: 'Invoice', label: 'Invoices'},
+        {value: 'SalesOrder', label: 'Sales Orders'},
+        {value: 'PurchaseOrder', label: 'Purchase order'},
+        {value: 'Rfq', label: 'RFQ'},
         {value: 'Quote', label: 'Quote'},
         {value: 'Availability', label: 'Availability'},
         {value: 'Account', label: 'Account'},
@@ -35,7 +37,7 @@ const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any
 
         {value: 'Call', label: 'Call'},
         {value: 'Product', label: 'Product'},
-        {value: 'VendorRFQ', label: 'VendorRFQ'},
+        {value: 'VendorRfq', label: 'VendorRFQ'},
         {value: 'Tasks', label: 'Tasks'},
         {value: 'Manufacturer', label: 'Manufacturer'},
         {value: 'Excess', label: 'Excess'},
@@ -44,7 +46,7 @@ const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any
     const [selectedOptions, setSelectedOptions] = useState<any>([]);
     const handleChangeFilters = (selection: any, actionMeta: any) => {
         // When "All Modules" is selected, ensure all options are selected
-        const isAllModulesSelected = selection.some((option: any) => option.value === 'All Modules');
+        const isAllModulesSelected = selection.some((option: any) => option.value === 'All');
         if (isAllModulesSelected) {
             setSelectedOptions(ModuleOptions);
             return;
@@ -60,7 +62,7 @@ const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any
             case 'remove-value':
                 // When removing an option, if "All Modules" is the one being removed,
                 // clear the selection, otherwise update the selection normally.
-                if (actionMeta.removedValue.value === 'All Modules') {
+                if (actionMeta.removedValue.value === 'All') {
                     setSelectedOptions([]);
                 } else {
                     setSelectedOptions(selection);

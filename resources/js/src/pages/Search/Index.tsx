@@ -18,26 +18,32 @@ const Index = () => {
     const [filters, setFilters] = useState([]);
     const [loading, setLoading] = useState(false);
     const handleSearch = async () => {
+        CallSearch();
+    };
+
+    const CallSearch = async () => {
         setLoading(true);
         const results = await api_instance.globalSearchFull({
             search: query,
-            filters: filters, page: page
+            filters: filters,
+            page: page
         });
+        setLoading(false);
         setSearchResults(results.data);
     };
-
     useEffect(() => {
         const url = new URL(window.location.href);
 
         const params = new URLSearchParams(url.search);
 
         const textSearch = params.get('text');
-        setQuery(textSearch ?? '');
-    }, []);
 
-    useEffect(() => {
-        handleSearch().then(() => setLoading(false));
-    }, [page, filters, query]);
+        if (textSearch != null && textSearch != '')
+            setQuery(textSearch ?? '');
+    }, []);
+    useEffect(()=>{
+        CallSearch();
+    },[query,filters])
 
     return (
         <div className="h-[calc(100vh_-_205px)]">
@@ -45,11 +51,15 @@ const Index = () => {
                 <div className={`personal-setting-table h-full`}>
                     <div className="grid grid-cols-7 gap-6 h-full">
                         <div className='col-span-1 h-full'>
-                             <Sidebar />
+                            <Sidebar/>
                         </div>
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
-                             <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters} />
-                             <SearchResults results={searchResults} setPage={setPage} page={page} loading={loading} />
+                            <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
+                                       setFilters={setFilters}/>
+                            <SearchResults query={query} results={searchResults}
+                                           setPage={setPage} page={page} loading={loading}
+
+                            />
                         </div>
                     </div>
                 </div>
