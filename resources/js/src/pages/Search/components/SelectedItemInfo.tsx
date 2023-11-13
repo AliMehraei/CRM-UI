@@ -13,6 +13,7 @@ import Rfq from "./ItemInfo/Rfq";
 import Manufacture from "./ItemInfo/Manufacture";
 import VendorRfq from "./ItemInfo/VendorRfq";
 import Invoice from "./ItemInfo/Invoice";
+import Product from "./ItemInfo/Product";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
@@ -61,7 +62,7 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 return <Rfq
                     selectedItem={selectedItem}
                 />
-            case 'Manufacture':
+            case 'Manufacturer':
                 return <Manufacture
                     selectedItem={selectedItem}
                 />
@@ -71,6 +72,10 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 />
             case 'Invoice':
                 return <Invoice
+                    selectedItem={selectedItem}
+                />
+            case 'Product':
+                return <Product
                     selectedItem={selectedItem}
                 />
             default:
