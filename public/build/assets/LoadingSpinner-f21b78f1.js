@@ -1,0 +1,1 @@
+import{a as r,F as n}from"./main-c97d17a7.js";const e=()=>r(n,{children:r("div",{className:"min-h-[325px] grid place-content-center  bg-opacity-[0.08] ",children:r("span",{className:"animate-spin border-4 border-transparent border-l-primary rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"})})});export{e as L};
