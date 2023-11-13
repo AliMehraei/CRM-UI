@@ -21,7 +21,7 @@ const Index = () => {
         if (hasPermission('admin-dashboard')) {
             return <AdminIndex/>
         }
-        if (hasPermission('sales-person-dashboard')) {
+        else if (hasPermission('sales-person-dashboard')) {
             return <AdminIndex/>
         }
     }
