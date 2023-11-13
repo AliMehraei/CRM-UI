@@ -49,7 +49,7 @@ const Index = () => {
                         </div>
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
                              <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters} />
-                             <SearchResults results={searchResults} setPage={setPage} page={page} loading={loading} />
+                             <SearchResults query={query} results={searchResults} setPage={setPage} page={page} loading={loading} />
                         </div>
                     </div>
                 </div>
