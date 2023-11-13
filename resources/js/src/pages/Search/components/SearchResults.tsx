@@ -42,7 +42,7 @@ const SearchResults = ({results, page, setPage, loading}: any) => {
     if (loading)
         return <LoadingSpinner/>
     return (
-        <div className="flex max-h-[600px]">
+        <div className="flex h-[calc(100vh_-_350px)] ">
             {/* Sidebar for search results */}
             <div className="w-1/3 bg-white overflow-auto">
                 {results.map((result: any, index: any) => (
