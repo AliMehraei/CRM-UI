@@ -685,13 +685,14 @@ class api {
     async globalSearchFull(data: any) {
         // data = {
         //     search: text,
-        //     page: int
+        //     page: int,
+        //     filters: array
         // }
         return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data, {headers: Headers as any});
     }
 
     async dashboardData() {
-        return await _axios.get(`${API_URL_PRODUCT}/dashboard-data`, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`, {headers: Headers as any});
     }
 
     async dashboardOpenQuotes() {
@@ -708,6 +709,10 @@ class api {
 
     async dashboardBookingGp() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-gp`, {headers: Headers as any});
+    }
+
+    async dashboardMtdBilling() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/mtd-billing`, {headers: Headers as any});
     }
 
     async dashboardBookingSalesYtd() {

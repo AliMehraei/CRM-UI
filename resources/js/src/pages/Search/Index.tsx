@@ -13,33 +13,61 @@ const Index = () => {
     }, [dispatch]);
     const [searchResults, setSearchResults] = useState([]);
     const api_instance = new Api();
-
-    // Assume you have a function to fetch search results
-    const handleSearch = async (query:string) => {
-        const results =await api_instance.globalSearchFull({search:query});
-        setSearchResults(results.data);
+    const [page, setPage] = useState(1);
+    const [query, setQuery] = useState('');
+    const [filters, setFilters] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const handleSearch = async () => {
+        CallSearch();
     };
 
+    const CallSearch = async () => {
+        setLoading(true);
+        const results = await api_instance.globalSearchFull({
+            search: query,
+            filters: filters,
+            page: page
+        });
+        setLoading(false);
+        setSearchResults(results.data);
+    };
+    useEffect(() => {
+        const url = new URL(window.location.href);
+
+        const params = new URLSearchParams(url.search);
+
+        const textSearch = params.get('text');
+
+        if (textSearch != null && textSearch != '')
+            setQuery(textSearch ?? '');
+    }, []);
+    useEffect(()=>{
+        CallSearch();
+    },[query,filters])
+
     return (
-        <>
-            <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-
-                <div className={`personal-setting-table`}>
-
-                    <div className="grid grid-cols-7 gap-6 mb-6">
-                        <div className='panel col-span-1'>
+        <div className="h-[calc(100vh_-_205px)]">
+            <div className="panel px-0 border-white-light dark:border-[#1b2e4b] h-full">
+                <div className={`personal-setting-table h-full`}>
+                    <div className="grid grid-cols-7 gap-6 h-full">
+                        <div className='col-span-1 h-full'>
                             <Sidebar/>
                         </div>
-                        <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5">
-                            <SearchBar onSearch={handleSearch}/>
-                            <SearchResults results={searchResults} />
-                        </div>
+                        <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
+                            <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
+                                       setFilters={setFilters}/>
+                            <SearchResults query={query} results={searchResults}
+                                           setPage={setPage} page={page} loading={loading}
 
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
+
+
 };
 
 export default Index;

@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import FilterModal from './FilterModal';
-import Api from "../../../config/api";
 
-const SearchBar = ({ onSearch }:any) => {
+const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-    const [filters, setFilters] = useState<any>();
-    const [inputValue, setInputValue] = useState(""); // Added state to keep track of input value
+    const [inputValue, setInputValue] = useState(); // Added state to keep track of input value
 
     const handleFilterClick = () => {
         setIsFilterModalOpen(true);
@@ -15,18 +13,30 @@ const SearchBar = ({ onSearch }:any) => {
         setIsFilterModalOpen(false);
     };
 
-    const handleApplyFilters = (filters: any) => {
-        setFilters(filters);
+    const handleApplyFilters = (val: any) => {
+        setFilters(val);
         setIsFilterModalOpen(false);
     };
     const handleSearchClick = () => {
-        onSearch(inputValue);
+        setQuery(inputValue);
+        handleSearch();
+
     };
 
 
     // Function to update the inputValue state as the user types in the search field
-    const handleInputChange = (e:any) => {
+    const handleInputChange = (e: any) => {
         setInputValue(e.target.value);
+    };
+
+    useEffect(() => {
+        setInputValue(query);
+    }, [query]);
+
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            handleSearchClick()
+        }
     };
 
     return (
@@ -34,9 +44,10 @@ const SearchBar = ({ onSearch }:any) => {
             <div className="flex justify-between items-center p-4 bg-white shadow">
                 <input
                     type="text"
-                    placeholder="Search everything"
+                    placeholder={"Search everything"}
                     className="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
-                    value={inputValue}
+                    defaultValue={query}
+                    onKeyDown={handleKeyDown} // Add the onKeyDown event handler
                     onChange={handleInputChange} // Set the onChange event to handleInputChange
                 />
                 <button

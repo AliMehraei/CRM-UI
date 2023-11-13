@@ -9,7 +9,7 @@ const sidebarItems = [
 
 const Sidebar = () => {
     return (
-        <div className="min-h-screen">
+        <div className="h-full">
             {sidebarItems.map((item) => (
                 <SidebarItem key={item.name} name={item.name} icon={item.icon} isActive={item.isActive}/>
             ))}

@@ -1,6 +1,7 @@
 // SearchResultItem.jsx
 import SearchResults from "./SearchResults";
 import React, {useEffect} from "react";
+import {formatDate} from "../../../components/Functions/CommonFunctions";
 const groupIcons: any = {
     "Rfq": "/assets/images/sascrm.svg",
     "Account": "/assets/images/sascrm.svg",
@@ -12,10 +13,7 @@ const SearchResultItem = ({ item, onSelect }:any) => {
     const groupFirstLetter = group.charAt(0).toUpperCase(); // Get the first letter and make it uppercase
 
     // Function to format date
-    const formatDate = (dateString:any) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    };
+
     return (
         <>
         {item[group].map((result:any, index:any) => (

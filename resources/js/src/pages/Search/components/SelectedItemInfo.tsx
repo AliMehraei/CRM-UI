@@ -1,6 +1,18 @@
 import React from 'react';
 import Call from "./ItemInfo/Call";
 import Contact from "./ItemInfo/Contact";
+import Account from "./ItemInfo/Account";
+import Lead from "./ItemInfo/Lead";
+import SalesOrder from "./ItemInfo/SalesOrder";
+import Availability from "./ItemInfo/Availability";
+import Vendor from "./ItemInfo/Vendor";
+import PurchaseOrder from "./ItemInfo/PurchaseOrder";
+import Quote from "./ItemInfo/Qoute";
+import Excess from "./ItemInfo/Excess";
+import Rfq from "./ItemInfo/Rfq";
+import Manufacture from "./ItemInfo/Manufacture";
+import VendorRfq from "./ItemInfo/VendorRfq";
+import Invoice from "./ItemInfo/Invoice";
 
 const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
     const renderAdditionalDetails = () => {
@@ -11,6 +23,54 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 />
             case 'Contact':
                 return <Contact
+                    selectedItem={selectedItem}
+                />
+            case 'Account':
+                return <Account
+                    selectedItem={selectedItem}
+                />
+            case 'Lead':
+                return <Lead
+                    selectedItem={selectedItem}
+                />
+            case 'SalesOrder':
+                return <SalesOrder
+                    selectedItem={selectedItem}
+                />
+            case 'Availability':
+                return <Availability
+                    selectedItem={selectedItem}
+                />
+            case 'Vendor':
+                return <Vendor
+                    selectedItem={selectedItem}
+                />
+            case 'PurchaseOrder':
+                return <PurchaseOrder
+                    selectedItem={selectedItem}
+                />
+            case 'Quote':
+                return <Quote
+                    selectedItem={selectedItem}
+                />
+            case 'Excess':
+                return <Excess
+                    selectedItem={selectedItem}
+                />
+            case 'Rfq':
+                return <Rfq
+                    selectedItem={selectedItem}
+                />
+            case 'Manufacture':
+                return <Manufacture
+                    selectedItem={selectedItem}
+                />
+            case 'VendorRfq':
+                return <VendorRfq
+                    selectedItem={selectedItem}
+                />
+            case 'Invoice':
+                return <Invoice
                     selectedItem={selectedItem}
                 />
             default:
@@ -39,7 +99,7 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 <div>
                     <div className="mb-4">
                         <span className="text-sm font-bold">Owner:</span>
-                        <span className="text-sm ml-2">{selectedItem.val.owner.first_name} {selectedItem.val.owner.last_name}</span>
+                        <span className="text-sm ml-2">{selectedItem.val?.owner?.first_name} {selectedItem.val?.owner?.last_name}</span>
                     </div>
 
                 </div>
