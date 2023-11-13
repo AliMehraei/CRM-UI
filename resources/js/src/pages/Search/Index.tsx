@@ -33,11 +33,9 @@ const Index = () => {
 
         const textSearch = params.get('text');
         setQuery(textSearch ?? '');
+        if (textSearch != null && textSearch != '')
+            handleSearch().then(() => setLoading(false));
     }, []);
-
-    useEffect(() => {
-        handleSearch().then(() => setLoading(false));
-    }, [page, filters, query]);
 
     return (
         <div className="h-[calc(100vh_-_205px)]">
@@ -45,11 +43,15 @@ const Index = () => {
                 <div className={`personal-setting-table h-full`}>
                     <div className="grid grid-cols-7 gap-6 h-full">
                         <div className='col-span-1 h-full'>
-                             <Sidebar />
+                            <Sidebar/>
                         </div>
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
-                             <SearchBar setQuery={setQuery} query={query} filters={filters} setFilters={setFilters} />
-                             <SearchResults query={query} results={searchResults} setPage={setPage} page={page} loading={loading} />
+                            <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
+                                       setFilters={setFilters}/>
+                            <SearchResults query={query} results={searchResults}
+                                           setPage={setPage} page={page} loading={loading}
+
+                            />
                         </div>
                     </div>
                 </div>
