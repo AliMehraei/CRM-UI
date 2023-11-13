@@ -31,6 +31,11 @@ const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
         setInputValue(query);
     }, [query]);
 
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            handleSearchClick()
+        }
+    };
 
     return (
         <div>
@@ -40,6 +45,7 @@ const SearchBar = ({setFilters, filters, setQuery, query}: any) => {
                     placeholder={"Search everything"}
                     className="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
                     defaultValue={query}
+                    onKeyDown={handleKeyDown} // Add the onKeyDown event handler
                     onChange={handleInputChange} // Set the onChange event to handleInputChange
                 />
                 <button
