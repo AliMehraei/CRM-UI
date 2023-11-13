@@ -18,7 +18,7 @@ const Index = () => {
     const [filters, setFilters] = useState([]);
     const [loading, setLoading] = useState(false);
     const handleSearch = async () => {
-        setQuery(query);
+        CallSearch();
     };
 
     const CallSearch = async () => {
