@@ -5,17 +5,18 @@ interface FilterModalProps {
     isOpen: boolean;
     onClose: () => void;
     onApply: (filters: any) => void;
+    filters:any;
+    setFilters:any;
 }
 
-const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any) => {
-    const defaultFilters = {
-        modules: 'All Modules',
-    };
+const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply,filters, setFilters}: any) => {
+    const defaultFilters = ['All'];
 
-    const [filters, setFilters] = useState<any>(defaultFilters);
+    // const [filters, setFilters] = useState<any>(defaultFilters);
 
     const handleResetFilters = () => {
-        setFilters(defaultFilters);
+        setFilters([]);
+        setSelectedOptions([]);
         // Optionally call onApply if you want the reset to be applied immediately
         // onApply(defaultFilters);
     };
@@ -60,7 +61,7 @@ const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply}: any
             case 'remove-value':
                 // When removing an option, if "All Modules" is the one being removed,
                 // clear the selection, otherwise update the selection normally.
-                if (actionMeta.removedValue.value === 'All Modules') {
+                if (actionMeta.removedValue.value === 'All') {
                     setSelectedOptions([]);
                 } else {
                     setSelectedOptions(selection);

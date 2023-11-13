@@ -15,7 +15,6 @@ const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) =>
 
     const handleApplyFilters = (val: any) => {
         setFilters(val);
-        console.log(val)
         setIsFilterModalOpen(false);
     };
     const handleSearchClick = () => {
@@ -65,7 +64,7 @@ const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) =>
                     Filter
                 </button>
             </div>
-            <FilterModal isOpen={isFilterModalOpen} onClose={handleCloseModal} onApply={handleApplyFilters}/>
+            <FilterModal setFilters={setFilters} filters={filters} isOpen={isFilterModalOpen} onClose={handleCloseModal} onApply={handleApplyFilters}/>
 
         </div>
     );

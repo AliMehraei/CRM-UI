@@ -99,7 +99,7 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 <div>
                     <div className="mb-4">
                         <span className="text-sm font-bold">Owner:</span>
-                        <span className="text-sm ml-2">{selectedItem.val.owner.first_name} {selectedItem.val.owner.last_name}</span>
+                        <span className="text-sm ml-2">{selectedItem.val?.owner?.first_name} {selectedItem.val?.owner?.last_name}</span>
                     </div>
 
                 </div>

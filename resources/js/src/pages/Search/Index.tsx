@@ -21,8 +21,10 @@ const Index = () => {
         setLoading(true);
         const results = await api_instance.globalSearchFull({
             search: query,
-            filters: filters, page: page
+            filters: filters,
+            page: page
         });
+        setLoading(false);
         setSearchResults(results.data);
     };
 
@@ -32,10 +34,13 @@ const Index = () => {
         const params = new URLSearchParams(url.search);
 
         const textSearch = params.get('text');
-        setQuery(textSearch ?? '');
+
         if (textSearch != null && textSearch != '')
-            handleSearch().then(() => setLoading(false));
+            setQuery(textSearch ?? '');
     }, []);
+    useEffect(()=>{
+        handleSearch();
+    },[query,filters])
 
     return (
         <div className="h-[calc(100vh_-_205px)]">
