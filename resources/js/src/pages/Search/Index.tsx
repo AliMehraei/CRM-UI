@@ -18,6 +18,10 @@ const Index = () => {
     const [filters, setFilters] = useState([]);
     const [loading, setLoading] = useState(false);
     const handleSearch = async () => {
+        setQuery(query);
+    };
+
+    const CallSearch = async () => {
         setLoading(true);
         const results = await api_instance.globalSearchFull({
             search: query,
@@ -27,7 +31,6 @@ const Index = () => {
         setLoading(false);
         setSearchResults(results.data);
     };
-
     useEffect(() => {
         const url = new URL(window.location.href);
 
@@ -39,7 +42,7 @@ const Index = () => {
             setQuery(textSearch ?? '');
     }, []);
     useEffect(()=>{
-        handleSearch();
+        CallSearch();
     },[query,filters])
 
     return (

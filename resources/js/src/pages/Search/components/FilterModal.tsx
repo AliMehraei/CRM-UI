@@ -5,20 +5,21 @@ interface FilterModalProps {
     isOpen: boolean;
     onClose: () => void;
     onApply: (filters: any) => void;
-    filters:any;
-    setFilters:any;
+
 }
 
-const FilterModal: React.FC<FilterModalProps> = ({isOpen, onClose, onApply,filters, setFilters}: any) => {
+const FilterModal: React.FC<FilterModalProps> = ({
+     isOpen, onClose, onApply
+    }: any) => {
     const defaultFilters = ['All'];
 
-    // const [filters, setFilters] = useState<any>(defaultFilters);
+    const [filters, setFilters] = useState<any>(defaultFilters);
 
     const handleResetFilters = () => {
-        setFilters([]);
+        // setFilters([]);
         setSelectedOptions([]);
         // Optionally call onApply if you want the reset to be applied immediately
-        // onApply(defaultFilters);
+        onApply([]);
     };
     const ModuleOptions: any = [
         {value: 'All', label: 'All Modules'},
