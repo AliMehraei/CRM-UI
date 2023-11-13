@@ -18,17 +18,8 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     };
     const isSelectedItemEmpty = isEmptyObject(selectedItem);
-    const handleScroll = () => {
-        /*const scrollTop =
-            document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollHeight =
-            document.documentElement.scrollHeight || document.body.scrollHeight;
-        const clientHeight =
-            document.documentElement.clientHeight || window.innerHeight;
-        if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
-            // User has reached the bottom of the page
-            setPage((prevPage: number) => prevPage + 1); // Increment the page
-        }*/
+
+  /*  const handleScroll = () => {
         const searchResultList = document.getElementById('search-result-list');
         if (!searchResultList) return;
         const scrollTop = searchResultList.scrollTop;
@@ -36,11 +27,9 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         const clientHeight = searchResultList.clientHeight;
 
         if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
-            // User has reached the bottom of the search result list
-            setPage((prevPage: any) => prevPage + 1); // Increment the page
+            setPage((prevPage: any) => prevPage + 1);
         }
     };
-
     useEffect(() => {
 
         const searchResultList = document.getElementById('search-result-list');
@@ -56,6 +45,7 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         };
     }, [page, query, loading]); // Re-run the effect when the page changes
 
+*/
     if (loading)
         return <LoadingSpinner/>
     return (
