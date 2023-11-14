@@ -26,7 +26,9 @@ const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) =>
 
     // Function to update the inputValue state as the user types in the search field
     const handleInputChange = (e: any) => {
+        setQuery(e.target.value);
         setInputValue(e.target.value);
+
     };
 
     useEffect(() => {

@@ -72,6 +72,14 @@ const Account = ({selectedItem}:any) => {
             </div>
             <div>
                 <div className="mb-4">
+                    <span className="text-sm font-bold">Account parent:</span>
+                    <span className="text-sm ml-2">{selectedItem.val?.parent?.account_name}</span>
+                </div>
+                <div className="mb-4">
+                    <span className="text-sm font-bold">Account child:</span>
+                    <span className="text-sm ml-2">{selectedItem.val?.child?.account_name}</span>
+                </div>
+                <div className="mb-4">
                     <span className="text-sm font-bold">VAT No:</span>
                     <span className="text-sm ml-2">{selectedItem.val?.vat_no}</span>
                 </div>
