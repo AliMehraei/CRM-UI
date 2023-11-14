@@ -79,7 +79,7 @@ const SearchSection = () => {
         <div className='bg-white items-center fixed' style={{top: '47px', width: '100%', right:'0px', zIndex: 1000 ,height:'30px', borderRadius :'5px' , border:'1px solid #ebebeb'}}>
             <div className="inline-flex justify-center items-center space-x-2 w-full pt-1">
                 <a className="font-bold  text-blue-500 hover:text-blue-800" href={`/search?text=${searchText}`}>
-                    Advanced Result
+                    Advanced Search
                 </a>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.5"
