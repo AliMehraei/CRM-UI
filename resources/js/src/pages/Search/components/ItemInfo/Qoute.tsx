@@ -27,7 +27,7 @@ const Quote = ({selectedItem}:any) => {
                 </div>
                 <div className="mb-4">
                     <span className="text-sm font-bold">RFQ:</span>
-                    <span className="text-sm ml-2">{selectedItem.val?.rfq?.rfq_number}</span>
+                    <span className="text-sm ml-2">{selectedItem.val?.rfq?.rfq_name}</span>
                 </div>
                 <div className="mb-4">
                     <span className="text-sm font-bold">Currency:</span>
