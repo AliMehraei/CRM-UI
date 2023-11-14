@@ -34,7 +34,7 @@ const FilterModal: React.FC<FilterModalProps> = ({
         {value: 'Contact', label: 'Contact'},
 
         {value: 'Vendor', label: 'Vendor'},
-
+        {value: 'Deal', label: 'Deal'},
         {value: 'Call', label: 'Call'},
         {value: 'Product', label: 'Product'},
         {value: 'VendorRfq', label: 'VendorRFQ'},
