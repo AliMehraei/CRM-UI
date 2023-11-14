@@ -76,8 +76,8 @@ const SearchSection = () => {
     };
 
     const SearchResultButton = ({ searchText }: any) => (
-        <div className='bg-white items-center fixed' style={{top: '47px', width: '100%', right:'0px', zIndex: 1000 ,height:'30px', borderRadius :'5px' , border:'1px solid #ebebeb'}}>
-            <div className="inline-flex justify-center items-center space-x-2 w-full pt-1">
+        <div className='bg-white items-center fixed' style={{top: '35px', width: '100%', right:'0px', zIndex: 1000 ,height:'40px', borderRadius :'5px' , border:'1px solid #ebebeb'}}>
+            <div className="inline-flex justify-center items-center space-x-2 w-full pt-2">
                 <a className="font-bold  text-blue-500 hover:text-blue-800" href={`/search?text=${searchText}`}>
                     Advanced Search
                 </a>
