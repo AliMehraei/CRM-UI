@@ -1,0 +1,1 @@
+import{a,j as r}from"./main-053eacbc.js";function i({data:s}){return a("div",{className:"px-4",children:a("div",{className:"space-y-1 mt-6 text-base text-gray-700",children:s.map((e,n)=>r("div",{children:[e.label,": ",a("strong",{children:e.value})]},n))})})}export{i as I};
