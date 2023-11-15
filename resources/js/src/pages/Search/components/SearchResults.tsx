@@ -1,8 +1,6 @@
 // SearchResults.jsx
 import React, {useEffect, useState} from 'react';
 import SearchResultItem from './SearchResultItem';
-import SearchBar from "./SearchBar";
-import {isEmptyChildren} from "formik";
 import {modelRouteMap} from "../../../components/Functions/CommonFunctions";
 import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -25,13 +23,8 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         const scrollTop = searchResultList.scrollTop;
         const scrollHeight = searchResultList.scrollHeight;
         const clientHeight = searchResultList.clientHeight;
-        console.log(scrollTop)
-        console.log(scrollHeight)
-        console.log(clientHeight)
 
         if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
-            console.log("page",page);
-
             setPage((prevPage: any) => prevPage + 1);
         }
     };
@@ -48,7 +41,7 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
                 searchResultList.removeEventListener('scroll', handleScroll);
             }
         };
-    }, [page, query, loading]); // Re-run the effect when the page changes
+    }, [page,loading]); // Re-run the effect when the page changes
 
     if (loading)
         return <LoadingSpinner/>
