@@ -11,17 +11,19 @@ const Index = () => {
     useEffect(() => {
         dispatch(setPageTitle('Search'));
     }, [dispatch]);
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState<any>([]);
     const api_instance = new Api();
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [query, setQuery] = useState('');
     const [filters, setFilters] = useState([]);
     const [loading, setLoading] = useState(false);
     const handleSearch = async () => {
+        setPage(0);
         CallSearch();
     };
 
     const CallSearch = async () => {
+
         setLoading(true);
         const results = await api_instance.globalSearchFull({
             search: query,
@@ -29,7 +31,8 @@ const Index = () => {
             page: page
         });
         setLoading(false);
-        setSearchResults(results.data);
+        setSearchResults((prevResults: any[]) => [...prevResults, results.data]);
+        // setSearchResults(results.data);
     };
     useEffect(() => {
         const url = new URL(window.location.href);
@@ -42,9 +45,15 @@ const Index = () => {
             setQuery(textSearch ?? '');
     }, []);
     useEffect(()=>{
+        setPage(0);
         CallSearch();
-    },[query,filters])
 
+    },[query,filters])
+    useEffect(()=>{
+
+        CallSearch();
+
+    },[page])
     return (
         <div className="h-[calc(100vh_-_205px)]">
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b] h-full">

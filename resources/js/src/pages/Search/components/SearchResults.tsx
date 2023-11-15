@@ -6,6 +6,7 @@ import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const SearchResults = ({query, results, page, setPage, loading}: any) => {
+    // console.log(results)
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
     const handleSelectItem = (groupName: any, val: any) => {
@@ -50,11 +51,15 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
             {/* Sidebar for search results */}
             <div id="search-result-list" className="w-1/3 bg-white overflow-auto">
                 {results.map((result: any, index: any) => (
-                    <SearchResultItem
-                        key={index}
-                        item={result}
-                        onSelect={(val: any) => handleSelectItem(Object.keys(result)[0], val)}
-                    />
+                    <React.Fragment key={index}>
+                        {result.map((v: any, i: any) => (
+                            <SearchResultItem
+                                key={`${index}-${i}`}  // Using a combination of index and i to create a unique key
+                                item={v}
+                                onSelect={(val: any) => handleSelectItem(Object.keys(v)[0], val)}
+                            />
+                        ))}
+                    </React.Fragment>
                 ))}
             </div>
 
