@@ -6,7 +6,7 @@ import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const SearchResults = ({query, results, page, setPage, loading}: any) => {
-    // console.log(results)
+
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
     const handleSelectItem = (groupName: any, val: any) => {
@@ -25,7 +25,8 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         const scrollHeight = searchResultList.scrollHeight;
         const clientHeight = searchResultList.clientHeight;
 
-        if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
+        if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0 && !loading) {
+
             setPage((prevPage: any) => prevPage + 1);
         }
     };
@@ -42,7 +43,23 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
                 searchResultList.removeEventListener('scroll', handleScroll);
             }
         };
-    }, [page,loading]); // Re-run the effect when the page changes
+    }, [page,loading, results]); // Re-run the effect when the page changes
+
+    // useEffect(() => {
+    //     console.log("useEffect started");
+    //
+    //     const searchResultList = document.getElementById('search-result-list');
+    //     console.log("searchResultList", searchResultList);
+    //     console.log("length", results.length);
+    //     console.log("results", results.length);
+    //
+    //     if(searchResultList && results.length > 0){
+    //         console.log("pagee", page);
+    //         console.log("rrrrr", searchResultList.style.height);
+    //
+    //         searchResultList.style.maxHeight = '300px';
+    //     }
+    // }, [page,loading]);
 
     if (loading)
         return <LoadingSpinner/>

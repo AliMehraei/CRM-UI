@@ -24,14 +24,20 @@ const Index = () => {
 
     const CallSearch = async () => {
 
-        setLoading(true);
-        const results = await api_instance.globalSearchFull({
-            search: query,
-            filters: filters,
-            page: page
-        });
-        setLoading(false);
-        setSearchResults((prevResults: any[]) => [...prevResults, results.data]);
+        try {
+            setLoading(true);
+            const results = await api_instance.globalSearchFull({
+                search: query,
+                filters: filters,
+                page: page
+            });
+            // Concatenate the new data with the existing results
+            setSearchResults((prevResults: any[]) => [...prevResults, results.data]);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
         // setSearchResults(results.data);
     };
     useEffect(() => {
@@ -49,6 +55,7 @@ const Index = () => {
         CallSearch();
 
     },[query,filters])
+
     useEffect(()=>{
 
         CallSearch();
