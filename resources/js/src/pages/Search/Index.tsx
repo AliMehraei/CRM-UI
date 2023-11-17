@@ -76,6 +76,19 @@ const Index = () => {
             console.log("new_length",activeIndexRef.current);
 
 
+
+            const searchResultList = document.getElementById('search-result-list');
+
+            if (searchResultList) {
+                searchResultList.addEventListener('scroll', handleScroll);
+            }
+            console.log('logggg',page)
+            return () => {
+                if (searchResultList) {
+                    searchResultList.removeEventListener('scroll', handleScroll);
+                }
+            };
+
         }
 
     }, [searchResults]);
@@ -136,7 +149,23 @@ const Index = () => {
 
     },[page])
 
+    const handleScroll = () => {
+        const searchResultList = document.getElementById('search-result-list');
+        if (!searchResultList) return;
+        const scrollTop = searchResultList.scrollTop;
+        const scrollHeight = searchResultList.scrollHeight;
+        const clientHeight = searchResultList.clientHeight;
 
+        // Check if the user has reached the bottom of the scroll
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+
+        if (isAtBottom && !loading) {
+            // Increment the page only when the user has reached the bottom
+            console.log('t1',page)
+            setPage((prevPage: any) => prevPage + 1);
+            console.log('t2',page)
+        }
+    };
 
     return (
         <div className="h-[calc(100vh_-_205px)]">

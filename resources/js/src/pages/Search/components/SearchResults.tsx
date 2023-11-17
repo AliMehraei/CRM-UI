@@ -18,37 +18,6 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
     };
     const isSelectedItemEmpty = isEmptyObject(selectedItem);
 
-    const handleScroll = () => {
-        const searchResultList = document.getElementById('search-result-list');
-        if (!searchResultList) return;
-        const scrollTop = searchResultList.scrollTop;
-        const scrollHeight = searchResultList.scrollHeight;
-        const clientHeight = searchResultList.clientHeight;
-
-        // Check if the user has reached the bottom of the scroll
-        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
-
-        if (isAtBottom && results.length > 0 && !loading) {
-            // Increment the page only when the user has reached the bottom
-            console.log('t1',page)
-            setPage((prevPage: any) => prevPage + 1);
-            console.log('t2',page)
-        }
-    };
-    useEffect(() => {
-
-        const searchResultList = document.getElementById('search-result-list');
-
-        if (searchResultList) {
-            searchResultList.addEventListener('scroll', handleScroll);
-        }
-        console.log('logggg',page)
-        return () => {
-            if (searchResultList) {
-                searchResultList.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [results]); // Re-run the effect when the page changes
 
     // useEffect(() => {
     //     console.log("useEffect started");
