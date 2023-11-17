@@ -5,7 +5,7 @@ import {modelRouteMap} from "../../../components/Functions/CommonFunctions";
 import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 
-const SearchResults = ({query, results, page, setPage, loading}: any) => {
+const SearchResults = ({query, results, page, setPage, loading,resultListRef}: any) => {
 
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
@@ -25,9 +25,14 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         const scrollHeight = searchResultList.scrollHeight;
         const clientHeight = searchResultList.clientHeight;
 
-        if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0 && !loading) {
+        // Check if the user has reached the bottom of the scroll
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
 
+        if (isAtBottom && results.length > 0 && !loading) {
+            // Increment the page only when the user has reached the bottom
+            console.log('t1',page)
             setPage((prevPage: any) => prevPage + 1);
+            console.log('t2',page)
         }
     };
     useEffect(() => {
@@ -37,13 +42,13 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
         if (searchResultList) {
             searchResultList.addEventListener('scroll', handleScroll);
         }
-
+        console.log('logggg',page)
         return () => {
             if (searchResultList) {
                 searchResultList.removeEventListener('scroll', handleScroll);
             }
         };
-    }, [page,loading, results]); // Re-run the effect when the page changes
+    }, [results]); // Re-run the effect when the page changes
 
     // useEffect(() => {
     //     console.log("useEffect started");
@@ -66,7 +71,7 @@ const SearchResults = ({query, results, page, setPage, loading}: any) => {
     return (
         <div className="flex h-[calc(100vh_-_350px)] ">
             {/* Sidebar for search results */}
-            <div id="search-result-list" className="w-1/3 bg-white overflow-auto">
+            <div id="search-result-list" className="w-1/3 bg-white overflow-auto" ref={resultListRef}>
                 {results.map((result: any, index: any) => (
                     <React.Fragment key={index}>
                         {result.map((v: any, i: any) => (

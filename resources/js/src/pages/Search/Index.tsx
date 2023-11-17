@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState,useRef} from 'react';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import {useDispatch} from "react-redux";
 import Sidebar from './components/Sidebar';
@@ -17,8 +17,13 @@ const Index = () => {
     const [query, setQuery] = useState('');
     const [filters, setFilters] = useState([]);
     const [loading, setLoading] = useState(false);
+    const resultListRef = useRef(null);
+    const activeIndexRef = useRef(0);
+
     const handleSearch = async () => {
         setPage(0);
+        activeIndexRef.current=0;
+        setSearchResults([]);
         CallSearch();
     };
 
@@ -31,15 +36,78 @@ const Index = () => {
                 filters: filters,
                 page: page
             });
+
             // Concatenate the new data with the existing results
-            setSearchResults((prevResults: any[]) => [...prevResults, results.data]);
+            if(page>0){
+                setSearchResults((prevResults: any[]) => [...prevResults, results.data]);
+            }
+            else{
+                setSearchResults([results.data]);
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
+            // Scroll to the first new item
             setLoading(false);
+
         }
-        // setSearchResults(results.data);
     };
+
+    useEffect(() => {
+        // const myArray = Object.entries(searchResults);
+        if(searchResults.length>0){
+            console.log("kkkkkkkkkkkkkk",searchResults)
+            let countResult=0;
+            let result = searchResults.map(function (innerArray: any) {
+
+                innerArray.map(function (item: any) {
+                    const group = Object.keys(item)[0];
+                    countResult+=item[group].length;
+                });
+            });
+
+            console.log('page',page);
+            if(page>0){
+                scrollToFirstNewItem()
+            }
+            console.log("old_length",activeIndexRef.current);
+
+            activeIndexRef.current=countResult ;
+            console.log("new_length",activeIndexRef.current);
+
+
+        }
+
+    }, [searchResults]);
+    const scrollToFirstNewItem = () => {
+        const resultList = resultListRef.current as any;
+        // console.log("result",searchResults.length);
+
+        console.log('resultList',resultList);
+
+        if (resultList) {
+            const newItemElement: any = resultList.children[activeIndexRef.current] as any;
+            console.log("uuuu",newItemElement)
+            //
+            if(newItemElement){
+                // console.log("vvv",newItemElement)
+
+                newItemElement.scrollIntoView({ behavior: 'smooth' });
+
+            }
+            //     if(searchResults.length > 5){
+        //         // Scroll to the first new item
+        //         const newItemIndex = (page - 1) * searchResults.length;
+        //         console.log(newItemIndex);
+        //         // const newItemElement = resultList.childNodes[newItemIndex] as HTMLDivElement;
+        //         // newItemElement.scrollIntoView({ behavior: 'smooth' });
+        //     }
+        //
+        //
+        //
+        }
+    };
+
     useEffect(() => {
         const url = new URL(window.location.href);
 
@@ -51,16 +119,25 @@ const Index = () => {
             setQuery(textSearch ?? '');
     }, []);
     useEffect(()=>{
-        setPage(0);
-        CallSearch();
+
+        if(query!=''){
+            setPage(0);
+            setSearchResults([]);
+            activeIndexRef.current=0;
+            CallSearch();
+        }
+
 
     },[query,filters])
 
     useEffect(()=>{
-
-        CallSearch();
+        if(query!='')
+            CallSearch();
 
     },[page])
+
+
+
     return (
         <div className="h-[calc(100vh_-_205px)]">
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b] h-full">
@@ -72,7 +149,7 @@ const Index = () => {
                         <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
                             <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
                                        setFilters={setFilters}/>
-                            <SearchResults query={query} results={searchResults}
+                            <SearchResults query={query} results={searchResults} resultListRef={resultListRef}
                                            setPage={setPage} page={page} loading={loading}
 
                             />
