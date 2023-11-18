@@ -132,13 +132,21 @@ const Index = () => {
             setQuery(textSearch ?? '');
     }, []);
     useEffect(()=>{
+        if(page==0){
 
-        if(query!=''){
-            setPage(0);
             setSearchResults([]);
             activeIndexRef.current=0;
-            // CallSearch();
+            CallSearch();
         }
+        else{
+            if(query!=''){
+                setPage(0);
+                setSearchResults([]);
+                activeIndexRef.current=0;
+                // CallSearch();
+            }
+        }
+
 
 
     },[query,filters])
