@@ -56,7 +56,7 @@ const Index = () => {
     useEffect(() => {
         // const myArray = Object.entries(searchResults);
         if(searchResults.length>0){
-            // console.log("kkkkkkkkkkkkkk",searchResults)
+            console.log("kkkkkkkkkkkkkk",searchResults)
             let countResult=0;
             let result = searchResults.map(function (innerArray: any) {
 
@@ -66,14 +66,14 @@ const Index = () => {
                 });
             });
 
-            // console.log('page',page);
+            console.log('page',page);
             if(page>0){
                 scrollToFirstNewItem()
             }
-            // console.log("old_length",activeIndexRef.current);
+            console.log("old_length",activeIndexRef.current);
 
             activeIndexRef.current=countResult ;
-            // console.log("new_length",activeIndexRef.current);
+            console.log("new_length",activeIndexRef.current);
 
 
 
@@ -82,7 +82,7 @@ const Index = () => {
             if (searchResultList) {
                 searchResultList.addEventListener('scroll', handleScroll);
             }
-            // console.log('logggg',page)
+            console.log('logggg',page)
             return () => {
                 if (searchResultList) {
                     searchResultList.removeEventListener('scroll', handleScroll);
@@ -137,7 +137,7 @@ const Index = () => {
             setPage(0);
             setSearchResults([]);
             activeIndexRef.current=0;
-            CallSearch();
+            // CallSearch();
         }
 
 
