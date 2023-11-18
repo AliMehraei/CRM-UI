@@ -145,6 +145,42 @@ const routes = [
         requiredPermission: 'read-product'
     },
     {
+        path: '/admin-analytics',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-report'
+    },
+    {
+        path: '/admin-analytics/customer',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-customer-report'
+    },
+    {
+        path: '/admin-analytics/product',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-product-report'
+    },
+    {
+        path: '/admin-analytics/quote',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-quote-report'
+    },
+    {
+        path: '/admin-analytics/lead',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-lead-report'
+    },
+    {
+        path: '/admin-analytics/sales-report',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-sale-report'
+    },
+    {
         path: '/import/:module',
         element: <ImportCreate/>,
         protected: true,
