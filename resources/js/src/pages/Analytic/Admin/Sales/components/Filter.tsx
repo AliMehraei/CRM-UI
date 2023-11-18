@@ -22,40 +22,45 @@ const Filter = () => {
     };
 
     return (
-        <div className="grid grid-cols-3 gap-4 mb-5">
+        <div className="mb-5 flex md:items-center md:flex-row flex-col gap-5">
+            <div className="flex items-center gap-5">
+                {/* First Multi-Select */}
+                <div className="md:flex-auto flex-1 ">
+                    <Select
+                        isMulti
+                        options={[
+                            { value: 'option1', label: 'Option 1' },
+                            { value: 'option2', label: 'Option 2' },
+                            // Add more options as needed
+                        ]}
+                        className="form-input"
+                        placeholder="Select Status"
+                        value={selectedOptionsFirst}
+                        onChange={handleFirstSelectChange}
+                    />
 
-            {/* First Multi-Select */}
-            <div>
-            <Select
-                isMulti
-                options={[
-                    { value: 'option1', label: 'Option 1' },
-                    { value: 'option2', label: 'Option 2' },
-                    // Add more options as needed
-                ]}
-                className="form-input"
-                value={selectedOptionsFirst}
-                onChange={handleFirstSelectChange}
-            />
+                </div>
+
+
+                {/* Second Multi-Select */}
+                <div className="md:flex-auto flex-1">
+                    <Select
+                        isMulti
+                        options={[
+                            { value: 'optionA', label: 'Option A' },
+                            { value: 'optionB', label: 'Option B' },
+                            // Add more options as needed
+                        ]}
+                        className="form-input" // Add spacing to separate the two selects
+                        placeholder="Select Sales Person"
+                        value={selectedOptionsSecond}
+                        onChange={handleSecondSelectChange}
+                    />
+                </div>
             </div>
 
 
-            {/* Second Multi-Select */}
-            <div>
-            <Select
-                isMulti
-                options={[
-                    { value: 'optionA', label: 'Option A' },
-                    { value: 'optionB', label: 'Option B' },
-                    // Add more options as needed
-                ]}
-                className="form-input" // Add spacing to separate the two selects
-                value={selectedOptionsSecond}
-                onChange={handleSecondSelectChange}
-            />
-            </div>
-
-            <div className="col-span-3 md:col-span-1 items-end">
+            <div className="ltr:ml-auto rtl:mr-auto">
             <Flatpickr
                 options={{
                     mode: 'range',
