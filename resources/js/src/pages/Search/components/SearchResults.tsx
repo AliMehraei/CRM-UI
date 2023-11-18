@@ -62,7 +62,7 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
     return (
         <div className="flex h-[calc(100vh_-_350px)] ">
             {/* Sidebar for search results */}
-            <div id="search-result-list" className="w-1/3 bg-white overflow-auto pb-64" ref={resultListRef}>
+            <div id="search-result-list" className="w-1/3 bg-white overflow-auto" ref={resultListRef}>
                 {results.map((result: any, index: any) => (
                     <React.Fragment key={index}>
                         {result.map((v: any, i: any) => (
@@ -75,6 +75,15 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
                         ))}
                     </React.Fragment>
                 ))}
+                <div className="pb-44 pt-7 ">
+                    <div className="flex items-center justify-center mb-8">
+                        <h4 className="text-lg font-semibold">Scroll Down For Load More Data</h4>
+                    </div>
+
+                </div>
+
+
+
             </div>
 
             {/* Main content area for selected item details */}
