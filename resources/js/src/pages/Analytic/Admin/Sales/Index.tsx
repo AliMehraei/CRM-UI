@@ -7,6 +7,7 @@ import { useUserStatus } from "../../../../config/authCheck";
 import Api from "../../../../config/api";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import LastPeriodCompareWidget from "../../../../components/Reports/LastPeriodCompareWidget";
+import SalesBySalesPerson from "./components/SalesBySalesPerson";
 
 const List = () => {
     const dispatch = useDispatch();
@@ -106,11 +107,9 @@ const List = () => {
                     )}
               
             </div>
-
-             
-
-
             )}
+            
+             <SalesBySalesPerson/>
 
         </div >
     );
