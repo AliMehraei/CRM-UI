@@ -8,6 +8,7 @@ import Api from "../../../../config/api";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import LastPeriodCompareWidget from "../../../../components/Reports/LastPeriodCompareWidget";
 import SalesBySalesPerson from "./components/SalesBySalesPerson";
+import Filter from "./components/Filter";
 
 const List = () => {
     const dispatch = useDispatch();
@@ -41,12 +42,13 @@ const List = () => {
 
     return (
         <div className="panel  border-white-light dark:border-[#1b2e4b]">
-           
+
            {(!hasPermission(`admin-sales-order-analytics`)) ? (
                 null
             ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-
+                <>
+                    <Filter />
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             {salesOrderData ? (
                         <>
                             <LastPeriodCompareWidget
@@ -105,10 +107,11 @@ const List = () => {
                     ) : (
                         <LoadingSpinner/>
                     )}
-              
+
             </div>
+               </>
             )}
-            
+
              <SalesBySalesPerson/>
 
         </div >
