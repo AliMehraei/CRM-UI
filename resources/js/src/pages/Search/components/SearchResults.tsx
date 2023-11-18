@@ -62,7 +62,7 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
     return (
         <div className="flex h-[calc(100vh_-_350px)] ">
             {/* Sidebar for search results */}
-            <div id="search-result-list" className="w-1/3 bg-white overflow-auto" ref={resultListRef}>
+            <div id="search-result-list" className="w-1/3 bg-white overflow-auto pb-64" ref={resultListRef}>
                 {results.map((result: any, index: any) => (
                     <React.Fragment key={index}>
                         {result.map((v: any, i: any) => (
