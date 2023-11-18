@@ -15,8 +15,9 @@ import VendorRfq from "./ItemInfo/VendorRfq";
 import Invoice from "./ItemInfo/Invoice";
 import Product from "./ItemInfo/Product";
 import Deal from "./ItemInfo/Deal";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
-const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
+const SelectedItemInfo = ({ selectedItem, itemPath,loadingItem }: any) => {
     const renderAdditionalDetails = () => {
         switch (selectedItem.group) {
             case 'Call':
@@ -87,7 +88,8 @@ const SelectedItemInfo = ({ selectedItem, itemPath }: any) => {
                 return null; // No additional details for other groups
         }
     };
-
+    if(loadingItem)
+        return <LoadingSpinner/>
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

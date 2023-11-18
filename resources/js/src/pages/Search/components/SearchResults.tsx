@@ -47,8 +47,6 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
             setItemPath(`/${modelRouteMap[data[0]]}/preview/${data[1].id}`)
         }
 
-
-
     }, [data]);
 
 
@@ -58,28 +56,13 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
     const isSelectedItemEmpty = isEmptyObject(selectedItem);
 
 
-    // useEffect(() => {
-    //     console.log("useEffect started");
-    //
-    //     const searchResultList = document.getElementById('search-result-list');
-    //     console.log("searchResultList", searchResultList);
-    //     console.log("length", results.length);
-    //     console.log("results", results.length);
-    //
-    //     if(searchResultList && results.length > 0){
-    //         console.log("pagee", page);
-    //         console.log("rrrrr", searchResultList.style.height);
-    //
-    //         searchResultList.style.maxHeight = '300px';
-    //     }
-    // }, [page,loading]);
 
     if (loading)
         return <LoadingSpinner/>
     return (
         <div className="flex h-[calc(100vh_-_350px)] ">
             {/* Sidebar for search results */}
-            <div id="search-result-list" className="w-1/3 bg-white overflow-auto" ref={resultListRef}>
+            <div id="search-result-list" className="w-1/3 bg-white overflow-auto pb-64" ref={resultListRef}>
                 {results.map((result: any, index: any) => (
                     <React.Fragment key={index}>
                         {result.map((v: any, i: any) => (
@@ -87,6 +70,7 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
                                 key={`${index}-${i}`}  // Using a combination of index and i to create a unique key
                                 item={v}
                                 onSelect={(val: any) => handleSelectItem(Object.keys(v)[0], val)}
+                                loadingItem={loadingItem}
                             />
                         ))}
                     </React.Fragment>
@@ -97,7 +81,7 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
             <div className="w-2/3 bg-gray-50 p-5">
                 {!isSelectedItemEmpty ? (
                     <SelectedItemInfo
-
+                        loadingItem={loadingItem}
                         selectedItem={selectedItem}
                         itemPath={itemPath}
 

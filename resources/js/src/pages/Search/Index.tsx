@@ -56,11 +56,9 @@ const Index = () => {
 
 
     useEffect(() => {
-        // const myArray = Object.entries(searchResults);
         if(searchResults.length>0){
-            // console.log("kkkkkkkkkkkkkk",searchResults)
             let countResult=0;
-            let result = searchResults.map(function (innerArray: any) {
+            searchResults.map(function (innerArray: any) {
 
                 innerArray.map(function (item: any) {
                     const group = Object.keys(item)[0];
@@ -68,29 +66,21 @@ const Index = () => {
                 });
             });
 
-            // console.log('page',page);
             if(page>0){
                 scrollToFirstNewItem()
             }
-            // console.log("old_length",activeIndexRef.current);
-
             activeIndexRef.current=countResult ;
-            // console.log("new_length",activeIndexRef.current);
-
-
 
             const searchResultList = document.getElementById('search-result-list');
+            if (!searchResultList) return;
 
             if (searchResultList) {
                 searchResultList.addEventListener('scroll', handleScroll);
             }
-            // console.log('logggg',page)
             return () => {
-                if (searchResultList) {
-                    searchResultList.removeEventListener('scroll', handleScroll);
-                }
-            };
+                searchResultList.removeEventListener('scroll', handleScroll);
 
+            };
         }
 
     }, [searchResults]);
@@ -167,13 +157,11 @@ const Index = () => {
         const clientHeight = searchResultList.clientHeight;
 
         // Check if the user has reached the bottom of the scroll
-        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 100;
 
         if (isAtBottom && !loading) {
             // Increment the page only when the user has reached the bottom
-            console.log('t1',page)
             setPage((prevPage: any) => prevPage + 1);
-            console.log('t2',page)
         }
     };
 
