@@ -691,6 +691,13 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data, {headers: Headers as any});
     }
 
+    async getRelationModel(groupName:any,id:any){
+        return await _axios.get(`${API_URL_PRODUCT}/relation-model/${groupName}/${id}`, {
+            headers: Headers as any,
+        });
+
+    }
+
     async dashboardData() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`, {headers: Headers as any});
     }

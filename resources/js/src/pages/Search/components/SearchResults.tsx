@@ -4,15 +4,54 @@ import SearchResultItem from './SearchResultItem';
 import {modelRouteMap} from "../../../components/Functions/CommonFunctions";
 import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Api from "../../../config/api";
 
 const SearchResults = ({query, results, page, setPage, loading,resultListRef}: any) => {
 
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
+    const [loadingItem, setLoadingItem] = useState(false);
+    const api_instance = new Api();
+    const [data, setData] = useState<any>([]);
+
+
     const handleSelectItem = (groupName: any, val: any) => {
-        setSelectedItem({group: groupName, val: val});
-        setItemPath(`/${modelRouteMap[groupName]}/preview/${val.id}`)
+
+        CallGetRelationModel(groupName,val.id);
+        // setSelectedItem({group: groupName, val: val});
+        // setItemPath(`/${modelRouteMap[groupName]}/preview/${val.id}`)
     };
+
+    const CallGetRelationModel = async (groupName: any,id:any) => {
+
+        try {
+            setLoadingItem(true);
+
+            const results = await api_instance.getRelationModel(groupName,id);
+
+            setData([groupName,results.data]);
+
+            // Concatenate the new data with the existing results
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            // Scroll to the first new item
+            setLoadingItem(false);
+
+        }
+    };
+
+    useEffect(() => {
+        if(data.length>0){
+            setSelectedItem({group: data[0], val: data[1]});
+            setItemPath(`/${modelRouteMap[data[0]]}/preview/${data[1].id}`)
+        }
+
+
+
+    }, [data]);
+
+
     const isEmptyObject = (obj: any) => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     };
