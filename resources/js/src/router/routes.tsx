@@ -129,6 +129,8 @@ const PreviewCall = lazy(() => import('../pages/Call/Preview'));
 
 const ListSearch = lazy(() => import('../pages/Search/Index'));
 
+const AdminAnalytic = lazy(() => import('../pages/Analytic/Admin/Index'));
+const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales/Index'));
 
 const routes = [
     // dashboard
@@ -146,39 +148,39 @@ const routes = [
     },
     {
         path: '/admin-analytics',
-        element: <Index/>,
+        element: <AdminAnalytic/>,
         protected: true,
-        requiredPermission: 'admin-report'
+        requiredPermission: 'admin-analytics'
     },
     {
         path: '/admin-analytics/customer',
         element: <Index/>,
         protected: true,
-        requiredPermission: 'admin-customer-report'
+        requiredPermission: 'admin-customer-analytics'
     },
     {
         path: '/admin-analytics/product',
         element: <Index/>,
         protected: true,
-        requiredPermission: 'admin-product-report'
+        requiredPermission: 'admin-product-analytics'
     },
     {
         path: '/admin-analytics/quote',
         element: <Index/>,
         protected: true,
-        requiredPermission: 'admin-quote-report'
+        requiredPermission: 'admin-quote-analytics'
     },
     {
         path: '/admin-analytics/lead',
         element: <Index/>,
         protected: true,
-        requiredPermission: 'admin-lead-report'
+        requiredPermission: 'admin-lead-analytics'
     },
     {
-        path: '/admin-analytics/sales-report',
-        element: <Index/>,
+        path: '/admin-analytics/sales-order',
+        element: <AdminAnalyticSalesOrder/>,
         protected: true,
-        requiredPermission: 'admin-sale-report'
+        requiredPermission: 'admin-sales-order-analytics'
     },
     {
         path: '/import/:module',
