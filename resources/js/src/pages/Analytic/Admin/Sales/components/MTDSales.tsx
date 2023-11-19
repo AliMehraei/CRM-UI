@@ -101,7 +101,7 @@ const MTDSales = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardMtdBilling();
+            const response = await api_instance.reportSalesChartMTD({});
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
