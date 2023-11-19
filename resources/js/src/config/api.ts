@@ -695,7 +695,7 @@ class api {
         return await _axios.get(`${API_URL_PRODUCT}/relation-model/${groupName}/${id}`);
 
     }
-
+    //start dashboard
     async dashboardData() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`);
     }
@@ -739,6 +739,16 @@ class api {
     async dashboardCallAmount() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/call-amount`);
     }
+
+    //start Report
+    async reportSalesChartYTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales_chart_ytd`, data);
+    }
+    async reportSalesChartMTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales_chart_mtd`, data);
+    }
+
+
 }
 
 export default api
