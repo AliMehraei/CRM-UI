@@ -7,8 +7,10 @@ import { useUserStatus } from "../../../../config/authCheck";
 import Api from "../../../../config/api";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import LastPeriodCompareWidget from "../../../../components/Reports/LastPeriodCompareWidget";
-import SalesBySalesPerson from "./components/SalesBySalesPerson";
+import MTDSales from "./components/MTDSales";
 import Filter from "./components/Filter";
+import YTDSales from "./components/YTDSales";
+import Details from "./components/Details";
 
 const List = () => {
     const dispatch = useDispatch();
@@ -112,7 +114,11 @@ const List = () => {
                </>
             )}
 
-             <SalesBySalesPerson/>
+             <MTDSales/>
+
+             <YTDSales/>
+
+            <Details/>
 
         </div >
     );
