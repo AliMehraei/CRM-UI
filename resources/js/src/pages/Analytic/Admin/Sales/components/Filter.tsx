@@ -7,19 +7,17 @@ import Select from 'react-select';
 import {searchOwners, StatusSalesOrderOption} from "../../../../../components/Functions/CommonFunctions";
 import AsyncSelect from "react-select/async";
 
-const Filter = () => {
+const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFilter,dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
 
     const dispatch = useDispatch();
     const [date3, setDate3] = useState<any>('2023-07-05 to 2023-07-10');
-    const [selectedOptionsFirst, setSelectedOptionsFirst] = useState(null);
-    const [selectedOptionsSecond, setSelectedOptionsSecond] = useState(null);
 
     const handleFirstSelectChange = (selectedOptions : any) => {
-        setSelectedOptionsFirst(selectedOptions);
+        setStatusFilter(selectedOptions);
     };
 
     const handleSecondSelectChange = (selectedOptions : any) => {
-        setSelectedOptionsSecond(selectedOptions);
+        setPersonFilter(selectedOptions);
     };
 
     const handleFilterClick = () => {
@@ -99,10 +97,10 @@ const Filter = () => {
         {/*</div>*/}
 
             <div className="panel  border-white-light dark:border-[#1b2e4b]">
-                <div className="grid sm:grid-cols-12 md:grid-cols-4 gap-6 mb-10">
+                <div className="grid sm:grid-cols-12 md:grid-cols-4 gap-3 mb-10">
 
-                    <div className="inline-flex">
-                        <label className="block text-[16px] font-semibold text-gray-800">
+                    <div className="inline-block gap-3">
+                        <label className="sm:col-span-4 mt-2 block text-[16px] font-semibold text-gray-800">
                             Select Status :
                         </label>
                         <Select
@@ -112,13 +110,14 @@ const Filter = () => {
                             id="status"
                             value={selectedOptionsFirst}
                             onChange={handleFirstSelectChange}
-                            className="w-48"
+                            // className="w-48"
+                            className="sm:col-span-8 lg:col-span-2"
                             placeholder="Select Status"
 
                         />
                     </div>
-                    <div className="inline-flex">
-                        <label className="block text-[16px] font-semibold text-gray-800">
+                    <div className="inline-block gap-3">
+                        <label className="sm:col-span-4 mt-2 block text-[16px] font-semibold text-gray-800">
                             Select Sales Person :
                         </label>
                         {/* Second Multi-Select */}
@@ -129,13 +128,16 @@ const Filter = () => {
                                 placeholder="Select Sales Person"
                                 loadOptions={searchOwners}
                                 onChange={handleSecondSelectChange}
-                                className="flex-1 w-60"
+                                // className="flex-1 w-60"
+                                className="sm:col-span-8 lg:col-span-2"
                             />
                     </div>
 
-                    <div className="inline-flex">
-                        <label className="block text-[16px] font-semibold text-gray-800">
-                            Select Range Date :
+
+                    <div className="inline-block gap-3">
+
+                        <label className="sm:col-span-4 mt-2 block text-[16px] font-semibold text-gray-800">
+                            Select Date :
                         </label>
                             <Flatpickr
                                 options={{
@@ -145,19 +147,24 @@ const Filter = () => {
 
                                 }}
                                 value={date3}
-                                className="form-input w-56 flex-1"
+                                // className="form-input w-56 flex-1"
+                                className="sm:col-span-8 form-input"
                                 onChange={(date3) => setDate3(date3)}
                             />
+
                     </div>
+                        <div className="inline-block lg:justify-end  md:mt-4">
+                        <button
+                            type="button"
+                            onClick={handleFilterClick}
+                            className="sm:col-span-12 lg:col-span-2 float-right block items-center  px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        >
+                            Filter
+                        </button>
+                        </div>
 
 
-                            <button
-                                type="button"
-                                onClick={handleFilterClick}
-                                className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            >
-                                Filter
-                            </button>
+
 
 
                 </div>
