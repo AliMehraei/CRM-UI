@@ -11,17 +11,20 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
 
     const dispatch = useDispatch();
     const [date3, setDate3] = useState<any>('2023-07-05 to 2023-07-10');
+    const [statusFilterTemp, setStatusFilterTemp] = useState([]);
+    const [personFilterTemp, setPersonFilterTemp] = useState([]);
 
     const handleFirstSelectChange = (selectedOptions : any) => {
-        setStatusFilter(selectedOptions);
+        setStatusFilterTemp(selectedOptions);
     };
 
     const handleSecondSelectChange = (selectedOptions : any) => {
-        setPersonFilter(selectedOptions);
+        setPersonFilterTemp(selectedOptions);
     };
 
     const handleFilterClick = () => {
-        console.log("kkkk");
+        setStatusFilter(statusFilterTemp);
+        setPersonFilter(personFilterTemp);
     };
 
     return (
@@ -108,7 +111,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                             options={StatusSalesOrderOption}
                             name="status"
                             id="status"
-                            value={selectedOptionsFirst}
+                            value={statusFilter}
                             onChange={handleFirstSelectChange}
                             // className="w-48"
                             className="sm:col-span-8 lg:col-span-2"
