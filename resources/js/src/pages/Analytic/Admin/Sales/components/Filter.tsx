@@ -9,7 +9,7 @@ const Filter = () => {
 
     const dispatch = useDispatch();
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
-    const [date3, setDate3] = useState<any>('2022-07-05 to 2022-07-10');
+    const [date3, setDate3] = useState<any>('2023-07-05 to 2023-07-10');
     const [selectedOptionsFirst, setSelectedOptionsFirst] = useState(null);
     const [selectedOptionsSecond, setSelectedOptionsSecond] = useState(null);
 
@@ -22,28 +22,35 @@ const Filter = () => {
     };
 
     return (
-        <div className="mb-5 flex md:items-center md:flex-row flex-col gap-5">
-            <div className="flex items-center gap-5">
-                {/* First Multi-Select */}
-                <div className="md:flex-auto flex-1 ">
-                    <Select
-                        isMulti
-                        options={[
-                            { value: 'option1', label: 'Option 1' },
-                            { value: 'option2', label: 'Option 2' },
-                            // Add more options as needed
-                        ]}
-                        className="form-input"
-                        placeholder="Select Status"
-                        value={selectedOptionsFirst}
-                        onChange={handleFirstSelectChange}
-                    />
+        <>
+        <div className="mb-10 mt-3 flex md:items-center md:flex-row flex-col gap-5">
+                <div className="flex items-center gap-5">
+                    {/* First Multi-Select */}
+                    <label htmlFor="firstSelect" className="block text-[16px] font-semibold text-gray-800">
+                        Select Status :
+                    </label>
+                    <div className="md:flex-auto flex-1 ">
+                        <Select
+                            isMulti
+                            options={[
+                                { value: 'option1', label: 'Option 1' },
+                                { value: 'option2', label: 'Option 2' },
+                                // Add more options as needed
+                            ]}
+                            className="form-input"
+                            placeholder="Select Status"
+                            value={selectedOptionsFirst}
+                            onChange={handleFirstSelectChange}
+                        />
 
-                </div>
+                    </div>
 
 
-                {/* Second Multi-Select */}
-                <div className="md:flex-auto flex-1">
+                    <label htmlFor="firstSelect" className="block text-[16px] font-semibold text-gray-800">
+                        Select Sales Person :
+                    </label>
+                    {/* Second Multi-Select */}
+                    <div className="md:flex-auto flex-1">
                     <Select
                         isMulti
                         options={[
@@ -57,22 +64,32 @@ const Filter = () => {
                         onChange={handleSecondSelectChange}
                     />
                 </div>
-            </div>
+                </div>
 
 
-            <div className="ltr:ml-auto rtl:mr-auto">
-            <Flatpickr
-                options={{
-                    mode: 'range',
-                    dateFormat: 'Y-m-d',
-                    position: isRtl ? 'auto right' : 'auto left',
-                }}
-                value={date3}
-                className="form-input"
-                onChange={(date3) => setDate3(date3)}
-            />
+            <div className="flex ltr:ml-auto rtl:mr-auto">
+                <div className="mr-4 mt-2">
+                <label className="block text-[16px] font-semibold text-gray-800">
+                    Select Range Date :
+                </label>
+                </div>
+                <div className="items-center">
+                    <Flatpickr
+                        options={{
+                            mode: 'range',
+                            dateFormat: 'Y-m-d',
+                            position: 'auto left',
+
+                        }}
+                        style={{ width: '220px' }} // Adjust the width as needed
+                        value={date3}
+                        className="form-input flex-1"
+                        onChange={(date3) => setDate3(date3)}
+                    />
+                </div>
             </div>
         </div>
+        </>
     );
 };
 
