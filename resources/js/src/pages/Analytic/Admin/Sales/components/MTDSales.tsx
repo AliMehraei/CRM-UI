@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../../../components/LoadingSpinner";
 import Api from "../../../../../config/api";
 
-const SalesBySalesPerson = () => {
+const MTDSales = () => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -126,7 +126,7 @@ const SalesBySalesPerson = () => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">MTD Billing Inc.Backlog</h5>
+                        <h5 className="font-semibold text-lg">MTD Sales</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
@@ -147,4 +147,4 @@ const SalesBySalesPerson = () => {
     )
 }
 
-export default SalesBySalesPerson;
+export default MTDSales;
