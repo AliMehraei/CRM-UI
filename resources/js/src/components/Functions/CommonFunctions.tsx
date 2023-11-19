@@ -27,6 +27,15 @@ export const StatusOption = [
     {value: 'Confirmed', label: 'Confirmed'},
     {value: 'Closed', label: 'Closed'},
 ];
+
+export const StatusSalesOrderOption = [
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Open', label: 'Open'},
+    {value: 'Approved', label: 'Approved'},
+    {value: 'Closed', label: 'Closed'},
+    {value: 'Void', label: 'Void'},
+];
+
 export const Stages = [
     {value: '-None-', label: '-None-'},
     {value: 'Draft', label: 'Draft'},
