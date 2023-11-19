@@ -86,7 +86,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                             />
 
                     </div>
-                        <div className="inline-block lg:justify-end  lg:mt-36">
+                        <div className="inline-block lg:justify-end  lg:mt-9">
                         <button
                             type="button"
                             onClick={handleFilterClick}
