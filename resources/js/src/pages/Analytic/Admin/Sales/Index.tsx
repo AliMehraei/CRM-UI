@@ -21,6 +21,12 @@ const List = () => {
     const [salesOrderData, setSalesOrderData] = useState<any>(null);
     const api = new Api();
     const [loading, setLoading] = useState(true);
+    const [dateFilter, setDateFilter] = useState<any>('2023-07-05 to 2023-07-10');
+    const [dateStartFilter, setDateStartFilter] = useState(null);
+    const [dateEndFilter, setDateEndFilter] = useState(null);
+
+    const [statusFilter, setStatusFilter] = useState([]);
+    const [personFilter, setPersonFilter] = useState([]);
 
     const fetchData = async () => {
         try {
@@ -49,7 +55,16 @@ const List = () => {
                 null
             ) : (
                 <>
-                    <Filter />
+                    <Filter
+                        setDateStartFilter={setDateStartFilter}
+                        setDateEndFilter={setDateEndFilter}
+                        setStatusFilter={setStatusFilter}
+                        setPersonFilter={setPersonFilter}
+                        dateStartFilter={dateStartFilter}
+                        dateEndFilter={dateEndFilter}
+                        statusFilter={statusFilter}
+                        personFilter={personFilter}
+                    />
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             {salesOrderData ? (
                         <>
@@ -114,9 +129,19 @@ const List = () => {
                </>
             )}
 
-             <MTDSales/>
+             <MTDSales
+                 dateStartFilter={dateStartFilter}
+                 dateEndFilter={dateEndFilter}
+                 statusFilter={statusFilter}
+                 personFilter={personFilter}
+             />
 
-             <YTDSales/>
+             <YTDSales
+                 dateStartFilter={dateStartFilter}
+                 dateEndFilter={dateEndFilter}
+                 statusFilter={statusFilter}
+                 personFilter={personFilter}
+             />
 
             <Details/>
 

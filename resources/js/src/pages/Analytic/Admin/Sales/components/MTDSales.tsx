@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../../../components/LoadingSpinner";
 import Api from "../../../../../config/api";
 
-const MTDSales = () => {
+const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -101,7 +101,12 @@ const MTDSales = () => {
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.dashboardMtdBilling();
+            const response = await api_instance.reportSalesChartMTD({
+                status:statusFilter,
+                date_start:dateStartFilter,
+                date_end:dateEndFilter,
+                sales_person:personFilter
+            });
             if (response.status === 200) {
                 const responseData = response.data.data;
                 const colChart = columnChart;
