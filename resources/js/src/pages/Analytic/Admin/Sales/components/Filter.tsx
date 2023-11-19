@@ -4,6 +4,8 @@ import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import {searchOwners, StatusOption} from "../../../../../components/Functions/CommonFunctions";
+import AsyncSelect from "react-select/async";
 
 const Filter = () => {
 
@@ -32,37 +34,45 @@ const Filter = () => {
                     <div className="md:flex-auto flex-1 ">
                         <Select
                             isMulti
-                            options={[
-                                { value: 'option1', label: 'Option 1' },
-                                { value: 'option2', label: 'Option 2' },
-                                // Add more options as needed
-                            ]}
-                            className="form-input"
-                            placeholder="Select Status"
+                            options={StatusOption}
+                            name="status"
+                            id="status"
                             value={selectedOptionsFirst}
                             onChange={handleFirstSelectChange}
+                            className="w-48"
+                            placeholder="Select Status"
+
                         />
 
                     </div>
 
 
-                    <label htmlFor="firstSelect" className="block text-[16px] font-semibold text-gray-800">
+                    <label className="block text-[16px] font-semibold text-gray-800">
                         Select Sales Person :
                     </label>
                     {/* Second Multi-Select */}
                     <div className="md:flex-auto flex-1">
-                    <Select
-                        isMulti
-                        options={[
-                            { value: 'optionA', label: 'Option A' },
-                            { value: 'optionB', label: 'Option B' },
-                            // Add more options as needed
-                        ]}
-                        className="form-input" // Add spacing to separate the two selects
-                        placeholder="Select Sales Person"
-                        value={selectedOptionsSecond}
-                        onChange={handleSecondSelectChange}
-                    />
+                        <AsyncSelect
+                            defaultOptions={true}
+                            isMulti
+                            id="owner_id"
+                            placeholder="Select Sales Person"
+                            loadOptions={searchOwners}
+                            onChange={handleSecondSelectChange}
+                            className="flex-1 w-60"
+                        />
+                    {/*<Select*/}
+                    {/*    isMulti*/}
+                    {/*    options={[*/}
+                    {/*        { value: 'optionA', label: 'Option A' },*/}
+                    {/*        { value: 'optionB', label: 'Option B' },*/}
+                    {/*        // Add more options as needed*/}
+                    {/*    ]}*/}
+                    {/*    className="form-input" // Add spacing to separate the two selects*/}
+                    {/*    placeholder="Select Sales Person"*/}
+                    {/*    value={selectedOptionsSecond}*/}
+                    {/*    onChange={handleSecondSelectChange}*/}
+                    {/*/>*/}
                 </div>
                 </div>
 
@@ -81,9 +91,8 @@ const Filter = () => {
                             position: 'auto left',
 
                         }}
-                        style={{ width: '220px' }} // Adjust the width as needed
                         value={date3}
-                        className="form-input flex-1"
+                        className="form-input w-56 flex-1"
                         onChange={(date3) => setDate3(date3)}
                     />
                 </div>
