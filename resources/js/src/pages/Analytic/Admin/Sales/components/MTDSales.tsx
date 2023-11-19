@@ -124,7 +124,7 @@ const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
     };
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [statusFilter,personFilter,dateStartFilter]);
 
     return (
         <div className="pt-5 flex-1">
