@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
+import Select, { ValueType } from 'react-select';
 import {searchOwners, StatusSalesOrderOption} from "../../../../../components/Functions/CommonFunctions";
 import AsyncSelect from "react-select/async";
 
@@ -12,10 +12,14 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
     const dispatch = useDispatch();
     const [date3, setDate3] = useState<any>('2023-07-05 to 2023-07-10');
     const [statusFilterTemp, setStatusFilterTemp] = useState([]);
+    const [statusOption, setStatusOption] = useState([]);
     const [personFilterTemp, setPersonFilterTemp] = useState([]);
 
-    const handleFirstSelectChange = (selectedOptions : any) => {
-        setStatusFilterTemp(selectedOptions);
+    const handleFirstSelectChange = (selectedOptions : ValueType<typeof StatusSalesOrderOption>) => {
+        setStatusOption(selectedOptions);
+        const selectedValues = selectedOptions.map(option => option.value);
+        setStatusFilterTemp(selectedValues);
+
     };
 
     const handleSecondSelectChange = (selectedOptions : any) => {
@@ -41,7 +45,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                             options={StatusSalesOrderOption}
                             name="status"
                             id="status"
-                            value={statusFilter}
+                            value={statusOption}
                             onChange={handleFirstSelectChange}
                             // className="w-48"
                             className="sm:col-span-8 lg:col-span-2"
