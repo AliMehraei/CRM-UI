@@ -1,71 +1,96 @@
 // SearchResults.jsx
 import React, {useEffect, useState} from 'react';
 import SearchResultItem from './SearchResultItem';
-import SearchBar from "./SearchBar";
-import {isEmptyChildren} from "formik";
 import {modelRouteMap} from "../../../components/Functions/CommonFunctions";
 import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Api from "../../../config/api";
 
-const SearchResults = ({query, results, page, setPage, loading}: any) => {
+const SearchResults = ({query, results, page, setPage, loading,resultListRef}: any) => {
+
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
+    const [loadingItem, setLoadingItem] = useState(false);
+    const api_instance = new Api();
+    const [data, setData] = useState<any>([]);
+
+
     const handleSelectItem = (groupName: any, val: any) => {
-        setSelectedItem({group: groupName, val: val});
-        setItemPath(`/${modelRouteMap[groupName]}/preview/${val.id}`)
+
+        CallGetRelationModel(groupName,val.id);
+        // setSelectedItem({group: groupName, val: val});
+        // setItemPath(`/${modelRouteMap[groupName]}/preview/${val.id}`)
     };
+
+    const CallGetRelationModel = async (groupName: any,id:any) => {
+
+        try {
+            setLoadingItem(true);
+
+            const results = await api_instance.getRelationModel(groupName,id);
+
+            setData([groupName,results.data]);
+
+            // Concatenate the new data with the existing results
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            // Scroll to the first new item
+            setLoadingItem(false);
+
+        }
+    };
+
+    useEffect(() => {
+        if(data.length>0){
+            setSelectedItem({group: data[0], val: data[1]});
+            setItemPath(`/${modelRouteMap[data[0]]}/preview/${data[1].id}`)
+        }
+
+    }, [data]);
+
+
     const isEmptyObject = (obj: any) => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
     };
     const isSelectedItemEmpty = isEmptyObject(selectedItem);
 
-  /*  const handleScroll = () => {
-        const searchResultList = document.getElementById('search-result-list');
-        if (!searchResultList) return;
-        const scrollTop = searchResultList.scrollTop;
-        const scrollHeight = searchResultList.scrollHeight;
-        const clientHeight = searchResultList.clientHeight;
 
-        if (scrollTop + clientHeight >= scrollHeight - 10 && results.length > 0) {
-            setPage((prevPage: any) => prevPage + 1);
-        }
-    };
-    useEffect(() => {
 
-        const searchResultList = document.getElementById('search-result-list');
-
-        if (searchResultList) {
-            searchResultList.addEventListener('scroll', handleScroll);
-        }
-
-        return () => {
-            if (searchResultList) {
-                searchResultList.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [page, query, loading]); // Re-run the effect when the page changes
-
-*/
     if (loading)
         return <LoadingSpinner/>
     return (
         <div className="flex h-[calc(100vh_-_350px)] ">
             {/* Sidebar for search results */}
-            <div id="search-result-list" className="w-1/3 bg-white overflow-auto">
+            <div id="search-result-list" className="w-1/3 bg-white overflow-auto" ref={resultListRef}>
                 {results.map((result: any, index: any) => (
-                    <SearchResultItem
-                        key={index}
-                        item={result}
-                        onSelect={(val: any) => handleSelectItem(Object.keys(result)[0], val)}
-                    />
+                    <React.Fragment key={index}>
+                        {result.map((v: any, i: any) => (
+                            <SearchResultItem
+                                key={`${index}-${i}`}  // Using a combination of index and i to create a unique key
+                                item={v}
+                                onSelect={(val: any) => handleSelectItem(Object.keys(v)[0], val)}
+                                loadingItem={loadingItem}
+                            />
+                        ))}
+                    </React.Fragment>
                 ))}
+                <div className="pb-44 pt-7 ">
+                    <div className="flex items-center justify-center mb-8">
+                        <h4 className="text-lg font-semibold">Scroll Down For Load More Data</h4>
+                    </div>
+
+                </div>
+
+
+
             </div>
 
             {/* Main content area for selected item details */}
             <div className="w-2/3 bg-gray-50 p-5">
                 {!isSelectedItemEmpty ? (
                     <SelectedItemInfo
-
+                        loadingItem={loadingItem}
                         selectedItem={selectedItem}
                         itemPath={itemPath}
 

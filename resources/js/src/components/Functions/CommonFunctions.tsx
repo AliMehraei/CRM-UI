@@ -27,6 +27,23 @@ export const StatusOption = [
     {value: 'Confirmed', label: 'Confirmed'},
     {value: 'Closed', label: 'Closed'},
 ];
+
+export const StatusSalesOrderOption = [
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Open', label: 'Open'},
+    {value: 'Approved', label: 'Approved'},
+    {value: 'Closed', label: 'Closed'},
+    {value: 'Void', label: 'Void'},
+];
+
+export const StatusInvoiceOption = [
+    {value: 'approved', label: 'approved'},
+    {value: 'draft', label: 'draft'},
+    {value: 'overdue', label: 'overdue'},
+    {value: 'sent', label: 'sent'},
+    {value: 'paid', label: 'paid'},
+];
+
 export const Stages = [
     {value: '-None-', label: '-None-'},
     {value: 'Draft', label: 'Draft'},
@@ -486,7 +503,7 @@ export function generateRandomPassword(length = 12) {
     return password;
 }
 export const formatDate = (dateString:any) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const options:any = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
 export function copyToClipboard(text: any) {
