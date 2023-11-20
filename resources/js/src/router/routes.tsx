@@ -132,6 +132,7 @@ const ListSearch = lazy(() => import('../pages/Search/Index'));
 const AdminAnalytic = lazy(() => import('../pages/Analytic/Admin/Index'));
 const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales/Index'));
 const AdminAnalyticQuote = lazy(() => import('../pages/Analytic/Admin/Quote/Index'));
+const AdminAnalyticInvoice = lazy(() => import('../pages/Analytic/Admin/Invoice/Index'));
 
 const routes = [
     // dashboard
@@ -167,7 +168,7 @@ const routes = [
     },
     {
         path: '/admin-analytics/quote',
-        element: <AdminAnalyticQuote/>,
+        element: <Index/>,
         protected: true,
         requiredPermission: 'admin-quote-analytics'
     },
