@@ -171,6 +171,12 @@ const routes = [
         requiredPermission: 'admin-quote-analytics'
     },
     {
+        path: '/admin-analytics/invoice',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-invoice-analytics'
+    },
+    {
         path: '/admin-analytics/lead',
         element: <Index/>,
         protected: true,
@@ -817,7 +823,7 @@ const routes = [
         protected: false,
     },
 
-    
+
 
 ];
 export {routes};
