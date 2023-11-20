@@ -752,6 +752,27 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-details`, data);
     }
 
+
+    async reportQuoteChartYTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/quote-chart-ytd`, data);
+    }
+    async reportQuoteChartMTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/quote-chart-mtd`, data);
+    }
+    async reportQuoteDetails(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/quote-details`, data);
+    }
+
+
+    async reportInvoiceChartYTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/invoice-chart-ytd`, data);
+    }
+    async reportInvoiceChartMTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/invoice-chart-mtd`, data);
+    }
+    async reportInvoiceDetails(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/invoice-details`, data);
+    }
 }
 
 export default api
