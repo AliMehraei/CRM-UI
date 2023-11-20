@@ -168,13 +168,13 @@ const routes = [
     },
     {
         path: '/admin-analytics/quote',
-        element: <Index/>,
+        element: <AdminAnalyticQuote/>,
         protected: true,
         requiredPermission: 'admin-quote-analytics'
     },
     {
         path: '/admin-analytics/invoice',
-        element: <Index/>,
+        element: <AdminAnalyticInvoice/>,
         protected: true,
         requiredPermission: 'admin-invoice-analytics'
     },
