@@ -36,6 +36,14 @@ export const StatusSalesOrderOption = [
     {value: 'Void', label: 'Void'},
 ];
 
+export const StatusInvoiceOption = [
+    {value: 'approved', label: 'approved'},
+    {value: 'draft', label: 'draft'},
+    {value: 'overdue', label: 'overdue'},
+    {value: 'sent', label: 'sent'},
+    {value: 'paid', label: 'paid'},
+];
+
 export const Stages = [
     {value: '-None-', label: '-None-'},
     {value: 'Draft', label: 'Draft'},
