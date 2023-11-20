@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select, { ValueType } from 'react-select';
 import {searchOwners, StatusSalesOrderOption} from "../../../../../components/Functions/CommonFunctions";
 import AsyncSelect from "react-select/async";
+import {Link} from "react-router-dom";
 
 const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFilter,dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
 
@@ -39,6 +40,24 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
         setDateStartFilter(dateStartFilterTemp);
         setDateEndFilter(dateEndFilterTemp);
     };
+    // const handleResetClick = () => {
+    //     setStatusFilterTemp([]);
+    //     setStatusOption([]);
+    //
+    //
+    //     setPersonOption([]);
+    //     setPersonFilterTemp([]);
+    //
+    //
+    //     setDate('');
+    //     setDateStartFilterTemp('');
+    //     setDateEndFilterTemp('');
+    //
+    //     setPersonFilter([]);
+    //     setStatusFilter([]);
+    //     setDateStartFilter('');
+    //     setDateEndFilter('');
+    // };
 
     const handleDateChange = (selectedDates: any) => {
 
@@ -140,13 +159,19 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
 
                     </div>
                         <div className="inline-block lg:justify-end  lg:mt-9">
-                        <button
-                            type="button"
-                            onClick={handleFilterClick}
-                            className="sm:col-span-12 lg:col-span-2 float-right block items-center  px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        >
-                            Filter
-                        </button>
+                            <button
+                                type="button"
+                                onClick={handleFilterClick}
+                                className="sm:col-span-12 lg:col-span-2 float-right block items-center  px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            > Filter
+                            </button>
+                            {/*<button*/}
+                            {/*    type="button"*/}
+                            {/*    onClick={handleResetClick}*/}
+                            {/*    className="sm:col-span-12 lg:col-span-2 float-right block items-center  mx-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"*/}
+                            {/*> Reset*/}
+                            {/*</button>*/}
+                            <Link type='button' className="sm:col-span-12 lg:col-span-2 float-right block items-center  mx-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" to={`/admin-analytics/sales-order`} reloadDocument={true}>Reset</Link>
                         </div>
 
 

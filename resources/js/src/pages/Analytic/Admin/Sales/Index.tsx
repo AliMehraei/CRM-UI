@@ -55,16 +55,7 @@ const List = () => {
                 null
             ) : (
                 <>
-                    <Filter
-                        setDateStartFilter={setDateStartFilter}
-                        setDateEndFilter={setDateEndFilter}
-                        setStatusFilter={setStatusFilter}
-                        setPersonFilter={setPersonFilter}
-                        dateStartFilter={dateStartFilter}
-                        dateEndFilter={dateEndFilter}
-                        statusFilter={statusFilter}
-                        personFilter={personFilter}
-                    />
+
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                         {salesOrderData ? (
                             <>
@@ -132,6 +123,16 @@ const List = () => {
                 null
             ) : (
                 <>
+                    <Filter
+                        setDateStartFilter={setDateStartFilter}
+                        setDateEndFilter={setDateEndFilter}
+                        setStatusFilter={setStatusFilter}
+                        setPersonFilter={setPersonFilter}
+                        dateStartFilter={dateStartFilter}
+                        dateEndFilter={dateEndFilter}
+                        statusFilter={statusFilter}
+                        personFilter={personFilter}
+                    />
                     <MTDSales
                         dateStartFilter={dateStartFilter}
                         dateEndFilter={dateEndFilter}
