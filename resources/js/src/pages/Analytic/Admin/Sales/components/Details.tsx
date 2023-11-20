@@ -5,10 +5,10 @@ import LoadingSpinner from "../../../../../components/LoadingSpinner";
 const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
     const api_instance = new Api();
     const [loading, setLoading] = useState(true);
-    const [total, setTotal] = useState(null);
-    const [gpTotal, setGpTotal] = useState(null);
-    const [average, setAverage] = useState(null);
-    const [count, setCount] = useState(null);
+    const [total, setTotal] = useState(0);
+    const [gpTotal, setGpTotal] = useState(0);
+    const [average, setAverage] = useState(0);
+    const [count, setCount] = useState(0);
 
     const fetchData = async () => {
         try {
@@ -19,7 +19,7 @@ const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) 
                 sales_person:personFilter
             });
             if (response.status === 200) {
-                const responseData = response.data;
+                const responseData = response.data.data;
                 setAverage(responseData.average);
                 setCount(responseData.count);
                 setGpTotal(responseData.gpTotal);
@@ -39,25 +39,25 @@ const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) 
         <>
             <div className="panel  border-white-light dark:border-[#1b2e4b]">
                 <h2 className="text-xl font-bold mb-4">Details</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div className="grid sm:grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
                     {loading ? (
                             <LoadingSpinner/>
                         ) : (
                     <div className="flex justify-between items-center p-4">
-                        <div className="inline-flex">
-                            <label>Sales Total:</label>
+                        <div className="inline-flex gap-3">
+                            <label>Sales Total: </label>
                             <span>{total}</span>
                         </div>
-                        <div className="inline-flex">
-                            <label>GP Total:</label>
+                        <div className="inline-flex gap-3">
+                            <label>GP Total: </label>
                             <span>{gpTotal}</span>
                         </div>
-                        <div className="inline-flex">
-                            <label>Count:</label>
+                        <div className="inline-flex gap-3">
+                            <label>Count: </label>
                             <span>{count}</span>
                         </div>
-                        <div className="inline-flex">
-                            <label>Average:</label>
+                        <div className="inline-flex gap-3">
+                            <label>Average: </label>
                             <span>{average}</span>
                         </div>
                     </div>
