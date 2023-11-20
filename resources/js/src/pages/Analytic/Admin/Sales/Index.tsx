@@ -143,7 +143,12 @@ const List = () => {
                  personFilter={personFilter}
              />
 
-            <Details/>
+            <Details
+                dateStartFilter={dateStartFilter}
+                dateEndFilter={dateEndFilter}
+                statusFilter={statusFilter}
+                personFilter={personFilter}
+            />
 
         </div >
     );
