@@ -103,8 +103,8 @@ const YTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
         try {
             const response = await api_instance.reportSalesChartYTD({
                 status:statusFilter,
-                date_start:dateStartFilter,
-                date_end:dateEndFilter,
+                date_start:dateStartFilter ?? '',
+                date_end:dateEndFilter ?? '',
                 sales_person:personFilter
             });
             if (response.status === 200) {
