@@ -4,7 +4,7 @@ import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import {searchOwners, StatusSalesOrderOption} from "../../../../../components/Functions/CommonFunctions";
+import {searchOwners, StatusInvoiceOption} from "../../../../../components/Functions/CommonFunctions";
 import AsyncSelect from "react-select/async";
 import {Link} from "react-router-dom";
 
@@ -94,7 +94,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                         </label>
                         <Select
                             isMulti
-                            options={StatusSalesOrderOption as any}
+                            options={StatusInvoiceOption as any}
                             name="status"
                             id="status"
                             value={statusOption}
