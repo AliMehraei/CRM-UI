@@ -13,7 +13,7 @@ const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) 
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.reportSalesDetails({
+            const response = await api_instance.reportQuoteDetails({
                 status:statusFilter,
                 date_start:dateStartFilter ?? '',
                 date_end:dateEndFilter ?? '',

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../../../components/LoadingSpinner";
 import Api from "../../../../../config/api";
 
-const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
+const MTDQuote = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const [filterChange, setFilterChange] = useState(false);
@@ -103,11 +103,11 @@ const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.reportSalesChartMTD({
+            const response = await api_instance.reportQuoteChartMTD({
                 status:statusFilter,
                 date_start:dateStartFilter ?? '',
                 date_end:dateEndFilter ?? '',
-                sales_person:personFilter
+                owner:personFilter
             });
             if (response.status === 200) {
                 const responseData = response.data.data;
@@ -157,4 +157,4 @@ const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
     )
 }
 
-export default MTDSales;
+export default MTDQuote;

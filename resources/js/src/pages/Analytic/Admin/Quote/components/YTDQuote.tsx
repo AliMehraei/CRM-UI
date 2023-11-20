@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../../../components/LoadingSpinner";
 import Api from "../../../../../config/api";
 
-const YTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
+const YTDQuote = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
     const columnChart: any = {
@@ -155,4 +155,4 @@ const YTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
     )
 }
 
-export default YTDSales;
+export default YTDQuote;
