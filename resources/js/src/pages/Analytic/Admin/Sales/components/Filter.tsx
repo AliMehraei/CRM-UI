@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useDispatch, useSelector } from 'react-redux';
-import Select, { ValueType } from 'react-select';
+import Select from 'react-select';
 import {searchOwners, StatusSalesOrderOption} from "../../../../../components/Functions/CommonFunctions";
 import AsyncSelect from "react-select/async";
 import {Link} from "react-router-dom";
@@ -19,10 +19,10 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
     const [personFilterTemp, setPersonFilterTemp] = useState([]);
     const [personOption, setPersonOption] = useState([]);
 
-    const handleFirstSelectChange = (selectedOptions : ValueType<typeof StatusSalesOrderOption>) => {
+    const handleFirstSelectChange = (selectedOptions : any) => {
 
         setStatusOption(selectedOptions);
-        const selectedValues = selectedOptions.map(option => option.value);
+        const selectedValues = selectedOptions.map((option:any) => option.value);
         setStatusFilterTemp(selectedValues);
 
     };
@@ -30,7 +30,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
     const handleSecondSelectChange = (selectedOptions : any) => {
 
         setPersonOption(selectedOptions);
-        const selectedValues = selectedOptions.map(option => option.value);
+        const selectedValues = selectedOptions.map((option:any) => option.value);
         setPersonFilterTemp(selectedValues);
     };
 
@@ -94,7 +94,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                         </label>
                         <Select
                             isMulti
-                            options={StatusSalesOrderOption}
+                            options={StatusSalesOrderOption as any}
                             name="status"
                             id="status"
                             value={statusOption}

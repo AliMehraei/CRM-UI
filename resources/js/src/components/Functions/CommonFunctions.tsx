@@ -495,7 +495,7 @@ export function generateRandomPassword(length = 12) {
     return password;
 }
 export const formatDate = (dateString:any) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const options:any = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
 export function copyToClipboard(text: any) {
