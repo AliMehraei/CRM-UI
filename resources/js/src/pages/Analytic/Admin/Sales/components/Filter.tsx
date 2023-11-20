@@ -123,7 +123,7 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                                 onChange={(selectedDates) => handleDateChange(selectedDates)}
                             />
 
-                        <a className="input-button ml-2" title="clear" onClick={()=> {
+                        <a className="input-button ml-2 cursor-pointer" title="Clear" onClick={()=> {
                             setDate('');
                             setDateStartFilterTemp('');
                             setDateEndFilterTemp('');
