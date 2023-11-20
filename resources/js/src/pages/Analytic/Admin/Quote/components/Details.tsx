@@ -42,7 +42,7 @@ const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) 
     return (
         <>
             <div className="panel  border-white-light dark:border-[#1b2e4b]">
-                <h2 className="text-xl font-bold mb-4">{filterChange === false ? 'Year in Review: 12-Month Filtered Sales Analysis' : 'Filtered Sales Performance Analysis'}</h2>
+                <h2 className="text-xl font-bold mb-4">{filterChange === false ? 'Year in Review: 12-Month Filtered Quote Analysis' : 'Filtered Quote Performance Analysis'}</h2>
                 <div className="grid sm:grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
                     {loading ? (
                             <LoadingSpinner/>

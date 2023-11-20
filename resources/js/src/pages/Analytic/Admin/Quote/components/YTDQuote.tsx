@@ -134,7 +134,7 @@ const YTDQuote = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">{filterChange === false ? 'YTD Sales' : 'Filtered Sales Performance Analysis'}</h5>
+                        <h5 className="font-semibold text-lg">{filterChange === false ? 'YTD Quote' : 'Filtered Quote Performance Analysis'}</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (
