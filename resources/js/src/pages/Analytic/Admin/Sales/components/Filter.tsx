@@ -14,8 +14,10 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
     const [statusFilterTemp, setStatusFilterTemp] = useState([]);
     const [statusOption, setStatusOption] = useState([]);
     const [personFilterTemp, setPersonFilterTemp] = useState([]);
+    const [personOption, setPersonOption] = useState([]);
 
     const handleFirstSelectChange = (selectedOptions : ValueType<typeof StatusSalesOrderOption>) => {
+
         setStatusOption(selectedOptions);
         const selectedValues = selectedOptions.map(option => option.value);
         setStatusFilterTemp(selectedValues);
@@ -23,7 +25,10 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
     };
 
     const handleSecondSelectChange = (selectedOptions : any) => {
-        setPersonFilterTemp(selectedOptions);
+
+        setPersonOption(selectedOptions);
+        const selectedValues = selectedOptions.map(option => option.value);
+        setPersonFilterTemp(selectedValues);
     };
 
     const handleFilterClick = () => {
