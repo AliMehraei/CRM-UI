@@ -1,4 +1,5 @@
 import _axios from './axios'
+import Details from "../pages/Analytic/Admin/Sales/components/Details";
 
 let URL: any;
 let API_URL_PRODUCT: any;
@@ -747,7 +748,9 @@ class api {
     async reportSalesChartMTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/sales_chart_mtd`, data);
     }
-
+    async reportSalesDetails(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales_details`, data);
+    }
 
 }
 

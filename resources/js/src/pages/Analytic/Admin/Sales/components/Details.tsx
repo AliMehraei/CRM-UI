@@ -1,46 +1,70 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import Api from "../../../../../config/api";
+import LoadingSpinner from "../../../../../components/LoadingSpinner";
 
-const Details = () => {
+const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
+    const api_instance = new Api();
+    const [loading, setLoading] = useState(true);
+    const [total, setTotal] = useState(null);
+    const [gpTotal, setGpTotal] = useState(null);
+    const [average, setAverage] = useState(null);
+    const [count, setCount] = useState(null);
+
+    const fetchData = async () => {
+        try {
+            const response = await api_instance.reportSalesDetails({
+                status:statusFilter,
+                date_start:dateStartFilter ?? '',
+                date_end:dateEndFilter ?? '',
+                sales_person:personFilter
+            });
+            if (response.status === 200) {
+                const responseData = response.data;
+                setAverage(responseData.average);
+                setCount(responseData.count);
+                setGpTotal(responseData.gpTotal);
+                setTotal(responseData.total);
+                setLoading(false);
+            } else {
+                console.error('Failed to fetch Sales Details:', response);
+            }
+        } catch (error) {
+            console.error('An error Sales Details: ', error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+    }, [statusFilter,personFilter,dateStartFilter]);
     return (
-        // <div className="mb-5 flex items-center justify-center">
-        //     <div className="w-full bg-white shadow-[4px_6px_10px_-3px_#bfc9d4] rounded border border-white-light dark:border-[#1b2e4b] dark:bg-[#191e3a] dark:shadow-none">
-        //         <div className="py-7 px-6">
-        //             <h2 className="text-xl font-bold mb-4">Details</h2>
-        //             <div className="flex justify-between items-center p-4">
-        //                 <div className="flex-1 w-32 font-semibold text-[16px]">
-        //                     Sales Total:
-        //                 </div>
-        //                 <div className="flex-1 w-32 font-normal text-[16px]">
-        //                     jjjjjjjjjjjjjjjjj
-        //                 </div>
-        //                 <div className="flex-1 w-32 font-semibold text-[16px]">
-        //                     GP Total:
-        //                 </div>
-        //                 <div className="flex-1 w-32 font-normal text-[16px]">
-        //                     kkkkkkkkkkkkkkkkkkkkkkk
-        //                 </div>
-        //
-        //                 <div className="flex-1 w-32 font-semibold text-[16px]">
-        //                     Owner:
-        //                 </div>
-        //                 <p className="flex-1 w-32 font-normal text-gray-500 text-[16px]">
-        //                     kkkkkkkkkkkkkkkkkkkkkkk
-        //                 </p>
-        //
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-        <div className="panel  border-white-light dark:border-[#1b2e4b]">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-
-                <div className="inline-flex">
-                    <label>Sales Total:</label>
-                    <span>50</span>
+        <>
+            <div className="panel  border-white-light dark:border-[#1b2e4b]">
+                <h2 className="text-xl font-bold mb-4">Details</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    {loading ? (
+                            <LoadingSpinner/>
+                        ) : (
+                    <div className="flex justify-between items-center p-4">
+                        <div className="inline-flex">
+                            <label>Sales Total:</label>
+                            <span>{total}</span>
+                        </div>
+                        <div className="inline-flex">
+                            <label>GP Total:</label>
+                            <span>{gpTotal}</span>
+                        </div>
+                        <div className="inline-flex">
+                            <label>Count:</label>
+                            <span>{count}</span>
+                        </div>
+                        <div className="inline-flex">
+                            <label>Average:</label>
+                            <span>{average}</span>
+                        </div>
+                    </div>
+                    )}
                 </div>
-
             </div>
-        </div>
+        </>
     );
 };
 
