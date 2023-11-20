@@ -10,7 +10,7 @@ import AsyncSelect from "react-select/async";
 const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFilter,dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
 
     const dispatch = useDispatch();
-    const [date, setDate] = useState<any>('2023-07-05 to 2023-07-10');
+    const [date, setDate] = useState<any>('');
     const [dateStartFilterTemp, setDateStartFilterTemp] = useState<string>('');
     const [dateEndFilterTemp, setDateEndFilterTemp] = useState<string>('');
     const [statusFilterTemp, setStatusFilterTemp] = useState([]);
@@ -115,7 +115,6 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
                                     mode: 'range',
                                     dateFormat: 'Y-m-d',
                                     position: 'auto left',
-                                    defaultDate: ["2023-10-10", "2023-10-20"],
 
                                 }}
                                 value={date}
