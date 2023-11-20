@@ -49,26 +49,22 @@ const List = () => {
                         </div>
                         <div className="flex items-center justify-between z-10">
 
-                            <button type="button" className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#4169e1] z-10">
-                                Managment
-                            </button>
+                            <Link type='button' className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#0000cd] z-10" to={`/admin-analytics/quote`}>Management</Link>
                         </div>
                     </div>
 
                     <div className="panel h-full overflow-hidden grid grid-cols-1 content-between"
                         style={{ background: 'linear-gradient(0deg, #00d2ff -227%, #3a7bd5)' }}>
                         <div className="flex items-start justify-between text-white-light mb-16 z-[7]">
-                            <h5 className="font-semibold text-lg">Lead and Opportunity Tracking</h5>
+                            <h5 className="font-semibold text-lg">Bulling performance</h5>
 
                             <div className="relative text-xl whitespace-nowrap">
-                                <span className="table text-[#d3d3d3] bg-[#3a7bd5] rounded p-1 text-xs mt-1 ltr:ml-auto rtl:mr-auto">Lead progression and opportunities</span>
+                                <span className="table text-[#d3d3d3] bg-[#3a7bd5] rounded p-1 text-xs mt-1 ltr:ml-auto rtl:mr-auto">Bulling performance</span>
                             </div>
                         </div>
                         <div className="flex items-center justify-between z-10">
 
-                            <button type="button" className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#3a7bd5] z-10">
-                                Managment
-                            </button>
+                            <Link type='button' className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#0000cd] z-10" to={`/admin-analytics/invoice`}>Management</Link>
                         </div>
                     </div>
 
@@ -84,7 +80,7 @@ const List = () => {
                         <div className="flex items-center justify-between z-10">
 
                             <button type="button" className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#005bea] z-10">
-                                Managment
+                                Management (soon)
                             </button>
                         </div>
                     </div>
@@ -101,7 +97,7 @@ const List = () => {
                         <div className="flex items-center justify-between z-10">
 
                             <button type="button" className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#4682B4] z-10">
-                                Managment
+                                Management(soon)
                             </button>
                         </div>
                     </div>
