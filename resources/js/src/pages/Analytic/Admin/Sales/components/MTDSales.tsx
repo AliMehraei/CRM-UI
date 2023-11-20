@@ -6,6 +6,8 @@ import Api from "../../../../../config/api";
 const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) => {
     const [loading, setLoading] = useState(true);
     const api_instance = new Api();
+    const [filterChange, setFilterChange] = useState(false);
+
     const columnChart: any = {
 
         series: [{
@@ -124,6 +126,9 @@ const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
     };
     useEffect(() => {
         fetchData();
+        if(statusFilter.length>0 || personFilter.length>0 || dateStartFilter!=''){
+            setFilterChange(true);
+        }
     }, [statusFilter,personFilter,dateStartFilter]);
 
     return (
@@ -131,7 +136,7 @@ const MTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">MTD Sales</h5>
+                        <h5 className="font-semibold text-lg">{filterChange === false ? 'MTD Sales' : 'Filtered Sales Performance Analysis'}</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
                             {loading ? (

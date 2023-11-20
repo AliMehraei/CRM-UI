@@ -743,13 +743,13 @@ class api {
 
     //start Report
     async reportSalesChartYTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/sales-chart-ytd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-chart-ytd`, data);
     }
     async reportSalesChartMTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/sales-chart-mtd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-chart-mtd`, data);
     }
     async reportSalesDetails(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/sales-details`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-details`, data);
     }
 
 }

@@ -9,6 +9,7 @@ const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) 
     const [gpTotal, setGpTotal] = useState(0);
     const [average, setAverage] = useState(0);
     const [count, setCount] = useState(0);
+    const [filterChange, setFilterChange] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -34,11 +35,14 @@ const Details = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any) 
     };
     useEffect(() => {
         fetchData();
+        if(statusFilter.length>0 || personFilter.length>0 || dateStartFilter!=''){
+            setFilterChange(true);
+        }
     }, [statusFilter,personFilter,dateStartFilter]);
     return (
         <>
             <div className="panel  border-white-light dark:border-[#1b2e4b]">
-                <h2 className="text-xl font-bold mb-4">Details</h2>
+                <h2 className="text-xl font-bold mb-4">{filterChange === false ? 'Year in Review: 12-Month Filtered Sales Analysis' : 'Filtered Sales Performance Analysis'}</h2>
                 <div className="grid sm:grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
                     {loading ? (
                             <LoadingSpinner/>

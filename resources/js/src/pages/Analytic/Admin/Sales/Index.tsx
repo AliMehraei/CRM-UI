@@ -22,8 +22,8 @@ const List = () => {
     const api = new Api();
     const [loading, setLoading] = useState(true);
     const [dateFilter, setDateFilter] = useState<any>('2023-07-05 to 2023-07-10');
-    const [dateStartFilter, setDateStartFilter] = useState(null);
-    const [dateEndFilter, setDateEndFilter] = useState(null);
+    const [dateStartFilter, setDateStartFilter] = useState('');
+    const [dateEndFilter, setDateEndFilter] = useState('');
 
     const [statusFilter, setStatusFilter] = useState([]);
     const [personFilter, setPersonFilter] = useState([]);
