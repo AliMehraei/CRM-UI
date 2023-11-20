@@ -4,7 +4,7 @@ import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import {searchOwners, StatusSalesOrderOption} from "../../../../../components/Functions/CommonFunctions";
+import {searchOwners} from "../../../../../components/Functions/CommonFunctions";
 import AsyncSelect from "react-select/async";
 import {Link} from "react-router-dom";
 
@@ -19,6 +19,17 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
     const [personFilterTemp, setPersonFilterTemp] = useState([]);
     const [personOption, setPersonOption] = useState([]);
 
+    const QuoteStages = [
+        {value: 'draft', label: 'Draft'},
+        {value: 'no_feedback', label: 'No Feedback'},
+        {value: 'negotiation_price', label: 'Negotiation Price'},
+        {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
+        {value: 'open', label: 'Open'},
+        {value: 'lost', label: 'Lost'},
+        {value: 'won', label: 'Won'},
+
+
+    ];
     const handleFirstSelectChange = (selectedOptions : any) => {
 
         setStatusOption(selectedOptions);
@@ -90,31 +101,31 @@ const Filter = ({setDateStartFilter,setDateEndFilter,setStatusFilter,setPersonFi
 
                     <div className="inline-block gap-3">
                         <label className="sm:col-span-4 mt-2 block text-[16px] font-semibold text-gray-800">
-                            Select Status :
+                            Select Quote Stage :
                         </label>
                         <Select
                             isMulti
-                            options={StatusSalesOrderOption as any}
+                            options={QuoteStages as any}
                             name="status"
                             id="status"
                             value={statusOption}
                             onChange={handleFirstSelectChange}
                             // className="w-48"
                             className="sm:col-span-8 lg:col-span-2"
-                            placeholder="Select Status"
+                            placeholder="Select Quote Stage"
 
                         />
                     </div>
                     <div className="inline-block gap-3">
                         <label className="sm:col-span-4 mt-2 block text-[16px] font-semibold text-gray-800">
-                            Select Sales Person :
+                            Select Owner :
                         </label>
                         {/* Second Multi-Select */}
                             <AsyncSelect
                                 defaultOptions={true}
                                 isMulti
                                 id="owner_id"
-                                placeholder="Select Sales Person"
+                                placeholder="Select Owner"
                                 loadOptions={searchOwners}
                                 onChange={handleSecondSelectChange}
                                 // className="flex-1 w-60"

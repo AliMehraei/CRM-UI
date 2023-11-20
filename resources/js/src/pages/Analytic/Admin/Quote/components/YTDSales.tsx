@@ -101,11 +101,11 @@ const YTDSales = ({dateStartFilter,dateEndFilter,statusFilter,personFilter}:any)
 
     const fetchData = async () => {
         try {
-            const response = await api_instance.reportSalesChartYTD({
+            const response = await api_instance.reportQuoteChartYTD({
                 status:statusFilter,
                 date_start:dateStartFilter ?? '',
                 date_end:dateEndFilter ?? '',
-                sales_person:personFilter
+                owner:personFilter
             });
             if (response.status === 200) {
                 const responseData = response.data.data;
