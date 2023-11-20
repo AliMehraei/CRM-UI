@@ -743,35 +743,35 @@ class api {
 
     //start Report
     async reportSalesChartYTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-chart-ytd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/chart-ytd`, data);
     }
     async reportSalesChartMTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-chart-mtd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/chart-mtd`, data);
     }
     async reportSalesDetails(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/sales/sales-details`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/details`, data);
     }
 
 
     async reportQuoteChartYTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/quote/quote-chart-ytd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/chart-ytd`, data);
     }
     async reportQuoteChartMTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/quote/quote-chart-mtd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/chart-mtd`, data);
     }
     async reportQuoteDetails(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/quote/quote-details`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/details`, data);
     }
 
 
     async reportInvoiceChartYTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/invoice-chart-ytd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/chart-ytd`, data);
     }
     async reportInvoiceChartMTD(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/invoice-chart-mtd`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/chart-mtd`, data);
     }
     async reportInvoiceDetails(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/invoice-details`, data);
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }
 }
 
