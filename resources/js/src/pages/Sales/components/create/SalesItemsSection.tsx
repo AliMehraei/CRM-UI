@@ -90,6 +90,12 @@ const SalesItemsSection = () => {
 
     };
 
+    useEffect(() => {
+
+        dispatch(updateFormData({summary: summary}));
+
+    }, [summary]);
+
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
