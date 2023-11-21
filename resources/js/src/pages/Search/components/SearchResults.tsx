@@ -6,7 +6,7 @@ import SelectedItemInfo from "./SelectedItemInfo";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import Api from "../../../config/api";
 
-const SearchResults = ({query, results, page, setPage, loading,resultListRef}: any) => {
+const SearchResults = ({query, results, page, setPage, loading,resultListRef,activeIndexRef}: any) => {
 
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
@@ -57,36 +57,43 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef}: a
 
 
 
-    if (loading)
-        return <LoadingSpinner/>
+
     return (
         <div className="flex h-[calc(100vh_-_350px)] ">
-            {/* Sidebar for search results */}
+
+
             <div id="search-result-list" className="w-1/3 bg-white overflow-auto" ref={resultListRef}>
-                {results.map((result: any, index: any) => (
-                    <React.Fragment key={index}>
-                        {result.map((v: any, i: any) => (
-                            <SearchResultItem
-                                key={`${index}-${i}`}  // Using a combination of index and i to create a unique key
-                                item={v}
-                                onSelect={(val: any) => handleSelectItem(Object.keys(v)[0], val)}
-                                loadingItem={loadingItem}
-                            />
+                {(loading  ? (
+                    <LoadingSpinner/>
+                ):(
+                    <>
+                        {results.map((result: any, index: any) => (
+                            <React.Fragment key={index}>
+                                {result.map((v: any, i: any) => (
+                                    <SearchResultItem
+                                        key={`${index}-${i}`}  // Using a combination of index and i to create a unique key
+                                        item={v}
+                                        onSelect={(val: any) => handleSelectItem(Object.keys(v)[0], val)}
+                                        loadingItem={loadingItem}
+                                    />
+                                ))}
+                            </React.Fragment>
                         ))}
-                    </React.Fragment>
+                        {(activeIndexRef.current >8  ? (
+                            <div className="pb-44 pt-7 ">
+                                <div className="flex items-center justify-center mb-8">
+                                    <h4 className="text-lg font-semibold">Scroll Down For Load More Data</h4>
+                                </div>
+
+                            </div>
+                        ) : (
+                            <></>
+                        ))}
+
+                    </>
                 ))}
-                <div className="pb-44 pt-7 ">
-                    <div className="flex items-center justify-center mb-8">
-                        <h4 className="text-lg font-semibold">Scroll Down For Load More Data</h4>
-                    </div>
-
-                </div>
-
-
-
             </div>
 
-            {/* Main content area for selected item details */}
             <div className="w-2/3 bg-gray-50 p-5">
                 {!isSelectedItemEmpty ? (
                     <SelectedItemInfo

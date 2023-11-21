@@ -72,7 +72,7 @@ const Index = () => {
             activeIndexRef.current=countResult ;
 
             const searchResultList = document.getElementById('search-result-list');
-            if (!searchResultList) return;
+            if (!searchResultList || activeIndexRef.current<8 ) return;
 
             if (searchResultList) {
                 searchResultList.addEventListener('scroll', handleScroll);
@@ -177,7 +177,7 @@ const Index = () => {
                             <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
                                        setFilters={setFilters}/>
                             <SearchResults query={query} results={searchResults} resultListRef={resultListRef}
-                                           setPage={setPage} page={page} loading={loading}
+                                           setPage={setPage} page={page} loading={loading} activeIndexRef={activeIndexRef}
 
                             />
                         </div>
