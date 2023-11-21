@@ -700,6 +700,10 @@ class api {
     async dashboardData() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`);
     }
+    async salePersonDashboardData() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/sale-person-dashboard-data`);
+    }
+
 
     async dashboardOpenQuotes() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/open-quotes`);
