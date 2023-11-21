@@ -97,30 +97,30 @@ const Preview = () => {
 
     const SOLineSection = {
         'leftObjects': [
-            {label: "Sales Total", value: `${formState.total}`}, //TODO : where is it ?
+            {label: "Sales Total", value: `${formState.sales_total}`}, //TODO : where is it ?
             {
                 label: "GP Total",
-                value: parseFloat(formState.list_price) - parseFloat(formState.availability?.availability_cost) * parseFloat(formState.Quantity)
+                value: `${formState.gp_total}`
             },
             {
                 label: "Margin",
-                value: (1 - (parseFloat(formState.availability?.availability_cost) / parseFloat(formState.list_price))) * 100
+                value: `${formState.margin}`
             },
         ],
         'rightObjects': [
-            {label: "Resale Price", value: `${formState.list_price}`},
-            {label: "Cost Vendor", value: `${formState.availability?.availability_cost}`},
+            {label: "Resale Price", value: `${formState.resale_price}`},
+            {label: "Cost Vendor", value: `${formState.cost_vendor}`},
         ],
     }
 
     const LinkedAvailabilitySection = {
         'leftObjects': [
-            {label: "Availability Name", value: `${formState.availability?.name}`},
+            {label: "Availability Name", value: `${formState.availability?.availability_name}`},
             {label: "Availability No", value: `${formState.availability?.availability_no}`},
-            {label: "Availability Cost", value: `${formState.availability?.availability_cost}`},
+            {label: "Availability Cost", value: `${formState.availability?.cost}`},
         ],
         'rightObjects': [
-            {label: "Availability Quantity", value: `${formState.availability?.quantity}`},
+            {label: "Availability Quantity", value: formState.availability?.quantity !== null ? `${formState.availability?.quantity}` : null},
             {label: "Availability LT", value: `${formState.availability?.lead_time}`},
             {label: "Availability DC", value: `${formState.availability?.date_code}`},
         ],
