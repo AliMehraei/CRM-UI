@@ -6,10 +6,14 @@ import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import Api from "../../../../config/api";
+import PopoverComponent from "../../../Invoice/components/create/PopoverComponent";
 
 const SalesItemsSection = () => {
     const formState = useSelector((state: any) => state.salesOrderForm);
-    const [items, setItems] = useState<any>([{id: 1, amount: 0, list_price: 0,},]);
+    const [summary, setSummary] = useState({
+        total: 0,
+    });
+    const [items, setItems] = useState<any>([{id: 1, amount: 0, list_price: 0},]);
     const dispatch = useDispatch();
     const api = new Api();
 
@@ -78,6 +82,20 @@ const SalesItemsSection = () => {
         setItems(remainingItems);
         dispatch(updateFormData({items: remainingItems}));
     };
+
+    const updateSummary = () => {
+        const total = items.reduce((amount: number, item: any) =>
+            amount + (parseFloat(item.amount) || 0), 0);
+
+
+        setSummary({
+            total,
+        });
+    };
+
+    useEffect(() => {
+        updateSummary();
+    }, [items]);
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -226,6 +244,15 @@ const SalesItemsSection = () => {
                                 <button type="button" className="btn btn-primary" onClick={() => addItem()}>
                                     Add Item
                                 </button>
+                            </div>
+                            <div className="sm:w-2/5">
+                                <div className="flex items-center justify-between">
+                                    <div>Total(€)</div>
+                                    <input id="total" name="total" type="text" value={summary.total}
+                                           className="w-64 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] disabled:cursor-not-allowed"
+                                           disabled/>
+                                </div>
+
                             </div>
                         </div>
                     </div>
