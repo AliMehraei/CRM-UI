@@ -13,12 +13,25 @@ const SalesItemsSection = () => {
     const [summary, setSummary] = useState({
         total: 0,
     });
-    const [items, setItems] = useState<any>([{id: 1, amount: 0, list_price: 0},]);
+    const [items, setItems] = useState<any>([
+        {
+            id: 1,
+            amount: 0,
+            list_price: 0,
+            quantity: 0,
+            description : null,
+            customer_part_id: null,
+            date_code: null,
+            requested_delivery_date: null,
+            estimated_delivery_date : null
+        },
+    ]);
     const dispatch = useDispatch();
     const api = new Api();
 
     const handleChangeField = (field: string, value: any, id: string) => {
-        const updatingItem = items.find((item: any) => item.id === id);
+        // const updatingItem = items.find((item: any) => item.id === id);
+        const updatingItem = {...items.find((item: any) => item.id === id)};
         const itemIndex = items.findIndex((item: any) => item.id === id);
 
         const updatedItem = {
@@ -76,6 +89,12 @@ const SalesItemsSection = () => {
         dispatch(updateFormData({items: remainingItems}));
 
     };
+
+    useEffect(() => {
+
+        dispatch(updateFormData({summary: summary}));
+
+    }, [summary]);
 
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
@@ -197,6 +216,7 @@ const SalesItemsSection = () => {
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
                                                 // value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
+                                                value={item.requested_delivery_date}
                                                 onChange={(_, dateString) => handleChangeField('requested_delivery_date', dateString, item.id)} // Update the field value on change
                                                 // defaultValue={formState.requested_delivery_date}
                                             />
@@ -212,6 +232,7 @@ const SalesItemsSection = () => {
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
                                                 // value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}
+                                                value={item.estimated_delivery_date}
                                                 onChange={(_, dateString) => handleChangeField('estimated_delivery_date', dateString, item.id)} // Update the field value on change
                                                 // defaultValue={formState.estimated_delivery_date}
                                             />
