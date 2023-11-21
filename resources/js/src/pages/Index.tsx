@@ -5,7 +5,7 @@ import Api from "../config/api";
 import LoadingSasCrm from "../components/LoadingSasCrm";
 import {useUserStatus} from "../config/authCheck";
 import AdminIndex from "./Dashboard/components/admin/AdminIndex";
-
+import SalesPersonIndex from "./Dashboard/components/sales_person/SalesPersonIndex"
 const Index = () => {
 
     const dispatch = useDispatch();
@@ -18,14 +18,25 @@ const Index = () => {
     //Revenue Chart
 
     const handleShowingDashboard = () => {
-        if (hasPermission('admin-dashboard')) {
-            return <AdminIndex/>
+        const isAdmin = hasPermission('admin-dashboard');
+        const isSalesPerson = hasPermission('sales-person-dashboard');
+    
+        if (isAdmin && isSalesPerson) {
+            return (
+                <>
+                    <SalesPersonIndex /> 
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>                    <AdminIndex />
+                    <AdminIndex />
+                </>
+            );
+        } else if (isAdmin) {
+            return <AdminIndex />;
+        } else if (isSalesPerson) {
+            return <SalesPersonIndex />;
         }
-        else if (hasPermission('sales-person-dashboard')) {
-            return <AdminIndex/>
-        }
+        return null;
     }
-
+    
 
     return (
 
