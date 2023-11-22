@@ -57,14 +57,6 @@ const SalesPersonIndex = () => {
                 return { colorClass: 'bg-orange-500', colorLightClass: 'bg-orange-300' };
             case '4.0 Hot lead qualified (HLQ)':
                 return { colorClass: 'bg-red-500', colorLightClass: 'bg-red-300' };
-            case 'Cold Call':
-                return { colorClass: 'bg-purple-500', colorLightClass: 'bg-purple-300' };
-            case 'Follow Up':
-                return { colorClass: 'bg-yellow-500', colorLightClass: 'bg-yellow-300' };
-            case 'Prequalified':
-                return { colorClass: 'bg-teal-500', colorLightClass: 'bg-teal-300' };
-            case 'Wertloser Lead':
-                return { colorClass: 'bg-pink-500', colorLightClass: 'bg-pink-300' };
             default:
                 return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' }; // Default color
         }
@@ -84,13 +76,20 @@ const SalesPersonIndex = () => {
     const [selectedLeadTab, setSelectedLeadTab] = useState('All');
     const [selectedRfqTab, setSelectedRfqTab] = useState('All');
 
-    const leadStatusAbbreviations = {
+    const rfqStatusAbbreviations = {
         'Open': 'Open',
         'Open without routing': 'Open without routing',
         'In review': 'In review',
     };
+    const leadStatusAbbreviations = {
+        '0.0(CLU)': '0.0 Cold lead / unqualified (CLU)',
+        '1.0(CLQ)': '1.0 Cold lead qualified (CLQ)',
+        '2.0(FCM)': '2.0 First contact made (FCM)',
+        '3.0(WLQ)': '3.0 Warm lead qualified (WLQ)',
+        '4.0(HLQ)': '4.0 Hot lead qualified (HLQ)',
+    };
 
-    const leadTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)', 'Cold Call', 'Follow Up', 'Prequalified', 'Wertloser Lead'];
+    const leadTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)'];
     const rfqTabs = ['All', 'Open', 'Open without routing'];
 
     const filteredLeads = selectedLeadTab === 'All' ? recentLeads : recentLeads.filter(lead => lead.status === (leadStatusAbbreviations[selectedLeadTab] || selectedLeadTab));
@@ -168,10 +167,10 @@ const SalesPersonIndex = () => {
                     )}
 
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 mb-6 ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6 ">
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Recent Leads</h5>
+                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Leads</h5>
                         <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
 
                             <div className="flex space-x-1">
@@ -229,7 +228,7 @@ const SalesPersonIndex = () => {
                     </div>
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Recent RFQS</h5>
+                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent RFQS</h5>
                         <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
 
                             <div className="flex space-x-1">
@@ -249,7 +248,7 @@ const SalesPersonIndex = () => {
                                 <>
                                     <div className="text-sm cursor-pointer">
                                         {filteredRfqs.map((rfq, index) => {
-                                            const { colorClass, colorLightClass } = getStatusColorClassLeads(rfq.status);
+                                            const { colorClass, colorLightClass } = getStatusColorClassRfq(rfq.status);
                                             return (
                                                 <Link to={`/rfq/preview/${rfq.id}`} className="flex items-center py-1.5 relative group" key={index}>
                                                     <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
