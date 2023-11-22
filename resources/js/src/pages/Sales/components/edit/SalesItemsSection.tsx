@@ -12,6 +12,11 @@ const SalesItemsSection = () => {
     const [items, setItems] = useState<any>([]);
     const dispatch = useDispatch();
     const api = new Api();
+    const [summary, setSummary] = useState({
+        total: 0,
+        ...formState.summary,
+
+    });
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatingItem = items.find((item: any) => item.id === id);
         const itemIndex = items.findIndex((item: any) => item.id === id);
@@ -71,6 +76,12 @@ const SalesItemsSection = () => {
 
     };
 
+    useEffect(() => {
+
+        dispatch(updateFormData({summary: summary}));
+
+    }, [summary]);
+
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
@@ -80,6 +91,20 @@ const SalesItemsSection = () => {
     useEffect(() => {
         setItems(Object.values(formState.items));
     }, []);
+
+    const updateSummary = () => {
+        const total = items.reduce((amount: number, item: any) =>
+            amount + (parseFloat(item.amount) || 0), 0);
+
+
+        setSummary({
+            total,
+        });
+    };
+
+    useEffect(() => {
+        updateSummary();
+    }, [items]);
 
 
     return (<>
@@ -244,10 +269,10 @@ const SalesItemsSection = () => {
                                 </button>
                             </div>
                             <div className="sm:w-2/5">
-                                
+
                                 <div className="flex items-center justify-between mt-4 font-semibold">
                                     <div className="flex-1">Total(€)</div>
-                                    <input id="grand_total" name="grand_total" type="text" value={formState.sales_total}
+                                    <input id="total" name="total" type="text" value={summary.total}
                                            className="w-64 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                            disabled/>
                                 </div>
