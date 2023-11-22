@@ -179,7 +179,7 @@ const SalesPersonIndex = () => {
                                              {filteredLeads.map((lead, index) => {
                                             const { colorClass, colorLightClass } = getStatusColorClass(lead.status);
                                             return (
-                                                <div className="flex items-center py-1.5 relative group" key={index}>
+                                                <Link to={`/lead/preview/${lead.id}`} className="flex items-center py-1.5 relative group" key={index}>
                                                     <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
                                                     <div className="flex-1">{lead.company}</div>
                                                     <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
@@ -189,7 +189,7 @@ const SalesPersonIndex = () => {
                                                         {lead.status}
                                                     </div>
 
-                                                </div>
+                                                </Link>
                                             );
                                         })}
                                     </div>
@@ -200,7 +200,7 @@ const SalesPersonIndex = () => {
                             )}
                         </PerfectScrollbar>
                         <div className="border-t border-white-light dark:border-white/10">
-                            <Link to="/" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
+                            <Link to="/lead/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
                                 View All
                                 <svg
                                     className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1"
