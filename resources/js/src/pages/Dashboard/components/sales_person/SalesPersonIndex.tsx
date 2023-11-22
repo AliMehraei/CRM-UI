@@ -9,6 +9,7 @@ const SalesPersonIndex = () => {
     const [salesOrderData, setSalesOrderData] = useState<any>(null);
     const [recentLeads, setRecentLeads] = useState<any>(null);
     const [recentRfqs, setRecentRfqs] = useState<any>(null);
+    const [recentQuotes, setRecentQuotes] = useState<any>(null);
 
     const api = new Api();
     const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ const SalesPersonIndex = () => {
                 setSalesOrderData(dashboardResponse.data.data.sales_order);
                 setRecentLeads(dashboardResponse.data.data.recent_lead);
                 setRecentRfqs(dashboardResponse.data.data.recent_rfq);
+                setRecentQuotes(dashboardResponse.data.data.recent_quote);
 
             } else {
                 console.error('Failed to fetch dashboard data:', dashboardResponse);
@@ -73,9 +75,30 @@ const SalesPersonIndex = () => {
                 return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' };
         }
     };
+    const getStatusColorClassQuotes = (status) => {
+        switch (status) {
+            case 'High':
+                return { colorClass: 'bg-blue-500', colorLightClass: 'bg-blue-300' };
+            case 'Low':
+                return { colorClass: 'bg-purple-500', colorLightClass: 'bg-purple-300' };
+            case 'undefined':
+                return { colorClass: 'bg-green-500', colorLightClass: 'bg-green-300' };
+            case 'unknown':
+                return { colorClass: 'bg-green-500', colorLightClass: 'bg-green-300' };
+            default:
+                return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' };
+        }
+    };
     const [selectedLeadTab, setSelectedLeadTab] = useState('All');
     const [selectedRfqTab, setSelectedRfqTab] = useState('All');
+    const [selectedQuotesTab, setSelectedQuotesTab] = useState('All');
 
+    const quotesStatusAbbreviations = {
+        'High': 'High',
+        'Low': 'Low',
+        'undefined': 'undefined',
+        'unknown': 'unknown'
+    };
     const rfqStatusAbbreviations = {
         'Open': 'Open',
         'Open without routing': 'Open without routing',
@@ -91,9 +114,11 @@ const SalesPersonIndex = () => {
 
     const leadTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)'];
     const rfqTabs = ['All', 'Open', 'Open without routing'];
+    const quoteTabs = ['All', 'High', 'Low','undefined' , 'unknown'];
 
     const filteredLeads = selectedLeadTab === 'All' ? recentLeads : recentLeads.filter(lead => lead.status === (leadStatusAbbreviations[selectedLeadTab] || selectedLeadTab));
     const filteredRfqs = selectedRfqTab === 'All' ? recentRfqs : recentRfqs.filter(rfq => rfq.status === selectedRfqTab);
+    const filteredQuotes = selectedQuotesTab === 'All' ? recentQuotes : recentQuotes.filter(quote => quote.quote_chance === selectedQuotesTab);
 
     return (
         <div>
@@ -272,6 +297,64 @@ const SalesPersonIndex = () => {
                         </PerfectScrollbar>
                         <div className="border-t border-white-light dark:border-white/10">
                             <Link to="/rfq/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
+                                View All
+                                <svg
+                                    className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
+                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Quotes</h5>
+                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+
+                            <div className="flex space-x-1">
+                                {quoteTabs.map(tab => (
+                                    <button
+                                        key={tab}
+                                        className={`px-4 rounded-md	  ${selectedQuotesTab === tab ? 'bg-gray-300' : 'bg-white'}`}
+                                        onClick={() => setSelectedQuotesTab(tab)}
+                                    >
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
+                        </PerfectScrollbar>
+                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                            {recentLeads ? (
+                                <>
+                                    <div className="text-sm cursor-pointer">
+                                        {filteredQuotes.map((quote, index) => {
+                                            const { colorClass, colorLightClass } = getStatusColorClassQuotes(quote.quote_chance);
+                                            return (
+                                                <Link to={`/quotes/preview/${quote.id}`} className="flex items-center py-1.5 relative group" key={index}>
+                                                    <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
+                                                    <div className="flex-1">{quote.subject} </div>
+                                                    <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
+                                                        {formatDate(quote.updated_at)}
+                                                    </div>
+                                                    <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
+                                                        {quote.quote_chance}
+                                                    </div>
+
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </>
+
+                            ) : (
+                                <LoadingSpinner />
+                            )}
+                        </PerfectScrollbar>
+                        <div className="border-t border-white-light dark:border-white/10">
+                            <Link to="/quotes/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
                                 View All
                                 <svg
                                     className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1"
