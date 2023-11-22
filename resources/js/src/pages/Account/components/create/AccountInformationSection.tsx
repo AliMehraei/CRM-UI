@@ -56,6 +56,7 @@ const AccountInformationSection = () => {
             'website': (<input
 
                 id="website"
+                required
                 name="website"
                 className="form-input flex-1 "
                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
