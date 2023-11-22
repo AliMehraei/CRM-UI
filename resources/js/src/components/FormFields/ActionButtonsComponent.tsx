@@ -61,13 +61,20 @@ const ActionButtonsComponent = ({formState, resetForm, disabled = false}: any) =
                     padding: '10px 20px',
 
                 });
-            } else {
+            } else if(response.status === 400) {
                 toast.fire({
                     icon: 'error',
-                    title: 'Internal Server Error ,submitting form failed',
+                    title: response.data.message,
                     padding: '10px 20px',
                 });
             }
+            else {
+                    toast.fire({
+                        icon: 'error',
+                        title: 'Internal Server Error ,submitting form failed',
+                        padding: '10px 20px',
+                    });
+                }
         } catch (exception) {
             console.error(exception)
             toast.fire({
