@@ -202,7 +202,7 @@ const SalesPersonIndex = () => {
                                 {leadTabs.map(tab => (
                                     <button
                                         key={tab}
-                                        className={`px-4 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300' : 'bg-white'}`}
+                                        className={`px-4 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
                                         onClick={() => setSelectedLeadTab(tab)}
                                     >
                                         {tab}
@@ -260,7 +260,7 @@ const SalesPersonIndex = () => {
                                 {rfqTabs.map(tab => (
                                     <button
                                         key={tab}
-                                        className={`px-4 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300' : 'bg-white'}`}
+                                        className={`px-4 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
                                         onClick={() => setSelectedRfqTab(tab)}
                                     >
                                         {tab}
@@ -318,7 +318,7 @@ const SalesPersonIndex = () => {
                                 {quoteTabs.map(tab => (
                                     <button
                                         key={tab}
-                                        className={`px-4 rounded-md	  ${selectedQuotesTab === tab ? 'bg-gray-300' : 'bg-white'}`}
+                                        className={`px-4 rounded-md	  ${selectedQuotesTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
                                         onClick={() => setSelectedQuotesTab(tab)}
                                     >
                                         {tab}
