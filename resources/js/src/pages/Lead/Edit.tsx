@@ -97,7 +97,7 @@ const Edit = () => {
                 {formState.status == 'converted' && (<div
                     className="flex items-center p-3.5 rounded text-warning bg-warning-light dark:bg-warning-dark-light mb-5">
                     <span className="ltr:pr-2 rtl:pl-2 flex item-center">
-                        <strong className="ltr:mr-1 rtl:ml-1">Warning!</strong>This lead has been converted before you can not modify it .
+                        <strong className="ltr:mr-1 rtl:ml-1">Warning!</strong>This lead has been converted before , you can not modify it .
                     </span>
                 </div>)}
 
