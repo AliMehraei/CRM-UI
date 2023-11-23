@@ -163,6 +163,7 @@ const ContactDetailsSection = () => {
             'Contact Owner': <AsyncSelect
                 defaultOptions={true}
                 isMulti={false}
+                required
                 id="owner_id"
                 placeholder="Type at least 2 characters to search..."
                 name="owner_id"
