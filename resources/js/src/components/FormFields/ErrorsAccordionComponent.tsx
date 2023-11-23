@@ -22,7 +22,7 @@ const ErrorsAccordionComponent = () => {
                         className={`p-4 w-full flex items-center text-white-dark dark:bg-[#1b2e4b] !text-danger`}
                         onClick={() => togglePara('1')}
                     >
-                        You have error on submitting form ,Click here to show
+                        {formErrors.titleMessage ?? `You have error on submitting form ,Click here to show`}
                         <div className={`ltr:ml-auto rtl:mr-auto rotate-180`}>
                         </div>
                     </button>

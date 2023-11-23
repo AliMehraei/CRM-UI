@@ -62,7 +62,7 @@ export const handleUploadFile = (
     type: string,
     callBack: (response: any) => void) => {
 
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files  && e.target.files.length > 0) {
         api_instance.uploadFile(e.target.files[0], modelName, type).then((response) => {
             callBack(response)
         }).catch();
@@ -502,10 +502,12 @@ export function generateRandomPassword(length = 12) {
     }
     return password;
 }
-export const formatDate = (dateString:any) => {
-    const options:any = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+export const formatDate = (dateString: any) => {
+    const options: any = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'};
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
 export function copyToClipboard(text: any) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
@@ -553,3 +555,10 @@ export const modelRouteMap: any = {
     'User': 'user',
     'Call': 'call',
 };
+
+export const globalToast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 5000,
+});
