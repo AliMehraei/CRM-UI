@@ -10,6 +10,7 @@ const SalesPersonIndex = () => {
     const [recentLeads, setRecentLeads] = useState<any>(null);
     const [recentRfqs, setRecentRfqs] = useState<any>(null);
     const [recentQuotes, setRecentQuotes] = useState<any>(null);
+    const [recentSO, setRecentSO] = useState<any>(null);
 
     const api = new Api();
     const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ const SalesPersonIndex = () => {
                 setRecentLeads(dashboardResponse.data.data.recent_lead);
                 setRecentRfqs(dashboardResponse.data.data.recent_rfq);
                 setRecentQuotes(dashboardResponse.data.data.recent_quote);
+                setRecentSO(dashboardResponse.data.data.recent_sales_order);
 
             } else {
                 console.error('Failed to fetch dashboard data:', dashboardResponse);
@@ -89,9 +91,26 @@ const SalesPersonIndex = () => {
                 return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' };
         }
     };
+    const getStatusColorClassSO = (status) => {
+        switch (status) {
+            case 'Approved':
+                return { colorClass: 'bg-blue-500', colorLightClass: 'bg-blue-300' };
+            case 'Draft':
+                return { colorClass: 'bg-purple-500', colorLightClass: 'bg-purple-300' };
+            case 'Closed':
+                return { colorClass: 'bg-red-500', colorLightClass: 'bg-red-300' };
+            case 'open':
+                return { colorClass: 'bg-green-500', colorLightClass: 'bg-green-300' };
+            case 'pending_approval':
+                return { colorClass: 'bg-yellow-500', colorLightClass: 'bg-yellow-300' };
+            default:
+                return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' };
+        }
+    };
     const [selectedLeadTab, setSelectedLeadTab] = useState('All');
     const [selectedRfqTab, setSelectedRfqTab] = useState('All');
     const [selectedQuotesTab, setSelectedQuotesTab] = useState('All');
+    const [selectedSOTab, setSelectedSOTab] = useState('All');
 
     const quotesStatusAbbreviations = {
         'High': 'High',
@@ -114,11 +133,13 @@ const SalesPersonIndex = () => {
 
     const leadTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)'];
     const rfqTabs = ['All', 'Open', 'Open without routing'];
-    const quoteTabs = ['All', 'High', 'Low','undefined' , 'unknown'];
+    const quoteTabs = ['All', 'High', 'Low', 'undefined', 'unknown'];
+    const sOTabs = ['All', 'Approved', 'open', 'pending_approval', 'Draft','Closed','Void'];
 
     const filteredLeads = selectedLeadTab === 'All' ? recentLeads : recentLeads.filter(lead => lead.status === (leadStatusAbbreviations[selectedLeadTab] || selectedLeadTab));
     const filteredRfqs = selectedRfqTab === 'All' ? recentRfqs : recentRfqs.filter(rfq => rfq.status === selectedRfqTab);
     const filteredQuotes = selectedQuotesTab === 'All' ? recentQuotes : recentQuotes.filter(quote => quote.quote_chance === selectedQuotesTab);
+    const filteredSO = selectedSOTab === 'All' ? recentSO : recentSO.filter(so => so.status === selectedSOTab);
 
     return (
         <div>
@@ -192,7 +213,7 @@ const SalesPersonIndex = () => {
                     )}
 
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6 ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 ">
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
                         <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Leads</h5>
@@ -202,7 +223,7 @@ const SalesPersonIndex = () => {
                                 {leadTabs.map(tab => (
                                     <button
                                         key={tab}
-                                        className={`px-4 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                        className={`px-2 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
                                         onClick={() => setSelectedLeadTab(tab)}
                                     >
                                         {tab}
@@ -260,7 +281,7 @@ const SalesPersonIndex = () => {
                                 {rfqTabs.map(tab => (
                                     <button
                                         key={tab}
-                                        className={`px-4 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                        className={`px-2 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
                                         onClick={() => setSelectedRfqTab(tab)}
                                     >
                                         {tab}
@@ -318,7 +339,7 @@ const SalesPersonIndex = () => {
                                 {quoteTabs.map(tab => (
                                     <button
                                         key={tab}
-                                        className={`px-4 rounded-md	  ${selectedQuotesTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                        className={`px-2 rounded-md	  ${selectedQuotesTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
                                         onClick={() => setSelectedQuotesTab(tab)}
                                     >
                                         {tab}
@@ -367,7 +388,65 @@ const SalesPersonIndex = () => {
                             </Link>
                         </div>
                     </div>
+                    <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
+                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Sales Order</h5>
+                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+
+                            <div className="flex space-x-1">
+                                {sOTabs.map(tab => (
+                                    <button
+                                        key={tab}
+                                        className={`px-2 rounded-md	  ${selectedSOTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                        onClick={() => setSelectedSOTab(tab)}
+                                    >
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
+                        </PerfectScrollbar>
+                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                            {recentLeads ? (
+                                <>
+                                    <div className="text-sm cursor-pointer">
+                                        {filteredSO.map((so, index) => {
+                                            const { colorClass, colorLightClass } = getStatusColorClassSO(so.status);
+                                            return (
+                                                <Link to={`/sales/preview/${so.id}`} className="flex items-center py-1.5 relative group" key={index}>
+                                                    <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
+                                                    <div className="flex-1">{so.subject}</div>
+                                                    <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
+                                                        {formatDate(so.updated_at)}
+                                                    </div>
+                                                    <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
+                                                        {so.status}
+                                                    </div>
+
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </>
+
+                            ) : (
+                                <LoadingSpinner />
+                            )}
+                        </PerfectScrollbar>
+                        <div className="border-t border-white-light dark:border-white/10">
+                            <Link to="/sales/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
+                                View All
+                                <svg
+                                    className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
         </div>
