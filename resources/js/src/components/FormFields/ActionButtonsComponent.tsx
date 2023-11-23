@@ -17,6 +17,8 @@ const ActionButtonsComponent = ({formState, resetForm, disabled = false}: any) =
 
 
     const submitForm = async (action: string = 'save') => {
+
+
         dispatch(resetErrors());
         const toast = Swal.mixin({
             toast: true,
@@ -39,16 +41,14 @@ const ActionButtonsComponent = ({formState, resetForm, disabled = false}: any) =
                     title: 'Form submitted successfully',
                     padding: '10px 20px',
 
-                }).then(() => {
-                    if (action === 'save') {
-                        const pathToNavigate = formState.redirectTo.replace(':id', `${response.data.data.id}`);
-                        navigate(pathToNavigate, {replace: true});
-                    } else if (formState.action !== 'create') {
-                        const pathToNavigate = formState.createRoute;
-                        navigate(pathToNavigate, {replace: true});
-                    }
-                });
-
+                })
+                if (action === 'save') {
+                    const pathToNavigate = formState.redirectTo.replace(':id', `${response.data.data.id}`);
+                    navigate(pathToNavigate, {replace: true});
+                } else if (formState.action !== 'create') {
+                    const pathToNavigate = formState.createRoute;
+                    navigate(pathToNavigate, {replace: true});
+                }
             } else if (response.status === 422) {
                 const errorData = response.data.data;
                 const errorsToUpdate = {hasError: true, ...Object.fromEntries(Object.entries(errorData).map(([field, value]: any) => [field, value[0]]))};
@@ -61,20 +61,19 @@ const ActionButtonsComponent = ({formState, resetForm, disabled = false}: any) =
                     padding: '10px 20px',
 
                 });
-            } else if(response.status === 400) {
+            } else if (response.status === 400) {
                 toast.fire({
                     icon: 'error',
                     title: response.data.message,
                     padding: '10px 20px',
                 });
+            } else {
+                toast.fire({
+                    icon: 'error',
+                    title: 'Internal Server Error ,submitting form failed',
+                    padding: '10px 20px',
+                });
             }
-            else {
-                    toast.fire({
-                        icon: 'error',
-                        title: 'Internal Server Error ,submitting form failed',
-                        padding: '10px 20px',
-                    });
-                }
         } catch (exception) {
             console.error(exception)
             toast.fire({
@@ -112,10 +111,12 @@ const ActionButtonsComponent = ({formState, resetForm, disabled = false}: any) =
                             <button onClick={handlePreviousPage} className="btn btn-danger gap-2">
                                 Back
                             </button>
-                            <button disabled={disabled} onClick={() => submitForm('new')} className="btn btn-primary gap-2">
+                            <button disabled={disabled} onClick={() => submitForm('new')}
+                                    className="btn btn-primary gap-2">
                                 Save and new
                             </button>
-                            <button disabled={disabled} onClick={() => submitForm('save')} className="btn btn-success gap-2">
+                            <button disabled={disabled} onClick={() => submitForm('save')}
+                                    className="btn btn-success gap-2">
                                 Save
                             </button>
                         </div>
