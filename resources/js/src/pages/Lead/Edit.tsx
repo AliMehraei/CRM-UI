@@ -39,7 +39,6 @@ const Edit = () => {
         const response: any = await api.convertLeadValidation({
             'id': formState.id,
         });
-        console.log(response);
         if (response.status == 200) {
             navigate(`/lead/convert/${leadId}`, {replace: true});
         } else if (response.status === 422) {
