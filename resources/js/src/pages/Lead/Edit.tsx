@@ -56,7 +56,7 @@ const Edit = () => {
         } else {
             globalToast.fire({
                 icon: 'error',
-                title: 'Internal Server Error ,submitting form failed',
+                title: 'Internal Server Error ,Converting lead failed',
                 padding: '10px 20px',
             });
         }
