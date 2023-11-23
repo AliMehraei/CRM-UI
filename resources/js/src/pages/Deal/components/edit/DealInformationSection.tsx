@@ -9,6 +9,7 @@ import {
     , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {useState} from "react";
 
 const DealInformationSection = () => {
     const dispatch = useDispatch();
@@ -53,7 +54,9 @@ const DealInformationSection = () => {
         {value: 'Close Lead / Lost Lead', label: 'Close Lead / Lost Lead'},
     ];
 
-    let StageOption = StageExcessOption;
+
+    const [stageOption, setStageOption] = useState<any>(StageExcessOption)
+
 
     const fields = {
         'Deals Information': {
@@ -374,6 +377,7 @@ const DealInformationSection = () => {
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
+                        setStageOption(value == 'deal' ? StageDealOption : StageExcessOption)
                     }}
                     className="flex-1"
                     defaultValue={PipelineOption.find((title) => title.value == formState.deal_pipeline)}
@@ -382,14 +386,17 @@ const DealInformationSection = () => {
             ),
             'Stage': (
                 <Select
-                    options={StageOption}
+                    options={stageOption}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {
                         handleChangeField('deal_stage', value)
                     }}
                     className="flex-1"
-                    defaultValue={StageOption.find((title) => title.value == formState.deal_stage)}
+                    defaultValue={formState.deal_pipeline == 'deal' ?
+                        StageDealOption.find((title) => title.value == formState.deal_stage) :
+                        StageExcessOption.find((title) => title.value == formState.deal_stage)
+                    }
                 />
             ),
             'Probability (%)': (

@@ -9,6 +9,8 @@ import {
     , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {useState} from "react";
+import DealsByStage from "../../../Dashboard/components/admin/DealsByStage";
 
 const DealInformationSection = () => {
     const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const DealInformationSection = () => {
         {value: 'Close Lead / Lost Lead', label: 'Close Lead / Lost Lead'},
     ];
 
-    let StageOption = StageExcessOption;
+    const [stageOption, setStageOption] = useState<any>(StageExcessOption)
 
     const fields = {
         'Deals Information': {
@@ -258,6 +260,8 @@ const DealInformationSection = () => {
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
+                        setStageOption(value == 'deal' ? StageDealOption : StageExcessOption)
+
                     }}
                     className="flex-1"
 
@@ -265,7 +269,7 @@ const DealInformationSection = () => {
             ),
             'Stage': (
                 <Select
-                    options={StageOption}
+                    options={stageOption}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {
