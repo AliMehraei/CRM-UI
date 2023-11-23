@@ -10,6 +10,8 @@ import LoadingSasCrm from "../../components/LoadingSasCrm"
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import {useUserStatus} from "../../config/authCheck";
+import {updateErrors} from "../../store/formErrorsSlice";
+import {globalToast, notifyErrorMessage} from "../../components/Functions/CommonFunctions";
 
 const Edit = () => {
     const {hasPermission} = useUserStatus();
@@ -34,7 +36,31 @@ const Edit = () => {
     };
 
     const handleConvertLead = async () => {
-        navigate(`/lead/convert/${leadId}`, {replace: true});
+        const response: any = await api.convertLeadValidation({
+            'id': formState.id,
+        });
+        console.log(response);
+        if (response.status == 200) {
+            navigate(`/lead/convert/${leadId}`, {replace: true});
+        } else if (response.status === 422) {
+            const errorData = response.data.errors;
+            const errorsToUpdate = {titleMessage: "You have validation error on converting lead", hasError: true, ...Object.fromEntries(Object.entries(errorData).map(([field, value]: any) => [field, value[0]]))};
+            dispatch(updateErrors(errorsToUpdate));
+            globalToast.fire({
+                icon: 'error',
+                html: `<h5>Convert Validation Error</h5>
+                        <span style="font-size: 12px">Please Check fields</span>
+                        `,
+                padding: '10px 20px',
+
+            });
+        } else {
+            globalToast.fire({
+                icon: 'error',
+                title: 'Internal Server Error ,submitting form failed',
+                padding: '10px 20px',
+            });
+        }
     }
 
     useEffect(() => {
