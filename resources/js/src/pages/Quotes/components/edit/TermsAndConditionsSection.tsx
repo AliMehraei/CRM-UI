@@ -21,7 +21,7 @@ const TermsAndConditionsSection = () => {
                         <textarea id="terms_conditions" rows={3} name="terms_conditions"
                                   className="form-textarea flex-1"
                                   defaultValue={formState.terms_conditions}
-                                  placeholder="" onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                                  placeholder="" onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
                     </div>
                 </div>
             </div>

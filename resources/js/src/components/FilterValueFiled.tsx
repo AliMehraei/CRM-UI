@@ -185,10 +185,10 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     <>
                         <label className="block text-sm text-gray-600">From:</label>
                         <input type="number" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                         <label className="block text-sm text-gray-600">To:</label>
                         <input type="number" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                     </>
                 );
             case 'not_between':
@@ -196,10 +196,10 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     <>
                         <label className="block text-sm text-gray-600">From:</label>
                         <input type="number" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                         <label className="block text-sm text-gray-600">To:</label>
                         <input type="number" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                     </>
                 );
             default:
@@ -210,7 +210,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="number"
                             placeholder={`Search value`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -231,7 +231,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                 return (
                     <>
                         <Select placeholder="Select an option"
-                                onChange={(e) => handleSelectMultiple(option.value, e)}
+                                onChange={(e:any) => handleSelectMultiple(option.value, e)}
                                 options={type_condition_ops_formed} isMulti={false}/>
                     </>
 
@@ -245,7 +245,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -265,7 +265,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                 return (
                     <>
                         <Select placeholder="Select an option"
-                                onChange={(e) => handleSelectMultipleDuration(option.value, e, 'is_not')}
+                                onChange={(e:any) => handleSelectMultipleDuration(option.value, e, 'is_not')}
                                 options={type_condition_ops_formed} isMulti/>
                     </>
 
@@ -276,7 +276,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     <>
                         <Select placeholder="Select an option"
 
-                                onChange={(e) => handleSelectMultipleDuration(option.value, e, 'is')}
+                                onChange={(e:any) => handleSelectMultipleDuration(option.value, e, 'is')}
                                 options={type_condition_ops_formed} isMulti/>
                         <div className=" mt-4">
 
@@ -315,7 +315,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -336,7 +336,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                 return (
                     <>
                         <Select placeholder="Select an option"
-                                onChange={(e) => handleSelectMultiple(option.value, e)}
+                                onChange={(e:any) => handleSelectMultiple(option.value, e)}
                                 options={type_condition_ops_formed} isMulti/>
                     </>
 
@@ -350,7 +350,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -369,7 +369,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     defaultOptions={true}
                             placeholder="Type at least 2 characters to search..."
                             loadOptions={(e) => loadAdminUsers(e, option)}
-                            onChange={(e) => handleSelectMultipleUser(option.value, e)}
+                            onChange={(e:any) => handleSelectMultipleUser(option.value, e)}
                             isMulti
                         />
                     </>
@@ -382,7 +382,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -401,7 +401,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     defaultOptions={true}
                             placeholder="Type at least 2 characters to search..."
                             loadOptions={(e) => loadModels(e, option)}
-                            onChange={(e) => handleSelectMultiple(option.value, e)}
+                            onChange={(e:any) => handleSelectMultiple(option.value, e)}
                             isMulti
                         />
                     </>
@@ -414,7 +414,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -426,10 +426,10 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     <>
                         <label className="block text-sm text-gray-600">From:</label>
                         <input type="date" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                         <label className="block text-sm text-gray-600">To:</label>
                         <input type="date" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                     </>
                 )
 
@@ -471,7 +471,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                         <input
                             type="date"
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -484,7 +484,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -496,10 +496,10 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                     <>
                         <label className="block text-sm text-gray-600">From:</label>
                         <input type="date" name="from" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                         <label className="block text-sm text-gray-600">To:</label>
                         <input type="date" name="to" className="border p-2 w-full"
-                               onChange={(e) => handelBetween(option.value, e)}/>
+                               onChange={(e:any) => handelBetween(option.value, e)}/>
                     </>
                 )
             case 'is_empty':
@@ -540,7 +540,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                         <input
                             type="date"
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );
@@ -553,7 +553,7 @@ export const renderFilterValueFiled = (filterSelect: any, option: any, setFilter
                             type="text"
                             placeholder={`Search value that contains`}
                             className="border p-2 w-full"
-                            onChange={(e) => handleInputValueChange(option.value, e)}
+                            onChange={(e:any) => handleInputValueChange(option.value, e)}
                         />
                     </>
                 );

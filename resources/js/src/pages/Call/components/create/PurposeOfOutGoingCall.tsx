@@ -30,7 +30,7 @@ const PurposeOfOutGoingCall = () => {
                                     }} className="flex-1"/>,
             'Call Agenda': <input id="call_agenda" name="call_agenda"
                                   className="form-input flex-1 "
-                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 

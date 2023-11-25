@@ -16,12 +16,12 @@ const DevelopmentSection = () => {
                                          name="from_our_inventory"
                                          className="form-checkbox"
                                          checked={formState.from_our_inventory}
-                                         onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
+                                         onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}/>,
 
         },
         '': {
             'Portal Availability Id': <input id="portal_availability_id" name="portal_availability_id"
-                                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                             onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                              defaultValue={formState.portal_availability_id}
                                              className="form-input flex-1 "/>,
         }

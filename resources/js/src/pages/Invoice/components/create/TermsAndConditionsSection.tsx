@@ -19,7 +19,7 @@ const TermsAndConditionsSection = () => {
                         </label>
                         <textarea id="terms_and_conditions" rows={3} name="terms_conditions"
                                   className="form-textarea flex-1"
-                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                   placeholder=""></textarea>
                     </div>
                 </div>

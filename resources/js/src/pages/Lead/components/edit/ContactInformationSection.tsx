@@ -64,20 +64,20 @@ const ContactInformationSection = () => {
                         required
                         name="first_name"
                         className="form-input flex-1 "
-                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                        onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                         defaultValue={formState.first_name}
                     />
                 </div>
-            
+
             ),
             'Job Description': (
-                <Select 
-                options={JobDescription} 
-                name="job_description" 
-                id="job_description"       
+                <Select
+                options={JobDescription}
+                name="job_description"
+                id="job_description"
                 onChange={({value}: any) => {
                     handleChangeField('job_description', value)
-                }} 
+                }}
                 defaultValue={JobDescription.find((title) => title.value == formState.job_description)}
                 className="flex-1"
                 />
@@ -87,24 +87,24 @@ const ContactInformationSection = () => {
                     id="phone"
                     name="phone"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.phone}
                 />
             ),
-            
+
             'Mobile':
             <input
                 id="mobile"
                 name="mobile"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.mobile}
             />,
             'fax': (<input
                 id="fax"
                 name="fax"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.fax}
             />),
 
@@ -115,24 +115,24 @@ const ContactInformationSection = () => {
                 required
                 name="last_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.last_name}
             />),
             'Email': (<input
                 id="email"
                 name="email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.email}
             />),
-            
-           
+
+
             'Contact LinkedIn':
             <input
                 id="linkedin_contact"
                 name="linkedin_contact"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.linkedin_contact}
             />,
             'Company LinkedIn':
@@ -140,7 +140,7 @@ const ContactInformationSection = () => {
                 id="linkedin_contact"
                 name="linkedin_company"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.linkedin_company}
             />,
 
@@ -153,7 +153,7 @@ const ContactInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default ContactInformationSection;

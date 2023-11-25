@@ -336,7 +336,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute }: any) => {
                                             placeholder="Search fields..."
                                             className="border p-2 w-full"
                                             value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            onChange={(e:any) => setSearchQuery(e.target.value)}
                                         />
                                     </div>
 

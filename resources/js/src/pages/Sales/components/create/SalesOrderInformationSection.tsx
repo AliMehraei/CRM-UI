@@ -35,7 +35,7 @@ const SalesOrderInformationSection = () => {
                     id="purchase_order"
                     name="purchase_order"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Customer PO Date': (
@@ -76,7 +76,7 @@ const SalesOrderInformationSection = () => {
                     id="parent_so_nr"
                     name="parent_so_nr"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -89,7 +89,7 @@ const SalesOrderInformationSection = () => {
                     required
                     name="subject"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Pending': (
@@ -97,7 +97,7 @@ const SalesOrderInformationSection = () => {
                     id="pending"
                     name="pending"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Status': (
@@ -118,7 +118,7 @@ const SalesOrderInformationSection = () => {
                     id="zoho_books_id"
                     name="zoho_books_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 

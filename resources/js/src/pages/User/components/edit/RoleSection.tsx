@@ -43,7 +43,7 @@ const RoleSection = () => {
                 name="role_id"
                 defaultValue={formState.role_id}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Added By Id': <input
@@ -51,7 +51,7 @@ const RoleSection = () => {
                 name="added_by_id"
                 defaultValue={formState.added_by_id}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Profile Id': <input
@@ -59,7 +59,7 @@ const RoleSection = () => {
                 name="profile_id"
                 defaultValue={formState.profile_id}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 
@@ -70,7 +70,7 @@ const RoleSection = () => {
                 name="reporting_to_id"
                 defaultValue={formState.reporting_to_id}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'User Status': <input
@@ -78,7 +78,7 @@ const RoleSection = () => {
                 name="user_status"
                 defaultValue={formState.user_status}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Confirmation Status': <input
@@ -87,7 +87,7 @@ const RoleSection = () => {
                 name="confirmation_status"
                 checked={formState.confirmation_status}
                 className="form-checkbox  "
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
             />,
         }
     }

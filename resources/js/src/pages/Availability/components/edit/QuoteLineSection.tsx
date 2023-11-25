@@ -36,16 +36,16 @@ const QuoteLineSection = () => {
 
             'SKU name': <input id="sku_name" name="sku_name" className="form-input flex-1 "
                                defaultValue={formState.sku_name}
-                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                               onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Quantity': <input required id="quantity" name="quantity" className="form-input flex-1 "
                                defaultValue={formState.quantity}
-                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                               onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'In Stock Quantity': <input id="in_stock_quantity" name="in_stock_quantity"
                                         defaultValue={formState.in_stock_quantity}
                                         className="form-input flex-1 "
-                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                        onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Currency': <Select id="currency" name="currency" options={Currencies}
                                 className="flex-1"
@@ -55,7 +55,7 @@ const QuoteLineSection = () => {
                                 }}/>,
             'Cost': <input id="cost" name="cost" className="form-input flex-1 "
                            defaultValue={formState.cost}
-                           onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                           onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
 
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
@@ -65,23 +65,23 @@ const QuoteLineSection = () => {
         '': {
             'Lead Time': <input id="lead_time" name="lead_time" className="form-input flex-1 "
                                 defaultValue={formState.lead_time}
-                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Date Code': <input id="date_code" name="date_code" className="form-input flex-1 "
                                 defaultValue={formState.date_code}
-                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'SPQ': <input id="spq" name="spq" className="form-input flex-1 "
                           defaultValue={formState.spq}
-                          onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                          onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'MOQ': <input id="moq" name="moq" className="form-input flex-1 "
                           defaultValue={formState.moq}
-                          onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                          onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'comment': <input id="comment" name="comment" className="form-input flex-1 "
                               defaultValue={formState.comment}
-                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
 
         }

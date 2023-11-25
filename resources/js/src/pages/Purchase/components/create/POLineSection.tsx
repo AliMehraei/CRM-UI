@@ -92,7 +92,7 @@ const POLineSection = () => {
                 name="quantity"
                 className="form-input flex-1 "
                 type="number"
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Cost': (
@@ -102,7 +102,7 @@ const POLineSection = () => {
                 id="cost"
                 name="cost"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
         },
@@ -126,7 +126,7 @@ const POLineSection = () => {
                 id="date_code"
                 name="date_code"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'SPQ': (
@@ -134,7 +134,7 @@ const POLineSection = () => {
                 id="spq"
                 name="spq"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -144,7 +144,7 @@ const POLineSection = () => {
                 id="comment"
                 name="comment"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 

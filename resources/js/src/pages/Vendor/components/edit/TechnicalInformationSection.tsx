@@ -42,7 +42,7 @@ const TechnicalInformationSection = () => {
                 name="bom_excess_total_rows"
                 className="form-input flex-1 "
                 defaultValue={formState.bom_excess_total_rows}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
 

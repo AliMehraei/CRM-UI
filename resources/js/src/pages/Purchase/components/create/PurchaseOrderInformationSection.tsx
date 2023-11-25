@@ -70,7 +70,7 @@ const PurchaseOrderInformationSection = () => {
                     id="zoho_books_id"
                     name="zoho_books_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -83,7 +83,7 @@ const PurchaseOrderInformationSection = () => {
                     required
                     name="subject"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Status': (
@@ -113,7 +113,7 @@ const PurchaseOrderInformationSection = () => {
                     id="awb"
                     name="awb"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Confirmation Vendor': (

@@ -112,7 +112,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                 <input name="rfq_owner_name" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.rfq_owner_name}/>
                                             </td>
                                             <td>
@@ -142,7 +142,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                 <input name="alt_product" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.alt_product}/>
                                             </td>
                                             <td>
@@ -172,7 +172,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                 <input name="quantity" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.quantity}/>
                                             </td>
                                             <td>
@@ -191,7 +191,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                     <textarea name="comment" className="form-input min-w-[200px]"
                                                               defaultValue={item.comment}
-                                                              onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     />
                                             </td>
                                             <td>

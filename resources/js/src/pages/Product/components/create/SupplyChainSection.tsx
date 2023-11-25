@@ -33,7 +33,7 @@ const SupplyChainSection = () => {
 
                     name="manufacturer_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),

@@ -42,20 +42,20 @@ const TermsSection = () => {
                 id="payment_terms"
                 name="payment_terms"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'Incoterms ': (
                 <input
                     id="incoterms"
-                    
+
                     name="incoterms"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
-            
-            
+
+
 
         },
         '': {
@@ -64,20 +64,20 @@ const TermsSection = () => {
                 required
                 name="vat_no"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Forwarder': (<input
                 id="forwarder"
                 name="forwarder"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Forwarder Account no.':
             <input
                 id="forwarder_account_no"
                 name="forwarder_account_no"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
         }
@@ -89,7 +89,7 @@ const TermsSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default TermsSection;

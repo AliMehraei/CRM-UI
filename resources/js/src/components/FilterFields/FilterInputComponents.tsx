@@ -148,7 +148,7 @@ export const SelectComponent = ({
     return (
         <Select
             placeholder="Select an option"
-            onChange={(e) => (isMulti ? handleSelectMultiple(optionValue, e) : handleSelectMultipleDuration(optionValue, e, condition))}
+            onChange={(e:any) => (isMulti ? handleSelectMultiple(optionValue, e) : handleSelectMultipleDuration(optionValue, e, condition))}
             options={optionsFormed}
             isMulti={isMulti}
             defaultValue={defaultOption}

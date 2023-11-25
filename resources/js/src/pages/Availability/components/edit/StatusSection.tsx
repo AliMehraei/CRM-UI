@@ -36,7 +36,7 @@ const StatusSection = () => {
             'Valid': <Flatpickr name="valid" id="valid"
                                 options={{
                                     dateFormat: 'Y-m-d ',
-                                    defaultDate: formState.valid ? new Date(formState.valid) : null as any, 
+                                    defaultDate: formState.valid ? new Date(formState.valid) : null as any,
                                 }}
                                 defaultValue={formState.valid}
                                 className="form-input flex-1"
@@ -49,11 +49,11 @@ const StatusSection = () => {
             'Availability Name': <input required id="availability_name" name="availability_name"
                                         className="form-input flex-1 "
                                         defaultValue={formState.availability_name}
-                                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                        onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Rating': <input id="rating" name="rating" className="form-input flex-1 "
                              defaultValue={formState.rating}
-                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                             onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
         }

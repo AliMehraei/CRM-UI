@@ -24,7 +24,7 @@ const Operation = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission here
-    };    
+    };
 
     const operationDetailBox = () => {
         switch (operation) {
@@ -61,7 +61,7 @@ const Operation = () => {
                     </div>
                 );
                 break;
-        
+
             default:
                 break;
         }
@@ -81,19 +81,19 @@ const Operation = () => {
                         <div className="flex flex-col md:flex-row gap-4 items-center">
                             <div>
                                 <label className="flex items-center cursor-pointer">
-                                    <input type="radio" name="operation" className="form-radio" defaultChecked value="create" onChange={(e) => setOperation(e.target.value)} />
+                                    <input type="radio" name="operation" className="form-radio" defaultChecked value="create" onChange={(e:any) => setOperation(e.target.value)} />
                                     <span className="text-dark dark:text-white">Add as new { moduleName }</span>
                                 </label>
                             </div>
                             <div>
                                 <label className="flex items-center cursor-pointer">
-                                    <input type="radio" name="operation" className="form-radio" value="update" onChange={(e) => setOperation(e.target.value)} />
+                                    <input type="radio" name="operation" className="form-radio" value="update" onChange={(e:any) => setOperation(e.target.value)} />
                                     <span className="text-dark dark:text-white">Update existing { moduleName } only</span>
                                 </label>
                             </div>
                             <div>
                                 <label className="flex items-center cursor-pointer">
-                                    <input type="radio" name="operation" className="form-radio" value="create_update" onChange={(e) => setOperation(e.target.value)} />
+                                    <input type="radio" name="operation" className="form-radio" value="create_update" onChange={(e:any) => setOperation(e.target.value)} />
                                     <span className="text-dark dark:text-white">Both</span>
                                 </label>
                             </div>

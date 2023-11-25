@@ -139,13 +139,13 @@ const QuoteItemSection = () => {
 
                                                 <textarea name="description" className="form-textarea mt-4"
                                                           placeholder="Enter Description"
-                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                          onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                           defaultValue={item.description}></textarea>
                                             </td>
                                             <td>
                                                 <input name="customer_part_id" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.customer_part_id}/>
                                             </td>
                                             <td>
@@ -155,13 +155,13 @@ const QuoteItemSection = () => {
                                                     placeholder="Quantity"
                                                     name="quantity"
                                                     min={0}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     defaultValue={item.quantity}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="spq" type="text" className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.spq}/>
                                             </td>
                                             <td>
@@ -172,32 +172,32 @@ const QuoteItemSection = () => {
                                                     name="list_price"
                                                     min={0}
                                                     defaultValue={item.list_price}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="lead_time" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.lead_time}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="date_code" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.date_code}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="comment" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.comment}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input disabled name="amount" type="text"
                                                        className="form-input min-w-[200px] disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                                        value={item.amount}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>

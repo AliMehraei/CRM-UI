@@ -42,7 +42,7 @@ const PhysicalPropertiesSection = () => {
                 id="case_package"
                 name="case_package"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -51,7 +51,7 @@ const PhysicalPropertiesSection = () => {
                 id="packaging"
                 name="packaging"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -60,7 +60,7 @@ const PhysicalPropertiesSection = () => {
                 id="number_of_pins"
                 name="number_of_pins"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -74,7 +74,7 @@ const PhysicalPropertiesSection = () => {
                     id="weight"
                     name="weight"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -83,7 +83,7 @@ const PhysicalPropertiesSection = () => {
                     id="case_code_imperial"
                     name="case_code_imperial"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -92,7 +92,7 @@ const PhysicalPropertiesSection = () => {
                     id="case_code_metric"
                     name="case_code_metric"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),

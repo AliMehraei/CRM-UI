@@ -75,7 +75,7 @@ const VendorSection = () => {
                     required
                     name="vendor_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.vendor_name}
                 />
             ),
@@ -102,7 +102,7 @@ const VendorSection = () => {
                     type="checkbox"
                     name="is_active"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.is_active}
                 />
             ),
@@ -177,7 +177,7 @@ const VendorSection = () => {
                     type="checkbox"
                     name="business_vendor"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.business_vendor}
                 />
             ),

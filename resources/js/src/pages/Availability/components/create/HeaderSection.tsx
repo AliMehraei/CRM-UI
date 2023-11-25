@@ -42,7 +42,7 @@ const HeaderSection = () => {
                 className="flex-1"/>,
             'Vendor Quote No': <input id="vendor_quote_no" type="text" name="vendor_quote_no"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
         },
         '': {
             'Availability Owner': <AsyncSelect
