@@ -11,6 +11,7 @@ const SalesPersonIndex = () => {
     const [recentRfqs, setRecentRfqs] = useState<any>(null);
     const [recentQuotes, setRecentQuotes] = useState<any>(null);
     const [recentSO, setRecentSO] = useState<any>(null);
+    const [recentTasks , setRecentTasks] = useState<any>(null);
 
     const api = new Api();
     const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const SalesPersonIndex = () => {
                 setRecentRfqs(dashboardResponse.data.data.recent_rfq);
                 setRecentQuotes(dashboardResponse.data.data.recent_quote);
                 setRecentSO(dashboardResponse.data.data.recent_sales_order);
+                setRecentTasks(dashboardResponse.data.data.recent_task);
 
             } else {
                 console.error('Failed to fetch dashboard data:', dashboardResponse);
@@ -107,10 +109,17 @@ const SalesPersonIndex = () => {
                 return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' };
         }
     };
+    const getStatusColorClassTask = (status) => {
+        switch (status) {
+            default:
+                return { colorClass: 'bg-gray-500', colorLightClass: 'bg-gray-300' };
+        }
+    };
     const [selectedLeadTab, setSelectedLeadTab] = useState('All');
     const [selectedRfqTab, setSelectedRfqTab] = useState('All');
     const [selectedQuotesTab, setSelectedQuotesTab] = useState('All');
     const [selectedSOTab, setSelectedSOTab] = useState('All');
+    const [selectedTaskTab, setSelectedTaskTab] = useState('All');
 
     const quotesStatusAbbreviations = {
         'High': 'High',
@@ -118,10 +127,16 @@ const SalesPersonIndex = () => {
         'undefined': 'undefined',
         'unknown': 'unknown'
     };
-    const rfqStatusAbbreviations = {
-        'Open': 'Open',
-        'Open without routing': 'Open without routing',
-        'In review': 'In review',
+    const taskStatusAbbreviations = {
+        '0.0(CLU)': '0.0 Cold task / unqualified (CLU)',
+        '1.0(CLQ)': '0.1 Cold task qualified (CLQ)',
+        '2.0(FCM)': '2.0 First contact made (FCM)',
+        '3.0(WLQ)': '3.0 warm task qualified (WLQ)',
+        '4.0(HLQ)': '4.0 Hot task(HLQ)',
+        'Close/Lost': 'Close/Lost',
+        'Nicht gestartet': 'Nicht gestartet',
+        'Verschoben': 'Verschoben',
+        'Läuft...': 'Läuft...'
     };
     const leadStatusAbbreviations = {
         '0.0(CLU)': '0.0 Cold lead / unqualified (CLU)',
@@ -134,12 +149,14 @@ const SalesPersonIndex = () => {
     const leadTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)'];
     const rfqTabs = ['All', 'Open', 'Open without routing'];
     const quoteTabs = ['All', 'High', 'Low', 'undefined', 'unknown'];
-    const sOTabs = ['All', 'Approved', 'open', 'pending_approval', 'Draft','Closed','Void'];
+    const sOTabs = ['All', 'Approved', 'open', 'pending_approval', 'Draft', 'Closed', 'Void'];
+    const taskTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)', 'Close/Lost', 'Läuft...', 'Nicht gestartet', 'Verschoben'];
 
     const filteredLeads = selectedLeadTab === 'All' ? recentLeads : recentLeads.filter(lead => lead.status === (leadStatusAbbreviations[selectedLeadTab] || selectedLeadTab));
     const filteredRfqs = selectedRfqTab === 'All' ? recentRfqs : recentRfqs.filter(rfq => rfq.status === selectedRfqTab);
     const filteredQuotes = selectedQuotesTab === 'All' ? recentQuotes : recentQuotes.filter(quote => quote.quote_chance === selectedQuotesTab);
     const filteredSO = selectedSOTab === 'All' ? recentSO : recentSO.filter(so => so.status === selectedSOTab);
+    const filteredTasks = selectedTaskTab === 'All' ? recentTasks : recentTasks.filter(task => task.status === (taskStatusAbbreviations[selectedTaskTab] || selectedTaskTab));
 
     return (
         <div>
@@ -447,6 +464,65 @@ const SalesPersonIndex = () => {
                     </div>
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6 ">
+                    <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
+                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Uncompleted Tasks</h5>
+                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+
+                            <div className="flex space-x-1">
+                                {taskTabs.map(tab => (
+                                    <button
+                                        key={tab}
+                                        className={`px-2 rounded-md	  ${selectedTaskTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                        onClick={() => setSelectedTaskTab(tab)}
+                                    >
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
+                        </PerfectScrollbar>
+                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                            {recentTasks ? (
+                                <>
+                                    <div className="text-sm cursor-pointer">
+                                        {filteredTasks.map((task, index) => {
+                                            const { colorClass, colorLightClass } = getStatusColorClassTask(task.status);
+                                            return (
+                                                <Link to={`/task/preview/${task.id}`} className="flex items-center py-1.5 relative group" key={index}>
+                                                    <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
+                                                    <div className="flex-1">{task.subject} | <span className='font-bold'>Due Date:</span> {formatDate(task.due_date)} </div>
+                                                    <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
+                                                        {formatDate(task.updated_at)}
+                                                    </div>
+                                                    <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
+                                                        {task.status}
+                                                    </div>
+
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </>
+
+                            ) : (
+                                <LoadingSpinner />
+                            )}
+                        </PerfectScrollbar>
+                        <div className="border-t border-white-light dark:border-white/10">
+                            <Link to="/task/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
+                                View All
+                                <svg
+                                    className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition duration-300 ltr:ml-1 rtl:mr-1"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
