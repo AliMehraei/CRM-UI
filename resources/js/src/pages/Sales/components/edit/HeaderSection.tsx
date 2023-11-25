@@ -60,7 +60,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="contact_id"
                     placeholder="Type at least 2 characters to search..."
                     name="contact_id"
@@ -132,7 +131,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="deal_id"
                     placeholder="Type at least 2 characters to search..."
                     name="deal_id"
@@ -167,7 +165,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
@@ -201,7 +198,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="sales_person_id"
                     placeholder="Type at least 2 characters to search..."
                     name="sales_person_id"
@@ -235,7 +231,6 @@ const HeaderSection = () => {
                     defaultOptions={true}
                     isMulti={false}
                     id="approved_by_id"
-                    required
                     placeholder="Type at least 2 characters to search..."
                     name="approved_by_id"
                     loadOptions={searchOwners}
