@@ -11,7 +11,8 @@ const SalesPersonIndex = () => {
     const [recentRfqs, setRecentRfqs] = useState<any>(null);
     const [recentQuotes, setRecentQuotes] = useState<any>(null);
     const [recentSO, setRecentSO] = useState<any>(null);
-    const [recentTasks , setRecentTasks] = useState<any>(null);
+    const [recentTasks, setRecentTasks] = useState<any>(null);
+    const [countModel, setCountModel] = useState<any>(null);
 
     const api = new Api();
     const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const SalesPersonIndex = () => {
                 setRecentQuotes(dashboardResponse.data.data.recent_quote);
                 setRecentSO(dashboardResponse.data.data.recent_sales_order);
                 setRecentTasks(dashboardResponse.data.data.recent_task);
+                setCountModel(dashboardResponse.data.data.counts);
 
             } else {
                 console.error('Failed to fetch dashboard data:', dashboardResponse);
@@ -464,7 +466,7 @@ const SalesPersonIndex = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-6 ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 mb-6 ">
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
                         <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Uncompleted Tasks</h5>
                         <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
@@ -522,8 +524,42 @@ const SalesPersonIndex = () => {
                             </Link>
                         </div>
                     </div>
+                    {countModel ? (
+                    <div className="panel overflow-hidden">
+                        <div className="relative mt-10">
+                            <div className="absolute -bottom-12 ltr:-right-12 rtl:-left-12 w-24 h-24">
+                                <svg className="text-success opacity-20 w-full h-full" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle opacity="0.5" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                                    <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                <div>
+                                    <div className="text-primary">RFQ</div>
+                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_day.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                        Daily: {countModel.current_day.rfq} {countModel.current_day.rfq > 0 && `+${countModel.current_day.rfq}`}
+                                    </div>
+                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_month.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                        Monthly: {countModel.current_month.rfq} {countModel.current_month.rfq > 0 && `+${countModel.current_month.rfq}`}
+                                    </div>
+                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_quarter.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                        Quarter: {countModel.current_quarter.rfq} {countModel.current_quarter.rfq > 0 && `+${countModel.current_quarter.rfq}`}
+                                    </div>
+                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_year.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                        Yearly: {countModel.current_year.rfq} {countModel.current_year.rfq > 0 && `+${countModel.current_year.rfq}`}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    ) : (
+                        <LoadingSpinner />
+                    )}
                 </div>
             </div>
+
 
         </div>
     );
