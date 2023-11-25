@@ -9,6 +9,7 @@ import {
     , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {useState} from "react";
 
 const DealInformationSection = () => {
     const dispatch = useDispatch();
@@ -42,19 +43,20 @@ const DealInformationSection = () => {
 
     ];
     const StageExcessOption = [
-        {value: 'qualification', label: 'Qualifikation'},
-
+        {value: 'Qualifikation', label: 'Qualifikation'},
     ];
     const StageDealOption = [
-        {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
-        {value: '1_cold_lead', label: '1.0 Cold lead qualified (CLQ)'},
-        {value: '2_first_contract', label: '2.0 First contact made (FCM)'},
-        {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
-        {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
-        {value: 'close_lead', label: 'Close Lead / Lost Lead'},
-
+        {value: '0.0 Cold lead / unqualified (CLU)', label: '0.0 Cold lead / unqualified (CLU)'},
+        {value: '1.0 Cold lead qualified (CLQ)', label: '1.0 Cold lead qualified (CLQ)'},
+        {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
+        {value: '3.0 warm lead qualified (WLQ)', label: '3.0 warm lead qualified (WLQ)'},
+        {value: '4.0 Hot lead (HLQ)', label: '4.0 Hot lead (HLQ)'},
+        {value: 'Close Lead / Lost Lead', label: 'Close Lead / Lost Lead'},
     ];
-    let StageOption = StageExcessOption;
+
+
+    const [stageOption, setStageOption] = useState<any>(StageExcessOption)
+
 
     const fields = {
         'Deals Information': {
@@ -96,7 +98,7 @@ const DealInformationSection = () => {
                     id="deal_name"
                     name="deal_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.deal_name}
                 />
             ),
@@ -350,7 +352,7 @@ const DealInformationSection = () => {
                     type="number"
                     name="amount"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.amount}
                 />
             ),
@@ -375,6 +377,7 @@ const DealInformationSection = () => {
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
+                        setStageOption(value == 'deal' ? StageDealOption : StageExcessOption)
                     }}
                     className="flex-1"
                     defaultValue={PipelineOption.find((title) => title.value == formState.deal_pipeline)}
@@ -383,14 +386,17 @@ const DealInformationSection = () => {
             ),
             'Stage': (
                 <Select
-                    options={StageOption}
+                    options={stageOption}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {
                         handleChangeField('deal_stage', value)
                     }}
                     className="flex-1"
-                    defaultValue={StageOption.find((title) => title.value == formState.deal_stage)}
+                    defaultValue={formState.deal_pipeline == 'deal' ?
+                        StageDealOption.find((title) => title.value == formState.deal_stage) :
+                        StageExcessOption.find((title) => title.value == formState.deal_stage)
+                    }
                 />
             ),
             'Probability (%)': (
@@ -398,7 +404,7 @@ const DealInformationSection = () => {
                     id="probability"
                     name="probability"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.probability}
                 />
             ),
@@ -407,7 +413,7 @@ const DealInformationSection = () => {
                     id="next_step"
                     name="next_step"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.next_step}
                 />
             ),
@@ -425,7 +431,7 @@ const DealInformationSection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_reference}
                 />
             ),
