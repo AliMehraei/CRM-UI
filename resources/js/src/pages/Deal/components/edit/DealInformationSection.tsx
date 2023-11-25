@@ -46,16 +46,16 @@ const DealInformationSection = () => {
         {value: 'Qualifikation', label: 'Qualifikation'},
     ];
     const StageDealOption = [
-        {value: '0.0 Cold lead / unqualified (CLU)', label: '0.0 Cold lead / unqualified (CLU)'},
+        {value: '0.0 Cold lead unqualified (CLU)', label: '0.0 Cold lead / unqualified (CLU)'},
         {value: '1.0 Cold lead qualified (CLQ)', label: '1.0 Cold lead qualified (CLQ)'},
         {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
         {value: '3.0 warm lead qualified (WLQ)', label: '3.0 warm lead qualified (WLQ)'},
         {value: '4.0 Hot lead (HLQ)', label: '4.0 Hot lead (HLQ)'},
-        {value: 'Close Lead / Lost Lead', label: 'Close Lead / Lost Lead'},
+        {value: 'Lost Lead', label: 'Close Lead / Lost Lead'},
     ];
 
 
-    const [stageOption, setStageOption] = useState<any>(StageExcessOption)
+    const [stageOption, setStageOption] = useState<any>(formState.deal_pipeline == 'deal' ? StageDealOption : StageExcessOption)
 
 
     const fields = {
