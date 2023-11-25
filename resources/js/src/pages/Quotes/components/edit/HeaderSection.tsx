@@ -84,7 +84,7 @@ const HeaderSection = () => {
                                                  <div key={formState.account?.id} className="flex items-center">
                                                      {formState.account ? (
                                                          <img
-                                                             src={displayImage(formState.account.image)}
+                                                             src={displayImage(formState.account.image_data)}
                                                              alt="avatar"
                                                              className="w-8 h-8 mr-2 rounded-full"
                                                          />
@@ -112,7 +112,7 @@ const HeaderSection = () => {
                                                  <div key={formState.contact?.id} className="flex items-center">
                                                      {formState.contact ? (
                                                          <img
-                                                             src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                                             src={displayImage(formState.contact.image_data)}
                                                              alt="avatar"
                                                              className="w-8 h-8 mr-2 rounded-full"
                                                          />
