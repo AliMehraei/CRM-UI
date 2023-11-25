@@ -19,7 +19,7 @@ const ContactInformationSection = () => {
                 name="street"
                 className="form-input flex-1 "
                 defaultValue={formState.street}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'City': <input
@@ -27,7 +27,7 @@ const ContactInformationSection = () => {
                 name="city"
                 className="form-input flex-1 "
                 defaultValue={formState.city}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'State': <input
@@ -35,7 +35,7 @@ const ContactInformationSection = () => {
                 name="state"
                 className="form-input flex-1 "
                 defaultValue={formState.state}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Country': <input
@@ -43,7 +43,7 @@ const ContactInformationSection = () => {
                 name="country"
                 className="form-input flex-1 "
                 defaultValue={formState.country}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 
@@ -54,7 +54,7 @@ const ContactInformationSection = () => {
                 name="zip_code"
                 className="form-input flex-1 "
                 defaultValue={formState.zip_code}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Fax': <input
@@ -62,7 +62,7 @@ const ContactInformationSection = () => {
                 name="fax"
                 className="form-input flex-1 "
                 defaultValue={formState.fax}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Website': <input
@@ -70,7 +70,7 @@ const ContactInformationSection = () => {
                 name="website"
                 className="form-input flex-1 "
                 defaultValue={formState.website}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 

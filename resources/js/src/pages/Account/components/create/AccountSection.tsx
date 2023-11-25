@@ -53,7 +53,7 @@ const AccountSection = () => {
                     required
                     name="account_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Account Type': <Select
@@ -90,7 +90,7 @@ const AccountSection = () => {
                 type="checkbox"
                 name="business_account"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
             />,
             'Approved by': <input id="approved_by" name="approved_by_id" type="text" value="None"
                                   placeholder="Readonly input here…"
@@ -142,7 +142,7 @@ const AccountSection = () => {
                     id="tam"
                     name="tam"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
             'Exchange Rate': <input id="exchange_rate" name="exchange_rate" type="text" value="1"
@@ -153,7 +153,7 @@ const AccountSection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
             'Account Rating': <Select id="rating" name="rating" options={rating}

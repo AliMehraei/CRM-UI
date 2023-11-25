@@ -16,7 +16,7 @@ const TermsAndShippingSection = () => {
                 id="incoterm"
                 name="incoterm"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.incoterm}
             />),
 
@@ -24,7 +24,7 @@ const TermsAndShippingSection = () => {
                 id="payment_term"
                 name="payment_term"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.payment_term}
 
             />),
@@ -32,7 +32,7 @@ const TermsAndShippingSection = () => {
                 id="credit_line"
                 name="credit_line"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.credit_line}
 
             />),
@@ -43,7 +43,7 @@ const TermsAndShippingSection = () => {
                 id="vat_no"
                 name="vat_no"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.vat_no}
             />),
 
@@ -51,7 +51,7 @@ const TermsAndShippingSection = () => {
                 id="forwarder"
                 name="forwarder"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.forwarder}
 
             />),
@@ -59,7 +59,7 @@ const TermsAndShippingSection = () => {
                 id="forwarder_account_no"
                 name="forwarder_account_no"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.forwarder_account_no}
 
             />),

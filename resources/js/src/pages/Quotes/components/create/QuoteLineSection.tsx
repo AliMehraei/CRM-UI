@@ -24,16 +24,16 @@ const QuoteLineSection = () => {
                 className="flex-1" />,
 
             'Customer part ID': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />
         },
         '': {
             'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
             'List Price': <input id="list_price" name="list_price" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
             'Lead Time': <input id="lead_time" name="lead_time" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
 
         }
 

@@ -23,7 +23,7 @@ const Development = () => {
                     className="form-textarea flex-1"
                     placeholder=""
                     defaultValue={formState.requested_products.map((data: any) => data?.product?.product_name)}
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
 
             ),
         },
@@ -34,7 +34,7 @@ const Development = () => {
                     type="checkbox"
                     name="is_full"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     defaultChecked={formState.is_full}
                 />
             ),

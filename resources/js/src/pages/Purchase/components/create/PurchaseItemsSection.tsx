@@ -126,7 +126,7 @@ const PurchaseItemSection = () => {
                                                 <textarea
                                                     name="description"
                                                     className="form-textarea mt-4" placeholder="Enter Description"
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     defaultValue={item.description}></textarea>
                                             </td>
                                             <td>
@@ -136,7 +136,7 @@ const PurchaseItemSection = () => {
                                                     placeholder="Quantity"
                                                     name="quantity"
                                                     min={0}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     defaultValue={item.quantity}
                                                 />
                                             </td>
@@ -149,7 +149,7 @@ const PurchaseItemSection = () => {
                                                     name="list_price"
                                                     min={0}
                                                     value={item.list_price}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
@@ -160,7 +160,7 @@ const PurchaseItemSection = () => {
                                                     min={0}
                                                     value={item.amount}
                                                     disabled
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
 
@@ -169,13 +169,13 @@ const PurchaseItemSection = () => {
                                                 <textarea
                                                     name="comment"
                                                     className="form-textarea  min-w-[200px]" placeholder="Enter comment"
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     defaultValue={item.comment}></textarea>
                                             </td>
                                             <td>
                                                 <input name="date_code" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.date_code}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>

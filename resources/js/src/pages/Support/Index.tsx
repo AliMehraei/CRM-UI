@@ -253,7 +253,7 @@ const List = () => {
                         </Link>
                     </div>
                     <div className="ltr:ml-auto rtl:mr-auto">
-                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e:any) => setSearch(e.target.value)} />
                     </div>
                 </div>
                 <div className="grid grid-cols-5 gap-6 mb-6">
@@ -418,7 +418,7 @@ const List = () => {
                                 paginationText={({ from, to, totalRecords }) => `Showing  ${from} to ${to} of ${totalRecords} entries`}
                             />
                         </div>
-                    
+
                     </div>
                 </div>
             </div>

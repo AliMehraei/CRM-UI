@@ -104,7 +104,7 @@ const ContactDetailsSection = () => {
                         required
                         name="first_name"
                         className="form-input flex-1 "
-                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                        onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     />
                 </div>
 
@@ -116,7 +116,7 @@ const ContactDetailsSection = () => {
                     required
                     name="last_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Job Description':

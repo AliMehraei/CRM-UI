@@ -97,7 +97,7 @@ const InvoiceInformationSection = () => {
                     required
                     name="subject"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.subject}
                 />
             ),
@@ -133,7 +133,7 @@ const InvoiceInformationSection = () => {
                     name="sales_commission"
                     defaultValue={formState.sales_commission}
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Account Name': <AsyncSelect
@@ -179,7 +179,7 @@ const InvoiceInformationSection = () => {
                     name="zoho_books_id"
                     defaultValue={formState.zoho_books_id}
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -211,7 +211,7 @@ const InvoiceInformationSection = () => {
                 name="purchase_order"
                 className="form-input flex-1 "
                 defaultValue={formState.purchase_order}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Deal Stage': <Select
                 name="deal_stage"
@@ -230,7 +230,7 @@ const InvoiceInformationSection = () => {
                     name="excise_duty"
                     className="form-input flex-1 "
                     defaultValue={formState.excise_duty}
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Status': <Select

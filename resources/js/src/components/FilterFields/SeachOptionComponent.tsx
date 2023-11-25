@@ -12,7 +12,7 @@ const SearchOptionComponent = ({option, handleConditionChange, filters, filterSt
                 <div className="mb-2">
                     <label className="block font-semibold">Search include for {option.label}:</label>
                     <Select
-                        onChange={(e) => handleConditionChange(option.value, e)}
+                        onChange={(e:any) => handleConditionChange(option.value, e)}
                         placeholder="Select an include"
                         options={option.conditions}
                         defaultValue={option.conditions.find((item: any) => item.value == selectedFilterOption)}

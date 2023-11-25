@@ -132,7 +132,7 @@ const Setting = () => {
                                     type="checkbox"
                                     className="form-checkbox"
                                     checked={themeConfig.semidark === true || themeConfig.semidark === 'true'}
-                                    onChange={(e) => dispatch(toggleSemidark(e.target.checked))}
+                                    onChange={(e:any) => dispatch(toggleSemidark(e.target.checked))}
                                 />
                                 <span>Semi Dark (Sidebar & Header)</span>
                             </label>
@@ -212,7 +212,7 @@ const Setting = () => {
                         <h5 className="mb-1 text-base dark:text-white leading-none">Router Transition</h5>
                         <p className="text-white-dark text-xs">Animation of main content.</p>
                         <div className="mt-3">
-                            <select className="form-select border-primary text-primary" value={themeConfig.animation} onChange={(e) => dispatch(toggleAnimation(e.target.value))}>
+                            <select className="form-select border-primary text-primary" value={themeConfig.animation} onChange={(e:any) => dispatch(toggleAnimation(e.target.value))}>
                                 <option value=" ">Select Animation</option>
                                 <option value="animate__fadeIn">Fade</option>
                                 <option value="animate__fadeInDown">Fade Down</option>

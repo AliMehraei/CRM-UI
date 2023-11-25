@@ -21,19 +21,19 @@ const TermsConditionsSection = () => {
     const fields = {
         'Terms and Conditions': {
             'Terms and Conditions': (
-                <textarea id="terms_conditions" rows={3} 
+                <textarea id="terms_conditions" rows={3}
                 name="terms_conditions"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.terms_conditions}
                 ></textarea>
-           
+
             ),
 
         },
         '': {
-            
+
 
         }
     }
@@ -44,7 +44,7 @@ const TermsConditionsSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default TermsConditionsSection;

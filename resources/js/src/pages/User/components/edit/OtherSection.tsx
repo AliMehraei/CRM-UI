@@ -19,7 +19,7 @@ const OtherSection = () => {
                 name="grouping"
                 className="form-input flex-1 "
                 defaultValue={formState.grouping}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Status Reason': <input
@@ -27,7 +27,7 @@ const OtherSection = () => {
                 name="status_reason"
                 className="form-input flex-1 "
                 defaultValue={formState.status_reason}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 
@@ -39,7 +39,7 @@ const OtherSection = () => {
                 name="type"
                 className="form-input flex-1 "
                 defaultValue={formState.type}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Zuid': <input
@@ -47,7 +47,7 @@ const OtherSection = () => {
                 name="zuid"
                 className="form-input flex-1 "
                 defaultValue={formState.zuid}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
         }

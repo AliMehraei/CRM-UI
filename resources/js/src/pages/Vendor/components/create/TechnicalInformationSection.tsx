@@ -42,13 +42,13 @@ const TechnicalInformationSection = () => {
                 id="bom_excess_total_rows"
                 name="bom_excess_total_rows"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
 
         },
         '': {
-            
+
         }
     }
     return (<>
@@ -58,7 +58,7 @@ const TechnicalInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default TechnicalInformationSection;

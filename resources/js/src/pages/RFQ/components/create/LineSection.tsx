@@ -24,14 +24,14 @@ export const LineSection = () => {
                                          required/>,
 
             'Customer Part Id': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
-                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Quantity': <input id="quantity" name="quantity" className="form-input flex-1 "
-                               onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                               onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                required/>,
 
             'Target Price': <input id="target_price" name="target_price"
-                                   onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                   onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1 "/>,
         },
         '': {
@@ -62,11 +62,11 @@ export const LineSection = () => {
                                    }}
                                    className="flex-1"/>,
             'Special Instructions': <textarea id="special_instructions" name="special_instructions" rows={3}
-                                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                               className="form-textarea flex-1"></textarea>,
 
             'comment': <textarea id="comment" rows={3} name="comment" className="form-textarea flex-1"
-                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                 onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                  placeholder=""></textarea>,
 
         }

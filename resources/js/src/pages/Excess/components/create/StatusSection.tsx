@@ -31,7 +31,7 @@ const StatusSection = () => {
         '': {
             'Excess Name': <input id="excess_name" type="text" name="excess_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
 
         }
 

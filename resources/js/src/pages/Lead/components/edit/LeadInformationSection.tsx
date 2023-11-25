@@ -103,7 +103,7 @@ const LeadInformationSection = () => {
                     id="lost_reason_comment"
                     name="lost_reason_comment"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lost_reason_comment}
                 />
             ),
@@ -149,7 +149,7 @@ const LeadInformationSection = () => {
                     required
                     name="company"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.company}
                 />
             ),
@@ -183,7 +183,7 @@ const LeadInformationSection = () => {
                     id="website"
                     name="website"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.website}
                 />
             ),
@@ -215,7 +215,7 @@ const LeadInformationSection = () => {
                     type="checkbox"
                     name="email_opt_out"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.email_opt_out}
                 />
             ),

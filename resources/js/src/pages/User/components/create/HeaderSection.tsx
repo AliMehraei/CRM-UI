@@ -50,7 +50,7 @@ const HeaderSection = () => {
                     id="first_name"
                     name="first_name"
                     className="form-input flex-1 "
-                    onChange={(e) =>
+                    onChange={(e:any) =>
                         handleChangeField(e.target.name, e.target.value)
                     }
                 />
@@ -61,7 +61,7 @@ const HeaderSection = () => {
                     id="last_name"
                     name="last_name"
                     className="form-input flex-1 "
-                    onChange={(e) =>
+                    onChange={(e:any) =>
                         handleChangeField(e.target.name, e.target.value)
                     }
                 />
@@ -72,7 +72,7 @@ const HeaderSection = () => {
                     id="alias"
                     name="alias"
                     className="form-input flex-1 "
-                    onChange={(e) =>
+                    onChange={(e:any) =>
                         handleChangeField(e.target.name, e.target.value)
                     }
                 />
@@ -99,7 +99,7 @@ const HeaderSection = () => {
                     id="email"
                     name="email"
                     className="form-input flex-1 "
-                    onChange={(e) =>
+                    onChange={(e:any) =>
                         handleChangeField(e.target.name, e.target.value)
                     }
                 />
@@ -110,7 +110,7 @@ const HeaderSection = () => {
                     id="phone"
                     name="phone"
                     className="form-input flex-1 "
-                    onChange={(e) =>
+                    onChange={(e:any) =>
                         handleChangeField(e.target.name, e.target.value)
                     }
                 />
@@ -121,7 +121,7 @@ const HeaderSection = () => {
                     id="mobile"
                     name="mobile"
                     className="form-input flex-1 "
-                    onChange={(e) =>
+                    onChange={(e:any) =>
                         handleChangeField(e.target.name, e.target.value)
                     }
                 />
@@ -150,7 +150,7 @@ const HeaderSection = () => {
                                     name="password"
                                     value={formState.password}
                                     className="form-input flex-1"
-                                    onChange={(e) =>
+                                    onChange={(e:any) =>
                                         handleChangeField(
                                             e.target.name,
                                             e.target.value

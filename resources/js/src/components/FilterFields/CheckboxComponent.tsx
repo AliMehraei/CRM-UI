@@ -3,7 +3,7 @@ const CheckboxComponent = ({option, handleFieldChange, selectedFields}: any) => 
         <input
             type="checkbox"
             value={option.value}
-            onChange={(e) => handleFieldChange(e, option)}
+            onChange={(e:any) => handleFieldChange(e, option)}
             checked={selectedFields.includes(option.value)}
             className="form-checkbox"
         />

@@ -42,10 +42,10 @@ const APIDataSection = () => {
                 id="octopart_id"
                 name="octopart_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
-            
+
 
         },
         '': {
@@ -53,7 +53,7 @@ const APIDataSection = () => {
                 id="zoho_book_id"
                 name="zoho_book_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
 
@@ -66,7 +66,7 @@ const APIDataSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default APIDataSection;

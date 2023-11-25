@@ -101,7 +101,7 @@ const SOLineSection = () => {
                 id="customer_part_id"
                 name="customer_part_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.customer_part_id}
                 />
             ),
@@ -111,7 +111,7 @@ const SOLineSection = () => {
                 name="quantity"
                 className="form-input flex-1 "
                 type="number"
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.quantity}
                 />
             ),
@@ -122,7 +122,7 @@ const SOLineSection = () => {
                 id="list_price"
                 name="list_price"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.list_price}
                 />
             ),
@@ -148,7 +148,7 @@ const SOLineSection = () => {
                 id="date_code"
                 name="date_code"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.date_code}
                 />
             ),
@@ -157,7 +157,7 @@ const SOLineSection = () => {
                 id="spq"
                 name="spq"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.spq}
                 />
             ),
@@ -168,7 +168,7 @@ const SOLineSection = () => {
                 id="comment"
                 name="comment"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.comment}
                 />
             ),

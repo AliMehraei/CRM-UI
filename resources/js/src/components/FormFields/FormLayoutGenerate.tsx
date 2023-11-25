@@ -47,13 +47,13 @@ const FormLayoutGenerate = ({formState, updateFormData}: any) => {
         const elements: any = {
             'boolean': <input type="checkbox" className="form-checkbox"
                               name={attribute.name}
-                              onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
+                              onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}/>,
             'string': <input className="form-input flex-1"
                              name={attribute.name}
-                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                             onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
             'double': <input type="number" className="form-input flex-1"
                              name={attribute.name}
-                             onChange={(e) => handleChangeField(e.target.name, e.target.checked)}/>,
+                             onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}/>,
             'select': <Select className="flex-1"
                               name={attribute.name}
                               options={options}
