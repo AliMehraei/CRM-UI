@@ -123,7 +123,6 @@ const AccountSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
@@ -164,7 +163,6 @@ const AccountSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('pm_user_id', value)
                 }}
-                required
                 defaultValue={{
                     value: formState.pm_user?.id,
                     label: (

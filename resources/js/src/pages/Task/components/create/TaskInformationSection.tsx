@@ -55,7 +55,6 @@ const TaskInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
-                    required
                 />
             ),
             'Subject': (
