@@ -25,7 +25,7 @@ const Index = () => {
             return (
                 <>
                     <SalesPersonIndex /> 
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>                    <AdminIndex />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>                   
                     <AdminIndex />
                 </>
             );
