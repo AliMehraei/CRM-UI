@@ -5,6 +5,7 @@ import LoadingSpinner from "../../../../components/LoadingSpinner";
 import Api from "../../../../config/api";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CountUp from 'react-countup';
+import StatusCard from './components/StatusCard';
 
 const SalesPersonIndex = () => {
     const [salesOrderData, setSalesOrderData] = useState<any>(null);
@@ -160,13 +161,12 @@ const SalesPersonIndex = () => {
     const filteredQuotes = selectedQuotesTab === 'All' ? recentQuotes : recentQuotes.filter(quote => quote.quote_chance === selectedQuotesTab);
     const filteredSO = selectedSOTab === 'All' ? recentSO : recentSO.filter(so => so.status === selectedSOTab);
     const filteredTasks = selectedTaskTab === 'All' ? recentTasks : recentTasks.filter(task => task.status === (taskStatusAbbreviations[selectedTaskTab] || selectedTaskTab));
-    const compareWithLastPeriod = (current, last) => {
-        const difference = current - last;
-        return {
-            value: difference,
-            isPositive: difference > 0,
-        };
-    };
+
+    const [showLeadWidget, setShowLeadWidget] = useState(true);
+    const [showRfqWidget, setShowRfqWidget] = useState(true);
+    const [showQuotesWidget, setShowQuotesWidget] = useState(true);
+    const [showSOWidget, setShowSOWidget] = useState(true);
+
     return (
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
@@ -242,48 +242,52 @@ const SalesPersonIndex = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 ">
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Leads</h5>
-                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+                        <h5 className="font-semibold text-lg inline-flex dark:text-dark mb-5">
+                            Your Recent Leads
+                            
+                        </h5>
+                            <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+                                <div className="flex space-x-1">
+                                    {leadTabs.map(tab => (
+                                        <button
+                                            key={tab}
+                                            className={`px-2 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                            onClick={() => setSelectedLeadTab(tab)}
+                                        >
+                                            {tab}
+                                        </button>
+                                    ))}
+                                </div>
 
-                            <div className="flex space-x-1">
-                                {leadTabs.map(tab => (
-                                    <button
-                                        key={tab}
-                                        className={`px-2 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
-                                        onClick={() => setSelectedLeadTab(tab)}
-                                    >
-                                        {tab}
-                                    </button>
-                                ))}
-                            </div>
-                        </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
-                            {recentLeads ? (
-                                <>
-                                    <div className="text-sm cursor-pointer">
-                                        {filteredLeads.map((lead, index) => {
-                                            const { colorClass, colorLightClass } = getStatusColorClassLeads(lead.status);
-                                            return (
-                                                <Link to={`/lead/preview/${lead.id}`} className="flex items-center py-1.5 relative group" key={index}>
-                                                    <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
-                                                    <div className="flex-1">{lead.company}</div>
-                                                    <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
-                                                        {formatDate(lead.updated_at)}
-                                                    </div>
-                                                    <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
-                                                        {lead.status}
-                                                    </div>
+                            </PerfectScrollbar>
+                      
+                            <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
+                                {recentLeads ? (
+                                    <>
+                                        <div className="text-sm cursor-pointer">
+                                            {filteredLeads.map((lead, index) => {
+                                                const { colorClass, colorLightClass } = getStatusColorClassLeads(lead.status);
+                                                return (
+                                                    <Link to={`/lead/preview/${lead.id}`} className="flex items-center py-1.5 relative group" key={index}>
+                                                        <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
+                                                        <div className="flex-1">{lead.company}</div>
+                                                        <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
+                                                            {formatDate(lead.updated_at)}
+                                                        </div>
+                                                        <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
+                                                            {lead.status}
+                                                        </div>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <LoadingSpinner />
+                                )}
+                            </PerfectScrollbar>
+                       
 
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                </>
-
-                            ) : (
-                                <LoadingSpinner />
-                            )}
-                        </PerfectScrollbar>
                         <div className="border-t border-white-light dark:border-white/10">
                             <Link to="/lead/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
                                 View All
@@ -300,22 +304,26 @@ const SalesPersonIndex = () => {
                     </div>
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent RFQS</h5>
-                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+                        <h5 className="font-semibold text-lg inline-flex dark:text-dark mb-5">
+                            Your Recent RFQS
+                           
+                        </h5>
 
-                            <div className="flex space-x-1">
-                                {rfqTabs.map(tab => (
-                                    <button
-                                        key={tab}
-                                        className={`px-2 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
-                                        onClick={() => setSelectedRfqTab(tab)}
-                                    >
-                                        {tab}
-                                    </button>
-                                ))}
-                            </div>
-                        </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                            <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+
+                                <div className="flex space-x-1">
+                                    {rfqTabs.map(tab => (
+                                        <button
+                                            key={tab}
+                                            className={`px-2 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                            onClick={() => setSelectedRfqTab(tab)}
+                                        >
+                                            {tab}
+                                        </button>
+                                    ))}
+                                </div>
+                            </PerfectScrollbar>
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentLeads ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -373,7 +381,7 @@ const SalesPersonIndex = () => {
                                 ))}
                             </div>
                         </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentLeads ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -430,7 +438,7 @@ const SalesPersonIndex = () => {
                                 ))}
                             </div>
                         </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentLeads ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -472,9 +480,8 @@ const SalesPersonIndex = () => {
                         </div>
                     </div>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 mb-6 ">
-                    <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 mb-6 ">
+                    <div className="panel h-full sm:col-span-2 xl:col-span-2 pb-0">
                         <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Uncompleted Tasks</h5>
                         <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
 
@@ -490,7 +497,7 @@ const SalesPersonIndex = () => {
                                 ))}
                             </div>
                         </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentTasks ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -532,154 +539,20 @@ const SalesPersonIndex = () => {
                         </div>
                     </div>
                     {countModel ? (
-                         <div className="panel overflow-hidden">
-                         <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Completed Status</h5>
-                         <div className="relative mt-10">
-                             <div className="mb-5 grid grid-cols-4 justify-items-center gap-3 max-w-[900px] mx-auto">
-                                 <div>
-                                 <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_day.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_day.rfq} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs  sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_day.rfq, countModel.last_day.rfq).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         RFQ-Daily ({compareWithLastPeriod(countModel.current_day.rfq, countModel.last_day.rfq).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_month.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_month.rfq} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_month.rfq, countModel.last_month.rfq).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         RFQ-Monthly ({compareWithLastPeriod(countModel.current_month.rfq, countModel.last_month.rfq).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_quarter.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_quarter.rfq} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_quarter.rfq, countModel.last_quarter.rfq).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         RFQ-Quarter ({compareWithLastPeriod(countModel.current_quarter.rfq, countModel.last_quarter.rfq).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_year.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_year.rfq} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_year.rfq, countModel.last_year.rfq).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         RFQ-Yearly ({compareWithLastPeriod(countModel.current_year.rfq, countModel.last_year.rfq).value})
-                                     </h4>
-                                 </div>
-                             </div>
-                             <div className="mb-5 grid grid-cols-4 justify-items-center gap-3 max-w-[900px] mx-auto">
-                                 <div>
-                                 <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_day.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_day.rfq} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs  sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_day.lead, countModel.last_day.lead).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         Lead-Daily ({compareWithLastPeriod(countModel.current_day.lead, countModel.last_day.lead).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_month.lead > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_month.lead} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_month.lead, countModel.last_month.lead).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         lead-Monthly ({compareWithLastPeriod(countModel.current_month.lead, countModel.last_month.lead).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_quarter.lead > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_quarter.lead} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_quarter.lead, countModel.last_quarter.lead).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         lead-Quarter ({compareWithLastPeriod(countModel.current_quarter.lead, countModel.last_quarter.lead).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_year.lead > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_year.lead} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_year.lead, countModel.last_year.lead).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         lead-Yearly ({compareWithLastPeriod(countModel.current_year.lead, countModel.last_year.lead).value})
-                                     </h4>
-                                 </div>
-                             </div>
-                             <div className="mb-5 grid grid-cols-4 justify-items-center gap-3 max-w-[900px] mx-auto">
-                                 <div>
-                                 <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_day.quote > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_day.quote} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs  sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_day.quote, countModel.last_day.quote).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         quote-Daily ({compareWithLastPeriod(countModel.current_day.quote, countModel.last_day.quote).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_month.quote > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_month.quote} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_month.quote, countModel.last_month.quote).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         quote-Monthly ({compareWithLastPeriod(countModel.current_month.quote, countModel.last_month.quote).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_quarter.quote > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_quarter.quote} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_quarter.quote, countModel.last_quarter.quote).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         quote-Quarter ({compareWithLastPeriod(countModel.current_quarter.quote, countModel.last_quarter.quote).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_year.quote > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_year.quote} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_year.quote, countModel.last_year.quote).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         quote-Yearly ({compareWithLastPeriod(countModel.current_year.quote, countModel.last_year.quote).value})
-                                     </h4>
-                                 </div>
-                             </div>
-                             <div className="mb-5 grid grid-cols-4 justify-items-center gap-3 max-w-[900px] mx-auto">
-                                 <div>
-                                 <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_day.task > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_day.task} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs  sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_day.task, countModel.last_day.task).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         task-Daily ({compareWithLastPeriod(countModel.current_day.task, countModel.last_day.task).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_month.task > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_month.task} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_month.task, countModel.last_month.task).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         task-Monthly ({compareWithLastPeriod(countModel.current_month.task, countModel.last_month.task).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_quarter.task > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_quarter.task} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_quarter.task, countModel.last_quarter.task).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         task-Quarter ({compareWithLastPeriod(countModel.current_quarter.task, countModel.last_quarter.task).value})
-                                     </h4>
-                                 </div>
-                                 <div>
-                                     <div className={`w-[60px] h-[60px] sm:w-[60px] sm:h-[60px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-white-light dark:border-[#1b2e4b] flex justify-center flex-col ${countModel.current_year.task > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                         <CountUp start={0} end={countModel.current_year.task} duration={7} className="text-primary text-xl sm:text-3xl text-center"></CountUp>
-                                     </div>
-                                     <h4 className={`text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold ${compareWithLastPeriod(countModel.current_year.task, countModel.last_year.task).isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                                         task-Yearly ({compareWithLastPeriod(countModel.current_year.task, countModel.last_year.task).value})
-                                     </h4>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
+                    <div className="panel h-full sm:col-span-2 xl:col-span-3 pb-0">
+                    <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Completed Status</h5>
+
+                            <StatusCard
+                                countModel={countModel}
+                            />
+                        </div>
                     ) : (
                         <LoadingSpinner />
                     )}
+
+
                 </div>
             </div>
-
-
         </div>
     );
 };
