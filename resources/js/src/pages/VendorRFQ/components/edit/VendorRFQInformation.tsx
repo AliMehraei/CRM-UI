@@ -138,7 +138,7 @@ const VendorRFQInformation = () => {
                     name="date"
                     options={{
                         dateFormat: 'Y-m-d ',
-                        defaultDate: formState.date ? new Date(formState.date) : null as any,
+                        defaultDate: formState.date ? new Date(formState.date) : '' as any,
                     }}
                     defaultValue={formState.date}
                     className="form-input flex-1"

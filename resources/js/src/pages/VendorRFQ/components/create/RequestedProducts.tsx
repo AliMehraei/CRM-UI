@@ -17,7 +17,7 @@ const RequestedProductsSection = () => {
             lead_time_demand: '',
             manufacturer_id : '',
             product_id : '',
-            quantity : 1,
+            quantity : '',
             rfq_owner_name: '',
 
 
