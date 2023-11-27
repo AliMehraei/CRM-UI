@@ -6,15 +6,32 @@ import AsyncSelect from "react-select/async";
 import {searchProducts} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import Api from "../../../../config/api";
+import PopoverComponent from "../../../Invoice/components/create/PopoverComponent";
 
 const SalesItemsSection = () => {
     const formState = useSelector((state: any) => state.salesOrderForm);
-    const [items, setItems] = useState<any>([{id: 1, amount: 0, list_price: 0,},]);
+    const [summary, setSummary] = useState({
+        total: 0,
+    });
+    const [items, setItems] = useState<any>([
+        {
+            id: 1,
+            amount: 0,
+            list_price: 0,
+            quantity: 0,
+            description : null,
+            customer_part_id: null,
+            date_code: null,
+            requested_delivery_date: null,
+            estimated_delivery_date : null
+        },
+    ]);
     const dispatch = useDispatch();
     const api = new Api();
 
     const handleChangeField = (field: string, value: any, id: string) => {
-        const updatingItem = items.find((item: any) => item.id === id);
+        // const updatingItem = items.find((item: any) => item.id === id);
+        const updatingItem = {...items.find((item: any) => item.id === id)};
         const itemIndex = items.findIndex((item: any) => item.id === id);
 
         const updatedItem = {
@@ -73,11 +90,31 @@ const SalesItemsSection = () => {
 
     };
 
+    useEffect(() => {
+
+        dispatch(updateFormData({summary: summary}));
+
+    }, [summary]);
+
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
         dispatch(updateFormData({items: remainingItems}));
     };
+
+    const updateSummary = () => {
+        const total = items.reduce((amount: number, item: any) =>
+            amount + (parseFloat(item.amount) || 0), 0);
+
+
+        setSummary({
+            total,
+        });
+    };
+
+    useEffect(() => {
+        updateSummary();
+    }, [items]);
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
@@ -110,17 +147,27 @@ const SalesItemsSection = () => {
                                     <tr className="align-top" key={item.id}>
                                         <td>
                                             <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={false}
+                    isMulti={false} id="product_id" name="product_id"
                                                          placeholder="Type at least 2 characters to search..."
                                                          loadOptions={searchProducts}
                                                          onChange={({value}: any) => {
                                                              handleChangeProduct(value, item.id)
                                                          }}
+                                                // onInputChange={(inputValue, { action }) => {
+                                                //     console.log('start click');
+                                                //     if (action === 'input-change') {
+                                                //         console.log('start click2');
+                                                //         // Perform an action, such as loading data, when input changes
+                                                //         // For example, call a function to load data based on the inputValue
+                                                //         searchProducts(inputValue); // Replace with your data loading function
+                                                //     }
+                                                // }}
                                                          className="flex-1  min-w-[200px]"/>
                                             <textarea
                                                 name="description"
                                                 className="form-textarea mt-4" placeholder="Enter Description"
-                                                onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 // defaultValue={item.description}
                                             ></textarea>
                                         </td>
@@ -131,14 +178,14 @@ const SalesItemsSection = () => {
                                                 placeholder="Quantity"
                                                 name="quantity"
                                                 min={0}
-                                                onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 // defaultValue={item.quantity}
                                             />
                                         </td>
                                         <td>
                                             <input name="customer_part_id" type="text"
                                                    className="form-input min-w-[200px]"
-                                                   onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                   onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 // defaultValue={item.part_id}
                                             />
                                         </td>
@@ -150,13 +197,13 @@ const SalesItemsSection = () => {
                                                 name="list_price"
                                                 min={0}
                                                 // defaultValue={item.list_price}
-                                                onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                             />
                                         </td>
                                         <td>
                                             <input name="date_code" type="text" className="form-input min-w-[200px]"
                                                 // defaultValue={item.date_code}
-                                                   onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                   onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                             />
                                         </td>
 
@@ -165,7 +212,7 @@ const SalesItemsSection = () => {
                                                    value={item.amount}
                                                    className="flex-1 form-input min-w-[200px] disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                                    disabled
-                                                   onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                   onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                             />
                                         </td>
                                         <td>
@@ -179,6 +226,7 @@ const SalesItemsSection = () => {
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
                                                 // value={formState.requested_delivery_date ? new Date(formState.requested_delivery_date) : ''}
+                                                value={item.requested_delivery_date}
                                                 onChange={(_, dateString) => handleChangeField('requested_delivery_date', dateString, item.id)} // Update the field value on change
                                                 // defaultValue={formState.requested_delivery_date}
                                             />
@@ -194,6 +242,7 @@ const SalesItemsSection = () => {
                                                 placeholder='Y-m-d'
                                                 className="form-input flex-1 min-w-[200px]"
                                                 // value={formState.estimated_delivery_date ? new Date(formState.estimated_delivery_date) : ''}
+                                                value={item.estimated_delivery_date}
                                                 onChange={(_, dateString) => handleChangeField('estimated_delivery_date', dateString, item.id)} // Update the field value on change
                                                 // defaultValue={formState.estimated_delivery_date}
                                             />
@@ -226,6 +275,15 @@ const SalesItemsSection = () => {
                                 <button type="button" className="btn btn-primary" onClick={() => addItem()}>
                                     Add Item
                                 </button>
+                            </div>
+                            <div className="sm:w-2/5">
+                                <div className="flex items-center justify-between">
+                                    <div>Total(€)</div>
+                                    <input id="total" name="total" type="text" value={summary.total}
+                                           className="w-64 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] disabled:cursor-not-allowed"
+                                           disabled/>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -29,7 +29,7 @@ const OutcomeOfOutGoingCall = () => {
                                    }} className="flex-1"/>,
             'Description': <input id="description" name="description"
                                   className="form-input flex-1 "
-                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 

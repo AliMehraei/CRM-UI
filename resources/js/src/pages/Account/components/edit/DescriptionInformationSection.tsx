@@ -15,14 +15,14 @@ const DescriptionInformationSection = () => {
             'Description Information': <textarea id="description" rows={3} name="description"
                                                  className="form-textarea flex-1"
                                                  placeholder=""
-                                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                                 onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                                  defaultValue={formState.description}
             ></textarea>,
             'Last Activity Date': <Flatpickr
                 options={{
                     dateFormat: 'Y-m-d ',
                     position: 'auto left',
-                    defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any, 
+                    defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any,
                 }}
                 name="last_activity_date"
                 value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}

@@ -18,14 +18,14 @@ const OtherSection = () => {
                 id="grouping"
                 name="grouping"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Status Reason': <input
                 id="status_reason"
                 name="status_reason"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 
@@ -36,14 +36,14 @@ const OtherSection = () => {
                 id="type"
                 name="type"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Zuid': <input
                 id="zuid"
                 name="zuid"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
         }

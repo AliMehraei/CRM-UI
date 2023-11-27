@@ -55,7 +55,6 @@ const TaskInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
-                    required
                 />
             ),
             'Subject': (
@@ -63,7 +62,7 @@ const TaskInformationSection = () => {
                 id="subject"
                 name="subject"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 required
                 />
             ),
@@ -106,7 +105,7 @@ const TaskInformationSection = () => {
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.description}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
 
             ),
 

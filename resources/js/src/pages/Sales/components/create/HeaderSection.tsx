@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchContacts, Currencies
-    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals
+    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals, Stages
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
@@ -47,14 +47,6 @@ const HeaderSection = () => {
     }
 
 
-    const DealStageOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
-        //TODO
-        {value: 'open', label: 'open'},
-        {value: 'lost', label: 'lost'},
-    ];
 
 
     const fields = {
@@ -81,7 +73,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="contact_id"
                     placeholder="Type at least 2 characters to search..."
                     name="contact_id"
@@ -127,7 +118,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="deal_id"
                     placeholder="Type at least 2 characters to search..."
                     name="deal_id"
@@ -141,7 +131,7 @@ const HeaderSection = () => {
             ),
             'Deal Stage': (
                 <Select
-                    options={DealStageOption}
+                    options={Stages}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {
@@ -154,7 +144,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="owner_id"
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
@@ -170,7 +159,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="sales_person_id"
                     placeholder="Type at least 2 characters to search..."
                     name="sales_person_id"
@@ -186,7 +174,6 @@ const HeaderSection = () => {
                 <AsyncSelect
                     defaultOptions={true}
                     isMulti={false}
-                    required
                     id="approved_by_id"
                     placeholder="Type at least 2 characters to search..."
                     name="approved_by_id"

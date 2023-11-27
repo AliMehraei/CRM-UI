@@ -18,7 +18,7 @@ const ShiftInformationSection = () => {
                 className="form-input flex-1 "
                 defaultValue={formState.current_shift_id}
 
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Next Shift Id': <input
@@ -27,7 +27,7 @@ const ShiftInformationSection = () => {
                 className="form-input flex-1 "
                 defaultValue={formState.next_shift_id}
 
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 

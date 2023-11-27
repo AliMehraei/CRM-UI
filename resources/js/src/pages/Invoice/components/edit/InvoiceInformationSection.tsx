@@ -97,7 +97,7 @@ const InvoiceInformationSection = () => {
                     required
                     name="subject"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.subject}
                 />
             ),
@@ -133,22 +133,23 @@ const InvoiceInformationSection = () => {
                     name="sales_commission"
                     defaultValue={formState.sales_commission}
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Account Name': <AsyncSelect
                     defaultOptions={true}
-                isMulti={false}
-                id="account_id"
-                placeholder="Type at least 2 characters to search..."
-                name="account_id"
-                loadOptions={searchAccounts}
-                onChange={({value}: any) => {
-                    handleChangeField('account_id', value)
-                    handleChangeAccount(value);
+                    isMulti={false}
+                    required
+                    id="account_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="account_id"
+                    loadOptions={searchAccounts}
+                    onChange={({value}: any) => {
+                        handleChangeField('account_id', value)
+                        handleChangeAccount(value);
 
-                }}
-                className="flex-1"
+                    }}
+                    className="flex-1"
                 defaultValue={{
                     value: formState.account?.id,
                     label: (
@@ -179,7 +180,7 @@ const InvoiceInformationSection = () => {
                     name="zoho_books_id"
                     defaultValue={formState.zoho_books_id}
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -211,7 +212,7 @@ const InvoiceInformationSection = () => {
                 name="purchase_order"
                 className="form-input flex-1 "
                 defaultValue={formState.purchase_order}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Deal Stage': <Select
                 name="deal_stage"
@@ -230,7 +231,7 @@ const InvoiceInformationSection = () => {
                     name="excise_duty"
                     className="form-input flex-1 "
                     defaultValue={formState.excise_duty}
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Status': <Select

@@ -43,7 +43,7 @@ const FieldsScondaryPrioritySection = () => {
                     id="no_of_employees"
                     name="no_of_employees"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.no_of_employees}
                 />
             ),
@@ -52,7 +52,7 @@ const FieldsScondaryPrioritySection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_reference}
                 />
             ),

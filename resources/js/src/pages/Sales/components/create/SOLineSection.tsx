@@ -31,9 +31,8 @@ const SOLineSection = () => {
 
             'Product Name': (
                 <AsyncSelect
-                    defaultOptions={true}
+                    defaultOptions={false}
                     isMulti={false}
-                    required
                     id="product_id"
                     placeholder="Type at least 2 characters to search..."
                     name="product_id"
@@ -50,7 +49,7 @@ const SOLineSection = () => {
                     id="customer_part_id"
                     name="customer_part_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Quantity': (
@@ -59,7 +58,7 @@ const SOLineSection = () => {
                     name="quantity"
                     className="form-input flex-1 "
                     type="number"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'List Price': (
@@ -69,7 +68,7 @@ const SOLineSection = () => {
                     id="list_price"
                     name="list_price"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
         },
@@ -95,7 +94,7 @@ const SOLineSection = () => {
                     id="date_code"
                     name="date_code"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'SPQ': (
@@ -103,7 +102,7 @@ const SOLineSection = () => {
                     id="spq"
                     name="spq"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -113,7 +112,7 @@ const SOLineSection = () => {
                     id="comment"
                     name="comment"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 

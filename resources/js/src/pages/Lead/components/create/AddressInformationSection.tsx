@@ -21,7 +21,7 @@ const AddressInformationSection = () => {
                 id="zip_code"
                 name="zip_code"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'City': (
@@ -29,7 +29,7 @@ const AddressInformationSection = () => {
                     id="city"
                     name="city"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -42,13 +42,13 @@ const AddressInformationSection = () => {
                 id="state"
                 name="state"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Country': (<input
                 id="country"
                 name="country"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
         }

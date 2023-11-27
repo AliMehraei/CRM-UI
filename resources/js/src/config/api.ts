@@ -297,6 +297,11 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/lead/convert/${data.id}`, data);
     }
 
+    async convertLeadValidation(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/lead/convert/validation/${data.id}`, data);
+    }
+
+
     async searchLead(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data);
     }
@@ -692,14 +697,26 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data);
     }
 
-    async getRelationModel(groupName:any,id:any){
+    async getRelationModel(groupName: any, id: any) {
         return await _axios.get(`${API_URL_PRODUCT}/relation-model/${groupName}/${id}`);
 
     }
+
+
+    async fetchSuggestedAvailability(product_id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestion/`,{product_id:product_id});
+    }
+
+
     //start dashboard
     async dashboardData() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`);
     }
+
+    async salePersonDashboardData() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/sale-person-dashboard-data`);
+    }
+
 
     async dashboardOpenQuotes() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/open-quotes`);
@@ -745,9 +762,11 @@ class api {
     async reportSalesChartYTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/sales/chart-ytd`, data);
     }
+
     async reportSalesChartMTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/sales/chart-mtd`, data);
     }
+
     async reportSalesDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/sales/details`, data);
     }
@@ -756,9 +775,11 @@ class api {
     async reportQuoteChartYTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/quote/chart-ytd`, data);
     }
+
     async reportQuoteChartMTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/quote/chart-mtd`, data);
     }
+
     async reportQuoteDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/quote/details`, data);
     }
@@ -767,9 +788,11 @@ class api {
     async reportInvoiceChartYTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/chart-ytd`, data);
     }
+
     async reportInvoiceChartMTD(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/chart-mtd`, data);
     }
+
     async reportInvoiceDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }

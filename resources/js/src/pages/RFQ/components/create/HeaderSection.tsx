@@ -68,7 +68,7 @@ const HeaderSection = () => {
 
         'Header': {
             'Account Name': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
+                    defaultOptions={true} required isMulti={false} id="account_id" name="account_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
@@ -76,7 +76,7 @@ const HeaderSection = () => {
                                          }}
                                          className="flex-1"/>,
             'Contact': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="contact" name="contact_id"
+                    defaultOptions={true} required isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchContacts}
                                     onChange={({value}: any) => {
@@ -85,11 +85,11 @@ const HeaderSection = () => {
                                     className="flex-1"/>,
             'Customer RFQ No': <input id="customer_rfq_no" name="customer_rfq_no"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Project Name / Application': <input id="project_name" name="project_name"
                                                  className="form-input flex-1 "
-                                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                                 onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'RFQ Source': <Select name="rfq_source" required options={RFQSources}
                                   onChange={({value}: any) => {
@@ -105,7 +105,7 @@ const HeaderSection = () => {
                                 defaultValue={{value: 'none', label: '-None-'}}
                                 className="flex-1"/>,
 
-            'Status': <Select name='status' required options={Statuses}
+            'Status': <Select name='status' options={Statuses}
                               onChange={({value}: any) => {
                                   handleChangeField('status', value)
                               }}
@@ -120,7 +120,7 @@ const HeaderSection = () => {
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                     disabled/>,
             'Portal BOM id': <input id="portal_bom_id" name="portal_bom_id"
-                                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                     className="form-input flex-1 "/>,
         },
         '': {

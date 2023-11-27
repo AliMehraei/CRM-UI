@@ -53,7 +53,7 @@ const AccountSection = () => {
                     required
                     name="account_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.account_name}
 
                 />
@@ -101,7 +101,7 @@ const AccountSection = () => {
                 type="checkbox"
                 name="business_account"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by_id" type="text"
@@ -163,7 +163,6 @@ const AccountSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('pm_user_id', value)
                 }}
-                required
                 defaultValue={{
                     value: formState.pm_user?.id,
                     label: (
@@ -198,7 +197,7 @@ const AccountSection = () => {
                     id="tam"
                     name="tam"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.tam}
                 />,
 
@@ -210,7 +209,7 @@ const AccountSection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_reference}
 
                 />,

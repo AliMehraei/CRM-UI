@@ -28,7 +28,7 @@ const AccountInformationSection = () => {
                 id="primary_first_name"
                 name="primary_first_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.primary_first_name}
             />),
 
@@ -38,7 +38,7 @@ const AccountInformationSection = () => {
                     required
                     name="phone"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.phone}
                 />
             ),
@@ -46,7 +46,7 @@ const AccountInformationSection = () => {
                 id="fax"
                 name="fax"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.fax}
             />),
             'Email': (<input
@@ -54,7 +54,7 @@ const AccountInformationSection = () => {
                 required
                 name="email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.email}
             />),
             'Website': (<input
@@ -62,7 +62,7 @@ const AccountInformationSection = () => {
                 id="website"
                 name="website"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.website}
 
             />),
@@ -73,7 +73,7 @@ const AccountInformationSection = () => {
                 id="primary_last_name"
                 name="primary_last_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.primary_last_name}
 
             />),
@@ -116,7 +116,7 @@ const AccountInformationSection = () => {
                     id="linkedin_company"
                     name="linkedin"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.linkedin}
 
                 />,
@@ -125,7 +125,7 @@ const AccountInformationSection = () => {
                     id="account_number"
                     name="account_number"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.account_number}
 
                 />,
@@ -178,7 +178,7 @@ const AccountInformationSection = () => {
                 type="checkbox"
                 name="has_no_contacts"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.has_no_contacts}
             />,
             'DCheck': <input
@@ -186,7 +186,7 @@ const AccountInformationSection = () => {
                 type="checkbox"
                 name="d_check"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.has_no_contacts}
             />,
 

@@ -24,7 +24,7 @@ const SourceSection = () => {
                 className="flex-1" />,
 
             'Availability No': <input id="availability_no" name="availability_no" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
             'Availability Date': <Flatpickr name='availability_date' options={{ dateFormat: 'Y-m-d ' }}
                 className="form-input flex-1"
                 placeholder="YYYY-MM-DD"
@@ -43,17 +43,17 @@ const SourceSection = () => {
         '': {
 
             'Cost': <input id="cost" name="cost" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
 
             'LT vendor': <input id="lt_vendor" name="lt_vendor" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
 
             'SPQ': <input id="spq" name="spq" className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
 
             'Quantity in Stock': <input id="quantity_in_stock" name="quantity_in_stock"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
 
         }
     }

@@ -58,7 +58,7 @@ const HeaderSection = () => {
             'Vendor Quote No': <input id="vendor_quote_no" type="text" name="vendor_quote_no"
                 className="form-input flex-1 "
                 defaultValue={formState.vendor_quote_no}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)} />,
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
         },
         '': {
             'Availability Owner': <AsyncSelect

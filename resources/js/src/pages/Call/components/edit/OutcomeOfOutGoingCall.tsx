@@ -31,7 +31,7 @@ const OutcomeOfOutGoingCall = () => {
             'Description': <input id="description" name="description"
                                   className="form-input flex-1 "
                                   defaultValue={formState.description}
-                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 

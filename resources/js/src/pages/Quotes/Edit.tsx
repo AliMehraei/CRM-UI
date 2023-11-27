@@ -10,7 +10,8 @@ import {resetForm, updateFormData} from "../../store/quoteFormSlice";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
 import Swal from "sweetalert2";
-import {notifyErrorMessage} from "../../components/Functions/CommonFunctions";
+import {globalToast, notifyErrorMessage} from "../../components/Functions/CommonFunctions";
+import {updateErrors} from "../../store/formErrorsSlice";
 
 const Edit = () => {
     const {hasPermission} = useUserStatus();
@@ -58,31 +59,52 @@ const Edit = () => {
 
     const handleConvertQuote = async () => {
         try {
-            const convertRfqResponse: any = await api.convertQuoteToSalesOrder({
+            const response: any = await api.convertQuoteToSalesOrder({
                 'id': formState.id,
             });
-            Swal.fire({
-                title: 'Quote Converted Successfully.',
-                html: `
+            if (response.status == 200) {
+
+                Swal.fire({
+                    title: 'Quote Converted Successfully.',
+                    html: `
                 <span class="text-blue-500">Do you want to redirect to created SalesOrder ? </span>
                 `,
-                showCancelButton: true,
-                icon: 'success',
-                confirmButtonText: 'Redirect',
-                denyButtonText: `Close`,
+                    showCancelButton: true,
+                    icon: 'success',
+                    confirmButtonText: 'Redirect',
+                    denyButtonText: `Close`,
 
-                customClass: {
-                    title: 'text-blue-500',
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate(`/sales/edit/${convertRfqResponse.data.salesOrder.id}`, {replace: true});
-                }
-            })
+                    customClass: {
+                        title: 'text-blue-500',
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate(`/sales/edit/${response.data.salesOrder.id}`, {replace: true});
+                    }
+                })
 
+            } else if (response.status === 422) {
+                const errorData = response.data.errors;
+                const errorsToUpdate = {titleMessage: "You have validation error on converting Sales Order", hasError: true, ...Object.fromEntries(Object.entries(errorData).map(([field, value]: any) => [field, value[0]]))};
+                dispatch(updateErrors(errorsToUpdate));
+                globalToast.fire({
+                    icon: 'error',
+                    html: `<h5>Convert Validation Error</h5>
+                        <span style="font-size: 12px">Please Check fields</span>
+                        `,
+                    padding: '10px 20px',
+
+                });
+            } else {
+                globalToast.fire({
+                    icon: 'error',
+                    title: 'Internal Server Error ,Converting Sales Order failed failed',
+                    padding: '10px 20px',
+                });
+            }
 
         } catch (exception) {
-            notifyErrorMessage("Failed to convert Rfq")
+            notifyErrorMessage("Failed to convert sales order")
             console.error(exception)
             return;
         }

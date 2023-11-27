@@ -42,7 +42,7 @@ const ProductInformationSection = () => {
                     required
                     name="product_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.product_name}
                 />
             ),
@@ -51,7 +51,7 @@ const ProductInformationSection = () => {
                     id="part_description"
                     name="part_description"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.part_description}
                 />
             ),
@@ -115,7 +115,7 @@ const ProductInformationSection = () => {
                     type="checkbox"
                     name="business_product"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     defaultChecked={formState.business_product}
                 />
             ),
@@ -161,7 +161,7 @@ const ProductInformationSection = () => {
                     type="checkbox"
                     name="product_active"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     defaultChecked={formState.product_active}
                 />
             ),
@@ -203,7 +203,7 @@ const ProductInformationSection = () => {
                     id="datasheet_url"
                     name="datasheet_url"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.datasheet_url}
                 />
             ),

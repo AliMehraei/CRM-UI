@@ -62,7 +62,7 @@ export const handleUploadFile = (
     type: string,
     callBack: (response: any) => void) => {
 
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files  && e.target.files.length > 0) {
         api_instance.uploadFile(e.target.files[0], modelName, type).then((response) => {
             callBack(response)
         }).catch();
@@ -182,8 +182,15 @@ export const searchAvailability = async (query: string) => {
         return result.data.data.map((data: any) => ({
             value: data['id'],
             label: (
-                <div key={data['id']} className="flex items-center">
+                <div key={data['id']} className=" items-center">
                     <div className="text-sm font-bold">{data['availability_name']}</div>
+                    <div className="inline-block">
+                        <div className="text-xs text-gray-500">Vendor: {data['vendor']['vendor_name']}</div>
+                        <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
+                        <div className="text-xs text-gray-500">Source: {data['availability_source']}</div>
+                        <div className="text-xs text-gray-500">Quantity in Stock: {data['in_stock_quantity']}</div>
+
+                    </div>
                 </div>
             ),
         }));
@@ -502,10 +509,12 @@ export function generateRandomPassword(length = 12) {
     }
     return password;
 }
-export const formatDate = (dateString:any) => {
-    const options:any = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+export const formatDate = (dateString: any) => {
+    const options: any = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'};
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
 export function copyToClipboard(text: any) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
@@ -553,3 +562,10 @@ export const modelRouteMap: any = {
     'User': 'user',
     'Call': 'call',
 };
+
+export const globalToast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 5000,
+});

@@ -74,7 +74,7 @@ const POLineSection = () => {
 
             'Product Name': (
                 <AsyncSelect
-                    defaultOptions={true}
+                    defaultOptions={false}
                     isMulti={false}
                     id="product_id"
                     placeholder="Type at least 2 characters to search..."
@@ -102,7 +102,7 @@ const POLineSection = () => {
                 name="quantity"
                 className="form-input flex-1 "
                 type="number"
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.quantity}
                 />
             ),
@@ -113,7 +113,7 @@ const POLineSection = () => {
                 id="cost"
                 name="cost"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.cost}
                 />
             ),
@@ -139,7 +139,7 @@ const POLineSection = () => {
                 id="date_code"
                 name="date_code"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.date_code}
                 />
             ),
@@ -148,7 +148,7 @@ const POLineSection = () => {
                 id="spq"
                 name="spq"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.spq}
                 />
             ),
@@ -159,7 +159,7 @@ const POLineSection = () => {
                 id="comment"
                 name="comment"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.comment}
                 />
             ),

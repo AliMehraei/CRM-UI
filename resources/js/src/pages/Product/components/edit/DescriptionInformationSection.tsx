@@ -13,44 +13,44 @@ const DescriptionInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
-    
+
+
 
 
     const fields = {
         'Description Information': {
-           
-          
+
+
             'Description': (
-                <textarea 
-                id="description" 
-                rows={2} 
+                <textarea
+                id="description"
+                rows={2}
                 name="description"
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.description}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
-                
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
+
             ),
             'Octopart Short Description': (
-                <textarea 
-                id="octopart_short_description" 
-                rows={2} 
+                <textarea
+                id="octopart_short_description"
+                rows={2}
                 name="octopart_short_description"
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.octopart_short_description}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
-           
-            
+
+
         },
         '': {
-            
-           
-           
-            
-            
+
+
+
+
+
         }
     }
     return (

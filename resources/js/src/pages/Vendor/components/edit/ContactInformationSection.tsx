@@ -42,7 +42,7 @@ const ContactInformationSection = () => {
                 id="first_name"
                 name="first_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.first_name}
             />),
 
@@ -52,24 +52,24 @@ const ContactInformationSection = () => {
                     required
                     name="phone"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.phone}
                 />
             ),
-            
+
             'email': (<input
                 id="email"
                 required
                 name="email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.email}
             />),
             'linkedin': (<input
                 id="linkedin"
                 name="linkedin"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.linkedin}
             />),
 
@@ -79,17 +79,17 @@ const ContactInformationSection = () => {
                 id="last_name"
                 name="last_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.last_name}
             />),
 
-            
+
             'Mobile':
                 <input
                     id="mobile"
                     name="mobile"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.mobile}
                 />,
             'Website':
@@ -97,7 +97,7 @@ const ContactInformationSection = () => {
                 id="website"
                 name="website"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.website}
             />,
 
@@ -110,7 +110,7 @@ const ContactInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default ContactInformationSection;

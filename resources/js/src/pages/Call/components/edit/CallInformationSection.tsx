@@ -194,7 +194,7 @@ const CallInformationSection = () => {
                     required
                     name="call_duration_minutes"
                     className="form-input mr-2 flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     placeholder="Minutes"
                     defaultValue={formState.call_duration_minutes}
                 />
@@ -203,7 +203,7 @@ const CallInformationSection = () => {
                     required
                     name="call_duration_seconds"
                     className="form-input ml-2 flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     placeholder="Seconds"
                     defaultValue={formState.call_duration_seconds}
 
@@ -212,13 +212,13 @@ const CallInformationSection = () => {
             'Subject': <input required id="subject" name="subject"
                               className="form-input flex-1 "
                               defaultValue={formState.subject}
-                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Voice Recording': <input id="voice_recording" name="voice_recording"
                                       className="form-input flex-1 "
                                       defaultValue={formState.voice_recording}
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
 
