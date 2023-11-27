@@ -23,23 +23,25 @@ const DealInformationSection = () => {
 
     const LeadSourceOption = [
         {value: 'none', label: '-None-'},
-        {value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch'},
-        {value: 'mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
-        {value: 'kunden', label: 'Kunden Vermittlung'},
-        {value: 'teilnehmer', label: 'Teilnehmer'},
-        {value: 'mess', label: 'Mess'},
+        {value: 'Unangemeldeter Anruf/Besuch', label: 'Unangemeldeter Anruf/Besuch'},
+        {value: 'Mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
+        {value: 'Kunden Vermittlung', label: 'Kunden Vermittlung'},
+        {value: 'Teilnehmer', label: 'Teilnehmer'},
+        {value: 'Messe', label: 'Mess'},
+        {value: 'Internes Seminar', label: 'Mess'},
+        {value: 'Internetrecherche', label: 'Mess'},
 
     ];
     const TypeOption = [
         {value: 'none', label: '-None-'},
-        {value: 'existierendes', label: 'Existierendes Geschäft'},
-        {value: 'neues', label: 'Neues Geschäft'},
+        {value: 'Existierendes Geschäft', label: 'Existierendes Geschäft'},
+        {value: 'Neues Geschäft', label: 'Neues Geschäft'},
 
 
     ];
     const PipelineOption = [
-        {value: 'deal', label: 'Deal'},
-        {value: 'excess', label: 'Excess'},
+        {value: 'Deal', label: 'Deal'},
+        {value: 'Excess', label: 'Excess'},
 
 
     ];
@@ -53,6 +55,30 @@ const DealInformationSection = () => {
         {value: '3.0 warm lead qualified (WLQ)', label: '3.0 warm lead qualified (WLQ)'},
         {value: '4.0 Hot lead (HLQ)', label: '4.0 Hot lead (HLQ)'},
         {value: 'Lost Lead', label: 'Close Lead / Lost Lead'},
+        {value: '10.0 Invoice got paid', label: 'C10.0 Invoice got paid'},
+        {value: '9.0 Invoice sent', label: '9.0 Invoice sent'},
+        {value: '9.1 Lost Invoice', label: '9.1 Lost Invoice'},
+        {value: '8.1 Lost SO', label: '8.1 Lost SO'},
+        {value: '8.0 Sales Order (SO) sent', label: '8.0 Sales Order (SO) sent'},
+        {value: '7.1 Lost Quote', label: '7.1 Lost Quote'},
+        {value: '7.0 Quote sent', label: '7.0 Quote sent'},
+        {value: '7.2 Quote Low Chance', label: '7.2 Quote Low Chance'},
+        {value: '7.3 Quote High Chance', label: '7.3 Quote High Chance'},
+        {value: '6.1 Lost RFQ', label: '6.1 Lost RFQ'},
+        {value: '6.0 RFQ received', label: '6.0 RFQ received'},
+        {value: '5.0 Lead transferred to Account & Contact', label: '5.0 Lead transferred to Account & Contact'},
+        {value: 'HLQ Hot Lead Qualified', label: 'HLQ Hot Lead Qualified'},
+        {value: 'WLQ Warm Lead Qualified', label: 'WLQ Warm Lead Qualified'},
+        {value: 'Abgeschlossen – An Mitbewerber verloren', label: 'Abgeschlossen – An Mitbewerber verloren'},
+        {value: 'Abgeschlossen, verloren', label: 'Abgeschlossen, verloren'},
+        {value: 'Abgeschlossen, gewonnen', label: 'Abgeschlossen, gewonnen'},
+        {value: 'Unterhandlung/Rückblick', label: 'Unterhandlung/Rückblick'},
+        {value: 'Vorschlag/Preis Angebot', label: 'Vorschlag/Preis Angebot'},
+        {value: 'Analyse erforderlich', label: 'Analyse erforderlich'},
+        {value: 'Qualifikation', label: 'Qualifikation'},
+       
+
+
     ];
 
 
@@ -261,7 +287,7 @@ const DealInformationSection = () => {
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
-                        setStageOption(value == 'deal' ? StageDealOption : StageExcessOption)
+                        setStageOption(value == 'Deal' ? StageDealOption : StageExcessOption)
 
                     }}
                     className="flex-1"
