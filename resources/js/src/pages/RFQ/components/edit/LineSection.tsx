@@ -15,7 +15,7 @@ export const LineSection = () => {
     const fields = {
         'RFQ Line': {
             'Product Name': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="product_id"
+                    defaultOptions={false} isMulti={false} id="product_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchProducts}
                                          onChange={({value}: any) => {
@@ -71,7 +71,7 @@ export const LineSection = () => {
                                                  }
                                                  className="flex-1"/>,
             'Availability': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="availability" name="availability_id"
+                    defaultOptions={false} isMulti={false} id="availability" name="availability_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAvailability}
                                          onChange={({value}: any) => {
