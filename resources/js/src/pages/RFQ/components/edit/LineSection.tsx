@@ -5,68 +5,100 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/rfqFormSlice";
 import Api from "../../../../config/api";
 import { useState } from "react";
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed in JS
+    const day = String(date.getDate()).padStart(2, '0');
 
-const ProductSuggestionsTable: React.FC<{ suggestions: Array<{ product: string; availability: string; availability_source: string }> }> = ({ suggestions }) => (
-    <>
-        <h3 className="text-xl">Availability Suggestions :</h3>
-        <table className="min-w-full bg-white border border-gray-300">
-            <thead>
-                <tr>
-                    <th className="py-2 px-4 border-b">Product</th>
-                    <th className="py-2 px-4 border-b">Availability</th>
-                    <th className="py-2 px-4 border-b">Availability Source</th>
-                    <th className="py-2 px-4 border-b">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {suggestions.map((suggestion, index) => (
-                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
-                        <td className="py-2 px-4 border-b">{suggestion.product}</td>
-                        <td className="py-2 px-4 border-b">{suggestion.availability}</td>
-                        <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
-                        <td className="py-2 px-4 border-b"><button className="btn btn-sm">Select</button></td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </>
-);
+    return `${year}:${month}:${day}`;
+};
 
 export const LineSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.rfqFormSlice);
     const api = new Api();
-    const [availabilitySuggestions, setAvailabilitySuggestions] = useState<Array<{ product: string; availability: string; availability_source: string }>>([]);
+    interface AvailabilitySuggestion {
+        availability_name: string;
+        availability_source: string;
+        cost: number;
+        currency: string;
+        created_at: string;
+      }
+      interface SuggestionsData {
+        web: AvailabilitySuggestion[];
+        nonWeb: AvailabilitySuggestion[];
+      }
+      
+      const [suggestionsData, setSuggestionsData] = useState<SuggestionsData>({
+        web: [],
+        nonWeb: [],
+      });
+
+      const ProductSuggestionsTable: React.FC<{ suggestions: SuggestionsData }> = ({ suggestions }) => (
+        <>
+          <h3 className="text-xl">Availability Suggestions :</h3>
+          <table className="min-w-full bg-white border border-gray-300">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b">Availability</th>
+                <th className="py-2 px-4 border-b">Availability Source</th>
+                <th className="py-2 px-4 border-b">Availability Cost</th>
+                <th className="py-2 px-4 border-b">Availability Created Date</th>
+                <th className="py-2 px-4 border-b">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {suggestions.web.map((suggestion, index) => (
+                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+                  <td className="py-2 px-4 border-b">{suggestion.availability_name}</td>
+                  <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
+                  <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
+                  <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
+                  <td className="py-2 px-4 border-b"><button className="btn btn-sm">Select</button></td>
+                </tr>
+              ))}
+              {suggestions.nonWeb.map((suggestion, index) => (
+                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+                  <td className="py-2 px-4 border-b">{suggestion.availability_name}</td>
+                  <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
+                  <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
+                  <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
+                  <td className="py-2 px-4 border-b"><button className="btn btn-sm">Select</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      );
+      
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
         if (field === 'product_id') {
             fetchAvailabilitySuggestions(value);
-            console.log('av',availabilitySuggestions);
-            console.log('av1',availabilitySuggestions);
-
         }
     };
     const fields = {
         'RFQ Line': {
             'Product Name': <AsyncSelect
-                    defaultOptions={false} isMulti={false} id="product_id"
-                                         placeholder="Type at least 2 characters to search..."
-                                         loadOptions={searchProducts}
-                                         onChange={({value}: any) => {
-                                             handleChangeField('product_id', value)
-                                         }}
-                                         defaultValue={{
-                                             value: formState.product?.id,
-                                             label: (
-                                                 <div key={formState.product?.id} className="flex items-center">
-                                                     <div
-                                                         className="text-sm font-bold">{formState.product?.product_name}</div>
-                                                 </div>
-                                             ),
-                                         }}
-                                         className="flex-1"
-                                         required/>,
+                defaultOptions={false} isMulti={false} id="product_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchProducts}
+                onChange={({ value }: any) => {
+                    handleChangeField('product_id', value)
+                }}
+                defaultValue={{
+                    value: formState.product?.id,
+                    label: (
+                        <div key={formState.product?.id} className="flex items-center">
+                            <div
+                                className="text-sm font-bold">{formState.product?.product_name}</div>
+                        </div>
+                    ),
+                }}
+                className="flex-1"
+                required />,
 
             'Customer Part Id': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
                 defaultValue={formState.customer_part_id}
@@ -106,22 +138,22 @@ export const LineSection = () => {
                 }
                 className="flex-1" />,
             'Availability': <AsyncSelect
-                    defaultOptions={false} isMulti={false} id="availability" name="availability_id"
-                                         placeholder="Type at least 2 characters to search..."
-                                         loadOptions={searchAvailability}
-                                         onChange={({value}: any) => {
-                                             handleChangeField('availability_id', value)
-                                         }}
-                                         defaultValue={{
-                                             value: formState.contact?.id,
-                                             label: (
-                                                 <div key={formState.availability?.id} className="flex items-center">
-                                                     <div
-                                                         className="text-sm font-bold">{formState.availability?.availability_name}</div>
-                                                 </div>
-                                             ),
-                                         }}
-                                         className="flex-1"/>,
+                defaultOptions={false} isMulti={false} id="availability" name="availability_id"
+                placeholder="Type at least 2 characters to search..."
+                loadOptions={searchAvailability}
+                onChange={({ value }: any) => {
+                    handleChangeField('availability_id', value)
+                }}
+                defaultValue={{
+                    value: formState.contact?.id,
+                    label: (
+                        <div key={formState.availability?.id} className="flex items-center">
+                            <div
+                                className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                        </div>
+                    ),
+                }}
+                className="flex-1" />,
             'Excess': <AsyncSelect
                 defaultOptions={true} isMulti={false} id="excess_id"
                 name="excess_id"
@@ -152,24 +184,22 @@ export const LineSection = () => {
 
         }
 
-    }
-
-    const suggestionsData = [
-        { product: 'Product 1', availability: 'In Stock', availability_source: 'Web' },
-        { product: 'Product 2', availability: 'Out of Stock', availability_source: 'Email' },
-    ];
+    };
 
     const fetchAvailabilitySuggestions = async (productId: string) => {
         try {
             const response = await api.fetchSuggestedAvailability(productId);
             if (response.status === 200) {
-                const avas = response.data.data.avas;
-                setAvailabilitySuggestions(avas);
+                const avas = response.data.data;
+                const webSuggestions = avas.web ? [avas.web] : [];
+                const nonWebSuggestions = avas.nonWeb ? [avas.nonWeb] : [];
+                setSuggestionsData({ web: webSuggestions, nonWeb: nonWebSuggestions });
             }
         } catch (error) {
             console.error('Error fetching availability suggestions:', error);
         }
     };
+    
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
