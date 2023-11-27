@@ -62,6 +62,8 @@ const DealInformationSection = () => {
         {value: '8.0 Sales Order (SO) sent', label: '8.0 Sales Order (SO) sent'},
         {value: '7.1 Lost Quote', label: '7.1 Lost Quote'},
         {value: '7.0 Quote sent', label: '7.0 Quote sent'},
+        {value: '7.2 Quote Low Chance', label: '7.2 Quote Low Chance'},
+        {value: '7.3 Quote High Chance', label: '7.3 Quote High Chance'},
         {value: '6.1 Lost RFQ', label: '6.1 Lost RFQ'},
         {value: '6.0 RFQ received', label: '6.0 RFQ received'},
         {value: '5.0 Lead transferred to Account & Contact', label: '5.0 Lead transferred to Account & Contact'},
@@ -74,6 +76,9 @@ const DealInformationSection = () => {
         {value: 'Vorschlag/Preis Angebot', label: 'Vorschlag/Preis Angebot'},
         {value: 'Analyse erforderlich', label: 'Analyse erforderlich'},
         {value: 'Qualifikation', label: 'Qualifikation'},
+       
+
+
     ];
 
 
@@ -282,7 +287,7 @@ const DealInformationSection = () => {
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
-                        setStageOption(value == 'deal' ? StageDealOption : StageExcessOption)
+                        setStageOption(value == 'Deal' ? StageDealOption : StageExcessOption)
 
                     }}
                     className="flex-1"
