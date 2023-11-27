@@ -24,54 +24,59 @@ export const LineSection = () => {
         cost: number;
         currency: string;
         created_at: string;
-      }
-      interface SuggestionsData {
+        id:string
+    }
+    interface SuggestionsData {
         web: AvailabilitySuggestion[];
         nonWeb: AvailabilitySuggestion[];
-      }
-      
-      const [suggestionsData, setSuggestionsData] = useState<SuggestionsData>({
+    }
+
+    const [suggestionsData, setSuggestionsData] = useState<SuggestionsData>({
         web: [],
         nonWeb: [],
-      });
+    });
 
-      const ProductSuggestionsTable: React.FC<{ suggestions: SuggestionsData }> = ({ suggestions }) => (
+    const ProductSuggestionsTable: React.FC<{ suggestions: SuggestionsData }> = ({ suggestions }) => (
         <>
-          <h3 className="text-xl">Availability Suggestions :</h3>
-          <table className="min-w-full bg-white border border-gray-300">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border-b">Availability</th>
-                <th className="py-2 px-4 border-b">Availability Source</th>
-                <th className="py-2 px-4 border-b">Availability Cost</th>
-                <th className="py-2 px-4 border-b">Availability Created Date</th>
-                <th className="py-2 px-4 border-b">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {suggestions.web.map((suggestion, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
-                  <td className="py-2 px-4 border-b">{suggestion.availability_name}</td>
-                  <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
-                  <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
-                  <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
-                  <td className="py-2 px-4 border-b"><button className="btn btn-sm">Select</button></td>
-                </tr>
-              ))}
-              {suggestions.nonWeb.map((suggestion, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
-                  <td className="py-2 px-4 border-b">{suggestion.availability_name}</td>
-                  <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
-                  <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
-                  <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
-                  <td className="py-2 px-4 border-b"><button className="btn btn-sm">Select</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <h3 className="text-xl">Availability Suggestions :</h3>
+            <table className="min-w-full bg-white border border-gray-300">
+                <thead>
+                    <tr>
+                        <th className="py-2 px-4 border-b">Availability</th>
+                        <th className="py-2 px-4 border-b">Availability Source</th>
+                        <th className="py-2 px-4 border-b">Availability Cost</th>
+                        <th className="py-2 px-4 border-b">Availability Created Date</th>
+                        {/* <th className="py-2 px-4 border-b">Actions</th> */}
+                    </tr>
+                </thead>
+                <tbody>
+                    {suggestions.web.map((suggestion, index) => (
+                        <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+                            <td className="py-2 px-4 border-b">{suggestion.availability_name}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
+                            <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
+                            {/* <td className="py-2 px-4 border-b">
+                                <button className="btn btn-sm" onClick={() => handleAvailabilitySelect(suggestion.id)}>Select</button>
+                            </td> */}
+                        </tr>
+                    ))}
+                    {suggestions.nonWeb.map((suggestion, index) => (
+                        <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+                            <td className="py-2 px-4 border-b">{suggestion.availability_name}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
+                            <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
+                            {/* <td className="py-2 px-4 border-b">
+                                <button className="btn btn-sm" onClick={() => handleAvailabilitySelect(suggestion.id)}>Select</button>
+                            </td> */}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </>
-      );
-      
+    );
+
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
@@ -79,6 +84,10 @@ export const LineSection = () => {
             fetchAvailabilitySuggestions(value);
         }
     };
+    const handleAvailabilitySelect = (availabilityId: string) => {
+        dispatch(updateFormData({ availability_id: availabilityId }));
+      };
+    
     const fields = {
         'RFQ Line': {
             'Product Name': <AsyncSelect
@@ -145,7 +154,7 @@ export const LineSection = () => {
                     handleChangeField('availability_id', value)
                 }}
                 defaultValue={{
-                    value: formState.contact?.id,
+                    value: formState.availability?.id,
                     label: (
                         <div key={formState.availability?.id} className="flex items-center">
                             <div
@@ -199,13 +208,13 @@ export const LineSection = () => {
             console.error('Error fetching availability suggestions:', error);
         }
     };
-    
+
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <GenerateFields fields={fields} />
         </div>
-        <ProductSuggestionsTable suggestions={suggestionsData} />
+        <ProductSuggestionsTable suggestions={suggestionsData} onAvailabilitySelect={handleAvailabilitySelect} />
 
     </>)
 }

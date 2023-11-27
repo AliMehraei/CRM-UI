@@ -182,8 +182,15 @@ export const searchAvailability = async (query: string) => {
         return result.data.data.map((data: any) => ({
             value: data['id'],
             label: (
-                <div key={data['id']} className="flex items-center">
+                <div key={data['id']} className=" items-center">
                     <div className="text-sm font-bold">{data['availability_name']}</div>
+                    <div className="inline-block">
+                        <div className="text-xs text-gray-500">Vendor: {data['vendor']['vendor_name']}</div>
+                        <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
+                        <div className="text-xs text-gray-500">Source: {data['availability_source']}</div>
+                        <div className="text-xs text-gray-500">Quantity in Stock: {data['in_stock_quantity']}</div>
+
+                    </div>
                 </div>
             ),
         }));
