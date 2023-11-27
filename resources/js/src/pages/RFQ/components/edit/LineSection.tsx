@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/rfqFormSlice";
 import Api from "../../../../config/api";
 import { useState } from "react";
+import Swal from "sweetalert2";
+
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -35,7 +37,26 @@ export const LineSection = () => {
         web: [],
         nonWeb: [],
     });
-
+    const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+    const showMessage = (msg = "", type = "success") => {
+        const toast: any = Swal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+            customClass: { container: "toast" },
+        });
+        toast.fire({
+            icon: type,
+            title: msg,
+            padding: "10px 20px",
+        });
+    };
+    const handleCopyToClipboard = (text: string, index: number) => {
+        navigator.clipboard.writeText(text);
+        setCopiedIndex(index);
+        showMessage("Copied to clipboard!");
+    };
     const ProductSuggestionsTable: React.FC<{ suggestions: SuggestionsData }> = ({ suggestions }) => (
         <>
             <h3 className="text-xl">Availability Suggestions :</h3>
@@ -46,7 +67,7 @@ export const LineSection = () => {
                         <th className="py-2 px-4 border-b">Availability Source</th>
                         <th className="py-2 px-4 border-b">Availability Cost</th>
                         <th className="py-2 px-4 border-b">Availability Created Date</th>
-                        {/* <th className="py-2 px-4 border-b">Actions</th> */}
+                        <th className="py-2 px-4 border-b">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,9 +77,15 @@ export const LineSection = () => {
                             <td className="py-2 px-4 border-b">{suggestion.availability_source}</td>
                             <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
                             <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
-                            {/* <td className="py-2 px-4 border-b">
-                                <button className="btn btn-sm" onClick={() => handleAvailabilitySelect(suggestion.id)}>Select</button>
-                            </td> */}
+                            <td className="py-2 px-4 border-b">
+                                <button
+                                    className="btn btn-sm"
+                                    onClick={() => handleCopyToClipboard(suggestion.availability_name, index)}
+                                >
+                                    Copy to Clipboard
+                                </button>
+                                {/* <button className="btn btn-sm" onClick={() => handleAvailabilitySelect(suggestion.id)}>Select</button> */}
+                            </td>
                         </tr>
                     ))}
                     {suggestions.nonWeb.map((suggestion, index) => (
@@ -125,7 +152,7 @@ export const LineSection = () => {
         },
         '': {
             'Alternative Products': <AsyncSelect
-                defaultOptions={true} id="alternative_products" name="alternative_products"
+                defaultOptions={false} id="alternative_products" name="alternative_products"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchProducts}
                 onChange={(values: any) => {
@@ -147,7 +174,7 @@ export const LineSection = () => {
                 }
                 className="flex-1" />,
             'Availability': <AsyncSelect
-                defaultOptions={false} isMulti={false} id="availability" name="availability_id"
+                defaultOptions={true} isMulti={false} id="availability" name="availability_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAvailability}
                 onChange={({ value }: any) => {
