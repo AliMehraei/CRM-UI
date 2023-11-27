@@ -75,7 +75,6 @@ const HeaderSection = () => {
                 defaultOptions={true}
                 isMulti={false}
                 id="account_id"
-                required
                 name="account_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}
@@ -87,7 +86,6 @@ const HeaderSection = () => {
             'Contact Name': <AsyncSelect
                 defaultOptions={true} isMulti={false} id="contact_id" name="contact_id"
                 placeholder="Type at least 2 characters to search..."
-                required
                 loadOptions={searchContacts}
                 onChange={({value}: any) => {
                     handleChangeField('contact_id', value)
@@ -97,7 +95,6 @@ const HeaderSection = () => {
                 defaultOptions={true} isMulti={false} id="rfq_id" name="rfq_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchRFQ}
-                required
                 onChange={({value}: any) => {
                     handleChangeField('rfq_id', value)
                 }}
@@ -139,7 +136,6 @@ const HeaderSection = () => {
             'Quote Owner': <AsyncSelect
                 defaultOptions={true} isMulti={false} id="owner_id" name="owner_id"
                 placeholder="Type at least 2 characters to search..."
-                required
                 loadOptions={searchOwners}
                 onChange={({value}: any) => {
                     handleChangeField('owner_id', value)
@@ -147,7 +143,7 @@ const HeaderSection = () => {
 
                 className="flex-1"/>,
             'PM User': <AsyncSelect
-                defaultOptions={true} required isMulti={false} id="pm_user_id" name="pm_user_id"
+                defaultOptions={true}  isMulti={false} id="pm_user_id" name="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchOwners}
                 onChange={({value}: any) => {

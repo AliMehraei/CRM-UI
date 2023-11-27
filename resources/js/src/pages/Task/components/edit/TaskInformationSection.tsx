@@ -53,7 +53,6 @@ const TaskInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
-                    required
                     defaultValue={{
                         value: formState.owner?.id,
                         label: (

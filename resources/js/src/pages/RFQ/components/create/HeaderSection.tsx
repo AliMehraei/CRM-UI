@@ -68,7 +68,7 @@ const HeaderSection = () => {
 
         'Header': {
             'Account Name': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="account_id" name="account_id"
+                    defaultOptions={true} required isMulti={false} id="account_id" name="account_id"
                                          placeholder="Type at least 2 characters to search..."
                                          loadOptions={searchAccounts}
                                          onChange={({value}: any) => {
@@ -76,7 +76,7 @@ const HeaderSection = () => {
                                          }}
                                          className="flex-1"/>,
             'Contact': <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="contact" name="contact_id"
+                    defaultOptions={true} required isMulti={false} id="contact" name="contact_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchContacts}
                                     onChange={({value}: any) => {
@@ -105,7 +105,7 @@ const HeaderSection = () => {
                                 defaultValue={{value: 'none', label: '-None-'}}
                                 className="flex-1"/>,
 
-            'Status': <Select name='status' required options={Statuses}
+            'Status': <Select name='status' options={Statuses}
                               onChange={({value}: any) => {
                                   handleChangeField('status', value)
                               }}

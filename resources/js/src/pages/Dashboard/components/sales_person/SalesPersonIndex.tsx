@@ -4,6 +4,8 @@ import LastPeriodCompareWidget from "../../../../components/Reports/LastPeriodCo
 import LoadingSpinner from "../../../../components/LoadingSpinner";
 import Api from "../../../../config/api";
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import CountUp from 'react-countup';
+import StatusCard from './components/StatusCard';
 
 const SalesPersonIndex = () => {
     const [salesOrderData, setSalesOrderData] = useState<any>(null);
@@ -160,6 +162,11 @@ const SalesPersonIndex = () => {
     const filteredSO = selectedSOTab === 'All' ? recentSO : recentSO.filter(so => so.status === selectedSOTab);
     const filteredTasks = selectedTaskTab === 'All' ? recentTasks : recentTasks.filter(task => task.status === (taskStatusAbbreviations[selectedTaskTab] || selectedTaskTab));
 
+    const [showLeadWidget, setShowLeadWidget] = useState(true);
+    const [showRfqWidget, setShowRfqWidget] = useState(true);
+    const [showQuotesWidget, setShowQuotesWidget] = useState(true);
+    const [showSOWidget, setShowSOWidget] = useState(true);
+
     return (
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
@@ -235,48 +242,52 @@ const SalesPersonIndex = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 ">
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Leads</h5>
-                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+                        <h5 className="font-semibold text-lg inline-flex dark:text-dark mb-5">
+                            Your Recent Leads
+                            
+                        </h5>
+                            <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+                                <div className="flex space-x-1">
+                                    {leadTabs.map(tab => (
+                                        <button
+                                            key={tab}
+                                            className={`px-2 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                            onClick={() => setSelectedLeadTab(tab)}
+                                        >
+                                            {tab}
+                                        </button>
+                                    ))}
+                                </div>
 
-                            <div className="flex space-x-1">
-                                {leadTabs.map(tab => (
-                                    <button
-                                        key={tab}
-                                        className={`px-2 rounded-md	  ${selectedLeadTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
-                                        onClick={() => setSelectedLeadTab(tab)}
-                                    >
-                                        {tab}
-                                    </button>
-                                ))}
-                            </div>
-                        </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
-                            {recentLeads ? (
-                                <>
-                                    <div className="text-sm cursor-pointer">
-                                        {filteredLeads.map((lead, index) => {
-                                            const { colorClass, colorLightClass } = getStatusColorClassLeads(lead.status);
-                                            return (
-                                                <Link to={`/lead/preview/${lead.id}`} className="flex items-center py-1.5 relative group" key={index}>
-                                                    <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
-                                                    <div className="flex-1">{lead.company}</div>
-                                                    <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
-                                                        {formatDate(lead.updated_at)}
-                                                    </div>
-                                                    <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
-                                                        {lead.status}
-                                                    </div>
+                            </PerfectScrollbar>
+                      
+                            <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
+                                {recentLeads ? (
+                                    <>
+                                        <div className="text-sm cursor-pointer">
+                                            {filteredLeads.map((lead, index) => {
+                                                const { colorClass, colorLightClass } = getStatusColorClassLeads(lead.status);
+                                                return (
+                                                    <Link to={`/lead/preview/${lead.id}`} className="flex items-center py-1.5 relative group" key={index}>
+                                                        <div className={`${colorClass} w-1.5 h-1.5 rounded-full ltr:mr-1 rtl:ml-1.5`}></div>
+                                                        <div className="flex-1">{lead.company}</div>
+                                                        <div className="ltr:ml-auto rtl:mr-auto text-xs text-white-dark dark:text-gray-500">
+                                                            {formatDate(lead.updated_at)}
+                                                        </div>
+                                                        <div className={`badge badge-outline ${colorClass} absolute ltr:right-0 rtl:left-0 text-xs ${colorLightClass} dark:bg-black opacity-0 group-hover:opacity-100`}>
+                                                            {lead.status}
+                                                        </div>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <LoadingSpinner />
+                                )}
+                            </PerfectScrollbar>
+                       
 
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                </>
-
-                            ) : (
-                                <LoadingSpinner />
-                            )}
-                        </PerfectScrollbar>
                         <div className="border-t border-white-light dark:border-white/10">
                             <Link to="/lead/list" className=" font-semibold group hover:text-primary p-4 flex items-center justify-center group">
                                 View All
@@ -293,22 +304,26 @@ const SalesPersonIndex = () => {
                     </div>
 
                     <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
-                        <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent RFQS</h5>
-                        <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+                        <h5 className="font-semibold text-lg inline-flex dark:text-dark mb-5">
+                            Your Recent RFQS
+                           
+                        </h5>
 
-                            <div className="flex space-x-1">
-                                {rfqTabs.map(tab => (
-                                    <button
-                                        key={tab}
-                                        className={`px-2 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
-                                        onClick={() => setSelectedRfqTab(tab)}
-                                    >
-                                        {tab}
-                                    </button>
-                                ))}
-                            </div>
-                        </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                            <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
+
+                                <div className="flex space-x-1">
+                                    {rfqTabs.map(tab => (
+                                        <button
+                                            key={tab}
+                                            className={`px-2 rounded-md	  ${selectedRfqTab === tab ? 'bg-gray-300 font-bold' : 'bg-white'}`}
+                                            onClick={() => setSelectedRfqTab(tab)}
+                                        >
+                                            {tab}
+                                        </button>
+                                    ))}
+                                </div>
+                            </PerfectScrollbar>
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentLeads ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -366,7 +381,7 @@ const SalesPersonIndex = () => {
                                 ))}
                             </div>
                         </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentLeads ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -423,7 +438,7 @@ const SalesPersonIndex = () => {
                                 ))}
                             </div>
                         </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentLeads ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -465,9 +480,8 @@ const SalesPersonIndex = () => {
                         </div>
                     </div>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6 mb-6 ">
-                    <div className="panel h-full sm:col-span-2 xl:col-span-1 pb-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 mb-6 ">
+                    <div className="panel h-full sm:col-span-2 xl:col-span-2 pb-0">
                         <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Uncompleted Tasks</h5>
                         <PerfectScrollbar className="relative h-[50px] pr-3 -mr-3 mb-4">
 
@@ -483,7 +497,7 @@ const SalesPersonIndex = () => {
                                 ))}
                             </div>
                         </PerfectScrollbar>
-                        <PerfectScrollbar className="relative h-[290px] pr-3 -mr-3 mb-4">
+                        <PerfectScrollbar className="relative h-[200px] pr-3 -mr-3 mb-4">
                             {recentTasks ? (
                                 <>
                                     <div className="text-sm cursor-pointer">
@@ -525,42 +539,20 @@ const SalesPersonIndex = () => {
                         </div>
                     </div>
                     {countModel ? (
-                    <div className="panel overflow-hidden">
-                        <div className="relative mt-10">
-                            <div className="absolute -bottom-12 ltr:-right-12 rtl:-left-12 w-24 h-24">
-                                <svg className="text-success opacity-20 w-full h-full" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle opacity="0.5" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
-                                    <path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                                <div>
-                                    <div className="text-primary">RFQ</div>
-                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_day.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                        Daily: {countModel.current_day.rfq} {countModel.current_day.rfq > 0 && `+${countModel.current_day.rfq}`}
-                                    </div>
-                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_month.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                        Monthly: {countModel.current_month.rfq} {countModel.current_month.rfq > 0 && `+${countModel.current_month.rfq}`}
-                                    </div>
-                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_quarter.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                        Quarter: {countModel.current_quarter.rfq} {countModel.current_quarter.rfq > 0 && `+${countModel.current_quarter.rfq}`}
-                                    </div>
-                                    <div className={`mt-2 font-semibold text-2xl ${countModel.current_year.rfq > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                                        Yearly: {countModel.current_year.rfq} {countModel.current_year.rfq > 0 && `+${countModel.current_year.rfq}`}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div className="panel h-full sm:col-span-2 xl:col-span-3 pb-0">
+                    <h5 className="font-semibold text-lg dark:text-dark mb-5">Your Recent Completed Status</h5>
 
-                    
+                            <StatusCard
+                                countModel={countModel}
+                            />
+                        </div>
                     ) : (
                         <LoadingSpinner />
                     )}
+
+
                 </div>
             </div>
-
-
         </div>
     );
 };
