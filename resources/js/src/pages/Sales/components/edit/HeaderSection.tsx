@@ -19,11 +19,15 @@ const HeaderSection = () => {
     };
     const DealStageOption = [
         {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
-        //TODO
-        {value: 'open', label: 'open'},
-        {value: 'lost', label: 'lost'},
+        {value: 'Draft', label: 'Draft'},
+        {value: 'No Feedback', label: 'No Feedback'},
+        {value: 'Negotiation Price', label: 'Negotiation Price'},
+        {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
+        {value: 'No Feedback', label: 'No Feedback'},
+        {value: 'Open', label: 'Open'},
+        {value: 'Lost', label: 'Lost'},
+        {value: 'Won', label: 'Won'},
+        
     ];
 
 
