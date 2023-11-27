@@ -704,7 +704,7 @@ class api {
 
 
     async fetchSuggestedAvailability(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestion/`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestion`,{product_id:product_id});
     }
 
 
