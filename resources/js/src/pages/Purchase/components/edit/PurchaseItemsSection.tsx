@@ -95,7 +95,7 @@ const PurchaseItemSection = () => {
                             <table className="table-auto w-5">
                                 <thead>
                                 <tr>
-                                    <th className="w-1">Product Name</th>
+                                    <th className="w-1">Product Name <RequiredComponent/></th>
                                     <th className="w-1">Quantity</th>
                                     <th className="w-1">List Price</th>
                                     <th className="w-1">Amount</th>
@@ -112,7 +112,7 @@ const PurchaseItemSection = () => {
                                         <tr className="align-top" key={item.id}>
                                             <td>
                                                 <AsyncSelect
-                    defaultOptions={false} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
