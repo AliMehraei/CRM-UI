@@ -50,23 +50,23 @@ export const LineSection = () => {
     const fields = {
         'RFQ Line': {
             'Product Name': <AsyncSelect
-                defaultOptions={true} isMulti={false} id="product_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchProducts}
-                onChange={({ value }: any) => {
-                    handleChangeField('product_id', value)
-                }}
-                defaultValue={{
-                    value: formState.product?.id,
-                    label: (
-                        <div key={formState.product?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.product?.product_name}</div>
-                        </div>
-                    ),
-                }}
-                className="flex-1"
-                required />,
+                    defaultOptions={false} isMulti={false} id="product_id"
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchProducts}
+                                         onChange={({value}: any) => {
+                                             handleChangeField('product_id', value)
+                                         }}
+                                         defaultValue={{
+                                             value: formState.product?.id,
+                                             label: (
+                                                 <div key={formState.product?.id} className="flex items-center">
+                                                     <div
+                                                         className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                 </div>
+                                             ),
+                                         }}
+                                         className="flex-1"
+                                         required/>,
 
             'Customer Part Id': <input id="customer_part_id" name="customer_part_id" className="form-input flex-1 "
                 defaultValue={formState.customer_part_id}
@@ -106,22 +106,22 @@ export const LineSection = () => {
                 }
                 className="flex-1" />,
             'Availability': <AsyncSelect
-                defaultOptions={true} isMulti={false} id="availability" name="availability_id"
-                placeholder="Type at least 2 characters to search..."
-                loadOptions={searchAvailability}
-                onChange={({ value }: any) => {
-                    handleChangeField('availability_id', value)
-                }}
-                defaultValue={{
-                    value: formState.contact?.id,
-                    label: (
-                        <div key={formState.availability?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.availability?.availability_name}</div>
-                        </div>
-                    ),
-                }}
-                className="flex-1" />,
+                    defaultOptions={false} isMulti={false} id="availability" name="availability_id"
+                                         placeholder="Type at least 2 characters to search..."
+                                         loadOptions={searchAvailability}
+                                         onChange={({value}: any) => {
+                                             handleChangeField('availability_id', value)
+                                         }}
+                                         defaultValue={{
+                                             value: formState.contact?.id,
+                                             label: (
+                                                 <div key={formState.availability?.id} className="flex items-center">
+                                                     <div
+                                                         className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                                 </div>
+                                             ),
+                                         }}
+                                         className="flex-1"/>,
             'Excess': <AsyncSelect
                 defaultOptions={true} isMulti={false} id="excess_id"
                 name="excess_id"

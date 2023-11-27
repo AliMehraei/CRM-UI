@@ -8,6 +8,21 @@ import Select from "react-select";
 
 const RequestedProductsSection = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
+    const [items, setItems] = useState<any>([
+        {
+            id: 0,
+            rfq_id : '',
+            alt_product : '',
+            comment: '',
+            lead_time_demand: '',
+            manufacturer_id : '',
+            product_id : '',
+            quantity : 1,
+            rfq_owner_name: '',
+
+
+        },
+    ]);
     const dispatch = useDispatch();
 
     const handleChangeField = (field: string, value: any, id: string) => {
@@ -24,12 +39,7 @@ const RequestedProductsSection = () => {
         setItems(Object.values(updatedItems))
         dispatch(updateFormData({requested_products: updatedItems}));
     };
-    const [items, setItems] = useState<any>([
-        {
-            id: 1,
 
-        },
-    ]);
 
     const addItem = () => {
         let maxId: number;
@@ -58,7 +68,7 @@ const RequestedProductsSection = () => {
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12 ">
-                <div key="Quote Items" className="">
+                <div key="Requested Products Items" className="">
                     <div className="text-lg">
                         Requested Products :
                     </div>
@@ -91,7 +101,6 @@ const RequestedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('rfq_id', value, item.id)
                                                              }}
-                                                             menuPortalTarget={document.body}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -103,13 +112,12 @@ const RequestedProductsSection = () => {
                                             </td>
                                             <td>
                                                 <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={false} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
-                                                             menuPortalTarget={document.body}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -127,15 +135,19 @@ const RequestedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('manufacturer_id', value, item.id)
                                                              }}
-                                                             menuPortalTarget={document.body}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
                                             <td>
-                                                <input name="quantity" type="text"
-                                                       className="form-input min-w-[200px]"
-                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
-                                                       defaultValue={item.quantity}/>
+                                                <input
+                                                   name="quantity"
+                                                   id="quantity"
+                                                   type="number"
+                                                   className="form-input min-w-[200px]"
+                                                   min={0}
+                                                   onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                   defaultValue={item.quantity}
+                                                />
                                             </td>
                                             <td>
                                                 <Select options={LeadTimeDemands}
@@ -145,7 +157,6 @@ const RequestedProductsSection = () => {
                                                             handleChangeField('lead_time_demand', value, item.id)
                                                         }}
                                                         menuPlacement={"top"}
-                                                        menuPortalTarget={document.body}
                                                         defaultValue={LeadTimeDemands.find((data) => data.value == formState.lead_time_demand)}
 
                                                         className="flex-1 min-w-[200px]"/>

@@ -253,7 +253,7 @@ const VendorSection = () => {
                         handleChangeField('currency', value)
                     }}
                     defaultValue={Currencies.find((data) => data.value == formState.currency)}
-
+                    required
                     className="flex-1"
                 />
             ),

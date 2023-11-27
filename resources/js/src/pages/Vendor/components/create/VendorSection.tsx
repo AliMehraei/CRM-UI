@@ -190,6 +190,7 @@ const VendorSection = () => {
                     options={Currencies}
                     name="currency"
                     id="currency"
+                    required
                     onChange={({value}: any) => {
                         handleChangeField('currency', value)
                     }}

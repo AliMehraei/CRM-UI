@@ -138,17 +138,18 @@ const InvoiceInformationSection = () => {
             ),
             'Account Name': <AsyncSelect
                     defaultOptions={true}
-                isMulti={false}
-                id="account_id"
-                placeholder="Type at least 2 characters to search..."
-                name="account_id"
-                loadOptions={searchAccounts}
-                onChange={({value}: any) => {
-                    handleChangeField('account_id', value)
-                    handleChangeAccount(value);
+                    isMulti={false}
+                    required
+                    id="account_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="account_id"
+                    loadOptions={searchAccounts}
+                    onChange={({value}: any) => {
+                        handleChangeField('account_id', value)
+                        handleChangeAccount(value);
 
-                }}
-                className="flex-1"
+                    }}
+                    className="flex-1"
                 defaultValue={{
                     value: formState.account?.id,
                     label: (
