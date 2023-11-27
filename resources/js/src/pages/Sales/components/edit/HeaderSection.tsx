@@ -6,7 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchContacts, Currencies
-    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals, displayImage
+    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals, displayImage, Stages
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 
@@ -17,18 +17,7 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-    const DealStageOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'Draft', label: 'Draft'},
-        {value: 'No Feedback', label: 'No Feedback'},
-        {value: 'Negotiation Price', label: 'Negotiation Price'},
-        {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
-        {value: 'No Feedback', label: 'No Feedback'},
-        {value: 'Open', label: 'Open'},
-        {value: 'Lost', label: 'Lost'},
-        {value: 'Won', label: 'Won'},
-        
-    ];
+    
 
 
     const fields = {
@@ -155,14 +144,14 @@ const HeaderSection = () => {
             ),
             'Deal Stage': (
                 <Select
-                    options={DealStageOption}
+                    options={Stages}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {
                         handleChangeField('deal_stage', value)
                     }}
                     className="flex-1"
-                    defaultValue={DealStageOption.find((title) => title.value == formState.deal_stage)}
+                    defaultValue={Stages.find((title) => title.value == formState.deal_stage)}
                 />
             ),
             'SalesOrders Owner': (
