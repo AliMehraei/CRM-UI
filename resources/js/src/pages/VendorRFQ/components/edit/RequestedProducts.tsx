@@ -8,6 +8,7 @@ import Select from "react-select";
 
 const RequestedProductsSection = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
+    const [items, setItems] = useState<any>([]);
     const dispatch = useDispatch();
 
     const handleChangeField = (field: string, value: any, id: string) => {
@@ -19,15 +20,12 @@ const RequestedProductsSection = () => {
             [field]: value,
         };
 
-        const updatedItems = {
-            ...items,
-            [itemIndex]: updatedItem,
-        };
+        const updatedItems = [...items]; // Use the spread operator to create a new array
+        updatedItems[itemIndex] = updatedItem;
 
-        setItems(Object.values(updatedItems))
+        setItems(updatedItems);
         dispatch(updateFormData({requested_products: updatedItems}));
     };
-    const [items, setItems] = useState<any>([]);
 
     useEffect(() => {
         setItems(Object.values(formState.requested_products));
@@ -117,7 +115,7 @@ const RequestedProductsSection = () => {
                                             </td>
                                             <td>
                                                 <AsyncSelect
-                    defaultOptions={false} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {

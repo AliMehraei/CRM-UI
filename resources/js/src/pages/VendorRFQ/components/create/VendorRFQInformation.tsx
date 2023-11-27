@@ -32,6 +32,7 @@ const VendorRFQInformation = () => {
                 id="vendor_rfq_name"
                 name="vendor_rfq_name"
                 className="form-input flex-1 "
+                required
                 onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Vendor Name': (
@@ -41,6 +42,7 @@ const VendorRFQInformation = () => {
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
                     name="vendor_id"
+                    required
                     loadOptions={searchVendor}
                     onChange={({value}: any) => {
                         handleChangeField('vendor_id', value)
@@ -53,6 +55,7 @@ const VendorRFQInformation = () => {
                 options={StatusVendorRfqOptions}
                 name="status"
                 id="status"
+                required
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
                 }}

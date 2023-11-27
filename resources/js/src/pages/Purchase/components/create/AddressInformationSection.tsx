@@ -15,12 +15,10 @@ const AddressInformationSection = () => {
     const fields = {
         'Address Information': {
             'Billing Street': <input id="billing_street" name="billing_street"
-                                     required
                                      value={formState.billing_street || formState.sales_order?.account?.billing_street || ''}
                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                      className="form-input flex-1"/>,
             'Billing City': <input id="billing_city" name="billing_city"
-                                   required
                                    value={formState.billing_city || formState.sales_order?.account?.billing_city || ''}
                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1"/>,
@@ -29,12 +27,10 @@ const AddressInformationSection = () => {
                                     onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                     className="form-input flex-1"/>,
             'Billing Code': <input id="billing_code" name="billing_code"
-                                   required
                                    value={formState.billing_code || formState.sales_order?.account?.billing_code || ''}
                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                    className="form-input flex-1"/>,
             'Billing Country': <input id="billing_country" name="billing_country"
-                                      required
                                       value={formState.billing_country || formState.sales_order?.account?.billing_country || ''}
                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                       className="form-input flex-1"/>,

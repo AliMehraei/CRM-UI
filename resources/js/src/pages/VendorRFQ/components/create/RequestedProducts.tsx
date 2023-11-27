@@ -17,7 +17,7 @@ const RequestedProductsSection = () => {
             lead_time_demand: '',
             manufacturer_id : '',
             product_id : '',
-            quantity : 1,
+            quantity : '',
             rfq_owner_name: '',
 
 
@@ -101,6 +101,7 @@ const RequestedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('rfq_id', value, item.id)
                                                              }}
+                                                                menuPortalTarget={document.body}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -112,9 +113,10 @@ const RequestedProductsSection = () => {
                                             </td>
                                             <td>
                                                 <AsyncSelect
-                    defaultOptions={false} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
+                                                             menuPortalTarget={document.body}
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('product_id', value, item.id)
                                                              }}
@@ -135,6 +137,7 @@ const RequestedProductsSection = () => {
                                                              onChange={({value}: any) => {
                                                                  handleChangeField('manufacturer_id', value, item.id)
                                                              }}
+                    menuPortalTarget={document.body}
                                                              className="flex-1  min-w-[200px]"
                                                 />
                                             </td>
@@ -158,7 +161,7 @@ const RequestedProductsSection = () => {
                                                         }}
                                                         menuPlacement={"top"}
                                                         defaultValue={LeadTimeDemands.find((data) => data.value == formState.lead_time_demand)}
-
+                                                        menuPortalTarget={document.body}
                                                         className="flex-1 min-w-[200px]"/>
                                             </td>
                                             <td>
