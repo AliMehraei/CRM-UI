@@ -4,6 +4,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { searchOwners } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/contactFormSlice";
+import {ContactActivities, ContactDoubleCheckStatuses} from "../../../../components/Options/SelectOptions";
 
 const FieldsWithSecondaryPrioritySection = () => {
     const dispatch = useDispatch();
@@ -12,21 +13,6 @@ const FieldsWithSecondaryPrioritySection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-    const activities = [
-        { value: "none", label: "-None-" },
-        { value: "no_activity", label: "No Activity" },
-        { value: "more_1_year", label: "> 1 year Activity" },
-        { value: "more_1_month", label: "> 1 month Activity" },
-        { value: "regular_activity", label: "Regular Activity" },
-
-    ];
-
-    const doubleCheckStatuses = [
-        { value: "none", label: "-None-" },
-        { value: "back_to_lead", label: "Back to lead" },
-        { value: "converted_to_lead", label: "Converted to lead" },
-        { value: "must_be_deleted", label: "Must be deleted" },
-    ];
     const fields = {
         'Fields with Secondary Priority': {
             'Approved By': <AsyncSelect
@@ -58,7 +44,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                         handleChangeField('contact_activity', value)
                     }}
                     className="flex-1"
-                    options={activities}
+                    options={ContactActivities}
                 />,
 
 
@@ -109,7 +95,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                         handleChangeField('double_check_status', value)
                     }}
                     className="flex-1"
-                    options={doubleCheckStatuses} />,
+                    options={ContactDoubleCheckStatuses} />,
 
             'DCheck': <input
                 id="d_check"

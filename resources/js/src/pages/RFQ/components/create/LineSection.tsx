@@ -26,9 +26,23 @@ export const LineSection = () => {
         created_at: string;
         id: string
     }
-    interface SuggestionsData {
+    interface AvailabilitySuggestionsData {
         web: AvailabilitySuggestion[];
         nonWeb: AvailabilitySuggestion[];
+    }
+    interface ExcessSuggestion {
+        excess_name: string;
+        excess_no: string;
+        quantity: string;
+        excess_source: string;
+        excess_type: string;
+        cost: number;
+        currency: string;
+        created_at: string;
+        id: string
+    }
+    interface ExcessSuggestionsData {
+        matched: ExcessSuggestion[];
     }
     const showMessage = (msg = "", type = "success") => {
         const toast: any = Swal.mixin({
@@ -44,10 +58,11 @@ export const LineSection = () => {
             padding: "10px 20px",
         });
     };
-    const [suggestionsData, setSuggestionsData] = useState<SuggestionsData>({
+    const [availabilitySuggestionsData, setAvailabilitySuggestionsData] = useState<AvailabilitySuggestionsData>({
         web: [],
         nonWeb: [],
     });
+    const [excessSuggestionsData, setExcessSuggestionsData] = useState<ExcessSuggestionsData>({matched : []});
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
     const handleCopyToClipboard = (text: string, index: number) => {
@@ -56,7 +71,7 @@ export const LineSection = () => {
         showMessage("Copied to clipboard!");
     };
 
-    const ProductSuggestionsTable: React.FC<{ suggestions: SuggestionsData }> = ({ suggestions }) => (
+    const ProductSuggestionsTable: React.FC<{ suggestions: AvailabilitySuggestionsData }> = ({ suggestions }) => (
         <>
             <h3 className="text-xl">Availability Suggestions :</h3>
             <table className="min-w-full bg-white border border-gray-300">
@@ -102,11 +117,53 @@ export const LineSection = () => {
             </table>
         </>
     );
-
+    const ExcessSuggestionsTable: React.FC<{ suggestions: ExcessSuggestionsData }> = ({ suggestions }) => (
+        <>
+            <h3 className="text-xl mt-4">Excess Suggestions :</h3>
+            <table className="min-w-full bg-white border border-gray-300">
+                <thead>
+                    <tr>
+                        <th className="py-2 px-4 border-b">Excess Name</th>
+                        <th className="py-2 px-4 border-b">Excess Source</th>
+                        <th className="py-2 px-4 border-b">Excess No</th>
+                        <th className="py-2 px-4 border-b">Excess Cost</th>
+                        <th className="py-2 px-4 border-b">Excess Type</th>
+                        <th className="py-2 px-4 border-b">Excess Quantity</th>
+                        <th className="py-2 px-4 border-b">Excess Created Date</th>
+                        <th className="py-2 px-4 border-b">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {suggestions.matched.map((suggestion, index) => (
+                        <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+                            <td className="py-2 px-4 border-b">{suggestion.excess_name}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.excess_source}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.excess_no}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.cost} {suggestion.currency}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.excess_type}</td>
+                            <td className="py-2 px-4 border-b">{suggestion.quantity}</td>
+                            <td className="py-2 px-4 border-b">{formatDate(suggestion.created_at)}</td>
+                            <td className="py-2 px-4 border-b">
+                                <button
+                                    className="btn btn-sm"
+                                    onClick={() => handleCopyToClipboard(suggestion.excess_name, index)}
+                                >
+                                    Copy to Clipboard
+                                </button>
+                                {/* <button className="btn btn-sm" onClick={() => handleAvailabilitySelect(suggestion.id)}>Select</button> */}
+                            </td>
+                        </tr>
+                    ))}
+                    
+                </tbody>
+            </table>
+        </>
+    );
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
         if (field === 'product_id') {
             fetchAvailabilitySuggestions(value);
+            fetchExcessSuggestions(value);
         }
     };
     const handleAvailabilitySelect = (availabilityId: string) => {
@@ -180,19 +237,31 @@ export const LineSection = () => {
                 const avas = response.data.data;
                 const webSuggestions = avas.web ? [avas.web] : [];
                 const nonWebSuggestions = avas.nonWeb ? [avas.nonWeb] : [];
-                setSuggestionsData({ web: webSuggestions, nonWeb: nonWebSuggestions });
+                setAvailabilitySuggestionsData({ web: webSuggestions, nonWeb: nonWebSuggestions });
             }
         } catch (error) {
             console.error('Error fetching availability suggestions:', error);
         }
     };
-
+    const fetchExcessSuggestions = async (productId: string) => {
+        try {
+            const response = await api.fetchSuggestedExcess(productId);
+            if (response.status === 200) {
+                const excess = response.data.data;
+                const matchedFound = excess.matched ? [excess.matched] : [];
+                setExcessSuggestionsData({matched: matchedFound});
+            }
+        } catch (error) {
+            console.error('Error fetching excess suggestions:', error);
+        }
+    };
 
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <GenerateFields fields={fields} />
         </div>
-        <ProductSuggestionsTable suggestions={suggestionsData} onAvailabilitySelect={handleAvailabilitySelect} />
+        <ProductSuggestionsTable suggestions={availabilitySuggestionsData} onAvailabilitySelect={handleAvailabilitySelect} />
+        <ExcessSuggestionsTable suggestions={excessSuggestionsData}  />
 
     </>)
 }

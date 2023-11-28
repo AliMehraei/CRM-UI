@@ -5,7 +5,7 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {handleUploadFile,FirstNameTitles} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-
+import {LeadJobDescription} from "../../../../components/Options/SelectOptions";
 const ContactInformationSection = () => {
     const formState = useSelector((state: any) => state.leadForm);
     const dispatch = useDispatch();
@@ -14,8 +14,6 @@ const ContactInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-
-
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
@@ -36,14 +34,6 @@ const ContactInformationSection = () => {
             }));
         }
     };
-    const JobDescription=[
-        {value: 'none', label: '-None-'},
-        {value: 'buyer', label: 'Buyer'},
-        {value: 'operative_buyer', label: 'Operative Buyer'},
-        {value: 'chat', label: 'Chat'},
-        {value: 'messe', label: 'Messe'},
-        {value: 'not_yet_clear', label: 'Not Yet Clear'},
-    ];
 
     const fields = {
         'Contact Information': {
@@ -72,13 +62,13 @@ const ContactInformationSection = () => {
             ),
             'Job Description': (
                 <Select
-                options={JobDescription}
+                options={LeadJobDescription}
                 name="job_description"
                 id="job_description"
                 onChange={({value}: any) => {
                     handleChangeField('job_description', value)
                 }}
-                defaultValue={JobDescription.find((title) => title.value == formState.job_description)}
+                defaultValue={LeadJobDescription.find((title) => title.value == formState.job_description)}
                 className="flex-1"
                 />
             ),

@@ -6,9 +6,9 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchContacts, Currencies
-    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals, Stages
+    , searchOwners, searchVendor, searchAvailability, searchAccounts, searchQuote, searchDeals
 } from "../../../../components/Functions/CommonFunctions";
-import Flatpickr from "react-flatpickr";
+import {SalesOrderDealStages} from "../../../../components/Options/SelectOptions";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -131,7 +131,7 @@ const HeaderSection = () => {
             ),
             'Deal Stage': (
                 <Select
-                    options={Stages}
+                    options={SalesOrderDealStages}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {

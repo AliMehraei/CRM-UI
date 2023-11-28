@@ -8,6 +8,7 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {SalesOrderTypeOption, SalesOrderStatusOption} from "../../../../components/Options/SelectOptions";
 
 const SalesOrderInformationSection = () => {
     const dispatch = useDispatch();
@@ -16,17 +17,6 @@ const SalesOrderInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const SOTypeOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'single_order', label: 'Single Order'},
-        {value: 'frame_contract', label: 'Frame Contract'},
-        {value: 'call_off', label: 'Call Off'},
-        {value: 'forecast', label: 'Forecast'},
-
-    ];
-
 
     const fields = {
         'Sales Orders Information': {
@@ -65,14 +55,14 @@ const SalesOrderInformationSection = () => {
             ),
             'SO Type': (
                 <Select
-                    options={SOTypeOption}
+                    options={SalesOrderTypeOption}
                     name="so_type"
                     id="so_type"
                     onChange={({value}: any) => {
                         handleChangeField('so_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={SOTypeOption.find((title) => title.value == formState.so_type)}
+                    defaultValue={SalesOrderTypeOption.find((title) => title.value == formState.so_type)}
                 />
             ),
             'Parent SO Nr.': (
@@ -109,14 +99,14 @@ const SalesOrderInformationSection = () => {
             ),
             'Status': (
                 <Select
-                    options={StatusOption}
+                    options={SalesOrderStatusOption}
                     name="status"
                     id="status"
                     onChange={({value}: any) => {
                         handleChangeField('status', value)
                     }}
                     className="flex-1"
-                    defaultValue={StatusOption.find((title) => title.value == formState.status)}
+                    defaultValue={SalesOrderStatusOption.find((title) => title.value == formState.status)}
                 />
             ),
 

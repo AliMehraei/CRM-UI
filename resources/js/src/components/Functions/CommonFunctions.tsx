@@ -1,58 +1,60 @@
 import api from "../../config/api";
-import {EventEmitter} from "events";
-import React, {ChangeEvent} from "react";
+import { EventEmitter } from "events";
+import React, { ChangeEvent } from "react";
 import Swal from "sweetalert2";
 
 
 const api_instance = new api();
 
 export const PortalAccess = [
-    {value: '-None-', label: '-None-'},
-    {value: 'Waiting', label: 'Waiting'},
-    {value: 'Confirmed', label: 'Confirmed'},
-    {value: 'Rejected', label: 'Rejected'},
+    { value: '-None-', label: '-None-' },
+    { value: 'Waiting', label: 'Waiting' },
+    { value: 'Confirmed', label: 'Confirmed' },
+    { value: 'Rejected', label: 'Rejected' },
 ]
 export const Currencies = [
-    {value: 'EUR', label: 'EUR'},
-    {value: 'USD', label: 'USD'},
+    { value: 'EUR', label: 'EUR' },
+    { value: 'USD', label: 'USD' },
 ]
 export const ApproveChangesOption = [
-    {value: '-None-', label: '-None-'},
-    {value: 'Yes', label: 'Yes'},
-    {value: 'No', label: 'No'},
+    { value: '-None-', label: '-None-' },
+    { value: 'Yes', label: 'Yes' },
+    { value: 'No', label: 'No' },
 ]
 export const StatusOption = [
-    {value: 'Draft', label: 'Draft'},
-    {value: 'Approved', label: 'Approved'},
-    {value: 'Confirmed', label: 'Confirmed'},
-    {value: 'Closed', label: 'Closed'},
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Approved', label: 'Approved' },
+    { value: 'Confirmed', label: 'Confirmed' },
+    { value: 'Closed', label: 'Closed' },
 ];
 
 export const StatusSalesOrderOption = [
-    {value: 'Draft', label: 'Draft'},
-    {value: 'Open', label: 'Open'},
-    {value: 'Approved', label: 'Approved'},
-    {value: 'Closed', label: 'Closed'},
-    {value: 'Void', label: 'Void'},
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Approved', label: 'Approved' },
+    { value: 'Closed', label: 'Closed' },
+    { value: 'Void', label: 'Void' },
 ];
 
 export const StatusInvoiceOption = [
-    {value: 'approved', label: 'approved'},
-    {value: 'draft', label: 'draft'},
-    {value: 'overdue', label: 'overdue'},
-    {value: 'sent', label: 'sent'},
-    {value: 'paid', label: 'paid'},
+    { value: 'approved', label: 'approved' },
+    { value: 'draft', label: 'draft' },
+    { value: 'overdue', label: 'overdue' },
+    { value: 'sent', label: 'sent' },
+    { value: 'paid', label: 'paid' },
 ];
 
+
+
 export const Stages = [
-    {value: '-None-', label: '-None-'},
-    {value: 'Draft', label: 'Draft'},
-    {value: 'No Feedback', label: 'No Feedback'},
-    {value: 'Negotiation Price', label: 'Negotiation Price'},
-    {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
-    {value: 'Open', label: 'Open'},
-    {value: 'Lost', label: 'Lost'},
-    {value: 'Won', label: 'Won'},
+    { value: '-None-', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'No Feedback', label: 'No Feedback' },
+    { value: 'Negotiation Price', label: 'Negotiation Price' },
+    { value: 'Negotiation Conditions', label: 'Negotiation Conditions' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Lost', label: 'Lost' },
+    { value: 'Won', label: 'Won' },
 ];
 
 
@@ -62,7 +64,7 @@ export const handleUploadFile = (
     type: string,
     callBack: (response: any) => void) => {
 
-    if (e.target.files  && e.target.files.length > 0) {
+    if (e.target.files && e.target.files.length > 0) {
         api_instance.uploadFile(e.target.files[0], modelName, type).then((response) => {
             callBack(response)
         }).catch();
@@ -84,29 +86,28 @@ export const AccountTypes = [
     {value: 'ODM (EMS + Development)', label: 'ODM (EMS + Development)'},
     {value: 'OEM', label: 'OEM'},
     {value: 'Reseller', label: 'Reseller'},
-    {value: 'System-Integrator It', label: 'System-Integrator It'},
+    {value: 'Systemintegrator IT', label: 'System-Integrator It'},
     {value: 'Other', label: 'Other'},
 ]
 export const FirstNameTitles = [
-    {value: "-None-", label: "-None-"},
-    {value: "Herr", label: "Herr"},
-    {value: "Frau", label: "Frau"},
-    {value: "Fr.", label: "Fr."},
-    {value: "Dr.", label: "Dr."},
-    {value: "Prof.", label: "Prof."},
+    { value: "-None-", label: "-None-" },
+    { value: "Herr", label: "Herr" },
+    { value: "Frau", label: "Frau" },
+    { value: "Fr.", label: "Fr." },
+    { value: "Dr.", label: "Dr." },
+    { value: "Prof.", label: "Prof." },
 
 ];
 export const Contract = [
     {value: 'NDA', label: 'NDA'},
-    {value: 'Quality', label: 'Quality'},
+    {value: 'Quality Agreement', label: 'Quality Agreement'},
     {value: 'Logistic Agreement', label: 'Logistic Agreement'},
-    {value: 'Franchise Agreement', label: 'Franchise Agreement'},
-    {value: 'Other', label: 'Other'},
+    {value: 'Other Agreement', label: 'Other Agreement'},
 
 ];
 
 export const searchProducts = async (query: string) => {
-    const result = await api_instance.searchProduct({query: query});
+    const result = await api_instance.searchProduct({ query: query });
     if (result.status) {
         const valField = 'id';
         const nameField = 'product_name';
@@ -122,7 +123,7 @@ export const searchProducts = async (query: string) => {
 }
 
 export const searchRFQ = async (query: string) => {
-    const result = await api_instance.searchRfq({query: query});
+    const result = await api_instance.searchRfq({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -137,7 +138,7 @@ export const searchRFQ = async (query: string) => {
 
 
 export const searchVendorRFQ = async (query: string) => {
-    const result = await api_instance.searchVendorRfq({query: query});
+    const result = await api_instance.searchVendorRfq({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -150,7 +151,7 @@ export const searchVendorRFQ = async (query: string) => {
     }
 }
 export const searchDeals = async (query: string) => {
-    const result = await api_instance.searchDeal({query: query}); // TODO : fix this to deal
+    const result = await api_instance.searchDeal({ query: query }); // TODO : fix this to deal
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -164,7 +165,7 @@ export const searchDeals = async (query: string) => {
 }
 
 export const searchVendor = async (query: string) => {
-    const result = await api_instance.searchVendor({query: query});
+    const result = await api_instance.searchVendor({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -177,7 +178,7 @@ export const searchVendor = async (query: string) => {
     }
 }
 export const searchAvailability = async (query: string) => {
-    const result = await api_instance.searchAvailability({query: query});
+    const result = await api_instance.searchAvailability({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -185,19 +186,25 @@ export const searchAvailability = async (query: string) => {
                 <div key={data['id']} className=" items-center">
                     <div className="text-sm font-bold">{data['availability_name']}</div>
                     <div className="inline-block">
-                        <div className="text-xs text-gray-500">Vendor: {data['vendor']['vendor_name']}</div>
+                        {data['vendor'] && (
+                            <>
+                                <div className="text-xs text-gray-500">Vendor: {data['vendor']['vendor_name']}</div>
+                            </>
+                        )}
                         <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
                         <div className="text-xs text-gray-500">Source: {data['availability_source']}</div>
                         <div className="text-xs text-gray-500">Quantity in Stock: {data['in_stock_quantity']}</div>
-
                     </div>
                 </div>
             ),
         }));
     }
+    // Handle the case where the result.status is not truthy
+    return [];
 }
+
 export const searchQuote = async (query: string) => {
-    const result = await api_instance.searchQuote({query: query});
+    const result = await api_instance.searchQuote({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -210,7 +217,7 @@ export const searchQuote = async (query: string) => {
     }
 }
 export const searchInvoice = async (query: string) => {
-    const result = await api_instance.searchInvoice({query: query});
+    const result = await api_instance.searchInvoice({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -223,7 +230,7 @@ export const searchInvoice = async (query: string) => {
     }
 }
 export const searchPurchaseOrder = async (query: string) => {
-    const result = await api_instance.searchPurchaseOrder({query: query});
+    const result = await api_instance.searchPurchaseOrder({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -236,7 +243,7 @@ export const searchPurchaseOrder = async (query: string) => {
     }
 }
 export const loadAvailability = async (query: string) => {
-    const result = await api_instance.searchAvailability({query: query});
+    const result = await api_instance.searchAvailability({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],
@@ -251,7 +258,7 @@ export const loadAvailability = async (query: string) => {
 
 
 export const searchOwners = async (e: any) => {
-    const result = await api_instance.loadAdminUsers({'search': e});
+    const result = await api_instance.loadAdminUsers({ 'search': e });
     const valField = 'userId';
     const nameField = 'first_name';
     const avatarField = 'avatar_data';
@@ -262,7 +269,7 @@ export const searchOwners = async (e: any) => {
             label: (
                 <div key={user[valField]} className="flex items-center">
                     <img src={displayImage(user[avatarField])} alt="avatar"
-                         className="w-8 h-8 mr-2 rounded-full"/>
+                        className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{user[nameField] + " " + user['last_name']}</div>
                         <div className="text-xs text-gray-500">{user[emailField]}</div>
@@ -274,7 +281,7 @@ export const searchOwners = async (e: any) => {
 };
 
 export const searchAccounts = async (e: any) => {
-    const result = await api_instance.searchAccount({query: e});
+    const result = await api_instance.searchAccount({ query: e });
     const valField = 'id';
     const nameField = 'account_name';
     const emailField = 'email';
@@ -284,7 +291,7 @@ export const searchAccounts = async (e: any) => {
             label: (
                 <div key={data[valField]} className="flex items-center">
                     <img src={displayImage(data['image_data'])} alt="avatar"
-                         className="w-8 h-8 mr-2 rounded-full"/>
+                        className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
                         <div className="text-xs text-gray-500">{data[emailField]}</div>
@@ -296,7 +303,7 @@ export const searchAccounts = async (e: any) => {
 
 };
 export const searchLead = async (e: any) => {
-    const result = await api_instance.searchLead({query: e});
+    const result = await api_instance.searchLead({ query: e });
     const valField = 'id';
     if (result.status === 200) {
         return result.data.data.map((data: any) => ({
@@ -304,7 +311,7 @@ export const searchLead = async (e: any) => {
             label: (
                 <div key={data[valField]} className="flex items-center">
                     <img src={displayImage(data['image_data'])} alt="avatar"
-                         className="w-8 h-8 mr-2 rounded-full"/>
+                        className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{data['company']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
@@ -316,7 +323,7 @@ export const searchLead = async (e: any) => {
 
 };
 export const searchContacts = async (e: any) => {
-    const result = await api_instance.searchContact({query: e});
+    const result = await api_instance.searchContact({ query: e });
     const valField = 'id';
     if (result.status === 200) {
         return result.data.data.map((data: any) => ({
@@ -324,7 +331,7 @@ export const searchContacts = async (e: any) => {
             label: (
                 <div key={data[valField]} className="flex items-center">
                     <img src={displayImage(data['image_data'])} alt="avatar"
-                         className="w-8 h-8 mr-2 rounded-full"/>
+                        className="w-8 h-8 mr-2 rounded-full" />
                     <div>
                         <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
@@ -339,7 +346,7 @@ export const searchManufacturer = async (query: string) => {
     const valField = 'id';
     const nameField = 'name';
 
-    const result = await api_instance.searchManufacturer({query: query});
+    const result = await api_instance.searchManufacturer({ query: query });
 
     if (result.status) {
         return result.data.data.map((data: any) => ({
@@ -358,7 +365,7 @@ export const searchSalesOrder = async (query: string) => {
     const valField = 'id';
     const nameField = 'subject';
 
-    const result = await api_instance.searchSalesOrder({query: query});
+    const result = await api_instance.searchSalesOrder({ query: query });
 
     if (result.status) {
         return result.data.data.map((data: any) => ({
@@ -383,7 +390,7 @@ export const searchExcess = async (query: string) => {
     const valField = 'id';
     const nameField = 'excess_name';
 
-    const result = await api_instance.searchExcess({query: query});
+    const result = await api_instance.searchExcess({ query: query });
 
     if (result.status) {
         return result.data.data.map((data: any) => ({
@@ -392,6 +399,10 @@ export const searchExcess = async (query: string) => {
                 <div key={data[valField]} className="flex items-center">
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
+                        <div className="inline-block">
+                            <div className="text-xs text-gray-500">Quantity: {data['quantity']}</div>
+                            <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
+                        </div>
                     </div>
                 </div>
             ),
@@ -400,13 +411,13 @@ export const searchExcess = async (query: string) => {
 }
 
 export const getLayout = async (model: string) => {
-    return await api_instance.getFormLayout({model: model});
+    return await api_instance.getFormLayout({ model: model });
 }
 export const searchRoles = async (query: string) => {
     const valField = 'id';
     const nameField = 'name';
 
-    const result = await api_instance.searchRoles({query: query});
+    const result = await api_instance.searchRoles({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data[valField],
@@ -511,7 +522,7 @@ export function generateRandomPassword(length = 12) {
 }
 
 export const formatDate = (dateString: any) => {
-    const options: any = {year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'};
+    const options: any = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
@@ -531,7 +542,7 @@ export const displayImage = (field: any) =>
 
 export const displayFile = async (model: any, attribute: any, path: any) => {
     const response = await api_instance.displayFile(model, attribute, path)
-    const blob = new Blob([response.data], {type: response.headers['content-type']});
+    const blob = new Blob([response.data], { type: response.headers['content-type'] });
     return window.URL.createObjectURL(blob);
 
 }

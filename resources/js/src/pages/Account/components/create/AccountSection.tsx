@@ -5,6 +5,7 @@ import {
     AccountTypes, Contract, Currencies, getImageSource,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
+import {AccountRating, AccountActivities} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
@@ -17,24 +18,6 @@ const AccountSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-    const activities = [
-        {value: "none", label: "-None-"},
-        {value: "no_activity", label: "No Activity"},
-        {value: "more_1_year", label: "> 1 year Activity"},
-        {value: "more_1_month", label: "> 1 month Activity"},
-        {value: "regular_activity", label: "Regular Activity"},
-    ];
-
-    const rating = [
-        {value: "none", label: "-None-"},
-        {value: "rfq", label: "RFQ"},
-        {value: "quote", label: "Quote"},
-        {value: "so", label: "SO"},
-        {value: "no_action", label: "No Action"},
-        {value: "inactive", label: "Inactive"},
-
-    ]
 
 
     const fields = {
@@ -59,7 +42,7 @@ const AccountSection = () => {
             'Account Type': <Select
                 name="account_type"
                 id="account_type"
-                placeholder="Select Product Type..."
+                placeholder="Select Account Type..."
                 options={AccountTypes}
                 onChange={({value}: any) => {
                     handleChangeField('account_type', value)
@@ -130,7 +113,7 @@ const AccountSection = () => {
                 }}
                 className="flex-1"
             />,
-            'Account Activity': <Select id="account_activity" name="account_activity" options={activities}
+            'Account Activity': <Select id="account_activity" name="account_activity" options={AccountActivities}
                                         onChange={({value}: any) => {
                                             handleChangeField('account_activity', value)
                                         }}
@@ -154,11 +137,11 @@ const AccountSection = () => {
                     onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
-            'Account Rating': <Select id="rating" name="rating" options={rating}
+            'Account Rating': <Select id="rating" name="rating" options={AccountRating}
                                       onChange={({value}: any) => {
                                           handleChangeField('rating', value)
                                       }}
-                                      defaultValue={{value: "no_action", label: "No Action"}}
+                                      defaultValue={{value: "No Action", label: "No Action"}}
                                       className="flex-1"/>,
         }
     }

@@ -6,6 +6,7 @@ import {
     AccountTypes, Contract, Currencies, displayImage, getImageSource,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
+import {AccountRating, AccountActivities} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
@@ -20,24 +21,6 @@ const AccountSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const activities = [
-        {value: "none", label: "-None-"},
-        {value: "no_activity", label: "No Activity"},
-        {value: "more_1_year", label: "> 1 year Activity"},
-        {value: "more_1_month", label: "> 1 month Activity"},
-        {value: "regular_activity", label: "Regular Activity"},
-
-    ];
-
-    const rating = [
-        {value: "none", label: "-None-"},
-        {value: "rfq", label: "RFQ"},
-        {value: "quote", label: "Quote"},
-        {value: "so", label: "SO"},
-        {value: "no_action", label: "No Action"},
-        {value: "inactive", label: "Inactive"},
-
-    ]
     const fields = {
         'Account': {
             'Account Image': (<ImageUploadComponent formState={formState}
@@ -185,11 +168,11 @@ const AccountSection = () => {
                 }}
                 className="flex-1"
             />,
-            'Account Activity': <Select id="account_activity" name="account_activity" options={activities}
+            'Account Activity': <Select id="account_activity" name="account_activity" options={AccountActivities}
                                         onChange={({value}: any) => {
                                             handleChangeField('account_activity', value)
                                         }}
-                                        defaultValue={activities.find((data) => data.value == formState.account_activity)}
+                                        defaultValue={AccountActivities.find((data) => data.value == formState.account_activity)}
 
                                         className="flex-1"/>,
             'TAM':
@@ -213,7 +196,7 @@ const AccountSection = () => {
                     defaultValue={formState.lead_reference}
 
                 />,
-            'Account Rating': <Select id="rating" name="rating" options={rating}
+            'Account Rating': <Select id="rating" name="rating" options={AccountRating}
                                       onChange={({value}: any) => {
                                           handleChangeField('rating', value)
                                       }}
