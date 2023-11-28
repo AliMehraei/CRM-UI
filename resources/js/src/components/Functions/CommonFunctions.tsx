@@ -61,6 +61,31 @@ export const PurchaseCarrierOption = [
     {value: 'BlueDart', label: 'BlueDart'},
 ];
 
+export const AccountRating = [
+    {value: "none", label: "-None-"},
+    {value: "RFQ", label: "RFQ"},
+    {value: "Quote", label: "Quote"},
+    {value: "SO", label: "SO"},
+    {value: "No Action", label: "No Action"},
+    {value: "Inactive", label: "Inactive"},
+
+];
+
+export const AccountActivities = [
+    {value: "none", label: "-None-"},
+    {value: "No Activity", label: "No Activity"},
+    {value: "1 year Activity", label: "> 1 year Activity"},
+    {value: "1 month Activity", label: "> 1 month Activity"},
+    {value: "regulare Activity", label: "Regular Activity"},
+];
+
+export const AccountDoubleCheckStatuses = [
+    {value: "none", label: "-None-"},
+    {value: "Back to lead", label: "Back to lead"},
+    {value: "Converted to lead", label: "Converted to lead"},
+    {value: "Must Be Deleted", label: "Must be deleted"},
+];
+
 export const Stages = [
     {value: '-None-', label: '-None-'},
     {value: 'Draft', label: 'Draft'},
@@ -101,7 +126,7 @@ export const AccountTypes = [
     {value: 'ODM (EMS + Development)', label: 'ODM (EMS + Development)'},
     {value: 'OEM', label: 'OEM'},
     {value: 'Reseller', label: 'Reseller'},
-    {value: 'System-Integrator It', label: 'System-Integrator It'},
+    {value: 'Systemintegrator IT', label: 'System-Integrator It'},
     {value: 'Other', label: 'Other'},
 ]
 export const FirstNameTitles = [
@@ -115,10 +140,9 @@ export const FirstNameTitles = [
 ];
 export const Contract = [
     {value: 'NDA', label: 'NDA'},
-    {value: 'Quality', label: 'Quality'},
+    {value: 'Quality Agreement', label: 'Quality Agreement'},
     {value: 'Logistic Agreement', label: 'Logistic Agreement'},
-    {value: 'Franchise Agreement', label: 'Franchise Agreement'},
-    {value: 'Other', label: 'Other'},
+    {value: 'Other Agreement', label: 'Other Agreement'},
 
 ];
 
