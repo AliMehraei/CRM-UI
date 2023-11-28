@@ -7,9 +7,8 @@ import Select from "react-select";
 import {
     searchPurchaseOrder,
     StatusOption,
-    PurchaseOrdersTypeOption,
-    PurchaseCarrierOption
 } from "../../../../components/Functions/CommonFunctions";
+import {PurchaseOrdersTypeOption, PurchaseCarrierOption} from "../../../../components/Options/SelectOptions";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const PurchaseOrderInformationSection = () => {

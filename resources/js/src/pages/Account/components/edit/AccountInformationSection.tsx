@@ -2,7 +2,8 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {displayImage, searchAccounts, AccountDoubleCheckStatuses} from "../../../../components/Functions/CommonFunctions";
+import {displayImage, searchAccounts} from "../../../../components/Functions/CommonFunctions";
+import {AccountDoubleCheckStatuses} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 

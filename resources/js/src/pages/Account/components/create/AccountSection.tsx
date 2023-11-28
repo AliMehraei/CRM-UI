@@ -4,9 +4,8 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     AccountTypes, Contract, Currencies, getImageSource,
     handleUploadFile, searchOwners,
-    AccountRating,
-    AccountActivities
 } from "../../../../components/Functions/CommonFunctions";
+import {AccountRating, AccountActivities} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
