@@ -176,3 +176,35 @@ export const TaskPriority = [
     { value: 'Normal', label: 'Normal' },
 
 ];
+
+export const contactSources = [
+    {value: "none", label: "-None-"},
+    {value: "ceo_connections", label: "CEO connections"},
+    {value: "client_tipp", label: "Client Tipp"},
+    {value: "competitor_tipp", label: "Competitor Tipp"},
+    {value: "externe_vermittlung", label: "Externe Vermittlung"},
+    {value: "fachtagung", label: "Fachtagung"},
+    {value: "google_ad_campaign_sem", label: "Google Ad campaign SEM"},
+    {value: "google_seo", label: "Google SEO"},
+    {value: "internet_recherche", label: "Internetrecherche"},
+    {value: "lead_called_alpyn", label: "Lead called ALPYN"},
+    {value: "linkedin_ads", label: "LinkedIn Ads"},
+    {value: "linkedin_social_selling", label: "LinkedIn Social selling activity"},
+    {value: "messe", label: "Messe"},
+    {value: "messe_at", label: "Messe AT"},
+    {value: "messe_ch", label: "Messe CH"},
+    {value: "messe_de", label: "Messe DE"},
+    {value: "messe_ita", label: "Messe ITA"},
+    {value: "netcomponents", label: "Netcomponents"},
+    {value: "networking_linkedin", label: "Networking Linkedin"},
+    {value: "networking_offline", label: "Networking offline"},
+    {value: "online_events", label: "Online Events (b2bmatch e.g)"},
+    {value: "online_messen", label: "Online Messen"},
+    {value: "others", label: "Others"},
+    {value: "portal_access_request", label: "Portal Access request"},
+    {value: "reseller_tipp", label: "Reseller Tipp"},
+    {value: "sales_activity_general", label: "Sales activity by general Assistant (BDR / SDR)"},
+    {value: "sales_activity_ita", label: "Sales activity by ITA Assistent (BDR / SDR)"},
+    {value: "team_connections", label: "Team Connections"},
+    {value: "website_request", label: "Website request"}
+];
