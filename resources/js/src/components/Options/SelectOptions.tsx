@@ -324,3 +324,40 @@ export const QuoteValid = [
     {value: '1 Week', label: '1 Week'},
 
 ];
+
+export const RFQSources = [
+    {value: 'none', label: '-None-'},
+    {value: 'Email', label: 'Email'},
+    {value: 'Telephone', label: 'Telephone'},
+    {value: 'Webportal', label: 'Webportal'},
+    {value: 'History', label: 'History'}
+];
+
+export const RFQTypes = [
+    {value: 'none', label: '-None-'},
+    {value: 'Costsaving', label: 'Costsaving'},
+    {value: 'Shortage', label: 'Shortage'},
+    {value: 'EOL', label: 'EOL'},
+    {value: 'Proactive', label: 'Proactive'},
+    {value: 'Calculation', label: 'Calculation'},
+];
+
+export const RFQStatuses = [
+    {value: 'none', label: '-None-'},
+    {value: 'Open', label: 'Open'},
+    {value: 'open without routing', label: 'Open without routing'},
+    {value: 'Quoted', label: 'Quoted'},
+    {value: 'Closed', label: 'Closed'},
+    {value: 'In review', label: 'In review'},
+];
+
+export const RFQDealStages = [
+    {value: 'none', label: '-None-'},
+    {value: 'Draft', label: 'Draft'},
+    {value: 'No Feedback', label: 'No Feedback'},
+    {value: 'Negotiation Price', label: 'Negotiation Price'},
+    {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
+    {value: 'Open', label: 'Open'},
+    {value: 'Lost', label: 'Lost'},
+    {value: 'Won', label: 'Won'},
+];

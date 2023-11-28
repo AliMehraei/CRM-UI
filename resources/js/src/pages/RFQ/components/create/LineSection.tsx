@@ -154,7 +154,7 @@ export const LineSection = () => {
                             </td>
                         </tr>
                     ))}
-                    
+
                 </tbody>
             </table>
         </>
@@ -172,7 +172,7 @@ export const LineSection = () => {
     const fields = {
         'RFQ Line': {
             'Product Name': <AsyncSelect
-                defaultOptions={false} isMulti={false} id="product_id"
+                defaultOptions={true} isMulti={false} id="product_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchProducts}
                 onChange={({ value }: any) => {
@@ -194,7 +194,7 @@ export const LineSection = () => {
         },
         '': {
             'Alternative Products': <AsyncSelect
-                defaultOptions={false} id="alternative_products" name="alternative_products"
+                defaultOptions={true} id="alternative_products" name="alternative_products"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchProducts}
                 onChange={(values: any) => {
@@ -203,7 +203,7 @@ export const LineSection = () => {
                 isMulti={true}
                 className="flex-1" />,
             'Availability': <AsyncSelect
-                defaultOptions={false} isMulti={false} id="availability" name="availability_id"
+                defaultOptions={true} isMulti={false} id="availability" name="availability_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAvailability}
                 onChange={({ value }: any) => {
