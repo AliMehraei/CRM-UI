@@ -9,6 +9,7 @@ import {
 import Select from "react-select";
 import {updateFormData} from "../../../../store/contactFormSlice";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import {ContactSources, ContactJobDescriptions, ContactStatus} from "../../../../components/Options/SelectOptions";
 
 const ContactDetailsSection = () => {
     const formState = useSelector((state: any) => state.contactForm);
@@ -16,69 +17,6 @@ const ContactDetailsSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const jobDescriptions = [
-        {value: "none", label: "-None-"},
-        {value: "buyer", label: "Buyer"},
-        {value: "operative_buyer", label: "Operative Buyer"},
-        {value: "strategic_buyer", label: "Strategic Buyer"},
-        {value: "project_buyer", label: "Project Buyer"},
-        {value: "commodity_buyer", label: "Commodity Buyer"},
-        {value: "team_leader", label: "Team Leader"},
-        {value: "purchasing_manager", label: "Purchasing Manager"},
-        {value: "purchasing_director", label: "Purchasing Director"},
-        {value: "director", label: "Director"},
-        {value: "developer", label: "Developer"},
-        {value: "sales", label: "Sales"}
-    ];
-    const contactSources = [
-        {value: "none", label: "-None-"},
-        {value: "ceo_connections", label: "CEO connections"},
-        {value: "client_tipp", label: "Client Tipp"},
-        {value: "competitor_tipp", label: "Competitor Tipp"},
-        {value: "externe_vermittlung", label: "Externe Vermittlung"},
-        {value: "fachtagung", label: "Fachtagung"},
-        {value: "google_ad_campaign_sem", label: "Google Ad campaign SEM"},
-        {value: "google_seo", label: "Google SEO"},
-        {value: "internet_recherche", label: "Internetrecherche"},
-        {value: "lead_called_alpyn", label: "Lead called ALPYN"},
-        {value: "linkedin_ads", label: "LinkedIn Ads"},
-        {value: "linkedin_social_selling", label: "LinkedIn Social selling activity"},
-        {value: "messe", label: "Messe"},
-        {value: "messe_at", label: "Messe AT"},
-        {value: "messe_ch", label: "Messe CH"},
-        {value: "messe_de", label: "Messe DE"},
-        {value: "messe_ita", label: "Messe ITA"},
-        {value: "netcomponents", label: "Netcomponents"},
-        {value: "networking_linkedin", label: "Networking Linkedin"},
-        {value: "networking_offline", label: "Networking offline"},
-        {value: "online_events", label: "Online Events (b2bmatch e.g)"},
-        {value: "online_messen", label: "Online Messen"},
-        {value: "others", label: "Others"},
-        {value: "portal_access_request", label: "Portal Access request"},
-        {value: "reseller_tipp", label: "Reseller Tipp"},
-        {value: "sales_activity_general", label: "Sales activity by general Assistant (BDR / SDR)"},
-        {value: "sales_activity_ita", label: "Sales activity by ITA Assistent (BDR / SDR)"},
-        {value: "team_connections", label: "Team Connections"},
-        {value: "website_request", label: "Website request"}
-    ];
-    const contactStatuses = [
-        {value: "none", label: "-None-"},
-        {value: "not_qualified", label: "Nicht qualifiziert"},
-        {value: "prequalified", label: "Vorqualifiziert"},
-        {value: "contact_future", label: "Zukünftig kontaktieren"},
-        {value: "not_contacted", label: "Nicht kontaktiert"},
-        {value: "contact_attempt", label: "Kontaktversuch"},
-        {value: "cold_call", label: "Cold Call"},
-        {value: "follow_up", label: "Follow Up"},
-        {value: "objection_handling", label: "Einwandbehandlung"},
-        {value: "rfq", label: "RFQ"},
-        {value: "quote", label: "Quote"},
-        {value: "sales_order", label: "Sales Order"},
-        {value: "worthless_contact", label: "Wertloser Kontakt"},
-        {value: "lost_contact", label: "Verlorener Kontakt"},
-    ];
 
 
     const fields = {
@@ -126,7 +64,7 @@ const ContactDetailsSection = () => {
                             handleChangeField('job_description', value)
                         }}
                         className="flex-1"
-                        options={jobDescriptions}/>,
+                        options={ContactJobDescriptions}/>,
 
             'Contact Type': <Select id="contact_type"
                                     name="contact_type"
@@ -157,7 +95,7 @@ const ContactDetailsSection = () => {
                                           handleChangeField('contact_source', value)
                                       }}
                                       className="flex-1 "
-                                      options={contactSources}
+                                      options={ContactSources}
                                       defaultValue={{value: "none", label: "-None-"}}
             />,
             'Contact Owner': <AsyncSelect
@@ -178,7 +116,7 @@ const ContactDetailsSection = () => {
                                           handleChangeField('contact_status', value)
                                       }}
                                       className="flex-1 "
-                                      options={contactStatuses}
+                                      options={ContactStatus}
                                       defaultValue={{value: "none", label: "-None-"}}
             />,
 

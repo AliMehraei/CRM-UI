@@ -177,34 +177,89 @@ export const TaskPriority = [
 
 ];
 
-export const contactSources = [
+export const ContactSources = [
     {value: "none", label: "-None-"},
-    {value: "ceo_connections", label: "CEO connections"},
-    {value: "client_tipp", label: "Client Tipp"},
-    {value: "competitor_tipp", label: "Competitor Tipp"},
-    {value: "externe_vermittlung", label: "Externe Vermittlung"},
-    {value: "fachtagung", label: "Fachtagung"},
-    {value: "google_ad_campaign_sem", label: "Google Ad campaign SEM"},
-    {value: "google_seo", label: "Google SEO"},
-    {value: "internet_recherche", label: "Internetrecherche"},
-    {value: "lead_called_alpyn", label: "Lead called ALPYN"},
-    {value: "linkedin_ads", label: "LinkedIn Ads"},
-    {value: "linkedin_social_selling", label: "LinkedIn Social selling activity"},
-    {value: "messe", label: "Messe"},
-    {value: "messe_at", label: "Messe AT"},
-    {value: "messe_ch", label: "Messe CH"},
-    {value: "messe_de", label: "Messe DE"},
-    {value: "messe_ita", label: "Messe ITA"},
-    {value: "netcomponents", label: "Netcomponents"},
-    {value: "networking_linkedin", label: "Networking Linkedin"},
-    {value: "networking_offline", label: "Networking offline"},
-    {value: "online_events", label: "Online Events (b2bmatch e.g)"},
-    {value: "online_messen", label: "Online Messen"},
-    {value: "others", label: "Others"},
-    {value: "portal_access_request", label: "Portal Access request"},
-    {value: "reseller_tipp", label: "Reseller Tipp"},
-    {value: "sales_activity_general", label: "Sales activity by general Assistant (BDR / SDR)"},
-    {value: "sales_activity_ita", label: "Sales activity by ITA Assistent (BDR / SDR)"},
-    {value: "team_connections", label: "Team Connections"},
-    {value: "website_request", label: "Website request"}
+    {value: "CEO connections", label: "CEO connections"},
+    {value: "Client Tipp", label: "Client Tipp"},
+    {value: "Competitor Tipp", label: "Competitor Tipp"},
+    {value: "Externe Vermittlung", label: "Externe Vermittlung"},
+    {value: "Fachtagung", label: "Fachtagung"},
+    {value: "Google Ad campaign SEM", label: "Google Ad campaign SEM"},
+    {value: "Google SEO", label: "Google SEO"},
+    {value: "Internetrecherche", label: "Internetrecherche"},
+    {value: "Lead called ALPYN", label: "Lead called ALPYN"},
+    {value: "LinkedIn Ads", label: "LinkedIn Ads"},
+    {value: "LinkedIn Social selling activity", label: "LinkedIn Social selling activity"},
+    {value: "Messe", label: "Messe"},
+    {value: "Messe AT", label: "Messe AT"},
+    {value: "Messe CH", label: "Messe CH"},
+    {value: "Messe DE", label: "Messe DE"},
+    {value: "Messe ITA", label: "Messe ITA"},
+    {value: "Netcomponents", label: "Netcomponents"},
+    {value: "Networking Linkedin", label: "Networking Linkedin"},
+    {value: "Networking offline", label: "Networking offline"},
+    {value: "Online Events (b2bmatch e.g)", label: "Online Events (b2bmatch e.g)"},
+    {value: "Online Messen", label: "Online Messen"},
+    {value: "Others", label: "Others"},
+    {value: "Portal Access request", label: "Portal Access request"},
+    {value: "Reseller Tipp", label: "Reseller Tipp"},
+    {value: "Sales activity by general Assistant (BDR / SDR)", label: "Sales activity by general Assistant (BDR / SDR)"},
+    {value: "Sales activity by ITA Assistent (BDR / SDR)", label: "Sales activity by ITA Assistent (BDR / SDR)"},
+    {value: "Team Connections", label: "Team Connections"},
+    {value: "Website request", label: "Website request"}
+];
+
+export const ContactJobDescriptions = [
+    {value: "none", label: "-None-"},
+    {value: "Buyer", label: "Buyer"},
+    {value: "Operative Buyer", label: "Operative Buyer"},
+    {value: "Strategic Buyer", label: "Strategic Buyer"},
+    {value: "Project Buyer", label: "Project Buyer"},
+    {value: "Commodity Buyer", label: "Commodity Buyer"},
+    {value: "Team Leader", label: "Team Leader"},
+    {value: "Purchasing Manager", label: "Purchasing Manager"},
+    {value: "Purchasing Director", label: "Purchasing Director"},
+    {value: "Director", label: "Director"},
+    {value: "Developer", label: "Developer"},
+    {value: "Sales", label: "Sales"}
+];
+
+export const ContactStatus = [
+    {value: "none", label: "-None-"},
+    {value: "Nicht qualifiziert", label: "Nicht qualifiziert"},
+    {value: "Vorqualifiziert", label: "Vorqualifiziert"},
+    {value: "Zukünftig kontaktieren", label: "Zukünftig kontaktieren"},
+    {value: "Nicht kontaktiert", label: "Nicht kontaktiert"},
+    {value: "Kontaktversuch", label: "Kontaktversuch"},
+    {value: "Follow Up notwendig", label: "Follow Up notwendig"},
+    {value: "Einwandbehandlung", label: "Einwandbehandlung"},
+    {value: "RFQ - Waiting", label: "RFQ - Waiting"},
+    {value: "Quote - Sent", label: "Quote - Sent"},
+    {value: "Sales Order - received", label: "Sales Order - received"},
+    {value: "Verlorener Kontakt", label: "Verlorener Kontakt"},
+    {value: "Wertloser Kontakt", label: "Wertloser Kontakt"},
+
+];
+
+export const ContactPortalAccess = [
+    { value: "none", label: "-None-" },
+    { value: "Waiting", label: "Waiting" },
+    { value: "Confirmed", label: "Confirmed" },
+    { value: "Rejected", label: "Rejected" },
+];
+
+export const ContactActivities = [
+    { value: "none", label: "-None-" },
+    { value: "No Activity", label: "No Activity" },
+    { value: "> 1 year Activity", label: "> 1 year Activity" },
+    { value: "> 1 month Activity", label: "> 1 month Activity" },
+    { value: "regulare Activity", label: "Regular Activity" },
+
+];
+
+export const ContactDoubleCheckStatuses = [
+    { value: "none", label: "-None-" },
+    { value: "Back to lead", label: "Back to lead" },
+    { value: "Converted to lead", label: "Converted to lead" },
+    { value: "Must Be Deleted", label: "Must Be Deleted" },
 ];
