@@ -263,3 +263,36 @@ export const ContactDoubleCheckStatuses = [
     { value: "Converted to lead", label: "Converted to lead" },
     { value: "Must Be Deleted", label: "Must Be Deleted" },
 ];
+
+export const SalesOrderDealStages = [
+    { value: 'none', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'No Feedback', label: 'No Feedback' },
+    { value: 'Negotiation Price', label: 'Negotiation Price' },
+    { value: 'Negotiation Conditions', label: 'Negotiation Conditions' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Lost', label: 'Lost' },
+    { value: 'Won', label: 'Won' },
+];
+
+export const SalesOrderTypeOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Single Order', label: 'Single Order'},
+    {value: 'Frame Contract', label: 'Frame Contract'},
+    {value: 'Call Off', label: 'Call Off'},
+    {value: 'Forecast', label: 'Forecast'},
+
+];
+export const SalesOrderStatusOption = [
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Approved', label: 'Approved' },
+    { value: 'Closed', label: 'Closed' },
+    { value: 'Void', label: 'Void' },
+];
+
+export const SalesOrderApproveChanges = [
+    { value: 'none', label: '-None-' },
+    { value: 'Yes', label: 'Yes' },
+    { value: 'No', label: 'No' },
+]

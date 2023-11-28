@@ -149,7 +149,7 @@ const Edit = () => {
             <div className='px-4'>
                 <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
                 <div className="flex xl:flex-row flex-col gap-2.5">
-                    <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
+                    <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
                         <div className="flex items-center gap-2">
                             {/* <button onClick={handleConvertSOPO} className="mx-2 btn btn-secondary">
                                 Convert SO to PO
