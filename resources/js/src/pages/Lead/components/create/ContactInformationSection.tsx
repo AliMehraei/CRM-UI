@@ -3,23 +3,13 @@ import {updateFormData} from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {FirstNameTitles} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-
+import {LeadJobDescription} from "../../../../components/Options/SelectOptions";
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const JobDescription = [
-        {value: 'none', label: '-None-'},
-        {value: 'buyer', label: 'Buyer'},
-        {value: 'operative_buyer', label: 'Operative Buyer'},
-        {value: 'chat', label: 'Chat'},
-        {value: 'messe', label: 'Messe'},
-        {value: 'not_yet_clear', label: 'Not Yet Clear'},
-    ];
 
     const fields = {
         'Contact Information': {
@@ -44,14 +34,14 @@ const ContactInformationSection = () => {
             ),
             'Job Description': (
                 <Select
-                    options={JobDescription}
+                    options={LeadJobDescription}
                     name="job_description"
                     id="job_description"
                     onChange={({value}: any) => {
                         handleChangeField('job_description', value)
                     }}
                     className="flex-1"
-                    defaultValue={{value: 'not_yet_clear', label: 'Not Yet Clear'}}
+                    defaultValue={{value: 'Not Yet Clear', label: 'Not Yet Clear'}}
                 />
             ),
             'Phone': (
