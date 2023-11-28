@@ -295,4 +295,32 @@ export const SalesOrderApproveChanges = [
     { value: 'none', label: '-None-' },
     { value: 'Yes', label: 'Yes' },
     { value: 'No', label: 'No' },
-]
+];
+
+export const QuoteStages = [
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Open', label: 'Open'},
+    {value: 'No Feedback', label: 'No Feedback'},
+    {value: 'Negotiation Price', label: 'Negotiation Price'},
+    {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
+    {value: 'Lost', label: 'Lost'},
+    {value: 'Won', label: 'Won'},
+
+
+];
+
+export const QuoteChances = [
+    {value: 'none', label: '-None-'},
+    {value: 'High', label: 'High'},
+    {value: 'Unknown', label: 'Unknown'},
+    {value: 'Low', label: 'Low'},
+
+];
+
+export const QuoteValid = [
+    {value: 'none', label: '-None-'},
+    {value: '1 Day', label: '1 Day'},
+    {value: '3 Days', label: '3 Days'},
+    {value: '1 Week', label: '1 Week'},
+
+];
