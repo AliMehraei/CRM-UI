@@ -2,7 +2,7 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {displayImage, searchAccounts} from "../../../../components/Functions/CommonFunctions";
+import {displayImage, searchAccounts, AccountDoubleCheckStatuses} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 
@@ -137,8 +137,8 @@ const AccountInformationSection = () => {
                     handleChangeField('double_check_status', value)
                 }}
                 className="flex-1"
-                defaultValue={doubleCheckStatuses.find((data) => data.value == formState.double_check_status)}
-                options={doubleCheckStatuses}
+                defaultValue={AccountDoubleCheckStatuses.find((data) => data.value == formState.double_check_status)}
+                options={AccountDoubleCheckStatuses}
             />,
 
             'Child Account': <AsyncSelect

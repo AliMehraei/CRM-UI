@@ -44,6 +44,48 @@ export const StatusInvoiceOption = [
     { value: 'paid', label: 'paid' },
 ];
 
+export const PurchaseOrdersTypeOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Single PO', label: 'Single PO'},
+    {value: 'Frame PO', label: 'Frame PO'},
+    {value: 'Call Off', label: 'Call Off'},
+    {value: 'Forecast PO', label: 'Forecast PO'},
+
+];
+
+export const PurchaseCarrierOption = [
+    {value: 'Vendor Forwarder', label: 'Vendor Forwarder'},
+    {value: 'UPS', label: 'UPS'},
+    {value: 'USPS', label: 'USPS'},
+    {value: 'DHL', label: 'DHL'},
+    {value: 'BlueDart', label: 'BlueDart'},
+];
+
+export const AccountRating = [
+    {value: "none", label: "-None-"},
+    {value: "RFQ", label: "RFQ"},
+    {value: "Quote", label: "Quote"},
+    {value: "SO", label: "SO"},
+    {value: "No Action", label: "No Action"},
+    {value: "Inactive", label: "Inactive"},
+
+];
+
+export const AccountActivities = [
+    {value: "none", label: "-None-"},
+    {value: "No Activity", label: "No Activity"},
+    {value: "1 year Activity", label: "> 1 year Activity"},
+    {value: "1 month Activity", label: "> 1 month Activity"},
+    {value: "regulare Activity", label: "Regular Activity"},
+];
+
+export const AccountDoubleCheckStatuses = [
+    {value: "none", label: "-None-"},
+    {value: "Back to lead", label: "Back to lead"},
+    {value: "Converted to lead", label: "Converted to lead"},
+    {value: "Must Be Deleted", label: "Must be deleted"},
+];
+
 export const Stages = [
     { value: '-None-', label: '-None-' },
     { value: 'Draft', label: 'Draft' },
@@ -79,13 +121,13 @@ export const handleUploadAttachments = (e: any, modelName: string, modelId: stri
 
 
 export const AccountTypes = [
-    { value: '-None-', label: '-None-' },
-    { value: 'EMS', label: 'EMS' },
-    { value: 'ODM (EMS + Development)', label: 'ODM (EMS + Development)' },
-    { value: 'OEM', label: 'OEM' },
-    { value: 'Reseller', label: 'Reseller' },
-    { value: 'System-Integrator It', label: 'System-Integrator It' },
-    { value: 'Other', label: 'Other' },
+    {value: '-None-', label: '-None-'},
+    {value: 'EMS', label: 'EMS'},
+    {value: 'ODM (EMS + Development)', label: 'ODM (EMS + Development)'},
+    {value: 'OEM', label: 'OEM'},
+    {value: 'Reseller', label: 'Reseller'},
+    {value: 'Systemintegrator IT', label: 'System-Integrator It'},
+    {value: 'Other', label: 'Other'},
 ]
 export const FirstNameTitles = [
     { value: "-None-", label: "-None-" },
@@ -97,11 +139,10 @@ export const FirstNameTitles = [
 
 ];
 export const Contract = [
-    { value: 'NDA', label: 'NDA' },
-    { value: 'Quality', label: 'Quality' },
-    { value: 'Logistic Agreement', label: 'Logistic Agreement' },
-    { value: 'Franchise Agreement', label: 'Franchise Agreement' },
-    { value: 'Other', label: 'Other' },
+    {value: 'NDA', label: 'NDA'},
+    {value: 'Quality Agreement', label: 'Quality Agreement'},
+    {value: 'Logistic Agreement', label: 'Logistic Agreement'},
+    {value: 'Other Agreement', label: 'Other Agreement'},
 
 ];
 
