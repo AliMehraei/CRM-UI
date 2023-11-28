@@ -1,11 +1,8 @@
-import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import Flatpickr from "react-flatpickr";
-import { ApproveChangesOption } from "../../../../components/Functions/CommonFunctions";
-
+import {SalesOrderApproveChanges} from "../../../../components/Options/SelectOptions";
 const TechnicalInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.salesOrderForm);
@@ -43,14 +40,14 @@ const TechnicalInformationSection = () => {
             ),
             'Approve Changes': (
                 <Select
-                options={ApproveChangesOption}
+                options={SalesOrderApproveChanges}
                 name="approval_changes"
                 id="approval_changes"
                 onChange={({value}: any) => {
                     handleChangeField('approval_changes', value)
                 }}
                 className="flex-1"
-                defaultValue={ApproveChangesOption.find((title) => title.value == formState.approval_changes)}
+                defaultValue={SalesOrderApproveChanges.find((title) => title.value == formState.approval_changes)}
                 />
             ),
             'Tech': (
