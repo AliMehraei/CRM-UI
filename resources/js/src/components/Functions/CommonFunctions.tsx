@@ -44,6 +44,23 @@ export const StatusInvoiceOption = [
     {value: 'paid', label: 'paid'},
 ];
 
+export const PurchaseOrdersTypeOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Single PO', label: 'Single PO'},
+    {value: 'Frame PO', label: 'Frame PO'},
+    {value: 'Call Off', label: 'Call Off'},
+    {value: 'Forecast PO', label: 'Forecast PO'},
+
+];
+
+export const PurchaseCarrierOption = [
+    {value: 'Vendor Forwarder', label: 'Vendor Forwarder'},
+    {value: 'UPS', label: 'UPS'},
+    {value: 'USPS', label: 'USPS'},
+    {value: 'DHL', label: 'DHL'},
+    {value: 'BlueDart', label: 'BlueDart'},
+];
+
 export const Stages = [
     {value: '-None-', label: '-None-'},
     {value: 'Draft', label: 'Draft'},

@@ -4,7 +4,12 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchPurchaseOrder, StatusOption} from "../../../../components/Functions/CommonFunctions";
+import {
+    searchPurchaseOrder,
+    StatusOption,
+    PurchaseOrdersTypeOption,
+    PurchaseCarrierOption
+} from "../../../../components/Functions/CommonFunctions";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 
 const PurchaseOrderInformationSection = () => {
@@ -16,36 +21,18 @@ const PurchaseOrderInformationSection = () => {
     };
 
 
-    const POTypeOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'single', label: 'Single PO'},
-        {value: 'frame', label: 'Frame PO'},
-        {value: 'call_off', label: 'Call Off'},
-        {value: 'forecast', label: 'Forecast PO'},
-
-    ];
-
-    const CarrierOption = [
-        {value: 'vendor_forwarder', label: 'Vendor Forwarder'},
-        {value: 'ups', label: 'UPS'},
-        {value: 'usps', label: 'USPS'},
-        {value: 'dhl', label: 'DHL'},
-        {value: 'blue_dart', label: 'BlueDart'},
-    ];
-
-
     const fields = {
         'PurchaseOrders Information': {
             'PO Type': (
                 <Select
-                    options={POTypeOption}
+                    options={PurchaseOrdersTypeOption}
                     name="po_type"
                     id="po_type"
                     onChange={({value}: any) => {
                         handleChangeField('po_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={POTypeOption.find((title) => title.value == formState.po_type)}
+                    defaultValue={PurchaseOrdersTypeOption.find((title) => title.value == formState.po_type)}
                 />
             ),
             'Parent PO No.': (
@@ -108,14 +95,14 @@ const PurchaseOrderInformationSection = () => {
             ),
             'Carrier': (
                 <Select
-                    options={CarrierOption}
+                    options={PurchaseCarrierOption}
                     name="carrier"
                     id="carrier"
                     onChange={({value}: any) => {
                         handleChangeField('carrier', value)
                     }}
                     className="flex-1"
-                    defaultValue={CarrierOption.find((title) => title.value == formState.carrier)}
+                    defaultValue={PurchaseCarrierOption.find((title) => title.value == formState.carrier)}
                 />
             ),
             'AWB': (
