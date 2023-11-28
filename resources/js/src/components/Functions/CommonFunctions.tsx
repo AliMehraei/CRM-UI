@@ -392,6 +392,10 @@ export const searchExcess = async (query: string) => {
                 <div key={data[valField]} className="flex items-center">
                     <div>
                         <div className="text-sm font-bold">{data[nameField]}</div>
+                        <div className="inline-block">
+                        <div className="text-xs text-gray-500">Quantity: {data['quantity']}</div>
+                        <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
+                    </div>
                     </div>
                 </div>
             ),
