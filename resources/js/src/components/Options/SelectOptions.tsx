@@ -157,3 +157,22 @@ export const LeadJobDescription = [
     {value: 'Consultant', label: 'Consultant'},
     {value: 'not yet clear', label: 'Not Yet Clear'},
 ];
+
+export const TaskStatus = [
+    { value: 'none', label: '-None-' },
+    { value: 'Nicht gestartet', label: 'Nicht gestartet' },
+    { value: 'Verschoben', label: 'Verschoben' },
+    { value: 'Läuft...', label: 'Läuft...' },
+    { value:'Abgeschlossen' , label: 'Abgeschlossen' },
+    { value: 'Warte auf Eingabe', label: 'Warte auf Eingabe' },
+];
+
+export const TaskPriority = [
+    { value: 'none', label: '-None-' },
+    { value: 'Hoch', label: 'Hoch' },
+    { value: 'Höchster', label: 'Höchster' },
+    { value: 'Niedrig', label: 'Niedrig' },
+    { value: 'Niedrigster', label: 'Niedrigster' },
+    { value: 'Normal', label: 'Normal' },
+
+];
