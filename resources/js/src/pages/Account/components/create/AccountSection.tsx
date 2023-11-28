@@ -141,7 +141,7 @@ const AccountSection = () => {
                                       onChange={({value}: any) => {
                                           handleChangeField('rating', value)
                                       }}
-                                      defaultValue={{value: "no_action", label: "No Action"}}
+                                      defaultValue={{value: "No Action", label: "No Action"}}
                                       className="flex-1"/>,
         }
     }
