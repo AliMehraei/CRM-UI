@@ -139,19 +139,19 @@ export const searchProducts = async (query: string) => {
             value: product[valField],
             label: (
                 <div key={product[valField]} className="flex items-center">
-                <div className="text-sm font-bold">{product[nameField]}</div>
-                <div className="ml-2">
-                    {product['manufacturer'] && (
-                        <>
-                            <div className="text-xs text-gray-500">Manufacturer: {product['manufacturer']['name']}</div>
-                        </>
-                    )}
+                    <div className="flex-grow">
+                        <div className="text-sm font-bold">{product[nameField]}</div>
+                        {product['manufacturer'] && (
+                            <>
+                                <div className="text-xs text-gray-500">Manufacturer: {product['manufacturer']['name']}</div>
+                            </>
+                        )}
+                    </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${product.product_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
-                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${product.product_name}`)}>
-                    Copy & Select
-                </button>
-            </div>
-            
+
             ),
         }));
     }
@@ -166,8 +166,8 @@ export const searchRFQ = async (query: string) => {
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['rfq_name']}</div>
                     <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.rfq_name}`)}>
-                    Copy & Select
-                </button>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -183,6 +183,9 @@ export const searchVendorRFQ = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['vendor_rfq_name']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.vendor_rfq_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -210,6 +213,9 @@ export const searchVendor = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['vendor_name']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.vendor_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -221,19 +227,25 @@ export const searchAvailability = async (query: string) => {
         return result.data.data.map((data: any) => ({
             value: data['id'],
             label: (
-                <div key={data['id']} className=" items-center">
-                    <div className="text-sm font-bold">{data['availability_name']}</div>
-                    <div className="inline-block">
-                        {data['vendor'] && (
-                            <>
-                                <div className="text-xs text-gray-500">Vendor: {data['vendor']['vendor_name']}</div>
-                            </>
-                        )}
-                        <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
-                        <div className="text-xs text-gray-500">Source: {data['availability_source']}</div>
-                        <div className="text-xs text-gray-500">Quantity in Stock: {data['in_stock_quantity']}</div>
+                <div key={data['id']} className="flex items-center">
+                    <div className="flex-grow">
+                        <div className="text-sm font-bold">{data['availability_name']}</div>
+                        <div className="">
+                            {data['vendor'] && (
+                                <>
+                                    <div className="text-xs text-gray-500">Vendor: {data['vendor']['vendor_name']}</div>
+                                </>
+                            )}
+                            <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
+                            <div className="text-xs text-gray-500">Source: {data['availability_source']}</div>
+                            <div className="text-xs text-gray-500">Quantity in Stock: {data['in_stock_quantity']}</div>
+                        </div>
                     </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.availability_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
+
             ),
         }));
     }
@@ -249,6 +261,9 @@ export const searchQuote = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['subject']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.subject}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -262,6 +277,9 @@ export const searchInvoice = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['subject']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.subject}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -275,6 +293,9 @@ export const searchPurchaseOrder = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['subject']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.subject}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -288,6 +309,9 @@ export const loadAvailability = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['availability_name']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.availability_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -312,6 +336,9 @@ export const searchOwners = async (e: any) => {
                         <div className="text-sm font-bold">{user[nameField] + " " + user['last_name']}</div>
                         <div className="text-xs text-gray-500">{user[emailField]}</div>
                     </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${user.first_name} ${user.last_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -334,6 +361,9 @@ export const searchAccounts = async (e: any) => {
                         <div className="text-sm font-bold">{data[nameField]}</div>
                         <div className="text-xs text-gray-500">{data[emailField]}</div>
                     </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.account_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -354,6 +384,9 @@ export const searchLead = async (e: any) => {
                         <div className="text-sm font-bold">{data['company']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
                     </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.company}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -374,6 +407,9 @@ export const searchContacts = async (e: any) => {
                         <div className="text-sm font-bold">{data['first_name']} {data['last_name']}</div>
                         <div className="text-xs text-gray-500">{data['email']}</div>
                     </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.first_name} ${data.last_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -391,9 +427,11 @@ export const searchManufacturer = async (query: string) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <div>
-                        <div className="text-sm font-bold">{data[nameField]}</div>
-                    </div>
+                    <div className="text-sm font-bold">{data[nameField]}</div>
+
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data[nameField]}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -410,9 +448,10 @@ export const searchSalesOrder = async (query: string) => {
             value: data[valField],
             label: (
                 <div key={data[valField]} className="flex items-center">
-                    <div>
-                        <div className="text-sm font-bold">{data[nameField]}</div>
-                    </div>
+                    <div className="text-sm font-bold">{data[nameField]}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data[nameField]}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
@@ -442,6 +481,9 @@ export const searchExcess = async (query: string) => {
                             <div className="text-xs text-gray-500">Cost: {data['cost']} {data['currency']}</div>
                         </div>
                     </div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data[nameField]}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
