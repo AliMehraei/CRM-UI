@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import AsyncSelect from "react-select/async";
-import {searchProducts} from "../../../../components/Functions/CommonFunctions";
+import {handleCopySelect, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/invoiceFormSlice";
 import PopoverComponent from "./PopoverComponent";
@@ -158,8 +158,8 @@ const InvoiceItemSection = () => {
                                                                      <div key={item.id}
                                                                           className="flex items-center">
                                                                          <div>
-                                                                             <div
-                                                                                 className="text-sm font-bold">{item.product?.product_name}</div>
+                                                                             <div className="text-sm font-bold">{item.product?.product_name}</div>
+
                                                                          </div>
                                                                      </div>
                                                                  ),

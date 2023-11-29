@@ -11,7 +11,7 @@ import {
     searchOwners,
     searchContacts, searchSalesOrder
 } from "../../../../components/Functions/CommonFunctions";
-import {InvoiceDealStages} from "../../../../components/Options/SelectOptions";
+import {InvoiceDealStages, InvoiceStatuses} from "../../../../components/Options/SelectOptions";
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
@@ -168,7 +168,7 @@ const InvoiceInformationSection = () => {
                 name="status"
                 id="status"
                 placeholder=""
-                options={Statuses}
+                options={InvoiceStatuses}
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
                 }}
