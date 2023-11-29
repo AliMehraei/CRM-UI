@@ -38,9 +38,10 @@ const VendorSection = () => {
                 value: data[valField],
                 label: (
                     <div key={data[valField]} className="flex items-center">
-                        <div>
                             <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
+                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data[nameField]}`)}>
+                            Copy & Select
+                        </button>
                     </div>
                 ),
             }));
@@ -111,12 +112,12 @@ const VendorSection = () => {
                                         <div className="text-sm font-bold">{data.name}</div>
 
                                     </div>
-                                    {formState.strong_lines ?
-                                            (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>
-                                                Copy & Select
-                                            </button>)
-                                            : null
-                                    }
+                                    {/*{formState.strong_lines ?*/}
+                                    {/*        (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>*/}
+                                    {/*            Copy & Select*/}
+                                    {/*        </button>)*/}
+                                    {/*        : null*/}
+                                    {/*}*/}
                                 </div>
                             ),
                         }))
@@ -143,12 +144,12 @@ const VendorSection = () => {
                                         <div className="text-sm font-bold">{data.name}</div>
 
                                     </div>
-                                    {formState.line_cards ?
-                                            (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>
-                                                Copy & Select
-                                            </button>)
-                                            : null
-                                    }
+                                    {/*{formState.line_cards ?*/}
+                                    {/*        (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>*/}
+                                    {/*            Copy & Select*/}
+                                    {/*        </button>)*/}
+                                    {/*        : null*/}
+                                    {/*}*/}
                                 </div>
                             ),
                         }))
@@ -297,9 +298,15 @@ const VendorSection = () => {
                             <div key={formState.parent_vendor_id}
                                  className="flex items-center">
                                 <div>
-                                    <div className="text-sm font-bold">{formState.parent_vendor_id}</div>
+                                    <div className="text-sm font-bold">{formState.parent?.vendor_name}</div>
 
                                 </div>
+                                {formState.parent ?
+                                        (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.parent?.vendor_name}`)}>
+                                            Copy & Select
+                                        </button>)
+                                        : null
+                                }
                             </div>
                         )
                     }}
