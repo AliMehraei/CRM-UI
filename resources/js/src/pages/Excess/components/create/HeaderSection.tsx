@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/excessFormSlice";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {ExcessSources} from "../../../../components/Options/SelectOptions";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -20,12 +21,7 @@ const HeaderSection = () => {
     };
 
 
-    const ExcessSources = [
-        {value: 'none', label: '-None-'},
-        {value: 'email', label: 'Email'},
-        {value: 'portal', label: 'Portal'},
 
-    ];
 
     const fields = {
         'Header': {

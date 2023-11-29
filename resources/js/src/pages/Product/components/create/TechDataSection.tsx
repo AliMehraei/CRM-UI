@@ -4,34 +4,13 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import { handleUploadFile, Currencies, PortalAccess,searchOwners } from "../../../../components/Functions/CommonFunctions";
-
+import {ProductUsageUnitOptions, ProductDuplicatedStatusOptions} from "../../../../components/Options/SelectOptions";
 const TechDataSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
-    };
-
-    const searchProduct = async (query: string) => {
-        const valField = 'id';
-        const nameField = 'product_name';
-
-        const result = await api_instance.searchProduct({ query: query });
-
-        if (result.status) {
-            return result.data.data.map((data: any) => ({
-                value: data[valField],
-                label: (
-                    <div key={data[valField]} className="flex items-center">
-                        <div>
-                            <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
-                    </div>
-                ),
-            }));
-        }
     };
     const searchCategoryProduct = async (query: string) => {
         const valField = 'id';
@@ -52,31 +31,6 @@ const TechDataSection = () => {
             }));
         }
     };
-
-
-    const duplicatedOptions = [
-        { label: '-None-', value: 'none' },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
-            value: 'must_be_deleted'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
-            value: 'must_be_merged'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
-            value: 'must_be_renamed'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
-            value: 'delete_confirmed'
-        },
-    ];
-    const usageUnitOptions = [
-        { label: 'PCS', value: 'pcs' },
-    ];
-
 
     const fields = {
         'Tech Data': {
@@ -336,14 +290,14 @@ const TechDataSection = () => {
             ),
             'Usage Unit': (
                 <Select
-                    options={usageUnitOptions}
+                    options={ProductUsageUnitOptions}
                     name="usage_unit"
                     id="usage_unit"
                     onChange={({ value }: any) => {
                         handleChangeField('usage_unit', value)
                     }}
                     className="flex-1"
-                    defaultValue={{ label: 'PCS', value: 'pcs' }}
+                    defaultValue={{ label: 'PCS', value: 'PCS' }}
                 />
             ),
             'Unit Price': (
@@ -448,7 +402,7 @@ const TechDataSection = () => {
             ),
             'Duplicated Status': (
                 <Select
-                    options={duplicatedOptions}
+                    options={ProductDuplicatedStatusOptions}
                     name="duplicated_status"
                     id="duplicated_status"
                     onChange={({ value }: any) => {

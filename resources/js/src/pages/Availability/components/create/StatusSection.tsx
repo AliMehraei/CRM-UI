@@ -4,22 +4,14 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {useDispatch} from "react-redux";
 import {updateFormData} from "../../../../store/availabilityFormSlice";
+import {AvailabilityTypes} from "../../../../components/Options/SelectOptions";
 
 const StatusSection = () => {
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-    const AvailabilityTypes = [
-        {value: 'none', label: '-None-'},
-        {value: 'web_downloaded', label: 'Web Downloaded'},
-        {value: 'cost_saving', label: 'Cost Saving'},
-        {value: 'shortage', label: 'Shortage'},
-        {value: 'proactive', label: 'Proactive'},
-        {value: 'excess', label: 'Excess'},
-        {value: 'not_valid', label: 'Not_valid'},
 
-    ];
     const fields = {
         'Status': {
             'Availability Type': <Select options={AvailabilityTypes} name="availability_type" id="availability_type"

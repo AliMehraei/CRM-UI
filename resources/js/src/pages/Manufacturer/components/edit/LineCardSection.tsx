@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/manufacturerFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
+import React from "react";
+import {handleCopySelect} from "../../../../components/Functions/CommonFunctions";
 
 const LineCardSection = () => {
     const formState = useSelector((state: any) => state.manufacturerForm);
@@ -53,6 +55,9 @@ const LineCardSection = () => {
                             <div key={data.id} className="flex items-center">
                                 <div>
                                     <div className="text-sm font-bold">{data.vendor_name}</div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.vendor_name}`)}>
+                                        Copy & Select
+                                    </button>
                                 </div>
                             </div>
                         ),
@@ -78,6 +83,9 @@ const LineCardSection = () => {
                             <div key={data.id} className="flex items-center">
                                 <div>
                                     <div className="text-sm font-bold">{data.vendor_name}</div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.vendor_name}`)}>
+                                        Copy & Select
+                                    </button>
                                 </div>
                             </div>
                         ),

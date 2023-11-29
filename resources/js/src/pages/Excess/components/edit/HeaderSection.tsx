@@ -2,7 +2,7 @@ import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    Currencies, displayImage,
+    Currencies, displayImage, handleCopySelect,
     searchAccounts, searchContacts,
     searchOwners
 } from "../../../../components/Functions/CommonFunctions";
@@ -10,6 +10,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/excessFormSlice";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {ExcessSources} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -18,14 +20,6 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const ExcessSources = [
-        {value: 'none', label: '-None-'},
-        {value: 'email', label: 'Email'},
-        {value: 'portal', label: 'Portal'},
-
-    ];
 
     const fields = {
         'Header': {
@@ -63,6 +57,9 @@ const HeaderSection = () => {
                                 <div
                                     className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.account?.account_name}`)}>
+                                Copy & Select
+                            </button>
                         </div>
                     ),
                 }}
@@ -91,6 +88,11 @@ const HeaderSection = () => {
                                 <div
                                     className="text-xs text-gray-500">{formState.contact?.email}</div>
                             </div>
+                            {formState.contact ? (
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.name}`)}>
+                                Copy & Select
+                            </button>
+                                ) : null }
                         </div>
                     ),
                 }}
@@ -136,6 +138,9 @@ const HeaderSection = () => {
                                 <div
                                     className="text-xs text-gray-500">{formState.owner?.email}</div>
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                Copy & Select
+                            </button>
                         </div>
                     ),
                 }}
