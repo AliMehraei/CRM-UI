@@ -416,3 +416,16 @@ export const ProductDuplicatedStatusOptions = [
         value: 'Delete confirmed'
     },
 ];
+
+export const AvailabilityTypes = [
+    {value: 'none', label: '-None-'},
+    {value: 'Email', label: 'Email'},
+    {value: 'Skype / WeChat', label: 'Skype / WeChat'},
+    {value: 'Phone', label: 'Phone'},
+    {value: 'Online', label: 'Online'},
+    {value: 'Web API (Mouser)', label: 'Web API (Mouser)'},
+    {value: 'Web API (Octopart)', label: 'Web API (Octopart)'},
+    {value: 'Web', label: 'Web'},
+
+
+];
