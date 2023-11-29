@@ -454,4 +454,4 @@ export const ExcessTypes = [
     { value: "Package Bid", label: "Package Bid" },
     { value: "Consignment", label: "Consignment" },
     { value: "Closed", label: "Closed" },
-]
+];
