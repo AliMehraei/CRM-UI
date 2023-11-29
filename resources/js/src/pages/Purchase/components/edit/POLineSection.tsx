@@ -4,9 +4,12 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchAccounts,searchContacts,searchSalesOrder,Currencies
-    ,searchLead,searchQuote,searchInvoice,searchOwners, searchRFQ, searchProducts} from "../../../../components/Functions/CommonFunctions";
+import {
+    searchAccounts, searchContacts, searchSalesOrder, Currencies
+    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, searchProducts, handleCopySelect
+} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import React from "react";
 
 const POLineSection = () => {
     const dispatch = useDispatch();
@@ -89,7 +92,20 @@ const POLineSection = () => {
                         label: (
                             <div key={formState.product?.id} className="flex items-center">
 
-                                <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                {
+                                    formState.product ?
+                                        (
+                                            <>
+                                                <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.product?.product_name}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            </>
+
+                                        ) : null
+                                }
+
+
 
                             </div>
                         ),
