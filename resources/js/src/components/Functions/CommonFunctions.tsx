@@ -199,6 +199,9 @@ export const searchDeals = async (query: string) => {
             label: (
                 <div key={data['id']} className="flex items-center">
                     <div className="text-sm font-bold">{data['deal_name']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.deal_name}`)}>
+                        Copy & Select
+                    </button>
                 </div>
             ),
         }));
