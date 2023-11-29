@@ -6,6 +6,9 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {Currencies, handleUploadFile, searchOwners, searchRFQ, searchVendor} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {
+    VendorRfqStatusOptions,
+} from "../../../../components/Options/SelectOptions";
 
 const VendorRFQInformation = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
@@ -17,13 +20,7 @@ const VendorRFQInformation = () => {
     };
 
 
-     const StatusVendorRfqOptions = [
-        { value: 'none', label: '-None-' },
-        { value: 'draft', label: 'Draft' },
-        { value: 'excel-generate', label: 'Excel Generated' },
-        { value: 'email-sent', label: 'Email Sent' },
-        { value: 'closed', label: 'Closed' },
-    ]
+    
 
 
     const fields = {
@@ -52,7 +49,7 @@ const VendorRFQInformation = () => {
             ),
             'Status': (
                 <Select
-                options={StatusVendorRfqOptions}
+                options={VendorRfqStatusOptions}
                 name="status"
                 id="status"
                 required
@@ -60,7 +57,7 @@ const VendorRFQInformation = () => {
                     handleChangeField('status', value)
                 }}
                 className="flex-1"
-                defaultValue={StatusVendorRfqOptions.find((title) => title.value == 'draft')}
+                defaultValue={VendorRfqStatusOptions.find((title) => title.value == 'Draft')}
                 />
             ),
             'Email': (

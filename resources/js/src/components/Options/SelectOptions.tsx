@@ -512,4 +512,12 @@ export const VendorPortalAccess = [
     { value: 'Waiting', label: 'Waiting' },
     { value: 'Confirmed', label: 'Confirmed' },
     { value: 'Rejected', label: 'Rejected' },
+];
+
+export const VendorRfqStatusOptions = [
+    { value: 'none', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Excel Generated', label: 'Excel Generated' },
+    { value: 'email-Email Sent', label: 'Email Sent' },
+    { value: 'Closed', label: 'Closed' },
 ]
