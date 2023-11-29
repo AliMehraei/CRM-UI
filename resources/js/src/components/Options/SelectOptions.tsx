@@ -440,3 +440,18 @@ export const AvailabilityTypes = [
     {value: 'Excess', label: 'Excess'},
     {value: 'not VALID', label: 'not VALID'},
 ];
+
+export const ExcessSources = [
+    {value: 'none', label: '-None-'},
+    {value: 'Email', label: 'Email'},
+    {value: 'Portal', label: 'Portal'},
+
+];
+
+export const ExcessTypes = [
+    { value: "none", label: "-None-" },
+    { value: "Line Bid", label: "Line Bid" },
+    { value: "Package Bid", label: "Package Bid" },
+    { value: "Consignment", label: "Consignment" },
+    { value: "Closed", label: "Closed" },
+]

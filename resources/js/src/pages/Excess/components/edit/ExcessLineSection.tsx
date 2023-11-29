@@ -1,10 +1,12 @@
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
+    handleCopySelect,
     searchProducts
 } from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/excessFormSlice";
+import React from "react";
 
 const ExcessLineSection = () => {
     const dispatch = useDispatch();
@@ -30,6 +32,9 @@ const ExcessLineSection = () => {
                                              label: (
                                                  <div key={formState.product?.id} className="flex items-center">
                                                      <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                     <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.product?.product_name}`)}>
+                                                         Copy & Select
+                                                     </button>
                                                  </div>
                                              ),
                                          }}
