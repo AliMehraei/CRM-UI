@@ -466,8 +466,6 @@ export const InvoiceDealStages = [
     { value: 'Lost', label: 'Lost' },
     { value: 'Won', label: 'Won' },
 ];
-
-
 export const InvoiceStatuses = [
     { value: 'none', label: '-None-' },
     {value: 'draft', label: 'draft'},
@@ -477,3 +475,41 @@ export const InvoiceStatuses = [
     {value: 'void', label: 'void'},
 
 ];
+export const VendorSource = [
+    {value: 'none', label: '-None-'},
+    {value: 'Web Download', label: 'Web Download'},
+    {value: 'Netcomponents', label: 'Netcomponents'},
+    {value: 'Internetrecherche', label: 'Internetrecherche'},
+    {value: 'LinkedIn', label: 'LinkedIn'},
+    {value: 'Externe Vermittlung', label: 'Externe Vermittlung'},
+    {value: 'Mitarbeiter Vermittlung', label: 'Mitarbeiter Vermittlung'},
+    {value: 'Unangemeldeter Anruf / Besuch', label: 'Unangemeldeter Anruf / Besuch'},
+    {value: 'Chat', label: 'Chat'},
+    {value: 'Messe', label: 'Messe'},
+
+];
+
+export const VendorContract = [
+    { value: 'NDA', label: 'NDA' },
+    { value: 'Quality', label: 'Quality' },
+    { value: 'Logistic Agreement', label: 'Logistic Agreement' },
+    { value: 'Franchise Agreement', label: 'Franchise Agreement' },
+    { value: 'Other', label: 'Other' },
+
+];
+
+export const VendorApproveStatus = [
+    {value: 'none', label: '-None-'},
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Waiting for approval', label: 'Waiting for approval'},
+    {value: 'Approval', label: 'Approval'},
+    {value: 'Rejected', label: 'Rejected'},
+
+];
+
+export const VendorPortalAccess = [
+    { value: '-None-', label: '-None-' },
+    { value: 'Waiting', label: 'Waiting' },
+    { value: 'Confirmed', label: 'Confirmed' },
+    { value: 'Rejected', label: 'Rejected' },
+]

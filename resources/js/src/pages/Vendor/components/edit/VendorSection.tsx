@@ -5,14 +5,19 @@ import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    Contract,
-
-    Currencies, displayImage,
-    PortalAccess, searchManufacturer,
+    Currencies, displayImage, handleCopySelect,
+    searchManufacturer,
     searchOwners, searchVendor
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {
+    VendorApproveStatus,
+    VendorContract,
+    VendorPortalAccess,
+    VendorSource
+} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -42,24 +47,6 @@ const VendorSection = () => {
         }
     };
 
-
-    const ApproveStatus = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'waiting', label: 'Waiting for approval'},
-        {value: 'approval', label: 'Approval'},
-        {value: 'rejected', label: 'Rejected'},
-
-    ];
-    const vendorSource = [
-        {value: 'none', label: '-None-'},
-        {value: 'web', label: 'Web Download'},
-        {value: 'linkedin', label: 'Linkedin'},
-        {value: 'chat', label: 'Chat'},
-        {value: 'messe', label: 'Messe'},
-
-    ];
-
     const fields = {
         'Vendor Information': {
             'Vendor Image': (<ImageUploadComponent formState={formState}
@@ -84,7 +71,7 @@ const VendorSection = () => {
                 name="contract"
                 id="contract"
                 placeholder="Select Contract Type..."
-                options={Contract}
+                options={VendorContract}
                 onChange={(values: any) => {
                     handleChangeField('contract', values.map((v: any) => v.value))
                 }}
@@ -121,9 +108,15 @@ const VendorSection = () => {
                             label: (
                                 <div key={data.id} className="flex items-center">
                                     <div>
-                                        <div
-                                            className="text-sm font-bold">{data.name}</div>
+                                        <div className="text-sm font-bold">{data.name}</div>
+
                                     </div>
+                                    {formState.strong_lines ?
+                                            (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>
+                                                Copy & Select
+                                            </button>)
+                                            : null
+                                    }
                                 </div>
                             ),
                         }))
@@ -147,9 +140,15 @@ const VendorSection = () => {
                             label: (
                                 <div key={data.id} className="flex items-center">
                                     <div>
-                                        <div
-                                            className="text-sm font-bold">{data.name}</div>
+                                        <div className="text-sm font-bold">{data.name}</div>
+
                                     </div>
+                                    {formState.line_cards ?
+                                            (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>
+                                                Copy & Select
+                                            </button>)
+                                            : null
+                                    }
                                 </div>
                             ),
                         }))
@@ -160,14 +159,14 @@ const VendorSection = () => {
             ),
             'Approve status': (
                 <Select
-                    options={ApproveStatus}
+                    options={VendorApproveStatus}
                     name="approved_status"
                     id="approved_status"
                     onChange={({value}: any) => {
                         handleChangeField('approved_status', value)
                     }}
                     className="flex-1"
-                    defaultValue={ApproveStatus.find((data) => data.value == formState.approved_status)}
+                    defaultValue={VendorApproveStatus.find((data) => data.value == formState.approved_status)}
 
                 />
             ),
@@ -226,6 +225,9 @@ const VendorSection = () => {
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -233,13 +235,13 @@ const VendorSection = () => {
             ),
             'Vendor Source': (
                 <Select
-                    options={vendorSource}
+                    options={VendorSource}
                     name="vendor_source"
                     id="vendor_source"
                     onChange={({value}: any) => {
                         handleChangeField('vendor_source', value)
                     }}
-                    defaultValue={vendorSource.find((data) => data.value == formState.vendor_source)}
+                    defaultValue={VendorSource.find((data) => data.value == formState.vendor_source)}
 
                     className="flex-1"
                 />
@@ -295,8 +297,8 @@ const VendorSection = () => {
                             <div key={formState.parent_vendor_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.parent_vendor_id}</div>
+                                    <div className="text-sm font-bold">{formState.parent_vendor_id}</div>
+
                                 </div>
                             </div>
                         )
@@ -305,13 +307,13 @@ const VendorSection = () => {
             ),
             'Portal Access': (
                 <Select
-                    options={PortalAccess}
+                    options={VendorPortalAccess}
                     name="portal_access"
                     id="portal_access"
                     onChange={({value}: any) => {
                         handleChangeField('portal_access', value)
                     }}
-                    defaultValue={PortalAccess.find((data) => data.value == formState.portal_access)}
+                    defaultValue={VendorPortalAccess.find((data) => data.value == formState.portal_access)}
 
                     className="flex-1"
                 />
