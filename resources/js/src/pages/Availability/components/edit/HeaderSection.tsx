@@ -1,10 +1,17 @@
 import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {displayImage, searchOwners, searchVendor} from "../../../../components/Functions/CommonFunctions";
+import {
+    displayImage,
+    handleCopySelect,
+    searchOwners,
+    searchVendor
+} from "../../../../components/Functions/CommonFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/availabilityFormSlice";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {AvailabilitySources} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 
 const HeaderSection = () => {
@@ -14,22 +21,6 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-
-
-    const AvailabilitySources = [
-        { value: 'none', label: '-None-' },
-        { value: 'email', label: 'Email' },
-        { value: 'skype_wechat', label: 'Skype/Wechat' },
-        { value: 'phone', label: 'Phone' },
-        { value: 'online', label: 'Online' },
-        { value: 'other', label: 'Other' },
-        { value: 'mouser', label: 'Web Api (Mouser)' },
-        { value: 'octopart', label: 'Web Api (Octopart)' },
-        { value: 'web', label: 'Web' },
-        { value: 'portal', label: 'Portal' },
-
-
-    ];
 
     const fields = {
         'Header': {
@@ -47,9 +38,12 @@ const HeaderSection = () => {
                         <div key={formState.vendor?.id}
                             className="flex items-center">
                             <div>
-                                <div
-                                    className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
+                                <div className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
+
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.vendor?.vendor_name}`)}>
+                                Copy & Select
+                            </button>
                         </div>
                     ),
                 }}
@@ -85,6 +79,9 @@ const HeaderSection = () => {
                                 <div
                                     className="text-xs text-gray-500">{formState.owner?.email}</div>
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                Copy & Select
+                            </button>
                         </div>
                     ),
                 }}

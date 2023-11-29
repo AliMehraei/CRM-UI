@@ -417,7 +417,7 @@ export const ProductDuplicatedStatusOptions = [
     },
 ];
 
-export const AvailabilityTypes = [
+export const AvailabilitySources = [
     {value: 'none', label: '-None-'},
     {value: 'Email', label: 'Email'},
     {value: 'Skype / WeChat', label: 'Skype / WeChat'},
@@ -426,6 +426,17 @@ export const AvailabilityTypes = [
     {value: 'Web API (Mouser)', label: 'Web API (Mouser)'},
     {value: 'Web API (Octopart)', label: 'Web API (Octopart)'},
     {value: 'Web', label: 'Web'},
+    {value: 'Other', label: 'Other'},
+    {value: 'Zoho Books Inventory', label: 'Zoho Books Inventory'},
+    {value: 'Portal', label: 'Portal'},
+];
 
-
+export const AvailabilityTypes = [
+    {value: 'none', label: '-None-'},
+    {value: 'Web-Download', label: 'Web-Download'},
+    {value: 'Costsaving', label: 'Costsaving'},
+    {value: 'Shortage', label: 'Shortage'},
+    {value: 'Proactive', label: 'Proactive'},
+    {value: 'Excess', label: 'Excess'},
+    {value: 'not VALID', label: 'not VALID'},
 ];
