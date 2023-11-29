@@ -1,4 +1,5 @@
 import React from 'react';
+import {searchManufacturer} from "../Functions/CommonFunctions";
 
 
 export const PurchaseOrdersTypeOption = [
@@ -360,4 +361,58 @@ export const RFQDealStages = [
     {value: 'Open', label: 'Open'},
     {value: 'Lost', label: 'Lost'},
     {value: 'Won', label: 'Won'},
+];
+
+export const ProductManufacturer = [
+    {value: 'none', label: '-None-'},
+    {value: 'AltvetPet Inc.', label: 'AltvetPet Inc.'},
+    {value: 'LexPon Inc.', label: 'LexPon Inc.'},
+    {value: 'MetBeat Corp.', label: 'MetBeat Corp.'},
+
+];
+
+export const ProductTypeOptions = [
+    {value: 'none',label: '-None-'},
+    {value: 'goods', label: 'Goods'},
+    { value: 'service', label: 'Service'},
+];
+
+export const ProductLifecylceStatusOptions = [
+    { label: '-None-', value: 'none' },
+    { label: 'Production', value: 'Production' },
+    { label: 'Phase out', value: 'Phase out' },
+    { label: 'EOL', value: 'EOL' },
+    { label: 'Unknown', value: 'Unknown' },
+];
+
+export const ProductPackageOptions = [
+    { label: '-None-', value: 'none' },
+    { label: 'SMD', value: 'SMD' },
+    { label: 'THT', value: 'THT' },
+    { label: 'Peripheral', value: 'Peripheral' },
+    { label: 'Other', value: 'Other' },
+];
+
+export const ProductUsageUnitOptions = [
+    { label: 'PCS', value: 'PCS' },
+];
+
+export const ProductDuplicatedStatusOptions = [
+    { label: '-None-', value: 'none' },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
+        value: 'Must be deleted'
+    },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
+        value: 'Must be merged'
+    },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
+        value: 'Must be renamed'
+    },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
+        value: 'Delete confirmed'
+    },
 ];

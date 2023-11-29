@@ -7,22 +7,16 @@ import {
 
     searchOwners,
     searchRFQ,
-    searchManufacturer, displayImage
+    displayImage
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
-
+import {ProductManufacturer, ProductTypeOptions} from "../../../../components/Options/SelectOptions";
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.productForm);
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-
-    const productTypeOptions = [
-        { label: '-None-', value: 'none' },
-        { label: 'Goods', value: 'goods' },
-        { label: 'Service', value: 'service' },
-    ];
 
 
     const fields = {
@@ -56,14 +50,13 @@ const ProductInformationSection = () => {
                 />
             ),
             'Manufacturer': (
-                <AsyncSelect
-                    defaultOptions={true}
+                <Select
                     isMulti={false}
                     required
                     id="manufacturer_id"
                     placeholder="Type at least 2 characters to search..."
                     name="manufacturer_id"
-                    loadOptions={searchManufacturer}
+                    options={ProductManufacturer}
                     onChange={({ value }: any) => {
                         handleChangeField('manufacturer_id', value)
                     }}
@@ -210,14 +203,14 @@ const ProductInformationSection = () => {
 
             'Product Type': (
                 <Select
-                    options={productTypeOptions}
+                    options={ProductTypeOptions}
                     name="product_type"
                     id="product_type"
                     onChange={({ value }: any) => {
                         handleChangeField('product_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={productTypeOptions.find((title) => title.value == formState.product_type)}
+                    defaultValue={ProductTypeOptions.find((title) => title.value == formState.product_type)}
                 />
             ),
 
