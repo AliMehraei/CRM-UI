@@ -9,9 +9,9 @@ import {
     Currencies,
     searchAccounts,
     searchOwners,
-    Stages,
     searchContacts, searchSalesOrder
 } from "../../../../components/Functions/CommonFunctions";
+import {InvoiceDealStages} from "../../../../components/Options/SelectOptions";
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
@@ -47,16 +47,6 @@ const InvoiceInformationSection = () => {
         });
         dispatch(updateFormData(formDataUpdate));
     }
-
-
-    const Statuses = [
-        {value: 'erzeugt', label: 'Erzeugt'},
-        {value: 'genehmigt', label: 'Genehmigt'},
-        {value: 'geliefert', label: 'Geliefert'},
-        {value: 'abgesagt', label: 'Abgesagt'},
-
-
-    ];
 
 
     const fields = {
@@ -161,7 +151,7 @@ const InvoiceInformationSection = () => {
                 name="deal_stage"
                 id="deal_stage"
                 placeholder=""
-                options={Stages}
+                options={InvoiceDealStages}
                 onChange={({value}: any) => {
                     handleChangeField('deal_stage', value)
                 }}

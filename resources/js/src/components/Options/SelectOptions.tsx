@@ -455,3 +455,25 @@ export const ExcessTypes = [
     { value: "Consignment", label: "Consignment" },
     { value: "Closed", label: "Closed" },
 ];
+
+export const InvoiceDealStages = [
+    { value: 'none', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'No Feedback', label: 'No Feedback' },
+    { value: 'Negotiation Price', label: 'Negotiation Price' },
+    { value: 'Negotiation Conditions', label: 'Negotiation Conditions' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Lost', label: 'Lost' },
+    { value: 'Won', label: 'Won' },
+];
+
+
+export const InvoiceStatuses = [
+    { value: 'none', label: '-None-' },
+    {value: 'draft', label: 'draft'},
+    {value: 'send', label: 'send'},
+    {value: 'overdue', label: 'overdue'},
+    {value: 'paid', label: 'paid'},
+    {value: 'void', label: 'void'},
+
+];
