@@ -4,19 +4,13 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { Currencies, handleUploadFile, searchAccounts, searchOwners } from "../../../../components/Functions/CommonFunctions";
 import { useDispatch } from "react-redux";
 import { updateFormData } from "../../../../store/excessFormSlice";
+import {ExcessTypes} from "../../../../components/Options/SelectOptions";
 
 const StatusSection = () => {
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({ [field]: value }));
     };
-    const ExcessTypes = [
-        { value: "none", label: "-None-" },
-        { value: "line_bid", label: "Line Bid" },
-        { value: "package_bid", label: "Package Bid" },
-        { value: "consignment", label: "Consignment" },
-        { value: "closed", label: "Closed" },
-    ]
 
     const fields = {
         'Status': {

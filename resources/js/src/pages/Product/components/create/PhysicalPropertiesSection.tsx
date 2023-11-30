@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-
+import {ProductPackageOptions} from "../../../../components/Options/SelectOptions";
 const PhysicalPropertiesSection = () => {
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
@@ -11,22 +11,11 @@ const PhysicalPropertiesSection = () => {
     };
 
 
-    const packageOptions = [
-        { label: '-None-', value: 'none' },
-        { label: 'SMD', value: 'smd' },
-        { label: 'THT', value: 'tht' },
-        { label: 'Peripheral', value: 'peripheral' },
-        { label: 'Other', value: 'other' },
-    ];
-
-
-
-
     const fields = {
         'Product Information': {
             'Package': (
                 <Select
-                options={packageOptions}
+                options={ProductPackageOptions}
                 name="package"
                 id="package"
                 onChange={({value}: any) => {

@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
+import {ProductPackageOptions} from "../../../../components/Options/SelectOptions";
 
 const PhysicalPropertiesSection = () => {
     const dispatch = useDispatch();
@@ -12,28 +13,18 @@ const PhysicalPropertiesSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-
-    const packageOptions = [
-        {label: '-None-', value: 'none'},
-        {label: 'SMD', value: 'smd'},
-        {label: 'THT', value: 'tht'},
-        {label: 'Peripheral', value: 'peripheral'},
-        {label: 'Other', value: 'other'},
-    ];
-
-
     const fields = {
         'Physical Properties': {
             'Package': (
                 <Select
-                    options={packageOptions}
+                    options={ProductPackageOptions}
                     name="package"
                     id="package"
                     onChange={({value}: any) => {
                         handleChangeField('package', value)
                     }}
                     className="flex-1"
-                    defaultValue={packageOptions.find((title) => title.value == formState.package)}
+                    defaultValue={ProductPackageOptions.find((title) => title.value == formState.package)}
                 />
             ),
 

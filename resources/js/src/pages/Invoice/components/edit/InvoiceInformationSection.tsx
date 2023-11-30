@@ -8,10 +8,11 @@ import {
     Currencies,
     searchAccounts,
     searchOwners,
-    Stages,
-    searchContacts, searchSalesOrder, displayImage
+    searchContacts, searchSalesOrder, displayImage, handleCopySelect
 } from "../../../../components/Functions/CommonFunctions";
 import api from "../../../../config/api";
+import {InvoiceDealStages, InvoiceStatuses} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const InvoiceInformationSection = () => {
     const dispatch = useDispatch();
@@ -51,16 +52,6 @@ const InvoiceInformationSection = () => {
     }
 
 
-    const Statuses = [
-        {value: 'erzeugt', label: 'Erzeugt'},
-        {value: 'genehmigt', label: 'Genehmigt'},
-        {value: 'geliefert', label: 'Geliefert'},
-        {value: 'abgesagt', label: 'Abgesagt'},
-
-
-    ];
-
-
     const fields = {
         'Invoice Information': {
             'Invoice Owner': <AsyncSelect
@@ -88,6 +79,9 @@ const InvoiceInformationSection = () => {
                                                           <div
                                                               className="text-xs text-gray-500">{formState.owner?.email}</div>
                                                       </div>
+                                                      <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                                          Copy & Select
+                                                      </button>
                                                   </div>
                                               ),
                                           }}/>,
@@ -167,6 +161,9 @@ const InvoiceInformationSection = () => {
                                 <div
                                     className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.account?.account_name}`)}>
+                                Copy & Select
+                            </button>
                         </div>
                     ),
                 }}
@@ -202,6 +199,13 @@ const InvoiceInformationSection = () => {
                         <div key={formState.sales_order?.id} className="flex items-center">
                             <div
                                 className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                            {formState.sales_order ?
+                                (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.sales_order?.subject}`)}>
+                                    Copy & Select
+                                </button>)
+                                : null
+                            }
+
                         </div>
                     ),
                 }}
@@ -218,8 +222,8 @@ const InvoiceInformationSection = () => {
                 name="deal_stage"
                 id="deal_stage"
                 placeholder=""
-                options={Stages}
-                defaultValue={Stages.find((data) => data.value == formState.deal_stage)}
+                options={InvoiceDealStages}
+                defaultValue={InvoiceDealStages.find((data) => data.value == formState.deal_stage)}
 
                 onChange={({value}: any) => {
                     handleChangeField('deal_stage', value)
@@ -238,11 +242,11 @@ const InvoiceInformationSection = () => {
                 name="status"
                 id="status"
                 placeholder=""
-                options={Statuses}
+                options={InvoiceStatuses}
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
                 }}
-                defaultValue={Statuses.find((data) => data.value == formState.status)}
+                defaultValue={InvoiceStatuses.find((data) => data.value == formState.status)}
             />,
             'Contact Name': <AsyncSelect
                     defaultOptions={true}
@@ -258,8 +262,13 @@ const InvoiceInformationSection = () => {
                     value: formState.contact?.id,
                     label: (
                         <div key={formState.contact?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.contact?.first_name} {formState.contact?.last_name}</div>
+                            <div className="text-sm font-bold">{formState.contact?.first_name} {formState.contact?.last_name}</div>
+                            {formState.contact ?
+                                (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.first_name + formState.contact?.last_name}`)}>
+                                    Copy & Select
+                                </button>)
+                                : null
+                            }
                         </div>
                     ),
                 }}

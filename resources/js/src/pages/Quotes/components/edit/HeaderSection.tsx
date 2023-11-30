@@ -11,31 +11,12 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 import Api from "../../../../config/api";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
-
+import {QuoteStages, QuoteChances} from "../../../../components/Options/SelectOptions";
 const HeaderSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
     const dispatch = useDispatch();
     const api_instance = new Api();
 
-    const QuoteChances = [
-        {value: 'none', label: '-None-'},
-        {value: 'high', label: 'High'},
-        {value: 'unknown', label: 'Unknown'},
-        {value: 'low', label: 'Low'},
-
-    ];
-
-    const QuoteStages = [
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
-        {value: 'negotiation_price', label: 'Negotiation Price'},
-        {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'open', label: 'Open'},
-        {value: 'lost', label: 'Lost'},
-        {value: 'won', label: 'Won'},
-
-
-    ];
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };

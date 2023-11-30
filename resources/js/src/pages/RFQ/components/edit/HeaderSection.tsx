@@ -12,7 +12,9 @@ import {searchOwners} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/rfqFormSlice";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
-
+import {
+    RFQSources,RFQTypes,
+    RFQStatuses, RFQDealStages} from "../../../../components/Options/SelectOptions";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -21,48 +23,6 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const RFQSources = [
-        {value: 'none', label: '-None-'},
-        {value: 'email', label: 'Email'},
-        {value: 'telephone', label: 'Telephone'},
-        {value: 'web_portal', label: 'Web portal'},
-        {value: 'history', label: 'History'}
-    ];
-
-
-    const RFQTypes = [
-        {value: 'none', label: '-None-'},
-        {value: 'cost_saving', label: 'Cost Saving'},
-        {value: 'shortage', label: 'Shortage'},
-        {value: 'eol', label: 'EOL'},
-        {value: 'proactive', label: 'Proactive'},
-        {value: 'calculation', label: 'Calculation'},
-    ];
-
-
-    const Statuses = [
-        {value: 'none', label: '-None-'},
-        {value: 'open', label: 'Open'},
-        {value: 'open_without_routing', label: 'Open without routing'},
-        {value: 'quoted', label: 'Quoted'},
-        {value: 'closed', label: 'Closed'},
-        {value: 'in_review', label: 'In review'},
-    ];
-
-
-    const DealStages = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
-        {value: 'negotiation_price', label: 'Negotiation Price'},
-        {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'open', label: 'Open'},
-        {value: 'lost', label: 'Lost'},
-        {value: 'won', label: 'Won'},
-    ]
-
 
     const fields = {
 
@@ -159,14 +119,14 @@ const HeaderSection = () => {
                                         }}
                                 className="flex-1"/>,
 
-            'Status': <Select name='status' required options={Statuses}
+            'Status': <Select name='status' required options={RFQStatuses}
                               onChange={({value}: any) => {
                                   handleChangeField('status', value)
                               }}
                               defaultValue={
                                   formState.status ?
-                                      Statuses.find((data) => data.value == formState.status) :
-                                      {value: 'open', label: 'Open'}
+                                      RFQStatuses.find((data) => data.value == formState.status) :
+                                      {value: 'Open', label: 'Open'}
                               }
                               className="flex-1"/>,
 
@@ -218,11 +178,11 @@ const HeaderSection = () => {
                     ),
                 }}
                 className="flex-1"/>,
-            'Deal Stage': <Select name="deal_stage" options={DealStages}
+            'Deal Stage': <Select name="deal_stage" options={RFQDealStages}
                                   onChange={({value}: any) => {
                                       handleChangeField('deal_stage', value)
                                   }}
-                                  defaultValue={DealStages.find((data) => data.value == formState.deal_stage)}
+                                  defaultValue={RFQDealStages.find((data) => data.value == formState.deal_stage)}
                                   className="flex-1"/>,
 
             'Customer RFQ File':

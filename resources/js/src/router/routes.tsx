@@ -134,6 +134,9 @@ const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales
 const AdminAnalyticQuote = lazy(() => import('../pages/Analytic/Admin/Quote/Index'));
 const AdminAnalyticInvoice = lazy(() => import('../pages/Analytic/Admin/Invoice/Index'));
 
+const RoleIndex = lazy(() => import('../pages/Role/Index'));
+const EditRole = lazy(() => import('../pages/Role/Edit'));
+
 const routes = [
     // dashboard
     {
@@ -208,7 +211,18 @@ const routes = [
         protected: true,
         requiredPermission: 'import-product'
     },
-
+    {
+        path: '/role/list',
+        element: <RoleIndex/>,
+        protected: true,
+        requiredPermission: 'read-role'
+    },
+    {
+        path: '/role/edit/:id',
+        element: <EditRole/>,
+        protected: true,
+        requiredPermission: 'edit-role'
+    },
     {
         path: '/account/list',
         element: <ListAccount/>,
@@ -231,6 +245,7 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount/>,
         protected: true,
+        requiredPermission: 'edit-account'
     },
     {
         element: <Contracts/>,

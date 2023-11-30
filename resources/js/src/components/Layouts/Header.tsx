@@ -1009,6 +1009,11 @@ const Header = () => {
                                     <NavLink to="/call/list">{t('Call')}</NavLink>
                                 </li>
                             ) : null}
+                            {hasPermission(`read-role`) ? (
+                                <li>
+                                    <NavLink to="/role/list">{t('Role')}</NavLink>
+                                </li>
+                            ) : null}
                         </ul>
                     </li>
 

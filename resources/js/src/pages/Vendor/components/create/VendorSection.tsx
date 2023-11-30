@@ -4,10 +4,16 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {Contract, Currencies, PortalAccess, searchManufacturer} from "../../../../components/Functions/CommonFunctions";
+import {Currencies, PortalAccess, searchManufacturer} from "../../../../components/Functions/CommonFunctions";
 import {searchOwners} from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {
+    VendorApproveStatus,
+    VendorContract,
+    VendorPortalAccess,
+    VendorSource
+} from "../../../../components/Options/SelectOptions";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -38,22 +44,8 @@ const VendorSection = () => {
     };
 
 
-    const ApproveStatus = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'waiting', label: 'Waiting for approval'},
-        {value: 'approval', label: 'Approval'},
-        {value: 'rejected', label: 'Rejected'},
 
-    ];
-    const vendorSource = [
-        {value: 'none', label: '-None-'},
-        {value: 'web', label: 'Web Download'},
-        {value: 'linkedin', label: 'Linkedin'},
-        {value: 'chat', label: 'Chat'},
-        {value: 'messe', label: 'Messe'},
 
-    ];
 
     const fields = {
         'Vendor Information': {
@@ -80,7 +72,7 @@ const VendorSection = () => {
                 name="contract"
                 id="contract"
                 placeholder="Select Contract Type..."
-                options={Contract}
+                options={VendorContract}
                 onChange={(values: any) => {
                     handleChangeField('contract', values.map((v: any) => v.value))
                 }}
@@ -123,7 +115,7 @@ const VendorSection = () => {
             ),
             'Approve status': (
                 <Select
-                    options={ApproveStatus}
+                    options={VendorApproveStatus}
                     name="approved_status"
                     id="approved_status"
                     onChange={({value}: any) => {
@@ -176,7 +168,7 @@ const VendorSection = () => {
             ),
             'Vendor Source': (
                 <Select
-                    options={vendorSource}
+                    options={VendorSource}
                     name="vendor_source"
                     id="vendor_source"
                     onChange={({value}: any) => {
@@ -231,7 +223,7 @@ const VendorSection = () => {
             ),
             'Portal Access': (
                 <Select
-                    options={PortalAccess}
+                    options={VendorPortalAccess}
                     name="portal_access"
                     id="portal_access"
                     onChange={({value}: any) => {
