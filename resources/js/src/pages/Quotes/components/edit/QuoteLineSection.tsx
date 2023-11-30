@@ -3,8 +3,9 @@ import { RequiredComponent } from "../../../../components/FormFields/RequiredCom
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { updateFormData } from "../../../../store/quoteFormSlice";
-import { searchProducts } from "../../../../components/Functions/CommonFunctions";
+import {handleCopySelect, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
 const QuoteLineSection = () => {
     const dispatch = useDispatch();
@@ -26,10 +27,19 @@ const QuoteLineSection = () => {
                     value: formState.product?.id,
                     label: (
                         <div key={formState.product?.id} className="flex items-center">
-                            <div>
-                                <div
-                                    className="text-sm font-bold">{formState.product?.product_name}</div>
-                            </div>
+                            {formState.product ?
+                                (
+                                    <>
+                                        <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.product?.product_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+
+                                ) : null
+
+                            }
+
                         </div>
                     ),
                 }}
