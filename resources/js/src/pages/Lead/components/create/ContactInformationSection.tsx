@@ -3,23 +3,13 @@ import {updateFormData} from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {FirstNameTitles} from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
-
+import {LeadJobDescription} from "../../../../components/Options/SelectOptions";
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
 
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const JobDescription = [
-        {value: 'none', label: '-None-'},
-        {value: 'buyer', label: 'Buyer'},
-        {value: 'operative_buyer', label: 'Operative Buyer'},
-        {value: 'chat', label: 'Chat'},
-        {value: 'messe', label: 'Messe'},
-        {value: 'not_yet_clear', label: 'Not Yet Clear'},
-    ];
 
     const fields = {
         'Contact Information': {
@@ -38,20 +28,20 @@ const ContactInformationSection = () => {
                         required
                         name="first_name"
                         className="form-input flex-1 "
-                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                        onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     />
                 </div>
             ),
             'Job Description': (
                 <Select
-                    options={JobDescription}
+                    options={LeadJobDescription}
                     name="job_description"
                     id="job_description"
                     onChange={({value}: any) => {
                         handleChangeField('job_description', value)
                     }}
                     className="flex-1"
-                    defaultValue={{value: 'not_yet_clear', label: 'Not Yet Clear'}}
+                    defaultValue={{value: 'Not Yet Clear', label: 'Not Yet Clear'}}
                 />
             ),
             'Phone': (
@@ -59,7 +49,7 @@ const ContactInformationSection = () => {
                     id="phone"
                     name="phone"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -68,13 +58,13 @@ const ContactInformationSection = () => {
                     id="mobile"
                     name="mobile"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
             'fax': (<input
                 id="fax"
                 name="fax"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
         },
@@ -84,13 +74,13 @@ const ContactInformationSection = () => {
                 required
                 name="last_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Email': (<input
                 id="email"
                 name="email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
 
@@ -99,14 +89,14 @@ const ContactInformationSection = () => {
                     id="linkedin_contact"
                     name="linkedin_contact"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
             'Company LinkedIn':
                 <input
                     id="linkedin_contact"
                     name="linkedin_company"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
         }

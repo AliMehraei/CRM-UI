@@ -4,6 +4,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { searchOwners } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/contactFormSlice";
+import {ContactActivities, ContactDoubleCheckStatuses} from "../../../../components/Options/SelectOptions";
 
 const FieldsWithSecondaryPrioritySection = () => {
     const dispatch = useDispatch();
@@ -13,21 +14,6 @@ const FieldsWithSecondaryPrioritySection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-    const activities = [
-        { value: "none", label: "-None-" },
-        { value: "no_activity", label: "No Activity" },
-        { value: "more_1_year", label: "> 1 year Activity" },
-        { value: "more_1_month", label: "> 1 month Activity" },
-        { value: "regular_activity", label: "Regular Activity" },
-
-    ];
-
-    const doubleCheckStatuses = [
-        { value: "none", label: "-None-" },
-        { value: "back_to_lead", label: "Back to lead" },
-        { value: "converted_to_lead", label: "Converted to lead" },
-        { value: "must_be_deleted", label: "Must be deleted" },
-    ];
     const fields = {
         'Fields with Secondary Priority': {
             'Approved By': <AsyncSelect
@@ -66,7 +52,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 type="checkbox"
                 name="book_contact"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.book_contact}
 
             />,
@@ -78,8 +64,8 @@ const FieldsWithSecondaryPrioritySection = () => {
                         handleChangeField('contact_activity', value)
                     }}
                     className="flex-1"
-                    options={activities}
-                    defaultValue={activities.find((title) => title.value == formState.contact_activity)}
+                    options={ContactActivities}
+                    defaultValue={ContactActivities.find((title) => title.value == formState.contact_activity)}
 
                 />,
 
@@ -87,7 +73,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 id="title"
                 name="title"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.title}
 
             />,
@@ -95,7 +81,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 id="private_email"
                 name="private_email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.private_email}
 
             />,
@@ -103,7 +89,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 id="secondary_email"
                 name="secondary_email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.secondary_email}
 
             />,
@@ -111,7 +97,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 id="portal_operation_tag"
                 name="portal_operation_tag"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.portal_operation_tag}
 
             />,
@@ -123,14 +109,14 @@ const FieldsWithSecondaryPrioritySection = () => {
                 type="checkbox"
                 name="email_opt_out"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.email_opt_out}
             />,
             'lead_reference': <input
                 id="lead_reference"
                 name="lead_reference"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.lead_reference}
 
             />,
@@ -141,8 +127,8 @@ const FieldsWithSecondaryPrioritySection = () => {
                         handleChangeField('double_check_status', value)
                     }}
                     className="flex-1"
-                    options={doubleCheckStatuses}
-                    defaultValue={doubleCheckStatuses.find((title) => title.value == formState.double_check_status)}
+                    options={ContactDoubleCheckStatuses}
+                    defaultValue={ContactDoubleCheckStatuses.find((title) => title.value == formState.double_check_status)}
 
                 />,
 
@@ -151,7 +137,7 @@ const FieldsWithSecondaryPrioritySection = () => {
                 type="checkbox"
                 name="d_check"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.d_check}
 
             />,

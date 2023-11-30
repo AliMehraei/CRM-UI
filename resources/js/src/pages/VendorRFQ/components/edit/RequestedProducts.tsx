@@ -8,6 +8,7 @@ import Select from "react-select";
 
 const RequestedProductsSection = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
+    const [items, setItems] = useState<any>([]);
     const dispatch = useDispatch();
 
     const handleChangeField = (field: string, value: any, id: string) => {
@@ -19,15 +20,12 @@ const RequestedProductsSection = () => {
             [field]: value,
         };
 
-        const updatedItems = {
-            ...items,
-            [itemIndex]: updatedItem,
-        };
+        const updatedItems = [...items]; // Use the spread operator to create a new array
+        updatedItems[itemIndex] = updatedItem;
 
-        setItems(Object.values(updatedItems))
+        setItems(updatedItems);
         dispatch(updateFormData({requested_products: updatedItems}));
     };
-    const [items, setItems] = useState<any>([]);
 
     useEffect(() => {
         setItems(Object.values(formState.requested_products));
@@ -112,7 +110,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                 <input name="rfq_owner_name" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.rfq_owner_name}/>
                                             </td>
                                             <td>
@@ -142,7 +140,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                 <input name="alt_product" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.alt_product}/>
                                             </td>
                                             <td>
@@ -172,7 +170,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                 <input name="quantity" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.quantity}/>
                                             </td>
                                             <td>
@@ -191,7 +189,7 @@ const RequestedProductsSection = () => {
                                             <td>
                                                     <textarea name="comment" className="form-input min-w-[200px]"
                                                               defaultValue={item.comment}
-                                                              onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     />
                                             </td>
                                             <td>

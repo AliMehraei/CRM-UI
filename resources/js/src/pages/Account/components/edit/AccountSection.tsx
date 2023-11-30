@@ -6,6 +6,7 @@ import {
     AccountTypes, Contract, Currencies, displayImage, getImageSource,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
+import {AccountRating, AccountActivities} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
@@ -20,24 +21,6 @@ const AccountSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const activities = [
-        {value: "none", label: "-None-"},
-        {value: "no_activity", label: "No Activity"},
-        {value: "more_1_year", label: "> 1 year Activity"},
-        {value: "more_1_month", label: "> 1 month Activity"},
-        {value: "regular_activity", label: "Regular Activity"},
-
-    ];
-
-    const rating = [
-        {value: "none", label: "-None-"},
-        {value: "rfq", label: "RFQ"},
-        {value: "quote", label: "Quote"},
-        {value: "so", label: "SO"},
-        {value: "no_action", label: "No Action"},
-        {value: "inactive", label: "Inactive"},
-
-    ]
     const fields = {
         'Account': {
             'Account Image': (<ImageUploadComponent formState={formState}
@@ -53,7 +36,7 @@ const AccountSection = () => {
                     required
                     name="account_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.account_name}
 
                 />
@@ -101,7 +84,7 @@ const AccountSection = () => {
                 type="checkbox"
                 name="business_account"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by_id" type="text"
@@ -163,7 +146,6 @@ const AccountSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('pm_user_id', value)
                 }}
-                required
                 defaultValue={{
                     value: formState.pm_user?.id,
                     label: (
@@ -186,11 +168,11 @@ const AccountSection = () => {
                 }}
                 className="flex-1"
             />,
-            'Account Activity': <Select id="account_activity" name="account_activity" options={activities}
+            'Account Activity': <Select id="account_activity" name="account_activity" options={AccountActivities}
                                         onChange={({value}: any) => {
                                             handleChangeField('account_activity', value)
                                         }}
-                                        defaultValue={activities.find((data) => data.value == formState.account_activity)}
+                                        defaultValue={AccountActivities.find((data) => data.value == formState.account_activity)}
 
                                         className="flex-1"/>,
             'TAM':
@@ -198,7 +180,7 @@ const AccountSection = () => {
                     id="tam"
                     name="tam"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.tam}
                 />,
 
@@ -210,11 +192,11 @@ const AccountSection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_reference}
 
                 />,
-            'Account Rating': <Select id="rating" name="rating" options={rating}
+            'Account Rating': <Select id="rating" name="rating" options={AccountRating}
                                       onChange={({value}: any) => {
                                           handleChangeField('rating', value)
                                       }}

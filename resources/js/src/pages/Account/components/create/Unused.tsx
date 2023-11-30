@@ -15,7 +15,7 @@ const Unused = () => {
                     id="purchasing_volume_current"
                     name="purchasing_volume_current"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
         },
         '': {
@@ -24,7 +24,7 @@ const Unused = () => {
                     id="annual_revenue"
                     name="annual_revenue"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
         }

@@ -145,7 +145,7 @@ const InvoiceItemSection = () => {
                                             </td>
                                             <td>
                                                 <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={false} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
@@ -168,12 +168,12 @@ const InvoiceItemSection = () => {
                                                 <textarea name="description" className="form-textarea mt-4 flex-1"
                                                           placeholder="Enter Description"
                                                           defaultValue={item.description}
-                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}></textarea>
+                                                          onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}></textarea>
                                             </td>
                                             <td>
                                                 <input name="quantity" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.quantity}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
 
                                             </td>
@@ -185,14 +185,14 @@ const InvoiceItemSection = () => {
                                                     name="list_price"
                                                     min={0}
                                                     defaultValue={item.list_price}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="amount" type="number"
                                                        className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
                                                        value={item.amount} disabled
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
@@ -200,7 +200,7 @@ const InvoiceItemSection = () => {
                                                     <input name="discount" type="number"
                                                            className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
                                                            value={item.discount} disabled
-                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                           onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     />
                                                     <PopoverComponent item={item}
                                                                       handleChangeField={handleChangeField}
@@ -213,7 +213,7 @@ const InvoiceItemSection = () => {
                                                     <input name="tax" type="number"
                                                            className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
                                                            value={item.tax} disabled
-                                                           onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                           onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     />
                                                     <PopoverComponent item={item}
                                                                       handleChangeField={handleChangeField}
@@ -224,7 +224,7 @@ const InvoiceItemSection = () => {
                                                 <input name="total" type="number"
                                                        className="form-input min-w-[200px]  form-input disabled:pointer-events-none bg-[#eee] dark:bg-[#1b2e4b]  cursor-text"
                                                        value={item.total} disabled
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
 
@@ -293,7 +293,7 @@ const InvoiceItemSection = () => {
                                 <div className="flex items-center justify-between mt-4">
                                     <div>Adjustment(€)</div>
                                     <input id="adjustment" name="adjustment" type="text" value={summary.adjustment}
-                                           onChange={(e) => handleChangeSummary(e.target.name, e.target.value)}
+                                           onChange={(e:any) => handleChangeSummary(e.target.name, e.target.value)}
                                            className="w-64 form-input "
                                     />
                                 </div>

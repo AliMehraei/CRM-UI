@@ -29,7 +29,7 @@ const ManufacturerInformationSection = () => {
                     required
                     name="name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     value={formState.name}
                 />
             ),
@@ -38,7 +38,7 @@ const ManufacturerInformationSection = () => {
                     id="octo_api_id"
                     name="octo_api_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     value={formState.octo_api_id}
                 />
             ),
@@ -48,7 +48,7 @@ const ManufacturerInformationSection = () => {
                     name="alias_names"
                     rows={3}
                     className="form-textarea flex-1"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     value={formState.alias_names}
 
                 ></textarea>
@@ -61,7 +61,7 @@ const ManufacturerInformationSection = () => {
                     type="checkbox"
                     name="is_active"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.is_active}
                 />
             ),

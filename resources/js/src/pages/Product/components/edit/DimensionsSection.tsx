@@ -14,18 +14,18 @@ const DimensionsSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    
+
 
     const fields = {
         'Dimensions': {
-           
-           
+
+
             'Length': (
                 <input
                 id="length"
                 name="length"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.length}
                 />
             ),
@@ -34,7 +34,7 @@ const DimensionsSection = () => {
                id="depth"
                 name="depth"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.depth}
                 />
             ),
@@ -43,7 +43,7 @@ const DimensionsSection = () => {
                id="thickness"
                 name="thickness"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.thickness}
                 />
             ),
@@ -54,7 +54,7 @@ const DimensionsSection = () => {
                id="width"
                 name="width"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.width}
                 />
             ),
@@ -63,11 +63,11 @@ const DimensionsSection = () => {
                id="height"
                 name="height"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.height}
                 />
             ),
-            
+
         }
     }
     return (

@@ -16,7 +16,7 @@ const HeaderSection = () => {
                 name="language"
                 defaultValue={formState.language}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Locale': <input
@@ -24,7 +24,7 @@ const HeaderSection = () => {
                 name="country_locale"
                 defaultValue={formState.country_locale}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Time Zone': <input
@@ -32,7 +32,7 @@ const HeaderSection = () => {
                 name="time_zone"
                 defaultValue={formState.time_zone}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Time Format': <input
@@ -40,7 +40,7 @@ const HeaderSection = () => {
                 name="time_format"
                 defaultValue={formState.time_format}
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Date Format': <input
@@ -48,7 +48,7 @@ const HeaderSection = () => {
                 name="date_format"
                 className="form-input flex-1 "
                 defaultValue={formState.date_format}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
         },
@@ -58,7 +58,7 @@ const HeaderSection = () => {
                 name="decimal"
                 className="form-input flex-1 "
                 defaultValue={formState.decimal}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Sort Order Preference': <input
@@ -66,7 +66,7 @@ const HeaderSection = () => {
                 name="sort_order_preference"
                 className="form-input flex-1 "
                 defaultValue={formState.sort_order_preference}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Name Format': <input
@@ -74,7 +74,7 @@ const HeaderSection = () => {
                 name="name_format"
                 className="form-input flex-1 "
                 defaultValue={formState.name_format}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
         }

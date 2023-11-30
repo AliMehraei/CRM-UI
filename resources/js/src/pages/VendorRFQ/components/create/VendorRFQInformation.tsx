@@ -32,7 +32,8 @@ const VendorRFQInformation = () => {
                 id="vendor_rfq_name"
                 name="vendor_rfq_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                required
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Vendor Name': (
                 <AsyncSelect
@@ -41,6 +42,7 @@ const VendorRFQInformation = () => {
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
                     name="vendor_id"
+                    required
                     loadOptions={searchVendor}
                     onChange={({value}: any) => {
                         handleChangeField('vendor_id', value)
@@ -53,6 +55,7 @@ const VendorRFQInformation = () => {
                 options={StatusVendorRfqOptions}
                 name="status"
                 id="status"
+                required
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
                 }}
@@ -65,7 +68,7 @@ const VendorRFQInformation = () => {
                     id="email"
                     name="email"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -134,7 +137,7 @@ const VendorRFQInformation = () => {
                     type="checkbox"
                     name="email_opt_out"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Exchange Rate': (<input
@@ -142,7 +145,7 @@ const VendorRFQInformation = () => {
                 name="exchange_rate"
                 className="form-input flex-1 "
                 disabled
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={1}
             />),
         }

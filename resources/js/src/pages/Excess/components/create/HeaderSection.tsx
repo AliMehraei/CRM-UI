@@ -57,7 +57,7 @@ const HeaderSection = () => {
                 className="flex-1"/>,
             'Email': <input id="email" type="text" name="email"
                             className="form-input flex-1 "
-                            onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                            onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
             'Currency': <Select options={Currencies}
                                 onChange={({value}: any) => {
                                     handleChangeField('currency', value)
@@ -65,7 +65,7 @@ const HeaderSection = () => {
                                 className="flex-1"/>,
             'Portal Excess Id': <input id="portal_excess_id" type="text" name="portal_excess_id"
                                        className="form-input flex-1 "
-                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
         },
         '': {
@@ -94,13 +94,13 @@ const HeaderSection = () => {
                                      className="flex-1"/>,
             'Secondary Email': <input id="secondary_email" type="text" name="secondary_email"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
             'Email Opt Out': <input
                 id="email_opt_out"
                 type="checkbox"
                 name="email_opt_out"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
             />,
             'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"

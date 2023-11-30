@@ -95,7 +95,7 @@ const ReminderSection = () => {
                     type="checkbox"
                     name="reminder"
                     className="form-checkbox h-5 w-5 text-blue-600"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             </div>
 
@@ -164,7 +164,7 @@ const ReminderSection = () => {
                 max={maxDaysBeforeDue} // Maximum value allowed is the calculated maxDaysBeforeDue
                 className="p-2 border rounded-md form-input flex-1"
                 value={daysBeforeDue}
-                onChange={(e) => {
+                onChange={(e:any) => {
                     const inputValue = e.target.value;
                     // Ensure the input value is within the allowed range
                     if (inputValue >= 1 && inputValue <= maxDaysBeforeDue) {

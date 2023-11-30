@@ -42,7 +42,7 @@ const DevelopmentSection = () => {
                 id="imported_qualification_status"
                 name="imported_qualification_status"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.imported_qualification_status}
             />),
 
@@ -87,7 +87,7 @@ const DevelopmentSection = () => {
                 type="checkbox"
                 name="from_panel_site"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.from_panel_site}
             />,
 

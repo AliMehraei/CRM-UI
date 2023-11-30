@@ -126,13 +126,13 @@ const HeaderSection = () => {
             'Customer RFQ No': <input id="customer_rfq_no" name="customer_rfq_no"
                                       className="form-input flex-1 "
                                       defaultValue={formState.customer_rfq_no}
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'Project Name / Application': <input id="project_name" name="project_name"
                                                  className="form-input flex-1 "
                                                  defaultValue={formState.project_name}
 
-                                                 onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                                 onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
             'RFQ Source': <Select name="rfq_source" required options={RFQSources}
                                   onChange={({value}: any) => {
@@ -185,7 +185,7 @@ const HeaderSection = () => {
                                     disabled/>,
 
             'Portal BOM id': <input id="portal_bom_id" name="portal_bom_id"
-                                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                     defaultValue={formState.portal_bom_id}
                                     className="form-input flex-1 "/>,
         },

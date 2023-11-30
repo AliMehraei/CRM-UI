@@ -1,11 +1,8 @@
-import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import Flatpickr from "react-flatpickr";
-import { ApproveChangesOption } from "../../../../components/Functions/CommonFunctions";
-
+import {SalesOrderApproveChanges} from "../../../../components/Options/SelectOptions";
 const TechnicalInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.salesOrderForm);
@@ -13,21 +10,21 @@ const TechnicalInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
-    
+
+
 
 
     const fields = {
         'Technical information': {
-           
-           
+
+
             'Waiting for approval': (
                 <input
                 id="waiting_approval"
                 type="checkbox"
                 name="waiting_approval"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Approval': (
@@ -36,17 +33,17 @@ const TechnicalInformationSection = () => {
                 type="checkbox"
                 name="approval"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Approve Changes': (
-                <Select 
-                options={ApproveChangesOption} 
-                name="approval_changes" 
-                id="approval_changes"       
+                <Select
+                options={SalesOrderApproveChanges}
+                name="approval_changes"
+                id="approval_changes"
                 onChange={({value}: any) => {
                     handleChangeField('approval_changes', value)
-                }} 
+                }}
                 className="flex-1"
                 />
             ),
@@ -56,35 +53,35 @@ const TechnicalInformationSection = () => {
                 type="checkbox"
                 name="tech"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
-            
-            
+
+
         },
         '': {
-            
-            
+
+
             'Technical info': (
-                <textarea 
-                id="tech_info" 
-                rows={2} 
+                <textarea
+                id="tech_info"
+                rows={2}
                 name="tech_info"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Subform': (
-                <textarea 
-                id="subform" 
-                rows={2} 
+                <textarea
+                id="subform"
+                rows={2}
                 name="subform"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
-            
-            
+
+
         }
     }
     return (

@@ -846,7 +846,7 @@ const Todolist = () => {
                                         className="form-input peer ltr:!pr-10 rtl:!pl-10"
                                         placeholder="Search Task..."
                                         value={searchTask}
-                                        onChange={(e) => setSearchTask(e.target.value)}
+                                        onChange={(e:any) => setSearchTask(e.target.value)}
                                         onKeyUp={() => searchTasks()}
                                     />
                                     <div className="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
@@ -1277,11 +1277,11 @@ const Todolist = () => {
                                             <form>
                                                 <div className="mb-5">
                                                     <label htmlFor="title">Title</label>
-                                                    <input id="title" type="text" placeholder="Enter Task Title" className="form-input" value={params.title} onChange={(e) => changeValue(e)} />
+                                                    <input id="title" type="text" placeholder="Enter Task Title" className="form-input" value={params.title} onChange={(e:any) => changeValue(e)} />
                                                 </div>
                                                 <div className="mb-5">
                                                     <label htmlFor="assignee">Assignee</label>
-                                                    <select id="assignee" className="form-select" value={params.assignee} onChange={(e) => changeValue(e)}>
+                                                    <select id="assignee" className="form-select" value={params.assignee} onChange={(e:any) => changeValue(e)}>
                                                         <option value="">Select Assignee</option>
                                                         <option value="John Smith">John Smith</option>
                                                         <option value="Kia Vega">Kia Vega</option>
@@ -1293,7 +1293,7 @@ const Todolist = () => {
                                                 <div className="mb-5 flex justify-between gap-4">
                                                     <div className="flex-1">
                                                         <label htmlFor="tag">Tag</label>
-                                                        <select id="tag" className="form-select" value={params.tag} onChange={(e) => changeValue(e)}>
+                                                        <select id="tag" className="form-select" value={params.tag} onChange={(e:any) => changeValue(e)}>
                                                             <option value="">Select Tag</option>
                                                             <option value="team">Team</option>
                                                             <option value="update">Update</option>
@@ -1301,7 +1301,7 @@ const Todolist = () => {
                                                     </div>
                                                     <div className="flex-1">
                                                         <label htmlFor="priority">Priority</label>
-                                                        <select id="priority" className="form-select" value={params.priority} onChange={(e) => changeValue(e)}>
+                                                        <select id="priority" className="form-select" value={params.priority} onChange={(e:any) => changeValue(e)}>
                                                             <option value="">Select Priority</option>
                                                             <option value="low">Low</option>
                                                             <option value="medium">Medium</option>

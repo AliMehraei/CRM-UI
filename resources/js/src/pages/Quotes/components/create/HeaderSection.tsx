@@ -75,7 +75,6 @@ const HeaderSection = () => {
                 defaultOptions={true}
                 isMulti={false}
                 id="account_id"
-                required
                 name="account_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}
@@ -103,12 +102,12 @@ const HeaderSection = () => {
 
             'Customer RFQ No': <input id="customer_rfq_no" type="text" name="customer_rfq_no"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Subject': <input required id="subject" name="subject" type="text"
                               className="form-input flex-1 "
-                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Converted by': <AsyncSelect
                 defaultOptions={true} isMulti={false} id="converted_by_id" name="converted_by_id"
@@ -141,9 +140,10 @@ const HeaderSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('owner_id', value)
                 }}
+
                 className="flex-1"/>,
             'PM User': <AsyncSelect
-                defaultOptions={true} required isMulti={false} id="pm_user_id" name="pm_user_id"
+                defaultOptions={true}  isMulti={false} id="pm_user_id" name="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchOwners}
                 onChange={({value}: any) => {

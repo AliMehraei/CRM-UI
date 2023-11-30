@@ -1,4 +1,5 @@
 import _axios from './axios'
+import Details from "../pages/Analytic/Admin/Sales/components/Details";
 
 let URL: any;
 let API_URL_PRODUCT: any;
@@ -16,25 +17,25 @@ class api {
     }
 
     async filterOption(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/filter_option`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/filter_option`, data);
     }
 
 
     async searchCategoryProduct(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data);
     }
 
     async getUserPermissions(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data);
     }
 
     async searchProduct(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/product/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/product/search`, data);
     }
 
 
     async fetchDataProduct(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/product/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/product/list`, data);
     }
 
     async deleteSingleProduct(data: any = null) {
@@ -46,22 +47,22 @@ class api {
     }
 
     async updateSingleProduct(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/product/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/product/${data.id}`, data);
     }
 
     async createSingleProduct(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/product`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/product`, data);
     }
 
     async loadAdminUsers(data: any, url: any = null) {
         if (!url) {
             url = `${API_URL_USER}/user/admin-users/search`;
         }
-        return await _axios.post(`${url}`, data, {headers: Headers as any});
+        return await _axios.post(`${url}`, data);
     }
 
     async loadUserById(id: any) {
-        return await _axios.post(`${API_URL_USER}/user/admin-users/find-one`, id, {headers: Headers as any});
+        return await _axios.post(`${API_URL_USER}/user/admin-users/find-one`, id);
     }
 
     async loadCategory() {
@@ -72,23 +73,23 @@ class api {
         if (apiMethod == 'GET')
             return await _axios.get(`${API_URL_PRODUCT}${url}`, data);
         else
-            return await _axios.post(`${API_URL_PRODUCT}${url}`, {query: data}, {headers: Headers as any});
+            return await _axios.post(`${API_URL_PRODUCT}${url}`, {query: data});
     }
 
     async login(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/login`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/login`, data);
     }
 
     async register(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/register`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/register`, data);
     }
 
     async logout(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/logout`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/logout`, data);
     }
 
     async getSystemSettingData(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/setting`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/setting`, data);
     }
 
     async changeLocale(locale: any) {
@@ -130,12 +131,12 @@ class api {
 
     //vendor
     async searchVendor(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/vendor/search`, data);
     }
 
 
     async fetchDataVendor(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/vendor/list`, data);
     }
 
     async deleteSingleVendor(id: any = null) {
@@ -147,50 +148,50 @@ class api {
     }
 
     async updateSingleVendor(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/vendor/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/vendor/${data.id}`, data);
     }
 
     async createSingleVendor(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/vendor`, data);
     }
 
 
     async searchManufacturer(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/search`, data);
     }
 
     async fetchDataManufacturer(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/list`, data);
     }
 
     async deleteSingleManufacturer(id: any = null) {
-        return await _axios.delete(`${API_URL_PRODUCT}/manufacturer/${id}`, {headers: Headers as any});
+        return await _axios.delete(`${API_URL_PRODUCT}/manufacturer/${id}`);
     }
 
     async fetchSingleManufacturer(id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/${id}`, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/${id}`);
     }
 
     async updateSingleManufacturer(data: any = null) {
 
-        return await _axios.put(`${API_URL_PRODUCT}/manufacturer/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/manufacturer/${data.id}`, data);
     }
 
     async createSingleManufacturer(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/manufacturer`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer`, data);
     }
 
     //RFQ
     async searchRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/rfq/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/search`, data);
     }
 
     async convertRfqToQuote(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/rfq/convert/quote/${data.id}`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/convert/quote/${data.id}`, data);
     }
 
     async fetchDataRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/rfq/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/list`, data);
     }
 
     async deleteSingleRfq(id: any = null) {
@@ -202,21 +203,21 @@ class api {
     }
 
     async updateSingleRfq(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/rfq/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/rfq/${data.id}`, data);
     }
 
     async createSingleRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/rfq`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/rfq`, data);
     }
 
     //invoice
     async searchInvoice(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/invoice/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/search`, data);
     }
 
 
     async fetchDataInvoice(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/invoice/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/list`, data);
     }
 
     async deleteSingleInvoice(id: any = null) {
@@ -228,21 +229,21 @@ class api {
     }
 
     async updateSingleInvoice(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/invoice/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/invoice/${data.id}`, data);
     }
 
     async createSingleInvoice(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/invoice`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/invoice`, data);
     }
 
     //contact
     async searchContact(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/contact/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/contact/search`, data);
     }
 
 
     async fetchDataContact(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/contact/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/contact/list`, data);
     }
 
     async deleteSingleContact(id: any = null) {
@@ -254,20 +255,20 @@ class api {
     }
 
     async updateSingleContact(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/contact/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/contact/${data.id}`, data);
     }
 
     async createSingleContact(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/contact`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/contact`, data);
     }
 
     //account
     async searchAccount(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/account/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/account/search`, data);
     }
 
     async fetchDataAccount(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/account/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/account/list`, data);
     }
 
     async deleteSingleAccount(id: any = null) {
@@ -279,29 +280,34 @@ class api {
     }
 
     async updateSingleAccount(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/account/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/account/${data.id}`, data);
     }
 
     async createSingleAccount(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/account`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/account`, data);
     }
 
     async checkAccountExists(data: object) {
-        return await _axios.post(`${API_URL_PRODUCT}/account/check-exists`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/account/check-exists`, data);
     }
 
 
     //lead
     async convertLead(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/lead/convert/${data.id}`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/lead/convert/${data.id}`, data);
     }
 
+    async convertLeadValidation(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/lead/convert/validation/${data.id}`, data);
+    }
+
+
     async searchLead(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data);
     }
 
     async fetchDataLead(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data);
     }
 
     async deleteSingleLead(id: any = null) {
@@ -313,21 +319,21 @@ class api {
     }
 
     async updateSingleLead(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/lead/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/lead/${data.id}`, data);
     }
 
     async createSingleLead(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/lead`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/lead`, data);
     }
 
     //PurchaseOrder
     async searchPurchaseOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/search`, data);
     }
 
 
     async fetchDataPurchaseOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/list`, data);
     }
 
     async deleteSinglePurchaseOrder(id: any = null) {
@@ -339,24 +345,24 @@ class api {
     }
 
     async updateSinglePurchaseOrder(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/purchase_order/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/purchase_order/${data.id}`, data);
     }
 
     async createSinglePurchaseOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/purchase_order`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order`, data);
     }
 
     //Quotes
     async searchQuote(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/quote/search`, data);
     }
 
     async convertQuoteToSalesOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote/convert/sales_order/${data.id}`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/quote/convert/sales_order/${data.id}`, data);
     }
 
     async fetchDataQuote(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data);
     }
 
     async deleteSingleQuote(id: any = null) {
@@ -368,21 +374,21 @@ class api {
     }
 
     async updateSingleQuote(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/quote/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/quote/${data.id}`, data);
     }
 
     async createSingleQuote(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/quote`, data);
     }
 
     //deals
     async searchDeal(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data);
     }
 
 
     async fetchDataDeal(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/deal/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/deal/list`, data);
     }
 
     async deleteSingleDeal(id: any = null) {
@@ -394,21 +400,21 @@ class api {
     }
 
     async updateSingleDeal(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/deal/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/deal/${data.id}`, data);
     }
 
     async createSingleDeal(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/deal`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/deal`, data);
     }
 
     //availability
     async searchAvailability(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/availability/search`, data);
     }
 
 
     async fetchDataAvailability(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/availability/list`, data);
     }
 
     async deleteSingleAvailability(id: any = null) {
@@ -420,21 +426,21 @@ class api {
     }
 
     async updateSingleAvailability(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/availability/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/availability/${data.id}`, data);
     }
 
     async createSingleAvailability(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/availability`, data);
     }
 
     //excess
     async searchExcess(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/excess/search`, data);
     }
 
 
     async fetchDataExcess(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data);
     }
 
     async deleteSingleExcess(id: any = null) {
@@ -446,27 +452,27 @@ class api {
     }
 
     async updateSingleExcess(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/excess/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/excess/${data.id}`, data);
     }
 
     async createSingleExcess(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/excess`, data);
     }
 
     //sales_order
     async searchSalesOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/sales_order/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/search`, data);
     }
 
     // async convertSalesOrderToPurchaseOrder(data: any = null) {
-    //     return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/purchase_order/${data.id}`, data, {headers: Headers as any});
+    //     return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/purchase_order/${data.id}`, data);
     // }
     async convertSalesOrderToInvoice(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/invoice/${data.id}`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/invoice/${data.id}`, data);
     }
 
     async fetchDataSalesOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data);
     }
 
     async deleteSingleSalesOrder(id: any = null) {
@@ -478,21 +484,21 @@ class api {
     }
 
     async updateSingleSalesOrder(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/sales_order/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/sales_order/${data.id}`, data);
     }
 
     async createSingleSalesOrder(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/sales_order`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order`, data);
     }
 
     //task
     async searchTask(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/task/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/task/search`, data);
     }
 
 
     async fetchDataTask(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/task/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/task/list`, data);
     }
 
     async deleteSingleTask(id: any = null) {
@@ -504,21 +510,21 @@ class api {
     }
 
     async updateSingleTask(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/task/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/task/${data.id}`, data);
     }
 
     async createSingleTask(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/task`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/task`, data);
     }
 
     //vendor_rfq
     async searchVendorRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/search`, data);
     }
 
 
     async fetchDataVendorRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/list`, data);
     }
 
     async deleteSingleVendorRfq(id: any = null) {
@@ -530,22 +536,22 @@ class api {
     }
 
     async updateSingleVendorRfq(data: any = null) {
-        return await _axios.put(`${API_URL_PRODUCT}/vendor_rfq/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/vendor_rfq/${data.id}`, data);
     }
 
     async createSingleVendorRfq(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq`, data);
     }
 
 
     //User
     async searchUser(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/user/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/user/search`, data);
     }
 
 
     async fetchDataUser(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/user/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/user/list`, data);
     }
 
     async deleteSingleUser(id: any = null) {
@@ -557,17 +563,17 @@ class api {
     }
 
     async updateSingleUser(data: any) {
-        return await _axios.put(`${API_URL_PRODUCT}/user/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/user/${data.id}`, data);
     }
 
     async createSingleUser(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/user`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/user`, data);
     }
 
     //role
 
     async searchRoles(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/roles/all`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/roles/all`, data);
     }
 
     //layout
@@ -643,20 +649,20 @@ class api {
 
     //setting
     async searchSetting(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/setting/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/setting/search`, data);
     }
 
 
     async fetchDataSetting(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/setting/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/setting/list`, data);
     }
 
     async searchCall(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/call/search`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/call/search`, data);
     }
 
     async fetchDataCall(data: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/call/list`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/call/list`, data);
     }
 
     async deleteSingleCall(id: any = null) {
@@ -668,13 +674,129 @@ class api {
     }
 
     async updateSingleCall(data: any) {
-        return await _axios.put(`${API_URL_PRODUCT}/call/${data.id}`, data, {headers: Headers as any});
+        return await _axios.put(`${API_URL_PRODUCT}/call/${data.id}`, data);
     }
 
     async createSingleCall(data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/call`, data, {headers: Headers as any});
+        return await _axios.post(`${API_URL_PRODUCT}/call`, data);
     }
 
+    async globalSearch(text: string) {
+        const data = {
+            search: text
+        }
+        return await _axios.post(`${API_URL_PRODUCT}/global-search`, data);
+    }
+
+    async globalSearchFull(data: any) {
+        // data = {
+        //     search: text,
+        //     page: int,
+        //     filters: array
+        // }
+        return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data);
+    }
+
+    async getRelationModel(groupName: any, id: any) {
+        return await _axios.get(`${API_URL_PRODUCT}/relation-model/${groupName}/${id}`);
+
+    }
+
+    async fetchSuggestedAvailability(product_id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`,{product_id:product_id});
+    }
+    async fetchSuggestedExcess(product_id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`,{product_id:product_id});
+    }
+
+    //start dashboard
+    async dashboardData() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/dashboard-data`);
+    }
+
+    async salePersonDashboardData() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/sale-person-dashboard-data`);
+    }
+
+
+    async dashboardOpenQuotes() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/open-quotes`);
+    }
+
+    async dashboardBookingRevenue() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-revenue`);
+    }
+
+    async dashboardBillingYtdSales() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/billing-ytd-sales`);
+    }
+
+    async dashboardBookingGp() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-gp`);
+    }
+
+    async dashboardMtdBilling() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/mtd-billing`);
+    }
+
+    async dashboardBookingSalesYtd() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/booking-sales-ytd`);
+    }
+
+    async dashboardYtdBilling() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/ytd-billing`);
+    }
+
+    async dashboardRfq() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/rfq`);
+    }
+
+    async dashboardDealsByStage() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/deals-by-stage`);
+    }
+
+    async dashboardCallAmount() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/call-amount`);
+    }
+
+    //start Report
+    async reportSalesChartYTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/chart-ytd`, data);
+    }
+
+    async reportSalesChartMTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/chart-mtd`, data);
+    }
+
+    async reportSalesDetails(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/sales/details`, data);
+    }
+
+
+    async reportQuoteChartYTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/chart-ytd`, data);
+    }
+
+    async reportQuoteChartMTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/chart-mtd`, data);
+    }
+
+    async reportQuoteDetails(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/quote/details`, data);
+    }
+
+
+    async reportInvoiceChartYTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/chart-ytd`, data);
+    }
+
+    async reportInvoiceChartMTD(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/chart-mtd`, data);
+    }
+
+    async reportInvoiceDetails(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
+    }
 }
 
 export default api

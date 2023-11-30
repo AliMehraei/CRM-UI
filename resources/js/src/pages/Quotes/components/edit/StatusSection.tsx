@@ -28,13 +28,13 @@ const StatusSection = () => {
                                    className="flex-1"/>,
             'Proactive Offer': <input id="proactive_offer" type="checkbox" name="proactive_offer"
                                       className="form-checkbox"
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                                       checked={formState.proactive_offer}
             />,
         },
         '': {
             'Rating': <input id="rating" name="rating" className="form-input flex-1 "
-                             onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                             onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                              defaultValue={formState.rating}
             />,
         }

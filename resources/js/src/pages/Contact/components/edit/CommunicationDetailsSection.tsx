@@ -17,13 +17,13 @@ const AddressInformationSection = () => {
                                      className="form-textarea flex-1"
                                      placeholder=""
                                      defaultValue={formState.description}
-                                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                     onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             ></textarea>,
             'LinkedIn Communication': <textarea id="linkedin_communication" rows={3} name="linkedin_communication"
                                                 className="form-textarea flex-1"
                                                 placeholder=""
                                                 defaultValue={formState.linkedin_communication}
-                                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
+                                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>,
         },
     }
     return (

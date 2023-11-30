@@ -84,7 +84,7 @@ const HeaderSection = () => {
                                                  <div key={formState.account?.id} className="flex items-center">
                                                      {formState.account ? (
                                                          <img
-                                                             src={displayImage(formState.account.image)}
+                                                             src={displayImage(formState.account.image_data)}
                                                              alt="avatar"
                                                              className="w-8 h-8 mr-2 rounded-full"
                                                          />
@@ -112,7 +112,7 @@ const HeaderSection = () => {
                                                  <div key={formState.contact?.id} className="flex items-center">
                                                      {formState.contact ? (
                                                          <img
-                                                             src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
+                                                             src={displayImage(formState.contact.image_data)}
                                                              alt="avatar"
                                                              className="w-8 h-8 mr-2 rounded-full"
                                                          />
@@ -149,13 +149,13 @@ const HeaderSection = () => {
 
             'Customer RFQ No': <input id="customer_rfq_no" type="text" name="customer_rfq_no"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                                       defaultValue={formState.customer_rfq_no}
             />,
 
             'Subject': <input required id="subject" name="subject" type="text"
                               className="form-input flex-1 "
-                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                               defaultValue={formState.subject}
             />,
             'Converted by': <AsyncSelect
@@ -166,15 +166,20 @@ const HeaderSection = () => {
                                          onChange={({value}: any) => {
                                              handleChangeField('converted_by_id', value)
                                          }}
-                                         defaultValue={{
+                                         defaultValue={
+                                             formState.converted_by ?
+                                            {
                                              value: formState.converted_by?.id,
                                              label: (
                                                  <div key={formState.converted_by?.id} className="flex items-center">
                                                      <div
-                                                         className="text-sm font-bold">{formState.converted_by?.first_name + " " + formState.converted_by?.last_name}</div>
+                                                         className="text-sm font-bold">{formState.converted_by?.first_name ?? '' + " " + formState.converted_by?.last_name ?? ''}</div>
                                                  </div>
                                              ),
-                                         }}
+                                         } : {
+                                                 value: null,
+                                                 lable: null
+                                                 }}
             />,
             'Quote Chance': <Select name='quote_chance' required options={QuoteChances}
                                     className="flex-1"
@@ -222,7 +227,7 @@ const HeaderSection = () => {
                                         className="flex-1"/>,
 
             'PM User': <AsyncSelect
-                    defaultOptions={true} required isMulti={false} id="pm_user_id" name="pm_user_id"
+                    defaultOptions={true}  isMulti={false} id="pm_user_id" name="pm_user_id"
                                     placeholder="Type at least 2 characters to search..."
                                     loadOptions={searchOwners}
                                     onChange={({value}: any) => {

@@ -74,27 +74,27 @@ const AccountItemSection = () => {
                                             <td>
                                                 <input name="q1" type="text" className="form-input w-32"
                                                        defaultValue={item.q1}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="q2" type="text" className="form-input w-32"
                                                        defaultValue={item.q2}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <input name="q3" type="text" className="form-input w-32"
                                                        defaultValue={item.q3}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
 
                                                 />
                                             </td>
                                             <td>
                                                 <input name="q4" type="text" className="form-input w-32"
                                                        defaultValue={item.q4}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
 
                                             </td>
