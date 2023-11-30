@@ -579,6 +579,29 @@ export const DealStageOption = [
     {value: 'Analyse erforderlich', label: 'Analyse erforderlich'},
     {value: 'Qualifikation', label: 'Qualifikation'},
 
+];
 
+export const CallTypes: any = [
+    {value: 'Ausgehend', label: 'Ausgehend'},
+    {value: 'Eingehend', label: 'Eingehend'},
+    {value: 'Verpasst', label: 'Verpasst'},
+];
 
+export const CallPurposes: any = [
+    {value: 'none', label: 'None'},
+    {value: 'Möglicher Kunde', label: 'Möglicher Kunde'},
+    {value: 'Administrativ', label: 'Administrativ'},
+    {value: 'Verhandlung', label: 'Verhandlung'},
+    {value: 'Demo', label: 'Demo'},
+    {value: 'Projekt', label: 'Projekt'},
+];
+
+export const CallResult: any = [
+    {value: 'none', label: 'None'},
+    {value: 'Interessiert', label: 'Interessiert'},
+    {value: 'Nicht interessiert', label: 'Nicht interessiert'},
+    {value: 'Keine Antwort/besetzt', label: 'Keine Antwort/besetzt'},
+    {value: 'Wünscht mehr Information', label: 'Wünscht mehr Information'},
+    {value: 'Wünscht Rückruf', label: 'Wünscht Rückruf'},
+    {value: 'Ungültige Zahl', label: 'Ungültige Zahl'},
 ];

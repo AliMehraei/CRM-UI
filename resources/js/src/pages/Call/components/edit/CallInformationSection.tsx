@@ -12,6 +12,7 @@ import {
     searchVendor, searchVendorRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import {useState} from "react";
+import {CallTypes} from "../../../../components/Options/SelectOptions";
 
 const CallableList = [
     {value: "App\\Models\\Lead", label: "Lead"},
@@ -39,12 +40,6 @@ const RelatableList = [
     {value: "App\\Models\\VendorRfq", label: "Vendor Rfq", api: searchVendorRFQ, labelField: 'vendor_rfq_name'},
 ];
 
-
-const CallTypes: any = [
-    {value: 'ausgehend', label: 'Ausgehend'},
-    {value: 'eingehend', label: 'Eingehend'},
-    {value: 'verpasst', label: 'Verpasst'},
-];
 const CallInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.callForm);
