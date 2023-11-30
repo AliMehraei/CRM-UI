@@ -245,7 +245,7 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount/>,
         protected: true,
-        requiredPermission: 'edit-account'
+        requiredPermission: 'update-account'
     },
     {
         element: <Contracts/>,

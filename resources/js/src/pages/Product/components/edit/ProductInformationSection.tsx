@@ -7,10 +7,11 @@ import {
 
     searchOwners,
     searchRFQ,
-    displayImage
+    displayImage, handleCopySelect
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import {ProductManufacturer, ProductTypeOptions} from "../../../../components/Options/SelectOptions";
+import React from "react";
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.productForm);
@@ -92,9 +93,9 @@ const ProductInformationSection = () => {
                             value: rfq.id,
                             label: (
                                 <div key={rfq.id} className="flex items-center">
-                                    <div>
+                                    <>
                                         <div className="text-sm font-bold">{rfq.rfq_name}</div>
-                                    </div>
+                                    </>
                                 </div>
                             ),
                         }))
@@ -129,17 +130,23 @@ const ProductInformationSection = () => {
                         label: (
                             <div key={formState.approved_by?.id} className="flex items-center">
                                 {formState.approved_by ? (
+                                    <>
                                 <img
                                     src={formState.approved_by.image ?? '/assets/images/user-profile.jpeg'}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                                ) : null}
+
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.approved_by?.first_name + " " + formState.approved_by?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.approved_by?.email}</div>
                                 </div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.approved_by?.first_name + " " + formState.approved_by?.last_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+                                    ) : null}
                             </div>
                         ),
                     }}
@@ -175,17 +182,23 @@ const ProductInformationSection = () => {
                         label: (
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
+                                    <>
                                 <img
                                     src={displayImage(formState.owner.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                                ) : null}
+
                                 <div>
                                     <div
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+                                    ) : null}
                             </div>
                         ),
                     }}
