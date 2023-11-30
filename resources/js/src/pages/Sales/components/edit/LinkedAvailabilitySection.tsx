@@ -4,8 +4,10 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
+    handleCopySelect,
     searchAvailability
 } from "../../../../components/Functions/CommonFunctions";
+import React from "react";
 
 const LinkedAvailabilitySection = () => {
     const dispatch = useDispatch();
@@ -45,8 +47,20 @@ const LinkedAvailabilitySection = () => {
                         value: formState.availability?.id,
                         label: (
                             <div key={formState.availability?.id} className="flex items-center">
+                                {
+                                    formState.availability ?
+                                        (
+                                            <>
+                                                <div className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.availability?.availability_name}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            </>
+                                        ) : null
 
-                                <div className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                }
+
+
 
                             </div>
                         ),
