@@ -19,10 +19,10 @@ import {
     searchSalesOrder,
     searchPurchaseOrder,
     searchInvoice,
-    searchVendorRFQ
+    searchVendorRFQ, displayImage, handleCopySelect
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { an } from "@fullcalendar/core/internal-common";
 
 const TypeSection = () => {
@@ -71,6 +71,9 @@ const TypeSection = () => {
                                 <div className="text-sm font-bold">{`${formState.userable.first_name} ${formState.userable.last_name}`}</div>
                                 <div className="text-xs text-gray-500">{formState.userable.email}</div>
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.userable.first_name} ${formState.userable.last_name}`)}>
+                                Copy & Select
+                            </button>
                         </>
                     ) : (
                         <div className="text-sm font-bold"></div>
@@ -86,11 +89,19 @@ const TypeSection = () => {
             value: formState.moduleable ? formState.moduleable.id : null,
             label: (
                 <div key={formState.moduleable?.id} className="flex items-center">
-                    <div>
+                    {formState.moduleable ?
+
+                        (<>
                         <div className="text-sm font-bold">
-                        {formState.moduleable ? formState.moduleable[labelMField] : null}
+                         {formState.moduleable[labelMField]}
                         </div>
-                    </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.moduleable[labelMField] }`)}>
+                                Copy & Select
+                            </button>
+                        </>)
+
+                        : null}
+
                 </div>
             ),
 
@@ -115,7 +126,6 @@ const TypeSection = () => {
                         id="userable_type"
                         name="userable_type"
                         defaultValue={userableType.find((data) => data.value == formState.userable_type)}
-
                         onChange={({ value }: any) => {
                             setSelectedType(value);
                             handleChangeField('userable_type', value);
