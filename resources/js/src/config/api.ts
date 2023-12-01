@@ -797,6 +797,9 @@ class api {
     async reportInvoiceDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }
+    async reportVendorList(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
+    }
 }
 
 export default api
