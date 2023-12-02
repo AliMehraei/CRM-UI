@@ -16,40 +16,50 @@ const List = () => {
     useEffect(() => {
         dispatch(setPageTitle('Vendor Performance Analytics'));
     }, [dispatch]);
-    const [dateStartFilter, setDateStartFilter] = useState('');
-    const [dateEndFilter, setDateEndFilter] = useState('');
+    const [dateRfqStartFilter, setDateRfqStartFilter] = useState('');
+    const [dateRfqEndFilter, setDateRfqEndFilter] = useState('');
 
-    const [statusFilter, setStatusFilter] = useState([]);
-    const [vendorFilter, setVendorFilter] = useState([]);
+    const [dateVendorRfqStartFilter, setDateVendorRfqStartFilter] = useState('');
+    const [dateVendorRfqEndFilter, setDateVendorRfqEndFilter] = useState('');
 
-    
+    const [dateAvailabilityStartFilter, setDateAvailabilityStartFilter] = useState('');
+    const [dateAvailabilityEndFilter, setDateAvailabilityEndFilter] = useState('');
+
+    const [vendorNameFilter, setVendorNameFilter] = useState([]);
+    const [manufacturerNameFilter, setManufacturerNameFilter] = useState([]);
+
+
 
 
     return (
         <div className="panel  border-white-light dark:border-[#1b2e4b]">
 
-            
+
             {(!hasPermission(`admin-vendor-list-analytics`)) ? (
                 null
             ) : (
                 <>
                     <Filter
-                        setDateStartFilter={setDateStartFilter}
-                        setDateEndFilter={setDateEndFilter}
-                        setStatusFilter={setStatusFilter}
-                        setVendorFilter={setVendorFilter}
-                        dateStartFilter={dateStartFilter}
-                        dateEndFilter={dateEndFilter}
-                        statusFilter={statusFilter}
-                        vendorFilter={vendorFilter}
+                        setDateRfqStartFilter={setDateRfqStartFilter}
+                        setDateRfqEndFilter={setDateRfqEndFilter}
+                        setDateVendorRfqStartFilter={setDateVendorRfqStartFilter}
+                        setDateVendorRfqEndFilter={setDateVendorRfqEndFilter}
+                        setDateAvailabilityStartFilter={setDateAvailabilityStartFilter}
+                        setDateAvailabilityEndFilter={setDateAvailabilityEndFilter}
+                        setVendorNameFilter={setVendorNameFilter}
+                        setManufacturerNameFilter={setManufacturerNameFilter}
                     />
-                   
+
 
                     <ListVendor
-                        dateStartFilter={dateStartFilter}
-                        dateEndFilter={dateEndFilter}
-                        statusFilter={statusFilter}
-                        vendorFilter={vendorFilter}
+                        dateRfqStartFilter={dateRfqStartFilter}
+                        dateRfqEndFilter={dateRfqEndFilter}
+                        dateVendorRfqStartFilter={dateVendorRfqStartFilter}
+                        dateVendorRfqEndFilter={dateVendorRfqEndFilter}
+                        dateAvailabilityStartFilter={dateAvailabilityStartFilter}
+                        dateAvailabilityEndFilter={dateAvailabilityEndFilter}
+                        vendorNameFilter={vendorNameFilter}
+                        manufacturerNameFilter={manufacturerNameFilter}
                     />
 
                 </>

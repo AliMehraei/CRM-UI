@@ -6,7 +6,16 @@ import GenerateTableList from "../../../../../components/FilterFields/GenerateTa
 import {useUserStatus} from "../../../../../config/authCheck";
 import { NavLink } from 'react-router-dom';
 
-const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:any) => {
+const ListVendor = ({
+                        dateRfqStartFilter,
+                        dateRfqEndFilter,
+                        dateVendorRfqStartFilter,
+                        dateVendorRfqEndFilter,
+                        dateAvailabilityStartFilter,
+                        dateAvailabilityEndFilter,
+                        vendorNameFilter,
+                        manufacturerNameFilter
+                    }:any) => {
     const { hasPermission } = useUserStatus();
     // const [loading, setLoading] = useState(true);
     const api_instance = new Api();
@@ -16,12 +25,12 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
         {
             accessor: 'id',
             sortable: true,
-            render: ({ id }) => <div className="font-semibold">{id}</div>,
+            render: ({ id } : any) => <div className="font-semibold">{id}</div>,
         },
         {
             accessor: 'vendor Name',
             sortable: true,
-            render: ({ vendor_name, id }) => (
+            render: ({ vendor_name, id } : any) => (
                 hasPermission('update-vendor') ? (
                     <NavLink to={`/vendor/edit/${id}`}>
                         <div className="text-primary underline hover:no-underline font-semibold">{`#${vendor_name}`}</div>
@@ -35,7 +44,7 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
             accessor: 'Manufacturer Name',
             title: 'Manufacturer Name',
             sortable: true,
-            render: ({ manufacturer_name }) => (
+            render: ({ manufacturer_name } : any) => (
                 <div className="font-semibold">{`${manufacturer_name}`}</div>
             ),
         },
@@ -43,7 +52,7 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
             accessor: 'sent_rfqs_count',
             title: 'Sent RFQs count',
             sortable: false,
-            render: ({ sent_rfqs_count }) => (
+            render: ({ sent_rfqs_count } : any) => (
                 <div className="font-semibold">
                     {sent_rfqs_count}
                 </div>
@@ -53,7 +62,7 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
             accessor: 'sent_v_rfqs_count',
             title: 'Sent VRFQs Count',
             sortable: true,
-            render: ({ sent_v_rfqs_count }) => {
+            render: ({ sent_v_rfqs_count } : any) => {
 
                 return (
                     <div className="font-semibold">
@@ -66,7 +75,7 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
             accessor: 'received_avas_count',
             title: 'Received AVAs Count',
             sortable: true,
-            render: ({ received_avas_count }) => (
+            render: ({ received_avas_count} : any) => (
                 <div className="font-semibold">
                     {received_avas_count}
                 </div>
@@ -117,10 +126,15 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
                                     tableColumns={columns}
                                     frontRoute="reportVendorList"
                                     filterParam={{
-                                        status:statusFilter,
-                                        date_start:dateStartFilter ?? '',
-                                        date_end:dateEndFilter ?? '',
-                                        vendor_name:vendorFilter}
+                                        manufacturer_name:manufacturerNameFilter,
+                                        date_start_vrfq:dateVendorRfqStartFilter ?? '',
+                                        date_end_vrfq:dateVendorRfqEndFilter ?? '',
+                                        date_start_rfq:dateRfqStartFilter ?? '',
+                                        date_end_rfq:dateRfqEndFilter ?? '',
+                                        date_start_ava:dateAvailabilityStartFilter ?? '',
+                                        date_end_ava:dateAvailabilityEndFilter ?? '',
+                                        vendor_name:vendorNameFilter
+                                }
                                 }
                                  />
 
