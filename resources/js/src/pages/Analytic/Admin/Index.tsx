@@ -124,6 +124,24 @@ const List = () => {
                         </button>
                     </div>
                 </div> */}
+                {(!hasPermission(`admin-vendor-list-analytics`)) ? (
+                    null
+                ) : (
+                    <div className="panel h-full overflow-hidden grid grid-cols-1 content-between"
+                         style={{ background: 'linear-gradient(0deg, #00d2ff -227%, #3a7bd5)' }}>
+                        <div className="flex items-start justify-between text-white-light mb-16 z-[7]">
+                            <h5 className="font-semibold text-lg">Vendor performance</h5>
+
+                            <div className="relative text-xl whitespace-nowrap">
+                                <span className="table text-[#d3d3d3] bg-[#3a7bd5] rounded p-1 text-xs mt-1 ltr:ml-auto rtl:mr-auto">Vendor performance</span>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between z-10">
+
+                            <Link type='button' className="shadow-[0_0_2px_0_#bfc9d4] rounded p-1 text-white-light hover:bg-[#0000cd] z-10" to={`/admin-analytics/vendor`}>Management</Link>
+                        </div>
+                    </div>
+                )}
         </div>
     )
 }

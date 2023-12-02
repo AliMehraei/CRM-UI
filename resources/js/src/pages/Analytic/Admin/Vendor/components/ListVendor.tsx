@@ -3,11 +3,14 @@ import {useEffect, useState} from "react";
 import LoadingSpinner from "../../../../../components/LoadingSpinner";
 import Api from "../../../../../config/api";
 import GenerateTableList from "../../../../../components/FilterFields/GenerateTableList";
+import {useUserStatus} from "../../../../../config/authCheck";
+import { NavLink } from 'react-router-dom';
 
 const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:any) => {
-    const [loading, setLoading] = useState(true);
+    const { hasPermission } = useUserStatus();
+    // const [loading, setLoading] = useState(true);
     const api_instance = new Api();
-    
+
     const [filterChange, setFilterChange] = useState(false);
     const columns: any = [
         {
@@ -51,7 +54,7 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
             title: 'Sent VRFQs Count',
             sortable: true,
             render: ({ sent_v_rfqs_count }) => {
-               
+
                 return (
                     <div className="font-semibold">
                         {sent_v_rfqs_count}
@@ -73,33 +76,32 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
 
     ];
 
-    const fetchData = async () => {
-        try {
-            const response = await api_instance.reportVendorList({
-                status:statusFilter,
-                date_start:dateStartFilter ?? '',
-                date_end:dateEndFilter ?? '',
-                vendor_name:vendorFilter
-            });
-            if (response.status === 200) {
-                const responseData = response.data.data;
-               
-                setChartData(responseData)
-                setLoading(false);
-            } else {
-                console.error('Failed to fetch Vendor List:', response);
-            }
-        } catch (error) {
-            console.error('An error occurred while fetching Vendor List: ', error);
-        }
-    };
-    useEffect(() => {
-        fetchData();
-
-        if(statusFilter.length>0 || vendorFilter.length>0 || dateStartFilter!=''){
-            setFilterChange(true);
-        }
-    }, [statusFilter,vendorFilter,dateStartFilter]);
+    // const fetchData = async () => {
+    //     try {
+    //         const response = await api_instance.reportVendorList({
+    //             status:statusFilter,
+    //             date_start:dateStartFilter ?? '',
+    //             date_end:dateEndFilter ?? '',
+    //             vendor_name:vendorFilter
+    //         });
+    //         if (response.status === 200) {
+    //             const responseData = response.data.data;
+    //
+    //             setLoading(false);
+    //         } else {
+    //             console.error('Failed to fetch Vendor List:', response);
+    //         }
+    //     } catch (error) {
+    //         console.error('An error occurred while fetching Vendor List: ', error);
+    //     }
+    // };
+    // useEffect(() => {
+    //     fetchData();
+    //
+    //     if(statusFilter.length>0 || vendorFilter.length>0 || dateStartFilter!=''){
+    //         setFilterChange(true);
+    //     }
+    // }, [statusFilter,vendorFilter,dateStartFilter]);
 
     return (
         <div className="pt-5 flex-1">
@@ -109,15 +111,19 @@ const ListVendor = ({dateStartFilter,dateEndFilter,statusFilter,vendorFilter}:an
                         <h5 className="font-semibold text-lg">List Vendor</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
-                            {loading ? (
-                                <LoadingSpinner/>
-                            ) : (
-                                <GenerateTableList 
+
+                                <GenerateTableList
                                     permissionName="admin-vendor-list-analytics"
-                                    tableColumns={columns} 
-                                    frontRoute="reportVendorList" 
+                                    tableColumns={columns}
+                                    frontRoute="reportVendorList"
+                                    filterParam={{
+                                        status:statusFilter,
+                                        date_start:dateStartFilter ?? '',
+                                        date_end:dateEndFilter ?? '',
+                                        vendor_name:vendorFilter}
+                                }
                                  />
-                            )}
+
                         </div>
                     </div>
                 </div>

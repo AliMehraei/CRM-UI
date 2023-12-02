@@ -14,7 +14,7 @@ import { resetFilterSlice } from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
 
-const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) => {
+const GenerateTableList = ({ permissionName, tableColumns, frontRoute , filterParam }: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -52,9 +52,9 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) =>
         });
     };
 
-  
 
-   
+
+
 
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
@@ -75,10 +75,11 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) =>
     const fetchModelData = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
         const { columnAccessor: sortField = '', direction: sortDirection = '' }: any = sortStatus;
-        const filterParam = encodeURIComponent(JSON.stringify(filters));
+        // const filterParam = encodeURIComponent(JSON.stringify(filters));
+        console.log("fetch start");
         try {
 
-            findApiToCall(`fetchData${upFirstLetter(permissionName)}`).call(api_instance, {
+            await api_instance[frontRoute]({
                 page: page,
                 pageSize: pageSize,
                 sortField: sortField,
@@ -101,7 +102,7 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) =>
     };
 
 
-   
+
 
     const handleSortChange = (sortStatus: any) => {
         const { columnAccessor, direction = 'asc' } = sortStatus;
@@ -129,8 +130,9 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) =>
         fetchModelData(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus]);
 
-    
+
     useEffect(() => {
+        console.log("check1")
         if (!isLoading && !hasPermission(`${permissionName}`) ) {
             setLoading(true);
         }
@@ -138,10 +140,10 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) =>
             setLoading(false);
     }, [isLoading, isLoggedIn, hasPermission]);
 
-  
 
 
-    
+
+
 
     return (
         (!hasPermission(`${(permissionName)}`) || loading) ? (
@@ -151,9 +153,9 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute }: any) =>
                 <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
 
                     <div className={`${permissionName}-table`}>
-                        
+
                         <div className="grid grid-cols-7 gap-6 mb-6">
-                            
+
                             <div className="panel col-span-6">
                                 <div className="datatables pagination-padding">
                                     {loading ? (
