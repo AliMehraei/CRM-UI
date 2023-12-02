@@ -1,7 +1,3 @@
-import ReactApexChart from "react-apexcharts";
-import {useEffect, useState} from "react";
-import LoadingSpinner from "../../../../../components/LoadingSpinner";
-import Api from "../../../../../config/api";
 import GenerateTableList from "../../../../../components/FilterFields/GenerateTableList";
 import {useUserStatus} from "../../../../../config/authCheck";
 import { NavLink } from 'react-router-dom';
@@ -17,10 +13,7 @@ const ListVendor = ({
                         manufacturerNameFilter
                     }:any) => {
     const { hasPermission } = useUserStatus();
-    // const [loading, setLoading] = useState(true);
-    const api_instance = new Api();
 
-    const [filterChange, setFilterChange] = useState(false);
     const columns: any = [
         {
             accessor: 'id',
@@ -85,32 +78,7 @@ const ListVendor = ({
 
     ];
 
-    // const fetchData = async () => {
-    //     try {
-    //         const response = await api_instance.reportVendorList({
-    //             status:statusFilter,
-    //             date_start:dateStartFilter ?? '',
-    //             date_end:dateEndFilter ?? '',
-    //             vendor_name:vendorFilter
-    //         });
-    //         if (response.status === 200) {
-    //             const responseData = response.data.data;
-    //
-    //             setLoading(false);
-    //         } else {
-    //             console.error('Failed to fetch Vendor List:', response);
-    //         }
-    //     } catch (error) {
-    //         console.error('An error occurred while fetching Vendor List: ', error);
-    //     }
-    // };
-    // useEffect(() => {
-    //     fetchData();
-    //
-    //     if(statusFilter.length>0 || vendorFilter.length>0 || dateStartFilter!=''){
-    //         setFilterChange(true);
-    //     }
-    // }, [statusFilter,vendorFilter,dateStartFilter]);
+   
 
     return (
         <div className="pt-5 flex-1">

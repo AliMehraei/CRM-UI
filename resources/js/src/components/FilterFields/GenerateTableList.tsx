@@ -19,7 +19,7 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute , filterPa
     const filterState = useSelector((state: any) => state.filters);
 
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
@@ -75,8 +75,6 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute , filterPa
     const fetchModelData = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
         const { columnAccessor: sortField = '', direction: sortDirection = '' }: any = sortStatus;
-        // const filterParam = encodeURIComponent(JSON.stringify(filters));
-        console.log("fetch start");
         try {
 
             await api_instance[frontRoute]({
@@ -131,14 +129,7 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute , filterPa
     }, [page, pageSize, sortStatus]);
 
 
-    useEffect(() => {
-        console.log("check1")
-        if (!isLoading && !hasPermission(`${permissionName}`) ) {
-            setLoading(true);
-        }
-        else
-            setLoading(false);
-    }, [isLoading, isLoggedIn, hasPermission]);
+   
 
 
 
@@ -154,9 +145,9 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute , filterPa
 
                     <div className={`${permissionName}-table`}>
 
-                        <div className="grid grid-cols-7 gap-6 mb-6">
+                        <div className="grid grid-cols-1 gap-6 mb-6">
 
-                            <div className="panel col-span-6">
+                            <div className="panel col-span-12">
                                 <div className="datatables pagination-padding">
                                     {loading ? (
                                         <div className='flex justify-center'>
