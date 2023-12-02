@@ -5,11 +5,12 @@ import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
+    searchManufacturer,
     searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
-import {ProductManufacturer, ProductTypeOptions} from "../../../../components/Options/SelectOptions";
+import {ProductTypeOptions} from "../../../../components/Options/SelectOptions";
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -51,13 +52,13 @@ const ProductInformationSection = () => {
                 />
             ),
             'Manufacturer': (
-                <Select
+                <AsyncSelect
                     isMulti={false}
                     required
                     id="manufacturer_id"
                     placeholder="Type at least 2 characters to search..."
                     name="manufacturer_id"
-                    options={ProductManufacturer}
+                    loadOptions={searchManufacturer}
                     onChange={({value}: any) => {
                         handleChangeField('manufacturer_id', value)
                     }}

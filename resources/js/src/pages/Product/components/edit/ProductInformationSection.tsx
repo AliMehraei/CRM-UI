@@ -7,10 +7,10 @@ import {
 
     searchOwners,
     searchRFQ,
-    displayImage, handleCopySelect
+    displayImage, handleCopySelect, searchManufacturer
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
-import {ProductManufacturer, ProductTypeOptions} from "../../../../components/Options/SelectOptions";
+import {ProductTypeOptions} from "../../../../components/Options/SelectOptions";
 import React from "react";
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
@@ -51,13 +51,13 @@ const ProductInformationSection = () => {
                 />
             ),
             'Manufacturer': (
-                <Select
+                <AsyncSelect
                     isMulti={false}
                     required
                     id="manufacturer_id"
                     placeholder="Type at least 2 characters to search..."
                     name="manufacturer_id"
-                    options={ProductManufacturer}
+                    loadOptions={searchManufacturer}
                     onChange={({ value }: any) => {
                         handleChangeField('manufacturer_id', value)
                     }}
@@ -67,10 +67,20 @@ const ProductInformationSection = () => {
                         label: (
                             <div key={formState.manufacturer_id}
                                 className="flex items-center">
-                                <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.manufacturer?.name}</div>
-                                </div>
+                                {formState.manufacturer ?
+                                    (
+                                        <>
+                                            <div className="text-sm font-bold">{formState.manufacturer?.name}</div>
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.manufacturer?.name}`)}>
+                                                Copy & Select
+                                            </button>
+                                        </>
+
+
+                                    ) : null
+
+                                }
+
                             </div>
                         )
                     }}
