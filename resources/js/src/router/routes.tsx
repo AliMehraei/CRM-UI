@@ -133,6 +133,7 @@ const AdminAnalytic = lazy(() => import('../pages/Analytic/Admin/Index'));
 const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales/Index'));
 const AdminAnalyticQuote = lazy(() => import('../pages/Analytic/Admin/Quote/Index'));
 const AdminAnalyticInvoice = lazy(() => import('../pages/Analytic/Admin/Invoice/Index'));
+const AdminAnalyticVendor = lazy(() => import('../pages/Analytic/Admin/Vendor/Index'));
 
 const RoleIndex = lazy(() => import('../pages/Role/Index'));
 const EditRole = lazy(() => import('../pages/Role/Edit'));
@@ -194,6 +195,12 @@ const routes = [
         requiredPermission: 'admin-sales-order-analytics'
     },
     {
+        path: '/admin-analytics/vendor',
+        element: <AdminAnalyticVendor/>,
+        protected: true,
+        requiredPermission: 'admin-vendor-list-analytics'
+    },
+    {
         path: '/import/:module',
         element: <ImportCreate/>,
         protected: true,
@@ -245,7 +252,7 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount/>,
         protected: true,
-        requiredPermission: 'edit-account'
+        requiredPermission: 'update-account'
     },
     {
         element: <Contracts/>,

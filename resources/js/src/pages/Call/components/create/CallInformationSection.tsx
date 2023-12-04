@@ -22,6 +22,7 @@ import {
     searchVendorRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import {useState} from "react";
+import {CallTypes} from "../../../../components/Options/SelectOptions";
 
 const CallInformationSection = () => {
     const dispatch = useDispatch();
@@ -86,11 +87,7 @@ const CallInformationSection = () => {
           {value: 'vendor_rfq_related_rfq', label: "Vendor RFQ's related RFQ"},
         ];*/
 
-    const CallTypes: any = [
-        {value: 'ausgehend', label: 'Ausgehend'},
-        {value: 'eingehend', label: 'Eingehend'},
-        {value: 'verpasst', label: 'Verpasst'},
-    ];
+
     const searchModule = (e: any) => {
         const module: any = RelatableList.find(m => m.value === relatableType) ?? {
             value: null,

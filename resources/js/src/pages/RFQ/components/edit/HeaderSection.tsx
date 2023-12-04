@@ -3,7 +3,7 @@ import Select from "react-select";
 import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    Currencies, displayImage,
+    Currencies, displayImage, handleCopySelect,
     searchAccounts,
     searchContacts,
     searchVendor
@@ -15,6 +15,7 @@ import FileUploadComponent from "../../../../components/FormFields/FileUploadCom
 import {
     RFQSources,RFQTypes,
     RFQStatuses, RFQDealStages} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -39,18 +40,24 @@ const HeaderSection = () => {
                     label: (
                         <div key={formState.account?.id} className="flex items-center">
                             {formState.account ? (
+                                <>
                                 <img
                                     src={displayImage(formState.account.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.account?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.account?.account_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}
@@ -68,17 +75,23 @@ const HeaderSection = () => {
                     label: (
                         <div key={formState.contact?.id} className="flex items-center">
                             {formState.contact ? (
+                                <>
                                 <img
                                     src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div className="text-sm font-bold">{formState.contact?.name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.contact?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}
@@ -162,18 +175,24 @@ const HeaderSection = () => {
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
+                                <>
                                 <img
                                     src={displayImage(formState.owner.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.owner?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}
@@ -228,8 +247,10 @@ const HeaderSection = () => {
                         label: (
                             <div key={data.id} className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{data.vendor_name}</div>
+                                    <div className="text-sm font-bold">{data.vendor_name}</div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.vendor_name}`)}>
+                                        Copy & Select
+                                    </button>
                                 </div>
                             </div>
                         ),

@@ -6,10 +6,16 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchAccounts, searchContacts, searchSalesOrder, Currencies
-    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage
+    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage, handleCopySelect
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
-import {useState} from "react";
+import React, {useState} from "react";
+import {
+    DealLeadSourceOption,
+    DealPipelineOption,
+    DealStageExcessOption, DealStageOption,
+    DealTypeOption
+} from "../../../../components/Options/SelectOptions";
 
 const DealInformationSection = () => {
     const dispatch = useDispatch();
@@ -20,70 +26,7 @@ const DealInformationSection = () => {
     };
 
 
-    const LeadSourceOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'Unangemeldeter Anruf/Besuch', label: 'Unangemeldeter Anruf/Besuch'},
-        {value: 'Mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
-        {value: 'Kunden Vermittlung', label: 'Kunden Vermittlung'},
-        {value: 'Teilnehmer', label: 'Teilnehmer'},
-        {value: 'Messe', label: 'Mess'},
-        {value: 'Internes Seminar', label: 'Mess'},
-        {value: 'Internetrecherche', label: 'Mess'},
-
-    ];
-    const TypeOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'Existierendes Geschäft', label: 'Existierendes Geschäft'},
-        {value: 'Neues Geschäft', label: 'Neues Geschäft'},
-
-
-    ];
-    const PipelineOption = [
-        {value: 'Deal', label: 'Deal'},
-        {value: 'Excess', label: 'Excess'},
-
-
-    ];
-    const StageExcessOption = [
-        {value: 'Qualifikation', label: 'Qualifikation'},
-    ];
-    const StageDealOption = [
-        {value: '0.0 Cold lead unqualified (CLU)', label: '0.0 Cold lead / unqualified (CLU)'},
-        {value: '1.0 Cold lead qualified (CLQ)', label: '1.0 Cold lead qualified (CLQ)'},
-        {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
-        {value: '3.0 warm lead qualified (WLQ)', label: '3.0 warm lead qualified (WLQ)'},
-        {value: '4.0 Hot lead (HLQ)', label: '4.0 Hot lead (HLQ)'},
-        {value: 'Lost Lead', label: 'Close Lead / Lost Lead'},
-        {value: '10.0 Invoice got paid', label: 'C10.0 Invoice got paid'},
-        {value: '9.0 Invoice sent', label: '9.0 Invoice sent'},
-        {value: '9.1 Lost Invoice', label: '9.1 Lost Invoice'},
-        {value: '8.1 Lost SO', label: '8.1 Lost SO'},
-        {value: '8.0 Sales Order (SO) sent', label: '8.0 Sales Order (SO) sent'},
-        {value: '7.1 Lost Quote', label: '7.1 Lost Quote'},
-        {value: '7.0 Quote sent', label: '7.0 Quote sent'},
-        {value: '7.2 Quote Low Chance', label: '7.2 Quote Low Chance'},
-        {value: '7.3 Quote High Chance', label: '7.3 Quote High Chance'},
-        {value: '6.1 Lost RFQ', label: '6.1 Lost RFQ'},
-        {value: '6.0 RFQ received', label: '6.0 RFQ received'},
-        {value: '5.0 Lead transferred to Account & Contact', label: '5.0 Lead transferred to Account & Contact'},
-        {value: 'HLQ Hot Lead Qualified', label: 'HLQ Hot Lead Qualified'},
-        {value: 'WLQ Warm Lead Qualified', label: 'WLQ Warm Lead Qualified'},
-        {value: 'Abgeschlossen – An Mitbewerber verloren', label: 'Abgeschlossen – An Mitbewerber verloren'},
-        {value: 'Abgeschlossen, verloren', label: 'Abgeschlossen, verloren'},
-        {value: 'Abgeschlossen, gewonnen', label: 'Abgeschlossen, gewonnen'},
-        {value: 'Unterhandlung/Rückblick', label: 'Unterhandlung/Rückblick'},
-        {value: 'Vorschlag/Preis Angebot', label: 'Vorschlag/Preis Angebot'},
-        {value: 'Analyse erforderlich', label: 'Analyse erforderlich'},
-        {value: 'Qualifikation', label: 'Qualifikation'},
-        
-        
-
-    ];
-
-
-
-
-    const [stageOption, setStageOption] = useState<any>(formState.deal_pipeline == 'Deal' ? StageDealOption : StageExcessOption)
+    const [stageOption, setStageOption] = useState<any>(formState.deal_pipeline == 'Deal' ? DealStageOption : DealStageExcessOption)
 
 
     const fields = {
@@ -116,6 +59,9 @@ const DealInformationSection = () => {
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -147,16 +93,22 @@ const DealInformationSection = () => {
                         label: (
                             <div key={formState.account?.id} className="flex items-center">
                                 {formState.account ? (
+                                    <>
                                     <img
                                         src={displayImage(formState.account.image)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
-                                ) : null}
+
                                 <div>
                                     <div className="text-sm font-bold">{formState.account?.account_name}</div>
                                     <div className="text-xs text-gray-500">{formState.account?.email}</div>
                                 </div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.account?.account_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                </>
+                                    ) : null}
                             </div>
                         ),
                     }}
@@ -164,14 +116,14 @@ const DealInformationSection = () => {
             ),
             'Type': (
                 <Select
-                    options={TypeOption}
+                    options={DealTypeOption}
                     name="deal_type"
                     id="deal_type"
                     onChange={({value}: any) => {
                         handleChangeField('deal_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={TypeOption.find((title) => title.value == formState.deal_type)}
+                    defaultValue={DealTypeOption.find((title) => title.value == formState.deal_type)}
                 />
             ),
             'Expected Revenue': (
@@ -184,14 +136,14 @@ const DealInformationSection = () => {
             ),
             'Lead Source': (
                 <Select
-                    options={LeadSourceOption}
+                    options={DealLeadSourceOption}
                     name="lead_source"
                     id="lead_source"
                     onChange={({value}: any) => {
                         handleChangeField('lead_source', value)
                     }}
                     className="flex-1"
-                    defaultValue={LeadSourceOption.find((title) => title.value == formState.lead_source)}
+                    defaultValue={DealLeadSourceOption.find((title) => title.value == formState.lead_source)}
                 />
             ),
             'Contact Name': (
@@ -211,17 +163,23 @@ const DealInformationSection = () => {
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
                                 {formState.contact ? (
+                                    <>
                                     <img
                                         src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
-                                ) : null}
+
                                 <div>
                                     <div
-                                        className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.account?.last_name}</div>
+                                        className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.contact?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
                                 </div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.first_name + ' ' + formState.contact?.last_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                </>
+                                    ) : null}
                             </div>
                         ),
                     }}
@@ -242,11 +200,17 @@ const DealInformationSection = () => {
                     defaultValue={{
                         value: formState.lead_id,
                         label: (
-                            <div key={formState.lead_id}
-                                 className="flex items-center">
+                            <div key={formState.lead_id} className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.lead?.company}</div>
+                                    <div className="text-sm font-bold">{formState.lead?.company}</div>
+                                    {
+                                        formState.lead ?
+                                        (
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.lead?.company}`)}>
+                                                Copy & Select
+                                            </button>
+                                        ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -271,8 +235,15 @@ const DealInformationSection = () => {
                             <div key={formState.rfq_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.rfq?.rfq_name}</div>
+                                    <div className="text-sm font-bold">{formState.rfq?.rfq_name}</div>
+                                    {
+                                        formState.rfq ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.rfq?.rfq_name}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -297,8 +268,15 @@ const DealInformationSection = () => {
                             <div key={formState.quote_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.quote?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.quote?.subject}</div>
+                                    {
+                                        formState.quote ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.quote?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -323,8 +301,15 @@ const DealInformationSection = () => {
                             <div key={formState.sales_order_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                                    {
+                                        formState.sales_order ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.sales_order?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -349,8 +334,15 @@ const DealInformationSection = () => {
                             <div key={formState.invoice_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.invoice?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.invoice?.subject}</div>
+                                    {
+                                        formState.invoice ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.invoice?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -400,15 +392,15 @@ const DealInformationSection = () => {
             ),
             'Pipeline': (
                 <Select
-                    options={PipelineOption}
+                    options={DealPipelineOption}
                     name="deal_pipeline"
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
-                        setStageOption(value == 'Deal' ? StageDealOption : StageExcessOption)
+                        setStageOption(value == 'Deal' ? DealStageOption : DealStageExcessOption)
                     }}
                     className="flex-1"
-                    defaultValue={PipelineOption.find((title) => title.value == formState.deal_pipeline)}
+                    defaultValue={DealPipelineOption.find((title) => title.value == formState.deal_pipeline)}
 
                 />
             ),
@@ -422,8 +414,8 @@ const DealInformationSection = () => {
                     }}
                     className="flex-1"
                     defaultValue={formState.deal_pipeline == 'Deal' ?
-                        StageDealOption.find((title) => title.value == formState.deal_stage) :
-                        StageExcessOption.find((title) => title.value == formState.deal_stage)
+                        DealStageOption.find((title) => title.value == formState.deal_stage) :
+                        DealStageOption.find((title) => title.value == formState.deal_stage)
                     }
                 />
             ),

@@ -1,10 +1,15 @@
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { searchAvailability, searchExcess, searchProducts } from "../../../../components/Functions/CommonFunctions";
+import {
+    handleCopySelect,
+    searchAvailability,
+    searchExcess,
+    searchProducts
+} from "../../../../components/Functions/CommonFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/rfqFormSlice";
 import Api from "../../../../config/api";
-import { useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 const formatDate = (dateString) => {
@@ -186,8 +191,18 @@ export const LineSection = () => {
                     value: formState.product?.id,
                     label: (
                         <div key={formState.product?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.product?.product_name}</div>
+                            {formState.product ?
+                                (
+                                    <>
+                                    <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.product?.product_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                    </>
+                                ) : null
+
+                            }
+
                         </div>
                     ),
                 }}
@@ -222,9 +237,12 @@ export const LineSection = () => {
                         value: data.id,
                         label: (
                             <div key={data.id} className="flex items-center">
-                                <div>
+                                <>
                                     <div className="text-sm font-bold">{data.product_name}</div>
-                                </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.product_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
                             </div>
                         ),
                     }))
@@ -242,8 +260,18 @@ export const LineSection = () => {
                     value: formState.availability?.id,
                     label: (
                         <div key={formState.availability?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                            {formState.availability ?
+                                (
+                                    <>
+                                        <div className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.availability?.availability_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+
+                                ) : null
+                            }
+
                         </div>
                     ),
                 }}
@@ -260,8 +288,18 @@ export const LineSection = () => {
                     value: formState.excess?.id,
                     label: (
                         <div key={formState.excess?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.excess?.excess_name}</div>
+                            {formState.excess ?
+                                (
+                                    <>
+                                        <div className="text-sm font-bold">{formState.excess?.excess_name}</div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.excess?.excess_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+                                ) : null
+
+                            }
+
                         </div>
                     ),
                 }}

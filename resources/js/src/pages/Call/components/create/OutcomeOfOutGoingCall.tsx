@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
+import {CallResult} from "../../../../components/Options/SelectOptions";
 
 const OutcomeOfOutGoingCall = () => {
     const dispatch = useDispatch();
@@ -11,18 +12,11 @@ const OutcomeOfOutGoingCall = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const CallOutcome: any = [
-        {value: 'none', label: 'None - Interessiert'},
-        {value: 'interessiert', label: 'Interessiert'},
-        {value: 'not_interested', label: 'Nicht interessiert'},
-        {value: 'no_response_busy', label: 'Keine Antwort/besetzt'},
-        {value: 'more_information', label: 'Wünscht mehr Information'},
-        {value: 'callback_requested', label: 'Wünscht Rückruf'},
-    ];
+
     const fields = {
-        'Purpose Of Outgoing Call': {
+        'Outcome Of Outgoing Call': {
             'Call Result': <Select id="call_result" name="call_result"
-                                   options={CallOutcome}
+                                   options={CallResult}
                                    defaultValue={{value: 'none', label: 'None'}}
                                    onChange={({value}: any) => {
                                        handleChangeField('call_result', value)

@@ -2,10 +2,11 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {displayImage, searchAccounts} from "../../../../components/Functions/CommonFunctions";
+import {displayImage, handleCopySelect, searchAccounts} from "../../../../components/Functions/CommonFunctions";
 import {AccountDoubleCheckStatuses} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
+import React from "react";
 
 const AccountInformationSection = () => {
     const dispatch = useDispatch();
@@ -94,18 +95,24 @@ const AccountInformationSection = () => {
                     label: (
                         <div key={formState.parent?.id} className="flex items-center">
                             {formState.parent ? (
+                                <>
                                 <img
                                     src={displayImage(formState.parent.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.parent?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.parent?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.parent?.account_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}
@@ -157,18 +164,24 @@ const AccountInformationSection = () => {
                     label: (
                         <div key={formState.child?.id} className="flex items-center">
                             {formState.child ? (
+                                <>
                                 <img
                                     src={displayImage(formState.child.image)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.child?.account_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.child?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.child?.account_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}

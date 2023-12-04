@@ -512,4 +512,96 @@ export const VendorPortalAccess = [
     { value: 'Waiting', label: 'Waiting' },
     { value: 'Confirmed', label: 'Confirmed' },
     { value: 'Rejected', label: 'Rejected' },
-]
+];
+
+export const VendorRfqStatusOptions = [
+    { value: 'none', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Excel Generated', label: 'Excel Generated' },
+    { value: 'email-Email Sent', label: 'Email Sent' },
+    { value: 'Closed', label: 'Closed' },
+];
+
+export const DealPipelineOption = [
+    {value: 'Deal', label: 'Deal'},
+    {value: 'Excess', label: 'Excess'},
+];
+
+export const DealTypeOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Existierendes Geschäft', label: 'Existierendes Geschäft'},
+    {value: 'Neues Geschäft', label: 'Neues Geschäft'},
+
+];
+
+export const DealLeadSourceOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Unangemeldeter Anruf/Besuch', label: 'Unangemeldeter Anruf/Besuch'},
+    {value: 'Mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
+    {value: 'Kunden Vermittlung', label: 'Kunden Vermittlung'},
+    {value: 'Teilnehmer', label: 'Teilnehmer'},
+    {value: 'Messe', label: 'Mess'},
+    {value: 'Internes Seminar', label: 'Internes Seminar'},
+    {value: 'Internetrecherche', label: 'Internetrecherche'},
+
+];
+
+export const DealStageExcessOption = [
+    {value: 'Qualifikation', label: 'Qualifikation'},
+];
+
+export const DealStageOption = [
+    {value: '0.0 Cold lead unqualified (CLU)', label: '0.0 Cold lead / unqualified (CLU)'},
+    {value: '1.0 Cold lead qualified (CLQ)', label: '1.0 Cold lead qualified (CLQ)'},
+    {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
+    {value: '3.0 warm lead qualified (WLQ)', label: '3.0 warm lead qualified (WLQ)'},
+    {value: '4.0 Hot lead (HLQ)', label: '4.0 Hot lead (HLQ)'},
+    {value: 'Lost Lead', label: 'Close Lead / Lost Lead'},
+    {value: '10.0 Invoice got paid', label: 'C10.0 Invoice got paid'},
+    {value: '9.0 Invoice sent', label: '9.0 Invoice sent'},
+    {value: '9.1 Lost Invoice', label: '9.1 Lost Invoice'},
+    {value: '8.1 Lost SO', label: '8.1 Lost SO'},
+    {value: '8.0 Sales Order (SO) sent', label: '8.0 Sales Order (SO) sent'},
+    {value: '7.1 Lost Quote', label: '7.1 Lost Quote'},
+    {value: '7.0 Quote sent', label: '7.0 Quote sent'},
+    {value: '7.2 Quote Low Chance', label: '7.2 Quote Low Chance'},
+    {value: '7.3 Quote High Chance', label: '7.3 Quote High Chance'},
+    {value: '6.1 Lost RFQ', label: '6.1 Lost RFQ'},
+    {value: '6.0 RFQ received', label: '6.0 RFQ received'},
+    {value: '5.0 Lead transferred to Account & Contact', label: '5.0 Lead transferred to Account & Contact'},
+    {value: 'HLQ Hot Lead Qualified', label: 'HLQ Hot Lead Qualified'},
+    {value: 'WLQ Warm Lead Qualified', label: 'WLQ Warm Lead Qualified'},
+    {value: 'Abgeschlossen – An Mitbewerber verloren', label: 'Abgeschlossen – An Mitbewerber verloren'},
+    {value: 'Abgeschlossen, verloren', label: 'Abgeschlossen, verloren'},
+    {value: 'Abgeschlossen, gewonnen', label: 'Abgeschlossen, gewonnen'},
+    {value: 'Unterhandlung/Rückblick', label: 'Unterhandlung/Rückblick'},
+    {value: 'Vorschlag/Preis Angebot', label: 'Vorschlag/Preis Angebot'},
+    {value: 'Analyse erforderlich', label: 'Analyse erforderlich'},
+    {value: 'Qualifikation', label: 'Qualifikation'},
+
+];
+
+export const CallTypes: any = [
+    {value: 'Ausgehend', label: 'Ausgehend'},
+    {value: 'Eingehend', label: 'Eingehend'},
+    {value: 'Verpasst', label: 'Verpasst'},
+];
+
+export const CallPurposes: any = [
+    {value: 'none', label: 'None'},
+    {value: 'Möglicher Kunde', label: 'Möglicher Kunde'},
+    {value: 'Administrativ', label: 'Administrativ'},
+    {value: 'Verhandlung', label: 'Verhandlung'},
+    {value: 'Demo', label: 'Demo'},
+    {value: 'Projekt', label: 'Projekt'},
+];
+
+export const CallResult: any = [
+    {value: 'none', label: 'None'},
+    {value: 'Interessiert', label: 'Interessiert'},
+    {value: 'Nicht interessiert', label: 'Nicht interessiert'},
+    {value: 'Keine Antwort/besetzt', label: 'Keine Antwort/besetzt'},
+    {value: 'Wünscht mehr Information', label: 'Wünscht mehr Information'},
+    {value: 'Wünscht Rückruf', label: 'Wünscht Rückruf'},
+    {value: 'Ungültige Zahl', label: 'Ungültige Zahl'},
+];

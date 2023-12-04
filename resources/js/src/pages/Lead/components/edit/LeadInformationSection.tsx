@@ -4,7 +4,7 @@ import { updateFormData } from "../../../../store/leadFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    displayImage,
+    displayImage, handleCopySelect,
     searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
@@ -13,6 +13,7 @@ import {
     LeadLostReason, LeadSource,
     LeadIndustry, LeadRating
 } from "../../../../components/Options/SelectOptions";
+import React from "react";
 const LeadInformationSection = () => {
     const dispatch = useDispatch();
     const formState = useSelector((state: any) => state.leadForm);
@@ -90,6 +91,9 @@ const LeadInformationSection = () => {
                                     <div className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
