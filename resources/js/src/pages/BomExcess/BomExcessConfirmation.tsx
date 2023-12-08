@@ -36,7 +36,21 @@ const BomExcessConfirmation = () => {
         },
         // Add other columns as needed
     ];
-
+    const columnsData = [
+        {
+            id: 1,
+            columnName: 'Material',
+            systemField: 'Part-Number (MPN)',
+            sampleData: '476577',
+        },
+        {
+            id: 2,
+            columnName: 'Material Description',
+            systemField: 'Description',
+            sampleData: 'Some description',
+        },
+        // ... more columns as necessary
+    ];
     useEffect(() => {
         // Get the current URL path
         const currentPath = window.location.pathname;
@@ -93,13 +107,13 @@ const BomExcessConfirmation = () => {
                         <div className="sm:flex sm:items-center sm:justify-between border-b border-gray-200 pb-4">
                             <h3 className="title-1">Confirm your list data</h3>
                             <div className="flex mt-3 sm:ml-4 sm:mt-0 space-x-1">
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button className="create-template-modal-trigger bg-white cursor-pointer flex items-center p-2 space-x-2 text-sm rounded border-primary-500  text-primary border border-primary-500 hover:bg-gray-50">
                                     <span>Save settings as a template for later</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"></path>
                                     </svg>
                                 </button>
-                                <button id="confirmlist-next-tour" type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button id="confirmlist-next-tour" type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
                                     <span>Next step</span>
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
@@ -130,42 +144,45 @@ const BomExcessConfirmation = () => {
                                         Please define each column stands for which definition                </p>
                                 </div>
                                 <form id="save-headers-form" method="POST">
-
                                     <div className="overflow-x-scroll mt-6">
-                                        <div className="grid grid-cols-12 gap-6">
-                                            
-                                            <div className="col-span-2 flex flex-col divide-y">
-                                                <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
-                                                    Columns in your table
-                                                </div>
-                                                <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold" >
-                                                    Material
-                                                </div>
-
-                                            </div>
-                                            <div id="list-header-row" className="col-span-4 flex flex-col divide-y">
-                                                <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
-                                                    Fields in our system
-                                                </div>
-                                                <div className="p-2 text-left truncate text-sm text-gray-500">
-                                                    <select name="headers[0]" className="header-select w-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
-                                                        <option value="">Ignore</option>
-
-
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                            <div className="col-span-2 flex flex-col divide-y" data-row-id="66075">
-                                                <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
-                                                    Sample data
-                                                </div>
-                                                <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500" >
-                                                    476577
-                                                </div>
-
-                                            </div>
-
+                                        <div >
+                                            {columnsData.map((column, index) => (
+                                               
+                                                <React.Fragment key={column.id}>
+                                                    <div className="grid grid-cols-12 gap-6">
+                                                    <div className="col-span-2 flex flex-col divide-y">
+                                                        <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
+                                                            Columns in your table
+                                                        </div>
+                                                        <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
+                                                            {column.columnName}
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-span-4 flex flex-col divide-y">
+                                                        <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
+                                                            Fields in our system
+                                                        </div>
+                                                        <div className="p-2 text-left truncate text-sm text-gray-500">
+                                                            <select name={`headers[${index}]`} className="header-select w-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
+                                                                {/* Here you would dynamically generate options based on available system fields */}
+                                                                <option value="">Ignore</option>
+                                                                <option value={column.systemField}>{column.systemField}</option>
+                                                                {/* Add more options as necessary */}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-span-2 flex flex-col divide-y">
+                                                        <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
+                                                            Sample data
+                                                        </div>
+                                                        <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
+                                                            {column.sampleData}
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    
+                                                </React.Fragment>
+                                            ))}
                                         </div>
                                     </div>
                                 </form>
