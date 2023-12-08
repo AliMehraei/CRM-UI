@@ -7,17 +7,7 @@ import { useDispatch } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
 import { upFirstLetter } from "../../components/Functions/CommonFunctions";
 
-const initialData = [
-    // ... initial data loaded from the uploaded file
-];
 
-const systemFields = [
-    // ... list of system fields
-    'Ignore',
-    'Part-Number (MPN)',
-    'Manufacturer',
-    // ... add more fields as required
-];
 const BomExcessConfirmation = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
@@ -30,7 +20,22 @@ const BomExcessConfirmation = () => {
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
+    const systemFields = [
+        'Ignore',
+        'Part-Number (MPN)',
+        'Manufacturer',
+        // ... add more fields as required
+    ];
 
+    // Example initial data structure
+    const initialData = [
+        {
+            header: 'Material',
+            sampleData: '476577',
+            rows: ['468423', '468405', '468398'] // Array of row data for this column
+        },
+        // Add other columns as needed
+    ];
 
     useEffect(() => {
         // Get the current URL path
@@ -45,15 +50,16 @@ const BomExcessConfirmation = () => {
     }, []);
 
 
-    const [uploadedData, setUploadedData] = useState(initialData);
     const [columnMappings, setColumnMappings] = useState({});
 
-    const handleFieldChange = (header, value) => {
-        setColumnMappings(prevMappings => ({
-            ...prevMappings,
-            [header]: value
-        }));
+    // Assuming initialData is an array of objects with a header property
+    const [uploadedData, setUploadedData] = useState(initialData);
+    const handleFieldChange = (columnIndex, selectedField) => {
+        // Update the mapping for the given column index
+        setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
     };
+
+
 
     const handleSaveTemplate = () => {
         // Logic to save the template
@@ -93,7 +99,7 @@ const BomExcessConfirmation = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"></path>
                                     </svg>
                                 </button>
-                                <button id="confirmlist-next-tour" type="button"  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button id="confirmlist-next-tour" type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     <span>Next step</span>
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
@@ -112,7 +118,7 @@ const BomExcessConfirmation = () => {
                                             Step 1: Match your column names
                                         </h3>
                                         <div className="flex justify-start">
-                                            <button id="btn-reload-data-tour"  className="bg-primary-500 cursor-pointer flex hover:bg-primary-600 items-center px-2 py-1 rounded space-x-1 text-sm text-white">
+                                            <button id="btn-reload-data-tour" className="bg-primary-500 cursor-pointer flex hover:bg-primary-600 items-center px-2 py-1 rounded space-x-1 text-sm text-white">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
                                                 </svg>
@@ -127,6 +133,7 @@ const BomExcessConfirmation = () => {
 
                                     <div className="overflow-x-scroll mt-6">
                                         <div className="grid grid-cols-12 gap-6">
+                                            
                                             <div className="col-span-2 flex flex-col divide-y">
                                                 <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                     Columns in your table
@@ -158,7 +165,7 @@ const BomExcessConfirmation = () => {
                                                 </div>
 
                                             </div>
-                         
+
                                         </div>
                                     </div>
                                 </form>
@@ -185,47 +192,56 @@ const BomExcessConfirmation = () => {
                                 <div className="overflow-x-scroll mt-6">
                                     <div className="flex flex-col">
                                         <div className="flex-grow">
-                                            <table className="relative min-w-full border-collapse">
-                                                <thead className="bg-gray-200 sticky z-30 top-0">
-                                                    <tr className="header-row">
-                                                        <th className="">
-                                                            <button data-bom-item-id="240" className="remove-header-btn flex space-x-3 items-center justify-center w-full p-3 rounded hover:bg-gray-100 default-transition">
-                                                                <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                                </svg>
-                                                            </button>
-                                                        </th>
-                                                        <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500">
-                                                            Material</th>
 
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        {uploadedData.map((column, index) => (
+                                                            <>
+                                                                <th className="">
+                                                                    <button data-bom-item-id="240" className="remove-header-btn flex space-x-3 items-center justify-center w-full p-3 rounded hover:bg-gray-100 default-transition">
+                                                                        <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                </th>
+                                                                <th key={index}>{columnMappings[index] || column.header}</th></>
 
+                                                        ))}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {uploadedData[0].rows.map((_, rowIndex) => (
+                                                        <tr key={rowIndex}>
+                                                            {uploadedData.map((column, colIndex) => (
+                                                                <>
+                                                                    <td className="border p-2">
+                                                                        <button type="button" data-row-id="66085" className="bg-gray-200 ignored-switch toggle toggle-red bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200" role="switch" aria-checked="false">
+                                                                            <span className="translate-x-0 translate-x-0 pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200">
+                                                                                <span className="opacity-100 toggle-icon-1 ease-in duration-200 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity" aria-hidden="true">
+                                                                                    <svg className="h-3 w-3 text-gray-400" fill="currentColor" viewBox="0 0 12 12">
+                                                                                        <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"></path>
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <span className="opacity-0 toggle-icon-2 ease-out duration-100 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity" aria-hidden="true">
+                                                                                    <svg className="h-3 w-3 text-red-500" fill="none" viewBox="0 0 12 12">
+                                                                                        <path d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                                                                    </svg>
+                                                                                </span>
+                                                                            </span>
 
-                                                    <tr data-row-id="66085" className="detail-row">
-                                                        <td className="border p-2">
-                                                            <button type="button" data-row-id="66085" className="bg-gray-200 ignored-switch toggle toggle-red bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200" role="switch" aria-checked="false">
-                                                                <span className="translate-x-0 translate-x-0 pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200">
-                                                                    <span className="opacity-100 toggle-icon-1 ease-in duration-200 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity" aria-hidden="true">
-                                                                        <svg className="h-3 w-3 text-gray-400" fill="currentColor" viewBox="0 0 12 12">
-                                                                            <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="opacity-0 toggle-icon-2 ease-out duration-100 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity" aria-hidden="true">
-                                                                        <svg className="h-3 w-3 text-red-500" fill="none" viewBox="0 0 12 12">
-                                                                            <path d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                </span>
-                                                                
-                                                            </button>
-                                                        </td>
-                                                        <td className="border p-2 whitespace-nowrap text-sm text-gray-500">
-                                                            468423</td>
-                                                    </tr>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td key={colIndex}>{column.rows[rowIndex]}</td>
+                                                                </>
+
+                                                            ))}
+                                                        </tr>
+                                                    ))}
                                                 </tbody>
                                             </table>
+
+
                                         </div>
                                     </div>
 
@@ -237,7 +253,7 @@ const BomExcessConfirmation = () => {
                         </div>
                     </section>
 
-                 
+
                 </div>
             </div>
 
