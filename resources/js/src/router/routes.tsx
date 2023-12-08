@@ -1,6 +1,7 @@
 import {lazy} from 'react';
 import ErrorPage from '../pages/Pages/ErroPage';
 import Logout from '../pages/Authentication/Logout';
+import React from 'react';
 
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
@@ -137,6 +138,9 @@ const AdminAnalyticVendor = lazy(() => import('../pages/Analytic/Admin/Vendor/In
 
 const RoleIndex = lazy(() => import('../pages/Role/Index'));
 const EditRole = lazy(() => import('../pages/Role/Edit'));
+
+const BomExcessIndex = lazy(() => import('../pages/BomExcess/BomExcessIndex'));
+
 
 const routes = [
     // dashboard
@@ -846,7 +850,16 @@ const routes = [
         element: <ListSearch/>,
         protected: false,
     },
-
+    {
+        path: '/bom/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/excess/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
 
 
 ];
