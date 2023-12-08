@@ -429,7 +429,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                                                                 </NavLink>
                                                             )}
                                                             {actionPlus.map((value) => (
-                                                                <NavLink to={`/${value.route}/${id}`}
+                                                                <NavLink to={`/${value.route}/${id}`} key={id}
                                                                     className="flex hover:text-info">
                                                                     {value.icon}
                                                                 </NavLink>
