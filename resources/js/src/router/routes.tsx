@@ -143,6 +143,7 @@ const BomExcessIndex = lazy(() => import('../pages/BomExcess/BomExcessIndex'));
 const BomExcessImport = lazy(() => import('../pages/BomExcess/BomExcessImport'));
 const BomExcessConfirmation = lazy(() => import('../pages/BomExcess/BomExcessConfirmation'));
 const BomExcessPreProcess = lazy(() => import('../pages/BomExcess/BomExcessPreProcess'));
+const BomExcessComplete = lazy(() => import('../pages/BomExcess/BomExcessComplete'));
 
 
 const routes = [
@@ -874,6 +875,11 @@ const routes = [
         element: <BomExcessPreProcess/>,
         protected: false,
     },
+    {
+        path: '/bom/complete/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
     
     {
         path: '/excess/list/:id',
@@ -893,6 +899,11 @@ const routes = [
     {
         path: '/excess/process/:id',
         element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/excess/complete/:id',
+        element: <BomExcessComplete/>,
         protected: false,
     },
     
