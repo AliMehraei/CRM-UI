@@ -800,6 +800,12 @@ class api {
     async reportVendorList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
     }
+
+    async importBomExcess(user:any,userType:any,data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${user}/${userType}/import`, data);
+    }
+
+
 }
 
 export default api
