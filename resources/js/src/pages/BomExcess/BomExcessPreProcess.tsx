@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch } from "react-redux";
@@ -17,6 +17,9 @@ const BomExcessPreProcess = () => {
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
+    const params = useParams();
+    const contactId = params.id;
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -81,6 +84,7 @@ const BomExcessPreProcess = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
+        window.location.href = `/bom/complete/${contactId}`;
     };
 
     const handleReloadSampleData = () => {
@@ -112,12 +116,12 @@ const BomExcessPreProcess = () => {
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
                                     Back                </a>
-                                <button type="submit" form="process-form" className="flex btn btn-primary pulse-primary">
+                                <button   onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
                                     Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
                                 </button>
-                                <form className="hidden" id="process-form" action="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom/process/240" method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
+                                <form className="hidden" id="process-form"  method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
                             </div>
                         </div>
                     </section>
@@ -315,7 +319,7 @@ const BomExcessPreProcess = () => {
                                     </svg>
                                     Back                </a>
 
-                                <button type="submit" form="process-form" className="flex btn btn-primary pulse-primary">
+                                <button onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
                                     Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>

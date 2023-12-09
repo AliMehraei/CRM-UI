@@ -10,6 +10,7 @@ import { upFirstLetter } from "../../components/Functions/CommonFunctions";
 import { CreateIcon } from "../../components/FormFields/CommonIcons";
 import './index.css';
 import { useDropzone } from 'react-dropzone';
+import {useParams} from "react-router-dom";
 
 const BomExcessImport = () => {
     const dispatch = useDispatch();
@@ -24,6 +25,9 @@ const BomExcessImport = () => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
     const [files, setFiles] = useState([]);
+    const params = useParams();
+    const contactId = params.id;
+    const userType = "App\Model/Contact";
 
     const onDrop = useCallback(acceptedFiles => {
       // Do something with the files
@@ -73,26 +77,30 @@ const BomExcessImport = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        window.location.href = `/bom/confirmation/${contactId}`;
+
         // Submit the form
         const formData = new FormData(event.target);
         formData.append('has_header', hasHeader);
         formData.append('ignored_top_rows', ignoredTopRows);
 
-        fetch('/bom/upload', {
-            method: 'POST',
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                // Handle success or error response
-                if (data.success) {
-                    // Redirect to success page
-                    window.location.href = '/dashboard/excess-bom';
-                } else {
-                    // Show error message
-                    alert(data.message);
-                }
-            });
+        console.log("formData", formData);
+        
+        // fetch('excess-bom/${contactId}/${userType}/import', {
+        //     method: 'POST',
+        //     body: formData,
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         // Handle success or error response
+        //         if (data.success) {
+        //             // Redirect to success page
+        //             window.location.href = '/dashboard/excess-bom';
+        //         } else {
+        //             // Show error message
+        //             alert(data.message);
+        //         }
+        //     });
     };
 
     return (

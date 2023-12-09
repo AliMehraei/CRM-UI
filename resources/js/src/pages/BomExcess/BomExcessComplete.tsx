@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch } from "react-redux";
@@ -17,6 +17,9 @@ const BomExcessComplete = () => {
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
+    const params = useParams();
+    const contactId = params.id;
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -113,6 +116,8 @@ const BomExcessComplete = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
+        window.location.href = `/bom/list/${contactId}`;
+
     };
 
     const handleReloadSampleData = () => {
@@ -145,7 +150,7 @@ const BomExcessComplete = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"></path>
                                     </svg>
                                 </button>
-                                <button id="confirmlist-next-tour" type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
+                                <button id="confirmlist-next-tour" type="button" onClick={handleNextStep} className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
                                     <span>Next step</span>
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
