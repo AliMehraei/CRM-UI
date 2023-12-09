@@ -1,6 +1,7 @@
 import {lazy} from 'react';
 import ErrorPage from '../pages/Pages/ErroPage';
 import Logout from '../pages/Authentication/Logout';
+import React from 'react';
 
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
@@ -137,6 +138,13 @@ const AdminAnalyticVendor = lazy(() => import('../pages/Analytic/Admin/Vendor/In
 
 const RoleIndex = lazy(() => import('../pages/Role/Index'));
 const EditRole = lazy(() => import('../pages/Role/Edit'));
+
+const BomExcessIndex = lazy(() => import('../pages/BomExcess/BomExcessIndex'));
+const BomExcessImport = lazy(() => import('../pages/BomExcess/BomExcessImport'));
+const BomExcessConfirmation = lazy(() => import('../pages/BomExcess/BomExcessConfirmation'));
+const BomExcessPreProcess = lazy(() => import('../pages/BomExcess/BomExcessPreProcess'));
+const BomExcessComplete = lazy(() => import('../pages/BomExcess/BomExcessComplete'));
+
 
 const routes = [
     // dashboard
@@ -847,7 +855,58 @@ const routes = [
         protected: false,
     },
 
-
-
+    {
+        path: '/bom/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/bom/import/:id',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/bom/confirmation/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/bom/process/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/bom/complete/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+    
+    {
+        path: '/excess/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/excess/import/:id',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/excess/confirmation/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/excess/process/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/excess/complete/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+    
+    
 ];
 export {routes};

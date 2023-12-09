@@ -6,6 +6,7 @@ import { formatDate } from "@fullcalendar/core";
 import { useDispatch } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
 import GenerateIndexTable from "../../components/FilterFields/GenerateIndexTable";
+import React from 'react';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -13,7 +14,16 @@ const List = () => {
     useEffect(() => {
         dispatch(setPageTitle('Contact List'));
     }, [dispatch]);
-
+    const actionPlus=[
+        {
+            'icon':"BOM",
+            'route':'bom/list'
+        },
+        {
+            'icon':"Excess",
+            'route':'excess/list'
+        }
+    ];
 
     const columns: any = [
         {
@@ -68,7 +78,7 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="contact" tableColumns={columns} />
+            <GenerateIndexTable modelName="contact" tableColumns={columns} actionPlus={actionPlus} />
         </>
     );
 };
