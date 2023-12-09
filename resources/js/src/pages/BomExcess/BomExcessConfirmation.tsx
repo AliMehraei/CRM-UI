@@ -84,7 +84,7 @@ const BomExcessConfirmation = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
-        window.location.href = `/bom/complete/${contactId}`;
+        window.location.href = `/${addBtnRoute}/process/${contactId}`;
     };
 
     const handleReloadSampleData = () => {
@@ -109,14 +109,9 @@ const BomExcessConfirmation = () => {
                 <div className="my-4">
                     <section className=" px-4 sm:px-6 lg:px-8 ">
                         <div className="sm:flex sm:items-center sm:justify-between border-b border-gray-200 pb-4">
-                            <h3 className="title-1">Confirm your list data</h3>
+                            <h3 className="title-1"></h3>
                             <div className="flex mt-3 sm:ml-4 sm:mt-0 space-x-1">
-                                <button className="create-template-modal-trigger bg-white cursor-pointer flex items-center p-2 space-x-2 text-sm rounded border-primary-500  text-primary border border-primary-500 hover:bg-gray-50">
-                                    <span>Save settings as a template for later</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"></path>
-                                    </svg>
-                                </button>
+                                
                                 <button id="confirmlist-next-tour" type="button" onClick={handleNextStep} className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
                                     <span>Next step</span>
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
