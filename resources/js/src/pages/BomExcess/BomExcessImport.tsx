@@ -34,10 +34,7 @@ const BomExcessImport = () => {
       onDrop,
       accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
     });
-    const handleDownloadSample = () => {
-        // Here you would typically provide the file URL or trigger a download
-        // For example: window.location.href = 'url-to-sample-data.csv';
-      };
+    
     useEffect(() => {
         // Get the current URL path
         const currentPath = window.location.pathname;
@@ -63,7 +60,16 @@ const BomExcessImport = () => {
     const handleIgnoredTopRowsChange = (event) => {
         setIgnoredTopRows(Number(event.target.value));
     };
-
+    const handleDownloadSample = async () => {
+        const data=(import.meta as any).env.VITE_API_URL_PRODUCT+"/ALPYN%20electronics%20BOM-List%20Samplefile.xlsx";
+        console.log(data);
+        
+        const anchorElement = document.createElement('a');
+        anchorElement.href = data;
+        anchorElement.target = '_blank';
+        // anchorElement.download = formState[formAttribute].split('/').pop();
+        anchorElement.click();
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
 
