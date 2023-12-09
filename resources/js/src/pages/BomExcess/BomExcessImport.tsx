@@ -11,6 +11,8 @@ import { CreateIcon } from "../../components/FormFields/CommonIcons";
 import './index.css';
 import { useDropzone } from 'react-dropzone';
 import {useParams} from "react-router-dom";
+import Api from "../../config/api";
+
 
 const BomExcessImport = () => {
     const dispatch = useDispatch();
@@ -24,20 +26,21 @@ const BomExcessImport = () => {
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState('');
+    const api = new Api();
     const params = useParams();
     const contactId = params.id;
-    const userType = "App\Model/Contact";
+    const userType = "App\Models\Contact";
 
-    const onDrop = useCallback(acceptedFiles => {
-      // Do something with the files
-      setFiles([...files, ...acceptedFiles]);
-    }, [files]);
+    // const onDrop = useCallback(acceptedFiles => {
+    //   // Do something with the files
+    //   setFiles([...files, ...acceptedFiles]);
+    // }, [files]);
   
-    const { getRootProps, getInputProps } = useDropzone({
-      onDrop,
-      accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
-    });
+    // const { getRootProps, getInputProps } = useDropzone({
+    //   onDrop,
+    //   accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+    // });
     
     useEffect(() => {
         // Get the current URL path
@@ -74,17 +77,27 @@ const BomExcessImport = () => {
         // anchorElement.download = formState[formAttribute].split('/').pop();
         anchorElement.click();
     }
-    const handleSubmit = (event) => {
+
+    const handleFileBomChange = (event : any) => {
+        // Assuming you want to work with a single file, you can access it using event.target.files[0]
+        const selectedFile = event.target.files[0];
+        setFiles(selectedFile);
+    };
+
+    const handleSubmit = async (event : any) => {
         event.preventDefault();
 
-        window.location.href = `/bom/confirmation/${contactId}`;
+        // window.location.href = `/bom/confirmation/${contactId}`;
 
         // Submit the form
         const formData = new FormData(event.target);
         formData.append('has_header', hasHeader);
         formData.append('ignored_top_rows', ignoredTopRows);
+        formData.append('excess-bom-file', files);
 
         console.log("formData", formData);
+
+        const response = await api.importBomExcess(contactId,userType,formData);
         
         // fetch('excess-bom/${contactId}/${userType}/import', {
         //     method: 'POST',
@@ -130,10 +143,13 @@ const BomExcessImport = () => {
 
                             <div className="mb-4">
                                 <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your BOM list</label>
-                                <div {...getRootProps()} className="dropzone border-dashed border-2 border-gray-300 rounded py-2 px-4 text-center cursor-pointer">
+                                {/* <div {...getRootProps()} className="dropzone border-dashed border-2 border-gray-300 rounded py-2 px-4 text-center cursor-pointer">
                                     <input {...getInputProps()} />
                                     <p className="text-gray-700">Drag and drop some files here, or click to select files</p>
-                                </div>
+                                </div> */}
+                                <input className="block w-full py-2 px-3 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                                id="excess-bom-file" type="file" onChange={handleFileBomChange} />
+
                                 <p className="text-gray-600 text-xs italic mt-2">* Please kindly note that there is a maximum limit of 1000 rows allowed in a single sheet of an Excel file.</p>
                                 <button type="button" onClick={handleDownloadSample} className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Download Sample Data
