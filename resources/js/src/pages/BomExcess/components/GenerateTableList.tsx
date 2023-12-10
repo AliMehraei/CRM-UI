@@ -8,8 +8,9 @@ import { useUserStatus } from '../../../config/authCheck';
 import { IRootState } from '../../../store';
 import LoadingSasCrm from '../../../components/LoadingSasCrm';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
+const GenerateTableList = ({ tableColumns, frontRoute ,actionPlus=[]}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -153,7 +154,25 @@ const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
                                         <DataTable
                                             className={`${isDark} whitespace-nowrap table-hover`}
                                             records={records}
-                                            columns={tableColumns}
+                                            columns={[...tableColumns, {
+                                                accessor: 'action',
+                                                title: 'Actions',
+                                                sortable: false,
+                                                textAlignment: 'center',
+                                                render: ({ id }: any) => (
+                                                    <>
+                                                        <div className="flex gap-4 items-center w-max mx-auto">
+                                                            
+                                                            {actionPlus.map((value) => (
+                                                                <NavLink to={`/${value.route}/${id}`}
+                                                                    className="flex hover:text-info">
+                                                                    {value.icon}
+                                                                </NavLink>
+                                                            ))}
+                                                        </div>
+                                                    </>
+                                                ),
+                                            }]}
                                             highlightOnHover
                                             totalRecords={totalItems}
                                             recordsPerPage={pageSize}
