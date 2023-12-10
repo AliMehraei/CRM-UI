@@ -810,6 +810,10 @@ class api {
         });
     }
 
+    async bomItemList(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/bom/list`, data);
+    }
+
 
 }
 
