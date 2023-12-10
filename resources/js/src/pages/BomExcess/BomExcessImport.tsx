@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -124,22 +124,7 @@ const BomExcessImport = () => {
             padding: '10px 20px',
         });
     }
-        
-        // fetch('excess-bom/${contactId}/${userType}/import', {
-        //     method: 'POST',
-        //     body: formData,
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         // Handle success or error response
-        //         if (data.success) {
-        //             // Redirect to success page
-        //             window.location.href = '/dashboard/excess-bom';
-        //         } else {
-        //             // Show error message
-        //             alert(data.message);
-        //         }
-        //     });
+ 
     };
 
     return (
