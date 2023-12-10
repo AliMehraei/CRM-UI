@@ -1,17 +1,14 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
-import { formatDate } from "@fullcalendar/core";
 import { useDispatch } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
 import { upFirstLetter } from "../../components/Functions/CommonFunctions";
-import { CreateIcon } from "../../components/FormFields/CommonIcons";
 import './index.css';
-import { useDropzone } from 'react-dropzone';
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
+import Swal from "sweetalert2";
 
 
 const BomExcessImport = () => {
@@ -30,18 +27,8 @@ const BomExcessImport = () => {
     const api = new Api();
     const params = useParams();
     const contactId = params.id;
-    const userType = "App\Models\Contact";
+    const modelName = "contact";
 
-    // const onDrop = useCallback(acceptedFiles => {
-    //   // Do something with the files
-    //   setFiles([...files, ...acceptedFiles]);
-    // }, [files]);
-  
-    // const { getRootProps, getInputProps } = useDropzone({
-    //   onDrop,
-    //   accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
-    // });
-    
     useEffect(() => {
         // Get the current URL path
         const currentPath = window.location.pathname;
@@ -85,19 +72,58 @@ const BomExcessImport = () => {
     };
 
     const handleSubmit = async (event : any) => {
+
         event.preventDefault();
+
+        const toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 5000,
+        });
+
+        try{
 
         // window.location.href = `/bom/confirmation/${contactId}`;
 
         // Submit the form
         const formData = new FormData(event.target);
+        // prepare type for BomItem
+        const type = modelName + '_' + addBtnRoute ;
+
         formData.append('has_header', hasHeader);
         formData.append('ignored_top_rows', ignoredTopRows);
-        formData.append('excess-bom-file', files);
+        formData.append('type', type);
+        formData.append('excess_bom_file', files);
 
-        console.log("formData", formData);
+        const response = await api.importBomExcess(contactId,modelName,formData);
 
-        const response = await api.importBomExcess(contactId,userType,formData);
+        if (response.status === 200) {
+            toast.fire({
+                icon: 'success',
+                timer: 2000,
+                title: 'Form submitted successfully',
+                padding: '10px 20px',
+
+            })
+
+            window.location.href = `/${addBtnRoute}/confirmation/${contactId}`;
+            
+        } else {
+            toast.fire({
+                icon: 'error',
+                title: 'Internal Server Error ,submitting form failed',
+                padding: '10px 20px',
+            });
+        }
+    } catch (error) {
+
+        toast.fire({
+            icon: 'error',
+            title: 'Internal Server Error ,submitting form failed',
+            padding: '10px 20px',
+        });
+    }
         
         // fetch('excess-bom/${contactId}/${userType}/import', {
         //     method: 'POST',
