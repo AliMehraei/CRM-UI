@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
-import { formatDate } from "@fullcalendar/core";
 import { useDispatch } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
 import { upFirstLetter } from "../../components/Functions/CommonFunctions";
 import { CreateIcon } from "../../components/FormFields/CommonIcons";
+import ListBom from "./components/ListBom";
 
 const BomExcessIndex = () => {
     const dispatch = useDispatch();
@@ -55,35 +55,9 @@ const BomExcessIndex = () => {
                         </div>
                     </div>
                 </section>
-                <section
-                    id="bom-list-tour"
-                    className="dashboard-item-view-page  px-4 sm:px-6 lg:px-8"
-                >
-                    <div className="rounded-lg bg-white overflow-hidden shadow p-6">
-                        <div>
-                            <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                {tableTitle}
-                            </h3>
-                            <ul
-                                role="list"
-                                className="mt-4 border-t border-gray-200 divide-y divide-gray-200"
-                            >
-                                {items.length > 0 ? (
-                                    items.map((item) => (
-                                        //   <ExcessBomIndexRow key={item.id} item={item} />
-                                        <li className="py-4 flex items-center justify-center space-x-3">
-                                            {emptyMessage}
-                                        </li>
-                                    ))
-                                ) : (
-                                    <li className="py-4 flex items-center justify-center space-x-3">
-                                        {emptyMessage}
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+
+                <ListBom/>
+
                 </div>
             </div>
         </>
