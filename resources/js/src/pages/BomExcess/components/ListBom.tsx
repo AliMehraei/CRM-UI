@@ -50,7 +50,7 @@ const ListBom = () => {
 
                                 <GenerateTableList
                                     tableColumns={columns}
-                                    frontRoute="bomList" 
+                                    frontRoute="bomItemList" 
                                 />
 
                         </div>
