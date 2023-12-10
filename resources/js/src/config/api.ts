@@ -801,8 +801,13 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
     }
 
-    async importBomExcess(user:any,userType:any,data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${user}/${userType}/import`, data);
+    async importBomExcess(id:any,modelName:string,formData: any) {
+
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
     }
 
 
