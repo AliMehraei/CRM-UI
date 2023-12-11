@@ -22,14 +22,14 @@ const BomExcessIndex = () => {
     const [emptyMessage, setEmptyMessage] = useState('');
     const [loading, setLoading] = useState(true);
     const formState = useSelector((state: any) => state.contactForm);
-
+    const api = new Api();
+    const params = useParams();
+    const contactId = params.id;
 
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
-    const api = new Api();
-    const params = useParams();
-    const contactId = params.id;
+    
 
     const fetchData = async () => {
         const modelResponse = await api.fetchSingleContact(contactId);
@@ -56,10 +56,6 @@ const BomExcessIndex = () => {
             setLoading(false);
         });
     }, [contactId]);
-
-    const handlePreviewContact = () => {
-        window.location.href = `/contact/preview/${contactId}`;
-    }
 
     return (
         <>
@@ -102,7 +98,7 @@ const BomExcessIndex = () => {
                         </div>
                     </section>
 
-                    <ListBom />
+                    <ListBom contactId={contactId}/>
 
                 </div>
             </div>
