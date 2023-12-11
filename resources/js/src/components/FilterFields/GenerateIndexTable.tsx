@@ -14,7 +14,7 @@ import { resetFilterSlice } from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
 
-const GenerateIndexTable = ({ modelName, tableColumns, frontRoute }: any) => {
+const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] }: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -428,6 +428,12 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute }: any) => {
                                                                     <ViewIcon />
                                                                 </NavLink>
                                                             )}
+                                                            {actionPlus.map((value) => (
+                                                                <NavLink to={`/${value.route}/${id}`} key={id}
+                                                                    className="flex hover:text-info">
+                                                                    {value.icon}
+                                                                </NavLink>
+                                                            ))}
                                                         </div>
                                                     </>
                                                 ),
