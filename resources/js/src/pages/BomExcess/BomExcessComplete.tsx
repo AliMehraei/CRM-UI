@@ -92,9 +92,9 @@ const BomExcessComplete = () => {
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Overview");
         setAddBtnRoute(pathParts[1]);
-        setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
-        setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
-        setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
+        setAddBtnLabel("View " + upFirstLetter(pathParts[1]) + " List");
+        setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List Overview");
+        setEmptyMessage("Here you can see an overview about your uploaded " + upFirstLetter(pathParts[1]) + "  list");
         dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Overview"));
     }, []);
 
@@ -146,7 +146,7 @@ const BomExcessComplete = () => {
                             <div className="flex mt-3 sm:ml-4 sm:mt-0 space-x-1">
                                
                                 <button id="confirmlist-next-tour" type="button" onClick={handleNextStep} className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
-                                    <span>view BOM List</span>
+                                    <span>{addBtnLabel}</span>
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
@@ -157,10 +157,10 @@ const BomExcessComplete = () => {
                     <section className="dashboard-item-view-page  px-4 sm:px-6 lg:px-8 ">
                         <div className="rounded-lg bg-white overflow-hidden shadow p-6 text-center">
                             <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                Your BOM list overview
+                                {tableTitle}
                             </h3>
                             <p className="text-sm font-medium text-gray-500 mt-4">
-                                Here you can see an overview about your uploaded BOM list
+                               {emptyMessage}
                             </p>
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mt-4 divide-x divide-y md:divide-y-0 divide-gray-200">
                                 <div className="col-span-2"><div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>

@@ -35,7 +35,7 @@ const BomExcessImport = () => {
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Import");
         setAddBtnRoute(pathParts[1]);
-        setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
+        setAddBtnLabel(upFirstLetter(pathParts[1]) + " Import");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
         dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Import"));
@@ -138,7 +138,7 @@ const BomExcessImport = () => {
                         </div>
                     </section>
                     <div className=" p-6 bg-white shadow-md">
-                        <h1 className="text-2xl font-bold mb-5">BOM Import</h1>
+                        <h1 className="text-2xl font-bold mb-5">{addBtnLabel}</h1>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
                                 <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">Title</label>
@@ -146,14 +146,14 @@ const BomExcessImport = () => {
                                     type="text"
                                     id="title"
                                     name="title"
-                                    placeholder="Enter your new BOM list name"
+                                    placeholder={`Enter your new ${addBtnRoute} list name`}
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your BOM list</label>
+                                <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your {addBtnRoute} list</label>
                                 {/* <div {...getRootProps()} className="dropzone border-dashed border-2 border-gray-300 rounded py-2 px-4 text-center cursor-pointer">
                                     <input {...getInputProps()} />
                                     <p className="text-gray-700">Drag and drop some files here, or click to select files</p>
@@ -196,7 +196,7 @@ const BomExcessImport = () => {
                             </div>
 
                             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Upload
+                                {addBtnLabel}
                             </button>
                         </form>
                     </div>
