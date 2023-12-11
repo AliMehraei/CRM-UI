@@ -3,9 +3,11 @@ import ReactApexChart from 'react-apexcharts';
 import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
-import { upFirstLetter } from "../../components/Functions/CommonFunctions";
+import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
+import Api from '../../config/api';
+import { resetForm, updateFormData } from "../../store/contactFormSlice";
 
 
 const BomExcessComplete = () => {
@@ -17,8 +19,11 @@ const BomExcessComplete = () => {
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
+    const [loading, setLoading] = useState(true);
+    const formState = useSelector((state: any) => state.contactForm);
+    const api = new Api();
     const params = useParams();
-    const contactId = params.id;
+    const contactId = params.contactId;
 
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
@@ -124,12 +129,45 @@ const BomExcessComplete = () => {
         // Logic to reload sample data
     };
 
+    const fetchData = async () => {
+        const modelResponse = await api.fetchSingleContact(contactId);
+        if (modelResponse.status != 200)
+            return
+        const model = modelResponse.data.data.contact;
+        dispatch(updateFormData(model));
+    };
+
+    useEffect(() => {
+        fetchData().then(() => {
+            setLoading(false);
+        });
+    }, [contactId]);
+
 
 
 
     return (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
+            <div className="flex justify-end flex-wrap gap-4 px-4" >
+                    <div className="flex">
+                        <div>
+                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                            <div className="text-s font-semibold ">{formState.email}</div>
+                            <div className="text-s font-semibold ">{formState.phone}</div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    <div className="shrink-0">
+                        <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
+                        <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
+                            href={`/contact/preview/${contactId}`}>View Contact</a>
+                    </div>
+                </div>
+                <hr className="border-white-light dark:border-[#849bbc] my-6" />
                 <div className="px-4 sm:px-6 lg:px-8">
                     <section className="border-b border-gray-200 pb-4">
                         <div className="sm:flex sm:items-center sm:justify-between">
