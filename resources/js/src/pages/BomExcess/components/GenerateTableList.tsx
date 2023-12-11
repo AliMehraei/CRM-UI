@@ -10,22 +10,16 @@ import LoadingSasCrm from '../../../components/LoadingSasCrm';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const GenerateTableList = ({ tableColumns, frontRoute ,actionPlus=[]}: any) => {
+const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
-    const [loading, setLoading] = useState(true);
-    const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
-
     const [items, setItems] = useState([]);
-    const [optionsFilter, setOptionsFilter] = useState([]);
-    const [selectedFields, setSelectedFields] = useState<any>([]);
-    const [searchQuery, setSearchQuery] = useState('');
     const [filters, setFilters] = useState<any>([]);
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
@@ -154,25 +148,7 @@ const GenerateTableList = ({ tableColumns, frontRoute ,actionPlus=[]}: any) => {
                                         <DataTable
                                             className={`${isDark} whitespace-nowrap table-hover`}
                                             records={records}
-                                            columns={[...tableColumns, {
-                                                accessor: 'action',
-                                                title: 'Actions',
-                                                sortable: false,
-                                                textAlignment: 'center',
-                                                render: ({ id }: any) => (
-                                                    <>
-                                                        <div className="flex gap-4 items-center w-max mx-auto">
-                                                            
-                                                            {actionPlus.map((value) => (
-                                                                <NavLink to={`/${value.route}/${id}`}
-                                                                    className="flex hover:text-info">
-                                                                    {value.icon}
-                                                                </NavLink>
-                                                            ))}
-                                                        </div>
-                                                    </>
-                                                ),
-                                            }]}
+                                            columns={tableColumns}
                                             highlightOnHover
                                             totalRecords={totalItems}
                                             recordsPerPage={pageSize}
