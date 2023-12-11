@@ -64,11 +64,22 @@ const BomExcessIndex = () => {
     return (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-                <div className="flex justify-end flex-wrap gap-4 px-4" onClick={handlePreviewContact}>
-                    <div className="text-xl font-semibold mt-5">{formState.first_name}</div>
-                    <div className="text-xl font-semibold mt-5">{formState.last_name}</div>
+                <div className="flex justify-end flex-wrap gap-4 px-4" >
+                    <div className="flex">
+                        <div>
+                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                            <div className="text-s font-semibold ">{formState.email}</div>
+                            <div className="text-s font-semibold ">{formState.phone}</div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
                     <div className="shrink-0">
                         <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
+                        <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
+                            href={`/contact/preview/${contactId}`}>View Contact</a>
                     </div>
                 </div>
                 <hr className="border-white-light dark:border-[#849bbc] my-6" />
