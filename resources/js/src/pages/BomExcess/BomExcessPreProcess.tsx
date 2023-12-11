@@ -84,7 +84,7 @@ const BomExcessPreProcess = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
-        window.location.href = `/bom/complete/${contactId}`;
+        window.location.href = `/${addBtnRoute}/complete/${contactId}`;
     };
 
     const handleReloadSampleData = () => {
@@ -146,7 +146,7 @@ const BomExcessPreProcess = () => {
                                             <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap4 no-footer">
                                                 <div className="grid grid-cols-12 gap-6">
                                                 <div className="dt-buttons btn-group flex col-span-10">          
-                                                    <button 
+                                                    {/* <button 
                                                         className="btn btn-secondary buttons-excel buttons-html5 btn-primary !py-1 !px-2 !text-xs !rounded" 
                                                         tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>Excel</span>
@@ -158,7 +158,8 @@ const BomExcessPreProcess = () => {
                                                     <button className="btn btn-secondary buttons-print btn-primary !py-1 !px-2 !text-xs !rounded" 
                                                     tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>Print</span>
-                                                    </button> <div className="btn-group">
+                                                    </button> 
+                                                    <div className="btn-group">
                                                     <button className="btn btn-secondary buttons-print btn-primary !py-1 !px-2 !text-xs !rounded" 
                                                         tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true">
                                                         <span>Column visibility</span><span className="dt-down-arrow"></span>
@@ -166,7 +167,7 @@ const BomExcessPreProcess = () => {
                                                     </div> 
                                                     <button className="btn btn-secondary btn-primary-outline !py-1 !px-2 !text-xs !rounded search-pan-button-text" 
                                                     tabindex="0" aria-controls="DataTables_Table_0" type="button"><span>Filters</span>
-                                                    </button> 
+                                                    </button>  */}
                                                 </div>
                                                 <div id="DataTables_Table_0_filter" className="flex col-span-2">
                                                     <label className="text-sm font-medium text-gray-700 flex items-baseline space-x-2">

@@ -84,7 +84,7 @@ const BomExcessImport = () => {
 
         try{
 
-        // window.location.href = `/bom/confirmation/${contactId}`;
+        // window.location.href = `/${addBtnRoute}/confirmation/${contactId}`;
 
         // Submit the form
         const formData = new FormData(event.target);

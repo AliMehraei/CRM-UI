@@ -116,7 +116,7 @@ const BomExcessComplete = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
-        window.location.href = `/bom/list/${contactId}`;
+        window.location.href = `/${addBtnRoute}/list/${contactId}`;
 
     };
 
