@@ -861,22 +861,22 @@ const routes = [
         protected: false,
     },
     {
-        path: '/bom/import/:id',
+        path: '/bom/import/:contactId',
         element: <BomExcessImport/>,
         protected: false,
     },
     {
-        path: '/bom/confirmation/:id',
+        path: '/bom/confirmation/:contactId/:id',
         element: <BomExcessConfirmation/>,
         protected: false,
     },
     {
-        path: '/bom/process/:id',
+        path: '/bom/process/:contactId/:id',
         element: <BomExcessPreProcess/>,
         protected: false,
     },
     {
-        path: '/bom/complete/:id',
+        path: '/bom/complete/:contactId/:id',
         element: <BomExcessComplete/>,
         protected: false,
     },

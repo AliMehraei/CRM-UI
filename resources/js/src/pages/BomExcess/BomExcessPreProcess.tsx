@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
-import { upFirstLetter } from "../../components/Functions/CommonFunctions";
-
+import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
+import Api from "../../config/api";
+import { resetForm, updateFormData } from "../../store/contactFormSlice";
 
 const BomExcessPreProcess = () => {
     const dispatch = useDispatch();
@@ -17,6 +18,13 @@ const BomExcessPreProcess = () => {
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
+    const [loading, setLoading] = useState(true);
+    const formState = useSelector((state: any) => state.contactForm);
+    const api = new Api();
+    const params = useParams();
+    const contactId = params.contactId;
+    const id = params.id;
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -55,12 +63,12 @@ const BomExcessPreProcess = () => {
         // Get the current URL path
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
-        setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Confirmation");
+        setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Process");
         setAddBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
-        dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Confirmation"));
+        dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Process"));
     }, []);
 
 
@@ -81,11 +89,26 @@ const BomExcessPreProcess = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
+        window.location.href = `/${addBtnRoute}/complete/${contactId}/${id}`;
     };
 
     const handleReloadSampleData = () => {
         // Logic to reload sample data
     };
+
+    const fetchData = async () => {
+        const modelResponse = await api.fetchSingleContact(contactId);
+        if (modelResponse.status != 200)
+            return
+        const model = modelResponse.data.data.contact;
+        dispatch(updateFormData(model));
+    };
+
+    useEffect(() => {
+        fetchData().then(() => {
+            setLoading(false);
+        });
+    }, [contactId]);
 
 
 
@@ -93,6 +116,25 @@ const BomExcessPreProcess = () => {
     return (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
+            <div className="flex justify-end flex-wrap gap-4 px-4" >
+                    <div className="flex">
+                        <div>
+                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                            <div className="text-s font-semibold ">{formState.email}</div>
+                            <div className="text-s font-semibold ">{formState.phone}</div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    <div className="shrink-0">
+                        <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
+                        <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
+                            href={`/contact/preview/${contactId}`}>View Contact</a>
+                    </div>
+                </div>
+                <hr className="border-white-light dark:border-[#849bbc] my-6" />
                 <div className="px-4 sm:px-6 lg:px-8">
                     <section className="border-b border-gray-200 pb-4">
                         <div className="sm:flex sm:items-center sm:justify-between">
@@ -105,19 +147,19 @@ const BomExcessPreProcess = () => {
                 <div className="my-4">
                     <section className=" mx-auto px-4 sm:px-6 lg:px-8 pt-4">
                         <div className="sm:flex sm:items-center sm:justify-between border-b border-gray-200 pb-4">
-                            <h3 className="title-1">Overview - Upload process</h3>
+                            <h3 className="title-1"> </h3>
                             <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
                                 <a href="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom" className="flex btn btn-primary-outline pulse-primary">
                                     <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
                                     Back                </a>
-                                <button type="submit" form="process-form" className="flex btn btn-primary pulse-primary">
+                                <button   onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
                                     Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
                                 </button>
-                                <form className="hidden" id="process-form" action="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom/process/240" method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
+                                <form className="hidden" id="process-form"  method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
                             </div>
                         </div>
                     </section>
@@ -142,7 +184,7 @@ const BomExcessPreProcess = () => {
                                             <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap4 no-footer">
                                                 <div className="grid grid-cols-12 gap-6">
                                                 <div className="dt-buttons btn-group flex col-span-10">          
-                                                    <button 
+                                                    {/* <button 
                                                         className="btn btn-secondary buttons-excel buttons-html5 btn-primary !py-1 !px-2 !text-xs !rounded" 
                                                         tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>Excel</span>
@@ -154,7 +196,8 @@ const BomExcessPreProcess = () => {
                                                     <button className="btn btn-secondary buttons-print btn-primary !py-1 !px-2 !text-xs !rounded" 
                                                     tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>Print</span>
-                                                    </button> <div className="btn-group">
+                                                    </button> 
+                                                    <div className="btn-group">
                                                     <button className="btn btn-secondary buttons-print btn-primary !py-1 !px-2 !text-xs !rounded" 
                                                         tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true">
                                                         <span>Column visibility</span><span className="dt-down-arrow"></span>
@@ -162,7 +205,7 @@ const BomExcessPreProcess = () => {
                                                     </div> 
                                                     <button className="btn btn-secondary btn-primary-outline !py-1 !px-2 !text-xs !rounded search-pan-button-text" 
                                                     tabindex="0" aria-controls="DataTables_Table_0" type="button"><span>Filters</span>
-                                                    </button> 
+                                                    </button>  */}
                                                 </div>
                                                 <div id="DataTables_Table_0_filter" className="flex col-span-2">
                                                     <label className="text-sm font-medium text-gray-700 flex items-baseline space-x-2">
@@ -315,7 +358,7 @@ const BomExcessPreProcess = () => {
                                     </svg>
                                     Back                </a>
 
-                                <button type="submit" form="process-form" className="flex btn btn-primary pulse-primary">
+                                <button onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
                                     Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>

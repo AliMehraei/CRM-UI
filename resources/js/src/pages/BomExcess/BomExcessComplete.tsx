@@ -1,11 +1,13 @@
 import React, { useState, useCallback } from 'react';
-
-import { NavLink } from 'react-router-dom';
+import ReactApexChart from 'react-apexcharts';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
-import { upFirstLetter } from "../../components/Functions/CommonFunctions";
+import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
+import Api from '../../config/api';
+import { resetForm, updateFormData } from "../../store/contactFormSlice";
 
 
 const BomExcessComplete = () => {
@@ -17,6 +19,12 @@ const BomExcessComplete = () => {
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
+    const [loading, setLoading] = useState(true);
+    const formState = useSelector((state: any) => state.contactForm);
+    const api = new Api();
+    const params = useParams();
+    const contactId = params.contactId;
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -26,7 +34,39 @@ const BomExcessComplete = () => {
         'Manufacturer',
         // ... add more fields as required
     ];
-
+    const pieChart: any = {
+        series: [44, 55, 13, 43, 22],
+        options: {
+            chart: {
+                height: 300,
+                type: 'pie',
+                zoom: {
+                    enabled: false,
+                },
+                toolbar: {
+                    show: false,
+                },
+            },
+            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+            colors: ['#4361ee', '#805dca', '#00ab55', '#e7515a', '#e2a03f'],
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200,
+                        },
+                    },
+                },
+            ],
+            stroke: {
+                show: false,
+            },
+            legend: {
+                position: 'bottom',
+            },
+        },
+    };
     // Example initial data structure
     const initialData = [
         {
@@ -55,12 +95,12 @@ const BomExcessComplete = () => {
         // Get the current URL path
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
-        setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Confirmation");
+        setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Overview");
         setAddBtnRoute(pathParts[1]);
-        setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
-        setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
-        setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
-        dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Confirmation"));
+        setAddBtnLabel("View " + upFirstLetter(pathParts[1]) + " List");
+        setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List Overview");
+        setEmptyMessage("Here you can see an overview about your uploaded " + upFirstLetter(pathParts[1]) + "  list");
+        dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Overview"));
     }, []);
 
 
@@ -81,11 +121,27 @@ const BomExcessComplete = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
+        window.location.href = `/${addBtnRoute}/list/${contactId}`;
+
     };
 
     const handleReloadSampleData = () => {
         // Logic to reload sample data
     };
+
+    const fetchData = async () => {
+        const modelResponse = await api.fetchSingleContact(contactId);
+        if (modelResponse.status != 200)
+            return
+        const model = modelResponse.data.data.contact;
+        dispatch(updateFormData(model));
+    };
+
+    useEffect(() => {
+        fetchData().then(() => {
+            setLoading(false);
+        });
+    }, [contactId]);
 
 
 
@@ -93,6 +149,25 @@ const BomExcessComplete = () => {
     return (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
+            <div className="flex justify-end flex-wrap gap-4 px-4" >
+                    <div className="flex">
+                        <div>
+                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                            <div className="text-s font-semibold ">{formState.email}</div>
+                            <div className="text-s font-semibold ">{formState.phone}</div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    <div className="shrink-0">
+                        <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
+                        <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
+                            href={`/contact/preview/${contactId}`}>View Contact</a>
+                    </div>
+                </div>
+                <hr className="border-white-light dark:border-[#849bbc] my-6" />
                 <div className="px-4 sm:px-6 lg:px-8">
                     <section className="border-b border-gray-200 pb-4">
                         <div className="sm:flex sm:items-center sm:justify-between">
@@ -105,16 +180,11 @@ const BomExcessComplete = () => {
                 <div className="my-4">
                     <section className=" px-4 sm:px-6 lg:px-8 ">
                         <div className="sm:flex sm:items-center sm:justify-between border-b border-gray-200 pb-4">
-                            <h3 className="title-1">Confirm your list data</h3>
+                            <h3 className="title-1"> </h3>
                             <div className="flex mt-3 sm:ml-4 sm:mt-0 space-x-1">
-                                <button className="create-template-modal-trigger bg-white cursor-pointer flex items-center p-2 space-x-2 text-sm rounded border-primary-500  text-primary border border-primary-500 hover:bg-gray-50">
-                                    <span>Save settings as a template for later</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"></path>
-                                    </svg>
-                                </button>
-                                <button id="confirmlist-next-tour" type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
-                                    <span>Next step</span>
+                               
+                                <button id="confirmlist-next-tour" type="button" onClick={handleNextStep} className="bg-blue-500 hover:bg-blue-700 text-white font-bold flex items-center p-2 space-x-2 text-sm rounded border-primary-500">
+                                    <span>{addBtnLabel}</span>
                                     <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
@@ -122,74 +192,32 @@ const BomExcessComplete = () => {
                             </div>
                         </div>
                     </section>
+                    <section className="dashboard-item-view-page  px-4 sm:px-6 lg:px-8 ">
+                        <div className="rounded-lg bg-white overflow-hidden shadow p-6 text-center">
+                            <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                {tableTitle}
+                            </h3>
+                            <p className="text-sm font-medium text-gray-500 mt-4">
+                               {emptyMessage}
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mt-4 divide-x divide-y md:divide-y-0 divide-gray-200">
+                                <div className="col-span-2"><div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
+                                    <div className="flex items-center justify-center p-5 text-lg font-medium leading-6 text-gray-900 text-center">
+                                        Data Source                
+                                        </div>
+                                        <ReactApexChart series={pieChart.series} options={pieChart.options} className="rounded-lg bg-white dark:bg-black" type="pie" height={300} />
 
-                    <section id="table-section-list1-tour" className="dashboard-item-view-page  px-4 sm:px-6 lg:px-8 ">
-                        <div className="rounded-lg bg-white overflow-hidden shadow p-6">
-                            <div className="">
-                                <div className="flex flex-col h-full">
-                                    <div className="flex flex-row items-center justify-between h-full space-x-3">
-                                        <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                            Step 1: Match your column names
-                                        </h3>
-                                        <div className="flex justify-start">
-                                            <button id="btn-reload-data-tour" className="bg-primary-500 cursor-pointer flex hover:bg-primary-600 items-center px-2 py-1 rounded space-x-1 text-sm text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-                                                </svg>
-                                                <span>Reload the sample data</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <p className="text-sm font-medium text-gray-500 mt-4">
-                                        Please define each column stands for which definition                </p>
                                 </div>
-                                <form id="save-headers-form" method="POST">
-                                    <div className="overflow-x-scroll mt-6">
-                                        <div >
-                                            {columnsData.map((column, index) => (
-                                               
-                                                <React.Fragment key={column.id}>
-                                                    <div className="grid grid-cols-12 gap-6">
-                                                    <div className="col-span-2 flex flex-col divide-y">
-                                                        <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
-                                                            Columns in your table
-                                                        </div>
-                                                        <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
-                                                            {column.columnName}
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-span-4 flex flex-col divide-y">
-                                                        <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
-                                                            Fields in our system
-                                                        </div>
-                                                        <div className="p-2 text-left truncate text-sm text-gray-500">
-                                                            <select name={`headers[${index}]`} className="header-select w-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
-                                                                {/* Here you would dynamically generate options based on available system fields */}
-                                                                <option value="">Ignore</option>
-                                                                <option value={column.systemField}>{column.systemField}</option>
-                                                                {/* Add more options as necessary */}
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-span-2 flex flex-col divide-y">
-                                                        <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
-                                                            Sample data
-                                                        </div>
-                                                        <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
-                                                            {column.sampleData}
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                    
-                                                </React.Fragment>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </form>
+                                <div className="col-span-2"><div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
+                                    <div className="flex items-center justify-center p-5 text-lg font-medium leading-6 text-gray-900 text-center">
+                                        Founded MPNs               
+                                         </div>
+                                        <ReactApexChart series={pieChart.series} options={pieChart.options} className="rounded-lg bg-white dark:bg-black" type="pie" height={300} />
+
+                                </div>
                             </div>
                         </div>
                     </section>
-
                     <section id="table-section-list2-tour" className="dashboard-item-view-page  px-4 sm:px-6 lg:px-8 mt-6">
                         <div className="rounded-lg bg-white overflow-hidden shadow p-6">
                             <div className="">
