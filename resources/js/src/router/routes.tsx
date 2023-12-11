@@ -866,7 +866,7 @@ const routes = [
         protected: false,
     },
     {
-        path: '/bom/confirmation/:id',
+        path: '/bom/confirmation/:contactId/:id',
         element: <BomExcessConfirmation/>,
         protected: false,
     },

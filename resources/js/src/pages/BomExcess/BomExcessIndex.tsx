@@ -98,7 +98,7 @@ const BomExcessIndex = () => {
                         </div>
                     </section>
 
-                    <ListBom />
+                    <ListBom contactId={contactId}/>
 
                 </div>
             </div>

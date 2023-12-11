@@ -23,7 +23,7 @@ const BomExcessConfirmation = () => {
     const formState = useSelector((state: any) => state.contactForm);
     const api = new Api();
     const params = useParams();
-    const contactId = params.id;
+    const contactId = params.contactId;
 
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));

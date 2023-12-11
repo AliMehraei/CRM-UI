@@ -5,7 +5,7 @@ import api from '../../../config/api';
 import { findApiToCall } from "../../../components/Functions/CommonFunctions";
 import { useParams } from "react-router-dom";
 
-const ListBom = () => {
+const ListBom = ({contactId}) => {
 
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [page, setPage] = useState(1);
@@ -125,7 +125,7 @@ const ListBom = () => {
                     <div className="flex gap-4 items-center w-max mx-auto">
 
                     {['new', 'header_selected'].includes(status) && (
-                    <a href={btnRoute+ `/bom/confirmation/` + id}
+                    <a href={btnRoute+ `/bom/confirmation/` + contactId + `/` +id}
                         className="bg-white p-2 rounded-md text-primary-500 border border-primary-500 hover:text-white hover:bg-sky-600 default-transition pulse-primary flex items-center justify-center">
                         <span className="text-sm">Go to header selection page</span>
                         <svg className="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
