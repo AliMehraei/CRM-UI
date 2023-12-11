@@ -10,7 +10,7 @@ import LoadingSasCrm from '../../../components/LoadingSasCrm';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
+const GenerateTableList = ({ tableColumns, frontRoute, page, setPage, loading, setLoading}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 

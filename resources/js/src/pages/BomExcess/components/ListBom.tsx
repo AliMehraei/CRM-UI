@@ -199,7 +199,11 @@ const ListBom = () => {
 
                                 <GenerateTableList
                                     tableColumns={columns}
-                                    frontRoute="bomItemList"   
+                                    frontRoute="bomItemList" 
+                                    page
+                                    setPage
+                                    loading
+                                    setLoading  
                                 />
 
                         </div>
