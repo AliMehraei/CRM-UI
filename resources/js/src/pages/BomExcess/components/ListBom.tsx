@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GenerateTableList from "./GenerateTableList";
 import Swal from "sweetalert2";
 import api from '../../../config/api';
 import { findApiToCall } from "../../../components/Functions/CommonFunctions";
+import { useParams } from "react-router-dom";
 
 const ListBom = () => {
 
@@ -10,6 +11,7 @@ const ListBom = () => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const api_instance: any = new api();
+    const [btnRoute, setBtnRoute] = useState('');
 
 
     const deleteRow = (id: any = null) => {
@@ -123,7 +125,7 @@ const ListBom = () => {
                     <div className="flex gap-4 items-center w-max mx-auto">
 
                     {['new', 'header_selected'].includes(status) && (
-                    <a href="#"
+                    <a href={btnRoute+ `/bom/confirmation/` + id}
                         className="bg-white p-2 rounded-md text-primary-500 border border-primary-500 hover:text-white hover:bg-sky-600 default-transition pulse-primary flex items-center justify-center">
                         <span className="text-sm">Go to header selection page</span>
                         <svg className="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -186,6 +188,14 @@ const ListBom = () => {
 
     ];
 
+
+    useEffect(() => {
+        // Get the current URL path
+        const baseUrl = window.location.origin;
+        setBtnRoute(baseUrl);
+        
+    }, []);
+
    
 
     return (
@@ -199,11 +209,7 @@ const ListBom = () => {
 
                                 <GenerateTableList
                                     tableColumns={columns}
-                                    frontRoute="bomItemList" 
-                                    page
-                                    setPage
-                                    loading
-                                    setLoading  
+                                    frontRoute="bomItemList"     
                                 />
 
                         </div>
