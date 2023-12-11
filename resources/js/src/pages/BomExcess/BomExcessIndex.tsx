@@ -56,7 +56,7 @@ const BomExcessIndex = () => {
                     </div>
                 </section>
 
-                <ListBom/>
+                <ListBom />
 
                 </div>
             </div>

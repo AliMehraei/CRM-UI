@@ -10,7 +10,7 @@ import LoadingSasCrm from '../../../components/LoadingSasCrm';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const GenerateTableList = ({ tableColumns, frontRoute, page, setPage, loading, setLoading}: any) => {
+const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -19,7 +19,8 @@ const GenerateTableList = ({ tableColumns, frontRoute, page, setPage, loading, s
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
     const [items, setItems] = useState([]);
     const [filters, setFilters] = useState<any>([]);
-    // const [page, setPage] = useState(1);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
