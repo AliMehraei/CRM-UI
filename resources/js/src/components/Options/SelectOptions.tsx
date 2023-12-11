@@ -1,4 +1,5 @@
 import React from 'react';
+import {searchManufacturer} from "../Functions/CommonFunctions";
 
 
 export const PurchaseOrdersTypeOption = [
@@ -295,4 +296,312 @@ export const SalesOrderApproveChanges = [
     { value: 'none', label: '-None-' },
     { value: 'Yes', label: 'Yes' },
     { value: 'No', label: 'No' },
-]
+];
+
+export const QuoteStages = [
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Open', label: 'Open'},
+    {value: 'No Feedback', label: 'No Feedback'},
+    {value: 'Negotiation Price', label: 'Negotiation Price'},
+    {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
+    {value: 'Lost', label: 'Lost'},
+    {value: 'Won', label: 'Won'},
+
+
+];
+
+export const QuoteChances = [
+    {value: 'none', label: '-None-'},
+    {value: 'High', label: 'High'},
+    {value: 'Unknown', label: 'Unknown'},
+    {value: 'Low', label: 'Low'},
+
+];
+
+export const QuoteValid = [
+    {value: 'none', label: '-None-'},
+    {value: '1 Day', label: '1 Day'},
+    {value: '3 Days', label: '3 Days'},
+    {value: '1 Week', label: '1 Week'},
+
+];
+
+export const RFQSources = [
+    {value: 'none', label: '-None-'},
+    {value: 'Email', label: 'Email'},
+    {value: 'Telephone', label: 'Telephone'},
+    {value: 'Webportal', label: 'Webportal'},
+    {value: 'History', label: 'History'}
+];
+
+export const RFQTypes = [
+    {value: 'none', label: '-None-'},
+    {value: 'Costsaving', label: 'Costsaving'},
+    {value: 'Shortage', label: 'Shortage'},
+    {value: 'EOL', label: 'EOL'},
+    {value: 'Proactive', label: 'Proactive'},
+    {value: 'Calculation', label: 'Calculation'},
+];
+
+export const RFQStatuses = [
+    {value: 'none', label: '-None-'},
+    {value: 'Open', label: 'Open'},
+    {value: 'open without routing', label: 'Open without routing'},
+    {value: 'Quoted', label: 'Quoted'},
+    {value: 'Closed', label: 'Closed'},
+    {value: 'In review', label: 'In review'},
+];
+
+export const RFQDealStages = [
+    {value: 'none', label: '-None-'},
+    {value: 'Draft', label: 'Draft'},
+    {value: 'No Feedback', label: 'No Feedback'},
+    {value: 'Negotiation Price', label: 'Negotiation Price'},
+    {value: 'Negotiation Conditions', label: 'Negotiation Conditions'},
+    {value: 'Open', label: 'Open'},
+    {value: 'Lost', label: 'Lost'},
+    {value: 'Won', label: 'Won'},
+];
+
+export const ProductManufacturer = [
+    {value: 'none', label: '-None-'},
+    {value: 'AltvetPet Inc.', label: 'AltvetPet Inc.'},
+    {value: 'LexPon Inc.', label: 'LexPon Inc.'},
+    {value: 'MetBeat Corp.', label: 'MetBeat Corp.'},
+
+];
+
+export const ProductTypeOptions = [
+    {value: 'none',label: '-None-'},
+    {value: 'goods', label: 'Goods'},
+    { value: 'service', label: 'Service'},
+];
+
+export const ProductLifecylceStatusOptions = [
+    { label: '-None-', value: 'none' },
+    { label: 'Production', value: 'Production' },
+    { label: 'Phase out', value: 'Phase out' },
+    { label: 'EOL', value: 'EOL' },
+    { label: 'Unknown', value: 'Unknown' },
+];
+
+export const ProductPackageOptions = [
+    { label: '-None-', value: 'none' },
+    { label: 'SMD', value: 'SMD' },
+    { label: 'THT', value: 'THT' },
+    { label: 'Peripheral', value: 'Peripheral' },
+    { label: 'Other', value: 'Other' },
+];
+
+export const ProductUsageUnitOptions = [
+    { label: 'PCS', value: 'PCS' },
+];
+
+export const ProductDuplicatedStatusOptions = [
+    { label: '-None-', value: 'none' },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
+        value: 'Must be deleted'
+    },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
+        value: 'Must be merged'
+    },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
+        value: 'Must be renamed'
+    },
+    {
+        label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
+        value: 'Delete confirmed'
+    },
+];
+
+export const AvailabilitySources = [
+    {value: 'none', label: '-None-'},
+    {value: 'Email', label: 'Email'},
+    {value: 'Skype / WeChat', label: 'Skype / WeChat'},
+    {value: 'Phone', label: 'Phone'},
+    {value: 'Online', label: 'Online'},
+    {value: 'Web API (Mouser)', label: 'Web API (Mouser)'},
+    {value: 'Web API (Octopart)', label: 'Web API (Octopart)'},
+    {value: 'Web', label: 'Web'},
+    {value: 'Other', label: 'Other'},
+    {value: 'Zoho Books Inventory', label: 'Zoho Books Inventory'},
+    {value: 'Portal', label: 'Portal'},
+];
+
+export const AvailabilityTypes = [
+    {value: 'none', label: '-None-'},
+    {value: 'Web-Download', label: 'Web-Download'},
+    {value: 'Costsaving', label: 'Costsaving'},
+    {value: 'Shortage', label: 'Shortage'},
+    {value: 'Proactive', label: 'Proactive'},
+    {value: 'Excess', label: 'Excess'},
+    {value: 'not VALID', label: 'not VALID'},
+];
+
+export const ExcessSources = [
+    {value: 'none', label: '-None-'},
+    {value: 'Email', label: 'Email'},
+    {value: 'Portal', label: 'Portal'},
+
+];
+
+export const ExcessTypes = [
+    { value: "none", label: "-None-" },
+    { value: "Line Bid", label: "Line Bid" },
+    { value: "Package Bid", label: "Package Bid" },
+    { value: "Consignment", label: "Consignment" },
+    { value: "Closed", label: "Closed" },
+];
+
+export const InvoiceDealStages = [
+    { value: 'none', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'No Feedback', label: 'No Feedback' },
+    { value: 'Negotiation Price', label: 'Negotiation Price' },
+    { value: 'Negotiation Conditions', label: 'Negotiation Conditions' },
+    { value: 'Open', label: 'Open' },
+    { value: 'Lost', label: 'Lost' },
+    { value: 'Won', label: 'Won' },
+];
+export const InvoiceStatuses = [
+    { value: 'none', label: '-None-' },
+    {value: 'draft', label: 'draft'},
+    {value: 'send', label: 'send'},
+    {value: 'overdue', label: 'overdue'},
+    {value: 'paid', label: 'paid'},
+    {value: 'void', label: 'void'},
+
+];
+export const VendorSource = [
+    {value: 'none', label: '-None-'},
+    {value: 'Web Download', label: 'Web Download'},
+    {value: 'Netcomponents', label: 'Netcomponents'},
+    {value: 'Internetrecherche', label: 'Internetrecherche'},
+    {value: 'LinkedIn', label: 'LinkedIn'},
+    {value: 'Externe Vermittlung', label: 'Externe Vermittlung'},
+    {value: 'Mitarbeiter Vermittlung', label: 'Mitarbeiter Vermittlung'},
+    {value: 'Unangemeldeter Anruf / Besuch', label: 'Unangemeldeter Anruf / Besuch'},
+    {value: 'Chat', label: 'Chat'},
+    {value: 'Messe', label: 'Messe'},
+
+];
+
+export const VendorContract = [
+    { value: 'NDA', label: 'NDA' },
+    { value: 'Quality', label: 'Quality' },
+    { value: 'Logistic Agreement', label: 'Logistic Agreement' },
+    { value: 'Franchise Agreement', label: 'Franchise Agreement' },
+    { value: 'Other', label: 'Other' },
+
+];
+
+export const VendorApproveStatus = [
+    {value: 'none', label: '-None-'},
+    {value: 'Draft', label: 'Draft'},
+    {value: 'Waiting for approval', label: 'Waiting for approval'},
+    {value: 'Approval', label: 'Approval'},
+    {value: 'Rejected', label: 'Rejected'},
+
+];
+
+export const VendorPortalAccess = [
+    { value: '-None-', label: '-None-' },
+    { value: 'Waiting', label: 'Waiting' },
+    { value: 'Confirmed', label: 'Confirmed' },
+    { value: 'Rejected', label: 'Rejected' },
+];
+
+export const VendorRfqStatusOptions = [
+    { value: 'none', label: '-None-' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Excel Generated', label: 'Excel Generated' },
+    { value: 'email-Email Sent', label: 'Email Sent' },
+    { value: 'Closed', label: 'Closed' },
+];
+
+export const DealPipelineOption = [
+    {value: 'Deal', label: 'Deal'},
+    {value: 'Excess', label: 'Excess'},
+];
+
+export const DealTypeOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Existierendes Geschäft', label: 'Existierendes Geschäft'},
+    {value: 'Neues Geschäft', label: 'Neues Geschäft'},
+
+];
+
+export const DealLeadSourceOption = [
+    {value: 'none', label: '-None-'},
+    {value: 'Unangemeldeter Anruf/Besuch', label: 'Unangemeldeter Anruf/Besuch'},
+    {value: 'Mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
+    {value: 'Kunden Vermittlung', label: 'Kunden Vermittlung'},
+    {value: 'Teilnehmer', label: 'Teilnehmer'},
+    {value: 'Messe', label: 'Mess'},
+    {value: 'Internes Seminar', label: 'Internes Seminar'},
+    {value: 'Internetrecherche', label: 'Internetrecherche'},
+
+];
+
+export const DealStageExcessOption = [
+    {value: 'Qualifikation', label: 'Qualifikation'},
+];
+
+export const DealStageOption = [
+    {value: '0.0 Cold lead unqualified (CLU)', label: '0.0 Cold lead / unqualified (CLU)'},
+    {value: '1.0 Cold lead qualified (CLQ)', label: '1.0 Cold lead qualified (CLQ)'},
+    {value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)'},
+    {value: '3.0 warm lead qualified (WLQ)', label: '3.0 warm lead qualified (WLQ)'},
+    {value: '4.0 Hot lead (HLQ)', label: '4.0 Hot lead (HLQ)'},
+    {value: 'Lost Lead', label: 'Close Lead / Lost Lead'},
+    {value: '10.0 Invoice got paid', label: 'C10.0 Invoice got paid'},
+    {value: '9.0 Invoice sent', label: '9.0 Invoice sent'},
+    {value: '9.1 Lost Invoice', label: '9.1 Lost Invoice'},
+    {value: '8.1 Lost SO', label: '8.1 Lost SO'},
+    {value: '8.0 Sales Order (SO) sent', label: '8.0 Sales Order (SO) sent'},
+    {value: '7.1 Lost Quote', label: '7.1 Lost Quote'},
+    {value: '7.0 Quote sent', label: '7.0 Quote sent'},
+    {value: '7.2 Quote Low Chance', label: '7.2 Quote Low Chance'},
+    {value: '7.3 Quote High Chance', label: '7.3 Quote High Chance'},
+    {value: '6.1 Lost RFQ', label: '6.1 Lost RFQ'},
+    {value: '6.0 RFQ received', label: '6.0 RFQ received'},
+    {value: '5.0 Lead transferred to Account & Contact', label: '5.0 Lead transferred to Account & Contact'},
+    {value: 'HLQ Hot Lead Qualified', label: 'HLQ Hot Lead Qualified'},
+    {value: 'WLQ Warm Lead Qualified', label: 'WLQ Warm Lead Qualified'},
+    {value: 'Abgeschlossen – An Mitbewerber verloren', label: 'Abgeschlossen – An Mitbewerber verloren'},
+    {value: 'Abgeschlossen, verloren', label: 'Abgeschlossen, verloren'},
+    {value: 'Abgeschlossen, gewonnen', label: 'Abgeschlossen, gewonnen'},
+    {value: 'Unterhandlung/Rückblick', label: 'Unterhandlung/Rückblick'},
+    {value: 'Vorschlag/Preis Angebot', label: 'Vorschlag/Preis Angebot'},
+    {value: 'Analyse erforderlich', label: 'Analyse erforderlich'},
+    {value: 'Qualifikation', label: 'Qualifikation'},
+
+];
+
+export const CallTypes: any = [
+    {value: 'Ausgehend', label: 'Ausgehend'},
+    {value: 'Eingehend', label: 'Eingehend'},
+    {value: 'Verpasst', label: 'Verpasst'},
+];
+
+export const CallPurposes: any = [
+    {value: 'none', label: 'None'},
+    {value: 'Möglicher Kunde', label: 'Möglicher Kunde'},
+    {value: 'Administrativ', label: 'Administrativ'},
+    {value: 'Verhandlung', label: 'Verhandlung'},
+    {value: 'Demo', label: 'Demo'},
+    {value: 'Projekt', label: 'Projekt'},
+];
+
+export const CallResult: any = [
+    {value: 'none', label: 'None'},
+    {value: 'Interessiert', label: 'Interessiert'},
+    {value: 'Nicht interessiert', label: 'Nicht interessiert'},
+    {value: 'Keine Antwort/besetzt', label: 'Keine Antwort/besetzt'},
+    {value: 'Wünscht mehr Information', label: 'Wünscht mehr Information'},
+    {value: 'Wünscht Rückruf', label: 'Wünscht Rückruf'},
+    {value: 'Ungültige Zahl', label: 'Ungültige Zahl'},
+];

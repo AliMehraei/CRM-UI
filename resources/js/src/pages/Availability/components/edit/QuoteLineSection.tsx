@@ -1,10 +1,10 @@
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {Currencies, searchProducts} from "../../../../components/Functions/CommonFunctions";
+import {Currencies, handleCopySelect, searchProducts} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/accountFormSlice";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 
 const QuoteLineSection = () => {
     const dispatch = useDispatch();
@@ -29,6 +29,9 @@ const QuoteLineSection = () => {
                                              label: (
                                                  <div key={formState.product?.id} className="flex items-center">
                                                      <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                                     <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.product?.product_name}`)}>
+                                                         Copy & Select
+                                                     </button>
                                                  </div>
                                              ),
                                          }}

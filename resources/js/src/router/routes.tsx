@@ -1,6 +1,7 @@
 import {lazy} from 'react';
 import ErrorPage from '../pages/Pages/ErroPage';
 import Logout from '../pages/Authentication/Logout';
+import React from 'react';
 
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
@@ -133,6 +134,17 @@ const AdminAnalytic = lazy(() => import('../pages/Analytic/Admin/Index'));
 const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales/Index'));
 const AdminAnalyticQuote = lazy(() => import('../pages/Analytic/Admin/Quote/Index'));
 const AdminAnalyticInvoice = lazy(() => import('../pages/Analytic/Admin/Invoice/Index'));
+const AdminAnalyticVendor = lazy(() => import('../pages/Analytic/Admin/Vendor/Index'));
+
+const RoleIndex = lazy(() => import('../pages/Role/Index'));
+const EditRole = lazy(() => import('../pages/Role/Edit'));
+
+const BomExcessIndex = lazy(() => import('../pages/BomExcess/BomExcessIndex'));
+const BomExcessImport = lazy(() => import('../pages/BomExcess/BomExcessImport'));
+const BomExcessConfirmation = lazy(() => import('../pages/BomExcess/BomExcessConfirmation'));
+const BomExcessPreProcess = lazy(() => import('../pages/BomExcess/BomExcessPreProcess'));
+const BomExcessComplete = lazy(() => import('../pages/BomExcess/BomExcessComplete'));
+
 
 const routes = [
     // dashboard
@@ -191,6 +203,12 @@ const routes = [
         requiredPermission: 'admin-sales-order-analytics'
     },
     {
+        path: '/admin-analytics/vendor',
+        element: <AdminAnalyticVendor/>,
+        protected: true,
+        requiredPermission: 'admin-vendor-list-analytics'
+    },
+    {
         path: '/import/:module',
         element: <ImportCreate/>,
         protected: true,
@@ -208,7 +226,18 @@ const routes = [
         protected: true,
         requiredPermission: 'import-product'
     },
-
+    {
+        path: '/role/list',
+        element: <RoleIndex/>,
+        protected: true,
+        requiredPermission: 'read-role'
+    },
+    {
+        path: '/role/edit/:id',
+        element: <EditRole/>,
+        protected: true,
+        requiredPermission: 'edit-role'
+    },
     {
         path: '/account/list',
         element: <ListAccount/>,
@@ -231,6 +260,7 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount/>,
         protected: true,
+        requiredPermission: 'update-account'
     },
     {
         element: <Contracts/>,
@@ -825,7 +855,58 @@ const routes = [
         protected: false,
     },
 
-
-
+    {
+        path: '/bom/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/bom/import/:contactId',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/bom/confirmation/:contactId/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/bom/process/:contactId/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/bom/complete/:contactId/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+    
+    {
+        path: '/excess/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/excess/import/:id',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/excess/confirmation/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/excess/process/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/excess/complete/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+    
+    
 ];
 export {routes};

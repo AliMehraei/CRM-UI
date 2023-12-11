@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    AccountTypes, Contract, Currencies, displayImage, getImageSource,
+    AccountTypes, Contract, Currencies, displayImage, getImageSource, handleCopySelect,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
 import {AccountRating, AccountActivities} from "../../../../components/Options/SelectOptions";
@@ -12,6 +12,7 @@ import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import React from "react";
 
 const AccountSection = () => {
     const dispatch = useDispatch();
@@ -90,7 +91,7 @@ const AccountSection = () => {
             'Approved by': <input id="approved_by" name="approved_by_id" type="text"
                                   placeholder="Readonly input here…"
                                   className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                                  defaultValue={formState.approved_by?.first_name + " " + formState.approved_by?.last_name}
+                                  defaultValue={formState.approved_by ? formState.approved_by?.first_name + " " + formState.approved_by?.last_name : ''}
                                   disabled/>,
 
             'Currency': <Select id="currency" name="currency" options={Currencies}
@@ -130,6 +131,9 @@ const AccountSection = () => {
                                     <div
                                         className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -151,18 +155,24 @@ const AccountSection = () => {
                     label: (
                         <div key={formState.pm_user?.id} className="flex items-center">
                             {formState.pm_user ? (
+                                <>
                                 <img
                                     src={displayImage(formState.pm_user.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.pm_user?.first_name + " " + formState.pm_user?.last_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.pm_user?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.pm_user?.first_name + " " + formState.pm_user?.last_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}

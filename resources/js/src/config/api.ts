@@ -797,6 +797,24 @@ class api {
     async reportInvoiceDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }
+    async reportVendorList(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
+    }
+
+    async importBomExcess(id:any,modelName:string,formData: any) {
+
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    }
+
+    async bomItemList(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/bom/list`, data);
+    }
+
+
 }
 
 export default api

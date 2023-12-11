@@ -4,9 +4,15 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/taskFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {displayImage, handleUploadFile, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import {
+    displayImage,
+    handleCopySelect,
+    handleUploadFile,
+    searchOwners
+} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import {TaskStatus, TaskPriority} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 
 const TaskInformationSection = () => {
@@ -48,6 +54,9 @@ const TaskInformationSection = () => {
                                     <div
                                         className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}

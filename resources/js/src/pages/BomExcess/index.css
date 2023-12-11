@@ -1,0 +1,42 @@
+/* Hide the default checkbox visually but remain accessible for screen readers */
+.toggle-checkbox {
+    height: 0;
+    width: 0;
+    opacity: 0;
+    position: absolute;
+  }
+  
+  /* Style for the label that will visually represent the toggle switch */
+  .toggle-label {
+    cursor: pointer;
+    display: block;
+    width: 52px; /* Width of the toggle switch */
+    height: 26px; /* Height of the toggle switch */
+    background: grey; /* Default background of the toggle switch */
+    border-radius: 9999px; /* Fully rounded ends of the toggle switch */
+    position: relative;
+    transition: background-color 0.3s; /* Smooth transition for the background color */
+  }
+  
+  /* The knob of the toggle switch */
+  .toggle-label:after {
+    content: '';
+    position: absolute;
+    top: 5px; /* Position from the top to center vertically */
+    left: 5px; /* Start position from the left */
+    width: 16px; /* Width of the knob */
+    height: 16px; /* Height of the knob */
+    background: #fff; /* Color of the knob */
+    border-radius: 50%; /* Fully rounded knob */
+    transition: 0.3s; /* Smooth transition for moving the knob */
+  }
+  
+  /* Style when the checkbox is checked */
+  .toggle-checkbox:checked + .toggle-label {
+    background: #4FBECD; /* Background color when active */
+  }
+  
+  .toggle-checkbox:checked + .toggle-label:after {
+    left: calc(100% - 5px - 16px); /* Move knob to the right; calculate the end position */
+  }
+  

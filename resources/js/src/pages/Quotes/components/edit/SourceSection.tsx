@@ -5,7 +5,8 @@ import Flatpickr from "react-flatpickr";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/quoteFormSlice";
-import { loadAvailability, searchVendor } from "../../../../components/Functions/CommonFunctions";
+import {handleCopySelect, loadAvailability, searchVendor} from "../../../../components/Functions/CommonFunctions";
+import React from "react";
 
 const SourceSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
@@ -26,8 +27,18 @@ const SourceSection = () => {
                     value: formState.vendor?.id,
                     label: (
                         <div key={formState.vendor?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
+                            {formState.vendor ?
+                                (
+                                    <>
+                                        <div className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.vendor?.vendor_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+                                ) : null
+
+                            }
+
                         </div>
                     ),
                 }}
@@ -57,8 +68,18 @@ const SourceSection = () => {
                     value: formState.availability?.id,
                     label: (
                         <div key={formState.availability?.id} className="flex items-center">
-                            <div
-                                className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                            {formState.availability ?
+                                (
+                                    <>
+                                        <div className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.availability?.availability_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                    </>
+                                ) : null
+
+                            }
+
                         </div>
                     ),
                 }}

@@ -4,8 +4,10 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/purchaseOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-     searchSalesOrder,
+    handleCopySelect,
+    searchSalesOrder,
 } from "../../../../components/Functions/CommonFunctions";
+import React from "react";
 
 const LinkedSOSection = () => {
     const dispatch = useDispatch();
@@ -68,11 +70,17 @@ const LinkedSOSection = () => {
                     defaultValue={{
                         value: formState.sales_order_id,
                         label: (
-                            <div key={formState.sales_order_id}
-                                 className="flex items-center">
+                            <div key={formState.sales_order_id} className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                                    {
+                                        formState.sales_order_id ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.sales_order?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )

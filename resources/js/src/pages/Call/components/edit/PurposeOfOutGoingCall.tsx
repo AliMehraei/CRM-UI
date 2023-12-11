@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/callFormSlice";
 import Select from "react-select";
 import Flatpickr from "react-flatpickr";
+import {CallPurposes} from "../../../../components/Options/SelectOptions";
 
 const PurposeOfOutGoingCall = () => {
     const dispatch = useDispatch();
@@ -12,14 +13,6 @@ const PurposeOfOutGoingCall = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const CallPurposes: any = [
-        {value: 'none', label: 'None'},
-        {value: 'möglicher_kunde', label: 'Möglicher Kunde'},
-        {value: 'administrative', label: 'Administrativ'},
-        {value: 'negotiation', label: 'Verhandlung'},
-        {value: 'demo', label: 'Demo'},
-        {value: 'project', label: 'Projekt'},
-    ];
     const fields = {
         'Purpose Of Outgoing Call': {
             'Call Purpose': <Select id="call_purpose" name="call_purpose"

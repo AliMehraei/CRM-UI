@@ -5,12 +5,12 @@ import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    searchOwners,
     searchManufacturer,
+    searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
-
+import {ProductTypeOptions} from "../../../../components/Options/SelectOptions";
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -18,13 +18,6 @@ const ProductInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const productTypeOptions = [
-        {label: '-None-', value: 'none'},
-        {label: 'Goods', value: 'goods'},
-        {label: 'Service', value: 'service'},
-    ];
 
 
     const fields = {
@@ -60,7 +53,6 @@ const ProductInformationSection = () => {
             ),
             'Manufacturer': (
                 <AsyncSelect
-                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="manufacturer_id"
@@ -148,7 +140,7 @@ const ProductInformationSection = () => {
 
             'Product Type': (
                 <Select
-                    options={productTypeOptions}
+                    options={ProductTypeOptions}
                     name="product_type"
                     id="product_type"
                     onChange={({value}: any) => {
