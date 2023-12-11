@@ -871,12 +871,12 @@ const routes = [
         protected: false,
     },
     {
-        path: '/bom/process/:id',
+        path: '/bom/process/:contactId/:id',
         element: <BomExcessPreProcess/>,
         protected: false,
     },
     {
-        path: '/bom/complete/:id',
+        path: '/bom/complete/:contactId/:id',
         element: <BomExcessComplete/>,
         protected: false,
     },

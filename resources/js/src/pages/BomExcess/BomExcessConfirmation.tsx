@@ -24,6 +24,7 @@ const BomExcessConfirmation = () => {
     const api = new Api();
     const params = useParams();
     const contactId = params.contactId;
+    const id = params.id;
 
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
@@ -105,7 +106,7 @@ const BomExcessConfirmation = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
-        window.location.href = `/${addBtnRoute}/process/${contactId}`;
+        window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
     };
 
     const handleReloadSampleData = () => {
@@ -132,7 +133,7 @@ const BomExcessConfirmation = () => {
     return (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-            <div className="flex justify-end flex-wrap gap-4 px-4" >
+                <div className="flex justify-end flex-wrap gap-4 px-4" >
                     <div className="flex">
                         <div>
                             <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
