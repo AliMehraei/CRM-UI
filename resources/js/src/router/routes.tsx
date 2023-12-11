@@ -861,7 +861,7 @@ const routes = [
         protected: false,
     },
     {
-        path: '/bom/import/:id',
+        path: '/bom/import/:contactId',
         element: <BomExcessImport/>,
         protected: false,
     },
