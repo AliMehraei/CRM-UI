@@ -35,7 +35,17 @@ const BomExcessConfirmation = () => {
         {
             header: 'Material',
             sampleData: '476577',
-            rows: ['468423', '468405', '468398'] // Array of row data for this column
+            rows: ['1', '2', '3'] // Array of row data for this column
+        },
+        {
+            header: 'Material Description',
+            sampleData: '476577',
+            rows: ['4', '5', '6'] // Array of row data for this column
+        },
+        {
+            header: 'Quantity',
+            sampleData: '476577',
+            rows: ['400', '5104', '6040'] // Array of row data for this column
         },
         // Add other columns as needed
     ];
@@ -51,6 +61,12 @@ const BomExcessConfirmation = () => {
             columnName: 'Material Description',
             systemField: 'Description',
             sampleData: 'Some description',
+        },
+        {
+            id: 2,
+            columnName: 'Quantity',
+            systemField: 'Quantity',
+            sampleData: 'Quantity',
         },
         // ... more columns as necessary
     ];
@@ -194,7 +210,8 @@ const BomExcessConfirmation = () => {
                             <div className="">
                                 <div className="flex flex-row items-center justify-between h-full space-x-3">
                                     <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                        Your uploaded file data                </h3>
+                                        Your uploaded file data                
+                                    </h3>
                                     <div className="flex justify-start">
                                         <div className="bg-yellow-300 rounded px-2 py-1 flex items-center space-x-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -212,16 +229,18 @@ const BomExcessConfirmation = () => {
                                             <table>
                                                 <thead>
                                                     <tr>
-                                                        {uploadedData.map((column, index) => (
-                                                            <>
-                                                                <th className="">
+                                                    <th className="">
                                                                     <button data-bom-item-id="240" className="remove-header-btn flex space-x-3 items-center justify-center w-full p-3 rounded hover:bg-gray-100 default-transition">
                                                                         <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                                         </svg>
                                                                     </button>
-                                                                </th>
-                                                                <th key={index}>{columnMappings[index] || column.header}</th></>
+                                                    </th>
+                                                        {initialData.map((column, index) => (
+                                                            <>
+                                                                
+                                                                <th key={index}> {column.header}</th>
+                                                            </>
 
                                                         ))}
                                                     </tr>
@@ -229,9 +248,7 @@ const BomExcessConfirmation = () => {
                                                 <tbody>
                                                     {uploadedData[0].rows.map((_, rowIndex) => (
                                                         <tr key={rowIndex}>
-                                                            {uploadedData.map((column, colIndex) => (
-                                                                <>
-                                                                    <td className="border p-2">
+                                                            <td className="border p-2">
                                                                         <button type="button" data-row-id="66085" className="bg-gray-200 ignored-switch toggle toggle-red bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200" role="switch" aria-checked="false">
                                                                             <span className="translate-x-0 translate-x-0 pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200">
                                                                                 <span className="opacity-100 toggle-icon-1 ease-in duration-200 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity" aria-hidden="true">
@@ -248,12 +265,19 @@ const BomExcessConfirmation = () => {
 
                                                                         </button>
                                                                     </td>
+                                                            {uploadedData.map((column, colIndex) => (
+                                                                <>
+                                                                    
                                                                     <td key={colIndex}>{column.rows[rowIndex]}</td>
                                                                 </>
 
                                                             ))}
                                                         </tr>
                                                     ))}
+
+
+
+                                                  
                                                 </tbody>
                                             </table>
 
