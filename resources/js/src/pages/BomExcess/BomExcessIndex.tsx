@@ -44,7 +44,7 @@ const BomExcessIndex = () => {
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1])+" - File Upload"); 
-        setAddBtnRoute(pathParts[1]+`/import/${contactId}`);
+        setAddBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your "+upFirstLetter(pathParts[1])+" List");
         setTableTitle("Your "+upFirstLetter(pathParts[1])+" List");
         setEmptyMessage("You don't have any"+upFirstLetter(pathParts[1])+" List");
@@ -92,7 +92,7 @@ const BomExcessIndex = () => {
                                 className="mt-3 sm:mt-0 sm:ml-4"
                                 id="bom-file-upload-tour"
                             >
-                            <NavLink to={`/${addBtnRoute}`} 
+                            <NavLink to={`/${addBtnRoute}/import/${contactId}`} 
                                 className="flex btn btn-primary pulse-primary">
                                 <CreateIcon />
                                 {addBtnLabel}
