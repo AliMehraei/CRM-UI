@@ -25,7 +25,7 @@ const BomExcessConfirmation = () => {
     const params = useParams();
     const contactId = params.contactId;
     const id = params.id;
-
+    const modelName = "contact";
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -113,8 +113,10 @@ const BomExcessConfirmation = () => {
         // Logic to reload sample data
     };
 
-    const fetchData = async () => {
+    const fetchDataContact = async () => {
+        setLoading(true);
         const modelResponse = await api.fetchSingleContact(contactId);
+        setLoading(false);
         if (modelResponse.status != 200)
             return
         const model = modelResponse.data.data.contact;
@@ -122,12 +124,22 @@ const BomExcessConfirmation = () => {
     };
 
     useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
+        fetchDataContact();
     }, [contactId]);
 
+    const fetchDataConfirmation = async () => {
+        setLoading(true);
+        const modelResponse = await api.bomItemConfirmation(contactId,modelName,id);
+        setLoading(false);
+        if (modelResponse.status != 200)
+            return
+        console.log(modelResponse.body);
+        
+    };
 
+    useEffect(() => {
+        fetchDataConfirmation();
+    }, []);
 
 
     return (
