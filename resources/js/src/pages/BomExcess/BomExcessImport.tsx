@@ -93,7 +93,7 @@ const BomExcessImport = () => {
         // Submit the form
         const formData = new FormData(event.target);
         // prepare type for BomItem
-        const type = modelName + '_' + addBtnRoute ;
+        const type = modelName + '_' + addBtnRoute+'_list' ;
 
         formData.append('has_header', hasHeader);
         formData.append('ignored_top_rows', ignoredTopRows);
