@@ -111,7 +111,7 @@ const BomExcessImport = () => {
 
             })
 
-            window.location.href = `/${addBtnRoute}/confirmation/${contactId}`;
+            window.location.href = `/${addBtnRoute}/list/${contactId}`;
             
         } else {
             toast.fire({

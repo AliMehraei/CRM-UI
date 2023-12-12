@@ -20,6 +20,7 @@ const BomExcessConfirmation = () => {
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
     const [configHeaders, setConfigHeaders] = useState({});
+    const [columnsData, setColumnsData] = useState({});
     const [loading, setLoading] = useState(true);
     const formState = useSelector((state: any) => state.contactForm);
     const api = new Api();
@@ -56,27 +57,27 @@ const BomExcessConfirmation = () => {
         },
         // Add other columns as needed
     ];
-    const columnsData = [
-        {
-            id: 1,
-            columnName: 'Material',
-            systemField: 'Part-Number (MPN)',
-            sampleData: '476577',
-        },
-        {
-            id: 2,
-            columnName: 'Material Description',
-            systemField: 'Description',
-            sampleData: 'Some description',
-        },
-        {
-            id: 2,
-            columnName: 'Quantity',
-            systemField: 'Quantity',
-            sampleData: 'Quantity',
-        },
-        // ... more columns as necessary
-    ];
+    // const columnsData = [
+    //     {
+    //         id: 1,
+    //         columnName: 'Material',
+    //         systemField: 'Part-Number (MPN)',
+    //         sampleData: '476577',
+    //     },
+    //     {
+    //         id: 2,
+    //         columnName: 'Material Description',
+    //         systemField: 'Description',
+    //         sampleData: 'Some description',
+    //     },
+    //     {
+    //         id: 2,
+    //         columnName: 'Quantity',
+    //         systemField: 'Quantity',
+    //         sampleData: 'Quantity',
+    //     },
+    //     // ... more columns as necessary
+    // ];
 
     useEffect(() => {
         // Get the current URL path
@@ -135,7 +136,7 @@ const BomExcessConfirmation = () => {
         const data=modelResponse.data.data;
         console.log(data);
         setConfigHeaders(data.configHeaders)
-        
+        setColumnsData(data.BOMItemDetails.data)
         
     };
 
@@ -212,20 +213,25 @@ const BomExcessConfirmation = () => {
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Columns in your table
                                                         </div>
-                                                        {columnsData.map((column, index) => (
-                                               
+                                                        {Object.keys(columnsData[0]).map((column, index) => (
+                                              
                                                         <React.Fragment key={index}>
-                                                            <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
-                                                                {column.columnName}
-                                                            </div>
+                                                             {Object.keys(column).map((val, ind) => (
+                                                                <React.Fragment key={ind}>
+                                                                    <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
+                                                                        {val}
+                                                                    </div>
+                                                                </React.Fragment>
+                                                             ))}
                                                         </React.Fragment>
+                                                        
                                                         ))}
                                                     </div>
                                                     <div className="col-span-4 flex flex-col divide-y">
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Fields in our system
                                                         </div>
-                                                        {columnsData.map((column, index) => (
+                                                        {Object.keys(columnsData[0]).map((column, index) => (
                                                
                                                          <React.Fragment key={`${index}}_config`}>
                                                             <div className="p-2 text-left truncate text-sm text-gray-500">
@@ -246,7 +252,7 @@ const BomExcessConfirmation = () => {
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Sample data
                                                         </div>
-                                                        {columnsData.map((column, index) => (
+                                                        {Object.keys(columnsData[0]).map((column, index) => (
                                                             <React.Fragment key={`${index}}_data`}>
                                                             <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
                                                                     {column.sampleData}
