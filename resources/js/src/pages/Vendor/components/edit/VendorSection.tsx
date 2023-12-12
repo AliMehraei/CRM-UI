@@ -13,6 +13,7 @@ import ImageUploadComponent from "../../../../components/FormFields/ImageUploadC
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 import {
     VendorApproveStatus,
+    VendorBrokerTypeOptions,
     VendorContract,
     VendorPortalAccess,
     VendorSource
@@ -321,6 +322,19 @@ const VendorSection = () => {
                         handleChangeField('portal_access', value)
                     }}
                     defaultValue={VendorPortalAccess.find((data) => data.value == formState.portal_access)}
+
+                    className="flex-1"
+                />
+            ),
+            'Broker Type': (
+                <Select
+                    options={VendorBrokerTypeOptions}
+                    name="vendor_type"
+                    id="vendor_type"
+                    onChange={({value}: any) => {
+                        handleChangeField('vendor_type', value)
+                    }}
+                    defaultValue={VendorBrokerTypeOptions.find((data) => data.value == formState.vendor_type)}
 
                     className="flex-1"
                 />

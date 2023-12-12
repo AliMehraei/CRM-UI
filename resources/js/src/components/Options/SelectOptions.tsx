@@ -518,10 +518,16 @@ export const VendorRfqStatusOptions = [
     { value: 'none', label: '-None-' },
     { value: 'Draft', label: 'Draft' },
     { value: 'Excel Generated', label: 'Excel Generated' },
-    { value: 'email-Email Sent', label: 'Email Sent' },
+    { value: 'Email Sent', label: 'Email Sent' },
     { value: 'Closed', label: 'Closed' },
 ];
-
+export const VendorBrokerTypeOptions = [
+    { value: 'none', label: '-None-' },
+    { value: 'Preferred', label: 'Preferred' },
+    { value: 'Qualified', label: 'Qualified' },
+    { value: 'Probation', label: 'Probation' },
+    { value: 'non-qualified', label: 'non-qualified' },
+];
 export const DealPipelineOption = [
     {value: 'Deal', label: 'Deal'},
     {value: 'Excess', label: 'Excess'},
