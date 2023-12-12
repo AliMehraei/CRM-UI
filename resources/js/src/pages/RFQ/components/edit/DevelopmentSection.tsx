@@ -39,10 +39,8 @@ export const DevelopmentSection = () => {
                     enableTime: true,
                     dateFormat: 'Y-m-d H:i',
                     position: 'auto left',
-                    defaultDate: formState.open_status_date ? new Date(formState.open_status_date + ' ' + formState.open_status_time) : null as any,
                 }}
                 defaultValue={formState.open_status_timestamp}
-
                 onChange={(_, dateString) => handleChangeField('open_status_timestamp', dateString)}
                 className="form-input flex-1"
             />
