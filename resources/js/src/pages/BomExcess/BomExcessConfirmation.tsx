@@ -250,7 +250,7 @@ const BomExcessConfirmation = () => {
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Sample data
                                                         </div>
-                                                        {columnsData[1] && columnsData[1].data && Object.keys(columnsData[0].data).map((key, index) => (
+                                                        {columnsData[1] && columnsData[1].data && Object.keys(columnsData[1].data).map((key, index) => (
                                                             <React.Fragment key={`${index}}_data`}>
                                                             <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
                                                                 {columnsData[1].data[key]}
@@ -297,17 +297,17 @@ const BomExcessConfirmation = () => {
                                                                         </svg>
                                                                     </button>
                                                     </th>
-                                                        {initialData.map((column, index) => (
+                                                    {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
                                                             <>
                                                                 
-                                                                <th key={index}> {column.header}</th>
+                                                                <th key={index}> {columnsData[0].data[key]}</th>
                                                             </>
 
                                                         ))}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {uploadedData[0].rows.map((_, rowIndex) => (
+                                                    {columnsData && Object.keys(columnsData).map((column, rowIndex) => (
                                                         <tr key={rowIndex}>
                                                             <td className="border p-2">
                                                                         <button type="button" data-row-id="66085" className="bg-gray-200 ignored-switch toggle toggle-red bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200" role="switch" aria-checked="false">
@@ -325,11 +325,11 @@ const BomExcessConfirmation = () => {
                                                                             </span>
 
                                                                         </button>
-                                                                    </td>
-                                                            {uploadedData.map((column, colIndex) => (
+                                                            </td>
+                                                            {columnsData[column] && columnsData[column].data && Object.keys(columnsData[column].data).map((key, index) => (
                                                                 <>
-                                                                    
-                                                                    <td key={colIndex}>{column.rows[rowIndex]}</td>
+                                                                    {console.log(key)}
+                                                                    <td key={index}>{columnsData[column].data[key]}</td>
                                                                 </>
 
                                                             ))}
