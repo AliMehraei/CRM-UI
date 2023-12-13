@@ -8,6 +8,7 @@ import { useUserStatus } from "../../config/authCheck";
 import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
 import Api from "../../config/api";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import Swal from 'sweetalert2';
 
 
 const BomExcessConfirmation = () => {
@@ -19,12 +20,17 @@ const BomExcessConfirmation = () => {
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
+    const [configHeaders, setConfigHeaders] = useState({});
+    const [columnsData, setColumnsData] = useState({});
     const [loading, setLoading] = useState(true);
     const formState = useSelector((state: any) => state.contactForm);
     const api = new Api();
     const params = useParams();
     const contactId = params.contactId;
     const id = params.id;
+    const modelName = "contact";
+    const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
+    const [selectedHeaders, setSelectedHeaders] = useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
@@ -55,27 +61,28 @@ const BomExcessConfirmation = () => {
         },
         // Add other columns as needed
     ];
-    const columnsData = [
-        {
-            id: 1,
-            columnName: 'Material',
-            systemField: 'Part-Number (MPN)',
-            sampleData: '476577',
-        },
-        {
-            id: 2,
-            columnName: 'Material Description',
-            systemField: 'Description',
-            sampleData: 'Some description',
-        },
-        {
-            id: 2,
-            columnName: 'Quantity',
-            systemField: 'Quantity',
-            sampleData: 'Quantity',
-        },
-        // ... more columns as necessary
-    ];
+    // const columnsData = [
+    //     {
+    //         id: 1,
+    //         columnName: 'Material',
+    //         systemField: 'Part-Number (MPN)',
+    //         sampleData: '476577',
+    //     },
+    //     {
+    //         id: 2,
+    //         columnName: 'Material Description',
+    //         systemField: 'Description',
+    //         sampleData: 'Some description',
+    //     },
+    //     {
+    //         id: 2,
+    //         columnName: 'Quantity',
+    //         systemField: 'Quantity',
+    //         sampleData: 'Quantity',
+    //     },
+    //     // ... more columns as necessary
+    // ];
+
     useEffect(() => {
         // Get the current URL path
         const currentPath = window.location.pathname;
@@ -98,23 +105,28 @@ const BomExcessConfirmation = () => {
         setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
     };
 
-
-
-    const handleSaveTemplate = () => {
-        // Logic to save the template
-    };
-
-    const handleNextStep = () => {
+    const handleNextStep = async() => {
         // Logic for going to the next step
-        window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
+        setLoading(true);
+        const response = await api.bomItemSaveHeader(contactId,modelName,id,{
+            headers:selectedHeaders
+        });
+        setLoading(false);
+        if (response.status == 200){
+            window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
+            
+            
+        }
+
+        
+        
     };
 
-    const handleReloadSampleData = () => {
-        // Logic to reload sample data
-    };
-
-    const fetchData = async () => {
+   
+    const fetchDataContact = async () => {
+        setLoading(true);
         const modelResponse = await api.fetchSingleContact(contactId);
+        setLoading(false);
         if (modelResponse.status != 200)
             return
         const model = modelResponse.data.data.contact;
@@ -122,12 +134,109 @@ const BomExcessConfirmation = () => {
     };
 
     useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
+        fetchDataContact();
     }, [contactId]);
 
+    const fetchDataConfirmation = async () => {
+        setLoading(true);
+        const modelResponse = await api.bomItemConfirmation(contactId,modelName,id);
+        setLoading(false);
+        if (modelResponse.status != 200)
+            return
+        const data=modelResponse.data.data;
 
+        setConfigHeaders(data.configHeaders)
+        setColumnsData(data.BOMItemDetails.data)
+        
+    };
+
+    useEffect(() => {
+        fetchDataConfirmation();
+    }, []);
+
+    const handleSelectedHeaderChange = async (e:any) => {
+
+        const toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 5000,
+        });
+
+        const selectedIndex = e.target.selectedIndex;
+        const selectedValue = e.target.value;
+        const data = {
+            selected_header : selectedValue,
+            selected_header_index : selectedIndex,
+            bom_item_id : id,
+            contact_id : contactId
+        };
+        const { name, value } = e.target;
+
+       
+        setSelectedHeaders(prevSelectedHeaders => {
+            // Check if the value is not already in the selectedHeaders array
+            if (!prevSelectedHeaders.includes(value)) {
+                return [...prevSelectedHeaders, value];
+            }
+            return prevSelectedHeaders; // Value already exists, return the previous state
+        });
+
+
+        setLoading(true);
+        const response = await api.selectedHeaderValidation(id,modelName,data);
+
+        if (response.status == 200){
+
+            if (response.data.type === 'error') {
+                toast.fire({
+                    icon: 'error',
+                    title: response.data.msg,
+                    padding: '10px 20px',
+                });
+            } else {
+                if (response.data.type === 'warning') {
+
+                    toast.fire({
+                        icon: 'error',
+                        title: response.data.msg,
+                        padding: '10px 20px',
+                    });
+                }
+
+                const selectElements = document.querySelectorAll('.header-select');
+
+                selectElements.forEach((selectElement) => {
+                  const options = selectElement.querySelectorAll('option');
+            
+                  options.forEach((option, index) => {
+                    if (disabledOptions.includes(index) && index !== 0) {
+                      option.setAttribute('disabled', 'disabled');
+                    } else {
+                      option.removeAttribute('disabled');
+                    }
+                  });
+                });
+            setLoading(false);
+            }
+
+        }
+        else{
+
+            toast.fire({
+                icon: 'error',
+                title: "The operation is failed",
+                padding: '10px 20px',
+            });
+            setLoading(false);
+
+
+        }
+
+
+        
+        
+    };
 
 
     return (
@@ -182,17 +291,9 @@ const BomExcessConfirmation = () => {
                             <div className="">
                                 <div className="flex flex-col h-full">
                                     <div className="flex flex-row items-center justify-between h-full space-x-3">
-                                        <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                        <h3 className="text-lg font-bold leading-6 text-gray-900">
                                             Step 1: Match your column names
                                         </h3>
-                                        <div className="flex justify-start">
-                                            <button id="btn-reload-data-tour" className="bg-primary-500 cursor-pointer flex hover:bg-primary-600 items-center px-2 py-1 rounded space-x-1 text-sm text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-                                                </svg>
-                                                <span>Reload the sample data</span>
-                                            </button>
-                                        </div>
                                     </div>
                                     <p className="text-sm font-medium text-gray-500 mt-4">
                                         Please define each column stands for which definition                </p>
@@ -200,43 +301,59 @@ const BomExcessConfirmation = () => {
                                 <form id="save-headers-form" method="POST">
                                     <div className="overflow-x-scroll mt-6">
                                         <div >
-                                            {columnsData.map((column, index) => (
-                                               
-                                                <React.Fragment key={column.id}>
+                                           
                                                     <div className="grid grid-cols-12 gap-6">
                                                     <div className="col-span-2 flex flex-col divide-y">
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Columns in your table
                                                         </div>
-                                                        <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
-                                                            {column.columnName}
-                                                        </div>
+                                                        
+                                                             {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
+                                                                <React.Fragment key={index}>
+                                                                    <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
+                                                                        {columnsData[0].data[key]}
+                                                                    </div>
+                                                                </React.Fragment>
+                                                             ))}
+                                                   
+                                                        
+                                                      
                                                     </div>
                                                     <div className="col-span-4 flex flex-col divide-y">
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Fields in our system
                                                         </div>
-                                                        <div className="p-2 text-left truncate text-sm text-gray-500">
-                                                            <select name={`headers[${index}]`} className="header-select w-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
-                                                                {/* Here you would dynamically generate options based on available system fields */}
-                                                                <option value="">Ignore</option>
-                                                                <option value={column.systemField}>{column.systemField}</option>
-                                                                {/* Add more options as necessary */}
-                                                            </select>
-                                                        </div>
+                                                        {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
+                                               
+                                                         <React.Fragment key={`${index}}_config`}>
+                                                            <div className="p-2 h-14 text-left truncate text-sm text-gray-500">
+                                                                <select name={`headers[]`}  onChange={(e:any) => handleSelectedHeaderChange(e)}
+                                                                className="header-select w-full h-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
+                                                                    {/* Here you would dynamically generate options based on available system fields */}
+                                                                    <option value="">Ignore</option>
+                                                                    {Object.keys(configHeaders).map((key) => (
+                                                                        <option key={key} value={key}>
+                                                                            {configHeaders[key]}
+                                                                        </option>
+                                                                    ))}
+                                                                </select>
+                                                            </div>
+                                                        </React.Fragment>
+                                                        ))}
                                                     </div>
                                                     <div className="col-span-2 flex flex-col divide-y">
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Sample data
                                                         </div>
-                                                        <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
-                                                            {column.sampleData}
-                                                        </div>
+                                                        {columnsData[1] && columnsData[1].data && Object.keys(columnsData[1].data).map((key, index) => (
+                                                            <React.Fragment key={`${index}}_data`}>
+                                                            <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
+                                                                {columnsData[1].data[key]}
+                                                            </div>
+                                                            </React.Fragment>
+                                                        ))}
                                                     </div>
                                                     </div>
-                                                    
-                                                </React.Fragment>
-                                            ))}
                                         </div>
                                     </div>
                                 </form>
@@ -275,17 +392,17 @@ const BomExcessConfirmation = () => {
                                                                         </svg>
                                                                     </button>
                                                     </th>
-                                                        {initialData.map((column, index) => (
+                                                    {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
                                                             <>
                                                                 
-                                                                <th key={index}> {column.header}</th>
+                                                                <th key={index}> {columnsData[0].data[key]}</th>
                                                             </>
 
                                                         ))}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {uploadedData[0].rows.map((_, rowIndex) => (
+                                                    {columnsData && Object.keys(columnsData).map((column, rowIndex) => (
                                                         <tr key={rowIndex}>
                                                             <td className="border p-2">
                                                                         <button type="button" data-row-id="66085" className="bg-gray-200 ignored-switch toggle toggle-red bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200" role="switch" aria-checked="false">
@@ -303,11 +420,10 @@ const BomExcessConfirmation = () => {
                                                                             </span>
 
                                                                         </button>
-                                                                    </td>
-                                                            {uploadedData.map((column, colIndex) => (
+                                                            </td>
+                                                            {columnsData[column] && columnsData[column].data && Object.keys(columnsData[column].data).map((key, index) => (
                                                                 <>
-                                                                    
-                                                                    <td key={colIndex}>{column.rows[rowIndex]}</td>
+                                                                    <td key={index}>{columnsData[column].data[key]}</td>
                                                                 </>
 
                                                             ))}

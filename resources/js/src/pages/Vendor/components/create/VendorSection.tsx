@@ -1,15 +1,16 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../config/api";
-import {updateFormData} from "../../../../store/vendorFormSlice";
+import { updateFormData } from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {Currencies, PortalAccess, searchManufacturer} from "../../../../components/Functions/CommonFunctions";
-import {searchOwners} from "../../../../components/Functions/CommonFunctions";
+import { Currencies, PortalAccess, searchManufacturer } from "../../../../components/Functions/CommonFunctions";
+import { searchOwners } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
 import {
     VendorApproveStatus,
+    VendorBrokerTypeOptions,
     VendorContract,
     VendorPortalAccess,
     VendorSource
@@ -20,14 +21,14 @@ const VendorSection = () => {
     const api_instance = new api();
     const formState = useSelector((state: any) => state.vendorForm);
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
     };
 
     const searchVendor = async (query: string) => {
         const valField = 'id';
         const nameField = 'vendor_name';
 
-        const result = await api_instance.searchVendor({query: query});
+        const result = await api_instance.searchVendor({ query: query });
 
         if (result.status) {
             return result.data.data.map((data: any) => ({
@@ -51,10 +52,10 @@ const VendorSection = () => {
         'Vendor Information': {
             'Vendor Image': (
                 <ImageUploadComponent formState={formState}
-                                      modelName={'vendor'}
-                                      id={'vendor_image'}
-                                      formAttribute={'image'}
-                                      updateFormData={updateFormData}
+                    modelName={'vendor'}
+                    id={'vendor_image'}
+                    formAttribute={'image'}
+                    updateFormData={updateFormData}
                 />
             ),
             'Vendor Name': (
@@ -63,8 +64,8 @@ const VendorSection = () => {
                     required
                     name="vendor_name"
                     className="form-input flex-1 "
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
-                    // defaultValue={formState.name}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
+                // defaultValue={formState.name}
                 />
             ),
             'Contracts': <Select
@@ -84,7 +85,7 @@ const VendorSection = () => {
                     type="checkbox"
                     name="is_active"
                     className="form-checkbox"
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.is_active}
                 />
             ),
@@ -99,7 +100,7 @@ const VendorSection = () => {
                     }}
 
                     isMulti={true}
-                    className="flex-1"/>
+                    className="flex-1" />
             ),
             'Line Card': (
                 <AsyncSelect
@@ -111,17 +112,17 @@ const VendorSection = () => {
                         handleChangeField('line_card_ids', values.map((v: any) => v.value))
                     }}
                     isMulti={true}
-                    className="flex-1"/>
+                    className="flex-1" />
             ),
             'Approve status': (
                 <Select
                     options={VendorApproveStatus}
                     name="approved_status"
                     id="approved_status"
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('approved_status', value)
                     }}
-                    defaultValue={{value: 'draft', label: 'Draft'}}
+                    defaultValue={{ value: 'draft', label: 'Draft' }}
                     className="flex-1"
                 />
             ),
@@ -131,7 +132,7 @@ const VendorSection = () => {
                     type="checkbox"
                     name="business_vendor"
                     className="form-checkbox"
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.business_vendor}
                 />
             ),
@@ -143,7 +144,7 @@ const VendorSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="approved_by_id"
                     loadOptions={searchOwners}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('approved_by_id', value)
                     }}
                     className="flex-1"
@@ -160,7 +161,7 @@ const VendorSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="owner_id"
                     loadOptions={searchOwners}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
@@ -171,7 +172,7 @@ const VendorSection = () => {
                     options={VendorSource}
                     name="vendor_source"
                     id="vendor_source"
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('vendor_source', value)
                     }}
                     className="flex-1"
@@ -183,7 +184,7 @@ const VendorSection = () => {
                     name="currency"
                     id="currency"
                     required
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('currency', value)
                     }}
                     className="flex-1"
@@ -215,7 +216,7 @@ const VendorSection = () => {
                     placeholder="Type at least 2 characters to search..."
                     name="parent_vendor_id"
                     loadOptions={searchVendor}
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('parent_vendor_id', value)
                     }}
                     className="flex-1"
@@ -226,8 +227,19 @@ const VendorSection = () => {
                     options={VendorPortalAccess}
                     name="portal_access"
                     id="portal_access"
-                    onChange={({value}: any) => {
+                    onChange={({ value }: any) => {
                         handleChangeField('portal_access', value)
+                    }}
+                    className="flex-1"
+                />
+            ),
+            'Broker Type': (
+                <Select
+                    options={VendorBrokerTypeOptions}
+                    name="vendor_type"
+                    id="vendor_type"
+                    onChange={({ value }: any) => {
+                        handleChangeField('vendor_type', value)
                     }}
                     className="flex-1"
                 />
@@ -237,7 +249,7 @@ const VendorSection = () => {
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+                <GenerateFields fields={fields} />
             </div>
         </>
     )
