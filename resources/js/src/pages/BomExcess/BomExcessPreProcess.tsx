@@ -14,6 +14,8 @@ const BomExcessPreProcess = () => {
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
     const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [configHeaders, setConfigHeaders] = useState({});
+    const [columnsData, setColumnsData] = useState({});
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
@@ -24,7 +26,7 @@ const BomExcessPreProcess = () => {
     const params = useParams();
     const contactId = params.contactId;
     const id = params.id;
-
+    const modelName = "contact";
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -44,21 +46,21 @@ const BomExcessPreProcess = () => {
         },
         // Add other columns as needed
     ];
-    const columnsData = [
-        {
-            id: 1,
-            columnName: 'Material',
-            systemField: 'Part-Number (MPN)',
-            sampleData: '476577',
-        },
-        {
-            id: 2,
-            columnName: 'Material Description',
-            systemField: 'Description',
-            sampleData: 'Some description',
-        },
-        // ... more columns as necessary
-    ];
+    // const columnsData = [
+    //     {
+    //         id: 1,
+    //         columnName: 'Material',
+    //         systemField: 'Part-Number (MPN)',
+    //         sampleData: '476577',
+    //     },
+    //     {
+    //         id: 2,
+    //         columnName: 'Material Description',
+    //         systemField: 'Description',
+    //         sampleData: 'Some description',
+    //     },
+    //     // ... more columns as necessary
+    // ];
     useEffect(() => {
         // Get the current URL path
         const currentPath = window.location.pathname;
@@ -97,7 +99,9 @@ const BomExcessPreProcess = () => {
     };
 
     const fetchData = async () => {
+        setLoading(true);
         const modelResponse = await api.fetchSingleContact(contactId);
+        setLoading(false);
         if (modelResponse.status != 200)
             return
         const model = modelResponse.data.data.contact;
@@ -105,12 +109,25 @@ const BomExcessPreProcess = () => {
     };
 
     useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
+        fetchData();
     }, [contactId]);
 
+    const fetchDataProcess = async () => {
+        setLoading(true);
+        const modelResponse = await api.bomItemProcess(contactId,modelName,id);
+        setLoading(false);
+        if (modelResponse.status != 200)
+            return
+        const data=modelResponse.data.data;
+        console.log(data);
+        setConfigHeaders(data.configHeaders);
+        setColumnsData(data.BOMItemDetails.data);
+        
+    };
 
+    useEffect(() => {
+        fetchDataProcess();
+    }, []);
 
 
     return (
@@ -218,68 +235,17 @@ const BomExcessPreProcess = () => {
                                                 
                                                     <table className="datatable relative min-w-full border-collapse dataTable no-footer" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                                             <thead className="bg-gray-200 sticky z-30 top-0">
-                                                    <tr className="header-row"><th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column descending" aria-sort="ascending">
+                                                    <tr className="header-row">
+                                                    <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column descending" aria-sort="ascending">
                                                         #
-                                                    </th><th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 no-search sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="
-                                                    Part-Number (MPN)
-                                                : activate to sort column ascending" >
-                                                            Part-Number (MPN)
-                                                        </th><th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 no-search sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="
-                                                    Manufacturer
-                                                : activate to sort column ascending" >
-                                                            Manufacturer
-                                                        </th><th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 no-sort no-export no-search sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                    </th>
+                                                    {Object.keys(configHeaders).map((key) => (
+                                                                        <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500">
+                                                                            {configHeaders[key]}
+                                                                        </th>
+                                                                    ))}
                                                     
-                                                        
-                                                            Suggestions                                                        
-                                                        
-                                                            
-                                                                
-                                                                    
-                                                                
-                                                                Auto Select                                                                
-                                                                    
-                                                                
-                                                            
-                                                            
-                                                                
-                                                                    
-                                                                        Auto Select for all items                                                                    
-                                                                
-                                                                
-                                                                    
-                                                                        Auto Select only items with one match                                                                    
-                                                                
-                                                            
-                                                        
-                                                    
-                                                " >
-                                                            <div className="flex flex-row justify-between items-center space-x-3">
-                                                                <span>
-                                                                    Suggestions                                                        </span>
-                                                                <div id="auto-select-btn" className="relative inline-block text-left">
-                                                                    <button id="auto-select-btn-t" type="button" className="dropdown-toggle inline-flex justify-center w-full hover:underline text-white bg-primary px-2 py-1 rounded">
-                                                                        <svg className="mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path>
-                                                                        </svg>
-                                                                        Auto Select                                                                <svg className="dropdown-arrow transform default-transition -mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                                                        </svg>
-                                                                    </button>
-                                                                    <div id="pre-proces-auto-select" className="hidden dropdown origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" 
-                                                                    >
-                                                                        <div className="py-1">
-                                                                            <button onclick="autoSelect('all_items', 240)" className="text-gray-700 group flex w-full items-center px-4 py-2 text-sm whitespace-normal hover:bg-gray-100 default-transition">
-                                                                                Auto Select for all items                                                                    </button>
-                                                                        </div>
-                                                                        <div className="py-1">
-                                                                            <button onclick="autoSelect('only_one_matched_items', 240)" className="text-gray-700 group flex w-full items-center px-4 py-2 text-sm whitespace-normal hover:bg-gray-100 default-transition">
-                                                                                Auto Select only items with one match                                                                    </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </th></tr>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
 

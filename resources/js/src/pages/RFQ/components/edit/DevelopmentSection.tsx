@@ -11,6 +11,8 @@ export const DevelopmentSection = () => {
 
 
     const handleChangeField = (field: any, value: any) => {
+
+        //TODO: set open status timestamp in form state 
         dispatch(updateFormData({[field]: value}));
     };
 
