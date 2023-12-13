@@ -232,8 +232,8 @@ const BomExcessConfirmation = () => {
                                                         {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
                                                
                                                          <React.Fragment key={`${index}}_config`}>
-                                                            <div className="p-2 text-left truncate text-sm text-gray-500">
-                                                                <select name={`headers`} className="header-select w-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
+                                                            <div className="p-2 h-14 text-left truncate text-sm text-gray-500">
+                                                                <select name={`headers`} className="header-select w-full h-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
                                                                     {/* Here you would dynamically generate options based on available system fields */}
                                                                     <option value="">Ignore</option>
                                                                     {Object.keys(configHeaders).map((key) => (
