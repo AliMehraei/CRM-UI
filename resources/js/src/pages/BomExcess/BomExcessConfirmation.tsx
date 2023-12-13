@@ -8,6 +8,7 @@ import { useUserStatus } from "../../config/authCheck";
 import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
 import Api from "../../config/api";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import Swal from 'sweetalert2';
 
 
 const BomExcessConfirmation = () => {
@@ -28,6 +29,8 @@ const BomExcessConfirmation = () => {
     const contactId = params.contactId;
     const id = params.id;
     const modelName = "contact";
+    const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -101,12 +104,6 @@ const BomExcessConfirmation = () => {
         setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
     };
 
-
-
-    const handleSaveTemplate = () => {
-        // Logic to save the template
-    };
-
     const handleNextStep = () => {
         // Logic for going to the next step
         window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
@@ -134,7 +131,7 @@ const BomExcessConfirmation = () => {
         if (modelResponse.status != 200)
             return
         const data=modelResponse.data.data;
-        console.log(data);
+
         setConfigHeaders(data.configHeaders)
         setColumnsData(data.BOMItemDetails.data)
         
@@ -143,6 +140,75 @@ const BomExcessConfirmation = () => {
     useEffect(() => {
         fetchDataConfirmation();
     }, []);
+
+    const handleSelectedHeaderChange = async (e:any) => {
+
+        const toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 5000,
+        });
+
+        const selectedIndex = e.target.selectedIndex;
+        const selectedValue = e.target.value;
+        const data = [{
+            selected_header : selectedValue,
+            selected_header_index : selectedIndex,
+            bom_item_id : id,
+            contact_id : contactId
+        }
+        ];
+
+        setLoading(true);
+        const response = await api.selectedHeaderValidation(id,modelName,data);
+
+        if (response.status == 200){
+
+            if (response.data.type === 'error') {
+                toast.fire({
+                    icon: 'error',
+                    title: response.data.msg,
+                    padding: '10px 20px',
+                });
+            } else {
+                if (response.data.type === 'warning') {
+
+                    toast.fire({
+                        icon: 'error',
+                        title: response.data.msg,
+                        padding: '10px 20px',
+                    });
+                }
+
+                const selectElements = document.querySelectorAll('.header-select');
+
+                selectElements.forEach((selectElement) => {
+                  const options = selectElement.querySelectorAll('option');
+            
+                  options.forEach((option, index) => {
+                    if (disabledOptions.includes(index) && index !== 0) {
+                      option.setAttribute('disabled', 'disabled');
+                    } else {
+                      option.removeAttribute('disabled');
+                    }
+                  });
+                });
+            setLoading(false);
+
+        }
+        else{
+
+
+            setLoading(false);
+
+
+        }
+
+
+        
+        
+      };
 
 
     return (
@@ -233,7 +299,8 @@ const BomExcessConfirmation = () => {
                                                
                                                          <React.Fragment key={`${index}}_config`}>
                                                             <div className="p-2 h-14 text-left truncate text-sm text-gray-500">
-                                                                <select name={`headers`} className="header-select w-full h-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
+                                                                <select name={`headers`}  onChange={(e:any) => handleSelectedHeaderChange(e)}
+                                                                className="header-select w-full h-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
                                                                     {/* Here you would dynamically generate options based on available system fields */}
                                                                     <option value="">Ignore</option>
                                                                     {Object.keys(configHeaders).map((key) => (
