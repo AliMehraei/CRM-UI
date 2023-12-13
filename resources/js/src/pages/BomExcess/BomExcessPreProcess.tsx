@@ -24,7 +24,7 @@ const BomExcessPreProcess = () => {
     const params = useParams();
     const contactId = params.contactId;
     const id = params.id;
-
+    const modelName = "contact";
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -97,7 +97,9 @@ const BomExcessPreProcess = () => {
     };
 
     const fetchData = async () => {
+        setLoading(true);
         const modelResponse = await api.fetchSingleContact(contactId);
+        setLoading(false);
         if (modelResponse.status != 200)
             return
         const model = modelResponse.data.data.contact;
@@ -105,12 +107,25 @@ const BomExcessPreProcess = () => {
     };
 
     useEffect(() => {
-        fetchData().then(() => {
-            setLoading(false);
-        });
+        fetchData();
     }, [contactId]);
 
+    const fetchDataProcess = async () => {
+        setLoading(true);
+        const modelResponse = await api.bomItemProcess(contactId,modelName,id);
+        setLoading(false);
+        if (modelResponse.status != 200)
+            return
+        const data=modelResponse.data.data;
+        console.log(data);
+        // setConfigHeaders(data.configHeaders)
+        // setColumnsData(data.BOMItemDetails.data)
+        
+    };
 
+    useEffect(() => {
+        fetchDataProcess();
+    }, []);
 
 
     return (
