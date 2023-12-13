@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,NavLink } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
@@ -42,7 +42,10 @@ const Preview = () => {
 
         { label: "Job Description", value: formState.job_description },
         { label: "Contact Type", value: formState.contact_type },
-        { label: "Account Name", value:  formState.account?.account_name },
+        { label: "Account Name", value: <NavLink to={`/account/preview/${formState.account_id}`}
+        className=" hover:text-info">
+        {formState.account?.account_name}
+                </NavLink>  },
         { label: "Contact Source", value:  formState.contact_source },
         { label: "Contact Owner", value: `${formState.owner?.first_name} ${formState.owner?.last_name}` },
 

@@ -813,6 +813,9 @@ class api {
     async bomItemList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/bom/list`, data);
     }
+    async bomItemConfirmation(id:any,modelName:string,item_id: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/confirmation/${item_id}`);
+    }
 
 
 }
