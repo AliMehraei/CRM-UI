@@ -213,25 +213,23 @@ const BomExcessConfirmation = () => {
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Columns in your table
                                                         </div>
-                                                        {Object.keys(columnsData[0]).map((column, index) => (
-                                              
-                                                        <React.Fragment key={index}>
-                                                             {Object.keys(column).map((val, ind) => (
-                                                                <React.Fragment key={ind}>
+                                                        
+                                                             {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
+                                                                <React.Fragment key={index}>
                                                                     <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-900 font-semibold">
-                                                                        {val}
+                                                                        {columnsData[0].data[key]}
                                                                     </div>
                                                                 </React.Fragment>
                                                              ))}
-                                                        </React.Fragment>
+                                                   
                                                         
-                                                        ))}
+                                                      
                                                     </div>
                                                     <div className="col-span-4 flex flex-col divide-y">
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Fields in our system
                                                         </div>
-                                                        {Object.keys(columnsData[0]).map((column, index) => (
+                                                        {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
                                                
                                                          <React.Fragment key={`${index}}_config`}>
                                                             <div className="p-2 text-left truncate text-sm text-gray-500">
@@ -252,10 +250,10 @@ const BomExcessConfirmation = () => {
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Sample data
                                                         </div>
-                                                        {Object.keys(columnsData[0]).map((column, index) => (
+                                                        {columnsData[1] && columnsData[1].data && Object.keys(columnsData[0].data).map((key, index) => (
                                                             <React.Fragment key={`${index}}_data`}>
                                                             <div className="px-2 h-14 flex items-center text-left truncate text-sm text-gray-500">
-                                                                    {column.sampleData}
+                                                                {columnsData[1].data[key]}
                                                             </div>
                                                             </React.Fragment>
                                                         ))}
