@@ -152,13 +152,12 @@ const BomExcessConfirmation = () => {
 
         const selectedIndex = e.target.selectedIndex;
         const selectedValue = e.target.value;
-        const data = [{
+        const data = {
             selected_header : selectedValue,
             selected_header_index : selectedIndex,
             bom_item_id : id,
             contact_id : contactId
-        }
-        ];
+        };
 
         setLoading(true);
         const response = await api.selectedHeaderValidation(id,modelName,data);
@@ -195,11 +194,16 @@ const BomExcessConfirmation = () => {
                   });
                 });
             setLoading(false);
+            }
 
         }
         else{
 
-
+            toast.fire({
+                icon: 'error',
+                title: "The operation is failed",
+                padding: '10px 20px',
+            });
             setLoading(false);
 
 
