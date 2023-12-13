@@ -30,6 +30,7 @@ const BomExcessConfirmation = () => {
     const id = params.id;
     const modelName = "contact";
     const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
+    const [selectedHeaders, setSelectedHeaders] = useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
@@ -104,9 +105,21 @@ const BomExcessConfirmation = () => {
         setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
     };
 
-    const handleNextStep = () => {
+    const handleNextStep = async() => {
         // Logic for going to the next step
-        window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
+        setLoading(true);
+        const response = await api.bomItemSaveHeader(contactId,modelName,id,{
+            headers:selectedHeaders
+        });
+        setLoading(false);
+        if (response.status == 200){
+            window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
+            
+            
+        }
+
+        
+        
     };
 
    
@@ -158,6 +171,17 @@ const BomExcessConfirmation = () => {
             bom_item_id : id,
             contact_id : contactId
         };
+        const { name, value } = e.target;
+
+       
+        setSelectedHeaders(prevSelectedHeaders => {
+            // Check if the value is not already in the selectedHeaders array
+            if (!prevSelectedHeaders.includes(value)) {
+                return [...prevSelectedHeaders, value];
+            }
+            return prevSelectedHeaders; // Value already exists, return the previous state
+        });
+
 
         setLoading(true);
         const response = await api.selectedHeaderValidation(id,modelName,data);
@@ -212,7 +236,7 @@ const BomExcessConfirmation = () => {
 
         
         
-      };
+    };
 
 
     return (
@@ -303,7 +327,7 @@ const BomExcessConfirmation = () => {
                                                
                                                          <React.Fragment key={`${index}}_config`}>
                                                             <div className="p-2 h-14 text-left truncate text-sm text-gray-500">
-                                                                <select name={`headers`}  onChange={(e:any) => handleSelectedHeaderChange(e)}
+                                                                <select name={`headers[]`}  onChange={(e:any) => handleSelectedHeaderChange(e)}
                                                                 className="header-select w-full h-full border-0 bg-gray-100 rounded-md focus:ring-transparent text-black">
                                                                     {/* Here you would dynamically generate options based on available system fields */}
                                                                     <option value="">Ignore</option>
@@ -399,7 +423,6 @@ const BomExcessConfirmation = () => {
                                                             </td>
                                                             {columnsData[column] && columnsData[column].data && Object.keys(columnsData[column].data).map((key, index) => (
                                                                 <>
-                                                                    {console.log(key)}
                                                                     <td key={index}>{columnsData[column].data[key]}</td>
                                                                 </>
 
