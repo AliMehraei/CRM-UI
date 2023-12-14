@@ -9,6 +9,7 @@ import { displayImage, upFirstLetter } from "../../components/Functions/CommonFu
 import Api from "../../config/api";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
 import LoadingSasCrm from '../../components/LoadingSasCrm';
+import { time } from 'console';
 
 const BomExcessPreProcess = () => {
     const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const BomExcessPreProcess = () => {
     const contactId = params.contactId;
     const id = params.id;
     const modelName = "contact";
+    const [similarityPercentage, setSimilarityPercentage] = useState(null);
+
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -91,9 +95,12 @@ const BomExcessPreProcess = () => {
         setConfigHeaders(data.configHeaders);
         setColumnsData(data.BOMItemDetails);
 
-                console.log(typeof(data.BOMItemDetails));
 
     };
+
+    useEffect(() => {
+        fetchDataProcess();
+    }, []);
 
     const getStatusClass = (item: any) => {
         switch (item.process_status) {
@@ -110,9 +117,45 @@ const BomExcessPreProcess = () => {
         }
     };
 
-    useEffect(() => {
-        fetchDataProcess();
-    }, []);
+    const calculateIsSelected = (product: any,item) => {
+        const productLowerCase = product.name.toLowerCase();
+        const processedProductLowerCase = (item.processed_data.Product_Name || '').toLowerCase();
+    
+        const manufactureNameSimilarity = setSimilarityPercentage(
+          product.manufacture_name,
+          item.processed_data.Manufacture || ''
+        );
+    
+        const alreadySelected =
+            item.selected &&
+            item.selected.product_name &&
+            item.selected.manufacture_name;
+    
+        if (
+          alreadySelected &&
+          item.selected.product_name === product.name &&
+          item.selected.manufacture_name === product.manufacture_name
+        ) {
+          return true;
+        }
+    
+        let isSelected = false;
+        if (!alreadySelected) {
+          isSelected =
+            productLowerCase === processedProductLowerCase && manufactureNameSimilarity >= 90;
+        }
+    
+        if (!isSelected) {
+          const productTrimmedName = WebcoSetting.removeParenthesesAndContent(
+            item.processed_data.Product_Name || ''
+          );
+          const trimmedProductLowerCase = productTrimmedName.toLowerCase();
+    
+          isSelected = productLowerCase === trimmedProductLowerCase && manufactureNameSimilarity >= 90;
+        }
+    
+        return isSelected;
+      };
 
 
     return (
@@ -155,13 +198,13 @@ const BomExcessPreProcess = () => {
                             <h3 className="title-1"> </h3>
                             <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
                                 <a href="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom" className="flex btn btn-primary-outline pulse-primary">
-                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
                                     Back                </a>
                                 <button   onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
-                                    Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                    Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
                                 </button>
                                 <form className="hidden" id="process-form"  method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
@@ -191,25 +234,25 @@ const BomExcessPreProcess = () => {
                                                 <div className="dt-buttons btn-group flex col-span-10">          
                                                     {/* <button 
                                                         className="btn btn-secondary buttons-excel buttons-html5 btn-primary !py-1 !px-2 !text-xs !rounded" 
-                                                        tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                                                        tabIndex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>Excel</span>
                                                     </button> 
                                                     <button className="btn btn-secondary buttons-csv buttons-html5 btn-primary !py-1 !px-2 !text-xs !rounded" 
-                                                        tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                                                        tabIndex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>CSV</span>
                                                     </button> 
                                                     <button className="btn btn-secondary buttons-print btn-primary !py-1 !px-2 !text-xs !rounded" 
-                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                                                    tabIndex="0" aria-controls="DataTables_Table_0" type="button">
                                                         <span>Print</span>
                                                     </button> 
                                                     <div className="btn-group">
                                                     <button className="btn btn-secondary buttons-print btn-primary !py-1 !px-2 !text-xs !rounded" 
-                                                        tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true">
+                                                        tabIndex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true">
                                                         <span>Column visibility</span><span className="dt-down-arrow"></span>
                                                     </button>
                                                     </div> 
                                                     <button className="btn btn-secondary btn-primary-outline !py-1 !px-2 !text-xs !rounded search-pan-button-text" 
-                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button"><span>Filters</span>
+                                                    tabIndex="0" aria-controls="DataTables_Table_0" type="button"><span>Filters</span>
                                                     </button>  */}
                                                 </div>
                                                 <div id="DataTables_Table_0_filter" className="flex col-span-2">
@@ -224,7 +267,7 @@ const BomExcessPreProcess = () => {
                                                     <table className="datatable relative min-w-full border-collapse dataTable no-footer" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                                             <thead className="bg-gray-200 sticky z-30 top-0">
                                                     <tr className="header-row">
-                                                    <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column descending" aria-sort="ascending">
+                                                    <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 sorting sorting_asc" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" aria-label="#: activate to sort column descending" aria-sort="ascending">
                                                         #
                                                     </th>
                                                     {Object.keys(configHeaders).map((key, index) => (
@@ -247,7 +290,7 @@ const BomExcessPreProcess = () => {
                                                                           </th>
                                                                         )}
                                                                       </React.Fragment>
-                                                                    ))}
+                                                    ))}
                                                                  
                                                     
                                                     </tr>
@@ -256,7 +299,7 @@ const BomExcessPreProcess = () => {
                                                         
 
                                                         {Object.values(columnsData).map((item: any, index) => (
-                                                            <tr title={item.process_status} data-row-id={item.id} className="detail-row">
+                                                            <tr title={item.process_status} data-row-id={item.id} className="detail-row" key={index}>
 
                                                             <td className="border p-2 text-sm text-gray-500">
                                                             <span className={getStatusClass(item)}>
@@ -269,29 +312,23 @@ const BomExcessPreProcess = () => {
                                                             <td className="border p-2 text-sm text-gray-500">
                                                                 {item.process_status === 'found' ? (
                                                                     <div className="flex flex-col p-2">
-                                                                    <select name="manufacture_name" className="manufacture-name w-full rounded border-gray-300" data-bom-item-detail-id="{{ $BOMItemDetail->id }}" data-bom-item-id="{{ $BOMItem->id }}">
+                                                                    <select name="manufacture_name" className="manufacture-name w-full h-8 rounded border-gray-300" >
                                                                         <option value="">Select or Ignore</option>
-                                                                        {item.matched_data.products.map((product) => {
-                                                                        const isSelected = selectedProducts.includes(product.crm_id || product.source);
-
-                                                                        return (
-                                                                        <option
-                                                                            key={product.crm_id || product.source}
-                                                                            value={product.crm_id || product.source}
-                                                                            data-product={product.name}
-                                                                            data-manufacture={product.manufacture_name}
-                                                                            selected={isSelected}
-                                                                        >
-                                                                            {product.control} {!isSelected ? '(Alternative)' : ''}
-                                                                        </option>
-                                                                        );
-                                                                    })}
+                                                                        {item.matched_data.products.map((product: any) => (
+                                                                            <>
+                                                                            <option value={product.id}>
+                                                                                {product.product_name} | {product.manufacturer_name}
+                                                                            </option>
+                                                                            </>
+                                                                           
+                                                            
+                                                                        ))}
                                                                     </select>
-                                                                    @if ($alternativeCount != 0)
-                                                                        <span class="text-red-500">@lang('website.X Alternative found', ['X' => $alternativeCount])</span>
-                                                                    @endif
+                                                                   
                                                                 </div>
-                                                                ) : ()
+                                                                ) : (
+                                                                    <></>
+                                                                )
 
                                                                 }
                                                             </td>
@@ -314,14 +351,14 @@ const BomExcessPreProcess = () => {
                         <div className="sm:flex sm:items-center sm:justify-end border-b border-gray-200 pb-4">
                             <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
                                 <a href="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom" className="flex btn btn-primary-outline pulse-primary">
-                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
                                     Back                </a>
 
                                 <button onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
-                                    Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                                    Submit                    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
                                 </button>
                                 <form className="hidden" id="process-form" action="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom/process/BOMItem?240" method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
@@ -336,19 +373,19 @@ const BomExcessPreProcess = () => {
 
                     <div id="modal-edit-product" className="hidden search-modal fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-20" role="dialog" aria-modal="true" 
                     >
-                        <div onclick="closeEditProductModal()" className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" aria-hidden="true"></div>
+                        <div  className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" aria-hidden="true"></div>
                         <div className="mx-auto max-w-2xl transform divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                             <input type="hidden" id="modal-edit-product-search-bom-item-detail-id" />
                                 <div className="p-4 text-gray-400 text-center">
                                     Please type the product name and select the founded item            </div>
                                 <div className="relative">
                                     <svg className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                                        <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
                                     </svg>
                                     <span className="twitter-typeahead" >
-                                        <input type="text" className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" 
+                                        <input type="text" className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-hint" readOnly="" autoComplete="off" spellCheck="false" tabIndex="-1" dir="ltr" 
                                          />
-                                        <input id="modal-edit-product-search" type="text" className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-input" placeholder="Search..." autocomplete="off" spellcheck="false" dir="auto" />
+                                        <input id="modal-edit-product-search" type="text" className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-input" placeholder="Search..." autoComplete="off" spellCheck="false" dir="auto" />
                                             <pre aria-hidden="true" >
                                         </pre>
                                         </span>
@@ -363,19 +400,19 @@ const BomExcessPreProcess = () => {
                         </div>
                         <div id="modal-edit-alternative-product" className="hidden search-modal fixed inset-0 overflow-y-auto p-4 sm:p-6 md:p-20" role="dialog" aria-modal="true" 
                         >
-                            <div onclick="closeEditAlternativeProductModal()" className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" aria-hidden="true"></div>
+                            <div  className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" aria-hidden="true"></div>
                             <div className="mx-auto max-w-2xl transform divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                                 <input type="hidden" id="modal-edit-alternative-product-search-bom-item-detail-id" />
                                     <div className="p-4 text-gray-400 text-center">
                                         Please type the product name and select the founded item                </div>
                                     <div className="relative">
                                         <svg className="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                                            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
                                         </svg>
-                                        <span className="twitter-typeahead" ><input type="text" className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-hint" readonly="" autocomplete="off" spellcheck="false" tabindex="-1" dir="ltr" 
+                                        <span className="twitter-typeahead" ><input type="text" className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-hint" readOnly="" autoComplete="off" spellCheck="false" tabIndex="-1" dir="ltr" 
                                          />
                                         <input id="modal-edit-alternative-product-search" type="text" 
-                                        className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-input" placeholder="Search..." autocomplete="off" spellcheck="false" dir="auto" 
+                                        className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 tt-input" placeholder="Search..." autoComplete="off" spellCheck="false" dir="auto" 
                                          />
                                         <pre aria-hidden="true" ></pre></span>
                                         </div>
