@@ -8,6 +8,7 @@ import { useUserStatus } from "../../config/authCheck";
 import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
 import Api from "../../config/api";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const BomExcessPreProcess = () => {
     const dispatch = useDispatch();
@@ -30,39 +31,15 @@ const BomExcessPreProcess = () => {
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
-    const systemFields = [
-        'Ignore',
-        'Part-Number (MPN)',
-        'Manufacturer',
-        // ... add more fields as required
-    ];
+   
 
-    // Example initial data structure
-    const initialData = [
-        {
-            header: 'Material',
-            sampleData: '476577',
-            rows: ['468423', '468405', '468398'] // Array of row data for this column
-        },
-        // Add other columns as needed
-    ];
-    // const columnsData = [
-    //     {
-    //         id: 1,
-    //         columnName: 'Material',
-    //         systemField: 'Part-Number (MPN)',
-    //         sampleData: '476577',
-    //     },
-    //     {
-    //         id: 2,
-    //         columnName: 'Material Description',
-    //         systemField: 'Description',
-    //         sampleData: 'Some description',
-    //     },
-    //     // ... more columns as necessary
-    // ];
-    useEffect(() => {
-        // Get the current URL path
+    useEffect( () => {
+        getDataUrl()
+    }, []);
+
+
+    const getDataUrl = async() => { 
+        setLoading(true);
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Process");
@@ -71,18 +48,9 @@ const BomExcessPreProcess = () => {
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
         dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Process"));
-    }, []);
-
-
-    const [columnMappings, setColumnMappings] = useState({});
-
-    // Assuming initialData is an array of objects with a header property
-    const [uploadedData, setUploadedData] = useState(initialData);
-    const handleFieldChange = (columnIndex, selectedField) => {
-        // Update the mapping for the given column index
-        setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
-    };
-
+        setLoading(false);
+    }
+   
 
 
     const handleSaveTemplate = () => {
@@ -148,6 +116,9 @@ const BomExcessPreProcess = () => {
 
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="flex justify-end flex-wrap gap-4 px-4" >
@@ -420,8 +391,8 @@ const BomExcessPreProcess = () => {
                     </div>
 
                 </>
-
-                );
+        )
+    );
 };
 
                 export default BomExcessPreProcess;
