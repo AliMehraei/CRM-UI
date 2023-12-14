@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ const BomExcessConfirmation = () => {
     const [emptyMessage, setEmptyMessage] = useState('');
     const [configHeaders, setConfigHeaders] = useState({});
     const [columnsData, setColumnsData] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const formState = useSelector((state: any) => state.contactForm);
     const api = new Api();
     const params = useParams();
@@ -37,6 +37,8 @@ const BomExcessConfirmation = () => {
         showConfirmButton: false,
         timer: 5000,
     });
+    const location = useLocation();
+    const { pathname } = location;
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -50,7 +52,8 @@ const BomExcessConfirmation = () => {
 
     const getDataUrl = async() => { 
         setLoading(true);
-        const currentPath =window.location.pathname;
+        
+        const currentPath =pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Confirmation");
         setAddBtnRoute(pathParts[1]);
@@ -119,11 +122,11 @@ const BomExcessConfirmation = () => {
                     title: modelResponse.data.message,
                     padding: '10px 20px',
                 });
-                // setTimeout(() => {
-                    console.log(`/${addBtnRoute}/list/${contactId}`);
-                    
-                    window.location.href = `/${addBtnRoute}/list/${contactId}`;
-                // }, 1000);
+                setTimeout(() => {
+                    const currentPath =pathname;
+                    const pathParts = currentPath.split('/');
+                    window.location.href = `/${pathParts[1]}/list/${contactId}`;
+                }, 1000);
                 
             }
             const data=modelResponse.data.data;

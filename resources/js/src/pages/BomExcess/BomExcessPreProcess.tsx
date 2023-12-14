@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,8 @@ const BomExcessPreProcess = () => {
     const [similarityPercentage, setSimilarityPercentage] = useState(null);
 
 
+    const location = useLocation();
+    const { pathname } = location;
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -44,7 +46,7 @@ const BomExcessPreProcess = () => {
 
     const getDataUrl = async() => { 
         setLoading(true);
-        const currentPath = window.location.pathname;
+        const currentPath = pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Process");
         setAddBtnRoute(pathParts[1]);
@@ -197,9 +199,9 @@ const BomExcessPreProcess = () => {
                         <div className="sm:flex sm:items-center sm:justify-between border-b border-gray-200 pb-4">
                             <h3 className="title-1"> </h3>
                             <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
-                                <a href="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom" className="flex btn btn-primary-outline pulse-primary">
-                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                                <a href={`/${addBtnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
+                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
                                     Back                </a>
                                 <button   onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
@@ -350,9 +352,9 @@ const BomExcessPreProcess = () => {
                     <section className=" mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center sm:justify-end border-b border-gray-200 pb-4">
                             <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
-                                <a href="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom" className="flex btn btn-primary-outline pulse-primary">
-                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                                <a href={`/${addBtnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
+                                    <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
                                     Back                </a>
 
@@ -361,7 +363,7 @@ const BomExcessPreProcess = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
                                 </button>
-                                <form className="hidden" id="process-form" action="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom/process/BOMItem?240" method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
+                                
                             </div>
                         </div>
                     </section>
@@ -432,4 +434,4 @@ const BomExcessPreProcess = () => {
     );
 };
 
-                export default BomExcessPreProcess;
+export default BomExcessPreProcess;
