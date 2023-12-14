@@ -119,10 +119,27 @@ const BomExcessPreProcess = () => {
         if (modelResponse.status != 200)
             return
         const data=modelResponse.data.data;
-        console.log(data);
+
         setConfigHeaders(data.configHeaders);
-        setColumnsData(data.BOMItemDetails.data);
-        
+        setColumnsData(data.BOMItemDetails);
+
+                console.log(typeof(data.BOMItemDetails));
+
+    };
+
+    const getStatusClass = (item: any) => {
+        switch (item.process_status) {
+          case 'incorrect_data':
+            return 'text-red-600';
+          case 'without_product_name':
+            return 'text-red-400';
+          case 'not_found':
+            return 'text-yellow-500';
+          case 'found':
+            return 'text-green-500';
+          default:
+            return 'p-1 rounded font-bold';
+        }
     };
 
     useEffect(() => {
@@ -239,74 +256,75 @@ const BomExcessPreProcess = () => {
                                                     <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500 sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="#: activate to sort column descending" aria-sort="ascending">
                                                         #
                                                     </th>
-                                                    {Object.keys(configHeaders).map((key) => (
-                                                                        <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500">
-                                                                            {configHeaders[key]}
+                                                    {Object.keys(configHeaders).map((key, index) => (
+                                                                        
+                                                                        <React.Fragment key={index}>
+                                                                        {index === 3 ? (
+                                                                            <>
+                                                                          <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500">
+                                                                            <div className="flex flex-row justify-between items-center space-x-3">
+                                                                              <span>Suggestions</span>
+                                                                            </div>
+                                                                          </th>
+                                                                          <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500">
+                                                                            Status
                                                                         </th>
+                                                                        </>
+                                                                        ) : (
+                                                                          <th className="p-2 whitespace-nowrap text-left text-sm text-gray-500">
+                                                                            {configHeaders[key]}
+                                                                          </th>
+                                                                        )}
+                                                                      </React.Fragment>
                                                                     ))}
+                                                                 
                                                     
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                        
 
+                                                        {Object.values(columnsData).map((item: any, index) => (
+                                                            <tr title={item.process_status} data-row-id={item.id} className="detail-row">
 
-
-
-
-
-
-
-
-
-
-                                                    <tr title="Not found" data-row-id="66075" className="detail-row odd">
-                                                        <td className="border p-2 text-sm text-gray-500 sorting_1">
-                                                            <span className="!text-yellow-500 p-1 rounded font-bold">
-                                                                1
+                                                            <td className="border p-2 text-sm text-gray-500">
+                                                            <span className={getStatusClass(item)}>
+                                                                {item.display_order}
                                                             </span>
-                                                        </td>
+                                                            </td>
+                                                            <td className="border p-2 text-sm text-gray-500">{item.processed_data.Product_Name}</td>
+                                                            <td className="border p-2 text-sm text-gray-500">{item.processed_data.Manufacture}</td>
+                                                            <td className="border p-2 text-sm text-gray-500">{item.processed_data.Quantity}</td>
+                                                            <td className="border p-2 text-sm text-gray-500">
+                                                                {/* {item.process_status === 'found' ? (
+                                                                    <div className="flex flex-col p-2">
+                                                                    <select name="manufacture_name" className="manufacture-name w-full rounded border-gray-300" data-bom-item-detail-id="{{ $BOMItemDetail->id }}" data-bom-item-id="{{ $BOMItem->id }}">
+                                                                        <option value="">Select or Ignore</option>
+                                                                        @foreach ($BOMItemDetail->matched_data->products as $product)
+                                                                            @php
+                                                                                $isSelected = $BOMItemDetail->calculateIsSelected($product);
+                                                                                if ($isSelected) $anOptionIsSelected = true;
+                                                                            @endphp
+                                                                            <option value="{{ $product->crm_id ?? $product->source }}" data-product="{{ $product->name }}" data-manufacture="{{ $product->manufacture_name }}" {{ $isSelected ? 'selected' : '' }}>
+                                                                                {{ $product->control }} {{ !$isSelected ? '(Alternative)' : '' }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @if ($alternativeCount != 0)
+                                                                        <span class="text-red-500">@lang('website.X Alternative found', ['X' => $alternativeCount])</span>
+                                                                    @endif
+                                                                </div>
+                                                                ) : ()
 
-                                                        <td className="border p-2 text-sm text-gray-500">
-                                                            <button className="flex space-x-2 group items-center" onclick="openEditProductModal('66075', 'ME D-SWITCH 200V 200mA 250mW SOD-323/G8')">
-                                                                <span className="group-hover:underline text-left">
-                                                                    ME D-SWITCH 200V 200mA 250mW SOD-323/G8
-                                                                </span>
-                                                                <span className="opacity-0 group-hover:opacity-100">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path>
-                                                                    </svg>
-                                                                </span>
-                                                            </button>
-                                                        </td>
+                                                                } */}
+                                                            </td>
+                                                            <td className="border p-2 text-sm text-gray-500">{item.processed_data.Quantity}</td>
+                                                            </tr>
+                                                        ))}
 
-                                                        <td className="border p-2 text-sm text-gray-500">
-                                                            <span>
-                                                                10001
-                                                            </span>
-                                                        </td>
+                                                        
 
-                                                        <td className="border text-sm text-gray-500">
-                                                            <strong className="nothing-matched-text p-2">Nothing matched</strong>
-                                                        </td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                    </tr></tbody>
+                                                    </tbody>
                                             </table><div className="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 11 of 11 entries</div></div>
                                         </div>
                                     </div>
