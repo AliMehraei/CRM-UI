@@ -119,46 +119,6 @@ const BomExcessPreProcess = () => {
         }
     };
 
-    const calculateIsSelected = (product: any,item) => {
-        const productLowerCase = product.name.toLowerCase();
-        const processedProductLowerCase = (item.processed_data.Product_Name || '').toLowerCase();
-    
-        const manufactureNameSimilarity = setSimilarityPercentage(
-          product.manufacture_name,
-          item.processed_data.Manufacture || ''
-        );
-    
-        const alreadySelected =
-            item.selected &&
-            item.selected.product_name &&
-            item.selected.manufacture_name;
-    
-        if (
-          alreadySelected &&
-          item.selected.product_name === product.name &&
-          item.selected.manufacture_name === product.manufacture_name
-        ) {
-          return true;
-        }
-    
-        let isSelected = false;
-        if (!alreadySelected) {
-          isSelected =
-            productLowerCase === processedProductLowerCase && manufactureNameSimilarity >= 90;
-        }
-    
-        if (!isSelected) {
-          const productTrimmedName = WebcoSetting.removeParenthesesAndContent(
-            item.processed_data.Product_Name || ''
-          );
-          const trimmedProductLowerCase = productTrimmedName.toLowerCase();
-    
-          isSelected = productLowerCase === trimmedProductLowerCase && manufactureNameSimilarity >= 90;
-        }
-    
-        return isSelected;
-      };
-
 
     return (
         (loading) ? (
