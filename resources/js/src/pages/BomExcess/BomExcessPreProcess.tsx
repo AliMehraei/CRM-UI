@@ -309,7 +309,7 @@ const BomExcessPreProcess = () => {
                     <section className=" mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center sm:justify-end border-b border-gray-200 pb-4">
                             <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
-                                <a href="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom" className="flex btn btn-primary-outline pulse-primary">
+                                <a href={`/${addBtnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
                                     <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                     </svg>
@@ -320,7 +320,7 @@ const BomExcessPreProcess = () => {
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                                     </svg>
                                 </button>
-                                <form className="hidden" id="process-form" action="https://alpynelectronics.com/en/panel/excess-bom/25/customer/bom/process/BOMItem?240" method="post"> <input type="hidden" name="_token" value="GV9WLKTU9cEFE02rzpmifMJBxdjWYQPMdMCWYhps" /> </form>
+                                
                             </div>
                         </div>
                     </section>
