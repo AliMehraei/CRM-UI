@@ -296,19 +296,25 @@ const BomExcessPreProcess = () => {
                                                             <td className="border p-2 text-sm text-gray-500">{item.processed_data.Manufacture}</td>
                                                             <td className="border p-2 text-sm text-gray-500">{item.processed_data.Quantity}</td>
                                                             <td className="border p-2 text-sm text-gray-500">
-                                                                {/* {item.process_status === 'found' ? (
+                                                                {item.process_status === 'found' ? (
                                                                     <div className="flex flex-col p-2">
                                                                     <select name="manufacture_name" className="manufacture-name w-full rounded border-gray-300" data-bom-item-detail-id="{{ $BOMItemDetail->id }}" data-bom-item-id="{{ $BOMItem->id }}">
                                                                         <option value="">Select or Ignore</option>
-                                                                        @foreach ($BOMItemDetail->matched_data->products as $product)
-                                                                            @php
-                                                                                $isSelected = $BOMItemDetail->calculateIsSelected($product);
-                                                                                if ($isSelected) $anOptionIsSelected = true;
-                                                                            @endphp
-                                                                            <option value="{{ $product->crm_id ?? $product->source }}" data-product="{{ $product->name }}" data-manufacture="{{ $product->manufacture_name }}" {{ $isSelected ? 'selected' : '' }}>
-                                                                                {{ $product->control }} {{ !$isSelected ? '(Alternative)' : '' }}
-                                                                            </option>
-                                                                        @endforeach
+                                                                        {item.matched_data.products.map((product) => {
+                                                                        const isSelected = selectedProducts.includes(product.crm_id || product.source);
+
+                                                                        return (
+                                                                        <option
+                                                                            key={product.crm_id || product.source}
+                                                                            value={product.crm_id || product.source}
+                                                                            data-product={product.name}
+                                                                            data-manufacture={product.manufacture_name}
+                                                                            selected={isSelected}
+                                                                        >
+                                                                            {product.control} {!isSelected ? '(Alternative)' : ''}
+                                                                        </option>
+                                                                        );
+                                                                    })}
                                                                     </select>
                                                                     @if ($alternativeCount != 0)
                                                                         <span class="text-red-500">@lang('website.X Alternative found', ['X' => $alternativeCount])</span>
@@ -316,7 +322,7 @@ const BomExcessPreProcess = () => {
                                                                 </div>
                                                                 ) : ()
 
-                                                                } */}
+                                                                }
                                                             </td>
                                                             <td className="border p-2 text-sm text-gray-500">{item.processed_data.Quantity}</td>
                                                             </tr>
