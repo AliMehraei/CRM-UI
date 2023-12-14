@@ -31,7 +31,7 @@ const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: 'id',
-        direction: 'asc',
+        direction: 'desc',
     });
 
 

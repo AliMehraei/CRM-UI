@@ -814,6 +814,19 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/bom/list`, data);
     }
 
+    async bomItemConfirmation(id:any,modelName:string,item_id: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/confirmation/${item_id}`);
+    }
+    async bomItemProcess(id:any,modelName:string,item_id: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/process/${item_id}`);
+    }
+    async bomItemSaveHeader(id:any,modelName:string,item_id: any,data:any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`,data);
+    }
+    async selectedHeaderValidation(id:any,modelName:string,data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import/validation`, data);
+    }
+
 
 }
 
