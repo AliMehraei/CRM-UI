@@ -147,7 +147,7 @@ const BomExcessConfirmation = () => {
 
         setConfigHeaders(data.configHeaders)
         setColumnsData(data.BOMItemDetails.data)
-        
+
     };
 
     useEffect(() => {
