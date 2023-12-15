@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ const BomExcessIndex = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [btnRoute, setBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('bom');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
@@ -25,7 +25,8 @@ const BomExcessIndex = () => {
     const api = new Api();
     const params = useParams();
     const contactId = params.id;
-
+    const location = useLocation();
+    const { pathname } = location;
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -98,7 +99,7 @@ const BomExcessIndex = () => {
                         </div>
                     </section>
 
-                    <ListBom contactId={contactId} btnRoute={btnRoute} />
+                    <ListBom contactId={contactId} btnRoute={pathname.split('/')[1]} />
 
                 </div>
             </div>
