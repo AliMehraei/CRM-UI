@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { displayImage, upFirstLetter } from "../../components/Functions/CommonFu
 import Api from "../../config/api";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
 import Swal from 'sweetalert2';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 
 const BomExcessConfirmation = () => {
@@ -18,11 +19,10 @@ const BomExcessConfirmation = () => {
     const [addBtnRoute, setAddBtnRoute] = useState('');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
-    const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
     const [configHeaders, setConfigHeaders] = useState({});
     const [columnsData, setColumnsData] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const formState = useSelector((state: any) => state.contactForm);
     const api = new Api();
     const params = useParams();
@@ -31,61 +31,29 @@ const BomExcessConfirmation = () => {
     const modelName = "contact";
     const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
     const [selectedHeaders, setSelectedHeaders] = useState<any[]>([]);
-
+    const toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 5000,
+    });
+    const location = useLocation();
+    const { pathname } = location;
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
-    const systemFields = [
-        'Ignore',
-        'Part-Number (MPN)',
-        'Manufacturer',
-        // ... add more fields as required
-    ];
+  
 
-    // Example initial data structure
-    const initialData = [
-        {
-            header: 'Material',
-            sampleData: '476577',
-            rows: ['1', '2', '3'] // Array of row data for this column
-        },
-        {
-            header: 'Material Description',
-            sampleData: '476577',
-            rows: ['4', '5', '6'] // Array of row data for this column
-        },
-        {
-            header: 'Quantity',
-            sampleData: '476577',
-            rows: ['400', '5104', '6040'] // Array of row data for this column
-        },
-        // Add other columns as needed
-    ];
-    // const columnsData = [
-    //     {
-    //         id: 1,
-    //         columnName: 'Material',
-    //         systemField: 'Part-Number (MPN)',
-    //         sampleData: '476577',
-    //     },
-    //     {
-    //         id: 2,
-    //         columnName: 'Material Description',
-    //         systemField: 'Description',
-    //         sampleData: 'Some description',
-    //     },
-    //     {
-    //         id: 2,
-    //         columnName: 'Quantity',
-    //         systemField: 'Quantity',
-    //         sampleData: 'Quantity',
-    //     },
-    //     // ... more columns as necessary
-    // ];
+   
+    useEffect( () => {
+        getDataUrl()
+    }, []);
 
-    useEffect(() => {
-        // Get the current URL path
-        const currentPath = window.location.pathname;
+
+    const getDataUrl = async() => { 
+        setLoading(true);
+        
+        const currentPath =pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Confirmation");
         setAddBtnRoute(pathParts[1]);
@@ -93,17 +61,9 @@ const BomExcessConfirmation = () => {
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
         dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Confirmation"));
-    }, []);
+        setLoading(false);
+    }
 
-
-    const [columnMappings, setColumnMappings] = useState({});
-
-    // Assuming initialData is an array of objects with a header property
-    const [uploadedData, setUploadedData] = useState(initialData);
-    const handleFieldChange = (columnIndex, selectedField) => {
-        // Update the mapping for the given column index
-        setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
-    };
 
     const handleNextStep = async() => {
         // Logic for going to the next step
@@ -116,6 +76,19 @@ const BomExcessConfirmation = () => {
             window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
             
             
+        }
+        else if (response.status == 302){
+            const toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 5000,
+            });
+            toast.fire({
+                icon: 'error',
+                title: response.data.message,
+                padding: '10px 20px',
+            });
         }
 
         
@@ -138,15 +111,30 @@ const BomExcessConfirmation = () => {
     }, [contactId]);
 
     const fetchDataConfirmation = async () => {
-        setLoading(true);
-        const modelResponse = await api.bomItemConfirmation(contactId,modelName,id);
-        setLoading(false);
-        if (modelResponse.status != 200)
-            return
-        const data=modelResponse.data.data;
-
-        setConfigHeaders(data.configHeaders)
-        setColumnsData(data.BOMItemDetails.data)
+        if(!loading){
+            setLoading(true);
+            const modelResponse = await api.bomItemConfirmation(contactId,modelName,id);
+            setLoading(false);
+            if (modelResponse.status == 302){
+                
+                toast.fire({
+                    icon: 'error',
+                    title: modelResponse.data.message,
+                    padding: '10px 20px',
+                });
+                setTimeout(() => {
+                    const currentPath =pathname;
+                    const pathParts = currentPath.split('/');
+                    window.location.href = `/${pathParts[1]}/list/${contactId}`;
+                }, 1000);
+                
+            }
+            const data=modelResponse.data.data;
+    
+            setConfigHeaders(data.configHeaders)
+            setColumnsData(data.BOMItemDetails.data)
+        }
+        
         
     };
 
@@ -156,13 +144,7 @@ const BomExcessConfirmation = () => {
 
     const handleSelectedHeaderChange = async (e:any) => {
 
-        const toast = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 5000,
-        });
-
+        
         const selectedIndex = e.target.selectedIndex;
         const selectedValue = e.target.value;
         const data = {
@@ -240,6 +222,9 @@ const BomExcessConfirmation = () => {
 
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
                 <div className="flex justify-end flex-wrap gap-4 px-4" >
@@ -453,7 +438,7 @@ const BomExcessConfirmation = () => {
             </div>
 
         </>
-
+        )
     );
 };
 

@@ -8,6 +8,7 @@ import { useUserStatus } from "../../config/authCheck";
 import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
 import Api from '../../config/api';
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 
 const BomExcessComplete = () => {
@@ -147,6 +148,9 @@ const BomExcessComplete = () => {
 
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="flex justify-end flex-wrap gap-4 px-4" >
@@ -303,7 +307,7 @@ const BomExcessComplete = () => {
             </div>
 
         </>
-
+        )
     );
 };
 

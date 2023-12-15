@@ -168,7 +168,7 @@ const InvoiceInformationSection = () => {
                     ),
                 }}
             />,
-            'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
+            'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="readOnly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                     disabled/>,
             'ZohoBooksID': (

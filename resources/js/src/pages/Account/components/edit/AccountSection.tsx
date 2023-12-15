@@ -89,7 +89,7 @@ const AccountSection = () => {
                 checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by_id" type="text"
-                                  placeholder="Readonly input here…"
+                                  placeholder="readOnly input here…"
                                   className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                   defaultValue={formState.approved_by ? formState.approved_by?.first_name + " " + formState.approved_by?.last_name : ''}
                                   disabled/>,
