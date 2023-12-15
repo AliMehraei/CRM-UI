@@ -703,10 +703,11 @@ class api {
     }
 
     async fetchSuggestedAvailability(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`, {product_id: product_id});
     }
+
     async fetchSuggestedExcess(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`, {product_id: product_id});
     }
 
     //start dashboard
@@ -797,11 +798,12 @@ class api {
     async reportInvoiceDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }
+
     async reportVendorList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
     }
 
-    async importBomExcess(id:any,modelName:string,formData: any) {
+    async importBomExcess(id: any, modelName: string, formData: any) {
 
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import`, formData, {
             headers: {
@@ -814,16 +816,19 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/bom/list`, data);
     }
 
-    async bomItemConfirmation(id:any,modelName:string,item_id: any) {
+    async bomItemConfirmation(id: any, modelName: string, item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/confirmation/${item_id}`);
     }
-    async bomItemProcess(id:any,modelName:string,item_id: any) {
+
+    async bomItemProcess(id: any, modelName: string, item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/process/${item_id}`);
     }
-    async bomItemSaveHeader(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`,data);
+
+    async bomItemSaveHeader(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`, data);
     }
-    async selectedHeaderValidation(id:any,modelName:string,data: any) {
+
+    async selectedHeaderValidation(id: any, modelName: string, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import/validation`, data);
     }
 
