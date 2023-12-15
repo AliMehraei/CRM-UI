@@ -401,6 +401,7 @@ const BomExcessPreProcess = () => {
 
                                                         </tbody>
                                                     </table>
+                                                </div>
                                             </div>
                                         </div>
 

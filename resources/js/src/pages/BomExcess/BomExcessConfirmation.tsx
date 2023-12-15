@@ -160,7 +160,7 @@ const BomExcessConfirmation = () => {
         });
 
 
-        setLoading(true);
+        // setLoading(true);
         const response = await api.selectedHeaderValidation(id,modelName,data);
 
         if (response.status == 200){
@@ -194,7 +194,7 @@ const BomExcessConfirmation = () => {
                     }
                   });
                 });
-            setLoading(false);
+            // setLoading(false);
             }
 
         }
