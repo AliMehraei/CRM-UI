@@ -16,7 +16,7 @@ const BomExcessPreProcess = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('');
     const [configHeaders, setConfigHeaders] = useState({});
     const [columnsData, setColumnsData] = useState({});
     const [addBtnLabel, setAddBtnLabel] = useState('');
@@ -56,7 +56,7 @@ const BomExcessPreProcess = () => {
         const currentPath = pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Process");
-        setAddBtnRoute(pathParts[1]);
+        setBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
@@ -79,7 +79,7 @@ const BomExcessPreProcess = () => {
         });
         setLoading(false);
         if (response.status == 200) {
-            window.location.href = `/${addBtnRoute}/complete/${contactId}/${id}`;
+            window.location.href = `/${btnRoute}/complete/${contactId}/${id}`;
 
 
         }
@@ -251,7 +251,7 @@ const BomExcessPreProcess = () => {
                             <div className="sm:flex sm:items-center sm:justify-between border-b border-gray-200 pb-4">
                                 <h3 className="title-1"> </h3>
                                 <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
-                                    <a href={`/${addBtnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
+                                    <a href={`/${btnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
                                         <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                         </svg>
@@ -411,7 +411,7 @@ const BomExcessPreProcess = () => {
                         <section className=" mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="sm:flex sm:items-center sm:justify-end border-b border-gray-200 pb-4">
                                 <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
-                                    <a href={`/${addBtnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
+                                    <a href={`/${btnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
                                         <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                         </svg>

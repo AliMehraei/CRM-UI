@@ -15,7 +15,7 @@ const BomExcessImport = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
@@ -38,7 +38,7 @@ const BomExcessImport = () => {
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Import");
-        setAddBtnRoute(pathParts[1]);
+        setBtnRoute(pathParts[1]);
         setAddBtnLabel(upFirstLetter(pathParts[1]) + " Import");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
@@ -88,12 +88,12 @@ const BomExcessImport = () => {
 
         try{
 
-        // window.location.href = `/${addBtnRoute}/confirmation/${contactId}`;
+        // window.location.href = `/${btnRoute}/confirmation/${contactId}`;
 
         // Submit the form
         const formData = new FormData(event.target);
         // prepare type for BomItem
-        const type = modelName + '_' + addBtnRoute+'_list' ;
+        const type = modelName + '_' + btnRoute+'_list' ;
 
         formData.append('has_header', hasHeader);
         formData.append('ignored_top_rows', ignoredTopRows);
@@ -111,7 +111,7 @@ const BomExcessImport = () => {
 
             })
 
-            window.location.href = `/${addBtnRoute}/list/${contactId}`;
+            window.location.href = `/${btnRoute}/list/${contactId}`;
             
         } else {
             toast.fire({
@@ -183,14 +183,14 @@ const BomExcessImport = () => {
                                     type="text"
                                     id="title"
                                     name="title"
-                                    placeholder={`Enter your new ${addBtnRoute} list name`}
+                                    placeholder={`Enter your new ${btnRoute} list name`}
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your {addBtnRoute} list</label>
+                                <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your {btnRoute} list</label>
                                 {/* <div {...getRootProps()} className="dropzone border-dashed border-2 border-gray-300 rounded py-2 px-4 text-center cursor-pointer">
                                     <input {...getInputProps()} />
                                     <p className="text-gray-700">Drag and drop some files here, or click to select files</p>

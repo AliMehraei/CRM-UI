@@ -16,7 +16,7 @@ const BomExcessConfirmation = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
     const [emptyMessage, setEmptyMessage] = useState('');
@@ -56,7 +56,7 @@ const BomExcessConfirmation = () => {
         const currentPath =pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Confirmation");
-        setAddBtnRoute(pathParts[1]);
+        setBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
@@ -73,7 +73,7 @@ const BomExcessConfirmation = () => {
         });
         setLoading(false);
         if (response.status == 200){
-            window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
+            window.location.href = `/${btnRoute}/process/${contactId}/${id}`;
             
             
         }

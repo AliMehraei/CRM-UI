@@ -16,7 +16,7 @@ const BomExcessComplete = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
     const [configHeaders, setConfigHeaders] = useState({});
@@ -87,7 +87,7 @@ const BomExcessComplete = () => {
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Overview");
-        setAddBtnRoute(pathParts[1]);
+        setBtnRoute(pathParts[1]);
         setAddBtnLabel("View " + upFirstLetter(pathParts[1]) + " List");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List Overview");
         setEmptyMessage("Here you can see an overview about your uploaded " + upFirstLetter(pathParts[1]) + "  list");
@@ -105,7 +105,7 @@ const BomExcessComplete = () => {
 
     const handleNextStep = () => {
         // Logic for going to the next step
-        window.location.href = `/${addBtnRoute}/list/${contactId}`;
+        window.location.href = `/${btnRoute}/list/${contactId}`;
 
     };
 
