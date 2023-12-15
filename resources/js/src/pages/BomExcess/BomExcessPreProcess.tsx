@@ -400,7 +400,7 @@ const BomExcessPreProcess = () => {
 
 
                                                         </tbody>
-                                                    </table><div className="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 11 of 11 entries</div></div>
+                                                    </table>
                                             </div>
                                         </div>
 
