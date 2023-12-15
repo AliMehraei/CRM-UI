@@ -154,7 +154,7 @@ const ListBom = ({contactId}) => {
                     </a>
                     )}
 
-                    {['processed_successfully', 'processed_with_failures', 'processing'].includes(status) && (
+                    {true && (
                     <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5">
