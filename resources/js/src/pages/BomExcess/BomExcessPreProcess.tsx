@@ -174,7 +174,7 @@ const BomExcessPreProcess = () => {
         });
 
 
-        setLoading(true);
+        // setLoading(true);
         const response = await api.bomItemUpdateProduct(contactId,modelName,id,data);
 
         if (response.status == 200){
@@ -195,7 +195,7 @@ const BomExcessPreProcess = () => {
 
 
         }
-        setLoading(false);
+        // setLoading(false);
 
         
         
