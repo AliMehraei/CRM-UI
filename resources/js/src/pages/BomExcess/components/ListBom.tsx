@@ -5,13 +5,12 @@ import api from '../../../config/api';
 import { findApiToCall } from "../../../components/Functions/CommonFunctions";
 import { useParams } from "react-router-dom";
 
-const ListBom = ({contactId}) => {
+const ListBom = ({contactId,btnRoute}:any) => {
 
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const api_instance: any = new api();
-    const [btnRoute, setBtnRoute] = useState('');
 
 
     const deleteRow = (id: any = null) => {
@@ -189,12 +188,7 @@ const ListBom = ({contactId}) => {
     ];
 
 
-    useEffect(() => {
-        // Get the current URL path
-        const baseUrl = window.location.origin;
-        setBtnRoute(baseUrl);
-        
-    }, []);
+    
 
    
 
@@ -203,13 +197,13 @@ const ListBom = ({contactId}) => {
             <div className="grid  gap-6 mb-6">
                 <div className="panel h-full xl:col-span-2">
                     <div className="relative">
-                        <h5 className="font-semibold text-lg">List bom</h5>
+                        <h5 className="font-semibold text-lg">List {btnRoute}</h5>
 
                         <div className="bg-white dark:bg-black rounded-lg">
 
                                 <GenerateTableList
                                     tableColumns={columns}
-                                    frontRoute="bomItemList"     
+                                    frontRoute={`${btnRoute}ItemList`}    
                                 />
 
                         </div>
