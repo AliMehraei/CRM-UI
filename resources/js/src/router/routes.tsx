@@ -887,22 +887,22 @@ const routes = [
         protected: false,
     },
     {
-        path: '/excess/import/:id',
+        path: '/excess/import/:contactId',
         element: <BomExcessImport/>,
         protected: false,
     },
     {
-        path: '/excess/confirmation/:id',
+        path: '/excess/confirmation/:contactId/:id',
         element: <BomExcessConfirmation/>,
         protected: false,
     },
     {
-        path: '/excess/process/:id',
+        path: '/excess/process/:contactId/:id',
         element: <BomExcessPreProcess/>,
         protected: false,
     },
     {
-        path: '/excess/complete/:id',
+        path: '/excess/complete/:contactId/:id',
         element: <BomExcessComplete/>,
         protected: false,
     },
