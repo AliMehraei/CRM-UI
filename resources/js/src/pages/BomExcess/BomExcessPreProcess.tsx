@@ -150,17 +150,17 @@ const BomExcessPreProcess = () => {
         }
     };
 
-    const handleSelectedHeaderChange = async (e:any) => {
+    const handleSelectedHeaderChange = async (e:any,bom_item_detail_id:any) => {
 
         
         const selectedIndex = e.target.selectedIndex;
         const selectedValue = e.target.value;
         const data = {
-            selected_product : selectedValue,
+            product_id : selectedValue,
             selected_product_index : selectedIndex,
             bom_item_id : id,
             contact_id : contactId,
-            bom_item_detail_id:id
+            bom_item_detail_id:bom_item_detail_id
         };
         // const { name, value } = e.target;
 
@@ -357,7 +357,7 @@ const BomExcessPreProcess = () => {
                                                                     <div className="flex flex-col p-2">
                                                                     <select name="manufacture_name" 
                                                                     className="manufacture-name w-full h-8 rounded border-gray-300" 
-                                                                    onChange={(e:any) => handleSelectedHeaderChange(e)}
+                                                                    onChange={(e:any) => handleSelectedHeaderChange(e,item.id)}
                                                                     >
                                                                         <option value="">Select or Ignore</option>
                                                                         {item.matched_data.products.map((product: any) => (
