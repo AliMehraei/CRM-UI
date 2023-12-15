@@ -78,12 +78,7 @@ const BomExcessConfirmation = () => {
             
         }
         else if (response.status == 302){
-            const toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                timer: 5000,
-            });
+            
             toast.fire({
                 icon: 'error',
                 title: response.data.message,

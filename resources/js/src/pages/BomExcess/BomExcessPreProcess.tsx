@@ -84,17 +84,17 @@ const BomExcessPreProcess = () => {
 
         }
         else if (response.status == 302) {
-            const toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                timer: 5000,
-            });
             toast.fire({
                 icon: 'error',
                 title: response.data.message,
                 padding: '10px 20px',
             });
+            setTimeout(() => {
+                const currentPath =pathname;
+                const pathParts = currentPath.split('/');
+                window.location.href = `/${pathParts[1]}/list/${contactId}`;
+            }, 1000);
+            
         }
 
     };
@@ -121,8 +121,19 @@ const BomExcessPreProcess = () => {
         setLoading(true);
         const modelResponse = await api.bomItemProcess(contactId, modelName, id);
         setLoading(false);
-        if (modelResponse.status != 200)
-            return
+        if (modelResponse.status == 302){
+            toast.fire({
+                icon: 'error',
+                title: modelResponse.data.message,
+                padding: '10px 20px',
+            });
+            setTimeout(() => {
+                const currentPath =pathname;
+                const pathParts = currentPath.split('/');
+                window.location.href = `/${pathParts[1]}/list/${contactId}`;
+            }, 1000);
+        }
+            
         const data = modelResponse.data.data;
 
         setConfigHeaders(data.configHeaders);
