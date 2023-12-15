@@ -72,7 +72,7 @@ const BomExcessPreProcess = () => {
 
     const handleNextStep = async() => {
         setLoading(true);
-        // console.log(selectedProduct);
+        // console  .log(selectedProduct);
         
         const response = await api.bomItemSaveProcess(contactId,modelName,id,{
             id:id,
@@ -183,37 +183,7 @@ const BomExcessPreProcess = () => {
                         title: response.data.message,
                         padding: '10px 20px',
                     });
-            // if (response.data.type === 'error') {
-            //     toast.fire({
-            //         icon: 'error',
-            //         title: response.data.msg,
-            //         padding: '10px 20px',
-            //     });
-            // } else {
-            //     if (response.data.type === 'warning') {
-
-            //         toast.fire({
-            //             icon: 'error',
-            //             title: response.data.msg,
-            //             padding: '10px 20px',
-            //         });
-            //     }
-
-                // const selectElements = document.querySelectorAll('.header-select');
-
-                // selectElements.forEach((selectElement) => {
-                //   const options = selectElement.querySelectorAll('option');
             
-                //   options.forEach((option, index) => {
-                //     if (disabledOptions.includes(index) && index !== 0) {
-                //       option.setAttribute('disabled', 'disabled');
-                //     } else {
-                //       option.removeAttribute('disabled');
-                //     }
-                //   });
-                // });
-            
-            // }
         }
         else{
 
@@ -392,7 +362,7 @@ const BomExcessPreProcess = () => {
                                                                         <option value="">Select or Ignore</option>
                                                                         {item.matched_data.products.map((product: any) => (
                                                                             <>
-                                                                            <option value={product.id}>
+                                                                            <option selected={item.selected && item.selected.product_id==product.id} value={product.id}>
                                                                                 {product.product_name} | {product.manufacturer_name}
                                                                             </option>
                                                                             </>
