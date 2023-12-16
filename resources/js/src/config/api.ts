@@ -816,6 +816,9 @@ class api {
     async excessItemList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data);
     }
+    async availabilityVendorItemList(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/availability-vendor/list`, data);
+    }
     async bomItemConfirmation(id:any,modelName:string,item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/confirmation/${item_id}`);
     }

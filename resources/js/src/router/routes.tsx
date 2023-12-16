@@ -856,10 +856,32 @@ const routes = [
     },
 
     {
-        path: '/bom/availability/list/:id',
+        path: '/availability-vendor/list/:id',
         element: <BomExcessIndex/>,
         protected: false,
     },
+    {
+        path: '/availability-vendor/import/:contactId',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/confirmation/:contactId/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/process/:contactId/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/complete/:contactId/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+
+
     {
         path: '/bom/list/:id',
         element: <BomExcessIndex/>,
