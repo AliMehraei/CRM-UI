@@ -856,6 +856,11 @@ const routes = [
     },
 
     {
+        path: '/bom/availability/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
         path: '/bom/list/:id',
         element: <BomExcessIndex/>,
         protected: false,

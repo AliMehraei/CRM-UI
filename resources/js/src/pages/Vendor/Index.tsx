@@ -6,6 +6,7 @@ import {formatDate} from "@fullcalendar/core";
 import {useDispatch} from "react-redux";
 import {useUserStatus} from "../../config/authCheck";
 import GenerateIndexTable from "../../components/FilterFields/GenerateIndexTable";
+import React from 'react';
 
 const List = () => {
     const dispatch = useDispatch();
@@ -14,6 +15,13 @@ const List = () => {
         dispatch(setPageTitle('Vendor List'));
     }, [dispatch]);
 
+    const actionPlus=[
+        {
+            'icon':"Availability",
+            'route':'bom/availability/list'
+        },
+       
+    ];
 
     const columns: any = [
         {
@@ -57,7 +65,9 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="vendor" tableColumns={columns}/>
+            <GenerateIndexTable modelName="vendor" tableColumns={columns}
+            actionPlus={actionPlus}
+            />
         </>
     );
 };
