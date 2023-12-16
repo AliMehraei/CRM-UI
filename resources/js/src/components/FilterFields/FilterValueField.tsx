@@ -125,7 +125,6 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
             options: selectedOptions.map((item: any) => item.value),
             fullOptions: selectedOptions,
         };
-        console.log(userIds);
 
         handleValueChange(field, userIds);
     };
