@@ -260,8 +260,8 @@ const BomExcessPreProcess = () => {
                                 <h3 className="title-1"> </h3>
                                 <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
                                     <a href={`/${btnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
-                                        <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                                        <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                         </svg>
                                         Back                </a>
                                     <button onClick={handleNextStep} className="flex btn btn-primary pulse-primary">
@@ -361,48 +361,50 @@ const BomExcessPreProcess = () => {
 
 
                                                             {Object.values(columnsData).map((item: any, index) => (
-                                                                <tr title={item.process_status} data-row-id={item.id} className="detail-row" key={index}>
+                                                                 <React.Fragment key={index}>
+                                                                    <tr title={item.process_status} data-row-id={item.id} className="detail-row" key={index}>
 
-                                                                    <td className="border p-2 text-sm text-gray-500">
-                                                                        <span className={getStatusClass(item)}>
-                                                                            {item.row_number}
-                                                                        </span>
-                                                                    </td>
-                                                                    <td className="border p-2 text-sm text-gray-500">{item.processed_data.Product_Name}</td>
-                                                                    <td className="border p-2 text-sm text-gray-500">{item.processed_data.Manufacture}</td>
-                                                                    <td className="border p-2 text-sm text-gray-500">{item.processed_data.Quantity}</td>
-                                                                    <td className="border p-2 text-sm text-gray-500">
-                                                                        {item.process_status === 'found' ? (
-                                                                            <div className="flex flex-col p-2">
-                                                                                <select name="manufacture_name"
-                                                                                    className="manufacture-name w-full h-8 rounded border-gray-300"
-                                                                                    onChange={(e: any) => handleSelectedHeaderChange(e, item.id)}
-                                                                                >
-                                                                                    <option value="">Select or Ignore</option>
-                                                                                    {item.matched_data.products.map((product: any) => (
-                                                                                        <>
-                                                                                            <option selected={item.selected && item.selected.product_id == product.id} value={product.id}>
-                                                                                                {product.product_name} | {product.manufacturer_name}
-                                                                                            </option>
-                                                                                        </>
+                                                                        <td className="border p-2 text-sm text-gray-500">
+                                                                            <span className={getStatusClass(item)}>
+                                                                                {item.row_number}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td className="border p-2 text-sm text-gray-500">{item.processed_data.Product_Name}</td>
+                                                                        <td className="border p-2 text-sm text-gray-500">{item.processed_data.Manufacture}</td>
+                                                                        <td className="border p-2 text-sm text-gray-500">{item.processed_data.Quantity}</td>
+                                                                        <td className="border p-2 text-sm text-gray-500">
+                                                                            {item.process_status === 'found' ? (
+                                                                                <div className="flex flex-col p-2">
+                                                                                    <select name="manufacture_name"
+                                                                                        className="manufacture-name w-full h-8 rounded border-gray-300"
+                                                                                        onChange={(e: any) => handleSelectedHeaderChange(e, item.id)}
+                                                                                    >
+                                                                                        <option value="">Select or Ignore</option>
+                                                                                        {item.matched_data.products.map((product: any) => (
+                                                                                            <React.Fragment key={index}>
+                                                                                                <option selected={item.selected && item.selected.product_id == product.id} value={product.id}>
+                                                                                                    {product.product_name} | {product.manufacturer_name}
+                                                                                                </option>
+                                                                                                </React.Fragment>
 
 
-                                                                                    ))}
-                                                                                </select>
+                                                                                        ))}
+                                                                                    </select>
 
-                                                                            </div>
-                                                                        ) : (
-                                                                            <></>
-                                                                        )
+                                                                                </div>
+                                                                            ) : (
+                                                                                <></>
+                                                                            )
 
-                                                                        }
-                                                                    </td>
-                                                                    <td className="border p-2 text-sm text-gray-500">
-                                                                        <span className={getStatusClass(item)}>
-                                                                            {item.process_status}
-                                                                        </span>
-                                                                    </td>
-                                                                </tr>
+                                                                            }
+                                                                        </td>
+                                                                        <td className="border p-2 text-sm text-gray-500">
+                                                                            <span className={getStatusClass(item)}>
+                                                                                {item.process_status}
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </React.Fragment>
                                                             ))}
 
 
@@ -421,8 +423,8 @@ const BomExcessPreProcess = () => {
                             <div className="sm:flex sm:items-center sm:justify-end border-b border-gray-200 pb-4">
                                 <div className="mt-3 sm:mt-0 sm:ml-4 flex space-x-2">
                                     <a href={`/${btnRoute}/list/${contactId}`} className="flex btn btn-primary-outline pulse-primary">
-                                        <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+                                        <svg className="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
                                         </svg>
                                         Back                </a>
 
