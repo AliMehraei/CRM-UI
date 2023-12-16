@@ -27,23 +27,37 @@ const BomExcessIndex = () => {
     const contactId = params.id;
     const location = useLocation();
     const { pathname } = location;
+    const [modelName, setModelName] = useState('contact');
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
     
 
     const fetchData = async () => {
-        const modelResponse = await api.fetchSingleContact(contactId);
-        if (modelResponse.status != 200)
-            return
-        const model = modelResponse.data.data.contact;
-        dispatch(updateFormData(model));
+        if(pathname.split('/')[1]!='availability-vendor'){
+            const modelResponse = await api.fetchSingleContact(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.contact;
+            dispatch(updateFormData(model));
+        }
+        else{
+            const modelResponse = await api.fetchSingleVendor(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.vendor;
+            dispatch(updateFormData(model));
+        }
+       
     };
 
     useEffect(() => {
         // Get the current URL path
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
+        setModelName(pathParts[1]=='availability-vendor' ? 'vendor':'contact');
+
         setPageTitleCustom(upFirstLetter(pathParts[1])+" - File Upload"); 
         setBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your "+upFirstLetter(pathParts[1])+" List");
@@ -64,7 +78,7 @@ const BomExcessIndex = () => {
                 <div className="flex justify-end flex-wrap gap-4 px-4" >
                     <div className="flex">
                         <div>
-                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name} | {formState.vendor_name}</div>
                             <div className="text-s font-semibold ">{formState.email}</div>
                             <div className="text-s font-semibold ">{formState.phone}</div>
                             
@@ -76,7 +90,7 @@ const BomExcessIndex = () => {
                     <div className="shrink-0">
                         <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
-                            href={`/contact/preview/${contactId}`}>View Contact</a>
+                            href={`/${modelName}/preview/${contactId}`}>View {modelName}</a>
                     </div>
                 </div>
                 <hr className="border-white-light dark:border-[#849bbc] my-6" />

@@ -27,7 +27,7 @@ const BomExcessComplete = () => {
     const api = new Api();
     const params = useParams();
     const contactId = params.contactId;
-    const modelName = "contact";
+    const [modelName, setModelName] = useState('contact');
     const toast = Swal.mixin({
         toast: true,
         position: 'top',
@@ -86,6 +86,7 @@ const BomExcessComplete = () => {
         // Get the current URL path
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
+        setModelName(pathParts[1]=='availability-vendor' ? 'vendor':'contact')
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Overview");
         setBtnRoute(pathParts[1]);
         setAddBtnLabel("View " + upFirstLetter(pathParts[1]) + " List");
@@ -114,11 +115,20 @@ const BomExcessComplete = () => {
     };
 
     const fetchData = async () => {
-        const modelResponse = await api.fetchSingleContact(contactId);
-        if (modelResponse.status != 200)
-            return
-        const model = modelResponse.data.data.contact;
-        dispatch(updateFormData(model));
+        if(pathname.split('/')[1]!='availability-vendor'){
+            const modelResponse = await api.fetchSingleContact(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.contact;
+            dispatch(updateFormData(model));
+        }
+        else{
+            const modelResponse = await api.fetchSingleVendor(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.vendor;
+            dispatch(updateFormData(model));
+        }
     };
 
     useEffect(() => {
@@ -179,7 +189,7 @@ const BomExcessComplete = () => {
                     <div className="flex justify-end flex-wrap gap-4 px-4" >
                         <div className="flex">
                             <div>
-                                <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                                <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name} | {formState.vendor_name}</div>
                                 <div className="text-s font-semibold ">{formState.email}</div>
                                 <div className="text-s font-semibold ">{formState.phone}</div>
 
@@ -191,7 +201,7 @@ const BomExcessComplete = () => {
                         <div className="shrink-0">
                             <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                             <a className="text-sm font-semibold mt-5  text-primary " target="_blank"
-                                href={`/contact/preview/${contactId}`}>View Contact</a>
+                                href={`/${modelName}/preview/${contactId}`}>View {modelName}</a>
                         </div>
                     </div>
                     <hr className="border-white-light dark:border-[#849bbc] my-6" />

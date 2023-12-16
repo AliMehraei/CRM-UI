@@ -18,7 +18,7 @@ const List = () => {
     const actionPlus=[
         {
             'icon':"Availability",
-            'route':'bom/availability/list'
+            'route':'availability-vendor/list'
         },
        
     ];

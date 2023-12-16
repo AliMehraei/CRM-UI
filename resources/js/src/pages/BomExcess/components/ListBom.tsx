@@ -203,7 +203,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
 
                                 <GenerateTableList
                                     tableColumns={columns}
-                                    frontRoute={`${btnRoute}ItemList`}    
+                                    frontRoute={`${btnRoute=='availability-vendor' ? 'availabilityVendor':btnRoute}ItemList`}    
                                 />
 
                         </div>

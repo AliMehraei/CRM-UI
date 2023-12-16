@@ -29,7 +29,7 @@ const BomExcessPreProcess = () => {
     const params = useParams();
     const contactId = params.contactId;
     const id = params.id;
-    const modelName = "contact";
+    const [modelName, setModelName] = useState('contact');
     const [similarityPercentage, setSimilarityPercentage] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState<any[]>([]);
     const toast = Swal.mixin({
@@ -55,6 +55,7 @@ const BomExcessPreProcess = () => {
         setLoading(true);
         const currentPath = pathname;
         const pathParts = currentPath.split('/');
+        setModelName(pathParts[1]=='availability-vendor' ? 'vendor':'contact');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Process");
         setBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
@@ -104,13 +105,20 @@ const BomExcessPreProcess = () => {
     };
 
     const fetchData = async () => {
-        setLoading(true);
-        const modelResponse = await api.fetchSingleContact(contactId);
-        setLoading(false);
-        if (modelResponse.status != 200)
-            return
-        const model = modelResponse.data.data.contact;
-        dispatch(updateFormData(model));
+        if(pathname.split('/')[1]!='availability-vendor'){
+            const modelResponse = await api.fetchSingleContact(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.contact;
+            dispatch(updateFormData(model));
+        }
+        else{
+            const modelResponse = await api.fetchSingleVendor(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.vendor;
+            dispatch(updateFormData(model));
+        }
     };
 
     useEffect(() => {
@@ -221,7 +229,7 @@ const BomExcessPreProcess = () => {
                     <div className="flex justify-end flex-wrap gap-4 px-4" >
                         <div className="flex">
                             <div>
-                                <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name} | {formState.vendor_name}</div>
                                 <div className="text-s font-semibold ">{formState.email}</div>
                                 <div className="text-s font-semibold ">{formState.phone}</div>
 
@@ -233,7 +241,7 @@ const BomExcessPreProcess = () => {
                         <div className="shrink-0">
                             <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                             <a className="text-sm font-semibold mt-5  text-primary " target="_blank"
-                                href={`/contact/preview/${contactId}`}>View Contact</a>
+                                href={`/${modelName}/preview/${contactId}`}>View {modelName}</a>
                         </div>
                     </div>
                     <hr className="border-white-light dark:border-[#849bbc] my-6" />
