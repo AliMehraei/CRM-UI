@@ -10,6 +10,7 @@ import {useLocation, useParams} from "react-router-dom";
 import Api from "../../config/api";
 import Swal from "sweetalert2";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const BomExcessImport = () => {
     const dispatch = useDispatch();
@@ -104,7 +105,7 @@ const BomExcessImport = () => {
         formData.append('ignored_top_rows', ignoredTopRows);
         formData.append('type', type);
         formData.append('excess_bom_file', files);
-
+        setLoading(true);    
         const response = await api.importBomExcess(contactId,modelName,formData);
 
         if (response.status === 200) {
@@ -127,8 +128,9 @@ const BomExcessImport = () => {
                 padding: '10px 20px',
             });
         }
+        setLoading(false);  
     } catch (error) {
-
+        setLoading(false);  
         toast.fire({
             icon: 'error',
             title: 'Internal Server Error ,submitting form failed',
@@ -162,6 +164,9 @@ const BomExcessImport = () => {
     }, [contactId]);
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="flex justify-end flex-wrap gap-4 px-4" >
@@ -256,7 +261,7 @@ const BomExcessImport = () => {
                 </div>
             </div>
         </>
-
+        )
     );
 };
 
