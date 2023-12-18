@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { useDispatch, useSelector } from "react-redux";
@@ -9,101 +9,62 @@ import { displayImage, upFirstLetter } from "../../components/Functions/CommonFu
 import Api from "../../config/api";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
 import Swal from 'sweetalert2';
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 
 const BomExcessConfirmation = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
-    const [items, setItems] = useState([]);
     const [emptyMessage, setEmptyMessage] = useState('');
     const [configHeaders, setConfigHeaders] = useState({});
     const [columnsData, setColumnsData] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const formState = useSelector((state: any) => state.contactForm);
     const api = new Api();
     const params = useParams();
     const contactId = params.contactId;
     const id = params.id;
-    const modelName = "contact";
+    const [modelName, setModelName] = useState('contact');
     const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
     const [selectedHeaders, setSelectedHeaders] = useState<any[]>([]);
-
+    const toast = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        timer: 5000,
+    });
+    const location = useLocation();
+    const { pathname } = location;
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
-    const systemFields = [
-        'Ignore',
-        'Part-Number (MPN)',
-        'Manufacturer',
-        // ... add more fields as required
-    ];
+  
 
-    // Example initial data structure
-    const initialData = [
-        {
-            header: 'Material',
-            sampleData: '476577',
-            rows: ['1', '2', '3'] // Array of row data for this column
-        },
-        {
-            header: 'Material Description',
-            sampleData: '476577',
-            rows: ['4', '5', '6'] // Array of row data for this column
-        },
-        {
-            header: 'Quantity',
-            sampleData: '476577',
-            rows: ['400', '5104', '6040'] // Array of row data for this column
-        },
-        // Add other columns as needed
-    ];
-    // const columnsData = [
-    //     {
-    //         id: 1,
-    //         columnName: 'Material',
-    //         systemField: 'Part-Number (MPN)',
-    //         sampleData: '476577',
-    //     },
-    //     {
-    //         id: 2,
-    //         columnName: 'Material Description',
-    //         systemField: 'Description',
-    //         sampleData: 'Some description',
-    //     },
-    //     {
-    //         id: 2,
-    //         columnName: 'Quantity',
-    //         systemField: 'Quantity',
-    //         sampleData: 'Quantity',
-    //     },
-    //     // ... more columns as necessary
-    // ];
+   
+    useEffect( () => {
+        getDataUrl()
+    }, []);
 
-    useEffect(() => {
-        // Get the current URL path
-        const currentPath = window.location.pathname;
+
+    const getDataUrl = async() => { 
+        setLoading(true);
+        
+        const currentPath =pathname;
         const pathParts = currentPath.split('/');
+        setModelName(pathParts[1]=='availability-vendor' ? 'vendor':'contact');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Confirmation");
-        setAddBtnRoute(pathParts[1]);
+        setBtnRoute(pathParts[1]);
         setAddBtnLabel("Add Your " + upFirstLetter(pathParts[1]) + " List");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
         dispatch(setPageTitle(upFirstLetter(pathParts[1]) + " - Confirmation"));
-    }, []);
+        setLoading(false);
+    }
 
-
-    const [columnMappings, setColumnMappings] = useState({});
-
-    // Assuming initialData is an array of objects with a header property
-    const [uploadedData, setUploadedData] = useState(initialData);
-    const handleFieldChange = (columnIndex, selectedField) => {
-        // Update the mapping for the given column index
-        setColumnMappings(prev => ({ ...prev, [columnIndex]: selectedField }));
-    };
 
     const handleNextStep = async() => {
         // Logic for going to the next step
@@ -113,9 +74,17 @@ const BomExcessConfirmation = () => {
         });
         setLoading(false);
         if (response.status == 200){
-            window.location.href = `/${addBtnRoute}/process/${contactId}/${id}`;
+            window.location.href = `/${btnRoute}/process/${contactId}/${id}`;
             
             
+        }
+        else if (response.status == 302){
+            
+            toast.fire({
+                icon: 'error',
+                title: response.data.message,
+                padding: '10px 20px',
+            });
         }
 
         
@@ -124,13 +93,20 @@ const BomExcessConfirmation = () => {
 
    
     const fetchDataContact = async () => {
-        setLoading(true);
-        const modelResponse = await api.fetchSingleContact(contactId);
-        setLoading(false);
-        if (modelResponse.status != 200)
-            return
-        const model = modelResponse.data.data.contact;
-        dispatch(updateFormData(model));
+        if(pathname.split('/')[1]!='availability-vendor'){
+            const modelResponse = await api.fetchSingleContact(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.contact;
+            dispatch(updateFormData(model));
+        }
+        else{
+            const modelResponse = await api.fetchSingleVendor(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.vendor;
+            dispatch(updateFormData(model));
+        }
     };
 
     useEffect(() => {
@@ -138,15 +114,30 @@ const BomExcessConfirmation = () => {
     }, [contactId]);
 
     const fetchDataConfirmation = async () => {
-        setLoading(true);
-        const modelResponse = await api.bomItemConfirmation(contactId,modelName,id);
-        setLoading(false);
-        if (modelResponse.status != 200)
-            return
-        const data=modelResponse.data.data;
-
-        setConfigHeaders(data.configHeaders)
-        setColumnsData(data.BOMItemDetails.data)
+        if(!loading){
+            setLoading(true);
+            const modelResponse = await api.bomItemConfirmation(contactId,modelName,id);
+            setLoading(false);
+            if (modelResponse.status == 302){
+                
+                toast.fire({
+                    icon: 'error',
+                    title: modelResponse.data.message,
+                    padding: '10px 20px',
+                });
+                setTimeout(() => {
+                    const currentPath =pathname;
+                    const pathParts = currentPath.split('/');
+                    window.location.href = `/${pathParts[1]}/list/${contactId}`;
+                }, 1000);
+                
+            }
+            const data=modelResponse.data.data;
+    
+            setConfigHeaders(data.configHeaders)
+            setColumnsData(data.BOMItemDetails.data)
+        }
+        
         
     };
 
@@ -156,13 +147,7 @@ const BomExcessConfirmation = () => {
 
     const handleSelectedHeaderChange = async (e:any) => {
 
-        const toast = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 5000,
-        });
-
+        
         const selectedIndex = e.target.selectedIndex;
         const selectedValue = e.target.value;
         const data = {
@@ -183,7 +168,7 @@ const BomExcessConfirmation = () => {
         });
 
 
-        setLoading(true);
+        // setLoading(true);
         const response = await api.selectedHeaderValidation(id,modelName,data);
 
         if (response.status == 200){
@@ -217,7 +202,7 @@ const BomExcessConfirmation = () => {
                     }
                   });
                 });
-            setLoading(false);
+            // setLoading(false);
             }
 
         }
@@ -240,12 +225,15 @@ const BomExcessConfirmation = () => {
 
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
                 <div className="flex justify-end flex-wrap gap-4 px-4" >
                     <div className="flex">
                         <div>
-                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                        <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name} | {formState.vendor_name}</div>
                             <div className="text-s font-semibold ">{formState.email}</div>
                             <div className="text-s font-semibold ">{formState.phone}</div>
                             
@@ -257,7 +245,7 @@ const BomExcessConfirmation = () => {
                     <div className="shrink-0">
                         <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
-                            href={`/contact/preview/${contactId}`}>View Contact</a>
+                            href={`/${modelName}/preview/${contactId}`}>View {modelName}</a>
                     </div>
                 </div>
                 <hr className="border-white-light dark:border-[#849bbc] my-6" />
@@ -453,7 +441,7 @@ const BomExcessConfirmation = () => {
             </div>
 
         </>
-
+        )
     );
 };
 

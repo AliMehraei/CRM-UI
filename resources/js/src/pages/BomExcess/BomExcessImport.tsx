@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useUserStatus } from "../../config/authCheck";
 import { displayImage, upFirstLetter } from "../../components/Functions/CommonFunctions";
 import './index.css';
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Api from "../../config/api";
 import Swal from "sweetalert2";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
@@ -15,7 +15,7 @@ const BomExcessImport = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     const [pageTitleCustom, setPageTitleCustom] = useState('');
-    const [addBtnRoute, setAddBtnRoute] = useState('');
+    const [btnRoute, setBtnRoute] = useState('');
     const [addBtnLabel, setAddBtnLabel] = useState('');
     const [tableTitle, setTableTitle] = useState('');
     const [items, setItems] = useState([]);
@@ -27,8 +27,9 @@ const BomExcessImport = () => {
     const api = new Api();
     const params = useParams();
     const contactId = params.contactId;
-    const modelName = "contact";
-
+    const [modelName, setModelName] = useState('contact');
+    const location = useLocation();
+    const { pathname } = location;
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -37,8 +38,9 @@ const BomExcessImport = () => {
         // Get the current URL path
         const currentPath = window.location.pathname;
         const pathParts = currentPath.split('/');
+        setModelName(pathParts[1]=='availability-vendor' ? 'vendor':'contact');
         setPageTitleCustom(upFirstLetter(pathParts[1]) + " - Import");
-        setAddBtnRoute(pathParts[1]);
+        setBtnRoute(pathParts[1]);
         setAddBtnLabel(upFirstLetter(pathParts[1]) + " Import");
         setTableTitle("Your " + upFirstLetter(pathParts[1]) + " List");
         setEmptyMessage("You don't have any" + upFirstLetter(pathParts[1]) + " List");
@@ -88,12 +90,14 @@ const BomExcessImport = () => {
 
         try{
 
-        // window.location.href = `/${addBtnRoute}/confirmation/${contactId}`;
+        // window.location.href = `/${btnRoute}/confirmation/${contactId}`;
 
         // Submit the form
         const formData = new FormData(event.target);
         // prepare type for BomItem
-        const type = modelName + '_' + addBtnRoute+'_list' ;
+        let type = modelName + '_' + btnRoute+'_list' ;
+        if(btnRoute=='availability-vendor')
+            type = modelName + '_availability_list' ;
 
         formData.append('has_header', hasHeader);
         formData.append('ignored_top_rows', ignoredTopRows);
@@ -111,7 +115,7 @@ const BomExcessImport = () => {
 
             })
 
-            window.location.href = `/${addBtnRoute}/list/${contactId}`;
+            window.location.href = `/${btnRoute}/list/${contactId}`;
             
         } else {
             toast.fire({
@@ -132,11 +136,20 @@ const BomExcessImport = () => {
     };
 
     const fetchData = async () => {
-        const modelResponse = await api.fetchSingleContact(contactId);
-        if (modelResponse.status != 200)
-            return
-        const model = modelResponse.data.data.contact;
-        dispatch(updateFormData(model));
+        if(pathname.split('/')[1]!='availability-vendor'){
+            const modelResponse = await api.fetchSingleContact(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.contact;
+            dispatch(updateFormData(model));
+        }
+        else{
+            const modelResponse = await api.fetchSingleVendor(contactId);
+            if (modelResponse.status != 200)
+                return
+            const model = modelResponse.data.data.vendor;
+            dispatch(updateFormData(model));
+        }
     };
 
     useEffect(() => {
@@ -151,7 +164,7 @@ const BomExcessImport = () => {
             <div className="flex justify-end flex-wrap gap-4 px-4" >
                     <div className="flex">
                         <div>
-                            <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name}</div>
+                        <div className="text-sm font-semibold mt-5">{formState.first_name} {formState.last_name} | {formState.vendor_name}</div>
                             <div className="text-s font-semibold ">{formState.email}</div>
                             <div className="text-s font-semibold ">{formState.phone}</div>
                             
@@ -163,7 +176,7 @@ const BomExcessImport = () => {
                     <div className="shrink-0">
                         <img src={displayImage(formState.image_data)} alt="Contact image" className="w-20 ltr:ml-auto rtl:mr-auto" />
                         <a className="text-sm font-semibold mt-5  text-primary " target="_blank" 
-                            href={`/contact/preview/${contactId}`}>View Contact</a>
+                            href={`/${modelName}/preview/${contactId}`}>View {modelName}</a>
                     </div>
                 </div>
                 <hr className="border-white-light dark:border-[#849bbc] my-6" />
@@ -183,14 +196,14 @@ const BomExcessImport = () => {
                                     type="text"
                                     id="title"
                                     name="title"
-                                    placeholder={`Enter your new ${addBtnRoute} list name`}
+                                    placeholder={`Enter your new ${btnRoute} list name`}
                                     required
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your {addBtnRoute} list</label>
+                                <label htmlFor="file" className="block text-gray-700 text-sm font-bold mb-2">Upload your {btnRoute} list</label>
                                 {/* <div {...getRootProps()} className="dropzone border-dashed border-2 border-gray-300 rounded py-2 px-4 text-center cursor-pointer">
                                     <input {...getInputProps()} />
                                     <p className="text-gray-700">Drag and drop some files here, or click to select files</p>

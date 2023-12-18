@@ -856,6 +856,33 @@ const routes = [
     },
 
     {
+        path: '/availability-vendor/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/import/:contactId',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/confirmation/:contactId/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/process/:contactId/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/complete/:contactId/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+
+
+    {
         path: '/bom/list/:id',
         element: <BomExcessIndex/>,
         protected: false,
@@ -887,22 +914,22 @@ const routes = [
         protected: false,
     },
     {
-        path: '/excess/import/:id',
+        path: '/excess/import/:contactId',
         element: <BomExcessImport/>,
         protected: false,
     },
     {
-        path: '/excess/confirmation/:id',
+        path: '/excess/confirmation/:contactId/:id',
         element: <BomExcessConfirmation/>,
         protected: false,
     },
     {
-        path: '/excess/process/:id',
+        path: '/excess/process/:contactId/:id',
         element: <BomExcessPreProcess/>,
         protected: false,
     },
     {
-        path: '/excess/complete/:id',
+        path: '/excess/complete/:contactId/:id',
         element: <BomExcessComplete/>,
         protected: false,
     },
