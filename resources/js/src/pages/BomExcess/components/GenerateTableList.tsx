@@ -10,7 +10,7 @@ import LoadingSasCrm from '../../../components/LoadingSasCrm';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
+const GenerateTableList = ({ tableColumns,reload, frontRoute}: any) => {
     const dispatch = useDispatch();
     const filterState = useSelector((state: any) => state.filters);
 
@@ -116,7 +116,7 @@ const GenerateTableList = ({ tableColumns, frontRoute}: any) => {
 
     useEffect(() => {
         fetchModelData(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
+    }, [page, pageSize, sortStatus,reload]);
 
 
    

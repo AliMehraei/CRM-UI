@@ -810,6 +810,11 @@ class api {
         });
     }
 
+
+
+    async deleteSingleBomItem(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/bom/${id}`);
+    }
     async bomItemList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/bom/list`, data);
     }
