@@ -30,6 +30,7 @@ const BomExcessImport = () => {
     const [modelName, setModelName] = useState('contact');
     const location = useLocation();
     const { pathname } = location;
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -115,7 +116,9 @@ const BomExcessImport = () => {
 
             })
 
-            window.location.href = `/${btnRoute}/list/${contactId}`;
+            const data = response.data.data;
+
+            window.location.href = `/${btnRoute}/confirmation/${contactId}/${data.id}`;
             
         } else {
             toast.fire({
