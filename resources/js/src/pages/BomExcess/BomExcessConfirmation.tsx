@@ -169,7 +169,7 @@ const BomExcessConfirmation = () => {
 
 
         // setLoading(true);
-        const response = await api.selectedHeaderValidation(id,modelName,data);
+        const response = await api.selectedHeaderValidation(contactId,modelName,id,data);
 
         if (response.status == 200){
 
