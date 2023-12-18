@@ -10,6 +10,7 @@ import {useLocation, useParams} from "react-router-dom";
 import Api from "../../config/api";
 import Swal from "sweetalert2";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const BomExcessImport = () => {
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const BomExcessImport = () => {
     const [modelName, setModelName] = useState('contact');
     const location = useLocation();
     const { pathname } = location;
+
     useEffect(() => {
         dispatch(setPageTitle(pageTitleCustom));
     }, [dispatch]);
@@ -115,7 +117,9 @@ const BomExcessImport = () => {
 
             })
 
-            window.location.href = `/${btnRoute}/list/${contactId}`;
+            const data = response.data.data;
+
+            window.location.href = `/${btnRoute}/confirmation/${contactId}/${data.id}`;
             
         } else {
             toast.fire({
@@ -160,6 +164,9 @@ const BomExcessImport = () => {
     }, [contactId]);
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="flex justify-end flex-wrap gap-4 px-4" >
@@ -254,7 +261,7 @@ const BomExcessImport = () => {
                 </div>
             </div>
         </>
-
+        )
     );
 };
 

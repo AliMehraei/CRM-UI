@@ -10,6 +10,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [reload, setReload] = useState(true);
     const api_instance: any = new api();
 
 
@@ -17,7 +18,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Are you sure delete Rows!",
             showCancelButton: true,
             confirmButtonText: 'Delete',
             padding: '2em',
@@ -61,6 +62,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
 
     const deleteSingleRow = async (rowId: number) => {
         try {
+            
             setLoading(true);
 
             findApiToCall(`deleteSingleBomItem`).call(api_instance, rowId)
@@ -68,6 +70,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
                     const result = res.data;
                     if (result.status) {
                         // applyFilters(filterOptionRef.current);
+                        setReload(!reload)
                         showMessage(`Successful deleting the Bom Item: ` + result.message, 'success');
                     } else {
                         showMessage(`Error deleting the Bom Item: ` + result.message, 'error');
@@ -154,7 +157,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
                     )}
 
                     {true && (
-                    <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
+                    <button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow(id)}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5">
                         <path d="M20.5001 6H3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
@@ -203,6 +206,7 @@ const ListBom = ({contactId,btnRoute}:any) => {
 
                                 <GenerateTableList
                                     tableColumns={columns}
+                                    reload={reload}
                                     frontRoute={`${btnRoute=='availability-vendor' ? 'availabilityVendor':btnRoute}ItemList`}    
                                 />
 
