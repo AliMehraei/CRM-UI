@@ -10,6 +10,7 @@ import {useLocation, useParams} from "react-router-dom";
 import Api from "../../config/api";
 import Swal from "sweetalert2";
 import { resetForm, updateFormData } from "../../store/contactFormSlice";
+import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const BomExcessImport = () => {
     const dispatch = useDispatch();
@@ -160,6 +161,9 @@ const BomExcessImport = () => {
     }, [contactId]);
 
     return (
+        (loading) ? (
+            <LoadingSasCrm />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
             <div className="flex justify-end flex-wrap gap-4 px-4" >
@@ -254,7 +258,7 @@ const BomExcessImport = () => {
                 </div>
             </div>
         </>
-
+        )
     );
 };
 
