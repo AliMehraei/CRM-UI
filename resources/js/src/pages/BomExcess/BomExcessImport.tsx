@@ -103,7 +103,7 @@ const BomExcessImport = () => {
         formData.append('ignored_top_rows', ignoredTopRows);
         formData.append('type', type);
         formData.append('excess_bom_file', files);
-
+        setLoading(true);    
         const response = await api.importBomExcess(contactId,modelName,formData);
 
         if (response.status === 200) {
@@ -124,8 +124,9 @@ const BomExcessImport = () => {
                 padding: '10px 20px',
             });
         }
+        setLoading(false);  
     } catch (error) {
-
+        setLoading(false);  
         toast.fire({
             icon: 'error',
             title: 'Internal Server Error ,submitting form failed',
