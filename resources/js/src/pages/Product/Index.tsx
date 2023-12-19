@@ -15,11 +15,7 @@ const List = () => {
 
 
     const columns: any = [
-        {
-            accessor: 'id',
-            sortable: true,
-            render: ({id}: any) => <div className="font-semibold">{id}</div>,
-        },
+       
         {
             accessor: 'product_name',
             sortable: true,
@@ -61,12 +57,25 @@ const List = () => {
                 </div>
             ),
         },
+        
+        {
+            accessor: 'Product Type',
+            sortable: true,
+            render: ({product_type}: any) =>
+                <div className="font-semibold">{product_type}</div>,
+        },
         {
             accessor: 'created_at',
             title: 'Created time',
             sortable: true,
-            render: ({created_at}: any) => {
-                const formattedDate = formatDate(created_at);
+            render: ({ created_at }) => {
+                const date = new Date(created_at);
+                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+    
                 return (
                     <div className="font-semibold">
                         {formattedDate}
@@ -74,13 +83,6 @@ const List = () => {
                 );
             },
         },
-        {
-            accessor: 'Product Type',
-            sortable: true,
-            render: ({product_type}: any) =>
-                <div className="font-semibold">{product_type}</div>,
-        },
-
     ];
 
     return (
