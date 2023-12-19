@@ -69,6 +69,8 @@ const BomExcessConfirmation = () => {
     const handleNextStep = async () => {
         // Logic for going to the next step
         setLoading(true);
+
+
         const response = await api.bomItemSaveHeader(contactId, modelName, id, {
             headers: selectedHeaders
         });
@@ -150,22 +152,31 @@ const BomExcessConfirmation = () => {
 
         const selectedIndex = e.target.selectedIndex;
         const selectedValue = e.target.value;
+        const selectedOption = e.target.options[selectedIndex];
+        const keyAttribute = selectedOption.getAttribute('data-key');
         const data = {
             selected_header: selectedValue,
-            selected_header_index: selectedIndex,
+            selected_header_index: keyAttribute,
             bom_item_id: id,
             contact_id: contactId
         };
         const { name, value } = e.target;
 
 
+
         setSelectedHeaders(prevSelectedHeaders => {
-            // Check if the value is not already in the selectedHeaders array
-            if (!prevSelectedHeaders.includes(value)) {
-                return [...prevSelectedHeaders, value];
+            const existingIndex = prevSelectedHeaders.findIndex(item => item.value === selectedValue);
+
+            if (existingIndex !== -1) {
+                // If a key with the same value exists, update its key to the new keyAttribute
+                prevSelectedHeaders[existingIndex].key = keyAttribute;
+                return [...prevSelectedHeaders];
+            } else {
+                // If the value doesn't exist, add a new key-value pair
+                return [...prevSelectedHeaders, { key: keyAttribute, value: selectedValue }];
             }
-            return prevSelectedHeaders; // Value already exists, return the previous state
         });
+
 
 
         // setLoading(true);
@@ -311,7 +322,7 @@ const BomExcessConfirmation = () => {
                                                         <div className="bg-gray-100 rounded mb-2 p-2 text-left text-sm text-gray-900 font-bold">
                                                             Fields in our system
                                                         </div>
-                                                        {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key, index) => (
+                                                        {columnsData[0] && columnsData[0].data && Object.keys(columnsData[0].data).map((key2, index) => (
 
                                                             <React.Fragment key={`${index}}_config`}>
                                                                 <div className="p-2 h-14 text-left truncate text-sm text-gray-500">
@@ -320,7 +331,7 @@ const BomExcessConfirmation = () => {
                                                                         {/* Here you would dynamically generate options based on available system fields */}
                                                                         <option value="">Ignore</option>
                                                                         {Object.keys(configHeaders).map((key) => (
-                                                                            <option key={key} value={key}>
+                                                                            <option key={key} data-key={key2} value={key}>
                                                                                 {configHeaders[key]}
                                                                             </option>
                                                                         ))}
