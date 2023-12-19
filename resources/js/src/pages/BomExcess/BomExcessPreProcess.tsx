@@ -366,7 +366,7 @@ const BomExcessPreProcess = () => {
 
                                                                         <td className="border p-2 text-sm text-gray-500">
                                                                             <span className={getStatusClass(item)}>
-                                                                                {item.row_number}
+                                                                                {index+1}
                                                                             </span>
                                                                         </td>
                                                                         <td className="border p-2 text-sm text-gray-500">{item.processed_data.Product_Name}</td>

@@ -8,7 +8,7 @@ import { useUserStatus } from '../../../config/authCheck';
 import { IRootState } from '../../../store';
 import LoadingSasCrm from '../../../components/LoadingSasCrm';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const GenerateTableList = ({ tableColumns,reload, frontRoute}: any) => {
     const dispatch = useDispatch();
@@ -23,7 +23,8 @@ const GenerateTableList = ({ tableColumns,reload, frontRoute}: any) => {
     const [loading, setLoading] = useState(true);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-
+    const params = useParams();
+    const id = params.id;
     const [initialRecords, setInitialRecords] = useState(sortBy(items, 'id'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
@@ -68,7 +69,7 @@ const GenerateTableList = ({ tableColumns,reload, frontRoute}: any) => {
         const { columnAccessor: sortField = '', direction: sortDirection = '' }: any = sortStatus;
         try {
 
-            await api_instance[frontRoute]({
+            await api_instance[frontRoute](id,{
                 page: page,
                 pageSize: pageSize,
                 sortField: sortField,
