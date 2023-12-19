@@ -16,11 +16,7 @@ const List = () => {
 
 
     const columns: any = [
-        {
-            accessor: 'id',
-            sortable: true,
-            render: ({ id }) => <div className="font-semibold">{id}</div>,
-        },
+       
         {
             accessor: 'account_name',
             sortable: true,
