@@ -39,8 +39,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     const [totalItems, setTotalItems] = useState(0);
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: 'id',
-        direction: 'asc',
+        columnAccessor: 'created_at',
+        direction: 'desc',
     });
 
     const filterOptionRef: any = useRef();
@@ -223,7 +223,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     };
 
     const handleSortChange = (sortStatus: any) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus;
+        const { columnAccessor, direction = 'desc' } = sortStatus;
         setSortStatus({ columnAccessor, direction });
         setPage(1);
         fetchModelData(page, pageSize, filters, { columnAccessor, direction });
