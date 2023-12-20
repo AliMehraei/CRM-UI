@@ -321,7 +321,7 @@ const BomExcessComplete = () => {
                                                                         {item.process_status === 'found' ? (
                                                                             <div className="flex flex-col p-2">
                                                                                <span className={getStatusClass(item)}>
-                                                                              {item.selected.product_name} | {item.selected.manufacture_name}
+                                                                              {item.selected?.product_name} | {item.selected?.manufacture_name}
                                                                                </span>
 
                                                                             </div>
