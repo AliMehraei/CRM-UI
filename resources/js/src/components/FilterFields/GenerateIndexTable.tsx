@@ -65,12 +65,16 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                     }))
                 };
             });
+            console.log(transformedData);
+
+            
             setOptionsFilter(transformedData);
         } catch (error) {
             showMessage('Error fetching filter options.', 'error');
             console.error('Error fetching data:', error);
         }
         setLoading(false);
+        
     };
 
 
@@ -82,6 +86,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     };
 
     const applyFilters = ({ page, pageSize, filters, sortStatus }: any) => {
+        console.log(filters);
+        
         setResetFilter(false);
         scrollToTop();
         fetchModelData(page, pageSize, filters, sortStatus);
@@ -428,8 +434,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                                                                     <ViewIcon />
                                                                 </NavLink>
                                                             )}
-                                                            {actionPlus.map((value) => (
-                                                                <NavLink to={`/${value.route}/${id}`} key={id}
+                                                            {actionPlus.map((value, index) => (
+                                                                <NavLink to={`/${value.route}/${id}`} key={`${id}-${index}`}
                                                                     className="flex hover:text-info">
                                                                     {value.icon}
                                                                 </NavLink>
