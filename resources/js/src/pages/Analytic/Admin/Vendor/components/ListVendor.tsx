@@ -18,14 +18,14 @@ const ListVendor = ({
         {
             accessor: 'id',
             sortable: true,
-            render: ({ id } : any) => <div className="font-semibold">{id}</div>,
+            render: ({ vendor_id } : any) => <div className="font-semibold">{vendor_id}</div>,
         },
         {
             accessor: 'vendor Name',
             sortable: true,
-            render: ({ vendor_name, id } : any) => (
+            render: ({ vendor_name, vendor_id } : any) => (
                 hasPermission('update-vendor') ? (
-                    <NavLink to={`/vendor/edit/${id}`}>
+                    <NavLink to={`/vendor/edit/${vendor_id}`}>
                         <div className="text-primary underline hover:no-underline font-semibold">{`#${vendor_name}`}</div>
                     </NavLink>
                 ) : (
