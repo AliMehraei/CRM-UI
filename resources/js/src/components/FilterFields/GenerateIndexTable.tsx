@@ -65,7 +65,6 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                     }))
                 };
             });
-            console.log(transformedData);
 
             
             setOptionsFilter(transformedData);
@@ -86,7 +85,6 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     };
 
     const applyFilters = ({ page, pageSize, filters, sortStatus }: any) => {
-        console.log(filters);
         
         setResetFilter(false);
         scrollToTop();
