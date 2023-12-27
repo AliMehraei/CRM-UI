@@ -37,8 +37,14 @@ const ListVendor = ({
             accessor: 'Manufacturer Name',
             title: 'Manufacturer Name',
             sortable: true,
-            render: ({ manufacturer_name } : any) => (
-                <div className="font-semibold">{`${manufacturer_name}`}</div>
+            render: ({ manufacturer_name, manufacturer_id} : any) => (
+                hasPermission('update-manufacturer') ? (
+                    <NavLink to={`/manufacturer/edit/${manufacturer_id}`}>
+                        <div className="text-primary underline hover:no-underline font-semibold">{`#${manufacturer_name}`}</div>
+                    </NavLink>
+                ) : (
+                    <div className="font-semibold">{`#${manufacturer_name}`}</div>
+                )
             ),
         },
         {
