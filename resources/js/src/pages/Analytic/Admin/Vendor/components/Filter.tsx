@@ -85,6 +85,7 @@ const Filter = ({
     };
 
     const handleChangeDateAvailability = (selectedDates: any) => {
+        
 
         if (Array.isArray(selectedDates) && selectedDates.length === 2) {
             const formattedStartDate = new Date(selectedDates[0].getTime() - selectedDates[0].getTimezoneOffset() * 60000)
@@ -101,6 +102,7 @@ const Filter = ({
     };
 
     const handleFilterClick = () => {
+        
         setVendorNameFilter(vendorNameFilterTemp);
         setManufacturerNameFilter(manufacturerNameFilterTemp);
         setDateRfqStartFilter(dateRfqStartFilterTemp);
@@ -131,13 +133,23 @@ const Filter = ({
 
 
 
-    // useEffect(() => {
-    //     // Split the date3 string and set start and end dates
-    //     const [startDate, endDate] = dateRfq.split(' to ');
-    //
-    //     setDateRfqStartFilterTemp(startDate);
-    //     setDateRfqEndFilterTemp(endDate);
-    // }, [dateRfq]);
+    useEffect(() => {
+        // Split the date3 string and set start and end dates
+        const [startRfqDate, endRfqDate] = dateRfq.split(' to ');
+        const [startVendorDate, endVendorDate] = dateVendorRfq.split(' to ');
+        const [startAvailabilityDate, endAvailabilityDate] = dateAvailability.split(' to ');
+
+        setDateRfqStartFilterTemp(startRfqDate);
+        setDateRfqEndFilterTemp(endRfqDate);
+
+        setDateVendorRfqStartFilterTemp(startVendorDate);
+        setDateVendorRfqEndFilterTemp(endVendorDate);
+
+        setDateAvailabilityStartFilterTemp(startAvailabilityDate);
+        setDateAvailabilityEndFilterTemp(endAvailabilityDate);
+
+
+    }, [dateRfq,dateVendorRfq,dateAvailability]);
 
     return (
         <>
@@ -237,6 +249,7 @@ const Filter = ({
                                 setDateVendorRfq('');
                                 setDateVendorRfqStartFilterTemp('');
                                 setDateVendorRfqEndFilterTemp('');
+                                
 
                             }}>
                                 <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -272,6 +285,8 @@ const Filter = ({
                                 setDateAvailability('');
                                 setDateAvailabilityStartFilterTemp('');
                                 setDateAvailabilityEndFilterTemp('');
+                                setDateAvailabilityStartFilter('');
+                                setDateAvailabilityEndFilter('');
 
                             }}>
                                 <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -297,7 +312,7 @@ const Filter = ({
                             {/*    className="sm:col-span-12 lg:col-span-2 float-right block items-center  mx-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"*/}
                             {/*> Reset*/}
                             {/*</button>*/}
-                            <Link type='button' className="sm:col-span-12 lg:col-span-2 float-right block items-center  mx-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" to={`/admin-analytics/sales-order`} reloadDocument={true}>Reset</Link>
+                            <Link type='button' className="sm:col-span-12 lg:col-span-2 float-right block items-center  mx-3 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" to={`/admin-analytics/vendor`} reloadDocument={true}>Reset</Link>
                         </div>
 
 

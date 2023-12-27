@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import GenerateTableList from "../../../../../components/FilterFields/GenerateTableList";
 import {useUserStatus} from "../../../../../config/authCheck";
 import { NavLink } from 'react-router-dom';
@@ -13,6 +14,17 @@ const ListVendor = ({
                         manufacturerNameFilter
                     }:any) => {
     const { hasPermission } = useUserStatus();
+
+    const [filterParam, setFilterParam] = useState({
+        manufacturer_name: manufacturerNameFilter,
+        date_start_vrfq: dateVendorRfqStartFilter ?? '',
+        date_end_vrfq: dateVendorRfqEndFilter ?? '',
+        date_start_rfq: dateRfqStartFilter ?? '',
+        date_end_rfq: dateRfqEndFilter ?? '',
+        date_start_ava: dateAvailabilityStartFilter ?? '',
+        date_end_ava: dateAvailabilityEndFilter ?? '',
+        vendor_name: vendorNameFilter
+      });
 
     const columns: any = [
         {
@@ -84,7 +96,20 @@ const ListVendor = ({
 
     ];
 
-   
+    useEffect(() => {
+        
+        setFilterParam({
+            manufacturer_name: manufacturerNameFilter,
+            date_start_vrfq: dateVendorRfqStartFilter ?? '',
+            date_end_vrfq: dateVendorRfqEndFilter ?? '',
+            date_start_rfq: dateRfqStartFilter ?? '',
+            date_end_rfq: dateRfqEndFilter ?? '',
+            date_start_ava: dateAvailabilityStartFilter ?? '',
+            date_end_ava: dateAvailabilityEndFilter ?? '',
+            vendor_name: vendorNameFilter
+          });
+        
+    }, [vendorNameFilter,manufacturerNameFilter,dateRfqStartFilter,dateVendorRfqStartFilter,dateAvailabilityStartFilter]);
 
     return (
         <div className="pt-5 flex-1">
@@ -99,17 +124,7 @@ const ListVendor = ({
                                     permissionName="admin-vendor-list-analytics"
                                     tableColumns={columns}
                                     frontRoute="reportVendorList"
-                                    filterParam={{
-                                        manufacturer_name:manufacturerNameFilter,
-                                        date_start_vrfq:dateVendorRfqStartFilter ?? '',
-                                        date_end_vrfq:dateVendorRfqEndFilter ?? '',
-                                        date_start_rfq:dateRfqStartFilter ?? '',
-                                        date_end_rfq:dateRfqEndFilter ?? '',
-                                        date_start_ava:dateAvailabilityStartFilter ?? '',
-                                        date_end_ava:dateAvailabilityEndFilter ?? '',
-                                        vendor_name:vendorNameFilter
-                                }
-                                }
+                                    filterParam={filterParam}
                                  />
 
                         </div>
