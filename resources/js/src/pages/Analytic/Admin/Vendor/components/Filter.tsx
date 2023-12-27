@@ -168,7 +168,7 @@ const Filter = ({
                             id="vendor_name"
                             onChange={handleChangeVendorName}
                             // className="w-48"
-                            className="sm:col-span-8 lg:col-span-2"
+                            className="sm:col-span-8 lg:col-span-2 z-50"
                             placeholder="Select Vendor Name"
 
                         />
@@ -186,7 +186,7 @@ const Filter = ({
                                 loadOptions={searchManufacturer}
                                 onChange={handleChangeManufacturerName}
                                 // className="flex-1 w-60"
-                                className="sm:col-span-8 lg:col-span-2"
+                                className="sm:col-span-8 lg:col-span-2 z-50"
                             />
                     </div>
 
