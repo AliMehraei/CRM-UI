@@ -126,7 +126,7 @@ const GenerateTableList = ({ permissionName, tableColumns, frontRoute , filterPa
 
     useEffect(() => {
         fetchModelData(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus]);
+    }, [page, pageSize, sortStatus,filterParam]);
 
 
    
