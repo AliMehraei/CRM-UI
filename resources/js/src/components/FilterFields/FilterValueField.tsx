@@ -10,7 +10,7 @@ import {
 import React from "react";
 import {useDispatch} from "react-redux";
 import {updateFilterSlice} from "../../store/filterSlice";
-import {loadModels} from "../Functions/CommonFunctions";
+import {displayImage, loadModels} from "../Functions/CommonFunctions";
 
 const api_instance = new api();
 
@@ -125,6 +125,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
             options: selectedOptions.map((item: any) => item.value),
             fullOptions: selectedOptions,
         };
+
         handleValueChange(field, userIds);
     };
 
@@ -132,7 +133,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         if (inputValue.length < 2) return [];
         const valField = 'id';
         const nameField = 'name';
-        const avatarField = 'avatar';
+        const avatarField = 'avatar_data';
         const emailField = 'email';
         try {
             const result: any = await api_instance.loadAdminUsers({'search': inputValue});
@@ -141,7 +142,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                     value: user[valField],
                     label: (
                         <div key={user[valField]} className="flex items-center">
-                            <img src={user[avatarField]} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
+                            <img src={displayImage(user[avatarField])} alt="avatar" className="w-8 h-8 mr-2 rounded-full"/>
                             <div>
                                 <div className="text-sm font-bold">{user[nameField]}</div>
                                 <div className="text-xs text-gray-500">{user[emailField]}</div>

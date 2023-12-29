@@ -81,7 +81,7 @@ const List = () => {
                                                         src={`${displayImage(user?.avatar_data)} `}
                                                         alt="userProfile" className="w-16 h-16  rounded-full mr-5"/>
                                                     <div>
-                                                        <h3 className="text-lg font-semibold mb-1">{user?.first_name} {user?.last_name}
+                                                        <h3 className="text-lg font-semibold mb-1">{user?.name}
                                                             <span
                                                                 className="ml-2 bg-gray-200 text-sm px-2 py-1 rounded-full">{user?.roles[0]?.name}</span>
                                                         </h3>
@@ -220,7 +220,7 @@ const List = () => {
                                                                defaultValue={user?.currency}/>
                                                     </div>
                                                     <div className="flex mb-2">
-                                                        <label className="w-32 font-semibold" htmlFor="name_format">Number Format:</label>
+                                                        <label className="w-32 font-semibold" htmlFor="name_format">Name Format:</label>
                                                         <input className="border rounded px-2 py-1" disabled id="name_format"
                                                                defaultValue={user?.name_format}/>
                                                     </div>

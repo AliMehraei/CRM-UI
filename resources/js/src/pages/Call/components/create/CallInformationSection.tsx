@@ -165,7 +165,7 @@ const CallInformationSection = () => {
                                      handleChangeField('type', value)
                                  }} className="flex-1"/>,
             'Outgoing Call Status': <input id="outgoing_call_status" name="outgoing_call_status" type="text"
-                                           placeholder="Readonly input here…"
+                                           placeholder="readOnly input here…"
                                            className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                            defaultValue="Abgeschlossen"
                                            disabled/>,

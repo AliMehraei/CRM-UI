@@ -39,8 +39,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     const [totalItems, setTotalItems] = useState(0);
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: 'id',
-        direction: 'asc',
+        columnAccessor: 'created_at',
+        direction: 'desc',
     });
 
     const filterOptionRef: any = useRef();
@@ -65,12 +65,15 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                     }))
                 };
             });
+
+            
             setOptionsFilter(transformedData);
         } catch (error) {
             showMessage('Error fetching filter options.', 'error');
             console.error('Error fetching data:', error);
         }
         setLoading(false);
+        
     };
 
 
@@ -82,6 +85,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     };
 
     const applyFilters = ({ page, pageSize, filters, sortStatus }: any) => {
+        
         setResetFilter(false);
         scrollToTop();
         fetchModelData(page, pageSize, filters, sortStatus);
@@ -223,7 +227,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     };
 
     const handleSortChange = (sortStatus: any) => {
-        const { columnAccessor, direction = 'asc' } = sortStatus;
+        const { columnAccessor, direction = 'desc' } = sortStatus;
         setSortStatus({ columnAccessor, direction });
         setPage(1);
         fetchModelData(page, pageSize, filters, { columnAccessor, direction });
@@ -428,8 +432,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                                                                     <ViewIcon />
                                                                 </NavLink>
                                                             )}
-                                                            {actionPlus.map((value) => (
-                                                                <NavLink to={`/${value.route}/${id}`} key={id}
+                                                            {actionPlus.map((value, index) => (
+                                                                <NavLink to={`/${value.route}/${id}`} key={`${id}-${index}`}
                                                                     className="flex hover:text-info">
                                                                     {value.icon}
                                                                 </NavLink>
