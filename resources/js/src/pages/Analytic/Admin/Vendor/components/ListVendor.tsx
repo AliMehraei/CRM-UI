@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import GenerateTableList from "../../../../../components/FilterFields/GenerateTableList";
 import {useUserStatus} from "../../../../../config/authCheck";
 import { NavLink } from 'react-router-dom';
@@ -14,18 +15,29 @@ const ListVendor = ({
                     }:any) => {
     const { hasPermission } = useUserStatus();
 
+    const [filterParam, setFilterParam] = useState({
+        manufacturer_name: manufacturerNameFilter,
+        date_start_vrfq: dateVendorRfqStartFilter ?? '',
+        date_end_vrfq: dateVendorRfqEndFilter ?? '',
+        date_start_rfq: dateRfqStartFilter ?? '',
+        date_end_rfq: dateRfqEndFilter ?? '',
+        date_start_ava: dateAvailabilityStartFilter ?? '',
+        date_end_ava: dateAvailabilityEndFilter ?? '',
+        vendor_name: vendorNameFilter
+      });
+
     const columns: any = [
         {
             accessor: 'id',
             sortable: true,
-            render: ({ id } : any) => <div className="font-semibold">{id}</div>,
+            render: ({ vendor_id } : any) => <div className="font-semibold">{vendor_id}</div>,
         },
         {
             accessor: 'vendor Name',
             sortable: true,
-            render: ({ vendor_name, id } : any) => (
+            render: ({ vendor_name, vendor_id } : any) => (
                 hasPermission('update-vendor') ? (
-                    <NavLink to={`/vendor/edit/${id}`}>
+                    <NavLink to={`/vendor/edit/${vendor_id}`}>
                         <div className="text-primary underline hover:no-underline font-semibold">{`#${vendor_name}`}</div>
                     </NavLink>
                 ) : (
@@ -37,8 +49,14 @@ const ListVendor = ({
             accessor: 'Manufacturer Name',
             title: 'Manufacturer Name',
             sortable: true,
-            render: ({ manufacturer_name } : any) => (
-                <div className="font-semibold">{`${manufacturer_name}`}</div>
+            render: ({ manufacturer_name, manufacturer_id} : any) => (
+                hasPermission('update-manufacturer') ? (
+                    <NavLink to={`/manufacturer/edit/${manufacturer_id}`}>
+                        <div className="text-primary underline hover:no-underline font-semibold">{`#${manufacturer_name}`}</div>
+                    </NavLink>
+                ) : (
+                    <div className="font-semibold">{`#${manufacturer_name}`}</div>
+                )
             ),
         },
         {
@@ -78,7 +96,20 @@ const ListVendor = ({
 
     ];
 
-   
+    useEffect(() => {
+        
+        setFilterParam({
+            manufacturer_name: manufacturerNameFilter,
+            date_start_vrfq: dateVendorRfqStartFilter ?? '',
+            date_end_vrfq: dateVendorRfqEndFilter ?? '',
+            date_start_rfq: dateRfqStartFilter ?? '',
+            date_end_rfq: dateRfqEndFilter ?? '',
+            date_start_ava: dateAvailabilityStartFilter ?? '',
+            date_end_ava: dateAvailabilityEndFilter ?? '',
+            vendor_name: vendorNameFilter
+          });
+        
+    }, [vendorNameFilter,manufacturerNameFilter,dateRfqStartFilter,dateVendorRfqStartFilter,dateAvailabilityStartFilter]);
 
     return (
         <div className="pt-5 flex-1">
@@ -93,17 +124,7 @@ const ListVendor = ({
                                     permissionName="admin-vendor-list-analytics"
                                     tableColumns={columns}
                                     frontRoute="reportVendorList"
-                                    filterParam={{
-                                        manufacturer_name:manufacturerNameFilter,
-                                        date_start_vrfq:dateVendorRfqStartFilter ?? '',
-                                        date_end_vrfq:dateVendorRfqEndFilter ?? '',
-                                        date_start_rfq:dateRfqStartFilter ?? '',
-                                        date_end_rfq:dateRfqEndFilter ?? '',
-                                        date_start_ava:dateAvailabilityStartFilter ?? '',
-                                        date_end_ava:dateAvailabilityEndFilter ?? '',
-                                        vendor_name:vendorNameFilter
-                                }
-                                }
+                                    filterParam={filterParam}
                                  />
 
                         </div>

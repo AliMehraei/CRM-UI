@@ -324,7 +324,7 @@ export const loadAvailability = async (query: string) => {
 
 export const searchOwners = async (e: any) => {
     const result = await api_instance.loadAdminUsers({ 'search': e });
-    const valField = 'id';
+    const valField = 'userId';
     const nameField = 'first_name';
     const avatarField = 'avatar_data';
     const emailField = 'email';
