@@ -8,7 +8,7 @@ const initState = {
     action: "create",
     rfq_source: 'none',
     rfq_type: 'none',
-    status: 'open',
+    status: 'Open',
 
 };
 
