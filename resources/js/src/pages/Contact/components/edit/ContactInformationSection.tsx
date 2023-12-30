@@ -125,7 +125,7 @@ const ContactInformationSection = () => {
                 <Select id="portal_access"
                         name="portal_access"
                         onChange={({value}: any) => {
-                            handleChangeField('double_check_status', value)
+                            handleChangeField('portal_access', value)
                         }}
                         className="flex-1 "
                         options={ContactPortalAccess}
