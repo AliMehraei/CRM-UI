@@ -377,7 +377,7 @@ export const ProductTypeOptions = [
     { value: 'service', label: 'Service'},
 ];
 
-export const ProductLifecylceStatusOptions = [
+export const ProductLifecycleStatusOptions = [
     { label: '-None-', value: 'none' },
     { label: 'Production', value: 'Production' },
     { label: 'Phase out', value: 'Phase out' },

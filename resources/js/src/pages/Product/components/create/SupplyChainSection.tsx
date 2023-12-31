@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {ProductLifecylceStatusOptions} from "../../../../components/Options/SelectOptions";
+import {ProductLifecycleStatusOptions} from "../../../../components/Options/SelectOptions";
 const SupplyChainSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -33,9 +33,9 @@ const SupplyChainSection = () => {
         '': {
 
 
-            'Lifecylce Status': (
+            'Lifecycle Status': (
                 <Select
-                    options={ProductLifecylceStatusOptions}
+                    options={ProductLifecycleStatusOptions}
                     name="lifecycle_status"
                     id="lifecycle_status"
                     onChange={({ value }: any) => {
