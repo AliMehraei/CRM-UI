@@ -61,7 +61,7 @@ const Availability = ({selectedItem}:any) => {
                 </div>
                 <div className="mb-4">
                     <span className="text-sm font-bold">Product name:</span>
-                    <span className="text-sm ml-2">{selectedItem.val?.product.product_name}</span>
+                    <span className="text-sm ml-2">{selectedItem.val?.product?.product_name}</span>
                 </div>
                 <div className="mb-4">
                     <span className="text-sm font-bold">Availability Date:</span>
