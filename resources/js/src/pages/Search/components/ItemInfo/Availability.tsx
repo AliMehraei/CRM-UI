@@ -53,7 +53,7 @@ const Availability = ({selectedItem}:any) => {
                 </div>
                 <div className="mb-4">
                     <span className="text-sm font-bold">Vendor:</span>
-                    <span className="text-sm ml-2">{selectedItem.val?.vendor.vendor_name}</span>
+                    <span className="text-sm ml-2">{selectedItem.val?.vendor?.vendor_name}</span>
                 </div>
                 <div className="mb-4">
                     <span className="text-sm font-bold">MOQ:</span>
