@@ -131,7 +131,7 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
 
     const loadAdminUsers = async (inputValue: any) => {
         if (inputValue.length < 2) return [];
-        const valField = 'id';
+        const valField = 'userId';
         const nameField = 'name';
         const avatarField = 'avatar_data';
         const emailField = 'email';

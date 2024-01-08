@@ -107,7 +107,7 @@ const Preview = () => {
                             // { label: "Manufacture Name", value: formState.manufacturer_name },
                         ]}
                         rightObjects={[
-                            {label: "Lifecylce Status", value: formState.lifecycle_status},
+                            {label: "Lifecycle Status", value: formState.lifecycle_status},
                         ]}
                     />
 

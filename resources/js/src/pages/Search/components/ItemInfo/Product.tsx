@@ -80,7 +80,7 @@ const Product = ({selectedItem}:any) => {
                     <span className="text-sm ml-2">{selectedItem.val?.min_operating_temperature}</span>
                 </div>
                 {/*<div className="mb-4">*/}
-                {/*<span className="text-sm font-bold">Lifecylce Status:</span>*/}
+                {/*<span className="text-sm font-bold">Lifecycle Status:</span>*/}
                 {/*<span className="text-sm ml-2">{selectedItem.val?.currency}</span>*/}
                 {/* </div>*/}
                 <div className="mb-4">
