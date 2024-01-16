@@ -417,6 +417,15 @@ export const ProductDuplicatedStatusOptions = [
     },
 ];
 
+export const ProductTax = [
+
+    { label: 'B 10% [10%]', value: 'B 10% [10%]' },
+    { label: 'Dritt-Staaten (nicht EUR) [0%]', value: 'Dritt-Staaten (nicht EUR) [0%]' },
+    { label: 'EU Staaten [0%]', value: 'EU Staaten [0%]' },
+    { label: 'USt [20%]', value: 'USt [20%]' },
+
+];
+
 export const AvailabilitySources = [
     {value: 'none', label: '-None-'},
     {value: 'Email', label: 'Email'},

@@ -681,6 +681,11 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/call`, data);
     }
 
+    //fiscal account
+    async searchfiscalAccount(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/search`, data);
+    }
+
     async globalSearch(text: string) {
         const data = {
             search: text
