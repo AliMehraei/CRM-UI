@@ -9,6 +9,11 @@ const Contracts = lazy(() => import('../pages/Contracts'));
 const Setting = lazy(() => import('../pages/Setting/Index'));
 const PersonalSettings = lazy(() => import('../pages/Setting/PersonalSettings'));
 
+const ListFiscalAccount = lazy(() => import('../pages/FiscalAccount/Index'));
+const PreviewFiscalAccount = lazy(() => import('../pages/FiscalAccount/Preview'));
+const AddFiscalAccount = lazy(() => import('../pages/FiscalAccount/Add'));
+const EditFiscalAccount = lazy(() => import('../pages/FiscalAccount/Edit'));
+
 const ListAccount = lazy(() => import('../pages/Account/Index'));
 const PreviewAccount = lazy(() => import('../pages/Account/Preview'));
 const AddAccount = lazy(() => import('../pages/Account/Add'));
@@ -261,6 +266,30 @@ const routes = [
         element: <EditAccount/>,
         protected: true,
         requiredPermission: 'update-account'
+    },
+    {
+        path: '/fiscal-account/list',
+        element: <ListFiscalAccount/>,
+        protected: true,
+        requiredPermission: 'read-fiscal-account'
+    },
+    {
+        path: '/fiscal-account/preview/:id',
+        element: <PreviewFiscalAccount/>,
+        protected: true,
+        requiredPermission: 'read-fiscal-account'
+    },
+    {
+        path: '/fiscal-account/add',
+        element: <AddFiscalAccount/>,
+        protected: true,
+        requiredPermission: 'create-fiscal-account'
+    },
+    {
+        path: '/fiscal-account/edit/:id',
+        element: <EditFiscalAccount/>,
+        protected: true,
+        requiredPermission: 'update-fiscal-account'
     },
     {
         element: <Contracts/>,

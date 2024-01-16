@@ -22,6 +22,7 @@ import permissionSlice from './permissionSlice'
 import userFormSlice from "./userFormSlice";
 import FilterSlice from "./filterSlice";
 import CallFormSlice from "./callFormSlice";
+import fiscalAccountFormSlice from "./fiscalAccountFormSlice";
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     formErrors: formErrorsSlice,
     invoiceForm: invoiceFormSlice,
     accountForm: accountFormSlice,
+    fiscalAccountForm: fiscalAccountFormSlice,
     vendorForm: vendorFormSlice,
     contactForm: contactFormSlice,
     leadForm: leadFormSlice,

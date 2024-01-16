@@ -964,6 +964,7 @@ const Header = () => {
 
                                 </li>
                             ) : null}
+
                             {hasPermission(`read-excess`) ? (
                                 <li>
                                     <NavLink to="/excess/list">{t('Excess')}</NavLink>
@@ -1009,9 +1010,15 @@ const Header = () => {
                                     <NavLink to="/call/list">{t('Call')}</NavLink>
                                 </li>
                             ) : null}
-                            {hasPermission(`read-role`) ? (
-                                <li>
-                                    <NavLink to="/role/list">{t('Role')}</NavLink>
+                            {hasPermission(`read-fiscal-account`) ? (
+                                <li className="menu nav-item relative">
+                                    <NavLink to="/fiscal-account/list" className="nav-link">
+                                        <div className="flex items-center">
+                                            <span className="px-1">{t('Fiscal Account')}</span>
+                                        </div>
+
+                                    </NavLink>
+
                                 </li>
                             ) : null}
                         </ul>
