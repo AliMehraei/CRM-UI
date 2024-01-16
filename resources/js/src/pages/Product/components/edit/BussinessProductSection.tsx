@@ -81,7 +81,28 @@ const BussinessProductSection = () => {
                         handleChangeField("sales_fiscal_account_id", value);
                     }}
                     className="flex-1"
-                    defaultValue={formState.sales_fiscal_account_id}
+                    defaultValue={{
+                        value: formState.sales_fiscal_account_id,
+                        label: (
+                            <div key={formState.sales_fiscal_account_id}
+                                className="flex items-center">
+                                {formState.fiscal_account_sale ?
+                                    (
+                                        <>
+                                            <div className="text-sm font-bold">{formState.fiscal_account_sale?.account_name}</div>
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.fiscal_account_sale?.account_name}`)}>
+                                                Copy & Select
+                                            </button>
+                                        </>
+
+
+                                    ) : null
+
+                                }
+
+                            </div>
+                        )
+                    }}
 
                 />
             ),
@@ -107,7 +128,7 @@ const BussinessProductSection = () => {
                         handleChangeField("sales_tax", value);
                     }}
                     className="flex-1"
-                    defaultValue={formState.sales_tax}
+                    defaultValue={ProductTax.find((data) => data.value == formState.sales_tax)}
 
                 />
             ),
@@ -139,7 +160,28 @@ const BussinessProductSection = () => {
                         handleChangeField("purchase_fiscal_account_id", value);
                     }}
                     className="flex-1"
-                    defaultValue={formState.purchase_fiscal_account_id}
+                    defaultValue={{
+                        value: formState.purchase_fiscal_account_id,
+                        label: (
+                            <div key={formState.purchase_fiscal_account_id}
+                                className="flex items-center">
+                                {formState.fiscal_account_purchase ?
+                                    (
+                                        <>
+                                            <div className="text-sm font-bold">{formState.fiscal_account_purchase?.account_name}</div>
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.fiscal_account_purchase?.account_name}`)}>
+                                                Copy & Select
+                                            </button>
+                                        </>
+
+
+                                    ) : null
+
+                                }
+
+                            </div>
+                        )
+                    }}
 
                 />
             ),
@@ -165,7 +207,7 @@ const BussinessProductSection = () => {
                         handleChangeField("purchase_tax", value);
                     }}
                     className="flex-1"
-                    defaultValue={formState.purchase_tax}
+                    defaultValue={ProductTax.find((data) => data.value == formState.purchase_tax)}
 
                 />
             ),
@@ -186,7 +228,7 @@ const BussinessProductSection = () => {
                         label: (
                             <div key={formState.purchase_vendor_id}
                                 className="flex items-center">
-                                {formState.manufacturer ?
+                                {formState.vendor ?
                                     (
                                         <>
                                             <div className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
