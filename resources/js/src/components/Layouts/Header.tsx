@@ -1000,6 +1000,7 @@ const Header = () => {
                                 <li>
                                     <NavLink to="/deal/list">{t('Deal')}</NavLink>
                                 </li>) : null}
+                          
                             {hasPermission(`read-user`) ? (
                                 <li>
                                     <NavLink to="/user/list">{t('User')}</NavLink>
@@ -1011,14 +1012,8 @@ const Header = () => {
                                 </li>
                             ) : null}
                             {hasPermission(`read-fiscal-account`) ? (
-                                <li className="menu nav-item relative">
-                                    <NavLink to="/fiscal-account/list" className="nav-link">
-                                        <div className="flex items-center">
-                                            <span className="px-1">{t('Fiscal Account')}</span>
-                                        </div>
-
-                                    </NavLink>
-
+                                <li>
+                                  <NavLink to="/fiscal-account/list">{t('Fiscal Account')}</NavLink>
                                 </li>
                             ) : null}
                         </ul>
