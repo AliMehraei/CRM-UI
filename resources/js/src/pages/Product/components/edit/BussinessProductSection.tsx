@@ -5,11 +5,8 @@ import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    searchManufacturer,
-    searchOwners,
-    searchRFQ,
+    searchFiscalAccount,
     searchVendor,
-    searchfiscalAccount,
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import { ProductTax, ProductTypeOptions } from "../../../../components/Options/SelectOptions";
@@ -76,7 +73,7 @@ const BussinessProductSection = () => {
                     id="sales_fiscal_account_id"
                     placeholder="Type at least 2 characters to search..."
                     name="sales_fiscal_account_id"
-                    loadOptions={searchfiscalAccount}
+                    loadOptions={searchFiscalAccount}
                     onChange={({ value }: any) => {
                         handleChangeField("sales_fiscal_account_id", value);
                     }}
@@ -155,7 +152,7 @@ const BussinessProductSection = () => {
                     id="purchase_fiscal_account_id"
                     placeholder="Type at least 2 characters to search..."
                     name="purchase_fiscal_account_id"
-                    loadOptions={searchfiscalAccount}
+                    loadOptions={searchFiscalAccount}
                     onChange={({ value }: any) => {
                         handleChangeField("purchase_fiscal_account_id", value);
                     }}
