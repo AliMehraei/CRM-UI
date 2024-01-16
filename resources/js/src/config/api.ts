@@ -682,7 +682,7 @@ class api {
     }
 
     //fiscal account
-    async searchfiscalAccount(data: any = null) {
+    async searchFiscalAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/search`, data);
     }
 

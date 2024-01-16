@@ -305,8 +305,8 @@ export const searchPurchaseOrder = async (query: string) => {
     }
 }
 
-export const searchfiscalAccount = async (query: string) => {
-    const result = await api_instance.searchfiscalAccount({ query: query });
+export const searchFiscalAccount = async (query: string) => {
+    const result = await api_instance.searchFiscalAccount({ query: query });
     if (result.status) {
         return result.data.data.map((data: any) => ({
             value: data['id'],

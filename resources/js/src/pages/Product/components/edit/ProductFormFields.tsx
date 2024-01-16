@@ -11,6 +11,7 @@ import APIDataSection from "./APIDataSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
 import AttachmentSection from "../../../../components/FormFields/AttachmentSection";
 import {useParams} from "react-router-dom";
+import BussinessProductSection from "./BussinessProductSection";
 
 const ProductFormFields = () => {
     const params = useParams();
@@ -18,6 +19,8 @@ const ProductFormFields = () => {
     return (
         <div className="mt-8 px-4">
             <ProductInformationSection key="productInfo"/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <BussinessProductSection key="bussinessProduct"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <SupplyChainSection key="SupplyChain"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
