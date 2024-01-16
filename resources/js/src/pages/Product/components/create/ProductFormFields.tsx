@@ -12,6 +12,7 @@ import AlternativesSection from "./AlternativesSection";
 import ExportImportDataSection from "./ExportImportDataSection";
 import APIDataSection from "./APIDataSection";
 import DescriptionInformationSection from "./DescriptionInformationSection";
+import BussinessProductSection from "./BussinessProductSection";
 
 const ProductFormFields = () => {
 
@@ -19,6 +20,8 @@ const ProductFormFields = () => {
         <div className="mt-8 px-4">
 
             <ProductInformationSection key="productInfo"/>
+            <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            <BussinessProductSection key="bussinessProduct"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
             <SupplyChainSection key="SupplyChain"/>
             <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
