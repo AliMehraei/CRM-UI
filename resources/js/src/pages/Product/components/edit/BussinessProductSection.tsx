@@ -13,7 +13,7 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import { ProductTax, ProductTypeOptions } from "../../../../components/Options/SelectOptions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BussinessProductSection = () => {
     const dispatch = useDispatch();
@@ -29,6 +29,13 @@ const BussinessProductSection = () => {
         }
     };
 
+    useEffect(() => {
+        if(formState.business_product){
+            setIsBusinessProductChecked(true);
+        }
+        
+    });
+
     const fields = {
         "Bussiness Product": {
             'Business Product': (
@@ -38,7 +45,7 @@ const BussinessProductSection = () => {
                     name="business_product"
                     className="form-checkbox"
                     onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
-                    defaultValue={formState.business_product}
+                    defaultChecked={formState.business_product}
 
                 />
             ),
