@@ -20,6 +20,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
 
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(false);
+    const [loadingTable, setLoadingTable] = useState(false);
+
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
@@ -170,6 +172,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
 
     const fetchModelData = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
         setLoading(true);
+        setLoadingTable(true);
         const { columnAccessor: sortField = '', direction: sortDirection = '' }: any = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
@@ -187,12 +190,14 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
             }).catch((error: any) => {
                 console.error('Error fetching data: ', error);
                 setLoading(false);
+                setLoadingTable(false);
                 showMessage(`Error fetching  ${modelName} data.`, 'error');
             });
         } catch (error) {
             showMessage(`Error fetching ${modelName} data.`, 'error');
             console.error('Error fetching data: ', error);
             setLoading(false);
+            setLoadingTable(false);
         }
     };
 
@@ -259,7 +264,11 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     }, [pageSize]);
 
     useEffect(() => {
+        setLoadingTable(true);
         setRecords([...initialRecords.slice(0, pageSize)]);
+        setTimeout(() => {
+            setLoadingTable(false);
+          }, 2000);
         filterOptionRef.current = { ...filterOptionRef.current, page, pageSize };
     }, [page, pageSize, initialRecords]);
 
@@ -285,7 +294,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
         dispatch(resetFilterSlice())
     }, []);
 
-
+  
+    
     const deleteButton = (<button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5">
@@ -393,7 +403,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
 
                             <div className="panel col-span-6">
                                 <div className="datatables pagination-padding">
-                                    {loading ? (
+                                    {loadingTable ? (
                                         <div className='flex justify-center'>
                                             <span
                                                 className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
