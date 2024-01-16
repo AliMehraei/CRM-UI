@@ -4,8 +4,10 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
+    handleCopySelect,
     searchAvailability
 } from "../../../../components/Functions/CommonFunctions";
+import React from "react";
 
 const LinkedAvailabilitySection = () => {
     const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const LinkedAvailabilitySection = () => {
 
             'Availability Name': (
                 <AsyncSelect
-                    defaultOptions={true}
+                    defaultOptions={false}
                     isMulti={false}
                     id="availability_id"
                     placeholder="Type at least 2 characters to search..."
@@ -45,8 +47,20 @@ const LinkedAvailabilitySection = () => {
                         value: formState.availability?.id,
                         label: (
                             <div key={formState.availability?.id} className="flex items-center">
+                                {
+                                    formState.availability ?
+                                        (
+                                            <>
+                                                <div className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.availability?.availability_name}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            </>
+                                        ) : null
 
-                                <div className="text-sm font-bold">{formState.availability?.availability_name}</div>
+                                }
+
+
 
                             </div>
                         ),
@@ -60,7 +74,7 @@ const LinkedAvailabilitySection = () => {
                     name="availability_no"
                     className="form-input flex-1 disabled:pointer-events-none bg-[#eee] "
                     disabled
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.availability?.availability_no}
                 />
             ),
@@ -71,7 +85,7 @@ const LinkedAvailabilitySection = () => {
                     name="availability_cost"
                     className="form-input flex-1  disabled:pointer-events-none bg-[#eee]"
                     disabled
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.availability?.cost}
                 />
             ),
@@ -84,7 +98,7 @@ const LinkedAvailabilitySection = () => {
                     id="availability_quantity"
                     name="availability_quantity"
                     className="form-input flex-1 disabled:pointer-events-none bg-[#eee]"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.availability?.quantity}
                 />
             ),
@@ -95,7 +109,7 @@ const LinkedAvailabilitySection = () => {
                     name="availability_lt"
                     disabled
                     className="form-input flex-1 disabled:pointer-events-none bg-[#eee] "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.availability?.lead_time}
                 />
             ),
@@ -105,7 +119,7 @@ const LinkedAvailabilitySection = () => {
                     id="availability_dc"
                     name="availability_dc"
                     className="form-input flex-1 disabled:pointer-events-none bg-[#eee]"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.availability?.date_code}
                 />
             ),

@@ -43,24 +43,24 @@ const CommunicationDetailsSection = () => {
                 id="detail_note"
                 name="detail_note"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />
-           
+
             ),
             'LinkedIn Communication': (
-                <textarea id="linkedin_communication" rows={3} 
+                <textarea id="linkedin_communication" rows={3}
                 name="delinkedin_communicationscription"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 ></textarea>
-           
+
             )
-          
+
 
         },
         '': {
-           
+
 
         }
     }
@@ -71,7 +71,7 @@ const CommunicationDetailsSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default CommunicationDetailsSection;

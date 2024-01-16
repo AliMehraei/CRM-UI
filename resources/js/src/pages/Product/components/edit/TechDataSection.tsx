@@ -4,7 +4,7 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-
+import {ProductUsageUnitOptions, ProductDuplicatedStatusOptions} from "../../../../components/Options/SelectOptions";
 const TechDataSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -32,31 +32,6 @@ const TechDataSection = () => {
             }));
         }
     };
-
-
-    const duplicatedOptions = [
-        {label: '-None-', value: 'none'},
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Must be deleted</>),
-            value: 'must_be_deleted'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-yellow-500 rounded-full"></span>Must be merged</>),
-            value: 'must_be_merged'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-500 rounded-full"></span>Must be renamed</>),
-            value: 'must_be_renamed'
-        },
-        {
-            label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
-            value: 'delete_confirmed'
-        },
-    ];
-    const usageUnitOptions = [
-        {label: 'PCS', value: 'pcs'},
-    ];
-
 
     const fields = {
         'Tech Data': {
@@ -93,7 +68,7 @@ const TechDataSection = () => {
                     id="average_lead_time"
                     name="average_lead_time"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.average_lead_time}
                 />
             ),
@@ -102,7 +77,7 @@ const TechDataSection = () => {
                     id="capacitance"
                     name="capacitance"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.capacitance}
                 />
             ),
@@ -111,7 +86,7 @@ const TechDataSection = () => {
                     id="dielectric"
                     name="dielectric"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.dielectric}
                 />
             ),
@@ -120,7 +95,7 @@ const TechDataSection = () => {
                     id="flash_memory_size"
                     name="flash_memory_size"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.flash_memory_size}
                 />
             ),
@@ -129,7 +104,7 @@ const TechDataSection = () => {
                     id="frequency"
                     name="frequency"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.frequency}
                 />
             ),
@@ -138,7 +113,7 @@ const TechDataSection = () => {
                     id="halogen_free"
                     name="halogen_free"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.halogen_free}
                 />
             ),
@@ -149,7 +124,7 @@ const TechDataSection = () => {
                     id="lead_free"
                     name="lead_free"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_free}
                 />
             ),
@@ -158,7 +133,7 @@ const TechDataSection = () => {
                     id="max_operating_temperature"
                     name="max_operating_temperature"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.max_operating_temperature}
                 />
             ),
@@ -167,7 +142,7 @@ const TechDataSection = () => {
                     id="max_supply_voltage"
                     name="max_supply_voltage"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.max_supply_voltage}
                 />
             ),
@@ -176,7 +151,7 @@ const TechDataSection = () => {
                     id="number_of_ad_converters"
                     name="number_of_ad_converters"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_ad_converters}
                 />
             ),
@@ -185,7 +160,7 @@ const TechDataSection = () => {
                     id="number_of_da_converters"
                     name="number_of_da_converters"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_da_converters}
                 />
             ),
@@ -194,7 +169,7 @@ const TechDataSection = () => {
                     id="number_of_i2c_channels"
                     name="number_of_i2c_channels"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_i2c_channels}
                 />
             ),
@@ -203,7 +178,7 @@ const TechDataSection = () => {
                     id="number_of_timers_counters"
                     name="number_of_timers_counters"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_timers_counters}
                 />
             ),
@@ -212,7 +187,7 @@ const TechDataSection = () => {
                     id="number_of_usart_channels"
                     name="number_of_usart_channels"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_usart_channels}
                 />
             ),
@@ -221,7 +196,7 @@ const TechDataSection = () => {
                     id="mount"
                     name="mount"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.mount}
                 />
             ),
@@ -230,7 +205,7 @@ const TechDataSection = () => {
                     id="radiation_hardening"
                     name="radiation_hardening"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.radiation_hardening}
                 />
             ),
@@ -239,7 +214,7 @@ const TechDataSection = () => {
                     id="schedule_b"
                     name="schedule_b"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.schedule_b}
                 />
             ),
@@ -248,7 +223,7 @@ const TechDataSection = () => {
                     id="termination"
                     name="termination"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.termination}
                 />
             ),
@@ -257,7 +232,7 @@ const TechDataSection = () => {
                     id="voltage"
                     name="voltage"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.voltage}
                 />
             ),
@@ -266,7 +241,7 @@ const TechDataSection = () => {
                     id="voltage_rating"
                     name="voltage_rating"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.voltage_rating}
                 />
             ),
@@ -277,7 +252,7 @@ const TechDataSection = () => {
                     id="spq"
                     name="spq"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.spq}
                 />
             ),
@@ -286,7 +261,7 @@ const TechDataSection = () => {
                     id="weight_in_kg"
                     name="weight_in_kg"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.weight_in_kg}
                 />
             ),
@@ -295,7 +270,7 @@ const TechDataSection = () => {
                     id="composition"
                     name="composition"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.composition}
                 />
             ),
@@ -304,7 +279,7 @@ const TechDataSection = () => {
                     id="core_architecture"
                     name="core_architecture"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.core_architecture}
                 />
             ),
@@ -313,7 +288,7 @@ const TechDataSection = () => {
                     id="ram_size"
                     name="ram_size"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.ram_size}
                 />
             ),
@@ -322,20 +297,20 @@ const TechDataSection = () => {
                     id="material"
                     name="material"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.material}
                 />
             ),
             'Usage Unit': (
                 <Select
-                    options={usageUnitOptions}
+                    options={ProductUsageUnitOptions}
                     name="usage_unit"
                     id="usage_unit"
                     onChange={({value}: any) => {
                         handleChangeField('usage_unit', value)
                     }}
                     className="flex-1"
-                    defaultValue={usageUnitOptions.find(data => data.value == formState.usage_unit)}
+                    defaultValue={ProductUsageUnitOptions.find(data => data.value == formState.usage_unit)}
                 />
             ),
             'Unit Price': (
@@ -344,7 +319,7 @@ const TechDataSection = () => {
                     name="unit_price"
                     type="number"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.unit_price}
                 />
             ),
@@ -353,7 +328,7 @@ const TechDataSection = () => {
                     id="min_operating_temperature"
                     name="min_operating_temperature"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.min_operating_temperature}
                 />
             ),
@@ -362,7 +337,7 @@ const TechDataSection = () => {
                     id="min_supply_voltage"
                     name="min_supply_voltage"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.min_supply_voltage}
                 />
             ),
@@ -371,7 +346,7 @@ const TechDataSection = () => {
                     id="nominal_supply_current"
                     name="nominal_supply_current"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.nominal_supply_current}
                 />
             ),
@@ -380,7 +355,7 @@ const TechDataSection = () => {
                     id="number_of_channels"
                     name="number_of_channels"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_channels}
                 />
             ),
@@ -389,7 +364,7 @@ const TechDataSection = () => {
                     id="number_of_ios"
                     name="number_of_ios"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_ios}
                 />
             ),
@@ -398,7 +373,7 @@ const TechDataSection = () => {
                     id="number_of_spi_channels"
                     name="number_of_spi_channels"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_spi_channels}
                 />
             ),
@@ -407,7 +382,7 @@ const TechDataSection = () => {
                     id="number_of_uart_channels"
                     name="number_of_uart_channels"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.number_of_uart_channels}
                 />
             ),
@@ -416,7 +391,7 @@ const TechDataSection = () => {
                     id="resistance"
                     name="resistance"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.resistance}
                 />
             ),
@@ -425,7 +400,7 @@ const TechDataSection = () => {
                     id="temperature_coefficient"
                     name="temperature_coefficient"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.temperature_coefficient}
                 />
             ),
@@ -434,20 +409,20 @@ const TechDataSection = () => {
                     id="tolerance"
                     name="tolerance"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.tolerance}
                 />
             ),
             'Duplicated Status': (
                 <Select
-                    options={duplicatedOptions}
+                    options={ProductDuplicatedStatusOptions}
                     name="duplicated_status"
                     id="duplicated_status"
                     onChange={({value}: any) => {
                         handleChangeField('duplicated_status', value)
                     }}
                     className="flex-1"
-                    defaultValue={duplicatedOptions.find((title) => title.value == formState.duplicated_status)}
+                    defaultValue={ProductDuplicatedStatusOptions.find((title) => title.value == formState.duplicated_status)}
                 />
             ),
             'Voltage Rating (DC)': (
@@ -455,7 +430,7 @@ const TechDataSection = () => {
                     id="voltage_rating_dc"
                     name="voltage_rating_dc"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.voltage_rating_dc}
                 />
             ),

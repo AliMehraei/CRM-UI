@@ -9,6 +9,11 @@ const QuoteItemSection = () => {
     const formState = useSelector((state: any) => state.quoteForm);
     const dispatch = useDispatch();
     const [items, setItems] = useState<any>([]);
+    const [summary, setSummary] = useState({
+        total: 0,
+        ...formState.summary,
+
+    });
     const handleChangeField = (field: string, value: any, id: string) => {
         const updatingItem = items.find((item: any) => item.id === id);
         const itemIndex = items.findIndex((item: any) => item.id === id);
@@ -54,11 +59,32 @@ const QuoteItemSection = () => {
         dispatch(updateFormData({items: remainingItems}));
     };
 
+    useEffect(() => {
+
+        dispatch(updateFormData({summary: summary}));
+
+    }, [summary]);
+
     const removeItem = (item: any = null) => {
         const remainingItems = items.filter((d: any) => d.id != item.id);
         setItems(remainingItems);
         dispatch(updateFormData({items: remainingItems}));
     };
+
+    const updateSummary = () => {
+        const total = items.reduce((amount: number, item: any) =>
+            amount + (parseFloat(item.amount) || 0), 0);
+
+
+        setSummary({
+            total,
+        });
+    };
+
+    useEffect(() => {
+        updateSummary();
+    }, [items]);
+
     return (<>
         <div className="flex justify-between lg:flex-row flex-col">
             <div className=" w-full ltr:lg:mr-12 rtl:lg:ml-12 mb-12">
@@ -90,7 +116,7 @@ const QuoteItemSection = () => {
                                         <tr className="align-top" key={item.id}>
                                             <td>
                                                 <AsyncSelect
-                    defaultOptions={true} isMulti={false} id="product_id" name="product_id"
+                    defaultOptions={false} isMulti={false} id="product_id" name="product_id"
                                                              placeholder="Type at least 2 characters to search..."
                                                              loadOptions={searchProducts}
                                                              onChange={({value}: any) => {
@@ -113,13 +139,13 @@ const QuoteItemSection = () => {
 
                                                 <textarea name="description" className="form-textarea mt-4"
                                                           placeholder="Enter Description"
-                                                          onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                          onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                           defaultValue={item.description}></textarea>
                                             </td>
                                             <td>
                                                 <input name="customer_part_id" type="text"
                                                        className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.customer_part_id}/>
                                             </td>
                                             <td>
@@ -129,13 +155,13 @@ const QuoteItemSection = () => {
                                                     placeholder="Quantity"
                                                     name="quantity"
                                                     min={0}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                     defaultValue={item.quantity}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="spq" type="text" className="form-input min-w-[200px]"
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                        defaultValue={item.spq}/>
                                             </td>
                                             <td>
@@ -146,32 +172,32 @@ const QuoteItemSection = () => {
                                                     name="list_price"
                                                     min={0}
                                                     defaultValue={item.list_price}
-                                                    onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="lead_time" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.lead_time}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="date_code" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.date_code}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input name="comment" type="text" className="form-input min-w-[200px]"
                                                        defaultValue={item.comment}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
                                                 <input disabled name="amount" type="text"
                                                        className="form-input min-w-[200px] disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                                        value={item.amount}
-                                                       onChange={(e) => handleChangeField(e.target.name, e.target.value, item.id)}
+                                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value, item.id)}
                                                 />
                                             </td>
                                             <td>
@@ -203,6 +229,15 @@ const QuoteItemSection = () => {
                                 <button type="button" className="btn btn-primary" onClick={() => addItem()}>
                                     Add Item
                                 </button>
+                            </div>
+                            <div className="sm:w-2/5">
+
+                                <div className="flex items-center justify-between mt-4 font-semibold">
+                                    <div className="flex-1">Total(€)</div>
+                                    <input id="total" name="total" type="text" value={summary.total}
+                                           className="w-64 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
+                                           disabled/>
+                                </div>
                             </div>
                         </div>
                     </div>

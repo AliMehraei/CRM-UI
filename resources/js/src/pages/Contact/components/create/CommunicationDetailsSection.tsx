@@ -14,11 +14,11 @@ const AddressInformationSection = () => {
             'Description': <textarea id="description" rows={3} name="description"
                                      className="form-textarea flex-1"
                                      placeholder=""
-                                     onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
+                                     onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>,
             'LinkedIn Communication': <textarea id="linkedin_communication" rows={3} name="linkedin_communication"
                                                 className="form-textarea flex-1"
                                                 placeholder=""
-                                                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>,
+                                                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>,
         },
     }
     return (

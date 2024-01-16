@@ -1,14 +1,8 @@
-import AsyncSelect from "react-select/async";
 import Select from "react-select";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {
-    Currencies,
-    handleUploadFile,
-    searchAccounts,
-    searchOwners
-} from "../../../../components/Functions/CommonFunctions";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/excessFormSlice";
+import {ExcessTypes} from "../../../../components/Options/SelectOptions";
 
 const StatusSection = () => {
     const dispatch = useDispatch();
@@ -17,13 +11,6 @@ const StatusSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-    const ExcessTypes = [
-        {value: "none", label: "-None-"},
-        {value: "line_bid", label: "Line Bid"},
-        {value: "package_bid", label: "Package Bid"},
-        {value: "consignment", label: "Consignment"},
-        {value: "closed", label: "Closed"},
-    ]
 
     const fields = {
         'Status': {
@@ -41,7 +28,7 @@ const StatusSection = () => {
             'Excess Name': <input id="excess_name" type="text" name="excess_name"
                                   className="form-input flex-1 "
                                   defaultValue={formState.excess_name}
-                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                  onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
         }
 

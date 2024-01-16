@@ -4,11 +4,13 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
     searchAccounts,
     searchOwners,
-    FirstNameTitles, displayImage
+    FirstNameTitles, displayImage, handleCopySelect
 } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/contactFormSlice";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import {ContactSources, ContactJobDescriptions, ContactStatus} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const ContactDetailsSection = () => {
     const dispatch = useDispatch();
@@ -17,69 +19,6 @@ const ContactDetailsSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-    const jobDescriptions = [
-        {value: "none", label: "-None-"},
-        {value: "buyer", label: "Buyer"},
-        {value: "operative_buyer", label: "Operative Buyer"},
-        {value: "strategic_buyer", label: "Strategic Buyer"},
-        {value: "project_buyer", label: "Project Buyer"},
-        {value: "commodity_buyer", label: "Commodity Buyer"},
-        {value: "team_leader", label: "Team Leader"},
-        {value: "purchasing_manager", label: "Purchasing Manager"},
-        {value: "purchasing_director", label: "Purchasing Director"},
-        {value: "director", label: "Director"},
-        {value: "developer", label: "Developer"},
-        {value: "sales", label: "Sales"}
-    ];
-    const contactSources = [
-        {value: "none", label: "-None-"},
-        {value: "ceo_connections", label: "CEO connections"},
-        {value: "client_tipp", label: "Client Tipp"},
-        {value: "competitor_tipp", label: "Competitor Tipp"},
-        {value: "externe_vermittlung", label: "Externe Vermittlung"},
-        {value: "fachtagung", label: "Fachtagung"},
-        {value: "google_ad_campaign_sem", label: "Google Ad campaign SEM"},
-        {value: "google_seo", label: "Google SEO"},
-        {value: "internet_recherche", label: "Internetrecherche"},
-        {value: "lead_called_alpyn", label: "Lead called ALPYN"},
-        {value: "linkedin_ads", label: "LinkedIn Ads"},
-        {value: "linkedin_social_selling", label: "LinkedIn Social selling activity"},
-        {value: "messe", label: "Messe"},
-        {value: "messe_at", label: "Messe AT"},
-        {value: "messe_ch", label: "Messe CH"},
-        {value: "messe_de", label: "Messe DE"},
-        {value: "messe_ita", label: "Messe ITA"},
-        {value: "netcomponents", label: "Netcomponents"},
-        {value: "networking_linkedin", label: "Networking Linkedin"},
-        {value: "networking_offline", label: "Networking offline"},
-        {value: "online_events", label: "Online Events (b2bmatch e.g)"},
-        {value: "online_messen", label: "Online Messen"},
-        {value: "others", label: "Others"},
-        {value: "portal_access_request", label: "Portal Access request"},
-        {value: "reseller_tipp", label: "Reseller Tipp"},
-        {value: "sales_activity_general", label: "Sales activity by general Assistant (BDR / SDR)"},
-        {value: "sales_activity_ita", label: "Sales activity by ITA Assistent (BDR / SDR)"},
-        {value: "team_connections", label: "Team Connections"},
-        {value: "website_request", label: "Website request"}
-    ];
-    const contactStatuses = [
-        {value: "none", label: "-None-"},
-        {value: "not_qualified", label: "Nicht qualifiziert"},
-        {value: "prequalified", label: "Vorqualifiziert"},
-        {value: "contact_future", label: "Zukünftig kontaktieren"},
-        {value: "not_contacted", label: "Nicht kontaktiert"},
-        {value: "contact_attempt", label: "Kontaktversuch"},
-        {value: "cold_call", label: "Cold Call"},
-        {value: "follow_up", label: "Follow Up"},
-        {value: "objection_handling", label: "Einwandbehandlung"},
-        {value: "rfq", label: "RFQ"},
-        {value: "quote", label: "Quote"},
-        {value: "sales_order", label: "Sales Order"},
-        {value: "worthless_contact", label: "Wertloser Kontakt"},
-        {value: "lost_contact", label: "Verlorener Kontakt"},
-    ];
-
 
     const fields = {
         'Contact Details': {
@@ -108,7 +47,7 @@ const ContactDetailsSection = () => {
                         required
                         name="first_name"
                         className="form-input flex-1 "
-                        onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                        onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                         defaultValue={formState.first_name}
                     />
                 </div>
@@ -121,7 +60,7 @@ const ContactDetailsSection = () => {
                     required
                     name="last_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.last_name}
 
                 />
@@ -133,8 +72,8 @@ const ContactDetailsSection = () => {
                             handleChangeField('job_description', value)
                         }}
                         className="flex-1"
-                        options={jobDescriptions}
-                        defaultValue={jobDescriptions.find((title) => title.value == formState.job_description)}
+                        options={ContactJobDescriptions}
+                        defaultValue={ContactJobDescriptions.find((title) => title.value == formState.job_description)}
 
                 />,
 
@@ -176,6 +115,9 @@ const ContactDetailsSection = () => {
                                 <div className="text-sm font-bold">{formState.account?.account_name}</div>
                                 <div className="text-xs text-gray-500">{formState.account?.email}</div>
                             </div>
+                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.account?.account_name}`)}>
+                                Copy & Select
+                            </button>
                         </div>
                     ),
                 }}
@@ -186,8 +128,8 @@ const ContactDetailsSection = () => {
                                           handleChangeField('contact_source', value)
                                       }}
                                       className="flex-1 "
-                                      options={contactSources}
-                                      defaultValue={contactSources.find((title) => title.value == formState.contact_source)}
+                                      options={ContactSources}
+                                      defaultValue={ContactSources.find((title) => title.value == formState.contact_source)}
 
             />,
             'Contact Owner': <AsyncSelect
@@ -206,17 +148,24 @@ const ContactDetailsSection = () => {
                     label: (
                         <div key={formState.owner?.id} className="flex items-center">
                             {formState.owner ? (
+                                <>
                                 <img
-                                    src={displayImage(formState.owner.avatar)}
+                                    src={displayImage(formState.owner.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                 <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
+
                         </div>
                     ),
                 }}
@@ -227,8 +176,8 @@ const ContactDetailsSection = () => {
                                           handleChangeField('contact_status', value)
                                       }}
                                       className="flex-1 "
-                                      options={contactStatuses}
-                                      defaultValue={contactStatuses.find((title) => title.value == formState.contact_status)}
+                                      options={ContactStatus}
+                                      defaultValue={ContactStatus.find((title) => title.value == formState.contact_status)}
 
             />,
 

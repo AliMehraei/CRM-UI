@@ -6,9 +6,16 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchAccounts, searchContacts, searchSalesOrder, Currencies
-    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage
+    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, displayImage, handleCopySelect
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import React, {useState} from "react";
+import {
+    DealLeadSourceOption,
+    DealPipelineOption,
+    DealStageExcessOption, DealStageOption,
+    DealTypeOption
+} from "../../../../components/Options/SelectOptions";
 
 const DealInformationSection = () => {
     const dispatch = useDispatch();
@@ -19,42 +26,8 @@ const DealInformationSection = () => {
     };
 
 
-    const LeadSourceOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'unangemeldeter', label: 'Unangemeldeter Anruf/Besuch'},
-        {value: 'mitarbeitervermittlung', label: 'Mitarbeitervermittlung'},
-        {value: 'kunden', label: 'Kunden Vermittlung'},
-        {value: 'teilnehmer', label: 'Teilnehmer'},
-        {value: 'mess', label: 'Mess'},
+    const [stageOption, setStageOption] = useState<any>(formState.deal_pipeline == 'Deal' ? DealStageOption : DealStageExcessOption)
 
-    ];
-    const TypeOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'existierendes', label: 'Existierendes Geschäft'},
-        {value: 'neues', label: 'Neues Geschäft'},
-
-
-    ];
-    const PipelineOption = [
-        {value: 'deal', label: 'Deal'},
-        {value: 'excess', label: 'Excess'},
-
-
-    ];
-    const StageExcessOption = [
-        {value: 'qualification', label: 'Qualifikation'},
-
-    ];
-    const StageDealOption = [
-        {value: '0_cold_lead', label: '0.0 Cold lead / unqualified (CLU)'},
-        {value: '1_cold_lead', label: '1.0 Cold lead qualified (CLQ)'},
-        {value: '2_first_contract', label: '2.0 First contact made (FCM)'},
-        {value: '3_warm_lead', label: '3.0 warm lead qualified (WLQ)'},
-        {value: '4_hot_lead', label: '4.0 Hot lead (HLQ)'},
-        {value: 'close_lead', label: 'Close Lead / Lost Lead'},
-
-    ];
-    let StageOption = StageExcessOption;
 
     const fields = {
         'Deals Information': {
@@ -76,7 +49,7 @@ const DealInformationSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={displayImage(formState.owner.avatar)}
+                                        src={displayImage(formState.owner.avatar_data)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -86,6 +59,9 @@ const DealInformationSection = () => {
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -96,7 +72,7 @@ const DealInformationSection = () => {
                     id="deal_name"
                     name="deal_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.deal_name}
                 />
             ),
@@ -117,16 +93,22 @@ const DealInformationSection = () => {
                         label: (
                             <div key={formState.account?.id} className="flex items-center">
                                 {formState.account ? (
+                                    <>
                                     <img
                                         src={displayImage(formState.account.image)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
-                                ) : null}
+
                                 <div>
                                     <div className="text-sm font-bold">{formState.account?.account_name}</div>
                                     <div className="text-xs text-gray-500">{formState.account?.email}</div>
                                 </div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.account?.account_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                </>
+                                    ) : null}
                             </div>
                         ),
                     }}
@@ -134,14 +116,14 @@ const DealInformationSection = () => {
             ),
             'Type': (
                 <Select
-                    options={TypeOption}
+                    options={DealTypeOption}
                     name="deal_type"
                     id="deal_type"
                     onChange={({value}: any) => {
                         handleChangeField('deal_type', value)
                     }}
                     className="flex-1"
-                    defaultValue={TypeOption.find((title) => title.value == formState.deal_type)}
+                    defaultValue={DealTypeOption.find((title) => title.value == formState.deal_type)}
                 />
             ),
             'Expected Revenue': (
@@ -154,14 +136,14 @@ const DealInformationSection = () => {
             ),
             'Lead Source': (
                 <Select
-                    options={LeadSourceOption}
+                    options={DealLeadSourceOption}
                     name="lead_source"
                     id="lead_source"
                     onChange={({value}: any) => {
                         handleChangeField('lead_source', value)
                     }}
                     className="flex-1"
-                    defaultValue={LeadSourceOption.find((title) => title.value == formState.lead_source)}
+                    defaultValue={DealLeadSourceOption.find((title) => title.value == formState.lead_source)}
                 />
             ),
             'Contact Name': (
@@ -181,17 +163,23 @@ const DealInformationSection = () => {
                         label: (
                             <div key={formState.contact?.id} className="flex items-center">
                                 {formState.contact ? (
+                                    <>
                                     <img
                                         src={formState.contact.image ?? '/assets/images/user-profile.jpeg'}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
-                                ) : null}
+
                                 <div>
                                     <div
-                                        className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.account?.last_name}</div>
+                                        className="text-sm font-bold">{formState.contact?.first_name + ' ' + formState.contact?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.contact?.email}</div>
                                 </div>
+                                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.first_name + ' ' + formState.contact?.last_name}`)}>
+                                            Copy & Select
+                                        </button>
+                                </>
+                                    ) : null}
                             </div>
                         ),
                     }}
@@ -212,11 +200,17 @@ const DealInformationSection = () => {
                     defaultValue={{
                         value: formState.lead_id,
                         label: (
-                            <div key={formState.lead_id}
-                                 className="flex items-center">
+                            <div key={formState.lead_id} className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.lead?.company}</div>
+                                    <div className="text-sm font-bold">{formState.lead?.company}</div>
+                                    {
+                                        formState.lead ?
+                                        (
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.lead?.company}`)}>
+                                                Copy & Select
+                                            </button>
+                                        ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -241,8 +235,15 @@ const DealInformationSection = () => {
                             <div key={formState.rfq_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.rfq?.rfq_name}</div>
+                                    <div className="text-sm font-bold">{formState.rfq?.rfq_name}</div>
+                                    {
+                                        formState.rfq ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.rfq?.rfq_name}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -267,8 +268,15 @@ const DealInformationSection = () => {
                             <div key={formState.quote_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.quote?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.quote?.subject}</div>
+                                    {
+                                        formState.quote ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.quote?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -293,8 +301,15 @@ const DealInformationSection = () => {
                             <div key={formState.sales_order_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.sales_order?.subject}</div>
+                                    {
+                                        formState.sales_order ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.sales_order?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -319,8 +334,15 @@ const DealInformationSection = () => {
                             <div key={formState.invoice_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.invoice?.subject}</div>
+                                    <div className="text-sm font-bold">{formState.invoice?.subject}</div>
+                                    {
+                                        formState.invoice ?
+                                            (
+                                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.invoice?.subject}`)}>
+                                                    Copy & Select
+                                                </button>
+                                            ) : null
+                                    }
                                 </div>
                             </div>
                         )
@@ -350,7 +372,7 @@ const DealInformationSection = () => {
                     type="number"
                     name="amount"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.amount}
                 />
             ),
@@ -370,27 +392,31 @@ const DealInformationSection = () => {
             ),
             'Pipeline': (
                 <Select
-                    options={PipelineOption}
+                    options={DealPipelineOption}
                     name="deal_pipeline"
                     id="deal_pipeline"
                     onChange={({value}: any) => {
                         handleChangeField('deal_pipeline', value)
+                        setStageOption(value == 'Deal' ? DealStageOption : DealStageExcessOption)
                     }}
                     className="flex-1"
-                    defaultValue={PipelineOption.find((title) => title.value == formState.deal_pipeline)}
+                    defaultValue={DealPipelineOption.find((title) => title.value == formState.deal_pipeline)}
 
                 />
             ),
             'Stage': (
                 <Select
-                    options={StageOption}
+                    options={stageOption}
                     name="deal_stage"
                     id="deal_stage"
                     onChange={({value}: any) => {
                         handleChangeField('deal_stage', value)
                     }}
                     className="flex-1"
-                    defaultValue={StageOption.find((title) => title.value == formState.deal_stage)}
+                    defaultValue={formState.deal_pipeline == 'Deal' ?
+                        DealStageOption.find((title) => title.value == formState.deal_stage) :
+                        DealStageOption.find((title) => title.value == formState.deal_stage)
+                    }
                 />
             ),
             'Probability (%)': (
@@ -398,7 +424,7 @@ const DealInformationSection = () => {
                     id="probability"
                     name="probability"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.probability}
                 />
             ),
@@ -407,7 +433,7 @@ const DealInformationSection = () => {
                     id="next_step"
                     name="next_step"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.next_step}
                 />
             ),
@@ -425,7 +451,7 @@ const DealInformationSection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e: any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_reference}
                 />
             ),

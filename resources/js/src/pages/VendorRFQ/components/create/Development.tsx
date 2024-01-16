@@ -13,13 +13,13 @@ const Development = () => {
     const fields = {
         'Development': {
             'Requested Products JSON': (
-                <textarea 
-                id="requested_products" 
-                rows={2} 
+                <textarea
+                id="requested_products"
+                rows={2}
                 name="requested_products"
                 className="form-textarea flex-1"
-                placeholder=""  
-                ></textarea>              
+                placeholder=""
+                ></textarea>
             ),
         },
         '': {
@@ -29,10 +29,10 @@ const Development = () => {
                     type="checkbox"
                     name="is_full"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             )
-            
+
         }
     }
     return (

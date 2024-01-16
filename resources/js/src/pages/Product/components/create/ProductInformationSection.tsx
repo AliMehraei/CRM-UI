@@ -5,12 +5,12 @@ import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-    searchOwners,
     searchManufacturer,
+    searchOwners,
     searchRFQ
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
-
+import {ProductTypeOptions} from "../../../../components/Options/SelectOptions";
 const ProductInformationSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
@@ -18,13 +18,6 @@ const ProductInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const productTypeOptions = [
-        {label: '-None-', value: 'none'},
-        {label: 'Goods', value: 'goods'},
-        {label: 'Service', value: 'service'},
-    ];
 
 
     const fields = {
@@ -45,7 +38,7 @@ const ProductInformationSection = () => {
                     required
                     name="product_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -54,13 +47,12 @@ const ProductInformationSection = () => {
                     id="part_description"
                     name="part_description"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
             'Manufacturer': (
                 <AsyncSelect
-                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="manufacturer_id"
@@ -93,7 +85,7 @@ const ProductInformationSection = () => {
                     type="checkbox"
                     name="business_product"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Approved By': (
@@ -119,7 +111,7 @@ const ProductInformationSection = () => {
                     type="checkbox"
                     name="product_active"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Product Owner': (
@@ -141,14 +133,14 @@ const ProductInformationSection = () => {
                     id="datasheet_url"
                     name="datasheet_url"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
 
             'Product Type': (
                 <Select
-                    options={productTypeOptions}
+                    options={ProductTypeOptions}
                     name="product_type"
                     id="product_type"
                     onChange={({value}: any) => {

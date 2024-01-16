@@ -5,6 +5,7 @@ import { searchOwners, searchVendor} from "../../../../components/Functions/Comm
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/availabilityFormSlice";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {AvailabilitySources} from "../../../../components/Options/SelectOptions";
 
 
 const HeaderSection = () => {
@@ -14,21 +15,6 @@ const HeaderSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-    const AvailabilitySources = [
-        {value: '-None-', label: '-None-'},
-        {value: 'Email', label: 'Email'},
-        {value: 'Skype/Wechat', label: 'Skype/Wechat'},
-        {value: 'Phone', label: 'Phone'},
-        {value: 'Online', label: 'Online'},
-        {value: 'Other', label: 'Other'},
-        {value: 'Web Api (Mouser)', label: 'Web Api (Mouser)'},
-        {value: 'Web Api (Octopart)', label: 'Web Api (Octopart)'},
-        {value: 'Web', label: 'Web'},
-        {value: 'Portal', label: 'Portal'},
-
-    ];
 
     const fields = {
         'Header': {
@@ -42,7 +28,7 @@ const HeaderSection = () => {
                 className="flex-1"/>,
             'Vendor Quote No': <input id="vendor_quote_no" type="text" name="vendor_quote_no"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
         },
         '': {
             'Availability Owner': <AsyncSelect
@@ -59,7 +45,7 @@ const HeaderSection = () => {
                     modelName="availability"
                     formState={formState}
                     formAttribute={'availability_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'Availability Source': <Select id="availability_source" name="availability_source" required

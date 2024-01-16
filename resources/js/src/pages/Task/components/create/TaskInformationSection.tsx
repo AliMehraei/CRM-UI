@@ -6,6 +6,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {handleUploadFile,searchOwners} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {TaskStatus, TaskPriority} from "../../../../components/Options/SelectOptions";
 
 const TaskInformationSection = () => {
     const dispatch = useDispatch();
@@ -14,32 +15,6 @@ const TaskInformationSection = () => {
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
     };
-
-
-
-
-    const Priority = [
-        { value: '-None-', label: '-None-' },
-        { value: 'Account or Contact exist already', label: 'Account or Contact exist already' },
-        { value: 'Wrong Branch', label: 'Wrong Branch' },
-        { value: 'Wrong Department', label: 'Wrong Department' },
-        { value: 'Does Not Exist Anymore', label: 'Does Not Exist Anymore' },
-        { value: 'Bankruptcy', label: 'Bankruptcy' },
-        { value: 'Hoch', label: 'Hoch' },
-        { value: 'Other', label: 'Other' },
-    ];
-
-    const TaskStatus = [
-        { value: '-None-', label: '-None-' },
-        { value:'Abgeschlossen' , label: 'Abgeschlossen' },
-        { value: '0.0 Cold task / unqualified (CLU)', label: '0.0 Cold task / unqualified (CLU)' },
-        { value: '1.0 Cold task qualified (CLQ)', label: '1.0 Cold task qualified (CLQ)' },
-        { value: '2.0 First contact made (FCM)', label: '2.0 First contact made (FCM)' },
-        { value: '3.0 warm task qualified (WLQ)', label: '3.0 warm task qualified (WLQ)' },
-        { value: '4.0 Hot task (HLQ)', label: '4.0 Hot task (HLQ)' },
-        { value: 'Close Task / Lost Task', label: 'Close Task / Lost Task' },
-    ];
-
 
     const fields = {
         'Task Information': {
@@ -55,7 +30,6 @@ const TaskInformationSection = () => {
                         handleChangeField('owner_id', value)
                     }}
                     className="flex-1"
-                    required
                 />
             ),
             'Subject': (
@@ -63,7 +37,7 @@ const TaskInformationSection = () => {
                 id="subject"
                 name="subject"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 required
                 />
             ),
@@ -86,7 +60,7 @@ const TaskInformationSection = () => {
             ),
             'Priority': (
                 <Select
-                options={Priority}
+                options={TaskPriority}
                 name="priority"
                 id="priority"
                 onChange={({value}: any) => {
@@ -106,7 +80,7 @@ const TaskInformationSection = () => {
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.description}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
 
             ),
 

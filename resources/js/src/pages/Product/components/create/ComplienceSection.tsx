@@ -14,21 +14,21 @@ const ComplienceSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
-  
+
+
 
     const fields = {
         'Complience': {
-            
-           
-           
+
+
+
             'RoHs':(
                 <input
                 id="rohs"
                 type="checkbox"
                 name="rohs"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Reach':(
@@ -37,20 +37,20 @@ const ComplienceSection = () => {
                 type="checkbox"
                 name="reach"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
-           
-            
+
+
         },
         '': {
-            
+
             'RoHs Status': (
                 <input
                     id="rohs_status"
                     name="rohs_status"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -59,13 +59,13 @@ const ComplienceSection = () => {
                     id="reach_svhc"
                     name="reach_svhc"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
-           
-          
-            
+
+
+
         }
     }
     return (

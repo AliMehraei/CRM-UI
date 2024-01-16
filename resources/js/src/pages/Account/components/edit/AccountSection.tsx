@@ -3,14 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    AccountTypes, Contract, Currencies, displayImage, getImageSource,
+    AccountTypes, Contract, Currencies, displayImage, getImageSource, handleCopySelect,
     handleUploadFile, searchOwners,
 } from "../../../../components/Functions/CommonFunctions";
+import {AccountRating, AccountActivities} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/accountFormSlice";
 import ClearButtonComponent from "../../../../components/FormFields/ClearButtonComponent";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import React from "react";
 
 const AccountSection = () => {
     const dispatch = useDispatch();
@@ -20,24 +22,6 @@ const AccountSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    const activities = [
-        {value: "none", label: "-None-"},
-        {value: "no_activity", label: "No Activity"},
-        {value: "more_1_year", label: "> 1 year Activity"},
-        {value: "more_1_month", label: "> 1 month Activity"},
-        {value: "regular_activity", label: "Regular Activity"},
-
-    ];
-
-    const rating = [
-        {value: "none", label: "-None-"},
-        {value: "rfq", label: "RFQ"},
-        {value: "quote", label: "Quote"},
-        {value: "so", label: "SO"},
-        {value: "no_action", label: "No Action"},
-        {value: "inactive", label: "Inactive"},
-
-    ]
     const fields = {
         'Account': {
             'Account Image': (<ImageUploadComponent formState={formState}
@@ -53,7 +37,7 @@ const AccountSection = () => {
                     required
                     name="account_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.account_name}
 
                 />
@@ -70,15 +54,22 @@ const AccountSection = () => {
 
             />,
             'Contracts': <Select
+                isMulti={true}
                 name="contract"
                 id="contract"
-                placeholder="Select Contract..."
+                placeholder="Select Contract Type..."
                 options={Contract}
-                onChange={({value}: any) => {
-                    handleChangeField('contract', value)
+                onChange={(values: any) => {
+                    handleChangeField('contract', values.map((v: any) => v.value))
                 }}
-                defaultValue={Contract.find((data) => data.value == formState.contract)}
 
+                defaultValue={formState.contract
+                    ? formState.contract.map((contract: any) => ({
+                        value: contract,
+                        label: contract
+                    }))
+                    : []
+                }
             />,
             'Contract Attachment': (
                 <FileUploadComponent
@@ -94,13 +85,13 @@ const AccountSection = () => {
                 type="checkbox"
                 name="business_account"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 checked={formState.business_account}
             />,
             'Approved by': <input id="approved_by" name="approved_by_id" type="text"
-                                  placeholder="Readonly input here…"
+                                  placeholder="readOnly input here…"
                                   className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                                  defaultValue={formState.approved_by?.first_name + " " + formState.approved_by?.last_name}
+                                  defaultValue={formState.approved_by ? formState.approved_by?.first_name + " " + formState.approved_by?.last_name : ''}
                                   disabled/>,
 
             'Currency': <Select id="currency" name="currency" options={Currencies}
@@ -129,7 +120,7 @@ const AccountSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={displayImage(formState.owner.avatar)}
+                                        src={displayImage(formState.owner.avatar_data)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -140,6 +131,9 @@ const AccountSection = () => {
                                     <div
                                         className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -147,7 +141,7 @@ const AccountSection = () => {
                 />
             ),
             'PM User': <AsyncSelect
-                    defaultOptions={true}
+                defaultOptions={true}
                 isMulti={false}
                 id="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
@@ -156,34 +150,39 @@ const AccountSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('pm_user_id', value)
                 }}
-                required
                 defaultValue={{
                     value: formState.pm_user?.id,
                     label: (
                         <div key={formState.pm_user?.id} className="flex items-center">
                             {formState.pm_user ? (
+                                <>
                                 <img
-                                    src={displayImage(formState.pm_user.image)}
+                                    src={displayImage(formState.pm_user.avatar_data)}
                                     alt="avatar"
                                     className="w-8 h-8 mr-2 rounded-full"
                                 />
-                            ) : null}
+
                             <div>
                                 <div
                                     className="text-sm font-bold">{formState.pm_user?.first_name + " " + formState.pm_user?.last_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.pm_user?.email}</div>
                             </div>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.pm_user?.first_name + " " + formState.pm_user?.last_name}`)}>
+                                        Copy & Select
+                                    </button>
+                                </>
+                                ) : null}
                         </div>
                     ),
                 }}
                 className="flex-1"
             />,
-            'Account Activity': <Select id="account_activity" name="account_activity" options={activities}
+            'Account Activity': <Select id="account_activity" name="account_activity" options={AccountActivities}
                                         onChange={({value}: any) => {
                                             handleChangeField('account_activity', value)
                                         }}
-                                        defaultValue={activities.find((data) => data.value == formState.account_activity)}
+                                        defaultValue={AccountActivities.find((data) => data.value == formState.account_activity)}
 
                                         className="flex-1"/>,
             'TAM':
@@ -191,7 +190,7 @@ const AccountSection = () => {
                     id="tam"
                     name="tam"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.tam}
                 />,
 
@@ -203,11 +202,11 @@ const AccountSection = () => {
                     id="lead_reference"
                     name="lead_reference"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.lead_reference}
 
                 />,
-            'Account Rating': <Select id="rating" name="rating" options={rating}
+            'Account Rating': <Select id="rating" name="rating" options={AccountRating}
                                       onChange={({value}: any) => {
                                           handleChangeField('rating', value)
                                       }}

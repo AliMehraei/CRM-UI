@@ -3,6 +3,7 @@ import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {updateFormData} from "../../../../store/contactFormSlice";
 import Flatpickr from "react-flatpickr";
+import {ContactPortalAccess} from "../../../../components/Options/SelectOptions";
 
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const ContactInformationSection = () => {
                 id="email"
                 name="email"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.email}
 
             />,
@@ -32,7 +33,7 @@ const ContactInformationSection = () => {
                 id="mobile"
                 name="mobile"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.mobile}
 
             />,
@@ -40,7 +41,7 @@ const ContactInformationSection = () => {
                 id="phone"
                 name="phone"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.phone}
 
             />,
@@ -48,7 +49,7 @@ const ContactInformationSection = () => {
                 id="department"
                 name="department"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.department}
 
             />,
@@ -57,7 +58,7 @@ const ContactInformationSection = () => {
                 id="asst_phone"
                 name="asst_phone"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.asst_phone}
 
             />,
@@ -66,7 +67,7 @@ const ContactInformationSection = () => {
                 id="home_phone"
                 name="home_phone"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.home_phone}
 
             />,
@@ -75,7 +76,7 @@ const ContactInformationSection = () => {
                 id="other_phone"
                 name="other_phone"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.other_phone}
 
             />,
@@ -84,7 +85,7 @@ const ContactInformationSection = () => {
                 id="fax"
                 name="fax"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.fax}
 
             />
@@ -96,7 +97,7 @@ const ContactInformationSection = () => {
                     dateFormat: 'Y-m-d',
                     position: 'auto left',
                     defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any,
-                        
+
                 }}
                 className="form-input flex-1"
                 value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}
@@ -108,7 +109,7 @@ const ContactInformationSection = () => {
                 id="reporting_to"
                 name="reporting_to"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.reporting_to}
 
             />,
@@ -116,7 +117,7 @@ const ContactInformationSection = () => {
                 id="linkedin"
                 name="linkedin"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.linkedin}
 
             />,
@@ -124,11 +125,11 @@ const ContactInformationSection = () => {
                 <Select id="portal_access"
                         name="portal_access"
                         onChange={({value}: any) => {
-                            handleChangeField('double_check_status', value)
+                            handleChangeField('portal_access', value)
                         }}
                         className="flex-1 "
-                        options={portalAccess}
-                        defaultValue={portalAccess.find((title) => title.value == formState.portal_access)}
+                        options={ContactPortalAccess}
+                        defaultValue={ContactPortalAccess.find((title) => title.value == formState.portal_access)}
                 />,
         }
     }

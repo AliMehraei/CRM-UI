@@ -11,30 +11,11 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 import Api from "../../../../config/api";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
-
+import {QuoteStages, QuoteChances} from "../../../../components/Options/SelectOptions";
 const HeaderSection = () => {
     const api_instance = new Api();
     const formState = useSelector((state: any) => state.quoteForm);
 
-    const QuoteChances = [
-        {value: 'none', label: '-None-'},
-        {value: 'high', label: 'High'},
-        {value: 'unknown', label: 'Unknown'},
-        {value: 'low', label: 'Low'},
-
-    ];
-
-    const QuoteStages = [
-        {value: 'draft', label: 'Draft'},
-        {value: 'no_feedback', label: 'No Feedback'},
-        {value: 'negotiation_price', label: 'Negotiation Price'},
-        {value: 'negotiation_conditions', label: 'Negotiation Conditions'},
-        {value: 'open', label: 'Open'},
-        {value: 'lost', label: 'Lost'},
-        {value: 'won', label: 'Won'},
-
-
-    ];
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
         dispatch(updateFormData({[field]: value}));
@@ -75,7 +56,6 @@ const HeaderSection = () => {
                 defaultOptions={true}
                 isMulti={false}
                 id="account_id"
-                required
                 name="account_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchAccounts}
@@ -103,12 +83,12 @@ const HeaderSection = () => {
 
             'Customer RFQ No': <input id="customer_rfq_no" type="text" name="customer_rfq_no"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Subject': <input required id="subject" name="subject" type="text"
                               className="form-input flex-1 "
-                              onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Converted by': <AsyncSelect
                 defaultOptions={true} isMulti={false} id="converted_by_id" name="converted_by_id"
@@ -124,7 +104,7 @@ const HeaderSection = () => {
                                     onChange={({value}: any) => {
                                         handleChangeField('quote_chance', value)
                                     }}
-                                    defaultValue={{value: 'unknown', label: 'Unknown'}}
+                                    defaultValue={{value: 'Unknown', label: 'Unknown'}}
             />,
             'Currency': <Select name="currency" options={Currencies}
                                 className="flex-1"
@@ -141,9 +121,10 @@ const HeaderSection = () => {
                 onChange={({value}: any) => {
                     handleChangeField('owner_id', value)
                 }}
+
                 className="flex-1"/>,
             'PM User': <AsyncSelect
-                defaultOptions={true} required isMulti={false} id="pm_user_id" name="pm_user_id"
+                defaultOptions={true}  isMulti={false} id="pm_user_id" name="pm_user_id"
                 placeholder="Type at least 2 characters to search..."
                 loadOptions={searchOwners}
                 onChange={({value}: any) => {
@@ -165,7 +146,7 @@ const HeaderSection = () => {
                                    onChange={({value}: any) => {
                                        handleChangeField('quote_stage', value)
                                    }}
-                                   defaultValue={{value: 'draft', label: 'Draft'}}
+                                   defaultValue={{value: 'Draft', label: 'Draft'}}
             />,
 
             'Quote File(Excel)':
@@ -174,9 +155,9 @@ const HeaderSection = () => {
                     modelName="quote"
                     formState={formState}
                     formAttribute={'quote_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />,
-            'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
+            'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="readOnly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                     disabled/>,
         }

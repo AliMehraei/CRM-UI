@@ -20,7 +20,7 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
   }, [dispatch]);
   const [settingData, setSettingData] = useState([]);
   // Use state to track the expanded state of menu items
-  
+
   const [frontRouteId, setFrontRouteId] = useState(null);
   const [expandedItems, setExpandedItems] = useState({});
 
@@ -66,7 +66,7 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
     });
 
     setFilteredSettingData(filteredData);
-    
+
     // Expand all groups when search results are found
     if (filteredData.length > 0 ) {
       if(searchQuery != ''){
@@ -82,7 +82,7 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
         });
       }
     }
-    
+
   }, [searchQuery, settingData,frontRouteName]);
 
   return (
@@ -99,7 +99,7 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
             placeholder="Search ..."
             className="border rounded-lg shadow-lg p-2 w-full"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e:any) => setSearchQuery(e.target.value)}
           />
         </div>
 
@@ -137,7 +137,7 @@ const LeftMenuSetting = ({ frontRouteName }: any) => {
                       <li key={item.id}>
                         <Link
                           to={`/${item.uri}`}
-                          className={`pl-8 text-black block py-2 rounded-md transition-colors duration-300 
+                          className={`pl-8 text-black block py-2 rounded-md transition-colors duration-300
                               hover:bg-primary-light ${frontRouteName === item.name ? 'bg-primary-light text-primary' : 'hover:text-primary'
                             }`}
                         >

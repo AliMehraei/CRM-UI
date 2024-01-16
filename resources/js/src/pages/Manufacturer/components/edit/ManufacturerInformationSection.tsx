@@ -2,8 +2,9 @@ import AsyncSelect from "react-select/async";
 import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/manufacturerFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import {displayImage, searchOwners} from "../../../../components/Functions/CommonFunctions";
+import {displayImage, handleCopySelect, searchOwners} from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
+import React from "react";
 
 const ManufacturerInformationSection = () => {
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const ManufacturerInformationSection = () => {
                     required
                     name="name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     value={formState.name}
                 />
             ),
@@ -39,7 +40,7 @@ const ManufacturerInformationSection = () => {
                     id="octo_api_id"
                     name="octo_api_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     value={formState.octo_api_id}
                 />
             ),
@@ -49,7 +50,7 @@ const ManufacturerInformationSection = () => {
                     name="alias_names"
                     rows={3}
                     className="form-textarea flex-1"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     value={formState.alias_names}
 
                 ></textarea>
@@ -62,7 +63,7 @@ const ManufacturerInformationSection = () => {
                     type="checkbox"
                     name="is_active"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.is_active}
                 />
             ),
@@ -84,7 +85,7 @@ const ManufacturerInformationSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={displayImage(formState.owner.avatar)}
+                                        src={displayImage(formState.owner.avatar_data)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -94,6 +95,9 @@ const ManufacturerInformationSection = () => {
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}

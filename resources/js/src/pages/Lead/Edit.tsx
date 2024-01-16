@@ -10,6 +10,8 @@ import LoadingSasCrm from "../../components/LoadingSasCrm"
 import Api from "../../config/api";
 import {useParams} from "react-router-dom";
 import {useUserStatus} from "../../config/authCheck";
+import {updateErrors} from "../../store/formErrorsSlice";
+import {globalToast, notifyErrorMessage} from "../../components/Functions/CommonFunctions";
 
 const Edit = () => {
     const {hasPermission} = useUserStatus();
@@ -34,7 +36,30 @@ const Edit = () => {
     };
 
     const handleConvertLead = async () => {
-        navigate(`/lead/convert/${leadId}`, {replace: true});
+        const response: any = await api.convertLeadValidation({
+            'id': formState.id,
+        });
+        if (response.status == 200) {
+            navigate(`/lead/convert/${leadId}`, {replace: true});
+        } else if (response.status === 422) {
+            const errorData = response.data.errors;
+            const errorsToUpdate = {titleMessage: "You have validation error on converting lead", hasError: true, ...Object.fromEntries(Object.entries(errorData).map(([field, value]: any) => [field, value[0]]))};
+            dispatch(updateErrors(errorsToUpdate));
+            globalToast.fire({
+                icon: 'error',
+                html: `<h5>Convert Validation Error</h5>
+                        <span style="font-size: 12px">Please Check fields</span>
+                        `,
+                padding: '10px 20px',
+
+            });
+        } else {
+            globalToast.fire({
+                icon: 'error',
+                title: 'Internal Server Error ,Converting lead failed',
+                padding: '10px 20px',
+            });
+        }
     }
 
     useEffect(() => {
@@ -72,7 +97,7 @@ const Edit = () => {
                 {formState.status == 'converted' && (<div
                     className="flex items-center p-3.5 rounded text-warning bg-warning-light dark:bg-warning-dark-light mb-5">
                     <span className="ltr:pr-2 rtl:pl-2 flex item-center">
-                        <strong className="ltr:mr-1 rtl:ml-1">Warning!</strong>This lead has been converted before you can not modify it .
+                        <strong className="ltr:mr-1 rtl:ml-1">Warning!</strong>This lead has been converted before , you can not modify it .
                     </span>
                 </div>)}
 

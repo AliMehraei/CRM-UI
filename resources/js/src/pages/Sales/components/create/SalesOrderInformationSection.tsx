@@ -8,6 +8,7 @@ import {
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {SalesOrderTypeOption, SalesOrderStatusOption} from "../../../../components/Options/SelectOptions";
 
 const SalesOrderInformationSection = () => {
     const dispatch = useDispatch();
@@ -17,17 +18,6 @@ const SalesOrderInformationSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-
-    const SOTypeOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'single_order', label: 'Single Order'},
-        {value: 'frame_contract', label: 'Frame Contract'},
-        {value: 'call_off', label: 'Call Off'},
-        {value: 'forecast', label: 'Forecast'},
-
-    ];
-
-
     const fields = {
         'Sales Orders Information': {
             'Purchase Order': (
@@ -35,7 +25,7 @@ const SalesOrderInformationSection = () => {
                     id="purchase_order"
                     name="purchase_order"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Customer PO Date': (
@@ -57,12 +47,12 @@ const SalesOrderInformationSection = () => {
                     modelName="salesOrder"
                     formState={formState}
                     formAttribute={'po_upload'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ),
             'SO Type': (
                 <Select
-                    options={SOTypeOption}
+                    options={SalesOrderTypeOption}
                     name="so_type"
                     id="so_type"
                     onChange={({value}: any) => {
@@ -76,7 +66,7 @@ const SalesOrderInformationSection = () => {
                     id="parent_so_nr"
                     name="parent_so_nr"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 
@@ -89,7 +79,7 @@ const SalesOrderInformationSection = () => {
                     required
                     name="subject"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Pending': (
@@ -97,12 +87,12 @@ const SalesOrderInformationSection = () => {
                     id="pending"
                     name="pending"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Status': (
                 <Select
-                    options={StatusOption}
+                    options={SalesOrderStatusOption}
                     name="status"
                     id="status"
                     onChange={({value}: any) => {
@@ -118,7 +108,7 @@ const SalesOrderInformationSection = () => {
                     id="zoho_books_id"
                     name="zoho_books_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
 

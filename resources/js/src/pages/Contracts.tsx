@@ -329,7 +329,7 @@ const Contracts = () => {
                         </div>
                     </div>
                     <div className="relative">
-                        <input type="text" placeholder="Search Contracts" className="form-input py-2 ltr:pr-11 rtl:pl-11 peer" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <input type="text" placeholder="Search Contracts" className="form-input py-2 ltr:pr-11 rtl:pl-11 peer" value={search} onChange={(e:any) => setSearch(e.target.value)} />
                         <button type="button" className="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" strokeWidth="1.5" opacity="0.5"></circle>
@@ -589,19 +589,19 @@ const Contracts = () => {
                                         <form>
                                             <div className="mb-5">
                                                 <label htmlFor="name">Name</label>
-                                                <input id="name" type="text" placeholder="Enter Name" className="form-input" value={params.name} onChange={(e) => changeValue(e)} />
+                                                <input id="name" type="text" placeholder="Enter Name" className="form-input" value={params.name} onChange={(e:any) => changeValue(e)} />
                                             </div>
                                             <div className="mb-5">
                                                 <label htmlFor="email">Email</label>
-                                                <input id="email" type="email" placeholder="Enter Email" className="form-input" value={params.email} onChange={(e) => changeValue(e)} />
+                                                <input id="email" type="email" placeholder="Enter Email" className="form-input" value={params.email} onChange={(e:any) => changeValue(e)} />
                                             </div>
                                             <div className="mb-5">
                                                 <label htmlFor="number">Phone Number</label>
-                                                <input id="phone" type="text" placeholder="Enter Phone Number" className="form-input" value={params.phone} onChange={(e) => changeValue(e)} />
+                                                <input id="phone" type="text" placeholder="Enter Phone Number" className="form-input" value={params.phone} onChange={(e:any) => changeValue(e)} />
                                             </div>
                                             <div className="mb-5">
                                                 <label htmlFor="occupation">Occupation</label>
-                                                <input id="role" type="text" placeholder="Enter Occupation" className="form-input" value={params.role} onChange={(e) => changeValue(e)} />
+                                                <input id="role" type="text" placeholder="Enter Occupation" className="form-input" value={params.role} onChange={(e:any) => changeValue(e)} />
                                             </div>
                                             <div className="mb-5">
                                                 <label htmlFor="address">Address</label>
@@ -611,7 +611,7 @@ const Contracts = () => {
                                                     placeholder="Enter Address"
                                                     className="form-textarea resize-none min-h-[130px]"
                                                     value={params.location}
-                                                    onChange={(e) => changeValue(e)}
+                                                    onChange={(e:any) => changeValue(e)}
                                                 ></textarea>
                                             </div>
                                             <div className="flex justify-end items-center mt-8">

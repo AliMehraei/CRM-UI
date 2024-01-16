@@ -5,13 +5,17 @@ import {updateFormData} from "../../../../store/vendorRfqFormSlice";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {
-    Currencies, displayImage,
+    Currencies, displayImage, handleCopySelect,
     handleUploadFile,
     searchOwners,
     searchRFQ,
     searchVendor
 } from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {
+    VendorRfqStatusOptions,
+} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const VendorRFQInformation = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
@@ -23,22 +27,14 @@ const VendorRFQInformation = () => {
     };
 
 
-    const StatusVendorRfqOptions = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'excel-generate', label: 'Excel Generated'},
-        {value: 'email-sent', label: 'Email Sent'},
-        {value: 'closed', label: 'Closed'},
-    ]
-
-
     const fields = {
         'Vendor RFQ Information': {
             'Vendor RFQ Name': (<input
                 id="vendor_rfq_name"
                 name="vendor_rfq_name"
+                required
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.vendor_rfq_name}
             />),
             'Vendor Name': (
@@ -48,6 +44,7 @@ const VendorRFQInformation = () => {
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
                     name="vendor_id"
+                    required
                     loadOptions={searchVendor}
                     onChange={({value}: any) => {
                         handleChangeField('vendor_id', value)
@@ -58,7 +55,9 @@ const VendorRFQInformation = () => {
                         label: (
                             <div key={formState.vendor?.id} className="flex items-center">
                                 <div className="text-sm font-bold">{formState.vendor?.vendor_name}</div>
-
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.vendor?.vendor_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -66,14 +65,15 @@ const VendorRFQInformation = () => {
             ),
             'Status': (
                 <Select
-                    options={StatusVendorRfqOptions}
+                    options={VendorRfqStatusOptions}
                     name="status"
                     id="status"
+                    required
                     onChange={({value}: any) => {
                         handleChangeField('status', value)
                     }}
                     className="flex-1"
-                    defaultValue={StatusVendorRfqOptions.find((title) => title.value == formState.status)}
+                    defaultValue={VendorRfqStatusOptions.find((title) => title.value == formState.status)}
                 />
             ),
             'Email': (
@@ -81,7 +81,7 @@ const VendorRFQInformation = () => {
                     id="email"
                     name="email"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.email}
 
                 />
@@ -118,6 +118,15 @@ const VendorRFQInformation = () => {
                                     <div>
                                         <div className="text-sm font-bold">{rfq.rfq_name}</div>
                                     </div>
+                                    {/*{rfq.rfq_name ?*/}
+                                    {/*    (*/}
+                                    {/*        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${rfq.rfq_name}`)}>*/}
+                                    {/*            Copy & Select*/}
+                                    {/*        </button>*/}
+                                    {/*    )*/}
+                                    {/*    : null*/}
+                                    {/*}*/}
+
                                 </div>
                             ),
                         }))
@@ -135,7 +144,7 @@ const VendorRFQInformation = () => {
                     name="date"
                     options={{
                         dateFormat: 'Y-m-d ',
-                        defaultDate: formState.date ? new Date(formState.date) : null as any,
+                        defaultDate: formState.date ? new Date(formState.date) : '' as any,
                     }}
                     defaultValue={formState.date}
                     className="form-input flex-1"
@@ -161,7 +170,7 @@ const VendorRFQInformation = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={displayImage(formState.owner.avatar)}
+                                        src={displayImage(formState.owner.avatar_data)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -171,6 +180,9 @@ const VendorRFQInformation = () => {
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -182,7 +194,7 @@ const VendorRFQInformation = () => {
                     type="checkbox"
                     name="email_opt_out"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     defaultChecked={formState.email_opt_out}
                 />
             ),
@@ -191,7 +203,7 @@ const VendorRFQInformation = () => {
                 name="exchange_rate"
                 className="form-input flex-1 "
                 disabled
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={1}
             />),
         }

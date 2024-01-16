@@ -15,11 +15,7 @@ const List = () => {
 
 
     const columns: any = [
-        {
-            accessor: 'id',
-            sortable: true,
-            render: ({id}: any) => <div className="font-semibold">{id}</div>,
-        },
+        
         {
             accessor: 'vendor_rfq_name',
             sortable: true,
@@ -59,7 +55,25 @@ const List = () => {
                     {vendor ? vendor.vendor_name : '-No Vendor-'}
                 </div>,
         },
-
+        {
+            accessor: 'created_at',
+            title: 'Created time',
+            sortable: true,
+            render: ({ created_at }) => {
+                const date = new Date(created_at);
+                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+    
+                return (
+                    <div className="font-semibold">
+                        {formattedDate}
+                    </div>
+                );
+            },
+        },
 
     ];
 

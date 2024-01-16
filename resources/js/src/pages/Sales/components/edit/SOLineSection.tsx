@@ -4,9 +4,12 @@ import api from "../../../../config/api";
 import {updateFormData} from "../../../../store/salesOrderFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-import {searchAccounts,searchContacts,searchSalesOrder,Currencies
-    ,searchLead,searchQuote,searchInvoice,searchOwners, searchRFQ, searchProducts} from "../../../../components/Functions/CommonFunctions";
+import {
+    searchAccounts, searchContacts, searchSalesOrder, Currencies
+    , searchLead, searchQuote, searchInvoice, searchOwners, searchRFQ, searchProducts, handleCopySelect
+} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import React from "react";
 
 const SOLineSection = () => {
     const dispatch = useDispatch();
@@ -74,9 +77,8 @@ const SOLineSection = () => {
 
             'Product Name': (
                 <AsyncSelect
-                    defaultOptions={true}
+                    defaultOptions={false}
                     isMulti={false}
-                    required
                     id="product_id"
                     placeholder="Type at least 2 characters to search..."
                     name="product_id"
@@ -89,8 +91,19 @@ const SOLineSection = () => {
                         value: formState.product?.id,
                         label: (
                             <div key={formState.product?.id} className="flex items-center">
+                                {formState.product ?
+                                    (
+                                        <>
+                                            <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.product?.product_name}`)}>
+                                                Copy & Select
+                                            </button>
+                                        </>
 
-                                <div className="text-sm font-bold">{formState.product?.product_name}</div>
+                                    ): null
+
+
+                                }
 
                             </div>
                         ),
@@ -102,7 +115,7 @@ const SOLineSection = () => {
                 id="customer_part_id"
                 name="customer_part_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.customer_part_id}
                 />
             ),
@@ -112,7 +125,7 @@ const SOLineSection = () => {
                 name="quantity"
                 className="form-input flex-1 "
                 type="number"
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.quantity}
                 />
             ),
@@ -123,7 +136,7 @@ const SOLineSection = () => {
                 id="list_price"
                 name="list_price"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.list_price}
                 />
             ),
@@ -149,7 +162,7 @@ const SOLineSection = () => {
                 id="date_code"
                 name="date_code"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.date_code}
                 />
             ),
@@ -158,7 +171,7 @@ const SOLineSection = () => {
                 id="spq"
                 name="spq"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.spq}
                 />
             ),
@@ -169,7 +182,7 @@ const SOLineSection = () => {
                 id="comment"
                 name="comment"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.comment}
                 />
             ),

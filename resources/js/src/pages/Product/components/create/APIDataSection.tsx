@@ -11,20 +11,20 @@ const APIDataSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-  
-    
+
+
 
 
     const fields = {
         'API Data': {
-           
+
             'Octopart ID': (
                 <input
                 id="octopart_id"
                 name="octopart_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'Octopart URL': (
@@ -32,8 +32,8 @@ const APIDataSection = () => {
                 id="octopart_url"
                 name="octopart_url"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'updateByMouser': (
@@ -42,7 +42,7 @@ const APIDataSection = () => {
                 type="checkbox"
                 name="update_by_mouser"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'ZohoBooksID': (
@@ -50,17 +50,17 @@ const APIDataSection = () => {
                 id="zoho_books_id"
                 name="zoho_books_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'OP Last Update': (
                 <Flatpickr
-                name="last_activity_date"
+                name="op_last_update"
                 options={{ dateFormat: 'Y-m-d ' }}
                 className="form-input flex-1"
                 placeholder="YYYY-MM-DD"
-                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)}
+                onChange={(_,dateString) => handleChangeField('op_last_update', dateString)}
                 />
             ),
             'OP Failure Message': (
@@ -68,47 +68,47 @@ const APIDataSection = () => {
                 id="op_failure_message"
                 name="op_failure_message"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'Octopart Images': (
-                <textarea 
-                id="octopart_images" 
-                rows={2} 
+                <textarea
+                id="octopart_images"
+                rows={2}
                 name="octopart_images"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Octopart Datasheets': (
-                <textarea 
-                id="octopart_datasheets" 
-                rows={2} 
+                <textarea
+                id="octopart_datasheets"
+                rows={2}
                 name="octopart_datasheets"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Octopart Compliance Documents': (
-                <textarea 
-                id="octopart_compliance_documents" 
-                rows={2} 
+                <textarea
+                id="octopart_compliance_documents"
+                rows={2}
                 name="octopart_compliance_documents"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
-            
+
         },
         '': {
-            
+
             'Mouser URL': (
                 <input
                     id="mouser_url"
                     name="mouser_url"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -117,7 +117,7 @@ const APIDataSection = () => {
                     id="mouser_id"
                     name="mouser_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -126,13 +126,13 @@ const APIDataSection = () => {
                     id="mouser_category"
                     name="mouser_category"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
             'M Last Update': (
                 <Flatpickr
-                
+
                 name="m_last_update"
                 options={{ dateFormat: 'Y-m-d ' }}
                 className="form-input flex-1"
@@ -145,13 +145,13 @@ const APIDataSection = () => {
                     id="product_margin"
                     name="product_margin"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
-           
-            
-            
+
+
+
         }
     }
     return (

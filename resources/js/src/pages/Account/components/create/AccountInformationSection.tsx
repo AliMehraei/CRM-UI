@@ -2,7 +2,8 @@ import AsyncSelect from "react-select/async";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { searchAccounts } from "../../../../components/Functions/CommonFunctions";
+import { searchAccounts} from "../../../../components/Functions/CommonFunctions";
+import {AccountDoubleCheckStatuses} from "../../../../components/Options/SelectOptions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/accountFormSlice";
 
@@ -28,7 +29,7 @@ const AccountInformationSection = () => {
                 id="primary_first_name"
                 name="primary_first_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'Phone': (
@@ -37,28 +38,29 @@ const AccountInformationSection = () => {
                     required
                     name="phone"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />
             ),
             'Fax': (<input
                 id="fax"
                 name="fax"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Email': (<input
                 id="email"
                 required
                 name="email"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'website': (<input
 
                 id="website"
+                required
                 name="website"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
         },
@@ -67,7 +69,7 @@ const AccountInformationSection = () => {
                 id="primary_last_name"
                 name="primary_last_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'Parent Account': <AsyncSelect
@@ -88,14 +90,14 @@ const AccountInformationSection = () => {
                     id="linkedin"
                     name="linkedin"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
             'Account Number':
                 <input
                     id="account_number"
                     name="account_number"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
             'Double Check Status': <Select id="double_check_status"
@@ -104,7 +106,7 @@ const AccountInformationSection = () => {
                     handleChangeField('double_check_status', value)
                 }}
                 className="flex-1"
-                options={doubleCheckStatuses}
+                options={AccountDoubleCheckStatuses}
             />,
 
             'Child Account': <AsyncSelect
@@ -124,14 +126,14 @@ const AccountInformationSection = () => {
                 type="checkbox"
                 name="has_no_contacts"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
             />,
             'DCheck': <input
                 id="d_check"
                 type="checkbox"
                 name="d_check"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
             />,
 
         }

@@ -5,13 +5,20 @@ import {updateFormData} from "../../../../store/vendorFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
-
-    Currencies, displayImage,
-    PortalAccess,
-    searchOwners
+    Currencies, displayImage, handleCopySelect,
+    searchManufacturer,
+    searchOwners, searchVendor
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {
+    VendorApproveStatus,
+    VendorBrokerTypeOptions,
+    VendorContract,
+    VendorPortalAccess,
+    VendorSource
+} from "../../../../components/Options/SelectOptions";
+import React from "react";
 
 const VendorSection = () => {
     const dispatch = useDispatch();
@@ -32,40 +39,23 @@ const VendorSection = () => {
                 value: data[valField],
                 label: (
                     <div key={data[valField]} className="flex items-center">
-                        <div>
                             <div className="text-sm font-bold">{data[nameField]}</div>
-                        </div>
+                        <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data[nameField]}`)}>
+                            Copy & Select
+                        </button>
                     </div>
                 ),
             }));
         }
     };
 
-
-    const ApproveStatus = [
-        {value: 'none', label: '-None-'},
-        {value: 'draft', label: 'Draft'},
-        {value: 'waiting', label: 'Waiting for approval'},
-        {value: 'approval', label: 'Approval'},
-        {value: 'rejected', label: 'Rejected'},
-
-    ];
-    const vendorSource = [
-        {value: 'none', label: '-None-'},
-        {value: 'web', label: 'Web Download'},
-        {value: 'linkedin', label: 'Linkedin'},
-        {value: 'chat', label: 'Chat'},
-        {value: 'messe', label: 'Messe'},
-
-    ];
-
     const fields = {
         'Vendor Information': {
-            'Vendor Image': ( <ImageUploadComponent formState={formState}
-                                                    modelName={'vendor'}
-                                                    id={'vendor_image'}
-                                                    formAttribute={'image'}
-                                                    updateFormData={updateFormData}
+            'Vendor Image': (<ImageUploadComponent formState={formState}
+                                                   modelName={'vendor'}
+                                                   id={'vendor_image'}
+                                                   formAttribute={'image'}
+                                                   updateFormData={updateFormData}
                 />
             ),
             'Vendor Name': (
@@ -74,72 +64,111 @@ const VendorSection = () => {
                     required
                     name="vendor_name"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.vendor_name}
                 />
             ),
-            'Contracts': (
-                <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={true}
-                    id="contracts_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="contracts_id"
-                    loadOptions={searchVendor}  //TODO : fix here
-                    onChange={(values: any) => {
-                        handleChangeField('contracts_id', values.map((v: any) => v.value))
-                    }}
-                    className="flex-1"
-                />
-            ),
+            'Contracts': <Select
+                isMulti={true}
+                name="contract"
+                id="contract"
+                placeholder="Select Contract Type..."
+                options={VendorContract}
+                onChange={(values: any) => {
+                    handleChangeField('contract', values.map((v: any) => v.value))
+                }}
+                defaultValue={formState.contract
+                    ? formState.contract.map((contract: any) => ({
+                        value: contract,
+                        label: contract
+                    }))
+                    : []
+                }
+            />,
             'SL Contains all MFRs': (
                 <input
                     id="is_active"
                     type="checkbox"
                     name="is_active"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.is_active}
                 />
             ),
             'Strong Lines': (
                 <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="strong_lines"
+                    defaultOptions={true} id="strong_line_ids"
+                    name="strong_line_ids"
                     placeholder="Type at least 2 characters to search..."
-                    name="strong_lines"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('strong_lines', value)
+                    loadOptions={searchManufacturer}
+                    onChange={(values: any) => {
+                        handleChangeField('strong_line_ids', values.map((v: any) => v.value))
                     }}
-                    className="flex-1"
-                />
+                    defaultValue={formState.strong_lines
+                        ? formState.strong_lines.map((data: any) => ({
+                            value: data.id,
+                            label: (
+                                <div key={data.id} className="flex items-center">
+                                    <div>
+                                        <div className="text-sm font-bold">{data.name}</div>
+
+                                    </div>
+                                    {/*{formState.strong_lines ?*/}
+                                    {/*        (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>*/}
+                                    {/*            Copy & Select*/}
+                                    {/*        </button>)*/}
+                                    {/*        : null*/}
+                                    {/*}*/}
+                                </div>
+                            ),
+                        }))
+                        : []
+                    }
+                    isMulti={true}
+                    className="flex-1"/>
             ),
             'Line Card': (
                 <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="line_card"
+                    defaultOptions={true} id="line_card_ids"
+                    name="line_card_ids"
                     placeholder="Type at least 2 characters to search..."
-                    name="line_card"
-                    loadOptions={searchVendor}
-                    onChange={({value}: any) => {
-                        handleChangeField('line_card', value)
+                    loadOptions={searchManufacturer}
+                    onChange={(values: any) => {
+                        handleChangeField('line_card_ids', values.map((v: any) => v.value))
                     }}
-                    className="flex-1"
-                />
+                    defaultValue={formState.line_cards
+                        ? formState.line_cards.map((data: any) => ({
+                            value: data.id,
+                            label: (
+                                <div key={data.id} className="flex items-center">
+                                    <div>
+                                        <div className="text-sm font-bold">{data.name}</div>
+
+                                    </div>
+                                    {/*{formState.line_cards ?*/}
+                                    {/*        (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.name}`)}>*/}
+                                    {/*            Copy & Select*/}
+                                    {/*        </button>)*/}
+                                    {/*        : null*/}
+                                    {/*}*/}
+                                </div>
+                            ),
+                        }))
+                        : []
+                    }
+                    isMulti={true}
+                    className="flex-1"/>
             ),
             'Approve status': (
                 <Select
-                    options={ApproveStatus}
+                    options={VendorApproveStatus}
                     name="approved_status"
                     id="approved_status"
                     onChange={({value}: any) => {
                         handleChangeField('approved_status', value)
                     }}
                     className="flex-1"
-                    defaultValue={ApproveStatus.find((data) => data.value == formState.approved_status)}
+                    defaultValue={VendorApproveStatus.find((data) => data.value == formState.approved_status)}
 
                 />
             ),
@@ -149,7 +178,7 @@ const VendorSection = () => {
                     type="checkbox"
                     name="business_vendor"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     checked={formState.business_vendor}
                 />
             ),
@@ -188,7 +217,7 @@ const VendorSection = () => {
                             <div key={formState.owner?.id} className="flex items-center">
                                 {formState.owner ? (
                                     <img
-                                        src={displayImage(formState.owner.avatar)}
+                                        src={displayImage(formState.owner.avatar_data)}
                                         alt="avatar"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
@@ -198,6 +227,9 @@ const VendorSection = () => {
                                         className="text-sm font-bold">{formState.owner?.first_name + " " + formState.owner?.last_name}</div>
                                     <div className="text-xs text-gray-500">{formState.owner?.email}</div>
                                 </div>
+                                <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.owner?.first_name + " " + formState.owner?.last_name}`)}>
+                                    Copy & Select
+                                </button>
                             </div>
                         ),
                     }}
@@ -205,13 +237,13 @@ const VendorSection = () => {
             ),
             'Vendor Source': (
                 <Select
-                    options={vendorSource}
+                    options={VendorSource}
                     name="vendor_source"
                     id="vendor_source"
                     onChange={({value}: any) => {
                         handleChangeField('vendor_source', value)
                     }}
-                    defaultValue={vendorSource.find((data) => data.value == formState.vendor_source)}
+                    defaultValue={VendorSource.find((data) => data.value == formState.vendor_source)}
 
                     className="flex-1"
                 />
@@ -225,26 +257,28 @@ const VendorSection = () => {
                         handleChangeField('currency', value)
                     }}
                     defaultValue={Currencies.find((data) => data.value == formState.currency)}
-
+                    required
                     className="flex-1"
                 />
             ),
             'ISO Upload': (
                 <FileUploadComponent
                     id="iso_upload"
-                    modelName={'vendor'}
-                    updateFormDate={updateFormData}
+                    updateFormData={updateFormData}
                     formState={formState}
+                    modelName='vendor'
                     formAttribute='iso_upload'
+
                 />
             ),
             'Doc Upload': (
                 <FileUploadComponent
                     id="doc_upload"
-                    modelName={'vendor'}
-                    updateFormDate={updateFormData}
+                    updateFormData={updateFormData}
                     formState={formState}
+                    modelName='vendor'
                     formAttribute='doc_upload'
+
                 />
             ),
             'Parent Vendor': (
@@ -265,9 +299,15 @@ const VendorSection = () => {
                             <div key={formState.parent_vendor_id}
                                  className="flex items-center">
                                 <div>
-                                    <div
-                                        className="text-sm font-bold">{formState.parent_vendor_id}</div>
+                                    <div className="text-sm font-bold">{formState.parent?.vendor_name}</div>
+
                                 </div>
+                                {formState.parent ?
+                                        (<button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.parent?.vendor_name}`)}>
+                                            Copy & Select
+                                        </button>)
+                                        : null
+                                }
                             </div>
                         )
                     }}
@@ -275,13 +315,26 @@ const VendorSection = () => {
             ),
             'Portal Access': (
                 <Select
-                    options={PortalAccess}
+                    options={VendorPortalAccess}
                     name="portal_access"
                     id="portal_access"
                     onChange={({value}: any) => {
                         handleChangeField('portal_access', value)
                     }}
-                    defaultValue={PortalAccess.find((data) => data.value == formState.portal_access)}
+                    defaultValue={VendorPortalAccess.find((data) => data.value == formState.portal_access)}
+
+                    className="flex-1"
+                />
+            ),
+            'Broker Type': (
+                <Select
+                    options={VendorBrokerTypeOptions}
+                    name="vendor_type"
+                    id="vendor_type"
+                    onChange={({value}: any) => {
+                        handleChangeField('vendor_type', value)
+                    }}
+                    defaultValue={VendorBrokerTypeOptions.find((data) => data.value == formState.vendor_type)}
 
                     className="flex-1"
                 />

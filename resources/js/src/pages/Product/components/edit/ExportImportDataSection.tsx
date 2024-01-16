@@ -13,24 +13,24 @@ const ExportImportDataSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
- 
+
 
 
     const fields = {
         'Export / Import Data': {
-            
-           
+
+
             'Tariff Code': (
                 <input
                 id="tariff_code"
                 name="tariff_code"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.tariff_code}
                 />
             ),
-          
-            
+
+
         },
         '': {
             'ECCN': (
@@ -38,7 +38,7 @@ const ExportImportDataSection = () => {
                 id="eccn"
                 name="eccn"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.eccn}
                 />
             ),

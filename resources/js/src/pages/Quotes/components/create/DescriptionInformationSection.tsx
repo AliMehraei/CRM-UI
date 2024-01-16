@@ -19,7 +19,7 @@ const DescriptionInformationSection = () => {
                         <textarea id="description" rows={3} name="description"
                                   className="form-textarea flex-1"
                                   placeholder=""
-                                  onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                                  onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                         ></textarea>
                     </div>
                 </div>

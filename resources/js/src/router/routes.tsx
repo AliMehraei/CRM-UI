@@ -1,6 +1,7 @@
 import {lazy} from 'react';
 import ErrorPage from '../pages/Pages/ErroPage';
 import Logout from '../pages/Authentication/Logout';
+import React from 'react';
 
 const Index = lazy(() => import('../pages/Index'));
 const Todolist = lazy(() => import('../pages/Todolist'));
@@ -125,6 +126,26 @@ const EditTask = lazy(() => import('../pages/Task/Edit'));
 const ListCall = lazy(() => import('../pages/Call/Index'));
 const AddCall = lazy(() => import('../pages/Call/Add'));
 const EditCall = lazy(() => import('../pages/Call/Edit'));
+const PreviewCall = lazy(() => import('../pages/Call/Preview'));
+
+const ListSearch = lazy(() => import('../pages/Search/Index'));
+
+const AdminAnalytic = lazy(() => import('../pages/Analytic/Admin/Index'));
+const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales/Index'));
+const AdminAnalyticQuote = lazy(() => import('../pages/Analytic/Admin/Quote/Index'));
+const AdminAnalyticInvoice = lazy(() => import('../pages/Analytic/Admin/Invoice/Index'));
+const AdminAnalyticVendor = lazy(() => import('../pages/Analytic/Admin/Vendor/Index'));
+
+const RoleIndex = lazy(() => import('../pages/Role/Index'));
+const EditRole = lazy(() => import('../pages/Role/Edit'));
+
+const BomExcessIndex = lazy(() => import('../pages/BomExcess/BomExcessIndex'));
+const BomExcessImport = lazy(() => import('../pages/BomExcess/BomExcessImport'));
+const BomExcessConfirmation = lazy(() => import('../pages/BomExcess/BomExcessConfirmation'));
+const BomExcessPreProcess = lazy(() => import('../pages/BomExcess/BomExcessPreProcess'));
+const BomExcessComplete = lazy(() => import('../pages/BomExcess/BomExcessComplete'));
+
+
 const routes = [
     // dashboard
     {
@@ -138,6 +159,54 @@ const routes = [
         element: <Index/>,
         protected: true,
         requiredPermission: 'read-product'
+    },
+    {
+        path: '/admin-analytics',
+        element: <AdminAnalytic/>,
+        protected: true,
+        requiredPermission: 'admin-analytics'
+    },
+    {
+        path: '/admin-analytics/customer',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-customer-analytics'
+    },
+    {
+        path: '/admin-analytics/product',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-product-analytics'
+    },
+    {
+        path: '/admin-analytics/quote',
+        element: <AdminAnalyticQuote/>,
+        protected: true,
+        requiredPermission: 'admin-quote-analytics'
+    },
+    {
+        path: '/admin-analytics/invoice',
+        element: <AdminAnalyticInvoice/>,
+        protected: true,
+        requiredPermission: 'admin-invoice-analytics'
+    },
+    {
+        path: '/admin-analytics/lead',
+        element: <Index/>,
+        protected: true,
+        requiredPermission: 'admin-lead-analytics'
+    },
+    {
+        path: '/admin-analytics/sales-order',
+        element: <AdminAnalyticSalesOrder/>,
+        protected: true,
+        requiredPermission: 'admin-sales-order-analytics'
+    },
+    {
+        path: '/admin-analytics/vendor',
+        element: <AdminAnalyticVendor/>,
+        protected: true,
+        requiredPermission: 'admin-vendor-list-analytics'
     },
     {
         path: '/import/:module',
@@ -157,7 +226,18 @@ const routes = [
         protected: true,
         requiredPermission: 'import-product'
     },
-
+    {
+        path: '/role/list',
+        element: <RoleIndex/>,
+        protected: true,
+        requiredPermission: 'read-role'
+    },
+    {
+        path: '/role/edit/:id',
+        element: <EditRole/>,
+        protected: true,
+        requiredPermission: 'edit-role'
+    },
     {
         path: '/account/list',
         element: <ListAccount/>,
@@ -180,6 +260,7 @@ const routes = [
         path: '/account/edit/:id',
         element: <EditAccount/>,
         protected: true,
+        requiredPermission: 'update-account'
     },
     {
         element: <Contracts/>,
@@ -761,5 +842,98 @@ const routes = [
         protected: true,
         requiredPermission: 'update-call'
     },
+    {
+        path: '/call/preview/:id',
+        element: <PreviewCall/>,
+        protected: true,
+        requiredPermission: 'read-call'
+    },
+
+    {
+        path: '/search',
+        element: <ListSearch/>,
+        protected: false,
+    },
+
+    {
+        path: '/availability-vendor/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/import/:contactId',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/confirmation/:contactId/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/process/:contactId/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/availability-vendor/complete/:contactId/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+
+
+    {
+        path: '/bom/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/bom/import/:contactId',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/bom/confirmation/:contactId/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/bom/process/:contactId/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/bom/complete/:contactId/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+    
+    {
+        path: '/excess/list/:id',
+        element: <BomExcessIndex/>,
+        protected: false,
+    },
+    {
+        path: '/excess/import/:contactId',
+        element: <BomExcessImport/>,
+        protected: false,
+    },
+    {
+        path: '/excess/confirmation/:contactId/:id',
+        element: <BomExcessConfirmation/>,
+        protected: false,
+    },
+    {
+        path: '/excess/process/:contactId/:id',
+        element: <BomExcessPreProcess/>,
+        protected: false,
+    },
+    {
+        path: '/excess/complete/:contactId/:id',
+        element: <BomExcessComplete/>,
+        protected: false,
+    },
+    
+    
 ];
 export {routes};

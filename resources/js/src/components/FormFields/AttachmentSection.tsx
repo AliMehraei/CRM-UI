@@ -76,7 +76,8 @@ const AttachmentSection = ({modelName, modelId}: any) => {
     useEffect(() => {
         api_instance.fetchAttachments({modelId: modelId, modelName: modelName})
             .then(response => {
-                setFiles(response.data.attachments);
+                if(response.status==200)
+                    setFiles(response.data.attachments);
             }).catch((error: any) => {
             notifyErrorMessage("Error Fetching attachments")
             console.error(error)
@@ -92,7 +93,7 @@ const AttachmentSection = ({modelName, modelId}: any) => {
 
     const thumbs = files.map((file: any, index: number) => (
         <div key={file.id} style={thumb} className="relative">
-            
+
             <div style={thumbInner}
                  onMouseEnter={() => handleMouseEnter(index)}
                  onMouseLeave={handleMouseLeave}

@@ -21,19 +21,19 @@ const DescriptionInformationSection = () => {
     const fields = {
         'Description Information': {
             'Description': (
-                <textarea id="description" rows={3} 
+                <textarea id="description" rows={3}
                 name="description"
                 className="form-textarea flex-1"
                 placeholder=""
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.description}
                 ></textarea>
-           
+
             ),
 
         },
         '': {
-            
+
 
         }
     }
@@ -44,7 +44,7 @@ const DescriptionInformationSection = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default DescriptionInformationSection;

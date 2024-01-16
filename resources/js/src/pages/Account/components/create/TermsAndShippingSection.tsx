@@ -14,20 +14,20 @@ const TermsAndShippingSection = () => {
                 id="incoterm"
                 name="incoterm"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'Payment Terms': (<input
                 id="payment_term"
                 name="payment_term"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Credit Line': (<input
                 id="credit_line"
                 name="credit_line"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
         },
@@ -36,20 +36,20 @@ const TermsAndShippingSection = () => {
                 id="vat_no"
                 name="vat_no"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
 
             'Forwarder': (<input
                 id="forwarder"
                 name="forwarder"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'forwarder_account_no': (<input
                 id="forwarder_account_no"
                 name="forwarder_account_no"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
         }
     }

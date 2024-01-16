@@ -6,6 +6,9 @@ import api from "../../../../config/api";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import {Currencies, handleUploadFile, searchOwners, searchRFQ, searchVendor} from "../../../../components/Functions/CommonFunctions";
 import Flatpickr from "react-flatpickr";
+import {
+    VendorRfqStatusOptions,
+} from "../../../../components/Options/SelectOptions";
 
 const VendorRFQInformation = () => {
     const formState = useSelector((state: any) => state.vendorRfqForm);
@@ -17,13 +20,7 @@ const VendorRFQInformation = () => {
     };
 
 
-     const StatusVendorRfqOptions = [
-        { value: 'none', label: '-None-' },
-        { value: 'draft', label: 'Draft' },
-        { value: 'excel-generate', label: 'Excel Generated' },
-        { value: 'email-sent', label: 'Email Sent' },
-        { value: 'closed', label: 'Closed' },
-    ]
+    
 
 
     const fields = {
@@ -32,7 +29,8 @@ const VendorRFQInformation = () => {
                 id="vendor_rfq_name"
                 name="vendor_rfq_name"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                required
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />),
             'Vendor Name': (
                 <AsyncSelect
@@ -41,6 +39,7 @@ const VendorRFQInformation = () => {
                     id="vendor_id"
                     placeholder="Type at least 2 characters to search..."
                     name="vendor_id"
+                    required
                     loadOptions={searchVendor}
                     onChange={({value}: any) => {
                         handleChangeField('vendor_id', value)
@@ -50,14 +49,15 @@ const VendorRFQInformation = () => {
             ),
             'Status': (
                 <Select
-                options={StatusVendorRfqOptions}
+                options={VendorRfqStatusOptions}
                 name="status"
                 id="status"
+                required
                 onChange={({value}: any) => {
                     handleChangeField('status', value)
                 }}
                 className="flex-1"
-                defaultValue={StatusVendorRfqOptions.find((title) => title.value == 'draft')}
+                defaultValue={VendorRfqStatusOptions.find((title) => title.value == 'Draft')}
                 />
             ),
             'Email': (
@@ -65,7 +65,7 @@ const VendorRFQInformation = () => {
                     id="email"
                     name="email"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -134,7 +134,7 @@ const VendorRFQInformation = () => {
                     type="checkbox"
                     name="email_opt_out"
                     className="form-checkbox"
-                    onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
             'Exchange Rate': (<input
@@ -142,7 +142,7 @@ const VendorRFQInformation = () => {
                 name="exchange_rate"
                 className="form-input flex-1 "
                 disabled
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={1}
             />),
         }

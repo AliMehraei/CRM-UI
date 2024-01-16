@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/excessFormSlice";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
 import FileUploadComponent from "../../../../components/FormFields/FileUploadComponent";
+import {ExcessSources} from "../../../../components/Options/SelectOptions";
 
 const HeaderSection = () => {
     const dispatch = useDispatch();
@@ -20,12 +21,7 @@ const HeaderSection = () => {
     };
 
 
-    const ExcessSources = [
-        {value: 'none', label: '-None-'},
-        {value: 'email', label: 'Email'},
-        {value: 'portal', label: 'Portal'},
 
-    ];
 
     const fields = {
         'Header': {
@@ -35,7 +31,7 @@ const HeaderSection = () => {
                     modelName="excess"
                     formState={formState}
                     formAttribute={'image'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
             'Account Name': <AsyncSelect
@@ -57,7 +53,7 @@ const HeaderSection = () => {
                 className="flex-1"/>,
             'Email': <input id="email" type="text" name="email"
                             className="form-input flex-1 "
-                            onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                            onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
             'Currency': <Select options={Currencies}
                                 onChange={({value}: any) => {
                                     handleChangeField('currency', value)
@@ -65,7 +61,7 @@ const HeaderSection = () => {
                                 className="flex-1"/>,
             'Portal Excess Id': <input id="portal_excess_id" type="text" name="portal_excess_id"
                                        className="form-input flex-1 "
-                                       onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                       onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
 
         },
         '': {
@@ -83,7 +79,7 @@ const HeaderSection = () => {
                     modelName="excess"
                     formState={formState}
                     formAttribute={'excess_file'}
-                    updateFormdata={updateFormData}
+                    updateFormData={updateFormData}
                 />
             ,
 
@@ -94,15 +90,15 @@ const HeaderSection = () => {
                                      className="flex-1"/>,
             'Secondary Email': <input id="secondary_email" type="text" name="secondary_email"
                                       className="form-input flex-1 "
-                                      onChange={(e) => handleChangeField(e.target.name, e.target.value)}/>,
+                                      onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}/>,
             'Email Opt Out': <input
                 id="email_opt_out"
                 type="checkbox"
                 name="email_opt_out"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
             />,
-            'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="Readonly input here…"
+            'Exchange Rate': <input id="exchangeRate" type="text" value="1" placeholder="readOnly input here…"
                                     className="flex-1 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
                                     disabled/>,
         }

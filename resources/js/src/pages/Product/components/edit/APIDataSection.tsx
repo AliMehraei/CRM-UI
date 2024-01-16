@@ -24,7 +24,7 @@ const APIDataSection = () => {
                 id="octopart_id"
                 name="octopart_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.octopart_id}
                 />
             ),
@@ -33,7 +33,7 @@ const APIDataSection = () => {
                 id="octopart_url"
                 name="octopart_url"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.octopart_url}
                 />
             ),
@@ -44,7 +44,7 @@ const APIDataSection = () => {
 
                 name="update_by_mouser"
                 className="form-checkbox"
-                onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 defaultChecked={formState.update_by_mouser}
                 />
             ),
@@ -53,21 +53,21 @@ const APIDataSection = () => {
                 id="zoho_books_id"
                 name="zoho_books_id"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.zoho_books_id}
                 />
             ),
             'OP Last Update': (
                 <Flatpickr
-                name="last_activity_date"
+                name="op_last_update"
                 options={{
                     dateFormat: 'Y-m-d ',
-                    defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any,
+                    defaultDate: formState.op_last_update ? new Date(formState.op_last_update) : null as any,
                 }}
-                defaultValue={formState.last_activity_date}
+                defaultValue={formState.op_last_update}
                 className="form-input flex-1"
                 placeholder="YYYY-MM-DD"
-                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)}
+                onChange={(_,dateString) => handleChangeField('op_last_update', dateString)}
                 />
             ),
             'OP Failure Message': (
@@ -75,7 +75,7 @@ const APIDataSection = () => {
                 id="op_failure_message"
                 name="op_failure_message"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 defaultValue={formState.op_failure_message}
                 />
             ),
@@ -87,7 +87,7 @@ const APIDataSection = () => {
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.octopart_images}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Octopart Datasheets': (
                 <textarea
@@ -97,7 +97,7 @@ const APIDataSection = () => {
                 className="form-textarea flex-1"
                 placeholder=""
                 defaultValue={formState.octopart_datasheets}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
             'Octopart Compliance Documents': (
                 <textarea
@@ -107,7 +107,7 @@ const APIDataSection = () => {
                 className="form-textarea flex-1"
                 placeholder=""
                   defaultValue={formState.octopart_compliance_documents}
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}></textarea>
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}></textarea>
             ),
 
         },
@@ -118,7 +118,7 @@ const APIDataSection = () => {
                     id="mouser_url"
                     name="mouser_url"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.mouser_url}
                 />
             ),
@@ -127,7 +127,7 @@ const APIDataSection = () => {
                     id="mouser_id"
                     name="mouser_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.mouser_id}
                 />
             ),
@@ -136,7 +136,7 @@ const APIDataSection = () => {
                     id="mouser_category"
                     name="mouser_category"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.mouser_category}
                 />
             ),
@@ -159,7 +159,7 @@ const APIDataSection = () => {
                     id="product_margin"
                     name="product_margin"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     defaultValue={formState.product_margin}
                 />
             ),

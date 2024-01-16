@@ -14,19 +14,19 @@ const DimensionsSection = () => {
         dispatch(updateFormData({[field]: value}));
     };
 
-    
+
 
     const fields = {
         'Dimensions': {
-           
-           
+
+
             'Length': (
                 <input
                 id="length"
                 name="length"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'Depth': (
@@ -34,8 +34,8 @@ const DimensionsSection = () => {
                id="depth"
                 name="depth"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'Thickness': (
@@ -43,8 +43,8 @@ const DimensionsSection = () => {
                id="thickness"
                 name="thickness"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
         },
@@ -54,8 +54,8 @@ const DimensionsSection = () => {
                id="width"
                 name="width"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
             'Height': (
@@ -63,11 +63,11 @@ const DimensionsSection = () => {
                id="height"
                 name="height"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
-               
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+
                 />
             ),
-            
+
         }
     }
     return (

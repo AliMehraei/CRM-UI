@@ -16,7 +16,7 @@ const TechnicalInformationSection = () => {
                     id="zoho_books_id"
                     name="zoho_books_id"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
             'BooksID EUR':
@@ -24,7 +24,7 @@ const TechnicalInformationSection = () => {
                     id="books_id_eur"
                     name="books_id_eur"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
         },
         '': {
@@ -33,7 +33,7 @@ const TechnicalInformationSection = () => {
                     id="account_margin"
                     name="account_margin"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
 
@@ -42,7 +42,7 @@ const TechnicalInformationSection = () => {
                     id="books_id_usd"
                     name="books_id_usd"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                 />,
 
         }

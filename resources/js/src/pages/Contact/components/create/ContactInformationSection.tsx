@@ -1,10 +1,11 @@
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "react-redux";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
-import { handleUploadFile, searchAccounts, loadOrders } from "../../../../components/Functions/CommonFunctions";
 import Select from "react-select";
 import { updateFormData } from "../../../../store/contactFormSlice";
 import Flatpickr from "react-flatpickr";
+import {ContactPortalAccess} from "../../../../components/Options/SelectOptions";
+
 
 const ContactInformationSection = () => {
     const dispatch = useDispatch();
@@ -12,65 +13,60 @@ const ContactInformationSection = () => {
         dispatch(updateFormData({ [field]: value }));
     };
 
-    const portalAccess = [
-        { value: "none", label: "-None-" },
-        { value: "waiting", label: "Waiting" },
-        { value: "confirmed", label: "Confirmed" },
-        { value: "rejected", label: "Rejected" },
-    ]
+
     const fields = {
         'Contact Information': {
             'Email': <input
                 id="email"
                 name="email"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Mobile': <input
                 id="mobile"
                 name="mobile"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Phone': <input
                 id="phone"
                 name="phone"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Department': <input
                 id="department"
                 name="department"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Asst Phone': <input
                 id="asst_phone"
                 name="asst_phone"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Home Phone': <input
                 id="home_phone"
                 name="home_phone"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Other Phone': <input
                 id="other_phone"
                 name="other_phone"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
 
             'Fax': <input
                 id="fax"
                 name="fax"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />
         },
         '': {
@@ -88,13 +84,13 @@ const ContactInformationSection = () => {
                 id="reporting_to"
                 name="reporting_to"
                 className="form-input flex-1 disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed" disabled
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'LinkedIn Contact': <input
                 id="linkedin"
                 name="linkedin"
                 className="form-input flex-1"
-                onChange={e => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
             'Portal Access':
                 <Select id="portal_access"
@@ -103,7 +99,7 @@ const ContactInformationSection = () => {
                         handleChangeField('portal_access', value)
                     }}
                     className="flex-1 "
-                    options={portalAccess}
+                    options={ContactPortalAccess}
                     defaultValue={{ value: "none", label: "-None-" }}
                 />,
         }

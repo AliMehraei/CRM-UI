@@ -21,13 +21,13 @@ export const DevelopmentSection = () => {
                 <Tippy content="Please do not change the value" className="red">
                     <input id="processed_for_vrfq_round_1" type="checkbox" name="processed_for_vrfq_round_1"
                            className="form-checkbox"
-                           onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                           onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                     />
                 </Tippy>,
             'Processed for VRFQ round 2': <label className="flex items-center cursor-pointer">
                 <input id="processed_for_vrfq_round_2" type="checkbox" name="processed_for_vrfq_round_2"
                        className="form-checkbox"
-                       onChange={(e) => handleChangeField(e.target.name, e.target.checked)}
+                       onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             </label>,
             'Open Status Time': <Flatpickr

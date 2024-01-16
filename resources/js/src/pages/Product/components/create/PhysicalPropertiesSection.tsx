@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateFormData} from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
-
+import {ProductPackageOptions} from "../../../../components/Options/SelectOptions";
 const PhysicalPropertiesSection = () => {
     const dispatch = useDispatch();
     const handleChangeField = (field: any, value: any) => {
@@ -11,22 +11,11 @@ const PhysicalPropertiesSection = () => {
     };
 
 
-    const packageOptions = [
-        { label: '-None-', value: 'none' },
-        { label: 'SMD', value: 'smd' },
-        { label: 'THT', value: 'tht' },
-        { label: 'Peripheral', value: 'peripheral' },
-        { label: 'Other', value: 'other' },
-    ];
-
-
-
-
     const fields = {
         'Product Information': {
             'Package': (
                 <Select
-                options={packageOptions}
+                options={ProductPackageOptions}
                 name="package"
                 id="package"
                 onChange={({value}: any) => {
@@ -42,7 +31,7 @@ const PhysicalPropertiesSection = () => {
                 id="case_package"
                 name="case_package"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -51,7 +40,7 @@ const PhysicalPropertiesSection = () => {
                 id="packaging"
                 name="packaging"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -60,7 +49,7 @@ const PhysicalPropertiesSection = () => {
                 id="number_of_pins"
                 name="number_of_pins"
                 className="form-input flex-1 "
-                onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
 
                 />
             ),
@@ -74,7 +63,7 @@ const PhysicalPropertiesSection = () => {
                     id="weight"
                     name="weight"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -83,7 +72,7 @@ const PhysicalPropertiesSection = () => {
                     id="case_code_imperial"
                     name="case_code_imperial"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
@@ -92,7 +81,7 @@ const PhysicalPropertiesSection = () => {
                     id="case_code_metric"
                     name="case_code_metric"
                     className="form-input flex-1 "
-                    onChange={(e) => handleChangeField(e.target.name, e.target.value)}
+                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
                     // defaultValue={formState.name}
                 />
             ),
