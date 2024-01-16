@@ -1,77 +1,35 @@
 import AsyncSelect from "react-select/async";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../config/api";
-import {updateFormData} from "../../../../store/productFormSlice";
+import { updateFormData } from "../../../../store/productFormSlice";
 import GenerateFields from "../../../../components/FormFields/GenerateFields";
 import Select from "react-select";
 import {
     searchManufacturer,
     searchOwners,
-    searchRFQ
+    searchRFQ,
+    searchVendor,
 } from "../../../../components/Functions/CommonFunctions";
 import ImageUploadComponent from "../../../../components/FormFields/ImageUploadComponent";
-import {ProductTypeOptions} from "../../../../components/Options/SelectOptions";
+import { ProductTax, ProductTypeOptions } from "../../../../components/Options/SelectOptions";
+import { useState } from "react";
 
 const BussinessProductSection = () => {
     const dispatch = useDispatch();
     const api_instance = new api();
     const formState = useSelector((state: any) => state.productForm);
+    const [isBusinessProductChecked, setIsBusinessProductChecked] = useState(false);
 
     const handleChangeField = (field: any, value: any) => {
-        dispatch(updateFormData({[field]: value}));
+        dispatch(updateFormData({ [field]: value }));
+        if (field === "business_product") {
+            setIsBusinessProductChecked(value);
+
+        }
     };
 
-
     const fields = {
-        'Sales Information': {
-            
-            'Selling Price': (
-                <input
-                    type="number"
-                    className="w-32 form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b] cursor-not-allowed"
-                    name="selling_price"
-                    min={0}
-                    disabled
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
-                />
-            ),
-            'Part Description': (
-                <input
-                    id="part_description"
-                    name="part_description"
-                    className="form-input flex-1 "
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
-
-                />
-            ),
-            'Manufacturer': (
-                <AsyncSelect
-                    isMulti={false}
-                    required
-                    id="manufacturer_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="manufacturer_id"
-                    loadOptions={searchManufacturer}
-                    onChange={({value}: any) => {
-                        handleChangeField('manufacturer_id', value)
-                    }}
-                    className="flex-1"
-                />
-            ),
-            'RFQ (Alternative)': (
-                <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={true}
-                    id="rfqs_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="rfqs_id"
-                    loadOptions={searchRFQ}
-                    onChange={(values: any) => {
-                        handleChangeField('rfqs_id', values.map((v: any) => v.value))
-                    }}
-                    className="flex-1"
-                />
-            ),
+        "Bussiness Product": {
             'Business Product': (
                 <input
                     id="business_product"
@@ -81,78 +39,139 @@ const BussinessProductSection = () => {
                     onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
                 />
             ),
-            'Approved By': (
-                <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="approved_by_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="approved_by_id"
-                    loadOptions={searchOwners}
-                    onChange={({value}: any) => {
-                        handleChangeField('approved_by_id', value)
-                    }}
-                    className="flex-1"
-                />
-            ),
-
-        },
-        'Purchase Information': {
-            'Product Active': (
-                <input
-                    id="product_active"
-                    type="checkbox"
-                    name="product_active"
-                    className="form-checkbox"
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
-                />
-            ),
-            'Product Owner': (
-                <AsyncSelect
-                    defaultOptions={true}
-                    isMulti={false}
-                    id="owner_id"
-                    placeholder="Type at least 2 characters to search..."
-                    name="owner_id"
-                    loadOptions={searchOwners}
-                    onChange={({value}: any) => {
-                        handleChangeField('owner_id', value)
-                    }}
-                    className="flex-1"
-                />
-            ),
-            'Datasheet URL': (
-                <input
-                    id="datasheet_url"
-                    name="datasheet_url"
-                    className="form-input flex-1 "
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
-                    // defaultValue={formState.name}
-                />
-            ),
-
-            'Product Type': (
-                <Select
-                    options={ProductTypeOptions}
-                    name="product_type"
-                    id="product_type"
-                    onChange={({value}: any) => {
-                        handleChangeField('product_type', value)
-                    }}
-                    className="flex-1"
-                    defaultValue={{label: 'Goods', value: 'goods'}}
-                />
-            ),
-
         }
-    }
+    };
+
+    const customFields = {
+       
+        "Sales Information": {
+            "Selling Price": (
+                <input
+                    type="number"
+                    required
+                    className="form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b]"
+                    name="sales_selling_price"
+                    min={0}
+                    onChange={(e: any) =>
+                        handleChangeField(e.target.name, e.target.value)
+                    }
+                />
+            ),
+            "Account": (
+                <AsyncSelect
+                    isMulti={false}
+                    required
+                    id="sales_fiscal_account_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="sales_fiscal_account_id"
+                    loadOptions={searchManufacturer}
+                    onChange={({ value }: any) => {
+                        handleChangeField("sales_fiscal_account_id", value);
+                    }}
+                    className="flex-1"
+                />
+            ),
+            "Description": (
+                <textarea
+                    id="sales_description"
+                    rows={2}
+                    name="sales_description"
+                    className="form-textarea flex-1"
+                    placeholder=""
+                    onChange={(e: any) =>
+                        handleChangeField(e.target.name, e.target.value)
+                    }
+                ></textarea>
+            ),
+            "Tax": (
+                <Select
+                    name="sales_tax"
+                    options={ProductTax}
+                    onChange={({ value }: any) => {
+                        handleChangeField("sales_tax", value);
+                    }}
+                    className="flex-1"
+                />
+            ),
+        },
+        "Purchase Information": {
+            "Cost Price": (
+                <input
+                    type="number"
+                    required
+                    className="form-input disabled:pointer-events-none disabled:bg-[#eee] dark:disabled:bg-[#1b2e4b]"
+                    name="purchase_cost_price"
+                    min={0}
+                    onChange={(e: any) =>
+                        handleChangeField(e.target.name, e.target.value)
+                    }
+                />
+            ),
+            "Account": (
+                <AsyncSelect
+                    isMulti={false}
+                    required
+                    id="purchase_fiscal_account_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="purchase_fiscal_account_id"
+                    loadOptions={searchManufacturer}
+                    onChange={({ value }: any) => {
+                        handleChangeField("purchase_fiscal_account_id", value);
+                    }}
+                    className="flex-1"
+                />
+            ),
+            "Description": (
+                <textarea
+                    id="purchase_description"
+                    rows={2}
+                    name="purchase_description"
+                    className="form-textarea flex-1"
+                    placeholder=""
+                    onChange={(e: any) =>
+                        handleChangeField(e.target.name, e.target.value)
+                    }
+                ></textarea>
+            ),
+            "Tax": (
+                <Select
+                    name="purchase_tax"
+                    options={ProductTax}
+                    onChange={({ value }: any) => {
+                        handleChangeField("purchase_tax", value);
+                    }}
+                    className="flex-1"
+                />
+            ),
+            "Preferred Vendor": (
+                <AsyncSelect
+                    isMulti={false}
+                    required
+                    id="purchase_vendor_id"
+                    placeholder="Type at least 2 characters to search..."
+                    name="purchase_vendor_id"
+                    loadOptions={searchVendor}
+                    onChange={({ value }: any) => {
+                        handleChangeField("purchase_vendor_id", value);
+                    }}
+                    className="flex-1"
+                />
+            ),
+        },
+       
+    };
     return (
         <>
             <div className="flex justify-between lg:flex-row flex-col">
-                <GenerateFields fields={fields}/>
+            <GenerateFields fields={fields} />
             </div>
+            <div className="flex flex-row">
+            {isBusinessProductChecked && <GenerateFields fields={customFields} />}
+            </div>
+            
+
         </>
-    )
-}
+    );
+};
 
 export default BussinessProductSection;
