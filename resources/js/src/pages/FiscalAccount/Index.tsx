@@ -40,6 +40,15 @@ const List = () => {
             ),
         },
         {
+            accessor: 'account_code',
+            sortable: true,
+            render: ({ account_code }) => (
+                <div className="font-semibold">
+                    {account_code}
+                </div>
+            ),
+        },
+        {
             accessor: 'owner',
             title: 'Owner',
             sortable: false,
