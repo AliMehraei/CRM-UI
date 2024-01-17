@@ -682,6 +682,26 @@ class api {
     }
 
     //fiscal account
+    async fetchDataFiscalAccount(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/list`, data);
+    }
+
+    async deleteSingleFiscalAccount(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/fiscal-account/${id}`);
+    }
+
+    async fetchSingleFiscalAccount(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/${id}`);
+    }
+
+    async updateSingleFiscalAccount(data: any) {
+        return await _axios.put(`${API_URL_PRODUCT}/fiscal-account/${data.id}`, data);
+    }
+
+    async createSingleFiscalAccount(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account`, data);
+    }
+
     async searchFiscalAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/search`, data);
     }
