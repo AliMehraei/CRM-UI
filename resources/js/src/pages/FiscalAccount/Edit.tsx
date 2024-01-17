@@ -15,7 +15,7 @@ const Edit = () => {
     const formState = useSelector((state: any) => state.fiscalAccountForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const accountId = params.id;
+    const accountId = params.id?.toString();
     const api = new Api();
     const dispatch = useDispatch();
 
