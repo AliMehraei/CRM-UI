@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setPageTitle} from '../../store/themeConfigSlice';
 import ActionButtonsComponent from "../../components/FormFields/ActionButtonsComponent";
 import 'flatpickr/dist/flatpickr.css';
-import {resetForm, updateFormData} from "../../store/accountFormSlice";
+import {resetForm, updateFormData} from "../../store/fiscalAccountFormSlice";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
@@ -12,7 +12,7 @@ import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
     const {hasPermission} = useUserStatus();
-    const formState = useSelector((state: any) => state.accountForm);
+    const formState = useSelector((state: any) => state.fiscalAccountForm);
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const accountId = params.id;
@@ -30,7 +30,7 @@ const Edit = () => {
     useEffect(() => {
         const formDataUpdates = {
             api: 'updateSingleFiscalAccount',
-            redirectTo: '/fiscal-account/edit/:id',
+            redirectTo: '/fiscal_account/edit/:id',
             action: 'edit'
         };
 
@@ -49,7 +49,7 @@ const Edit = () => {
         const accountResponse = await api.fetchSingleFiscalAccount(accountId);
         if (accountResponse.status != 200)
             return;
-        const account = accountResponse.data.data.account;
+        const account = accountResponse.data.data.fiscalAccount;
         dispatch(updateFormData(account));
     };
     if (loading)

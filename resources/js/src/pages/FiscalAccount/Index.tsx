@@ -22,7 +22,7 @@ const List = () => {
             sortable: true,
             render: ({ account_name ,id}) => (
                 hasPermission('update-fiscal-account') ? (
-                    <NavLink to={`/fiscal-account/edit/${id}`}>
+                    <NavLink to={`/fiscal_account/edit/${id}`}>
                         <div className="text-primary underline hover:no-underline font-semibold">{`#${account_name}`}</div>
                     </NavLink>
                 ) : (
@@ -79,7 +79,7 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="fiscalAccount" tableColumns={columns} />
+            <GenerateIndexTable modelName="fiscalAccount" tableColumns={columns} frontRoute="fiscal_account" />
         </>
     );
 };

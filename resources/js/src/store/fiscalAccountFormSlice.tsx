@@ -4,14 +4,14 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initState = {
     api: "createSingleFiscalAccount",
-    createRoute: "/fiscal-account/add",
-    redirectTo: "/fiscal-account/edit/:id",
+    createRoute: "/fiscal_account/add",
+    redirectTo: "/fiscal_account/edit/:id",
     action: "create",
     items: [{id: 0,},],
 };
 
 const fiscalAccountFormSlice = createSlice({
-    name: 'fiscalAccount',
+    name: 'fiscalAccountForm',
     initialState: initState,
     reducers: {
         updateFormData: (state, action) => {

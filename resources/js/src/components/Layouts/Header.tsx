@@ -1013,7 +1013,7 @@ const Header = () => {
                             ) : null}
                             {hasPermission(`read-fiscal-account`) ? (
                                 <li>
-                                  <NavLink to="/fiscal-account/list">{t('Fiscal Account')}</NavLink>
+                                  <NavLink to="/fiscal_account/list">{t('Fiscal Account')}</NavLink>
                                 </li>
                             ) : null}
                         </ul>

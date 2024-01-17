@@ -10,7 +10,7 @@ import LoadingSasCrm from '../../components/LoadingSasCrm';
 
 const Add = () => {
     const {hasPermission} = useUserStatus();
-    const formState = useSelector((state: any) => state.accountForm);
+    const formState = useSelector((state: any) => state.fiscalAccountForm);
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -268,25 +268,25 @@ const routes = [
         requiredPermission: 'update-account'
     },
     {
-        path: '/fiscal-account/list',
+        path: '/fiscal_account/list',
         element: <ListFiscalAccount/>,
         protected: true,
         requiredPermission: 'read-fiscal-account'
     },
     {
-        path: '/fiscal-account/preview/:id',
+        path: '/fiscal_account/preview/:id',
         element: <PreviewFiscalAccount/>,
         protected: true,
         requiredPermission: 'read-fiscal-account'
     },
     {
-        path: '/fiscal-account/add',
+        path: '/fiscal_account/add',
         element: <AddFiscalAccount/>,
         protected: true,
         requiredPermission: 'create-fiscal-account'
     },
     {
-        path: '/fiscal-account/edit/:id',
+        path: '/fiscal_account/edit/:id',
         element: <EditFiscalAccount/>,
         protected: true,
         requiredPermission: 'update-fiscal-account'
