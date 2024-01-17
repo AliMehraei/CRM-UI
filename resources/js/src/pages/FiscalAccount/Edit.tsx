@@ -7,7 +7,7 @@ import {resetForm, updateFormData} from "../../store/accountFormSlice";
 import {useParams} from "react-router-dom";
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
-import AccountFormFields from "./components/edit/AccountFormFields";
+import AccountFormFields from "./components/FiscalAccountFormFields";
 import {useUserStatus} from "../../config/authCheck";
 
 const Edit = () => {
@@ -20,7 +20,7 @@ const Edit = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle('Account Edit'));
+        dispatch(setPageTitle('Fiscal Account Edit'));
     });
 
     useEffect(() => {
@@ -29,8 +29,8 @@ const Edit = () => {
 
     useEffect(() => {
         const formDataUpdates = {
-            api: 'updateSingleAccount',
-            redirectTo: '/account/edit/:id',
+            api: 'updateSingleFiscalAccount',
+            redirectTo: '/fiscal-account/edit/:id',
             action: 'edit'
         };
 
@@ -46,7 +46,7 @@ const Edit = () => {
     }, [accountId]);
 
     const fetchData = async () => {
-        const accountResponse = await api.fetchSingleAccount(accountId);
+        const accountResponse = await api.fetchSingleFiscalAccount(accountId);
         if (accountResponse.status != 200)
             return;
         const account = accountResponse.data.data.account;
@@ -55,14 +55,14 @@ const Edit = () => {
     if (loading)
         return <LoadingSasCrm/>
     return (
-        (!hasPermission(`update-account`) || loading ) ? (
+        (!hasPermission(`update-fiscal-account`) || loading ) ? (
             <LoadingSasCrm/>
         ) : (
         <div className='px-4'>
             <ActionButtonsComponent formState={formState} resetForm={resetForm}/>
             <div className="flex xl:flex-row flex-col gap-2.5">
                 <div className="panel px-0 flex-1 py-6 ltr:xl:mr-6 rtl:xl:ml-6 overflow-hidden">
-                    <AccountFormFields/>
+                    <AccountFormFields action='edit'/>
                 </div>
             </div>
         </div>
