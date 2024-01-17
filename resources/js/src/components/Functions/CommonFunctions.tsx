@@ -312,8 +312,8 @@ export const searchFiscalAccount = async (query: string) => {
             value: data['id'],
             label: (
                 <div key={data['id']} className="flex items-center">
-                    <div className="text-sm font-bold">{data['account_name']}</div>
-                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${data.account_name}`)}>
+                    <div className="text-sm font-bold">{data['account_code'] ? `[${data['account_code']}]` : ''} {data['account_name']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(data['account_code'] ? `[${data['account_code']}]  ${data['account_name']}` : data['account_name'])}>
                         Copy & Select
                     </button>
                 </div>

@@ -86,8 +86,8 @@ const BussinessProductSection = () => {
                                 {formState.fiscal_account_sale ?
                                     (
                                         <>
-                                            <div className="text-sm font-bold">{formState.fiscal_account_sale?.account_name}</div>
-                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.fiscal_account_sale?.account_name}`)}>
+                                            <div className="text-sm font-bold">{formState.fiscal_account_sale?.account_code ? `[${formState.fiscal_account_sale?.account_code}]` : ''} {formState.fiscal_account_sale?.account_name}</div>
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(formState.fiscal_account_sale?.account_code ? `[${formState.fiscal_account_sale?.account_code}]  ${formState.fiscal_account_sale?.account_name}` : formState.fiscal_account_sale?.account_name)}>
                                                 Copy & Select
                                             </button>
                                         </>
@@ -165,8 +165,8 @@ const BussinessProductSection = () => {
                                 {formState.fiscal_account_purchase ?
                                     (
                                         <>
-                                            <div className="text-sm font-bold">{formState.fiscal_account_purchase?.account_name}</div>
-                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.fiscal_account_purchase?.account_name}`)}>
+                                            <div className="text-sm font-bold">{formState.fiscal_account_purchase?.account_code ? `[${formState.fiscal_account_purchase?.account_code}]` : ''}{formState.fiscal_account_purchase?.account_name}</div>
+                                            <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(formState.fiscal_account_purchase?.account_code ? `[${formState.fiscal_account_purchase?.account_code}] ${formState.fiscal_account_purchase?.account_name}` : formState.fiscal_account_purchase?.account_name)}>
                                                 Copy & Select
                                             </button>
                                         </>
