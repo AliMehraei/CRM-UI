@@ -101,6 +101,30 @@ const Preview = () => {
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    
+                    <InformationSectionPreview
+                        title="Bussiness Product"
+                        leftObjects={[
+                            {
+                                label: "Bussiness Product",
+                                value: formState.business_product ? 'Yes' : 'No'
+                            },
+                            {label: "Sales Selling Price", value: formState.sales_selling_price},
+                            {label: "Sales Fiscal Account", value: formState.fiscal_account_sale?.account_name},
+                            {label: "Sales Description", value: formState.sales_description},
+                            {label: "Sales Tax", value: formState.sales_tax},
+
+                        ]}
+                        rightObjects={[
+                            {label: "Purchase Cost Price", value: formState.purchase_cost_price},
+                            {label: "Purchase Fiscal Account", value: formState.fiscal_account_purchase?.account_name},
+                            {label: "Purchase Description", value: formState.purchase_description},
+                            {label: "Purchase Tax", value: formState.purchase_tax},
+                            {label: "Purchase Preferred Vendor", value: formState.vendor?.vendor_name},
+
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Supply Chain"
                         leftObjects={[

@@ -417,6 +417,15 @@ export const ProductDuplicatedStatusOptions = [
     },
 ];
 
+export const ProductTax = [
+
+    { label: 'B 10% [10%]', value: 'B 10% [10%]' },
+    { label: 'Dritt-Staaten (nicht EUR) [0%]', value: 'Dritt-Staaten (nicht EUR) [0%]' },
+    { label: 'EU Staaten [0%]', value: 'EU Staaten [0%]' },
+    { label: 'USt [20%]', value: 'USt [20%]' },
+
+];
+
 export const AvailabilitySources = [
     {value: 'none', label: '-None-'},
     {value: 'Email', label: 'Email'},
@@ -610,4 +619,24 @@ export const CallResult: any = [
     {value: 'Wünscht mehr Information', label: 'Wünscht mehr Information'},
     {value: 'Wünscht Rückruf', label: 'Wünscht Rückruf'},
     {value: 'Ungültige Zahl', label: 'Ungültige Zahl'},
+];
+
+export const FiscalAccountType = [
+    { value: 'Accounts Payable', label: 'Accounts Payable' },
+    { value: 'Accounts Receivable', label: 'Accounts Receivable' },
+    { value: 'Bank', label: 'Bank' },
+    { value: 'Cash', label: 'Cash' },
+    { value: 'Cost Of Goods Sold', label: 'Cost Of Goods Sold' },
+    { value: 'Credit Card', label: 'Credit Card' },
+    { value: 'Equity', label: 'Equity' },
+    { value: 'Expense', label: 'Expense' },
+    { value: 'Fixed Asset', label: 'Fixed Asset' },
+    { value: 'Income', label: 'Income' },
+    { value: 'Input Tax', label: 'Input Tax' },
+    { value: 'Other Current Asset', label: 'Other Current Asset' },
+    { value: 'Other Current Liability', label: 'Other Current Liability' },
+    { value: 'Other Expense', label: 'Other Expense' },
+    { value: 'Other Liability', label: 'Other Liability' },
+    { value: 'Output Tax', label: 'Output Tax' },
+    { value: 'Stock', label: 'Stock' },
 ];

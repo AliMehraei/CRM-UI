@@ -304,6 +304,24 @@ export const searchPurchaseOrder = async (query: string) => {
         }));
     }
 }
+
+export const searchFiscalAccount = async (query: string) => {
+    const result = await api_instance.searchFiscalAccount({ query: query });
+    if (result.status) {
+        return result.data.data.map((data: any) => ({
+            value: data['id'],
+            label: (
+                <div key={data['id']} className="flex items-center">
+                    <div className="text-sm font-bold">{data['account_code'] ? `[${data['account_code']}]` : ''} {data['account_name']}</div>
+                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(data['account_code'] ? `[${data['account_code']}]  ${data['account_name']}` : data['account_name'])}>
+                        Copy & Select
+                    </button>
+                </div>
+            ),
+        }));
+    }
+}
+
 export const loadAvailability = async (query: string) => {
     const result = await api_instance.searchAvailability({ query: query });
     if (result.status) {
