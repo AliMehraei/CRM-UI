@@ -22,7 +22,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     const [loading, setLoading] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
     const [loadingFilter, setLoadingFilter] = useState(true);
-
+    const [checkLoading, setCheckLoading] = useState(true);
+    
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
@@ -194,7 +195,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                 // setLoading(false);
             }).catch((error: any) => {
                 console.error('Error fetching data: ', error);
-                // setLoading(false);
+                setCheckLoading(!checkLoading);
                 // setLoadingTable(false);
                 showMessage(`Error fetching  ${modelName} data.`, 'error');
             });
@@ -202,6 +203,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
             showMessage(`Error fetching ${modelName} data.`, 'error');
             console.error('Error fetching data: ', error);
             // setLoading(false);
+            setCheckLoading(!checkLoading);
             // setLoadingTable(false);
         }
     };
@@ -295,7 +297,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
             setLoadingTable(false);
             //   }, 2000);
         }
-    },[records,initialRecords]);
+        
+    },[records,initialRecords,checkLoading]);
     useEffect(() => {
         filterOptionRef.current = { ...filterOptionRef.current, page, pageSize, sortStatus };
         fetchModelData(page, pageSize, filters, sortStatus);
@@ -384,7 +387,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                                         {loadingFilter ? (
                                             <div className='flex justify-center'>
                                                 <span
-                                                    className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
+                                                    className="animate-spin border-4 my-4 border-primary border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                             </div>
                                         ) : (
                                             <div>
@@ -439,7 +442,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                                     {loadingTable ? (
                                         <div className='flex justify-center'>
                                             <span
-                                                className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
+                                                className="animate-spin border-4 my-4 border-primary border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                         </div>
                                     ) : (
 
