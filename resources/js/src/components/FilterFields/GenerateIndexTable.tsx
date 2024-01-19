@@ -23,6 +23,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     const [loadingTable, setLoadingTable] = useState(true);
     const [loadingFilter, setLoadingFilter] = useState(true);
     const [checkLoading, setCheckLoading] = useState(true);
+    const [emptyDataLoading, setEmptyDataLoading] = useState(false);
+
     
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
@@ -192,6 +194,12 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
             }).then((res: any) => {
                 setItems(res.data?.data?.data);
                 setTotalItems(res.data?.data?.total);
+                if(res.data?.data?.data.length==0){
+                    setEmptyDataLoading(true);
+                }
+                else{
+                    setEmptyDataLoading(false);
+                }
                 // setLoading(false);
             }).catch((error: any) => {
                 console.error('Error fetching data: ', error);
@@ -287,7 +295,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     },[optionsFilter]);
     useEffect(()=>{
         setLoadingTable(true);
-        if(records.length >= 0) {
+        if(records.length > 0) {
             // setTimeout(() => {
             setLoadingTable(false);
             //   }, 2000);
@@ -297,8 +305,10 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
             setLoadingTable(false);
             //   }, 2000);
         }
-        
-    },[records,initialRecords,checkLoading]);
+        if(emptyDataLoading){
+            setLoadingTable(false);
+        }        
+    },[records,initialRecords,checkLoading,emptyDataLoading]);
     useEffect(() => {
         filterOptionRef.current = { ...filterOptionRef.current, page, pageSize, sortStatus };
         fetchModelData(page, pageSize, filters, sortStatus);
