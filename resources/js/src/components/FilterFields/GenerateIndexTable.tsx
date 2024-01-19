@@ -287,7 +287,7 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     },[optionsFilter]);
     useEffect(()=>{
         setLoadingTable(true);
-        if(records.length > 0) {
+        if(records.length >= 0) {
             // setTimeout(() => {
             setLoadingTable(false);
             //   }, 2000);
