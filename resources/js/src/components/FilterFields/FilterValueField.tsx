@@ -287,11 +287,21 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                                                       label="Value:"/>
         },
         "select2_multiple_api_userable": {
-            "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
-                                                        loadOptions={(e: any) => loadModels(e, option)}
-                                                        defaultValue={defaultValue}
-                                                        filterSelect={filterSelect}
-                                                        onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
+            "is_not": (option: any) => <>
+                <SelectComponent 
+                    options={option.options} 
+                    optionValue={option.value}
+                    isMulti={false}
+                    defaultValue={defaultValue}
+                    handleSelect={handleSelect}
+                                                
+                />
+                <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                    loadOptions={(e: any) => loadModulableModels(e, option,filterSelect)}
+                    defaultValue={defaultValue}
+                    filterSelect={filterSelect}
+                    onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
+            </>,
             "is": (option: any) => <>
                 <SelectComponent 
                     options={option.options} 
