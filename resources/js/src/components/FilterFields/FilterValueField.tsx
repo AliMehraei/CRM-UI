@@ -10,7 +10,7 @@ import {
 import React from "react";
 import {useDispatch} from "react-redux";
 import {updateFilterSlice} from "../../store/filterSlice";
-import {displayImage, loadModels} from "../Functions/CommonFunctions";
+import {displayImage, loadModels, loadModulableModels} from "../Functions/CommonFunctions";
 
 const api_instance = new api();
 
@@ -101,6 +101,16 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
         }
         handleValueChange(field, combinedValue);
     };
+
+    const handleSelect = (field: any, event: any) => {
+
+        const value = event.value;
+        console.log(field, value);
+        handleValueChange(field, value);
+
+       
+    };
+
     const handleSelectMultiple = (field: any, selectedOptions: any) => {
         let transformedObject;
         if (Array.isArray(selectedOptions)) {
@@ -275,7 +285,33 @@ const FilterValueField = ({filterSelect, option, setFilters, filters}: any) => {
                                                       defaultValue={defaultValue}
                                                       onChange={(e: any) => handleInputValueChange(option.value, e)}
                                                       label="Value:"/>
-        }
+        },
+        "select2_multiple_api_userable": {
+            "is_not": (option: any) => <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                                                        loadOptions={(e: any) => loadModels(e, option)}
+                                                        defaultValue={defaultValue}
+                                                        filterSelect={filterSelect}
+                                                        onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
+            "is": (option: any) => <>
+                <SelectComponent 
+                    options={option.options} 
+                    optionValue={option.value}
+                    isMulti={false}
+                    defaultValue={defaultValue}
+                    handleSelect={handleSelect}
+                                                
+                />
+                <AsyncMultiInput placeholder="Type at least 2 characters to search..."
+                    loadOptions={(e: any) => loadModulableModels(e, option,filterSelect)}
+                    defaultValue={defaultValue}
+                    filterSelect={filterSelect}
+                    onChange={(e: any) => handleSelectMultiple(option.value, e)}/>,
+            </>,
+            "default": (option: any) => <DefaultInput placeholder="Search value that contains"
+                                                      defaultValue={defaultValue}
+                                                      onChange={(e: any) => handleInputValueChange(option.value, e)}
+                                                      label="Value:"/>
+        },
     };
 
     if (typeConditionHandlers[type_condition]) {
