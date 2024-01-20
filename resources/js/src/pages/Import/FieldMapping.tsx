@@ -27,46 +27,53 @@ const FieldMapping = () => {
         // Handle form submission here
     };    
 
-    const operationDetailBox = () => {
-        switch (operation) {
-            case 'create':
-                return (
-                    <div className="bg-primary-light dark:bg-primary-dark-light p-5 rounded-md my-4">
-                        <div className="flex items-center justify-between space-x-4">
-                            <label htmlFor="ctnSelect1" className="dark:text-dark-light w-full whitespace-nowrap">Skip existing contacts based on</label>
-                            <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
-                                <option>--None--</option>
-                                <option>{ moduleName } Id</option>
-                            </select>
-                        </div>
-                    </div>
-                );
-                break;
-            case 'update':
-            case 'create_update':
-                return (
-                    <div className="bg-primary-light dark:bg-primary-dark-light p-5 rounded-md my-4 space-y-4">
-                        <div className="flex items-center justify-between space-x-4">
-                            <label htmlFor="ctnSelect1" className="dark:text-dark-light w-full whitespace-nowrap" >Find existing contacts based on</label>
-                            <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
-                                <option>--None--</option>
-                                <option>{ moduleName } Id</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="inline-flex cursor-pointer">
-                                <input type="checkbox" className="form-checkbox bg-white dark:bg-dark-dark-light" />
-                                <span className="dark:text-dark-light">Don't update empty values for existing contacts </span>
-                            </label>
-                        </div>
-                    </div>
-                );
-                break;
-        
-            default:
-                break;
-        }
-    }
+    const tableData = [
+        {
+            id: 1,
+            field_in_file: 'Contact ID',
+            field_in_system: null,
+            column_3: 'input',
+            column_4: 'input',
+            sample_data_1: 'zcrm_538281000039706083',
+            sample_data_2: 'zcrm_538281000039706084',
+        },
+        {
+            id: 2,
+            field_in_file: 'Contact Owner',
+            field_in_system: null,
+            column_3: 'input',
+            column_4: null,
+            sample_data_1: 'Petra Hacker',
+            sample_data_2: 'Mohammad Alaeerad',
+        },
+        {
+            id: 3,
+            field_in_file: 'Contact Name',
+            field_in_system: null,
+            column_3: 'input',
+            column_4: null,
+            sample_data_1: 'Petra Hacker',
+            sample_data_2: 'Mohammad Alaeerad',
+        },
+        {
+            id: 4,
+            field_in_file: 'Contact Email',
+            field_in_system: null,
+            column_3: null,
+            column_4: 'input',
+            sample_data_1: 'Petra Hacker',
+            sample_data_2: 'Mohammad Alaeerad',
+        },
+        {
+            id: 5,
+            field_in_file: 'Contact Test',
+            field_in_system: null,
+            column_3: 'input',
+            column_4: null,
+            sample_data_1: 'Petra Hacker',
+            sample_data_2: 'Mohammad Alaeerad',
+        },
+    ];
 
     return (
         <div>
@@ -80,7 +87,7 @@ const FieldMapping = () => {
                         <Tab as={Fragment}>
                             {({ selected }) => (
                                 <button
-                                    className={`${selected ? 'border-b !border-secondary text-secondary !outline-none' : ''} -mb-[1px] flex items-center border-transparent p-5 py-3 before:inline-block hover:border-b hover:!border-secondary hover:text-secondary`}
+                                    className={`${selected ? 'border-b !border-primary text-primary !outline-none' : ''} -mb-[1px] flex items-center border-transparent p-5 py-3 before:inline-block hover:border-b hover:!border-primary hover:text-primary`}
                                 >
                                     Fields Mapping
                                 </button>
@@ -89,7 +96,7 @@ const FieldMapping = () => {
                         <Tab as={Fragment}>
                             {({ selected }) => (
                                 <button
-                                    className={`${selected ? 'border-b !border-secondary text-secondary !outline-none' : ''} -mb-[1px] flex items-center border-transparent p-5 py-3 before:inline-block hover:border-b hover:!border-secondary hover:text-secondary`}
+                                    className={`${selected ? 'border-b !border-primary text-primary !outline-none' : ''} -mb-[1px] flex items-center border-transparent p-5 py-3 before:inline-block hover:border-b hover:!border-primary hover:text-primary`}
                                 >
                                     Assign Default Value
                                 </button>
@@ -98,16 +105,226 @@ const FieldMapping = () => {
                     </Tab.List>
                     <Tab.Panels>
                         <Tab.Panel>
-                            <div className="active pt-5">
-                                <h4 className="mb-4 text-2xl font-semibold">We move your world!</h4>
-                                <p className="mb-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
+                            <div className="active pt-4">
+                            <Tab.Group>
+                                <div className="flex">
+                                    <div className="bg-white p-2 rounded-full border">
+                                        <Tab.List className="flex flex-wrap justify-start space-x-2 rtl:space-x-reverse">
+                                            <Tab as={Fragment}>
+                                                {({ selected }) => (
+                                                    <button
+                                                        className={`${selected ? 'bg-primary text-white font-bold !outline-none' : ''}  -mb-[1px] block rounded-full p-2 py-1 hover:bg-primary hover:text-white`}
+                                                    >
+                                                        All
+                                                    </button>
+                                                )}
+                                            </Tab>
+                                            <Tab as={Fragment}>
+                                                {({ selected }) => (
+                                                    <button
+                                                        className={`${selected ? 'bg-primary text-white font-bold !outline-none' : ''}  -mb-[1px] block rounded-full p-2 py-1 hover:bg-primary hover:text-white`}
+                                                    >
+                                                        Mapped (38)
+                                                    </button>
+                                                )}
+                                            </Tab>
+                                            <Tab as={Fragment}>
+                                                {({ selected }) => (
+                                                    <button
+                                                        className={`${selected ? 'bg-primary text-white font-bold !outline-none' : ''}  -mb-[1px] block rounded-full p-2 py-1 hover:bg-primary hover:text-white`}
+                                                    >
+                                                        Unmapped (27)
+                                                    </button>
+                                                )}
+                                            </Tab>
+                                        </Tab.List>
+                                    </div>
+                                </div>
+                            
+                                <Tab.Panels>
+                                    <Tab.Panel>
+                                        <div className="active">
+                                            <div className="table-responsive my-4">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>FIELDS IN FILE</th>
+                                                            <th>FIELDS IN OUR SYSTEM</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>SAMPLE DATA FROM FILE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {tableData.map((data) => {
+                                                            console.log(data);
+                                                            
+                                                            return (
+                                                                <tr key={data.id}>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.field_in_file}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
+                                                                            <option>--None--</option>
+                                                                            <option>{ moduleName } Id</option>
+                                                                            <option>{ moduleName } Name</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>{!data.column_3 ? '' : (
+                                                                        <input type="text" placeholder="Some Text..." className="form-input" required />
+                                                                    )}</td>
+                                                                    <td>{!data.column_4 ? '' : (
+                                                                        <input type="text" placeholder="Some Text..." className="form-input" required />
+                                                                    )}</td>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.sample_data_1}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.sample_data_2}</div>
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>FIELDS IN FILE</th>
+                                                            <th>FIELDS IN OUR SYSTEM</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>SAMPLE DATA FROM FILE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </Tab.Panel>
+                                    <Tab.Panel>
+                                        <div>
+                                            <div className="table-responsive my-4">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>FIELDS IN FILE</th>
+                                                            <th>FIELDS IN OUR SYSTEM</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>SAMPLE DATA FROM FILE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {tableData.map((data) => {
+                                                            console.log(data);
+                                                            
+                                                            return (
+                                                                <tr key={data.id}>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.field_in_file}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
+                                                                            <option>--None--</option>
+                                                                            <option>{ moduleName } Id</option>
+                                                                            <option>{ moduleName } Name</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>{!data.column_3 ? '' : (
+                                                                        <input type="text" placeholder="Some Text..." className="form-input" required />
+                                                                    )}</td>
+                                                                    <td>{!data.column_4 ? '' : (
+                                                                        <input type="text" placeholder="Some Text..." className="form-input" required />
+                                                                    )}</td>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.sample_data_1}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.sample_data_2}</div>
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>FIELDS IN FILE</th>
+                                                            <th>FIELDS IN OUR SYSTEM</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>SAMPLE DATA FROM FILE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </Tab.Panel>
+                                    <Tab.Panel>
+                                        <div className="">
+                                            <div className="table-responsive my-4">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>FIELDS IN FILE</th>
+                                                            <th>FIELDS IN OUR SYSTEM</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>SAMPLE DATA FROM FILE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {tableData.map((data) => {
+                                                            console.log(data);
+                                                            
+                                                            return (
+                                                                <tr key={data.id}>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.field_in_file}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select id="ctnSelect1" className="form-select text-white-dark dark:text-white-light" required>
+                                                                            <option>--None--</option>
+                                                                            <option>{ moduleName } Id</option>
+                                                                            <option>{ moduleName } Name</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>{!data.column_3 ? '' : (
+                                                                        <input type="text" placeholder="Some Text..." className="form-input" required />
+                                                                    )}</td>
+                                                                    <td>{!data.column_4 ? '' : (
+                                                                        <input type="text" placeholder="Some Text..." className="form-input" required />
+                                                                    )}</td>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.sample_data_1}</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div className="whitespace-nowrap">{data.sample_data_2}</div>
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>FIELDS IN FILE</th>
+                                                            <th>FIELDS IN OUR SYSTEM</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>SAMPLE DATA FROM FILE</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </Tab.Panel>
+                                </Tab.Panels>
+                            </Tab.Group>
                             </div>
                         </Tab.Panel>
                         <Tab.Panel>
