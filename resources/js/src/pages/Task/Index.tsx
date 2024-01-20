@@ -21,15 +21,20 @@ const List = () => {
             accessor: 'subject',
             title: 'Task subject',
             sortable: false,
-            render: ({ subject, id }) => (
-                hasPermission('update-task') ? (
-                    <NavLink to={`/task/edit/${id}`}>
-                        <div className="text-primary underline hover:no-underline font-semibold">{`#${subject}`}</div>
-                    </NavLink>
-                ) : (
-                    <div className="font-semibold">{`#${subject}`}</div>
-                )
-            )
+            render: ({ subject, id }) => {
+                const maxSubjectLength = 30; // Set your desired maximum length for the subject
+                const truncatedSubject = subject.length > maxSubjectLength ? subject.slice(0, maxSubjectLength) + '...' : subject;
+            
+                return (
+                    hasPermission('update-task') ? (
+                        <NavLink to={`/task/edit/${id}`}>
+                            <div className="text-primary underline hover:no-underline font-semibold">{`#${truncatedSubject}`}</div>
+                        </NavLink>
+                    ) : (
+                        <div className="font-semibold">{`#${truncatedSubject}`}</div>
+                    )
+                );
+            }
         },
 
         {

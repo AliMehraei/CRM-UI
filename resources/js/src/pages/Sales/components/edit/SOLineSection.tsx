@@ -142,6 +142,9 @@ const SOLineSection = () => {
             ),
         },
         '': {
+            'Cost': <input id="cost" name="cost" className="form-input flex-1 "
+                defaultValue={formState.cost}
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)} />,
             'Estimated Delivery Date': (
                 <Flatpickr
                     options={{

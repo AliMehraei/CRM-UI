@@ -556,7 +556,7 @@ export const loadModels = async (inputValue: any, option: any) => {
     const apiUrl = option.type_info.api;
     const apiMethod = option.type_info.method;
     const valField = option.type_info.value_field;
-    const labelField = option.type_info.label_filed;
+    const labelField = option.type_info.label_field;
 
     try {
         const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
@@ -580,7 +580,41 @@ export const loadModels = async (inputValue: any, option: any) => {
         return [];
     }
 };
+export const loadModulableModels = async (inputValue: any, option: any,defaultValue) => {
+    // console.log('option',option);
+    const modelSelect=defaultValue.value;
+   
+    const apiUrl = option.type_info[modelSelect].api;
+    const apiMethod = option.type_info[modelSelect].method;
+    const valField = option.type_info[modelSelect].value_field;
+    const labelField = option.type_info[modelSelect].label_field;
 
+
+    if (inputValue.length < 2) return [];
+    try {
+        const result: any = await api_instance.loadApiModelsPost(inputValue, apiUrl, apiMethod);
+        if (result.status) {            
+            return result.data.data.map((model: any) => ({
+                
+                
+                value: model[valField],
+                label: (
+                    <div key={model[valField]} className="flex items-center">
+                        <div>
+                            <div className="text-sm font-bold">{model[labelField]}</div>
+                        </div>
+                    </div>
+                ),
+            }));
+        } else {
+            console.error('An error occurred while fetching data ', result.message);
+            return [];
+        }
+    } catch (error) {
+        console.error('An error occurred while fetching data : ', error);
+        return [];
+    }
+};
 export const emitter = new EventEmitter();
 
 export const notifyErrorMessage = async (title: string) => {
