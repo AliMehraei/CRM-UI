@@ -288,6 +288,8 @@ export const SalesOrderStatusOption = [
     { value: 'Draft', label: 'Draft' },
     { value: 'Open', label: 'Open' },
     { value: 'Approved', label: 'Approved' },
+    { value: 'Confirmed', label: 'Confirmed' },
+    { value: 'pending_approval', label: 'pending_approval' },
     { value: 'Closed', label: 'Closed' },
     { value: 'Void', label: 'Void' },
 ];
