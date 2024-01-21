@@ -1,6 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
+import Api from "../../config/api";
+import {useLocation} from "react-router-dom";
 
 const Negotiate = () => {
+  const api = new Api();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const quoteId = queryParams.get('quoteId');
+
+
+  const sendEmail = async () => {
+    const emailResponse = await api.sendQuotationRelatedEmail(quoteId, {type: "negotiate"});
+  }
+
+  useEffect(() => {
+    sendEmail();
+  }, [quoteId]);
+
   return (
     <div className="">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-5xl lg:px-36 py-8 lg:py-10 bg-frosted-2 rounded">
