@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { updateFormData } from "../../../../store/rfqFormSlice";
 import Api from "../../../../config/api";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import LoadingSasCrm from "../../../../components/LoadingSasCrm";
 import LoadingSpinner from "../../../../components/LoadingSpinner";
@@ -511,10 +511,13 @@ export const LineSection = () => {
                     nonWeb: nonWebSuggestions,
                 });
             }
-            setLoading(false);
+            // setLoading(false);
         } catch (error) {
             setLoading(false);
             console.error("Error fetching availability suggestions:", error);
+        }
+        finally {
+            setLoading(false);
         }
     };
     const fetchExcessSuggestions = async (productId: string) => {
@@ -526,12 +529,17 @@ export const LineSection = () => {
                 const matchedFound = excess.matched ? [excess.matched] : [];
                 setExcessSuggestionsData({ matched: matchedFound });
             }
-            setLoading(false);
+            // setLoading(false);
         } catch (error) {
             setLoading(false);
             console.error("Error fetching excess suggestions:", error);
         }
+        finally {
+            setLoading(false);
+        }
     };
+
+   
 
     return (
         <>
