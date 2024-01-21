@@ -6,7 +6,7 @@ import Api from "../../../../config/api";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CountUp from 'react-countup';
 import StatusCard from './components/StatusCard';
-import MotiviationComponent from './components/MotivationComponent';
+import MotivationComponent from './components/MotivationComponent';
 
 const SalesPersonIndex = () => {
   const [salesOrderData, setSalesOrderData] = useState<any>(null);
@@ -173,7 +173,7 @@ const SalesPersonIndex = () => {
      
       <div className='card card-body'>
 
-        <MotiviationComponent />
+        <MotivationComponent />
       </div>
       <div className="pt-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 ">
