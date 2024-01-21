@@ -539,7 +539,10 @@ export const LineSection = () => {
         }
     };
 
-   
+    useEffect(() => {
+        fetchAvailabilitySuggestions(formState.product_id);
+        fetchExcessSuggestions(formState.product_id);
+    }, []);
 
     return (
         <>
