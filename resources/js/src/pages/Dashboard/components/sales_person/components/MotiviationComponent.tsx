@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Api from "../../../../../config/api";
+import LoadingSpinner from "../../../../../components/LoadingSpinner";
 
 const MotiviationComponent = () => {
+  const api = new Api();
+  const [loading, setLoading] = useState(true);
+
+  const [countMotivationModel, setCountMotivationModel] = useState<any>(null);
+  const fetchData = async () => {
+    try {
+      const dashboardResponse = await api.dashboardCountMotivation();
+      if (dashboardResponse.status === 200) {
+      
+        setCountMotivationModel(dashboardResponse.data.data);
+
+      } else {
+        console.error('Failed to fetch dashboard data:', dashboardResponse);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error('An error occurred while fetching dashboard data:', error);
+    } finally {
+      setLoading(false);
+
+    }
+
+  };
+
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+
   return (
     <>
+    {!loading ? (
+      <>
       <section className="lg:m-5 lg:bg-[#1DCEEA] shadow rounded">
         <div>
           <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg lg:bg-[#1DCEEA] shadow md:grid-cols-3 md:divide-x md:divide-y-0">
@@ -69,9 +104,7 @@ const MotiviationComponent = () => {
                 <h1 className="text-base font-semibold leading-6 text-gray-900">Your tasks</h1>
                 <p className="mt-2 text-sm text-gray-700">A list of all the tasks you have to do to reach your daily goal.</p>
               </div>
-              <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <button type="button" className="block rounded-md bg-[#1DCEEA] px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">More</button>
-              </div>
+              
             </div>
             <div className="mt-8 flow-root">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -92,7 +125,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-base text-gray-500 text-center">
-                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">12</span> tasks left for today that you have to do to reach your today`s goal.</div>
+                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">{countMotivationModel?.task?.['doing'] ?? 0}</span> tasks left for today that you have to do to reach your today`s goal.</div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <div className="relative pt-1">
@@ -126,7 +159,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-base text-gray-500 text-center">
-                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">10</span> leads left for today to follow up to reach your today`s goal.</div>
+                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">{countMotivationModel?.lead?.['doing'] ?? 0}</span> leads left for today to follow up to reach your today`s goal.</div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <div className="relative pt-1">
@@ -159,7 +192,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-base text-gray-500 text-center">
-                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">4</span> RFQs left to check today to reach your today`s goal.</div>
+                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">{countMotivationModel?.rfq?.['doing'] ?? 0}</span> RFQs left to check today to reach your today`s goal.</div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <div className="relative pt-1">
@@ -192,7 +225,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-base text-gray-500 text-center">
-                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">9</span> qoutes to follow up to reach your today`s goal.</div>
+                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">{countMotivationModel?.quote?.['doing'] ?? 0}</span> qoutes to follow up to reach your today`s goal.</div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <div className="relative pt-1">
@@ -225,7 +258,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-base text-gray-500 text-center">
-                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">4</span> sales orders left to complete to reach your today`s goal.</div>
+                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">{countMotivationModel?.sales?.['doing'] ?? 0}</span> sales orders left to complete to reach your today`s goal.</div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <div className="relative pt-1">
@@ -258,7 +291,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-base text-gray-500 text-center">
-                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">16</span> invoices left that you have to send to reach your today`s goal.</div>
+                          <div className="text-gray-900">There are <span className="text-red-500 underline underline-offset-4 text-lg font-bold">{countMotivationModel?.invoice?.['doing'] ?? 0}</span> invoices left that you have to send to reach your today`s goal.</div>
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <div className="relative pt-1">
@@ -287,6 +320,11 @@ const MotiviationComponent = () => {
           </div>
         </div>
       </section>
+      </>
+    ) : (
+        <LoadingSpinner />
+    )}
+     
 
     </>
   )
