@@ -6,7 +6,7 @@ import Api from "../../../../config/api";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import CountUp from 'react-countup';
 import StatusCard from './components/StatusCard';
-import MotiviationComponent from './components/MotiviationComponent';
+import MotiviationComponent from './components/MotivationComponent';
 
 const SalesPersonIndex = () => {
   const [salesOrderData, setSalesOrderData] = useState<any>(null);

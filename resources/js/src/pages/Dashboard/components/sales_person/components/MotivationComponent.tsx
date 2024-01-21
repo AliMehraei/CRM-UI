@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Api from "../../../../../config/api";
 import LoadingSpinner from "../../../../../components/LoadingSpinner";
 
-const MotiviationComponent = () => {
+const MotivationComponent = () => {
   const api = new Api();
   const [loading, setLoading] = useState(true);
 
@@ -96,13 +96,13 @@ const MotiviationComponent = () => {
         </div>
       </section>
 
-      <section className="lg:m-5 lg:flex">
+      <section className="lg:m-5 lg:flex bg-white">
         <div className="w-full lg:p-10 lg:shadow-md rounded">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto">
-                <h1 className="text-base font-semibold leading-6 text-gray-900">Your tasks</h1>
-                <p className="mt-2 text-sm text-gray-700">A list of all the tasks you have to do to reach your daily goal.</p>
+                <h1 className="text-2xl font-semibold leading-6 text-gray-900">Your tasks</h1>
+                <p className="mt-2 text-base text-gray-500">A list of all the tasks you have to do to reach your daily goal.</p>
               </div>
               
             </div>
@@ -343,4 +343,4 @@ const MotiviationComponent = () => {
   )
 }
 
-export default MotiviationComponent;
+export default MotivationComponent;
