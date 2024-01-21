@@ -6,7 +6,7 @@ import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import { useUserStatus } from "../../config/authCheck";
 import { resetForm, updateFormData } from "../../store/accountFormSlice";
-import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
+import { displayImage, displayFile, formatDate } from '../../components/Functions/CommonFunctions';
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
@@ -207,7 +207,16 @@ const Preview = () => {
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-
+                    <InformationSectionPreview
+                        title="Date information"
+                        leftObjects={[
+                            {label: "Created Date", value: formatDate(formState.created_at)}
+                        ]}
+                        rightObjects={[
+                            {label: "Modified Date", value: formatDate(formState.updated_at)}
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
 
                 </div>
