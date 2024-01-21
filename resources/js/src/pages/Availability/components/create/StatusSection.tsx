@@ -32,6 +32,10 @@ const StatusSection = () => {
                                         className="form-input flex-1 "
                                         onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,
+            'Availability Number': <input required id="availability_no" name="availability_no"
+            className="form-input flex-1 "
+            onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+                />,
             'Rating': <input id="rating" name="rating" className="form-input flex-1 "
                              onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
             />,

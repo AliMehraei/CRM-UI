@@ -76,7 +76,7 @@ const Preview = () => {
             {label: "Deal Stage", value: `${formState.deal_stage}`},
             {label: "Lost Reason", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
             {label: "Lost Reason Comment", value: `${formState.lead?.lost_reason}`}, //Todo : from where ?
-            {label: "PM User", value: `${formState.pm_user?.first_name} ${formState.pm_user?.last_name}`},
+            {label: "PM User", value: `${formState.pmUser?.first_name} ${formState.pmUser?.last_name}`},
             {
                 label: "Customer RFQ File", value: (<AttachmentDownloadButton
                     formAttribute={"customer_rfq_file"}

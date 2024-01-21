@@ -381,6 +381,16 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote`, data);
     }
 
+    async quotationEmail(id: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": false});
+    }
+
+
+    async quotationEmailProactive(id: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": true});
+    }
+
+
     //deals
     async searchDeal(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data);
@@ -728,10 +738,11 @@ class api {
     }
 
     async fetchSuggestedAvailability(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`, {product_id: product_id});
     }
+
     async fetchSuggestedExcess(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`, {product_id: product_id});
     }
 
     //start dashboard
@@ -822,11 +833,12 @@ class api {
     async reportInvoiceDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }
+
     async reportVendorList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
     }
 
-    async importBomExcess(id:any,modelName:string,formData: any) {
+    async importBomExcess(id: any, modelName: string, formData: any) {
 
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import`, formData, {
             headers: {
@@ -836,36 +848,48 @@ class api {
     }
 
 
-
     async deleteSingleBomItem(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/bom/${id}`);
     }
-    async bomItemList(id:any,data: any) {
+
+    async bomItemList(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/bom/list/${id}`, data);
     }
-    async excessItemList(id:any,data: any) {
+
+    async excessItemList(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess/list/${id}`, data);
     }
-    async availabilityVendorItemList(id:any,data: any) {
+
+    async availabilityVendorItemList(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/availability-vendor/list/${id}`, data);
     }
-    async bomItemConfirmation(id:any,modelName:string,item_id: any) {
+
+    async bomItemConfirmation(id: any, modelName: string, item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/confirmation/${item_id}`);
     }
-    async bomItemProcess(id:any,modelName:string,item_id: any) {
+
+    async bomItemProcess(id: any, modelName: string, item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/pre-process/${item_id}`);
     }
-    async bomItemSaveHeader(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`,data);
+
+    async bomItemSaveHeader(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`, data);
     }
-    async selectedHeaderValidation(id:any,modelName:string,item_id: any,data: any) {
+
+    async selectedHeaderValidation(id: any, modelName: string, item_id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import/validation/${item_id}`, data);
     }
-    async bomItemSaveProcess(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/process/${item_id}`,data);
+
+    async bomItemSaveProcess(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/process/${item_id}`, data);
     }
-    async bomItemUpdateProduct(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/update-product/${item_id}`,data);
+
+    async bomItemUpdateProduct(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/update-product/${item_id}`, data);
+    }
+
+    async dashboardCountMotivation() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/motivation-count`);
     }
 
 }
