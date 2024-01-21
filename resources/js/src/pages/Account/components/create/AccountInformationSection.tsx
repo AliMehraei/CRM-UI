@@ -85,7 +85,7 @@ const AccountInformationSection = () => {
                 className="flex-1"
             />,
 
-            'LinkedIn Company':
+            'Company Linkedin':
                 <input
                     id="linkedin"
                     name="linkedin"

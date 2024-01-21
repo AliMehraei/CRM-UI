@@ -138,7 +138,10 @@ const MotiviationComponent = () => {
 
                             </div>
                             <div className="w-full bg-gray-200 rounded-full">
-                              <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: '45%' }}> 45%</div>
+                            <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: `${(countMotivationModel?.task?.["doing"] ?? 0) === 0 ? 100 : 20}%` }}>
+                              {(countMotivationModel?.task?.['doing'] ?? 0) === 0 ? 100 : 20}%
+                            </div>
+
                             </div>
                           </div>
                         </td>
@@ -171,7 +174,9 @@ const MotiviationComponent = () => {
                               </div>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full">
-                              <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: '16%' }}> 16%</div>
+                            <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: `${(countMotivationModel?.lead?.["doing"] ?? 0) === 0 ? 100 : 16}%` }}>
+                              {(countMotivationModel?.lead?.['doing'] ?? 0) === 0 ? 100 : 16}%
+                            </div>
                             </div>
                           </div>
                         </td>
@@ -204,7 +209,9 @@ const MotiviationComponent = () => {
                               </div>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full">
-                              <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: '68%' }}> 68%</div>
+                            <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: `${(countMotivationModel?.rfq?.["doing"] ?? 0) === 0 ? 100 : 68}%` }}>
+                              {(countMotivationModel?.rfq?.['doing'] ?? 0) === 0 ? 100 : 68}%
+                            </div>
                             </div>
                           </div>
                         </td>
@@ -237,7 +244,9 @@ const MotiviationComponent = () => {
                               </div>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full">
-                              <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: '65%' }}> 65%</div>
+                            <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: `${(countMotivationModel?.quote?.["doing"] ?? 0) === 0 ? 100 : 40}%` }}>
+                              {(countMotivationModel?.quote?.['doing'] ?? 0) === 0 ? 100 : 40}%
+                            </div>
                             </div>
                           </div>
                         </td>
@@ -270,7 +279,9 @@ const MotiviationComponent = () => {
                               </div>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full">
-                              <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: '32%' }}> 32%</div>
+                            <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: `${(countMotivationModel?.sales?.["doing"] ?? 0) === 0 ? 100 : 20}%` }}>
+                              {(countMotivationModel?.sales?.['doing'] ?? 0) === 0 ? 100 : 20}%
+                            </div>
                             </div>
                           </div>
                         </td>
@@ -303,7 +314,9 @@ const MotiviationComponent = () => {
                               </div>
                             </div>
                             <div className="w-full bg-gray-200 rounded-full">
-                              <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" > 28%</div>
+                            <div className="bg-teal-500 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{ width: `${(countMotivationModel?.invoice?.["doing"] ?? 0) === 0 ? 100 : 30}%` }}>
+                              {(countMotivationModel?.invoice?.['doing'] ?? 0) === 0 ? 100 : 30}%
+                            </div>
                             </div>
                           </div>
                         </td>
