@@ -28,7 +28,7 @@ const TableSectionPreview = ({
                                 <tr key={item.id}>
                                     {columns.map((column: any) => (
                                         <td key={column.key}>
-                                            {column.model ? item[column.model][column.key] : item[column.key]}
+                                            {column.model ? item[column.model]?.[column.key] : item[column.key]}
                                         </td>
                                     ))}
                                 </tr>
