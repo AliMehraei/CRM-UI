@@ -715,3 +715,28 @@ export const globalToast = Swal.mixin({
     showConfirmButton: false,
     timer: 5000,
 });
+
+export const getPDF = async (model: any, id: any) => {
+    try {
+        let response;
+
+        switch (model) {
+            case 'quote':
+                response = await api_instance.getQuotePDF(id);
+                break;
+
+            default:
+                break;
+        }
+        
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+        console.log(blob);
+        
+        const url = URL.createObjectURL(blob);
+
+        window.open(url, '_blank');
+
+    } catch (error) {
+        console.error("Error fetching PDF:", error);
+    }
+};
