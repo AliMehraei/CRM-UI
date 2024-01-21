@@ -39,15 +39,20 @@ const List = () => {
         {
             accessor: 'company',
             sortable: true,
-            render: ({ company, id }) => (
-                hasPermission('update-lead') ? (
-                    <NavLink to={`/lead/edit/${id}`}>
-                        <div className="text-primary underline hover:no-underline font-semibold">{`#${company}`}</div>
-                    </NavLink>
-                ) : (
-                    <div className="font-semibold">{`#${company}`}</div>
-                )
-            )
+            render: ({ company, id }) => {
+                const maxSubjectLength = 20; // Set your desired maximum length for the subject
+                const truncatedSubject = company.length > maxSubjectLength ? company.slice(0, maxSubjectLength) + '...' : company;
+            
+                return (
+                    hasPermission('update-lead') ? (
+                        <NavLink to={`/lead/edit/${id}`}>
+                            <div className="text-primary underline hover:no-underline font-semibold">{`#${truncatedSubject}`}</div>
+                        </NavLink>
+                    ) : (
+                        <div className="font-semibold">{`#${truncatedSubject}`}</div>
+                    )
+                );
+            }
         },
         {
             accessor: 'owner',
