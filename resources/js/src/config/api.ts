@@ -743,6 +743,9 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/sale-person-dashboard-data`);
     }
 
+    async dashboardCountMotivation() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/motivation-count`);
+    }
 
     async dashboardOpenQuotes() {
         return await _axios.post(`${API_URL_PRODUCT}/dashboard/open-quotes`);
