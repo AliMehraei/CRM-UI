@@ -86,7 +86,7 @@ const Preview = () => {
 
     ],
     'rightObjects': [
-      { label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}` },
+      { label: "PM User", value: `${formState.pmUser?.first_name ?? ''} ${formState.pmUser?.last_name ?? ''}` },
       { label: "Deals Name", value: `${formState.deal?.deal_name}` },
       { label: "Quote Stage", value: `${formState.quote_stage}` },
       {

@@ -395,17 +395,17 @@ const HeaderSection = () => {
                         handleChangeField("pm_user_id", value);
                     }}
                     defaultValue={{
-                        value: formState.pm_user?.id,
+                        value: formState.pmUser?.id,
                         label: (
                             <div
-                                key={formState.pm_user?.id}
+                                key={formState.pmUser?.id}
                                 className="flex items-center"
                             >
-                                {formState.pm_user ? (
+                                {formState.pmUser ? (
                                     <>
                                         <img
                                             src={displayImage(
-                                                formState.pm_user.avatar_data
+                                                formState.pmUser.avatar_data
                                             )}
                                             alt="avatar"
                                             className="w-8 h-8 mr-2 rounded-full"
@@ -413,17 +413,17 @@ const HeaderSection = () => {
 
                                         <div>
                                             <div className="text-sm font-bold">
-                                                {formState.pm_user?.name}
+                                                {formState.pmUser?.name}
                                             </div>
                                             <div className="text-xs text-gray-500">
-                                                {formState.pm_user?.email}
+                                                {formState.pmUser?.email}
                                             </div>
                                         </div>
                                         <button
                                             className="btn text-xs btn-sm ml-auto"
                                             onClick={() =>
                                                 handleCopySelect(
-                                                    `${formState.pm_user?.name}`
+                                                    `${formState.pmUser?.name}`
                                                 )
                                             }
                                         >
