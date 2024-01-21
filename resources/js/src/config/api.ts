@@ -381,6 +381,12 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote`, data);
     }
 
+    async getQuotePDF(id: any = null) {       
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/get-pdf`, {
+            responseType: 'arraybuffer',
+        });
+    }
+
     async quotationEmail(id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": false});
     }
