@@ -15,6 +15,7 @@ import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
 import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 import { EmailIcon, EmailIconOutLine } from '../../components/FormFields/CommonIcons';
+import Swal from 'sweetalert2';
 
 const Preview = () => {
   const { hasPermission } = useUserStatus();
@@ -40,17 +41,69 @@ const Preview = () => {
   };
 
   const quotationEmail = async () => {
-    const emailResponse = await api.quotationEmail(modelID);
-    if (emailResponse.status != 200)
-      notifyErrorMessage("Problem on sending email");
-    notifySuccess('Email sent successfully');
+
+    Swal.fire({
+      icon: 'info',
+      title: 'Are you sure?',
+      showCancelButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Send',
+      denyButtonText: 'Send With Attachment',
+      denyButtonColor: "#000000",
+      padding: '2em',
+      customClass: {
+        container: 'sweet-alerts',
+        denyButton: 'btn btn-info ' // Add your custom class here
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        notifySuccess('Processing Sending Email');
+        const emailResponse = await api.quotationEmail(modelID);
+        if (emailResponse.status != 200)
+          notifyErrorMessage("Problem on sending email");
+        notifySuccess('Email sent successfully');
+      }
+      if (result.isDenied) {
+        notifySuccess('Processing Sending Email');
+        const emailResponse = await api.quotationEmail(modelID, true);
+        if (emailResponse.status != 200)
+          notifyErrorMessage("Problem on sending email");
+        notifySuccess('Email sent successfully');
+      }
+    });
   }
 
   const quotationEmailProactive = async () => {
-    const emailResponse = await api.quotationEmailProactive(modelID);
-    if (emailResponse.status != 200)
-      notifyErrorMessage("Problem on sending email");
-    notifySuccess('Email sent successfully');
+    Swal.fire({
+      icon: 'info',
+      title: 'Are you sure?',
+      showCancelButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Send',
+      denyButtonText: 'Send With Attachment',
+      denyButtonColor: "#000000",
+      padding: '2em',
+      customClass: {
+        container: 'sweet-alerts',
+        denyButton: 'btn btn-info ' // Add your custom class here
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        notifySuccess('Processing Sending Email');
+        const emailResponse = await api.quotationEmailProactive(modelID);
+        if (emailResponse.status != 200)
+          notifyErrorMessage("Problem on sending email");
+        notifySuccess('Email sent successfully');
+      }
+      if (result.isDenied) {
+        notifySuccess('Processing Sending Email');
+        const emailResponse = await api.quotationEmailProactive(modelID, true);
+        if (emailResponse.status != 200)
+          notifyErrorMessage("Problem on sending email");
+        notifySuccess('Email sent successfully');
+      }
+    });
+
   }
 
   useEffect(() => {
@@ -86,7 +139,7 @@ const Preview = () => {
 
     ],
     'rightObjects': [
-      { label: "PM User", value: `${formState.pmUser?.first_name ?? ''} ${formState.pmUser?.last_name ?? ''}` },
+      { label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}` },
       { label: "Deals Name", value: `${formState.deal?.deal_name}` },
       { label: "Quote Stage", value: `${formState.quote_stage}` },
       {
