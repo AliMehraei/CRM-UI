@@ -23,6 +23,501 @@ class api {
 
     async searchCategoryProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search_category`, data);
+
+  //vendor
+  async searchVendor(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor/search`, data);
+  }
+
+
+  async fetchDataVendor(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor/list`, data);
+  }
+
+  async deleteSingleVendor(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/vendor/${id}`);
+  }
+
+  async fetchSingleVendor(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor/${id}`);
+  }
+
+  async updateSingleVendor(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/vendor/${data.id}`, data);
+  }
+
+  async createSingleVendor(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor`, data);
+  }
+
+
+  async searchManufacturer(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/manufacturer/search`, data);
+  }
+
+  async fetchDataManufacturer(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/manufacturer/list`, data);
+  }
+
+  async deleteSingleManufacturer(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/manufacturer/${id}`);
+  }
+
+  async fetchSingleManufacturer(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/manufacturer/${id}`);
+  }
+
+  async updateSingleManufacturer(data: any = null) {
+
+    return await _axios.put(`${API_URL_PRODUCT}/manufacturer/${data.id}`, data);
+  }
+
+  async createSingleManufacturer(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/manufacturer`, data);
+  }
+
+  //RFQ
+  async searchRfq(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/rfq/search`, data);
+  }
+
+  async convertRfqToQuote(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/rfq/convert/quote/${data.id}`, data);
+  }
+
+  async fetchDataRfq(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/rfq/list`, data);
+  }
+
+  async deleteSingleRfq(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/rfq/${id}`);
+  }
+
+  async fetchSingleRfq(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/rfq/${id}`);
+  }
+
+  async updateSingleRfq(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/rfq/${data.id}`, data);
+  }
+
+  async createSingleRfq(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/rfq`, data);
+  }
+
+  //invoice
+  async searchInvoice(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/invoice/search`, data);
+  }
+
+
+  async fetchDataInvoice(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/invoice/list`, data);
+  }
+
+  async deleteSingleInvoice(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/invoice/${id}`);
+  }
+
+  async fetchSingleInvoice(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/invoice/${id}`);
+  }
+
+  async updateSingleInvoice(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/invoice/${data.id}`, data);
+  }
+
+  async createSingleInvoice(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/invoice`, data);
+  }
+
+  //contact
+  async searchContact(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/contact/search`, data);
+  }
+
+
+  async fetchDataContact(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/contact/list`, data);
+  }
+
+  async deleteSingleContact(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/contact/${id}`);
+  }
+
+  async fetchSingleContact(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/contact/${id}`);
+  }
+
+  async updateSingleContact(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/contact/${data.id}`, data);
+  }
+
+  async createSingleContact(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/contact`, data);
+  }
+
+  //account
+  async searchAccount(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/account/search`, data);
+  }
+
+  async fetchDataAccount(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/account/list`, data);
+  }
+
+  async deleteSingleAccount(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/account/${id}`);
+  }
+
+  async fetchSingleAccount(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/account/${id}`);
+  }
+
+  async updateSingleAccount(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/account/${data.id}`, data);
+  }
+
+  async createSingleAccount(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/account`, data);
+  }
+
+  async checkAccountExists(data: object) {
+    return await _axios.post(`${API_URL_PRODUCT}/account/check-exists`, data);
+  }
+
+
+  //lead
+  async convertLead(data: any) {
+    return await _axios.post(`${API_URL_PRODUCT}/lead/convert/${data.id}`, data);
+  }
+
+  async convertLeadValidation(data: any) {
+    return await _axios.post(`${API_URL_PRODUCT}/lead/convert/validation/${data.id}`, data);
+  }
+
+
+  async searchLead(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/lead/search`, data);
+  }
+
+  async fetchDataLead(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data);
+  }
+
+  async deleteSingleLead(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/lead/${id}`);
+  }
+
+  async fetchSingleLead(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/lead/${id}`);
+  }
+
+  async updateSingleLead(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/lead/${data.id}`, data);
+  }
+
+  async createSingleLead(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/lead`, data);
+  }
+
+  //PurchaseOrder
+  async searchPurchaseOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/purchase_order/search`, data);
+  }
+
+
+  async fetchDataPurchaseOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/purchase_order/list`, data);
+  }
+
+  async deleteSinglePurchaseOrder(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/purchase_order/${id}`);
+  }
+
+  async fetchSinglePurchaseOrder(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/purchase_order/${id}`);
+  }
+
+  async updateSinglePurchaseOrder(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/purchase_order/${data.id}`, data);
+  }
+
+  async createSinglePurchaseOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/purchase_order`, data);
+  }
+
+  //Quotes
+  async searchQuote(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote/search`, data);
+  }
+
+  async convertQuoteToSalesOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote/convert/sales_order/${data.id}`, data);
+  }
+
+  async fetchDataQuote(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data);
+  }
+
+  async deleteSingleQuote(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/quote/${id}`);
+  }
+
+  async fetchSingleQuote(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote/${id}`);
+  }
+
+  async updateSingleQuote(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/quote/${data.id}`, data);
+  }
+
+  async createSingleQuote(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote`, data);
+  }
+
+  async quotationEmail(id: any, attachment = false) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, { "proactive": false, "attachment": attachment });
+  }
+
+
+  async quotationEmailProactive(id: any, attachment = false) {
+    return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, { "proactive": true, "attachment": attachment });
+  }
+
+
+  //deals
+  async searchDeal(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data);
+  }
+
+
+  async fetchDataDeal(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/deal/list`, data);
+  }
+
+  async deleteSingleDeal(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/deal/${id}`);
+  }
+
+  async fetchSingleDeal(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/deal/${id}`);
+  }
+
+  async updateSingleDeal(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/deal/${data.id}`, data);
+  }
+
+  async createSingleDeal(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/deal`, data);
+  }
+
+  //availability
+  async searchAvailability(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/availability/search`, data);
+  }
+
+
+  async fetchDataAvailability(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/availability/list`, data);
+  }
+
+  async deleteSingleAvailability(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/availability/${id}`);
+  }
+
+  async fetchSingleAvailability(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/availability/${id}`);
+  }
+
+  async updateSingleAvailability(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/availability/${data.id}`, data);
+  }
+
+  async createSingleAvailability(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/availability`, data);
+  }
+
+  //excess
+  async searchExcess(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/excess/search`, data);
+  }
+
+
+  async fetchDataExcess(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data);
+  }
+
+  async deleteSingleExcess(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/excess/${id}`);
+  }
+
+    async getQuotePDF(id: any = null) {       
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/get-pdf`, {
+            responseType: 'arraybuffer',
+        });
+    }
+
+  
+  async fetchSingleExcess(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/excess/${id}`);
+  }
+
+  async updateSingleExcess(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/excess/${data.id}`, data);
+  }
+
+  async createSingleExcess(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/excess`, data);
+  }
+
+  //sales_order
+  async searchSalesOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/sales_order/search`, data);
+  }
+
+  // async convertSalesOrderToPurchaseOrder(data: any = null) {
+  //     return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/purchase_order/${data.id}`, data);
+  // }
+  async convertSalesOrderToInvoice(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/sales_order/convert/invoice/${data.id}`, data);
+  }
+
+  async fetchDataSalesOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data);
+  }
+
+  async deleteSingleSalesOrder(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/sales_order/${id}`);
+  }
+
+  async fetchSingleSalesOrder(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/sales_order/${id}`);
+  }
+
+  async updateSingleSalesOrder(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/sales_order/${data.id}`, data);
+  }
+
+  async createSingleSalesOrder(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/sales_order`, data);
+  }
+
+  //task
+  async searchTask(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/task/search`, data);
+  }
+
+
+  async fetchDataTask(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/task/list`, data);
+  }
+
+  async deleteSingleTask(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/task/${id}`);
+  }
+
+  async fetchSingleTask(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/task/${id}`);
+  }
+
+  async updateSingleTask(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/task/${data.id}`, data);
+  }
+
+  async createSingleTask(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/task`, data);
+  }
+
+  //vendor_rfq
+  async searchVendorRfq(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/search`, data);
+  }
+
+
+  async fetchDataVendorRfq(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/list`, data);
+  }
+
+  async deleteSingleVendorRfq(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/vendor_rfq/${id}`);
+  }
+
+  async fetchSingleVendorRfq(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/${id}`);
+  }
+
+  async updateSingleVendorRfq(data: any = null) {
+    return await _axios.put(`${API_URL_PRODUCT}/vendor_rfq/${data.id}`, data);
+  }
+
+  async createSingleVendorRfq(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq`, data);
+  }
+
+
+  //User
+  async searchUser(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/user/search`, data);
+  }
+
+
+  async fetchDataUser(data: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/user/list`, data);
+  }
+
+  async deleteSingleUser(id: any = null) {
+    return await _axios.delete(`${API_URL_PRODUCT}/user/${id}`);
+  }
+
+  async fetchSingleUser(id: any = null) {
+    return await _axios.post(`${API_URL_PRODUCT}/user/${id}`);
+  }
+
+  async updateSingleUser(data: any) {
+    return await _axios.put(`${API_URL_PRODUCT}/user/${data.id}`, data);
+  }
+
+  async createSingleUser(data: any) {
+    return await _axios.post(`${API_URL_PRODUCT}/user`, data);
+  }
+
+  //role
+
+  async searchRoles(data: any) {
+    return await _axios.post(`${API_URL_PRODUCT}/roles/all`, data);
+  }
+
+  //layout
+  async getFormLayout(data: object) {
+    return await _axios.post(`${API_URL_PRODUCT}/form/layout`, data);
+  }
+
+  //attachment
+  async uploadAttachments(files: any, modelName: string, modelId: string) {
+    try {
+      const formData = new FormData();
+
+      files.forEach((file: any, index: any) => {
+        formData.append(`files[${index}]`, file);
+      });
+      formData.append('modelName', modelName);
+      formData.append('modelId', modelId);
+
+      const response = await _axios.post(`${API_URL_PRODUCT}/attachment/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 200) {
+        return response; // Assuming the server returns the URL of the uploaded image
+      } else {
+        throw new Error('File upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      return null;
     }
 
     async getUserPermissions(data: any = null) {
