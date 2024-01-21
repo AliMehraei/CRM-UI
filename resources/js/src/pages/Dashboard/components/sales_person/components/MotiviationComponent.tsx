@@ -84,7 +84,7 @@ const MotiviationComponent = () => {
                           <div className="flex items-center">
                             <div className="h-11 w-11 flex-shrink-0">
                               <i className="fa fa-solid fa-clipboard-check"></i>
-                              <img className="h-11 w-11 rounded-full" src="../img/heroicons-clipboard_check-basic.svg" alt="" />
+                              <img className="h-11 w-11 rounded-full" src="/assets/images/heroicons-clipboard_check-basic.svg" alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="font-bold text-lg text-gray-900">Tasks</div>
@@ -110,7 +110,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
+                          <a href="/task/list" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
                         </td>
                       </tr>
 
@@ -118,7 +118,7 @@ const MotiviationComponent = () => {
                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                           <div className="flex items-center">
                             <div className="h-11 w-11 flex-shrink-0">
-                              <img className="h-11 w-11 rounded-full" src="../img/heroicons-filter-basic.svg" alt="" />
+                              <img className="h-11 w-11 rounded-full" src="/assets/images/heroicons-filter-basic.svg" alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="font-bold text-lg text-gray-900">Leads</div>
@@ -143,7 +143,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
+                          <a href="/lead/list" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
                         </td>
                       </tr>
 
@@ -151,7 +151,7 @@ const MotiviationComponent = () => {
                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                           <div className="flex items-center">
                             <div className="h-11 w-11 flex-shrink-0">
-                              <img className="h-11 w-11 rounded-full" src="../img/heroicons-document_search-basic.svg" alt="" />
+                              <img className="h-11 w-11 rounded-full" src="/assets/images/heroicons-document_search-basic.svg" alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="font-bold text-lg text-gray-900">RFQs</div>
@@ -176,7 +176,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
+                          <a href="/rfq/list" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
                         </td>
                       </tr>
 
@@ -184,7 +184,7 @@ const MotiviationComponent = () => {
                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                           <div className="flex items-center">
                             <div className="h-11 w-11 flex-shrink-0">
-                              <img className="h-11 w-11 rounded-full" src="../img/heroicons-cash-cloudly.svg" alt="" />
+                              <img className="h-11 w-11 rounded-full" src="/assets/images/heroicons-cash-cloudly.svg" alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="font-bold text-lg text-gray-900">Quotes</div>
@@ -209,7 +209,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
+                          <a href="/quote/list" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
                         </td>
                       </tr>
 
@@ -217,7 +217,7 @@ const MotiviationComponent = () => {
                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                           <div className="flex items-center">
                             <div className="h-11 w-11 flex-shrink-0">
-                              <img className="h-11 w-11 rounded-full" src="../img/heroicons-presentation_chart_line-basic.svg" alt="" />
+                              <img className="h-11 w-11 rounded-full" src="/assets/images/heroicons-presentation_chart_line-basic.svg" alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="font-bold text-lg text-gray-900">Sales Orders</div>
@@ -242,7 +242,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
+                          <a href="/sales/list" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
                         </td>
                       </tr>
 
@@ -250,7 +250,7 @@ const MotiviationComponent = () => {
                         <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
                           <div className="flex items-center">
                             <div className="h-11 w-11 flex-shrink-0">
-                              <img className="h-11 w-11 rounded-full" src="../img/heroicons-currency_dollar-basic.svg" alt="" />
+                              <img className="h-11 w-11 rounded-full" src="/assets/images/heroicons-currency_dollar-basic.svg" alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="font-bold text-lg text-gray-900">Invoices</div>
@@ -275,7 +275,7 @@ const MotiviationComponent = () => {
                           </div>
                         </td>
                         <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
+                          <a href="/invoice/list" className="text-white bg-gray-500 hover:bg-[#1DCEEA] px-10 py-2 rounded duration-75 transition-all">Action</a>
                         </td>
                       </tr>
 

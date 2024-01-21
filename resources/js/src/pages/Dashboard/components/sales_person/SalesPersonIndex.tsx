@@ -170,14 +170,7 @@ const SalesPersonIndex = () => {
 
   return (
     <div>
-      <ul className="flex space-x-2 rtl:space-x-reverse">
-        <li>
-          <Link to="/" className="text-primary hover:underline">
-            Sale Person  Dashboard
-          </Link>
-        </li>
-
-      </ul>
+     
       <div className='card card-body'>
 
         <MotiviationComponent />
