@@ -170,7 +170,6 @@ const Preview = () => {
                         title="Address Information"
                         leftObjects={[
                             {label: "City", value: formState.city},
-                            {label: "Address", value: formState.address},
                             {label: "Zip Code", value: formState.zip_code},
                         ]}
                         rightObjects={[
@@ -190,8 +189,7 @@ const Preview = () => {
                     <InformationSectionPreview
                         title="Fields with Secondary Priority"
                         leftObjects={[
-                            {label: "No.of Employees", value: formState.company_employee_count},
-                            {label: "Title", value: formState.books_id_eur},
+                            {label: "No.of Employees", value: formState.no_of_employees},
                             {label: "Currency", value: formState.currency}
                         ]}
                         rightObjects={[

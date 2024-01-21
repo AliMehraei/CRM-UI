@@ -60,7 +60,15 @@ const CommunicationDetailsSection = () => {
 
         },
         '': {
+            'Description': (
+                <textarea id="linkedin_communication" rows={3}
+                name="description"
+                className="form-textarea flex-1"
+                placeholder=""
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+                ></textarea>
 
+            )
 
         }
     }
