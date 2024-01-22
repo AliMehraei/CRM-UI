@@ -393,6 +393,9 @@ class api {
     async sendQuotationRelatedEmail(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related`, data);
     }
+    async sendInvoiceEmail(id: any, attachment = false) {
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/${id}/email`, {"attachment": attachment});
+    }
     
     async getPDF(modelName:string, id: any, name: any) {       
         _axios({
