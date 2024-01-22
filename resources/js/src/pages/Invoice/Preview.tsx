@@ -211,6 +211,7 @@ const Preview = () => {
                         exportTable={exportTable}
                         routeModel="invoice"
                         permissionModel="invoice"
+                        hasDownloadPdf={true}
                     />
                 </div>
                 <div className="panel">

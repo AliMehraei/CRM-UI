@@ -394,11 +394,28 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related`, data);
     }
     
-    async getQuotePDF(id: any = null) {       
-      return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/get-pdf`, {
-          responseType: 'arraybuffer',
-      });
-  }
+    async getPDF(modelName:string, id: any, name: any) {       
+        _axios({
+            method: 'post',
+            url: `${API_URL_PRODUCT}/${modelName.replace('-', '_')}/${id}/get-pdf`,
+            responseType: 'blob', // Important for handling binary data (like files)
+        })
+            .then(response => {
+                if (response.status != 200) throw Error(response.statusText);
+
+                const blob = new Blob([response.data], {type: response.headers['content-type']});
+                
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name + '.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error downloading attachment:', error);
+            });
+    }
 
     //deals
     async searchDeal(data: any = null) {
@@ -649,7 +666,7 @@ class api {
                 if (response.status != 200)
                     throw Error(response.statusText);
                 // Create a Blob from the response data
-                const blob = new Blob([response.data], {type: response.headers['content-type']});
+                const blob = new Blob([response.data], {type: response.headers['content-type']});                
 
                 // Create a link element and simulate a click to trigger the download
                 const link = document.createElement('a');
