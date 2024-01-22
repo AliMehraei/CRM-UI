@@ -754,6 +754,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/email-log/search`, data);
     }
 
+    async fetchSingleEmailLog(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/${id}`);
+    }
+
     async globalSearch(text: string) {
         const data = {
             search: text
