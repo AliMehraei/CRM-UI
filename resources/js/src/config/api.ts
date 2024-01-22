@@ -742,6 +742,15 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/search`, data);
     }
 
+    //email log
+    async fetchDataEmailLog(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/list`, data);
+    }
+
+    async searchEmailLog(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/search`, data);
+    }
+
     async globalSearch(text: string) {
         const data = {
             search: text
