@@ -285,6 +285,7 @@ const Preview = () => {
             exportTable={exportTable}
             routeModel="quotes"
             permissionModel="quote"
+            hasDownloadPdf={true}
           />
           <button type="button" className="btn btn-info gap-2" onClick={quotationEmail}>
             <EmailIcon />
