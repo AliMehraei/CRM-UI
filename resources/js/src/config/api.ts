@@ -393,6 +393,9 @@ class api {
     async sendQuotationRelatedEmail(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related`, data);
     }
+    async sendInvoiceEmail(id: any, attachment = false) {
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/${id}/email`, {"attachment": attachment});
+    }
     
     async getPDF(modelName:string, id: any, name: any) {       
         _axios({
@@ -740,6 +743,19 @@ class api {
 
     async searchFiscalAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/search`, data);
+    }
+
+    //email log
+    async fetchDataEmailLog(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/list`, data);
+    }
+
+    async searchEmailLog(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/search`, data);
+    }
+
+    async fetchSingleEmailLog(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/${id}`);
     }
 
     async globalSearch(text: string) {

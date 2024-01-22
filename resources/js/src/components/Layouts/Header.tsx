@@ -1016,6 +1016,11 @@ const Header = () => {
                                   <NavLink to="/fiscal_account/list">{t('Fiscal Account')}</NavLink>
                                 </li>
                             ) : null}
+                            {hasPermission(`read-email-log`) ? (
+                                <li>
+                                  <NavLink to="/email_log/list">{t('Email Log')}</NavLink>
+                                </li>
+                            ) : null}
                         </ul>
                     </li>
 

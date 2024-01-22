@@ -321,12 +321,12 @@ const Preview = () => {
             rightObjects={QuoteInformationSection.rightObjects}
           />
           <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-          {/*  <TableSectionPreview
-                        title="Quote Items"
-                        items={formState.items}
-                        columns={columns}
-                        total={formState.quote_total}
-                    />*/}
+          <TableSectionPreview
+            title="Quote Items"
+            items={formState.items}
+            columns={columns}
+            total={formState.quote_total}
+          />
           <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
           <InformationSectionPreview
             title="Quote Line"
@@ -364,15 +364,15 @@ const Preview = () => {
 
           <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
           <InformationSectionPreview
-                        title="Date information"
-                        leftObjects={[
-                            {label: "Created Date", value: formatDate(formState.created_at)}
-                        ]}
-                        rightObjects={[
-                            {label: "Modified Date", value: formatDate(formState.updated_at)}
-                        ]}
-                    />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+            title="Date information"
+            leftObjects={[
+              { label: "Created Date", value: formatDate(formState.created_at) }
+            ]}
+            rightObjects={[
+              { label: "Modified Date", value: formatDate(formState.updated_at) }
+            ]}
+          />
+          <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
           <AttachmentSection modelId={modelID} modelName={'quote'} />
         </div>
       </div>
