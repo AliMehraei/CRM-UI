@@ -397,7 +397,7 @@ class api {
     async getPDF(modelName:string, id: any, name: any) {       
         _axios({
             method: 'post',
-            url: `${API_URL_PRODUCT}/${modelName}/${id}/get-pdf`,
+            url: `${API_URL_PRODUCT}/${modelName.replace('-', '_')}/${id}/get-pdf`,
             responseType: 'blob', // Important for handling binary data (like files)
         })
             .then(response => {
