@@ -15,6 +15,7 @@ const AddFiscalAccount = lazy(() => import('../pages/FiscalAccount/Add'));
 const EditFiscalAccount = lazy(() => import('../pages/FiscalAccount/Edit'));
 
 const ListEmailLog = lazy(() => import('../pages/EmailLog/Index'));
+const PreviewEmailLog = lazy(() => import('../pages/EmailLog/Preview'));
 
 
 const ListAccount = lazy(() => import('../pages/Account/Index'));
@@ -301,9 +302,16 @@ const routes = [
     protected: true,
     requiredPermission: 'update-fiscal-account'
   },
+  //email log
   {
     path: '/email_log/list',
     element: <ListEmailLog />,
+    protected: true,
+    requiredPermission: 'read-email-log'
+  },
+  {
+    path: '/email_log/preview/:id',
+    element: <PreviewEmailLog />,
     protected: true,
     requiredPermission: 'read-email-log'
   },
