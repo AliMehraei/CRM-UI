@@ -11,40 +11,46 @@ const List = () => {
     const dispatch = useDispatch();
     const { hasPermission } = useUserStatus();
     useEffect(() => {
-        dispatch(setPageTitle('Fiscal Account List'));
+        dispatch(setPageTitle('Email Log List'));
     }, [dispatch]);
 
 
     const columns: any = [
+
+        {
+            accessor: 'subject',
+            sortable: true,
+            render: ({ subject }) => (
+                <div className="font-semibold">
+                    {subject}
+                </div>
+            ),
+        },
        
         {
-            accessor: 'account_name',
+            accessor: 'receiver_mail',
             sortable: true,
-            render: ({ account_name ,id}) => (
-                hasPermission('update-fiscal-account') ? (
-                    <NavLink to={`/fiscal_account/edit/${id}`}>
-                        <div className="text-primary underline hover:no-underline font-semibold">{`#${account_name}`}</div>
-                    </NavLink>
-                ) : (
-                    <div className="font-semibold">{`#${account_name}`}</div>
-                )
-            )
-        },
-        {
-            accessor: 'account_type',
-            sortable: true,
-            render: ({ account_type }) => (
+            render: ({ receiver_mail }) => (
                 <div className="font-semibold">
-                    {account_type}
+                    {receiver_mail}
                 </div>
             ),
         },
         {
-            accessor: 'account_code',
+            accessor: 'sender_email',
             sortable: true,
-            render: ({ account_code }) => (
+            render: ({ sender_email }) => (
                 <div className="font-semibold">
-                    {account_code}
+                    {sender_email}
+                </div>
+            ),
+        },
+        {
+            accessor: 'sender_type',
+            sortable: true,
+            render: ({ sender_type }) => (
+                <div className="font-semibold">
+                    {sender_type}
                 </div>
             ),
         },
@@ -79,7 +85,7 @@ const List = () => {
 
     return (
         <>
-            <GenerateIndexTable modelName="fiscalAccount" tableColumns={columns} frontRoute="fiscal_account" />
+            <GenerateIndexTable modelName="emailLog" tableColumns={columns} frontRoute="email_log" />
         </>
     );
 };
