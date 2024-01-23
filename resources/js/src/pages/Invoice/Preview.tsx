@@ -305,7 +305,6 @@ const Preview = () => {
         };
         
         setSelectedItem(extraEmailLogInformation);
-        console.log('item',item.sender_name);
 
         setIsPopupOpen(true);
       };
