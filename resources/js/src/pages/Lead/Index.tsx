@@ -14,11 +14,11 @@ const List = () => {
     }, [dispatch]);
     const LeadStatus = [
         {value: 'none', label: '-None-'},
-        {value: '0.0 Cold lead / unqualified (CLU)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead / unqualified (CLU)</>)},
-        {value: '1.0 Cold lead qualified (CLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-300 rounded-full"></span>1.0 Cold lead qualified (CLQ)</>)},
-        {value: '2.0 First contact made (FCM)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-purple-200 rounded-full"></span>2.0 First contact made (FCM)</>)},
-        {value: '3.0 warm lead qualified (WLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-300 rounded-full"></span>3.0 warm lead qualified (WLQ)</>)},
-        {value: '4.0 Hot lead (HLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-600 rounded-full"></span>4.0 Hot lead (HLQ)</>)},
+        {value: '0.0 Cold lead / unqualified (CLU)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-gray-500 rounded-full"></span>0.0 Cold lead...</>)},
+        {value: '1.0 Cold lead qualified (CLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-blue-300 rounded-full"></span>1.0 Cold lead...</>)},
+        {value: '2.0 First contact made (FCM)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-purple-200 rounded-full"></span>2.0 First contact...</>)},
+        {value: '3.0 Warm lead qualified (WLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-300 rounded-full"></span>3.0 warm lead...</>)},
+        {value: '4.0 Hot lead (HLQ)', label: (<><span className="inline-block w-4 h-4 mr-2 bg-orange-600 rounded-full"></span>4.0 Hot lead...</>)},
         {value: 'Close Lead / Lost Lead', label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-500 rounded-full"></span>Close Lead / Lost Lead</>)},
 
     ];
@@ -39,15 +39,20 @@ const List = () => {
         {
             accessor: 'company',
             sortable: true,
-            render: ({ company, id }) => (
-                hasPermission('update-lead') ? (
-                    <NavLink to={`/lead/edit/${id}`}>
-                        <div className="text-primary underline hover:no-underline font-semibold">{`#${company}`}</div>
-                    </NavLink>
-                ) : (
-                    <div className="font-semibold">{`#${company}`}</div>
-                )
-            )
+            render: ({ company, id }) => {
+                const maxSubjectLength = 20; // Set your desired maximum length for the subject
+                const truncatedSubject = company.length > maxSubjectLength ? company.slice(0, maxSubjectLength) + '...' : company;
+            
+                return (
+                    hasPermission('update-lead') ? (
+                        <NavLink to={`/lead/edit/${id}`}>
+                            <div className="text-primary underline hover:no-underline font-semibold">{`#${truncatedSubject}`}</div>
+                        </NavLink>
+                    ) : (
+                        <div className="font-semibold">{`#${truncatedSubject}`}</div>
+                    )
+                );
+            }
         },
         {
             accessor: 'owner',
@@ -71,15 +76,18 @@ const List = () => {
         {
             accessor: 'status',
             sortable: true,
+   
             render: ({ status }) => {
                 const statusObj = LeadStatus.find((title) => title.value === status);
-                return statusObj ? (
+                const newStatus=statusObj ? statusObj.label : status
+                // const maxStatusLength = 15; // Set your desired maximum length for the status
+                // const truncatedStatus = newStatus.length > maxStatusLength ? newStatus.slice(0, maxStatusLength) + '...' : newStatus;
+                
+                return (
                     <div className="flex items-center font-semibold">
-                        {statusObj.label}
-                    </div>
-                ) : (
-                    <div className="flex items-center font-semibold">
-                        {status}
+                        
+                        {newStatus}
+                        
                     </div>
                 );
             },

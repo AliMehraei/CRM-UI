@@ -62,7 +62,16 @@ const CommunicationDetailsSection = () => {
 
         },
         '': {
+            'Description': (
+                <textarea id="description" rows={3}
+                name="description"
+                className="form-textarea flex-1"
+                placeholder=""
+                onChange={(e:any) => handleChangeField(e.target.name, e.target.value)}
+                defaultValue={formState.description}
+                ></textarea>
 
+            )
 
         }
     }

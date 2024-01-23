@@ -83,11 +83,11 @@ const HeaderSection = () => {
                                 />
 
                             <div>
-                                <div className="text-sm font-bold">{formState.contact?.name}</div>
+                                <div className="text-sm font-bold">{formState.contact?.first_name + " " + formState.contact?.last_name}</div>
                                 <div
                                     className="text-xs text-gray-500">{formState.contact?.email}</div>
                             </div>
-                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.name}`)}>
+                                    <button className="btn text-xs btn-sm ml-auto" onClick={() => handleCopySelect(`${formState.contact?.first_name  + " " + formState.contact?.last_name}`)}>
                                         Copy & Select
                                     </button>
                                 </>

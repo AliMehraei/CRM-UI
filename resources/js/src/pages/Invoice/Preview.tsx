@@ -1,21 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Link, useParams} from 'react-router-dom';
-import {setPageTitle} from '../../store/themeConfigSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { setPageTitle } from '../../store/themeConfigSlice';
 import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
-import {useUserStatus} from "../../config/authCheck";
-import {resetForm, updateFormData} from "../../store/invoiceFormSlice";
-import {displayImage, displayFile, getStatusLabel, StatusOption} from '../../components/Functions/CommonFunctions';
+import { useUserStatus } from "../../config/authCheck";
+import { resetForm, updateFormData } from "../../store/invoiceFormSlice";
+import { displayImage, displayFile, getStatusLabel, StatusOption, notifyErrorMessage, notifySuccess, formatDate } from '../../components/Functions/CommonFunctions';
 import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import Swal from 'sweetalert2';
+import { EmailIcon } from '../../components/FormFields/CommonIcons';
 
 const Preview = () => {
-    const {hasPermission} = useUserStatus();
+    const { hasPermission } = useUserStatus();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const params = useParams();
@@ -38,6 +40,40 @@ const Preview = () => {
     };
 
 
+    // const sendEmail = async () => {
+
+    //     Swal.fire({
+    //         icon: 'info',
+    //         title: 'Are you sure?',
+    //         showCancelButton: true,
+    //         showDenyButton: true,
+    //         confirmButtonText: 'Send',
+    //         denyButtonText: 'Send With Attachment',
+    //         denyButtonColor: "#000000",
+    //         padding: '2em',
+    //         customClass: {
+    //             container: 'sweet-alerts',
+    //             denyButton: 'btn btn-info ' // Add your custom class here
+    //         },
+    //     }).then(async (result) => {
+    //         if (result.isConfirmed) {
+    //             notifySuccess('Processing Sending Email');
+    //             const emailResponse = await api.sendInvoiceEmail(modelID);
+    //             if (emailResponse.status != 200)
+    //                 notifyErrorMessage("Problem on sending email");
+    //             notifySuccess('Email sent successfully');
+    //         }
+    //         if (result.isDenied) {
+    //             notifySuccess('Processing Sending Email');
+    //             const emailResponse = await api.sendInvoiceEmail(modelID, true);
+    //             if (emailResponse.status != 200)
+    //                 notifyErrorMessage("Problem on sending email");
+    //             notifySuccess('Email sent successfully');
+    //         }
+    //     });
+    // }
+
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -51,11 +87,11 @@ const Preview = () => {
         }
     }, []);
     const SOTypeOption = [
-        {value: 'none', label: '-None-'},
-        {value: 'single_order', label: 'Single Order'},
-        {value: 'frame_contract', label: 'Frame Contract'},
-        {value: 'call_off', label: 'Call Off'},
-        {value: 'forecast', label: 'Forecast'},
+        { value: 'none', label: '-None-' },
+        { value: 'single_order', label: 'Single Order' },
+        { value: 'frame_contract', label: 'Frame Contract' },
+        { value: 'call_off', label: 'Call Off' },
+        { value: 'forecast', label: 'Forecast' },
 
     ];
 
@@ -65,40 +101,40 @@ const Preview = () => {
                 label: "Due Date",
                 value: `${formState.due_date ?? ''}`
             },
-            {label: "Sales Commission", value: formState.sales_commission},
-            {label: "Exchange Rate", value: `${formState.exchange_rate}`},
-            {label: "ZohoBooksID", value: `${formState.zoho_books_id}`},
+            { label: "Sales Commission", value: formState.sales_commission },
+            { label: "Exchange Rate", value: `${formState.exchange_rate}` },
+            { label: "ZohoBooksID", value: `${formState.zoho_books_id}` },
 
         ],
         'rightObjects': [
-            {label: "Deal Stage", value: `${formState.deal_stage ?? ''} `},
-            {label: "Excise Duty", value: `${formState.excise_duty}`},
-            {label: "Invoice Stage", value: `${formState.invoice_stage}`},
-            {label: "Status", value:`${formState.status}`},
+            { label: "Deal Stage", value: `${formState.deal_stage ?? ''} ` },
+            { label: "Excise Duty", value: `${formState.excise_duty}` },
+            { label: "Invoice Stage", value: `${formState.invoice_stage}` },
+            { label: "Status", value: `${formState.status}` },
 
 
-            {label: "Currency", value: `${formState.currency}`},
+            { label: "Currency", value: `${formState.currency}` },
         ],
     };
 
     const InvoiceInformationSection =
-        {
-            'leftObjects': [
-                {label: "Invoice valid", value: `${formState.invoice_valid}`},
-                {label: "Proactive Offer", value: `${formState.proactive_offer}`},
+    {
+        'leftObjects': [
+            { label: "Invoice valid", value: `${formState.invoice_valid}` },
+            { label: "Proactive Offer", value: `${formState.proactive_offer}` },
 
-            ],
-            'rightObjects': [
-                {label: "Rating", value: `${formState.rating}`},
+        ],
+        'rightObjects': [
+            { label: "Rating", value: `${formState.rating}` },
 
 
-            ],
-        }
+        ],
+    }
 
 
     const InvoiceLineSection = {
         'leftObjects': [
-            {label: "Product Name", value: `${formState.product?.product_name}`}, //TODO : where is it ?
+            { label: "Product Name", value: `${formState.product?.product_name}` }, //TODO : where is it ?
             {
                 label: "Customer part ID",
                 value: `${formState.customer_part_id}`
@@ -106,41 +142,41 @@ const Preview = () => {
 
         ],
         'rightObjects': [
-            {label: "Quantity", value: `${formState.quantity}`},
-            {label: "List Price", value: `${formState.list_price}`},
-            {label: "Lead Time", value: `${formState.lead_time}`},
+            { label: "Quantity", value: `${formState.quantity}` },
+            { label: "List Price", value: `${formState.list_price}` },
+            { label: "Lead Time", value: `${formState.lead_time}` },
         ],
     }
 
     const SourceSection = {
         'leftObjects': [
-            {label: "Vendor", value: `${formState.vendor?.vendor_name}`},
-            {label: "Availability No", value: `${formState.availability_no}`},
-            {label: "Availability Date", value: `${formState.availability_date}`},
-            {label: "Availability", value: `${formState.availability?.availability_name}`},
+            { label: "Vendor", value: `${formState.vendor?.vendor_name}` },
+            { label: "Availability No", value: `${formState.availability_no}` },
+            { label: "Availability Date", value: `${formState.availability_date}` },
+            { label: "Availability", value: `${formState.availability?.availability_name}` },
         ],
         'rightObjects': [
-            {label: "Cost", value: `${formState.cost}`},
-            {label: "LT vendor", value: `${formState.lt_vendor}`},
-            {label: "SPQ", value: `${formState.spq}`},
-            {label: "Quantity in Stock", value: `${formState.quantity_in_stock}`},
+            { label: "Cost", value: `${formState.cost}` },
+            { label: "LT vendor", value: `${formState.lt_vendor}` },
+            { label: "SPQ", value: `${formState.spq}` },
+            { label: "Quantity in Stock", value: `${formState.quantity_in_stock}` },
         ],
     }
 
     const AddressInformationSection = {
         'leftObjects': [
-            {label: "Billing Street", value: `${formState.billing_street}`},
-            {label: "Billing City", value: `${formState.billing_city}`},
-            {label: "Billing State", value: `${formState.billing_state}`},
-            {label: "Billing Code", value: `${formState.billing_code}`},
-            {label: "Billing Country", value: `${formState.billing_country}`},
+            { label: "Billing Street", value: `${formState.billing_street}` },
+            { label: "Billing City", value: `${formState.billing_city}` },
+            { label: "Billing State", value: `${formState.billing_state}` },
+            { label: "Billing Code", value: `${formState.billing_code}` },
+            { label: "Billing Country", value: `${formState.billing_country}` },
         ],
         'rightObjects': [
-            {label: "Shipping Street", value: `${formState.shipping_street}`},
-            {label: "Shipping City", value: `${formState.shipping_city}`},
-            {label: "Shipping State", value: `${formState.shipping_state}`},
-            {label: "Shipping Code", value: `${formState.shipping_code}`},
-            {label: "Shipping Country", value: `${formState.shipping_country}`},
+            { label: "Shipping Street", value: `${formState.shipping_street}` },
+            { label: "Shipping City", value: `${formState.shipping_city}` },
+            { label: "Shipping State", value: `${formState.shipping_state}` },
+            { label: "Shipping Code", value: `${formState.shipping_code}` },
+            { label: "Shipping Country", value: `${formState.shipping_country}` },
         ],
     }
 
@@ -153,10 +189,10 @@ const Preview = () => {
         {
             key: 'product_name',
             label: 'Product Name',
-            model:'product',
+            model: 'product',
         },
 
-         {
+        {
             key: 'quantity',
             label: 'Quantity',
         },
@@ -174,11 +210,11 @@ const Preview = () => {
             key: 'discount',
             label: 'Discount',
         },
-         {
+        {
             key: 'tax',
             label: 'Tax',
         },
-         {
+        {
             key: 'total',
             label: 'Total',
         },
@@ -193,14 +229,14 @@ const Preview = () => {
         { label: "Subject", value: `${formState.subject ?? ''} ` },
         { label: "Invoice Date", value: `${formState.invoice_date ?? ''} ` },
         { label: "Invoice Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
-        {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
-        {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
+        { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
+        { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
     if (loading)
-        return <LoadingSasCrm/>;
+        return <LoadingSasCrm />;
     return (
         (!hasPermission(`read-invoice`) || loading) ? (
-            <LoadingSasCrm/>
+            <LoadingSasCrm />
         ) : (
             <div>
                 <div className="flex items-center lg:justify-end justify-center flex-wrap gap-4 mb-6">
@@ -211,31 +247,36 @@ const Preview = () => {
                         exportTable={exportTable}
                         routeModel="invoice"
                         permissionModel="invoice"
+                        hasDownloadPdf={true}
                     />
+                    {/* <button type="button" className="btn btn-info gap-2" onClick={sendEmail}>
+                        <EmailIcon />
+                        Send Email
+                    </button> */}
                 </div>
                 <div className="panel">
                     <div className="flex justify-between flex-wrap gap-4 px-4">
                         <div className="text-2xl font-semibold uppercase">Invoice</div>
                         <div className="shrink-0">
                             <img src={displayImage(formState.image_data)} alt="Invoice image"
-                                 className="w-20 ltr:ml-auto rtl:mr-auto"/>
+                                className="w-20 ltr:ml-auto rtl:mr-auto" />
                         </div>
                     </div>
                     <InfoListComponent data={headerDataToDisplay} />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <InformationSectionPreview
                         title="Header"
                         leftObjects={invoiceHeaderSection.leftObjects}
                         rightObjects={invoiceHeaderSection.rightObjects}
                     />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
 
                     <InformationSectionPreview
                         title="Address Information"
                         leftObjects={AddressInformationSection.leftObjects}
                         rightObjects={AddressInformationSection.rightObjects}
                     />
-                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <TableSectionPreview
                         title="Invoice Items"
                         items={formState.items}
@@ -246,24 +287,33 @@ const Preview = () => {
                         tax={formState.tax}
                         adjustment={formState.adjustment}
                     />
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
 
                     <MultipleLineSectionPreview
                         sectionTitle="Terms And Conditions"
                         data={[
-                            {label: 'Terms and Conditions', value: formState.terms_and_conditions},
-                        ]}/>
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                            { label: 'Terms and Conditions', value: formState.terms_and_conditions },
+                        ]} />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
 
                     <MultipleLineSectionPreview
                         sectionTitle="Description "
                         data={[
-                            {label: 'Description', value: formState.description},
-                        ]}/>
+                            { label: 'Description', value: formState.description },
+                        ]} />
 
-                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
-                    <AttachmentSection modelId={modelID} modelName={'contact'}/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <InformationSectionPreview
+                        title="Date information"
+                        leftObjects={[
+                            { label: "Created Date", value: formatDate(formState.created_at) }
+                        ]}
+                        rightObjects={[
+                            { label: "Modified Date", value: formatDate(formState.updated_at) }
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <AttachmentSection modelId={modelID} modelName={'contact'} />
 
                 </div>
             </div>

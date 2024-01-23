@@ -19,7 +19,13 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     const filterState = useSelector((state: any) => state.filters);
 
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [loadingTable, setLoadingTable] = useState(true);
+    const [loadingFilter, setLoadingFilter] = useState(true);
+    const [checkLoading, setCheckLoading] = useState(true);
+    const [emptyDataLoading, setEmptyDataLoading] = useState(false);
+
+    
     const [resetFilter, setResetFilter] = useState(false);
     const api_instance: any = new api();
     const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark';
@@ -46,8 +52,10 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     const filterOptionRef: any = useRef();
 
     const fetchDataFilterOption = async () => {
-        setLoading(true);
+        // setLoading(true);
+        
         try {
+            setLoadingFilter(true);
             const res = await findApiToCall(`filterOption`).call(api_instance, {
                 model: upFirstLetter(modelName),
             });
@@ -71,8 +79,9 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
         } catch (error) {
             showMessage('Error fetching filter options.', 'error');
             console.error('Error fetching data:', error);
+            setLoadingFilter(false);
         }
-        setLoading(false);
+        // setLoading(false);
         
     };
 
@@ -147,8 +156,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
 
     const deleteSingleRow = async (rowId: number) => {
         try {
-            setLoading(true);
-
+            // setLoading(true);
+            setLoadingTable(true);
             findApiToCall(`deleteSingle${upFirstLetter(modelName)}`).call(api_instance, rowId)
                 .then((res: any) => {
                     const result = res.data;
@@ -159,17 +168,19 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                         console.error(`Error deleting the ${modelName} : `, result.message);
                     }
                 });
-            setLoading(false);
+            // setLoading(false);
         } catch (error) {
             showMessage('Error making delete request', 'error');
             console.error('Error making delete request', error);
-            setLoading(false);
+            // setLoading(false);
+            setLoadingTable(false);
         }
     };
 
 
     const fetchModelData = async (page = 1, pageSize = PAGE_SIZES[0], filters = [], sortStatus = {}) => {
-        setLoading(true);
+        // setLoading(true);
+        setLoadingTable(true);
         const { columnAccessor: sortField = '', direction: sortDirection = '' }: any = sortStatus;
         const filterParam = encodeURIComponent(JSON.stringify(filters));
         try {
@@ -183,16 +194,25 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
             }).then((res: any) => {
                 setItems(res.data?.data?.data);
                 setTotalItems(res.data?.data?.total);
-                setLoading(false);
+                if(res.data?.data?.data.length==0){
+                    setEmptyDataLoading(true);
+                }
+                else{
+                    setEmptyDataLoading(false);
+                }
+                // setLoading(false);
             }).catch((error: any) => {
                 console.error('Error fetching data: ', error);
-                setLoading(false);
+                setCheckLoading(!checkLoading);
+                // setLoadingTable(false);
                 showMessage(`Error fetching  ${modelName} data.`, 'error');
             });
         } catch (error) {
             showMessage(`Error fetching ${modelName} data.`, 'error');
             console.error('Error fetching data: ', error);
-            setLoading(false);
+            // setLoading(false);
+            setCheckLoading(!checkLoading);
+            // setLoadingTable(false);
         }
     };
 
@@ -259,10 +279,36 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
     }, [pageSize]);
 
     useEffect(() => {
+        
         setRecords([...initialRecords.slice(0, pageSize)]);
         filterOptionRef.current = { ...filterOptionRef.current, page, pageSize };
+        
     }, [page, pageSize, initialRecords]);
 
+    useEffect(()=>{
+        setLoadingFilter(true);
+        if(optionsFilter.length > 0) {
+            // setTimeout(() => {
+                setLoadingFilter(false);
+            //   }, 2000);
+        }
+    },[optionsFilter]);
+    useEffect(()=>{
+        setLoadingTable(true);
+        if(records.length > 0) {
+            // setTimeout(() => {
+            setLoadingTable(false);
+            //   }, 2000);
+        }
+        if(initialRecords.length > 0) {
+            // setTimeout(() => {
+            setLoadingTable(false);
+            //   }, 2000);
+        }
+        if(emptyDataLoading){
+            setLoadingTable(false);
+        }        
+    },[records,initialRecords,checkLoading,emptyDataLoading]);
     useEffect(() => {
         filterOptionRef.current = { ...filterOptionRef.current, page, pageSize, sortStatus };
         fetchModelData(page, pageSize, filters, sortStatus);
@@ -285,7 +331,8 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
         dispatch(resetFilterSlice())
     }, []);
 
-
+  
+    
     const deleteButton = (<button type="button" className="btn btn-danger gap-2" onClick={() => deleteRow()}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5">
@@ -347,23 +394,32 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
                                     {/* Filter by options */}
                                     <div className="mb-4">
                                         <label className="block font-semibold">Filter by:</label>
-                                        {filteredOptions.map((option: any, index: any) => (
-                                            <div key={option.value + index}>
-                                                <CheckboxComponent option={option} handleFieldChange={handleFieldChange}
-                                                    selectedFields={selectedFields} />
-
-                                                {selectedFields.includes(option.value) && (
-                                                    <SearchOptionComponent
-                                                        option={option}
-                                                        handleConditionChange={handleConditionChange}
-                                                        filters={filters}
-                                                        filterState={filterState}
-                                                        setFilters={setFilters}
-                                                        filterOptionRef={filterOptionRef}
-                                                    />
-                                                )}
+                                        {loadingFilter ? (
+                                            <div className='flex justify-center'>
+                                                <span
+                                                    className="animate-spin border-4 my-4 border-primary border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                             </div>
-                                        ))}
+                                        ) : (
+                                            <div>
+                                            {filteredOptions.map((option: any, index: any) => (
+                                                <div key={option.value + index}>
+                                                    <CheckboxComponent option={option} handleFieldChange={handleFieldChange}
+                                                        selectedFields={selectedFields} />
+
+                                                    {selectedFields.includes(option.value) && (
+                                                        <SearchOptionComponent
+                                                            option={option}
+                                                            handleConditionChange={handleConditionChange}
+                                                            filters={filters}
+                                                            filterState={filterState}
+                                                            setFilters={setFilters}
+                                                            filterOptionRef={filterOptionRef}
+                                                        />
+                                                    )}
+                                                </div>
+                                            ))}
+                                            </div>
+                                        )}
                                     </div>
 
 
@@ -393,10 +449,10 @@ const GenerateIndexTable = ({ modelName, tableColumns, frontRoute,actionPlus=[] 
 
                             <div className="panel col-span-6">
                                 <div className="datatables pagination-padding">
-                                    {loading ? (
+                                    {loadingTable ? (
                                         <div className='flex justify-center'>
                                             <span
-                                                className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
+                                                className="animate-spin border-4 my-4 border-primary border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                         </div>
                                     ) : (
 

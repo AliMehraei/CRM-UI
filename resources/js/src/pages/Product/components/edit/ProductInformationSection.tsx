@@ -113,16 +113,16 @@ const ProductInformationSection = () => {
                     }
                 />
             ),
-            'Business Product': (
-                <input
-                    id="business_product"
-                    type="checkbox"
-                    name="business_product"
-                    className="form-checkbox"
-                    onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
-                    defaultChecked={formState.business_product}
-                />
-            ),
+            // 'Business Product': (
+            //     <input
+            //         id="business_product"
+            //         type="checkbox"
+            //         name="business_product"
+            //         className="form-checkbox"
+            //         onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
+            //         defaultChecked={formState.business_product}
+            //     />
+            // ),
             'Approved By': (
                 <AsyncSelect
                     defaultOptions={true}

@@ -110,7 +110,16 @@ export const SingleDateInput = ({onChange, defaultValue}: any) => (
         />
     </>
 );
-
+export const SelectModuleAble = ({onChange, defaultValue}: any) => (
+    <>
+        <input
+            defaultValue={defaultValue.value}
+            type="date"
+            className="border p-2 w-full"
+            onChange={onChange}
+        />
+    </>
+);
 export const AsyncMultiInput = ({placeholder, loadOptions, onChange, filterSelect}: any) => {
     const selectedOptions = filterSelect?.value?.fullOptions
     const defaultValue = selectedOptions?.map((option: any) => ({
@@ -134,6 +143,7 @@ export const SelectComponent = ({
                                     optionValue,
                                     isMulti = false,
                                     handleSelectMultipleDuration,
+                                    handleSelect,
                                     handleSelectMultiple,
                                     defaultValue
                                 }: any) => {
@@ -145,10 +155,19 @@ export const SelectComponent = ({
     } else if (!isMulti && defaultValue) {
         defaultOption = {value: defaultValue, label: options[defaultValue]};
     }
+    // return (
+    //     <Select
+    //         placeholder="Select an option"
+    //         onChange={(e:any) => (isMulti ? handleSelectMultiple(optionValue, e) : handleSelectMultipleDuration(optionValue, e, condition))}
+    //         options={optionsFormed}
+    //         isMulti={isMulti}
+    //         defaultValue={defaultOption}
+    //     />
+    // );
     return (
         <Select
             placeholder="Select an option"
-            onChange={(e:any) => (isMulti ? handleSelectMultiple(optionValue, e) : handleSelectMultipleDuration(optionValue, e, condition))}
+            onChange={(e:any) => (isMulti ? handleSelectMultiple(optionValue, e) : handleSelect(optionValue, e))}
             options={optionsFormed}
             isMulti={isMulti}
             defaultValue={defaultOption}

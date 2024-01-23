@@ -381,6 +381,45 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote`, data);
     }
 
+    async quotationEmail(id: any, attachment = false) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": false, "attachment": attachment});
+    }
+
+
+    async quotationEmailProactive(id: any, attachment = false) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": true, "attachment": attachment});
+    }
+
+    async sendQuotationRelatedEmail(id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related`, data);
+    }
+    async sendInvoiceEmail(id: any, attachment = false) {
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/${id}/email`, {"attachment": attachment});
+    }
+    
+    async getPDF(modelName:string, id: any, name: any) {       
+        _axios({
+            method: 'post',
+            url: `${API_URL_PRODUCT}/${modelName.replace('-', '_')}/${id}/get-pdf`,
+            responseType: 'blob', // Important for handling binary data (like files)
+        })
+            .then(response => {
+                if (response.status != 200) throw Error(response.statusText);
+
+                const blob = new Blob([response.data], {type: response.headers['content-type']});
+                
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name + '.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error downloading attachment:', error);
+            });
+    }
+
     //deals
     async searchDeal(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/deal/search`, data);
@@ -630,7 +669,7 @@ class api {
                 if (response.status != 200)
                     throw Error(response.statusText);
                 // Create a Blob from the response data
-                const blob = new Blob([response.data], {type: response.headers['content-type']});
+                const blob = new Blob([response.data], {type: response.headers['content-type']});                
 
                 // Create a link element and simulate a click to trigger the download
                 const link = document.createElement('a');
@@ -681,6 +720,44 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/call`, data);
     }
 
+    //fiscal account
+    async fetchDataFiscalAccount(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/list`, data);
+    }
+
+    async deleteSingleFiscalAccount(id: any = null) {
+        return await _axios.delete(`${API_URL_PRODUCT}/fiscal-account/${id}`);
+    }
+
+    async fetchSingleFiscalAccount(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/${id}`);
+    }
+
+    async updateSingleFiscalAccount(data: any) {
+        return await _axios.put(`${API_URL_PRODUCT}/fiscal-account/${data.id}`, data);
+    }
+
+    async createSingleFiscalAccount(data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account`, data);
+    }
+
+    async searchFiscalAccount(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/search`, data);
+    }
+
+    //email log
+    async fetchDataEmailLog(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/list`, data);
+    }
+
+    async searchEmailLog(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/search`, data);
+    }
+
+    async fetchSingleEmailLog(id: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/email-log/${id}`);
+    }
+
     async globalSearch(text: string) {
         const data = {
             search: text
@@ -703,10 +780,11 @@ class api {
     }
 
     async fetchSuggestedAvailability(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/availability/suggestionAvailability`, {product_id: product_id});
     }
+
     async fetchSuggestedExcess(product_id: any = null) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`,{product_id:product_id});
+        return await _axios.post(`${API_URL_PRODUCT}/excess/suggestionExcess`, {product_id: product_id});
     }
 
     //start dashboard
@@ -797,11 +875,12 @@ class api {
     async reportInvoiceDetails(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/invoice/details`, data);
     }
+
     async reportVendorList(data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/report/vendor/list`, data);
     }
 
-    async importBomExcess(id:any,modelName:string,formData: any) {
+    async importBomExcess(id: any, modelName: string, formData: any) {
 
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import`, formData, {
             headers: {
@@ -811,36 +890,48 @@ class api {
     }
 
 
-
     async deleteSingleBomItem(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/bom/${id}`);
     }
-    async bomItemList(id:any,data: any) {
+
+    async bomItemList(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/bom/list/${id}`, data);
     }
-    async excessItemList(id:any,data: any) {
+
+    async excessItemList(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess/list/${id}`, data);
     }
-    async availabilityVendorItemList(id:any,data: any) {
+
+    async availabilityVendorItemList(id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/availability-vendor/list/${id}`, data);
     }
-    async bomItemConfirmation(id:any,modelName:string,item_id: any) {
+
+    async bomItemConfirmation(id: any, modelName: string, item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/confirmation/${item_id}`);
     }
-    async bomItemProcess(id:any,modelName:string,item_id: any) {
+
+    async bomItemProcess(id: any, modelName: string, item_id: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/pre-process/${item_id}`);
     }
-    async bomItemSaveHeader(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`,data);
+
+    async bomItemSaveHeader(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/save-header/${item_id}`, data);
     }
-    async selectedHeaderValidation(id:any,modelName:string,item_id: any,data: any) {
+
+    async selectedHeaderValidation(id: any, modelName: string, item_id: any, data: any) {
         return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/import/validation/${item_id}`, data);
     }
-    async bomItemSaveProcess(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/process/${item_id}`,data);
+
+    async bomItemSaveProcess(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/process/${item_id}`, data);
     }
-    async bomItemUpdateProduct(id:any,modelName:string,item_id: any,data:any) {
-        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/update-product/${item_id}`,data);
+
+    async bomItemUpdateProduct(id: any, modelName: string, item_id: any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess-bom/${id}/${modelName}/update-product/${item_id}`, data);
+    }
+
+    async dashboardCountMotivation() {
+        return await _axios.post(`${API_URL_PRODUCT}/dashboard/motivation-count`);
     }
 
 }

@@ -6,7 +6,7 @@ import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import { useUserStatus } from "../../config/authCheck";
 import { resetForm, updateFormData } from "../../store/accountFormSlice";
-import { displayImage, displayFile } from '../../components/Functions/CommonFunctions';
+import { displayImage, displayFile, formatDate } from '../../components/Functions/CommonFunctions';
 import InfoListComponent from "../../components/Preview/InfoListComponent";
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
@@ -42,7 +42,7 @@ const Preview = () => {
         { label: "Website", value: <a className='text-primary' target='_blank' rel='noreferrer' href={formState.website}>{formState.website}</a> },
         { label: "Account Site", value: `${formState.shipping_city ?? ''} | ${formState.account_name ?? ''}` },
         { label: "Account Owner", value: `${formState.owner?.first_name ?? ''} ${formState.owner?.last_name ?? ''}` },
-        { label: "PM User", value: `${formState.pm_user?.first_name ?? ''} ${formState.pm_user?.last_name ?? ''}` },
+        { label: "PM User", value: `${formState.pmUser?.first_name ?? ''} ${formState.pmUser?.last_name ?? ''}` },
         { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
         { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
@@ -129,11 +129,11 @@ const Preview = () => {
                             { label: "Primary Last Name", value: formState.primary_last_name },
                             {
                                 label: "Parent Account",
-                                value: `${formState.parent?.first_name ?? ''} ${formState.parent?.last_name ?? ''}`
+                                value: `${formState.parent?.account_name ?? ''} `
                             },
                             {
                                 label: "Child Account",
-                                value: `${formState.child?.first_name ?? ''} ${formState.child?.last_name ?? ''}`
+                                value: `${formState.child?.account_name ?? ''}`
                             },
                             { label: "Double Check Status", value: formState.double_check_status },
                             { label: "DCheck", value: formState.business_account ? 'Yes' : 'No' },
@@ -152,10 +152,7 @@ const Preview = () => {
                         rightObjects={[
                             { label: "VAT No", value: formState.vat_no },
                             { label: "Forwarder", value: formState.parent?.forwarder ?? '' },
-                            {
-                                label: "Child Account",
-                                value: `${formState.child?.first_name ?? ''} ${formState.child?.last_name ?? ''}`
-                            },
+                          
                             { label: "Forwarder Account no", value: formState.forwarder_account_no }
                         ]}
                     />
@@ -210,7 +207,16 @@ const Preview = () => {
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-
+                    <InformationSectionPreview
+                        title="Date information"
+                        leftObjects={[
+                            {label: "Created Date", value: formatDate(formState.created_at)}
+                        ]}
+                        rightObjects={[
+                            {label: "Modified Date", value: formatDate(formState.updated_at)}
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
 
                 </div>

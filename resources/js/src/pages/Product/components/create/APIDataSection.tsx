@@ -56,11 +56,11 @@ const APIDataSection = () => {
             ),
             'OP Last Update': (
                 <Flatpickr
-                name="last_activity_date"
+                name="op_last_update"
                 options={{ dateFormat: 'Y-m-d ' }}
                 className="form-input flex-1"
                 placeholder="YYYY-MM-DD"
-                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)}
+                onChange={(_,dateString) => handleChangeField('op_last_update', dateString)}
                 />
             ),
             'OP Failure Message': (

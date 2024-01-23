@@ -41,14 +41,7 @@ const AdminIndex = () => {
 
     return (
         <div>
-            <ul className="flex space-x-2 rtl:space-x-reverse">
-                <li>
-                    <Link to="/" className="text-primary hover:underline">
-                      Admin  Dashboard
-                    </Link>
-                </li>
-
-            </ul>
+            
             <div className="pt-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6 text-white">
                     {salesOrderData ? (

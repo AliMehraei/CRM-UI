@@ -119,7 +119,7 @@ const AccountInformationSection = () => {
                 className="flex-1"
             />,
 
-            'LinkedIn Company':
+            'Company Linkedin':
                 <input
                     id="linkedin_company"
                     name="linkedin"
@@ -201,7 +201,7 @@ const AccountInformationSection = () => {
                 name="d_check"
                 className="form-checkbox"
                 onChange={(e:any) => handleChangeField(e.target.name, e.target.checked)}
-                checked={formState.has_no_contacts}
+                checked={formState.d_check}
             />,
 
         }

@@ -6,7 +6,7 @@ import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
 import {resetForm, updateFormData} from "../../store/productFormSlice";
-import {displayImage, displayFile} from '../../components/Functions/CommonFunctions';
+import {displayImage, displayFile, formatDate} from '../../components/Functions/CommonFunctions';
 import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
@@ -101,13 +101,37 @@ const Preview = () => {
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    
+                    <InformationSectionPreview
+                        title="Bussiness Product"
+                        leftObjects={[
+                            {
+                                label: "Bussiness Product",
+                                value: formState.business_product ? 'Yes' : 'No'
+                            },
+                            {label: "Sales Selling Price", value: formState.sales_selling_price},
+                            {label: "Sales Fiscal Account", value: formState.fiscal_account_sale?.account_name},
+                            {label: "Sales Description", value: formState.sales_description},
+                            {label: "Sales Tax", value: formState.sales_tax},
+
+                        ]}
+                        rightObjects={[
+                            {label: "Purchase Cost Price", value: formState.purchase_cost_price},
+                            {label: "Purchase Fiscal Account", value: formState.fiscal_account_purchase?.account_name},
+                            {label: "Purchase Description", value: formState.purchase_description},
+                            {label: "Purchase Tax", value: formState.purchase_tax},
+                            {label: "Purchase Preferred Vendor", value: formState.vendor?.vendor_name},
+
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <InformationSectionPreview
                         title="Supply Chain"
                         leftObjects={[
                             // { label: "Manufacture Name", value: formState.manufacturer_name },
                         ]}
                         rightObjects={[
-                            {label: "Lifecylce Status", value: formState.lifecycle_status},
+                            {label: "Lifecycle Status", value: formState.lifecycle_status},
                         ]}
                     />
 
@@ -277,7 +301,16 @@ const Preview = () => {
                         ]}/>
 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
+                    <InformationSectionPreview
+                        title="Date information"
+                        leftObjects={[
+                            {label: "Created Date", value: formatDate(formState.created_at)}
+                        ]}
+                        rightObjects={[
+                            {label: "Modified Date", value: formatDate(formState.updated_at)}
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelID} modelName={'product'}/>
                 </div>
             </div>

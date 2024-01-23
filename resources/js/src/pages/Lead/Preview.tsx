@@ -6,7 +6,7 @@ import Api from "../../config/api";
 import LoadingSasCrm from "../../components/LoadingSasCrm";
 import {useUserStatus} from "../../config/authCheck";
 import {resetForm, updateFormData} from "../../store/leadFormSlice";
-import {displayImage, displayFile} from '../../components/Functions/CommonFunctions';
+import {displayImage, displayFile, formatDate} from '../../components/Functions/CommonFunctions';
 import InfoListComponent from '../../components/Preview/InfoListComponent';
 import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview';
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
@@ -170,7 +170,6 @@ const Preview = () => {
                         title="Address Information"
                         leftObjects={[
                             {label: "City", value: formState.city},
-                            {label: "Address", value: formState.address},
                             {label: "Zip Code", value: formState.zip_code},
                         ]}
                         rightObjects={[
@@ -190,8 +189,7 @@ const Preview = () => {
                     <InformationSectionPreview
                         title="Fields with Secondary Priority"
                         leftObjects={[
-                            {label: "No.of Employees", value: formState.company_employee_count},
-                            {label: "Title", value: formState.books_id_eur},
+                            {label: "No.of Employees", value: formState.no_of_employees},
                             {label: "Currency", value: formState.currency}
                         ]}
                         rightObjects={[
@@ -211,7 +209,16 @@ const Preview = () => {
                         ]}
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
-
+                    <InformationSectionPreview
+                        title="Date information"
+                        leftObjects={[
+                            {label: "Created Date", value: formatDate(formState.created_at)}
+                        ]}
+                        rightObjects={[
+                            {label: "Modified Date", value: formatDate(formState.updated_at)}
+                        ]}
+                    />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelID} modelName={'lead'}/>
                 </div>
             </div>

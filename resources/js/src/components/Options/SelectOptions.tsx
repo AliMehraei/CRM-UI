@@ -288,6 +288,8 @@ export const SalesOrderStatusOption = [
     { value: 'Draft', label: 'Draft' },
     { value: 'Open', label: 'Open' },
     { value: 'Approved', label: 'Approved' },
+    { value: 'Confirmed', label: 'Confirmed' },
+    { value: 'pending_approval', label: 'pending_approval' },
     { value: 'Closed', label: 'Closed' },
     { value: 'Void', label: 'Void' },
 ];
@@ -377,7 +379,7 @@ export const ProductTypeOptions = [
     { value: 'service', label: 'Service'},
 ];
 
-export const ProductLifecylceStatusOptions = [
+export const ProductLifecycleStatusOptions = [
     { label: '-None-', value: 'none' },
     { label: 'Production', value: 'Production' },
     { label: 'Phase out', value: 'Phase out' },
@@ -415,6 +417,15 @@ export const ProductDuplicatedStatusOptions = [
         label: (<><span className="inline-block w-4 h-4 mr-2 bg-red-800 rounded-full"></span>Delete confirmed</>),
         value: 'Delete confirmed'
     },
+];
+
+export const ProductTax = [
+
+    { label: 'B 10% [10%]', value: 'B 10% [10%]' },
+    { label: 'Dritt-Staaten (nicht EUR) [0%]', value: 'Dritt-Staaten (nicht EUR) [0%]' },
+    { label: 'EU Staaten [0%]', value: 'EU Staaten [0%]' },
+    { label: 'USt [20%]', value: 'USt [20%]' },
+
 ];
 
 export const AvailabilitySources = [
@@ -610,4 +621,24 @@ export const CallResult: any = [
     {value: 'Wünscht mehr Information', label: 'Wünscht mehr Information'},
     {value: 'Wünscht Rückruf', label: 'Wünscht Rückruf'},
     {value: 'Ungültige Zahl', label: 'Ungültige Zahl'},
+];
+
+export const FiscalAccountType = [
+    { value: 'Accounts Payable', label: 'Accounts Payable' },
+    { value: 'Accounts Receivable', label: 'Accounts Receivable' },
+    { value: 'Bank', label: 'Bank' },
+    { value: 'Cash', label: 'Cash' },
+    { value: 'Cost Of Goods Sold', label: 'Cost Of Goods Sold' },
+    { value: 'Credit Card', label: 'Credit Card' },
+    { value: 'Equity', label: 'Equity' },
+    { value: 'Expense', label: 'Expense' },
+    { value: 'Fixed Asset', label: 'Fixed Asset' },
+    { value: 'Income', label: 'Income' },
+    { value: 'Input Tax', label: 'Input Tax' },
+    { value: 'Other Current Asset', label: 'Other Current Asset' },
+    { value: 'Other Current Liability', label: 'Other Current Liability' },
+    { value: 'Other Expense', label: 'Other Expense' },
+    { value: 'Other Liability', label: 'Other Liability' },
+    { value: 'Output Tax', label: 'Output Tax' },
+    { value: 'Stock', label: 'Stock' },
 ];
