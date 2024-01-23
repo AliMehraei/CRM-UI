@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setPageTitle } from "../../store/themeConfigSlice";
-import { setToken, setUserData } from "../../config/config";
+import {setToken, setUserData, setUserUniqueIdentifier} from "../../config/config";
 import api from "../../config/api";
 import Swal from "sweetalert2";
 import { useUserStatus } from "../../config/authCheck";
@@ -34,6 +34,7 @@ const LoginCover = () => {
             if (response.data.isOk && response.status === 200) {
                 setToken(response.data.token, "token");
                 setUserData(response.data.user);
+                setUserUniqueIdentifier(response.data.userUnifiedToken);
                 navigate("/");
             } else {
                 showMessage(`Login failed : ${response.data.message}`, "error");
@@ -73,7 +74,7 @@ const LoginCover = () => {
                         alt="SasCrm"
                         className="lg:max-w-[370px] xl:max-w-[400px] mx-auto"
                     />
-                   
+
 
                 </div>
                 <h3 className="text-3xl font-bold mb-4 text-center">
