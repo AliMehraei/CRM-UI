@@ -177,6 +177,12 @@ const Preview = () => {
         {
             label: 'Created time',
             key: 'created_at',
+            format: (value) => {
+                // Format the date to 'YYYY-MM-DD'
+                const formattedDate = new Date(value).toISOString().split('T')[0];
+                return formattedDate;
+              
+            },
         },
 
     ];
