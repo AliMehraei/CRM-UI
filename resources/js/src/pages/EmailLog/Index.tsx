@@ -55,6 +55,20 @@ const List = () => {
             ),
         },
         {
+            accessor: 'status',
+            sortable: true,
+            render: ({ status }) => (
+                <div>
+                {status === 'pending' && (
+                    <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">{status}</span>
+                )}
+                {status === 'received' && (
+                    <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">{status}</span>
+                )}
+                </div>
+            ),
+        },
+        {
             accessor: 'owner',
             title: 'Owner',
             sortable: false,
