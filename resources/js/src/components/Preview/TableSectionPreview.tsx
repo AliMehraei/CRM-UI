@@ -36,7 +36,9 @@ const TableSectionPreview = ({
                                     <tr key={item.id}>
                                         {columns.map((column: any) => (
                                             <td key={column.key}>
-                                                {column.format
+                                                {column.render
+                                                    ? column.render(item)
+                                                    : column.format
                                                     ? column.format(
                                                           item[column.key]
                                                       )

@@ -9,10 +9,6 @@ import { resetForm, updateFormData } from "../../store/invoiceFormSlice";
 import {
     displayImage,
     displayFile,
-    getStatusLabel,
-    StatusOption,
-    notifyErrorMessage,
-    notifySuccess,
     formatDate,
 } from "../../components/Functions/CommonFunctions";
 import InfoListComponent from "../../components/Preview/InfoListComponent";
@@ -21,8 +17,9 @@ import InformationSectionPreview from "../../components/Preview/InformationSecti
 import MultipleLineSectionPreview from "../../components/Preview/MultipleLineSectionPreview";
 import TableSectionPreview from "../../components/Preview/TableSectionPreview";
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
-import Swal from "sweetalert2";
-import { EmailIcon } from "../../components/FormFields/CommonIcons";
+import { ViewIcon } from "../../components/FormFields/CommonIcons";
+import { Dispatch, SetStateAction } from 'react';
+import ExtraEmailLogDataSectionPreview from "../../components/Preview/ExtraEmailLogDataSectionPreview";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -32,6 +29,14 @@ const Preview = () => {
     const modelID = params.id;
     const api = new Api();
     const formState = useSelector((state: any) => state.invoiceForm);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    interface ExtraEmailLogInformation {
+        leftObjects: { label: string; value: string }[];
+        rightObjects: { label: string; value: string }[];
+    }
+
+    const [selectedItem, setSelectedItem] = useState<ExtraEmailLogInformation | null>(null);
+
 
     useEffect(() => {
         dispatch(setPageTitle("Invoice Preview"));
@@ -274,6 +279,41 @@ const Preview = () => {
         },
     ];
 
+
+    let extraEmailLogInformation: ExtraEmailLogInformation = {
+        leftObjects: [],
+        rightObjects: [],
+      };
+    const handleShowExtDataEmailLog = (item: any) => {
+
+        extraEmailLogInformation = {
+            leftObjects: [
+                { label: "Sender Name", value: `${item.sender_name ?? ''}` },
+                { label: "Is Open", value: `${item.is_open ?? ''}` },
+                { label: "Creator", value:  `${item.creator?.first_name ?? ''} ${item.creator?.last_name ?? ""}`,},
+                { label: "Modifier", value: `${item.modifier?.first_name ?? ''} ${item.modifier?.last_name ?? ""}`, },
+                { label: "Mail Status", value: `${item.mail_status ?? ''}` },
+            ],
+            rightObjects: [
+                { label: "Owner", value: `${item.owner?.first_name ?? ''} ${item.owner?.last_name ?? ""}`, },
+                { label: "Sent At", value: `${item.sent_at ?? ''}` },
+                { label: "Tracking Uuid", value: `${item.tracking_uuid ?? ''}` },
+                { label: "Type", value: `${item.type ?? ''}` },
+                { label: "Opened At", value: `${item.opened_at ?? ''}` },
+                
+            ],
+        };
+        
+        setSelectedItem(extraEmailLogInformation);
+        console.log('item',item.sender_name);
+
+        setIsPopupOpen(true);
+      };
+    
+      const handleClosePopup = () => {
+        setIsPopupOpen(false);
+      };
+
     const emailLogColumns = [
         {
             label: "Subject",
@@ -310,6 +350,16 @@ const Preview = () => {
                     .split("T")[0];
                 return formattedDate;
             },
+        },
+
+        {
+            label: 'Action',
+            key: 'action',
+            render: (item) => (
+                <div onClick={() => handleShowExtDataEmailLog(item)} className="flex hover:text-info">
+                <ViewIcon />
+              </div>
+            ),
         },
     ];
 
@@ -410,11 +460,27 @@ const Preview = () => {
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelID} modelName={"contact"} />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                <div>
                 <TableSectionPreview
                     title="Email Logs"
                     items={formState.emaillogs}
                     columns={emailLogColumns}
                 />
+                {isPopupOpen && selectedItem && (
+                    <div className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white shadow-md rounded z-50 border  shadow-gray-300`} >
+
+                    <ExtraEmailLogDataSectionPreview
+                        title="Email Log"
+                        leftObjects={selectedItem.leftObjects}
+                        rightObjects={selectedItem.rightObjects}
+                    />
+
+                    <div className="mt-auto px-2 py-3 sm:flex sm:flex-row-reverse sm:px-3 my-5">
+                    <button className="fixed bottom-5 w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={handleClosePopup}>Close</button>
+                    </div>
+                    </div>
+                )}
+                </div>
             </div>
         </div>
     );
