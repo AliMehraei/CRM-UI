@@ -11,6 +11,7 @@ import ActionButtonsPreview from '../../components/Preview/ActionButtonsPreview'
 import InformationSectionPreview from '../../components/Preview/InformationSectionPreview';
 import TableSectionPreview from "../../components/Preview/TableSectionPreview";
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import GenerateTableList from '../../components/FilterFields/GenerateTableList';
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -146,6 +147,40 @@ const Preview = () => {
 
     ];
 
+    const emailLogColumns = [
+
+        {
+            label: 'Subject',
+            key: 'subject',
+        },
+        
+        {
+            label: 'Reciver Mail',
+            key: 'receiver_mail',
+        },
+
+        {
+            label: 'Sender Mail',
+            key: 'sender_email',
+        },
+
+        {
+            label: 'Sender Type',
+            key: 'sender_type',
+        },
+
+        {
+            label: 'Status',
+            key: 'status',
+        },
+
+        {
+            label: 'Created time',
+            key: 'created_at',
+        },
+
+    ];
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -215,6 +250,13 @@ const Preview = () => {
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'vendorRfq'}/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
+                    
+                    <TableSectionPreview
+                        title="Email Logs"
+                        items={formState.emaillogs}
+                        columns={emailLogColumns}
+                    />
                 </div>
             </div>
         )
