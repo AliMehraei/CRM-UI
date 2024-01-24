@@ -1,5 +1,5 @@
 import axios, { AxiosInterceptorManager } from "axios";
-import { getToken } from './config';
+import {getToken, getUserUniqueIdentifier} from './config';
 
 const _axios = axios.create({
     // withCredentials: true,
@@ -22,8 +22,10 @@ type ResponseManager = AxiosInterceptorManager<any>;
 // Request interceptor to add the token to each request
 _axios.interceptors.request.use((config) => {
     const token = getToken('token');
+    const userIdentifier = getUserUniqueIdentifier();
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+        config.headers['X-User-Unique-Token'] = userIdentifier;
     }
     return config;
 });
