@@ -288,7 +288,7 @@ const Preview = () => {
 
         extraEmailLogInformation = {
             leftObjects: [
-                { label: "Sender Name", value: `${item.sender_name ?? ''}` },
+                { label: "Sender Name", value: `${(item.sender_name ?? '').substring(0, 20)}${item.sender_name && item.sender_name.length > 15 ? '...' : ''}` },
                 { label: "Is Open", value: `${item.is_open ?? ''}` },
                 { label: "Creator", value:  `${item.creator?.first_name ?? ''} ${item.creator?.last_name ?? ""}`,},
                 { label: "Modifier", value: `${item.modifier?.first_name ?? ''} ${item.modifier?.last_name ?? ""}`, },
