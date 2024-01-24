@@ -155,7 +155,7 @@ const SalesPersonIndex = () => {
   const rfqTabs = ['All', 'Open', 'Open without routing'];
   const quoteTabs = ['All', 'High', 'Low', 'undefined', 'unknown'];
   const sOTabs = ['All', 'Approved', 'open', 'pending_approval', 'Draft', 'Closed', 'Void'];
-  const taskTabs = ['All', '0.0(CLU)', '1.0(CLQ)', '2.0(FCM)', '3.0(WLQ)', '4.0(HLQ)', 'Close/Lost', 'Läuft...', 'Nicht gestartet', 'Verschoben'];
+  const taskTabs = ['All', 'Nicht gestartet', 'Verschoben','Läuft...','Abgeschlossen','Warte auf Eingabe'];
 
   const filteredLeads = selectedLeadTab === 'All' ? recentLeads : recentLeads.filter(lead => lead.status === (leadStatusAbbreviations[selectedLeadTab] || selectedLeadTab));
   const filteredRfqs = selectedRfqTab === 'All' ? recentRfqs : recentRfqs.filter(rfq => rfq.status === selectedRfqTab);
