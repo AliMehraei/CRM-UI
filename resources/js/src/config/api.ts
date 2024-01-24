@@ -390,8 +390,8 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": true, "attachment": attachment});
     }
 
-    async sendQuotationRelatedEmail(id: any, data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related`, data);
+    async sendQuotationRelatedEmail(id: any , trackingUuid:any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related/${trackingUuid}`, data);
     }
     async sendInvoiceEmail(id: any, attachment = false) {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/${id}/email`, {"attachment": attachment});
