@@ -6,7 +6,7 @@ import {useUserStatus} from "../../config/authCheck";
 import api from "../../config/api";
 import LoadingSasCrm from '../../components/LoadingSasCrm';
 import LeftMenuSetting from '../../components/FilterFields/LeftMenuSetting';
-import {getUserData} from '../../config/config';
+import {getToken} from '../../config/config';
 import {displayImage} from "../../components/Functions/CommonFunctions";
 
 const List = () => {
@@ -15,7 +15,7 @@ const List = () => {
     const {hasPermission} = useUserStatus();
     const api_instance = new api();
     const [searchQuery, setSearchQuery] = useState('');
-    const user = getUserData();
+    const user = getToken('userData');
     const [activeTab, setActiveTab] = useState('Personal Settings');
 
     useEffect(() => {
