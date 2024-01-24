@@ -25,7 +25,7 @@ const ExtraEmailLogDataSectionPreview = ({ title, leftObjects, rightObjects }) =
 
 const InfoItem = ({ label, value }) => (
     <div className="flex items-center w-full justify-between mb-2">
-        <div className="text-white-dark">{label} :</div>
+        <div className="text-white-dark mx-1">{label} : </div>
         <div>{value}</div>
     </div>
 );

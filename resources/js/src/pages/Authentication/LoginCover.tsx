@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setPageTitle } from "../../store/themeConfigSlice";
-import {setToken, setUserData, setUserUniqueIdentifier} from "../../config/config";
+import {setToken} from "../../config/config";
 import api from "../../config/api";
 import Swal from "sweetalert2";
 import { useUserStatus } from "../../config/authCheck";
@@ -33,8 +33,8 @@ const LoginCover = () => {
             const response = await api_instance.login({ email, password });
             if (response.data.isOk && response.status === 200) {
                 setToken(response.data.token, "token");
-                setUserData(response.data.user);
-                setUserUniqueIdentifier(response.data.userUnifiedToken);
+                setToken(response.data.user, "userData");
+                setToken(response.data.userUnifiedToken, "userUniqueIdentifier");
                 navigate("/");
             } else {
                 showMessage(`Login failed : ${response.data.message}`, "error");

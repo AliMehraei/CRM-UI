@@ -9,7 +9,7 @@ import i18next from 'i18next';
 import Dropdown from '../Dropdown';
 import { useUserStatus } from '../../config/authCheck';
 import LoadingSasCrm from '../LoadingSasCrm';
-import { getUserData } from '../../config/config';
+import { getToken } from '../../config/config';
 import { displayImage } from "../Functions/CommonFunctions";
 import SearchSection from "./components/SearchSection";
 
@@ -18,7 +18,7 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { hasPermission } = useUserStatus();
-    const user = getUserData();
+    const user = getToken('userData');
 
     useEffect(() => {
         const selector = document.querySelector('ul.horizontal-menu a[href="' + window.location.pathname + '"]');
