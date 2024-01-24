@@ -165,10 +165,13 @@ const Preview = () => {
         },
         
         {
-            label: 'Reciver Mail',
+            label: 'Receiver Mail',
             key: 'receiver_mail',
         },
-
+        {
+            label: "Type - Class",
+            key: "type",
+        },
         {
             label: 'Sender Mail',
             key: 'sender_email',
