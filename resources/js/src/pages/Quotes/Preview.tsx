@@ -25,8 +25,10 @@ import AttachmentDownloadButton from "../../components/FormFields/AttachmentDown
 import {
     EmailIcon,
     EmailIconOutLine,
+    ViewIcon,
 } from "../../components/FormFields/CommonIcons";
 import Swal from "sweetalert2";
+import ExtraEmailLogDataSectionPreview from "../../components/Preview/ExtraEmailLogDataSectionPreview";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -36,6 +38,13 @@ const Preview = () => {
     const modelID = params.id;
     const api = new Api();
     const formState = useSelector((state: any) => state.quoteForm);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    interface ExtraEmailLogInformation {
+        leftObjects: { label: string; value: string }[];
+        rightObjects: { label: string; value: string }[];
+    }
+
+    const [selectedItemEmailLog, setSelectedItemEmailLog] = useState<ExtraEmailLogInformation | null>(null);
 
     useEffect(() => {
         dispatch(setPageTitle("Quote Preview"));
@@ -360,7 +369,51 @@ const Preview = () => {
                 return formattedDate;
             },
         },
+
+        {
+            label: 'Action',
+            key: 'action',
+            render: (item) => (
+                <div onClick={() => handleShowExtDataEmailLog(item)} className="flex hover:text-info">
+                <ViewIcon />
+              </div>
+            ),
+        },
     ];
+
+    let extraEmailLogInformation: ExtraEmailLogInformation = {
+        leftObjects: [],
+        rightObjects: [],
+      };
+    const handleShowExtDataEmailLog = (item: any) => {
+
+        extraEmailLogInformation = {
+            leftObjects: [
+                { label: "Sender Name", value: `${item.sender_name ?? ''}` },
+                { label: "Is Open", value: `${item.is_open ?? ''}` },
+                { label: "Creator", value:  `${item.creator?.first_name ?? ''} ${item.creator?.last_name ?? ""}`,},
+                { label: "Modifier", value: `${item.modifier?.first_name ?? ''} ${item.modifier?.last_name ?? ""}`, },
+                { label: "Mail Status", value: `${item.mail_status ?? ''}` },
+            ],
+            rightObjects: [
+                { label: "Owner", value: `${item.owner?.first_name ?? ''} ${item.owner?.last_name ?? ""}`, },
+                { label: "Sent At", value: `${item.sent_at ?? ''}` },
+                { label: "Tracking Uuid", value: `${item.tracking_uuid ?? ''}` },
+                { label: "Type", value: `${item.type ?? ''}` },
+                { label: "Opened At", value: `${item.opened_at ?? ''}` },
+                
+            ],
+        };
+        
+        setSelectedItemEmailLog(extraEmailLogInformation);
+
+        setIsPopupOpen(true);
+      };
+    
+      const handleClosePopup = () => {
+        setIsPopupOpen(false);
+      };
+
     if (loading) return <LoadingSasCrm />;
     return !hasPermission(`read-quote`) || loading ? (
         <LoadingSasCrm />
@@ -491,6 +544,25 @@ const Preview = () => {
                     items={formState.emaillogs}
                     columns={emailLogColumns}
                 />
+                {isPopupOpen && selectedItemEmailLog && (
+                    <div className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white shadow-md rounded z-50 border  shadow-gray-300`} >
+                    
+                    <div className="absolute top-2 right-2 cursor-pointer" onClick={handleClosePopup}>
+                        <svg className="w-6 h-6 text-gray-600 hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                    <ExtraEmailLogDataSectionPreview
+                        title="Email Log"
+                        leftObjects={selectedItemEmailLog.leftObjects}
+                        rightObjects={selectedItemEmailLog.rightObjects}
+                    />
+
+                    <div className="mt-auto px-2 py-3 sm:flex sm:flex-row-reverse sm:px-3 my-5">
+                    <button className="fixed bottom-5 w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={handleClosePopup}>Close</button>
+                    </div>
+                    </div>
+                )}
             </div>
         </div>
     );
