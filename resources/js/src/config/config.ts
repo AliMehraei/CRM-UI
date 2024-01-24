@@ -39,26 +39,14 @@ export const removeToken = (key: string) => {
     removeItem(key);
 };
 
-export const setUserData = (userData: any) => {
-    setItemWithExpiry('userData', userData);
-};
 
-export const getUserData = () => {
-    return getItemWithExpiry('userData');
-};
 
-export const removeUserData = () => {
-    removeItem('userData');
-};
 
-export const setUserUniqueIdentifier = (userData: any) => {
-    setItemWithExpiry('userUniqueIdentifier', userData);
-};
 
-export const getUserUniqueIdentifier = () => {
-    return getItemWithExpiry('userUniqueIdentifier');
-};
 
-export const removeUserUniqueIdentifier = () => {
-    removeItem('userUniqueIdentifier');
-};
+
+
+
+
+
+

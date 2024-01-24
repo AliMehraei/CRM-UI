@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {getToken, removeToken, removeUserUniqueIdentifier} from './config';
+import {getToken, removeToken} from './config';
 import api from './api';
 
 type Permission = string;
@@ -64,9 +64,10 @@ interface UserStatus {
 
 const TOKEN_KEY = 'token';
 const USER_UNIFIED_ID = 'userUniqueIdentifier';
-
+const USER_DATA = 'userData';
 export const useUserStatus = (): UserStatus => {
     const token = getToken(TOKEN_KEY);
+    const userUnifiedId = getToken(USER_UNIFIED_ID);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!token);
     const [permissions, setPermissions] = useState<Permission[]>([]);
@@ -116,7 +117,8 @@ export const useUserStatus = (): UserStatus => {
 
         const handleLogout = () => {
             removeToken(TOKEN_KEY);
-            removeUserUniqueIdentifier(USER_UNIFIED_ID);
+            removeToken(USER_UNIFIED_ID);
+            removeToken(USER_DATA);
             setIsLoggedIn(false);
             setPermissions([]);
             setUser(null);
@@ -131,7 +133,8 @@ export const useUserStatus = (): UserStatus => {
 
     const logout = () => {
         removeToken(TOKEN_KEY);
-        removeUserUniqueIdentifier(USER_UNIFIED_ID);
+        removeToken(USER_UNIFIED_ID);
+        removeToken(USER_DATA);
         setIsLoggedIn(false);
         setPermissions([]);
         setUser(null);

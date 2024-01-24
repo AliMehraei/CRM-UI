@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { removeToken , removeUserData } from '../../config/config';
+import { removeToken  } from '../../config/config';
 import { useNavigate } from 'react-router-dom';
 import { useUserStatus } from '../../config/authCheck';
 
@@ -10,7 +10,8 @@ const Logout = () => {
   useEffect(() => {
     // Clear the token and then navigate to the login page
     removeToken('token');
-    removeUserData();
+    removeToken('userData');
+    removeToken('userUniqueIdentifier');
     logout();
     navigate('/auth/login');
   }, [navigate]);
