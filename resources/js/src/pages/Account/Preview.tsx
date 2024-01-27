@@ -15,6 +15,7 @@ import AttachmentSection from "../../components/FormFields/AttachmentSection";
 import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
 import ExtraEmailLogDataSectionPreview from '../../components/Preview/ExtraEmailLogDataSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
+import { ViewIcon } from '../../components/FormFields/CommonIcons';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
