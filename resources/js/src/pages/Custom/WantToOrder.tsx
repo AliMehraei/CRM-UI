@@ -12,7 +12,7 @@ const WantToOrder = () => {
 
     const sendEmail = async () => {
         try {
-            const emailResponse = await api.sendQuotationRelatedEmail(quoteId, trackingUuid ,{ type: "want-to-order"} ,);
+            const emailResponse = await api.sendQuotationRelatedEmail(quoteId, trackingUuid, { type: "want-to-order" },);
             if (emailResponse.data.status_code === 200) {
                 setMessage("Should you have any question on the order preparation, please contact us any time so we will support you on the further steps.");
             } else if (emailResponse.data.status_code === 403) {
@@ -26,7 +26,9 @@ const WantToOrder = () => {
     }
 
     useEffect(() => {
-        sendEmail();
+        if (quoteId != null) {
+            sendEmail();
+        }
     }, [quoteId]);
 
     return (

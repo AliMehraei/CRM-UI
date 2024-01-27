@@ -26,7 +26,9 @@ const Closed = () => {
         }
     }
     useEffect(() => {
-        sendEmail();
+        if (quoteId != null) {
+            sendEmail();
+        }
     }, [quoteId]);
 
 

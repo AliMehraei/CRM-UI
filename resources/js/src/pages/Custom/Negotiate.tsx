@@ -30,8 +30,10 @@ const Negotiate = () => {
   }
 
   useEffect(() => {
-    sendEmail();
-  }, [quoteId]);
+    if (quoteId != null) {
+        sendEmail();
+    }
+}, [quoteId]);
 
   return (
     <div className="...">
