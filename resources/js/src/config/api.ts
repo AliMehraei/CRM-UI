@@ -364,6 +364,9 @@ class api {
     async fetchDataQuote(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data);
     }
+    async fetchQuoteCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/calls`, data);
+    }
 
     async deleteSingleQuote(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/quote/${id}`);
