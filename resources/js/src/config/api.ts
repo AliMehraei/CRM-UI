@@ -402,6 +402,9 @@ class api {
     async fetchQuoteCall(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/calls`, data);
     }
+    async fetchAccountCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/account/calls`, data);
+    }
 
     async fetchQuoteEmailLogs(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/email-logs`, data);
