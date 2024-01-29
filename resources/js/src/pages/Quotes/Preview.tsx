@@ -549,7 +549,7 @@ const Preview = () => {
                     type ='call'
                     routeName = 'fetchQuoteCall'
                     modelId = {modelID}
-                    title = 'Call logs'
+                    title = 'Call Logs'
                     />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <TableSectionPreview
