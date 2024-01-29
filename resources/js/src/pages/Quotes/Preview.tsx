@@ -29,6 +29,7 @@ import {
 } from "../../components/FormFields/CommonIcons";
 import Swal from "sweetalert2";
 import ExtraEmailLogDataSectionPreview from "../../components/Preview/ExtraEmailLogDataSectionPreview";
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -542,6 +543,14 @@ const Preview = () => {
                 />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelID} modelName={"quote"} />
+                <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                <GenerateCallList
+                    permissionName = 'read-quote'
+                    type ='call'
+                    routeName = 'fetchQuoteCall'
+                    modelId = {modelID}
+                    title = 'Call logs'
+                    />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <TableSectionPreview
                     title="Email Logs"
