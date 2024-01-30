@@ -16,6 +16,7 @@ import AttachmentDownloadButton from "../../components/FormFields/AttachmentDown
 import ExtraEmailLogDataSectionPreview from '../../components/Preview/ExtraEmailLogDataSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 import { ViewIcon } from '../../components/FormFields/CommonIcons';
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -317,6 +318,19 @@ const Preview = () => {
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <div>
+                {/* Aflaki Call log component */}
+                {modelId}
+                {modelId && (
+                    <GenerateCallList
+                        permissionName="read-quote"
+                        type="call"
+                        routeName="fetchAccountCall"
+                        modelId={modelId}
+                        title="Call Logs"
+                    />
+                )}
+                    
+
                 <TableSectionPreview
                     title="Email Logs"
                     items={formState.emaillogs}

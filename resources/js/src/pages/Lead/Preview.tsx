@@ -474,6 +474,7 @@ const Preview = () => {
                 />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelID} modelName={"lead"} />
+                {/* Aflaki Call log component */}
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <div>
                     <TableSectionPreview

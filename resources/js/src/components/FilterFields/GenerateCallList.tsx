@@ -53,6 +53,30 @@ const GenerateCallList = ({
         columnAccessor: "id",
         direction: "asc",
     });
+    const showCallLog = (id: any = null) => {
+        Swal.fire({
+            title: "<strong>HTML <u>example</u></strong>",
+            icon: "info",
+            html: `
+              You can use <b>bold text</b>,
+              <a href="#">links</a>,
+              and other HTML tags
+            `,
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText: `
+              <i class="fa fa-thumbs-up"></i> Great!
+            `,
+            confirmButtonAriaLabel: "Thumbs up, great!",
+            cancelButtonText: `
+              <i class="fa fa-thumbs-down"></i>
+            `,
+            cancelButtonAriaLabel: "Thumbs down"
+          });
+    };
+
+    
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -86,7 +110,7 @@ const GenerateCallList = ({
 
         {
             accessor: "owner",
-            title: "Quote Owner",
+            title: "Call Owner",
             sortable: false,
             render: ({ owner }: any) => (
                 <div className="flex items-center font-semibold">
@@ -128,8 +152,12 @@ const GenerateCallList = ({
             accessor: "created_by_id",
             title: "Creator",
             sortable: true,
-            render: ({ created_by_id }: any) => (
-                <div className="flex items-center font-semibold">{created_by_id}</div>
+            render: ({ creator }: any) => (
+                <div className="flex items-center font-semibold">
+                    {creator
+                        ? creator.first_name + " " + creator.last_name
+                        : "No Creator"}
+                </div>
             ),
         },
         // {
