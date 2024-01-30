@@ -20,6 +20,7 @@ import AttachmentDownloadButton from "../../components/FormFields/AttachmentDown
 import { ViewIcon } from "../../components/FormFields/CommonIcons";
 import TableSectionPreview from "../../components/Preview/TableSectionPreview";
 import ExtraEmailLogDataSectionPreview from "../../components/Preview/ExtraEmailLogDataSectionPreview";
+import GenerateEmailLogList from "../../components/FilterFields/GenerateEmailLogList";
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -442,12 +443,14 @@ const Preview = () => {
                 <AttachmentSection modelId={modelId} modelName={"excess"} />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <div>
-                    <TableSectionPreview
-                        title="Email Logs"
-                        items={formState.emaillogs}
-                        columns={emailLogColumns}
+                <GenerateEmailLogList
+                    permissionName = 'read-excess'
+                    type ='email-log'
+                    routeName = 'fetchExcessEmailLogs'
+                    modelId = {modelId}
+                    title = 'Email logs'
                     />
-                    {isPopupOpen && selectedItemEmailLog && (
+                    {/* {isPopupOpen && selectedItemEmailLog && (
                         <div
                             className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white shadow-md rounded z-50 border  shadow-gray-300`}
                         >
@@ -485,7 +488,7 @@ const Preview = () => {
                                 </button>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </div>
