@@ -70,16 +70,16 @@ const ContactInformationSection = () => {
             />
         },
         '': {
-            'Last Activity Date': <Flatpickr
-                name="last_activity_date"
-                options={{
-                    dateFormat: 'Y-m-d',
-                    position: 'auto left',
-                }}
-                value=""
-                className="form-input flex-1"
-                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} // Update the field value on change
-            />,
+            // 'Last Activity Date': <Flatpickr
+            //     name="last_activity_date"
+            //     options={{
+            //         dateFormat: 'Y-m-d',
+            //         position: 'auto left',
+            //     }}
+            //     value=""
+            //     className="form-input flex-1"
+            //     onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} // Update the field value on change
+            // />,
             'Reporting To': <input
                 id="reporting_to"
                 name="reporting_to"

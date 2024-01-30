@@ -156,8 +156,8 @@ const GenerateEmailLogList = ({
             ),
         },
         {
-            accessor: "Receiver Mail",
-
+            accessor: "receiver_mail",
+            title: "Receiver Mail",
             sortable: true,
             render: ({ receiver_mail }: any) => (
                 <div className="flex items-center font-semibold">{receiver_mail}</div>
@@ -215,38 +215,38 @@ const GenerateEmailLogList = ({
             ),
         },
 
-        // {
-        //     accessor: "created_at",
-        //     title: "Created time",
-        //     sortable: true,
-        //     render: ({ created_at }) => {
-        //         const date = new Date(created_at);
-        //         const months = [
-        //             "Jan",
-        //             "Feb",
-        //             "Mar",
-        //             "Apr",
-        //             "May",
-        //             "Jun",
-        //             "Jul",
-        //             "Aug",
-        //             "Sep",
-        //             "Oct",
-        //             "Nov",
-        //             "Dec",
-        //         ];
-        //         const hours = date.getHours();
-        //         const minutes = String(date.getMinutes()).padStart(2, "0");
-        //         const ampm = hours >= 12 ? "PM" : "AM";
-        //         const formattedDate = `${
-        //             months[date.getMonth()]
-        //         } ${date.getDate()}, ${date.getFullYear()} ${
-        //             hours % 12 || 12
-        //         }:${minutes} ${ampm}`;
+        {
+            accessor: "created_at",
+            title: "Created time",
+            sortable: true,
+            render: ({ created_at }) => {
+                const date = new Date(created_at);
+                const months = [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec",
+                ];
+                const hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, "0");
+                const ampm = hours >= 12 ? "PM" : "AM";
+                const formattedDate = `${
+                    months[date.getMonth()]
+                } ${date.getDate()}, ${date.getFullYear()} ${
+                    hours % 12 || 12
+                }:${minutes} ${ampm}`;
 
-        //         return <div className="font-semibold">{formattedDate}</div>;
-        //     },
-        // },
+                return <div className="font-semibold">{formattedDate}</div>;
+            },
+        },
 
         {
             accessor: "action",
