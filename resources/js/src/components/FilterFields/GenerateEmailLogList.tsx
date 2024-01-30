@@ -5,7 +5,7 @@ import sortBy from "lodash/sortBy";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../store";
 import Swal from "sweetalert2";
-import api from "../../config/api";
+import Api from "../../config/api";
 import { useUserStatus } from "../../config/authCheck";
 import LoadingSasCrm from "../LoadingSasCrm";
 import {
@@ -17,6 +17,8 @@ import { DeleteIcon, EditIcon, ViewIcon } from "../FormFields/CommonIcons";
 import { resetFilterSlice } from "../../store/filterSlice";
 import CheckboxComponent from "./CheckboxComponent";
 import SearchOptionComponent from "./SeachOptionComponent";
+import ExtraEmailLogDataSectionPreview from "../Preview/ExtraEmailLogDataSectionPreview";
+import { resetForm, updateFormData } from "../../store/emailLogFormSlice";
 
 const GenerateEmailLogList = ({
     permissionName,
@@ -31,7 +33,7 @@ const GenerateEmailLogList = ({
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(true);
     const [resetFilter, setResetFilter] = useState(false);
-    const api_instance: any = new api();
+    const api_instance: any = new Api();
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
 
@@ -53,6 +55,9 @@ const GenerateEmailLogList = ({
         columnAccessor: "id",
         direction: "asc",
     });
+    const api = new Api();
+    const formState = useSelector((state: any) => state.emailLogForm);
+
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     interface ExtraEmailLogInformation {
         leftObjects: { label: string; value: string }[];
@@ -73,52 +78,64 @@ const GenerateEmailLogList = ({
         leftObjects: [],
         rightObjects: [],
     };
-    const showEmailLog = (item: any) => {
+    const setMoreDataEmailLog = (emailLog: any) => {
+
+   
         extraEmailLogInformation = {
             leftObjects: [
                 {
                     label: "Sender Name",
-                    value: `${(item.sender_name ?? "").substring(0, 20)}${
-                        item.sender_name && item.sender_name.length > 15
+                    value: `${(emailLog.sender_name ?? "").substring(0, 20)}${
+                        emailLog.sender_name && emailLog.sender_name.length > 15
                             ? "..."
                             : ""
                     }`,
                 },
-                { label: "Is Open", value: `${item.is_open ?? ""}` },
+                { label: "Is Open", value: `${emailLog.is_open ?? ""}` },
                 {
                     label: "Creator",
-                    value: `${item.creator?.first_name ?? ""} ${
-                        item.creator?.last_name ?? ""
+                    value: `${emailLog.creator?.first_name ?? ""} ${
+                        emailLog.creator?.last_name ?? ""
                     }`,
                 },
                 {
                     label: "Modifier",
-                    value: `${item.modifier?.first_name ?? ""} ${
-                        item.modifier?.last_name ?? ""
+                    value: `${emailLog.modifier?.first_name ?? ""} ${
+                        emailLog.modifier?.last_name ?? ""
                     }`,
                 },
-                { label: "Mail Status", value: `${item.mail_status ?? ""}` },
+                { label: "Mail Status", value: `${emailLog.mail_status ?? ""}` },
             ],
             rightObjects: [
                 {
                     label: "Owner",
-                    value: `${item.owner?.first_name ?? ""} ${
-                        item.owner?.last_name ?? ""
+                    value: `${emailLog.owner?.first_name ?? ""} ${
+                        emailLog.owner?.last_name ?? ""
                     }`,
                 },
-                { label: "Sent At", value: `${item.sent_at ?? ""}` },
+                { label: "Sent At", value: `${emailLog.sent_at ?? ""}` },
                 {
                     label: "Tracking Uuid",
-                    value: `${item.tracking_uuid ?? ""}`,
+                    value: `${emailLog.tracking_uuid ?? ""}`,
                 },
-                { label: "Type", value: `${item.type ?? ""}` },
-                { label: "Opened At", value: `${item.opened_at ?? ""}` },
+                { label: "Type", value: `${emailLog.type ?? ""}` },
+                { label: "Opened At", value: `${emailLog.opened_at ?? ""}` },
             ],
         };
 
         setSelectedItemEmailLog(extraEmailLogInformation);
 
         setIsPopupOpen(true);
+    };
+
+    const fetchSingleData = async (id) => {
+        const response = await api.fetchSingleEmailLog(id);
+        
+        if (response.status != 200)
+            return
+        const emailLog = response.data.data;
+        setMoreDataEmailLog(emailLog);
+        dispatch(updateFormData(emailLog));
     };
 
     const handleClosePopup = () => {
@@ -234,11 +251,11 @@ const GenerateEmailLogList = ({
         {
             accessor: "action",
             sortable: false,
-            render: ({ item }: any) => (
+            render: ({ id }: any) => (
                 <button
                     type="button"
                     className="flex hover:text-danger"
-                    onClick={() => showEmailLog(item)}
+                    onClick={() => fetchSingleData(id)}
                 >
                      <ViewIcon />
                 </button>
