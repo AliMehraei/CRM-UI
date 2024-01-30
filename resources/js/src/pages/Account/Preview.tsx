@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -318,18 +318,13 @@ const Preview = () => {
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <div>
-                {/* Aflaki Call log component */}
-                {modelId}
-                {modelId && (
-                    <GenerateCallList
-                        permissionName="read-quote"
-                        type="call"
-                        routeName="fetchAccountCall"
-                        modelId={modelId}
-                        title="Call Logs"
-                    />
-                )}
-                    
+                <GenerateCallList
+                    permissionName="read-quote"
+                    type="call"
+                    routeName="fetchAccountCall"
+                    modelId={modelId}
+                    title="Call Logs"
+                />                    
 
                 <TableSectionPreview
                     title="Email Logs"
