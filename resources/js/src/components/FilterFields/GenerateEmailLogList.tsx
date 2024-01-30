@@ -14,11 +14,8 @@ import {
     formattedModelName,
 } from "../Functions/CommonFunctions";
 import { DeleteIcon, EditIcon, ViewIcon } from "../FormFields/CommonIcons";
-import { resetFilterSlice } from "../../store/filterSlice";
-import CheckboxComponent from "./CheckboxComponent";
-import SearchOptionComponent from "./SeachOptionComponent";
-import ExtraEmailLogDataSectionPreview from "../Preview/ExtraEmailLogDataSectionPreview";
 import { resetForm, updateFormData } from "../../store/emailLogFormSlice";
+import ExtraEmailLogDataSectionPreview from "../Preview/ExtraEmailLogDataSectionPreview";
 
 const GenerateEmailLogList = ({
     permissionName,
@@ -59,13 +56,13 @@ const GenerateEmailLogList = ({
     const formState = useSelector((state: any) => state.emailLogForm);
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    interface ExtraEmailLogInformation {
+    interface MoreEmailLogInformation {
         leftObjects: { label: string; value: string }[];
         rightObjects: { label: string; value: string }[];
     }
 
     const [selectedItemEmailLog, setSelectedItemEmailLog] =
-        useState<ExtraEmailLogInformation | null>(null);
+        useState<MoreEmailLogInformation | null>(null);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -74,14 +71,14 @@ const GenerateEmailLogList = ({
         });
     };
 
-    let extraEmailLogInformation: ExtraEmailLogInformation = {
+    let moreEmailLogInformation: MoreEmailLogInformation = {
         leftObjects: [],
         rightObjects: [],
     };
     const setMoreDataEmailLog = (emailLog: any) => {
 
    
-        extraEmailLogInformation = {
+        moreEmailLogInformation = {
             leftObjects: [
                 {
                     label: "Sender Name",
@@ -123,7 +120,7 @@ const GenerateEmailLogList = ({
             ],
         };
 
-        setSelectedItemEmailLog(extraEmailLogInformation);
+        setSelectedItemEmailLog(moreEmailLogInformation);
 
         setIsPopupOpen(true);
     };

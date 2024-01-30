@@ -8,15 +8,9 @@ import Swal from "sweetalert2";
 import api from "../../config/api";
 import { useUserStatus } from "../../config/authCheck";
 import LoadingSasCrm from "../LoadingSasCrm";
-import {
-    findApiToCall,
-    upFirstLetter,
-    formattedModelName,
-} from "../Functions/CommonFunctions";
 import { DeleteIcon, EditIcon, ViewIcon } from "../FormFields/CommonIcons";
-import { resetFilterSlice } from "../../store/filterSlice";
-import CheckboxComponent from "./CheckboxComponent";
-import SearchOptionComponent from "./SeachOptionComponent";
+import Api from "../../config/api";
+import ExtraEmailLogDataSectionPreview from "../Preview/ExtraEmailLogDataSectionPreview";
 
 const GenerateCallList = ({
     permissionName,
@@ -31,7 +25,7 @@ const GenerateCallList = ({
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(true);
     const [resetFilter, setResetFilter] = useState(false);
-    const api_instance: any = new api();
+    const api_instance: any = new Api();
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
 
@@ -48,35 +42,96 @@ const GenerateCallList = ({
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
+    const api = new Api();
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: "id",
         direction: "asc",
     });
-    const showCallLog = (id: any = null) => {
-        Swal.fire({
-            title: "<strong>HTML <u>example</u></strong>",
-            icon: "info",
-            html: `
-              You can use <b>bold text</b>,
-              <a href="#">links</a>,
-              and other HTML tags
-            `,
-            showCloseButton: true,
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText: `
-              <i class="fa fa-thumbs-up"></i> Great!
-            `,
-            confirmButtonAriaLabel: "Thumbs up, great!",
-            cancelButtonText: `
-              <i class="fa fa-thumbs-down"></i>
-            `,
-            cancelButtonAriaLabel: "Thumbs down"
-          });
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    interface MoreCallLogInformation {
+        leftObjects: { label: string; value: string }[];
+        rightObjects: { label: string; value: string }[];
+    }
+
+    const [selectedItemCallLog, setSelectedItemCallLog] =
+        useState<MoreCallLogInformation | null>(null);
+
+    let moreCallLogInformation: MoreCallLogInformation = {
+        leftObjects: [],
+        rightObjects: [],
+    };    
+    // const showCallLog = (id: any = null) => {
+    //     Swal.fire({
+    //         title: "<strong>HTML <u>example</u></strong>",
+    //         icon: "info",
+    //         html: `
+    //           You can use <b>bold text</b>,
+    //           <a href="#">links</a>,
+    //           and other HTML tags
+    //         `,
+    //         showCloseButton: true,
+    //         showCancelButton: true,
+    //         focusConfirm: false,
+    //         confirmButtonText: `
+    //           <i class="fa fa-thumbs-up"></i> Great!
+    //         `,
+    //         confirmButtonAriaLabel: "Thumbs up, great!",
+    //         cancelButtonText: `
+    //           <i class="fa fa-thumbs-down"></i>
+    //         `,
+    //         cancelButtonAriaLabel: "Thumbs down"
+    //       });
+    // };
+
+    const setMoreDataCallLog = (callLog: any) => {
+
+   
+        moreCallLogInformation = {
+            leftObjects: [
+                { label: "Callable Type", value: `${callLog.callable_type ?? ""}` },
+                { label: "Relatable Type", value: `${callLog.relatable_type ?? ""}` },
+                {
+                    label: "Modifier",
+                    value: `${callLog.modifier?.first_name ?? ""} ${
+                        callLog.modifier?.last_name ?? ""
+                    }`,
+                },
+                { label: "Voice Recording", value: `${callLog.voice_recording ?? ""}` },
+            ],
+            rightObjects: [
+                
+                { label: "Call Purpose", value: `${callLog.call_purpose ?? ""}` },
+                {
+                    label: "Call Agenda",
+                    value: `${callLog.call_agenda ?? ""}`,
+                },
+                { label: "Call Result", value: `${callLog.call_result ?? ""}` },
+                { label: "Description", value: `${(callLog.description ?? "").substring(0, 50)}${
+                    callLog.description && callLog.description.length > 15
+                        ? "..."
+                        : ""
+                }`, },
+            ],
+        };
+
+        setSelectedItemCallLog(moreCallLogInformation);
+
+        setIsPopupOpen(true);
     };
 
-    
+    const fetchSingleData = async (id) => {
+        const response = await api.fetchSingleCall(id);
+        
+        if (response.status != 200)
+            return
+        const callLog = response.data.data.call;
+        setMoreDataCallLog(callLog);
+    };
+
+    const handleClosePopup = () => {
+        setIsPopupOpen(false);
+    };
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -200,7 +255,7 @@ const GenerateCallList = ({
                 <button
                     type="button"
                     className="flex hover:text-danger"
-                    onClick={() => showCallLog(id)}
+                    onClick={() => fetchSingleData(id)}
                 >
                      <ViewIcon />
                 </button>
@@ -304,6 +359,7 @@ const GenerateCallList = ({
                                         <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                     </div>
                                 ) : (
+                                    <>
                                     <DataTable
                                         className={`${isDark} whitespace-nowrap table-hover`}
                                         records={records}
@@ -329,6 +385,46 @@ const GenerateCallList = ({
                                             `Showing ${from} to ${to} of ${totalRecords} entries`
                                         }
                                     />
+                                    {isPopupOpen && selectedItemCallLog && (
+                                        <div
+                                            className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 bg-white shadow-md rounded z-50 border  shadow-gray-300`}
+                                        >
+                                            <div
+                                                className="absolute top-2 right-2 cursor-pointer"
+                                                onClick={handleClosePopup}
+                                            >
+                                                <svg
+                                                    className="w-6 h-6 text-gray-600 hover:text-red-600"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        d="M6 18L18 6M6 6l12 12"
+                                                    ></path>
+                                                </svg>
+                                            </div>
+                                            <ExtraEmailLogDataSectionPreview
+                                                title="Email Log"
+                                                leftObjects={selectedItemCallLog.leftObjects}
+                                                rightObjects={selectedItemCallLog.rightObjects}
+                                            />
+                
+                                            <div className="mt-auto px-2 py-3 sm:flex sm:flex-row-reverse sm:px-3 my-5">
+                                                <button
+                                                    className="fixed bottom-5 w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                                    onClick={handleClosePopup}
+                                                >
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                    </>
                                 )}
                             </div>
                         </div>
