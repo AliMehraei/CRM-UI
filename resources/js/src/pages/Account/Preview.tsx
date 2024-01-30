@@ -318,8 +318,6 @@ const Preview = () => {
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                    {/* Aflaki Call log component */}
-                    {modelId && (
                         <GenerateCallList
                             permissionName="read-quote"
                             type="call"
@@ -327,7 +325,6 @@ const Preview = () => {
                             modelId={modelId}
                             title="Call Logs"
                         />
-                    )}
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <GenerateEmailLogList
                         permissionName="read-account"
