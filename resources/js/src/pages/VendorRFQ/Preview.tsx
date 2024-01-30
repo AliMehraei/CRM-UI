@@ -227,7 +227,7 @@ const Preview = () => {
                     routeName="fetchVendorRfqEmailLogs"
                     modelId={modelId}
                     title="Email logs"
-                />
+                    />
                 </div>
             </div>
         )
