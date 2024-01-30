@@ -331,7 +331,7 @@ const Preview = () => {
                         type="email-log"
                         routeName="fetchAccountEmailLogs"
                         modelId={modelId}
-                        title="Email logs"
+                        title="Email Logs"
                     />
 
                 

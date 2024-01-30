@@ -274,7 +274,7 @@ const Preview = () => {
                         type="email-log"
                         routeName="fetchTaskEmailLogs"
                         modelId={modelID}
-                        title="Email logs"
+                        title="Email Logs"
                 />
             </div>
         </div>

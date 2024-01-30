@@ -343,7 +343,7 @@ const Preview = () => {
                     type="email-log"
                     routeName="fetchVendorEmailLogs"
                     modelId={modelId}
-                    title="Email logs"
+                    title="Email Logs"
                 />
             </div>
         </div>
