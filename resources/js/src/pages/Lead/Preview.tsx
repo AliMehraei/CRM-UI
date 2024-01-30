@@ -19,6 +19,7 @@ import AttachmentSection from "../../components/FormFields/AttachmentSection";
 import { ViewIcon } from "../../components/FormFields/CommonIcons";
 import ExtraEmailLogDataSectionPreview from "../../components/Preview/ExtraEmailLogDataSectionPreview";
 import TableSectionPreview from "../../components/Preview/TableSectionPreview";
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
 import GenerateEmailLogList from "../../components/FilterFields/GenerateEmailLogList";
 
 const Preview = () => {
@@ -475,7 +476,14 @@ const Preview = () => {
                 />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelID} modelName={"lead"} />
-                {/* Aflaki Call log component */}
+                <GenerateCallList
+                    permissionName="read-quote"
+                    type="call"
+                    routeName="fetchLeadCall"
+                    modelId={modelID}
+                    title="Call Logs"
+                />                    
+
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <GenerateEmailLogList
                         permissionName="read-lead"
