@@ -409,6 +409,54 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/lead/calls`, data);
     }
 
+    async fetchContactCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/contact/calls`, data);
+    }
+
+    async fetchVendorCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/vendor/calls`, data);
+    }
+
+    async fetchManufacturerCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/calls`, data);
+    }
+
+    async fetchRfqCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/calls`, data);
+    }
+
+    async fetchExcessCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess/calls`, data);
+    }
+
+    async fetchAvailabilityCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/availability/calls`, data);
+    }
+
+    async fetchProductCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/product/calls`, data);
+    }
+
+    async fetchDealCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/deal/calls`, data);
+    }
+
+    async fetchSalesOrderCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/calls`, data);
+    }
+
+    async fetchPurchaseOrderCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/calls`, data);
+    }
+
+    async fetchInvoiceCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/calls`, data);
+    }
+
+    async fetchVendorRfqCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/calls`, data);
+    }
+
     async fetchQuoteEmailLogs(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/email-logs`, data);
     }
