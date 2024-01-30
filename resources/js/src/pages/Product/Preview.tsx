@@ -20,6 +20,8 @@ import { ViewIcon } from "../../components/FormFields/CommonIcons";
 import ExtraEmailLogDataSectionPreview from "../../components/Preview/ExtraEmailLogDataSectionPreview";
 import TableSectionPreview from "../../components/Preview/TableSectionPreview";
 import GenerateEmailLogList from "../../components/FilterFields/GenerateEmailLogList";
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
+
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -655,6 +657,13 @@ const Preview = () => {
                 />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelID} modelName={"product"} />
+                <GenerateCallList
+                    permissionName="read-product"
+                    type="call"
+                    routeName="fetchProductCall"
+                    modelId={modelID}
+                    title="Call Logs"
+                />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <GenerateEmailLogList
                         permissionName="read-product"

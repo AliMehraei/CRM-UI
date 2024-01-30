@@ -319,7 +319,7 @@ const Preview = () => {
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                         <GenerateCallList
-                            permissionName="read-quote"
+                            permissionName="read-account"
                             type="call"
                             routeName="fetchAccountCall"
                             modelId={modelId}

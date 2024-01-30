@@ -18,6 +18,7 @@ import MultipleLineSectionPreview from "../../components/Preview/MultipleLineSec
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
 import { ViewIcon } from "../../components/FormFields/CommonIcons";
 import GenerateEmailLogList from "../../components/FilterFields/GenerateEmailLogList";
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
 
 
 const Preview = () => {
@@ -187,6 +188,13 @@ const Preview = () => {
                 />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelId} modelName={"deal"} />
+                <GenerateCallList
+                    permissionName="read-deal"
+                    type="call"
+                    routeName="fetchDealCall"
+                    modelId={modelId}
+                    title="Call Logs"
+                /> 
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <GenerateEmailLogList
                     permissionName="read-deal"

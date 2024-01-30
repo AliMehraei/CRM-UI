@@ -15,6 +15,7 @@ import GenerateTableList from '../../components/FilterFields/GenerateTableList';
 import { ViewIcon } from '../../components/FormFields/CommonIcons';
 import ExtraEmailLogDataSectionPreview from '../../components/Preview/ExtraEmailLogDataSectionPreview';
 import GenerateEmailLogList from '../../components/FilterFields/GenerateEmailLogList';
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -220,6 +221,13 @@ const Preview = () => {
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'vendorRfq'}/>
+                    <GenerateCallList
+                        permissionName="read-vendor-rfq"
+                        type="call"
+                        routeName="fetchVendorRfqCall"
+                        modelId={modelId}
+                        title="Call Logs"
+                    /> 
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <GenerateEmailLogList
                     permissionName="read-vendor-rfq"
