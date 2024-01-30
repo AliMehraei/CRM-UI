@@ -142,10 +142,10 @@ const Preview = () => {
                         { label: "Fax", value: formState.fax },
                     ]}
                     rightObjects={[
-                        {
-                            label: "Last Activity Date",
-                            value: formState.last_activity_date,
-                        },
+                        // {
+                        //     label: "Last Activity Date",
+                        //     value: formState.last_activity_date,
+                        // },
                         {
                             label: "Reporting To",
                             value: formState.reporting_to,
