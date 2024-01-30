@@ -253,6 +253,7 @@ const Preview = () => {
                     modelId={modelId}
                     modelName={"availability"}
                 />
+                <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <GenerateCallList
                     permissionName="read-availability"
                     type="call"

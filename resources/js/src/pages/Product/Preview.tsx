@@ -657,6 +657,7 @@ const Preview = () => {
                 />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <AttachmentSection modelId={modelID} modelName={"product"} />
+                <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <GenerateCallList
                     permissionName="read-product"
                     type="call"

@@ -324,10 +324,10 @@ const GenerateCallList = ({
         <LoadingSasCrm />
     ) : (
         <>
-            <div className="panel px-0 ">
+            <div className=" px-0 ">
                 <div className={`${permissionName}-table`}>
-                    <div className="text-lg ps-5">
-                        {title ? `${title}:` : <div className=""></div>}
+                    <div className="text-base mb-5">
+                        {title ? `${title}` : <div className=""></div>}
                     </div>
                     <div className="grid grid-cols-1 gap-6 m-0 ">
                         <div className="panel col-span-12">

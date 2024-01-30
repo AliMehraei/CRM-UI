@@ -169,6 +169,7 @@ const Preview = () => {
                     modelId={modelID}
                     modelName={"manufacturer"}
                 />
+                <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <GenerateCallList
                     permissionName="read-manufacturer"
                     type="call"

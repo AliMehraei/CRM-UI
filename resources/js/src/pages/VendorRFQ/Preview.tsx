@@ -221,6 +221,7 @@ const Preview = () => {
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'vendorRfq'}/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                     <GenerateCallList
                         permissionName="read-vendor-rfq"
                         type="call"
