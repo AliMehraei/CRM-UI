@@ -30,7 +30,7 @@ const Preview = () => {
     const modelId = params.id;
     const api = new Api();
     const formState = useSelector((state: any) => state.excessForm);
-    
+
     useEffect(() => {
         dispatch(setPageTitle("Excess Preview"));
     });
@@ -88,7 +88,6 @@ const Preview = () => {
         },
     ];
 
-    
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -325,14 +324,14 @@ const Preview = () => {
                 <AttachmentSection modelId={modelId} modelName={"excess"} />
                 <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
                 <div>
-                <GenerateEmailLogList
-                    permissionName = 'read-excess'
-                    type ='email-log'
-                    routeName = 'fetchExcessEmailLogs'
-                    modelId = {modelId}
-                    title = 'Email logs'
+                    <GenerateEmailLogList
+                        permissionName="read-excess"
+                        type="email-log"
+                        routeName="fetchExcessEmailLogs"
+                        modelId={modelId}
+                        title="Email logs"
                     />
-                                    </div>
+                </div>
             </div>
         </div>
     );
