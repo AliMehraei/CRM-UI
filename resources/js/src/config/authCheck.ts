@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {getToken, removeToken} from './config';
 import api from './api';
+import { useNavigate } from 'react-router-dom';
 
 type Permission = string;
 
@@ -73,6 +74,8 @@ export const useUserStatus = (): UserStatus => {
     const [permissions, setPermissions] = useState<Permission[]>([]);
     const [user, setUser] = useState<User | null>(null);
     const apiInstance = new api();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const initializeUserStatus = async () => {
@@ -91,6 +94,13 @@ export const useUserStatus = (): UserStatus => {
 
                 if (data && data.status_code === 200) {
                     const {permissions: userPermissions, user: userDetails} = data.data;
+
+                    if(userPermissions.length == 0){
+                        setIsLoggedIn(false);
+                        handleLogout();
+                        navigate('/auth/login');
+
+                    }
 
                     updateStatus(userPermissions, userDetails);
                 } else {
@@ -122,6 +132,9 @@ export const useUserStatus = (): UserStatus => {
             setIsLoggedIn(false);
             setPermissions([]);
             setUser(null);
+
+            
+            
         };
 
         initializeUserStatus();

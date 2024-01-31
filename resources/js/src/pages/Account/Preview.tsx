@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { setPageTitle } from '../../store/themeConfigSlice';
@@ -13,6 +13,11 @@ import InformationSectionPreview from '../../components/Preview/InformationSecti
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
 import AttachmentDownloadButton from "../../components/FormFields/AttachmentDownloadButton";
+import ExtraEmailLogDataSectionPreview from '../../components/Preview/ExtraEmailLogDataSectionPreview';
+import TableSectionPreview from '../../components/Preview/TableSectionPreview';
+import { ViewIcon } from '../../components/FormFields/CommonIcons';
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
+import GenerateEmailLogList from '../../components/FilterFields/GenerateEmailLogList';
 
 const Preview = () => {
     const { hasPermission } = useUserStatus();
@@ -22,6 +27,14 @@ const Preview = () => {
     const modelId = params.id;
     const api = new Api();
     const formState = useSelector((state: any) => state.accountForm);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    interface ExtraEmailLogInformation {
+        leftObjects: { label: string; value: string }[];
+        rightObjects: { label: string; value: string }[];
+    }
+
+    const [selectedItemEmailLog, setSelectedItemEmailLog] = useState<ExtraEmailLogInformation | null>(null);
+
     useEffect(() => {
         dispatch(setPageTitle('Account Preview'));
     });
@@ -46,6 +59,92 @@ const Preview = () => {
         { label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}` },
         { label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}` }
     ];
+
+    let extraEmailLogInformation: ExtraEmailLogInformation = {
+        leftObjects: [],
+        rightObjects: [],
+      };
+    const handleShowExtDataEmailLog = (item: any) => {
+
+        extraEmailLogInformation = {
+            leftObjects: [
+                { label: "Sender Name", value: `${(item.sender_name ?? '').substring(0, 20)}${item.sender_name && item.sender_name.length > 15 ? '...' : ''}` },
+                { label: "Is Open", value: `${item.is_open ?? ''}` },
+                { label: "Creator", value:  `${item.creator?.first_name ?? ''} ${item.creator?.last_name ?? ""}`,},
+                { label: "Modifier", value: `${item.modifier?.first_name ?? ''} ${item.modifier?.last_name ?? ""}`, },
+                { label: "Mail Status", value: `${item.mail_status ?? ''}` },
+            ],
+            rightObjects: [
+                { label: "Owner", value: `${item.owner?.first_name ?? ''} ${item.owner?.last_name ?? ""}`, },
+                { label: "Sent At", value: `${item.sent_at ?? ''}` },
+                { label: "Tracking Uuid", value: `${item.tracking_uuid ?? ''}` },
+                { label: "Type", value: `${item.type ?? ''}` },
+                { label: "Opened At", value: `${item.opened_at ?? ''}` },
+                
+            ],
+        };
+        
+        setSelectedItemEmailLog(extraEmailLogInformation);
+
+        setIsPopupOpen(true);
+      };
+    
+      const handleClosePopup = () => {
+        setIsPopupOpen(false);
+      };
+
+    const emailLogColumns = [
+        {
+            label: "Subject",
+            key: "subject",
+        },
+
+        {
+            label: "Receiver Mail",
+            key: "receiver_mail",
+        },
+        {
+            label: "Type - Class",
+            key: "type",
+        },
+        {
+            label: "Sender Mail",
+            key: "sender_email",
+        },
+
+        {
+            label: "Sender Type",
+            key: "sender_type",
+        },
+
+        {
+            label: "Status",
+            key: "status",
+        },
+
+        {
+            label: "Created time",
+            key: "created_at",
+            format: (value) => {
+                // Format the date to 'YYYY-MM-DD'
+                const formattedDate = new Date(value)
+                    .toISOString()
+                    .split("T")[0];
+                return formattedDate;
+            },
+        },
+
+        {
+            label: 'Action',
+            key: 'action',
+            render: (item) => (
+                <div onClick={() => handleShowExtDataEmailLog(item)} className="flex hover:text-info">
+                <ViewIcon />
+              </div>
+            ),
+        },
+    ];
+
     useEffect(() => {
         fetchData().then(() => {
             setLoading(false);
@@ -218,7 +317,24 @@ const Preview = () => {
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelId} modelName={'account'}/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                        <GenerateCallList
+                            permissionName="read-account"
+                            type="call"
+                            routeName="fetchAccountCall"
+                            modelId={modelId}
+                            title="Call Logs"
+                        />
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <GenerateEmailLogList
+                        permissionName="read-account"
+                        type="email-log"
+                        routeName="fetchAccountEmailLogs"
+                        modelId={modelId}
+                        title="Email Logs"
+                    />
 
+                
                 </div>
             </div>
         )

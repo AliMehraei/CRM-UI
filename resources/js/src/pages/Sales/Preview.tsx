@@ -13,6 +13,10 @@ import InformationSectionPreview from '../../components/Preview/InformationSecti
 import MultipleLineSectionPreview from '../../components/Preview/MultipleLineSectionPreview';
 import TableSectionPreview from '../../components/Preview/TableSectionPreview';
 import AttachmentSection from "../../components/FormFields/AttachmentSection";
+import { ViewIcon } from '../../components/FormFields/CommonIcons';
+import ExtraEmailLogDataSectionPreview from '../../components/Preview/ExtraEmailLogDataSectionPreview';
+import GenerateEmailLogList from '../../components/FilterFields/GenerateEmailLogList';
+import GenerateCallList from "../../components/FilterFields/GenerateCallList";
 
 const Preview = () => {
     const {hasPermission} = useUserStatus();
@@ -194,6 +198,9 @@ const Preview = () => {
         {label: "Created By", value: `${formState.creator?.first_name ?? ''} ${formState.creator?.last_name ?? ''}`},
         {label: "Modified By", value: `${formState.modifier?.first_name ?? ''} ${formState.modifier?.last_name ?? ''}`}
     ];
+
+
+
     if (loading)
         return <LoadingSasCrm/>;
     return (
@@ -288,6 +295,23 @@ const Preview = () => {
                     />
                     <hr className="border-white-light dark:border-[#1b2e4b] my-6"/>
                     <AttachmentSection modelId={modelID} modelName={'salesOrder'}/>
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <GenerateCallList
+                        permissionName="read-sales-order"
+                        type="call"
+                        routeName="fetchSalesOrderCall"
+                        modelId={modelID}
+                        title="Call Logs"
+                    /> 
+
+                    <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                    <GenerateEmailLogList
+                        permissionName="read-sales-order"
+                        type="email-log"
+                        routeName="fetchSalesOrderEmailLogs"
+                        modelId={modelID}
+                        title="Email Logs"
+                />
                 </div>
             </div>
         )

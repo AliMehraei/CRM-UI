@@ -38,6 +38,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/product/list`, data);
     }
 
+    async fetchProductEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/product/email-logs`, data);
+    }
+
     async deleteSingleProduct(data: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/product/${data}`);
     }
@@ -139,6 +143,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/vendor/list`, data);
     }
 
+    async fetchVendorEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/vendor/email-logs`, data);
+    }
+
     async deleteSingleVendor(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/vendor/${id}`);
     }
@@ -162,6 +170,10 @@ class api {
 
     async fetchDataManufacturer(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/manufacturer/list`, data);
+    }
+
+    async fetchManufacturerEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/email-logs`, data);
     }
 
     async deleteSingleManufacturer(id: any = null) {
@@ -194,6 +206,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/rfq/list`, data);
     }
 
+    async fetchRfqEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/email-logs`, data);
+    }
+
     async deleteSingleRfq(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/rfq/${id}`);
     }
@@ -215,9 +231,12 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/search`, data);
     }
 
-
     async fetchDataInvoice(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/list`, data);
+    }
+
+    async fetchInvoiceEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/email-logs`, data);
     }
 
     async deleteSingleInvoice(id: any = null) {
@@ -246,6 +265,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/contact/list`, data);
     }
 
+    async fetchContactEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/contact/email-logs`, data);
+    }
+
     async deleteSingleContact(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/contact/${id}`);
     }
@@ -269,6 +292,10 @@ class api {
 
     async fetchDataAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/account/list`, data);
+    }
+
+    async fetchAccountEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/account/email-logs`, data);
     }
 
     async deleteSingleAccount(id: any = null) {
@@ -310,6 +337,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/lead/list`, data);
     }
 
+    async fetchLeadEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/lead/email-logs`, data);
+    }
+
     async deleteSingleLead(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/lead/${id}`);
     }
@@ -334,6 +365,10 @@ class api {
 
     async fetchDataPurchaseOrder(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/purchase_order/list`, data);
+    }
+
+    async fetchPurchaseOrderEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/email-logs`, data);
     }
 
     async deleteSinglePurchaseOrder(id: any = null) {
@@ -364,6 +399,67 @@ class api {
     async fetchDataQuote(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/quote/list`, data);
     }
+    async fetchQuoteCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/calls`, data);
+    }
+    async fetchAccountCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/account/calls`, data);
+    }
+    async fetchLeadCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/lead/calls`, data);
+    }
+
+    async fetchContactCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/contact/calls`, data);
+    }
+
+    async fetchVendorCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/vendor/calls`, data);
+    }
+
+    async fetchManufacturerCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/manufacturer/calls`, data);
+    }
+
+    async fetchRfqCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/rfq/calls`, data);
+    }
+
+    async fetchExcessCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess/calls`, data);
+    }
+
+    async fetchAvailabilityCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/availability/calls`, data);
+    }
+
+    async fetchProductCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/product/calls`, data);
+    }
+
+    async fetchDealCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/deal/calls`, data);
+    }
+
+    async fetchSalesOrderCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/calls`, data);
+    }
+
+    async fetchPurchaseOrderCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/purchase_order/calls`, data);
+    }
+
+    async fetchInvoiceCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/invoice/calls`, data);
+    }
+
+    async fetchVendorRfqCall(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/calls`, data);
+    }
+
+    async fetchQuoteEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/email-logs`, data);
+    }
 
     async deleteSingleQuote(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/quote/${id}`);
@@ -390,8 +486,8 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email`, {"proactive": true, "attachment": attachment});
     }
 
-    async sendQuotationRelatedEmail(id: any, data: any) {
-        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related`, data);
+    async sendQuotationRelatedEmail(id: any , trackingUuid:any, data: any) {
+        return await _axios.post(`${API_URL_PRODUCT}/quote/${id}/email-related/${trackingUuid}`, data);
     }
     async sendInvoiceEmail(id: any, attachment = false) {
         return await _axios.post(`${API_URL_PRODUCT}/invoice/${id}/email`, {"attachment": attachment});
@@ -430,6 +526,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/deal/list`, data);
     }
 
+    async fetchDealEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/deal/email-logs`, data);
+    }
+
     async deleteSingleDeal(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/deal/${id}`);
     }
@@ -456,6 +556,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/availability/list`, data);
     }
 
+    async fetchAvailabilityEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/availability/email-logs`, data);
+    }
+
     async deleteSingleAvailability(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/availability/${id}`);
     }
@@ -480,6 +584,10 @@ class api {
 
     async fetchDataExcess(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/excess/list`, data);
+    }
+
+    async fetchExcessEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/excess/email-logs`, data);
     }
 
     async deleteSingleExcess(id: any = null) {
@@ -514,6 +622,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/sales_order/list`, data);
     }
 
+    async fetchSalesOrderEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/sales_order/email-logs`, data);
+    }
+
     async deleteSingleSalesOrder(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/sales_order/${id}`);
     }
@@ -540,6 +652,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/task/list`, data);
     }
 
+    async fetchTaskEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/task/email-logs`, data);
+    }
+
     async deleteSingleTask(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/task/${id}`);
     }
@@ -564,6 +680,10 @@ class api {
 
     async fetchDataVendorRfq(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/list`, data);
+    }
+
+    async fetchVendorRfqEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/vendor_rfq/email-logs`, data);
     }
 
     async deleteSingleVendorRfq(id: any = null) {
@@ -704,6 +824,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/call/list`, data);
     }
 
+    async fetchCallEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/call/email-logs`, data);
+    }
+
     async deleteSingleCall(id: any = null) {
         return await _axios.delete(`${API_URL_PRODUCT}/call/${id}`);
     }
@@ -723,6 +847,10 @@ class api {
     //fiscal account
     async fetchDataFiscalAccount(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/list`, data);
+    }
+
+    async fetchFiscalAccountEmailLogs(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/fiscal-account/email-logs`, data);
     }
 
     async deleteSingleFiscalAccount(id: any = null) {

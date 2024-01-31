@@ -91,20 +91,20 @@ const ContactInformationSection = () => {
             />
         },
         '': {
-            'Last Activity Date': <Flatpickr
-                name="last_activity_date"
-                options={{
-                    dateFormat: 'Y-m-d',
-                    position: 'auto left',
-                    defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any,
+            // 'Last Activity Date': <Flatpickr
+            //     name="last_activity_date"
+            //     options={{
+            //         dateFormat: 'Y-m-d',
+            //         position: 'auto left',
+            //         defaultDate: formState.last_activity_date ? new Date(formState.last_activity_date) : null as any,
 
-                }}
-                className="form-input flex-1"
-                value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}
-                onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} // Update the field value on change
-                defaultValue={formState.last_activity_date}
+            //     }}
+            //     className="form-input flex-1"
+            //     value={formState.last_activity_date ? new Date(formState.last_activity_date) : ''}
+            //     onChange={(_,dateString) => handleChangeField('last_activity_date', dateString)} // Update the field value on change
+            //     defaultValue={formState.last_activity_date}
 
-            />,
+            // />,
             'Reporting To': <input
                 id="reporting_to"
                 name="reporting_to"

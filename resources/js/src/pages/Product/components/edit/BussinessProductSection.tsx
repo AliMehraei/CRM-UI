@@ -68,6 +68,7 @@ const BussinessProductSection = () => {
             ),
             "Account": (
                 <AsyncSelect
+                    defaultOptions={true}
                     isMulti={false}
                     required
                     id="sales_fiscal_account_id"
@@ -148,6 +149,7 @@ const BussinessProductSection = () => {
             "Account": (
                 <AsyncSelect
                     isMulti={false}
+                    defaultOptions={true}
                     required
                     id="purchase_fiscal_account_id"
                     placeholder="Type at least 2 characters to search..."
