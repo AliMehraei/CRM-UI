@@ -67,8 +67,6 @@ const GenerateCallList = ({
    
         moreCallLogInformation = {
             leftObjects: [
-                { label: "Callable Type", value: `${callLog.callable_type ?? ""}` },
-                { label: "Relatable Type", value: `${callLog.relatable_type ?? ""}` },
                 {
                     label: "Modifier",
                     value: `${callLog.modifier?.first_name ?? ""} ${
@@ -76,15 +74,16 @@ const GenerateCallList = ({
                     }`,
                 },
                 { label: "Voice Recording", value: `${callLog.voice_recording ?? ""}` },
-            ],
-            rightObjects: [
-                
                 { label: "Call Purpose", value: `${callLog.call_purpose ?? ""}` },
                 {
                     label: "Call Agenda",
                     value: `${callLog.call_agenda ?? ""}`,
                 },
                 { label: "Call Result", value: `${callLog.call_result ?? ""}` },
+            ],
+            rightObjects: [
+                
+                
                 { label: "Description", value: `${(callLog.description ?? "").substring(0, 50)}${
                     callLog.description && callLog.description.length > 15
                         ? "..."
