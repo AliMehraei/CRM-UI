@@ -1,20 +1,31 @@
+import React,{ useEffect, useState } from "react";
+
 export const leadColumns = [
     {
-        key: "company",
-        label: "Company",
+        accessor: 'id',
+        sortable: true,
+        render: ({ id } : any) => <div className="font-semibold">{id}</div>,
     },
     {
-        key: "email",
-        label: "Email",
+        accessor: 'company',
+        sortable: true,
+        render: ({ company } : any) => <div className="font-semibold">{company}</div>,
     },
     {
-        key: "phone",
-        label: "Phone",
+        accessor: 'email',
+        sortable: true,
+        render: ({ email } : any) => <div className="font-semibold">{email}</div>,
     },
-
     {
-        key: "lead_source",
-        label: "Lead Source",
+        accessor: 'phone',
+        sortable: true,
+        render: ({ phone } : any) => <div className="font-semibold">{phone}</div>,
     },
-    
+    {
+        accessor: 'lead_source',
+        title : 'Lead Source',
+        sortable: true,
+        render: ({ lead_source } : any) => <div className="font-semibold">{lead_source}</div>,
+    },
+     
 ];

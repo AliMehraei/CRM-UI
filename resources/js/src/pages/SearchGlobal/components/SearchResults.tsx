@@ -61,17 +61,7 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef,act
     });
 
 
-    const prepareColumns = (modelLabelField: string): any[] => {
-        switch (modelLabelField) {
-          case 'Lead':
-            return leadColumns;  // Use your ItemColumns for 'excess'
-          // Add more cases for other modelLabelField values
-          default:
-            // Fallback columns if modelLabelField doesn't match any case
-            return [];
-        }
-      };
-
+    
 
 
 
@@ -84,26 +74,26 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef,act
                     <LoadingSpinner/>
                 ):(
                     <>
-                        {Object.entries(groupedResults).map(([modelLabelField, items], groupIndex) => {
-                        // Dynamically prepare columns based on modelLabelField
+                        {/* {Object.entries(groupedResults).map(([modelLabelField, items], groupIndex) => { */}
+                        {/* // Dynamically prepare columns based on modelLabelField
                         const columns = prepareColumns(modelLabelField);
                         console.log(columns);
                         // console.log(modelLabelField);
 
-                        // Render TableSection for each group
-                        return (
-                            <React.Fragment key={groupIndex}>
+                        // Render TableSection for each group */}
+                        {/* return ( */}
+                            {/* <React.Fragment key={groupIndex}> */}
                            
                             <GenerateTableList
-                            tableColumns={columns}
+                            // tableColumns={columns}
                             frontRoute="globalSearchFull"
-                            title={modelLabelField}
+                            // title={modelLabelField}
                             filterParam={query}
 
                             />
-                            </React.Fragment>
-                        );
-                        })}
+                            {/* </React.Fragment> */}
+                        {/* ); */}
+                        {/* })} */}
                         {(activeIndexRef.current >8  ? (
                             <div className="pb-44 pt-7 ">
                                 <div className="flex items-center justify-center mb-8">
