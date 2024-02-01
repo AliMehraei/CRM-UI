@@ -174,11 +174,11 @@ const GenerateTableList = ({
 
                                             return (
                                                 <div key={index}>
-                                                    <h2>
-                                                        {modelName} DataTable
+                                                    <h2 className="text-xl font-bold">
+                                                        {modelName}
                                                     </h2>
                                                     <DataTable
-                                                        className={`${isDark} whitespace-nowrap table-hover`}
+                                                        className={`${isDark} whitespace-nowrap table-hover mt-5 mb-5`}
                                                         records={modelArray}
                                                         columns={columns}
                                                         highlightOnHover
