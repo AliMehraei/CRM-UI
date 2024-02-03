@@ -8,7 +8,9 @@ import { IRootState } from "../../../store";
 import api from "../../../config/api";
 import { useUserStatus } from "../../../config/authCheck";
 import LoadingSasCrm from "../../../components/LoadingSasCrm";
-import { leadColumns } from "./ItemInfo/ItemColumns";
+import { accountColumns, callColumns, contactColumns, dealColumns, 
+    leadColumns, manufacturerColumns, taskColumns, vendorColumns 
+} from "./ItemInfo/ItemColumns";
 
 const GenerateTableList = ({
     permissionName,
@@ -134,10 +136,30 @@ const GenerateTableList = ({
 
     const prepareColumns = (modelLabelField: string): any[] => {
         switch (modelLabelField) {
-          case 'Lead':
-            return leadColumns;  // Use your ItemColumns for 'excess'
-          // Add more cases for other modelLabelField values
-          default:
+            case 'Lead':
+                return leadColumns;  
+            
+            case 'Account':
+                return accountColumns;   
+            
+            case 'Contact':
+                return contactColumns;  
+                
+            case 'Deal':
+                return dealColumns;
+                
+            case 'Manufacturer':
+                return manufacturerColumns;
+
+            case 'Task':
+                return taskColumns;
+            
+            case 'Vendor':
+                return vendorColumns;  
+
+            case 'Call':
+                return callColumns;     
+            default:
             // Fallback columns if modelLabelField doesn't match any case
             return [];
         }
