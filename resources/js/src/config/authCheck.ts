@@ -4,6 +4,7 @@ import api from './api';
 import { useNavigate } from 'react-router-dom';
 
 type Permission = string;
+type FieldColumn = string;
 
 interface User {
     id: number;
@@ -59,6 +60,7 @@ interface UserStatus {
     isLoggedIn: boolean;
     user: User | null;
     permissions: Permission[];
+    fieldColumns : FieldColumn[];
     hasPermission: (permissionName: Permission) => boolean;
     logout: () => void;
 }
@@ -72,6 +74,7 @@ export const useUserStatus = (): UserStatus => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!token);
     const [permissions, setPermissions] = useState<Permission[]>([]);
+    const [fieldColumns, setFieldColumns] = useState<FieldColumn[]>([]);
     const [user, setUser] = useState<User | null>(null);
     const apiInstance = new api();
     const navigate = useNavigate();
@@ -86,6 +89,7 @@ export const useUserStatus = (): UserStatus => {
             }
 
             await fetchUserDataAndPermissions();
+            await fetchUserSettingFieldColumns();
         };
 
         const fetchUserDataAndPermissions = async () => {
@@ -102,7 +106,7 @@ export const useUserStatus = (): UserStatus => {
 
                     }
 
-                    updateStatus(userPermissions, userDetails);
+                    updateStatus(userPermissions, userDetails , []);
                 } else {
                     setIsLoggedIn(false);
                     handleLogout();
@@ -114,12 +118,40 @@ export const useUserStatus = (): UserStatus => {
             }
         };
 
-        const updateStatus = (userPermissions: Permission[], userDetails: User) => {
-            setIsLoggedIn(true);
-            setPermissions(userPermissions);
-            setUser(userDetails);
+        const fetchUserSettingFieldColumns = async () => {
+            try {
+                const { data } = await apiInstance.getUserSettingFieldColumns();
+
+                if (data && data.status_code === 200) {
+                    const { fieldColumns: userFieldColumns, user: userDetails } = data.data;
+                    if (userFieldColumns) {
+                        updateFieldColumn(userFieldColumns);
+                    } else {
+                        setIsLoggedIn(false);
+                        handleLogout();
+                        navigate('/auth/login');
+                    }
+                } else {
+                    setIsLoggedIn(false);
+                    handleLogout();
+                }
+            } catch (error) {
+                handleApiError(error);
+            } finally {
+                setIsLoading(false);
+            }
         };
 
+        const updateStatus = (userPermissions: Permission[], userDetails: User, userFieldColumns: FieldColumn[]) => {
+            setIsLoggedIn(true);
+            setPermissions(userPermissions);
+            setFieldColumns(userFieldColumns);
+            setUser(userDetails);
+        };  
+
+        const updateFieldColumn = ( userFieldColumns: FieldColumn[]) => {
+                setFieldColumns(userFieldColumns);
+        };  
         const handleApiError = (error: any) => {
             console.error('Error fetching user data and permissions:', error);
             setIsLoggedIn(false);
@@ -131,6 +163,7 @@ export const useUserStatus = (): UserStatus => {
             removeToken(USER_DATA);
             setIsLoggedIn(false);
             setPermissions([]);
+            setFieldColumns([]);
             setUser(null);
 
             
@@ -150,6 +183,7 @@ export const useUserStatus = (): UserStatus => {
         removeToken(USER_DATA);
         setIsLoggedIn(false);
         setPermissions([]);
+        setFieldColumns([]);
         setUser(null);
     };
 
@@ -158,6 +192,7 @@ export const useUserStatus = (): UserStatus => {
         isLoggedIn,
         user,
         permissions,
+        fieldColumns,
         hasPermission,
         logout,
     };
