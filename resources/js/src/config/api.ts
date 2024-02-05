@@ -32,6 +32,10 @@ class api {
     async getUserSettingFieldColumns(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/get-settings`, data);
     }
+    async getColumnsForModels(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/field-columns/get-columns`, data);
+    }
+
 
     async searchProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data);

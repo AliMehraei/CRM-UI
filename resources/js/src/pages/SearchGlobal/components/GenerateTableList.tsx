@@ -42,13 +42,20 @@ const GenerateTableList = ({
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
-    const [showSettings, setShowSettings] = useState(false);
-    const [selectedColumns, setSelectedColumns] = useState([]);
+    const [selectedModel, setSelectedModel] = useState(null);
 
+    const [selectedColumns, setSelectedColumns] = useState([]);
+    interface ModelColumn {
+        label: string;
+        value: string;
+      }
+      
+    const [modelColumns, setModelColumns] = useState<ModelColumn[]>([]);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: "id",
         direction: "asc",
     });
+
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -151,8 +158,22 @@ const GenerateTableList = ({
         }
     };
 
-    const toggleSettingColumns = () => {
-        setShowSettings(!showSettings);
+    const toggleSettingColumns = async (modelName) => {
+        try {
+
+            const data = {className : modelName};
+            const res = await api_instance.getColumnsForModels(data);
+            if (res.status !== 200)
+                return;
+            
+                
+            setModelColumns(res.data); // Assuming API response has a "columns" property
+            setSelectedModel(modelName);
+               
+            
+          } catch (error) {
+            console.error('Error fetching columns:', error);
+          }
     };
 
     useEffect(() => {
@@ -209,12 +230,33 @@ const GenerateTableList = ({
                                                     <h2 className="text-xl font-bold">
                                                         {modelName}
                                                     </h2>
-                                                    <div onClick={toggleSettingColumns} className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
+                                                    <div onClick={() => toggleSettingColumns(modelName)} className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
                                                         <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
                                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
                                                         </svg>
                                                     </div>
                                                     </div>
+                                                    {selectedModel === modelName && (
+                                                        <div className="model-settings">
+                                                        <ul>
+                                                            {modelColumns.map((column) => (
+                                                            <li key={column.value}>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id={column.value}
+                                                                    name={column.value}
+                                                                    // You can handle checkbox changes here if needed
+                                                                />
+                                                                <label htmlFor={column.value}>{column.label}</label>
+                                                            </li>
+                                                            ))}
+                                                        </ul>
+
+                                                        <div>
+                                                            {/* Your buttons */}
+                                                        </div>
+                                                        </div>
+                                                    )}
                                                     <DataTable
                                                         className={`${isDark} whitespace-nowrap table-hover mb-5`}
                                                         records={modelArray}
