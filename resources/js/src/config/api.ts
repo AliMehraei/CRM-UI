@@ -29,6 +29,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data);
     }
 
+    async getUserSettingFieldColumns(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/get-settings`, data);
+    }
+
     async searchProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data);
     }
