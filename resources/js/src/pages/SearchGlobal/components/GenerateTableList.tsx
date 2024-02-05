@@ -43,6 +43,7 @@ const GenerateTableList = ({
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
     const [selectedModel, setSelectedModel] = useState(null);
+    const [showSettingColumns, setShowSettingColumns] = useState(false);
 
     const [selectedColumns, setSelectedColumns] = useState([]);
     interface ModelColumn {
@@ -169,7 +170,7 @@ const GenerateTableList = ({
                 
             setModelColumns(res.data); // Assuming API response has a "columns" property
             setSelectedModel(modelName);
-               
+            setShowSettingColumns(!showSettingColumns);
             
           } catch (error) {
             console.error('Error fetching columns:', error);
@@ -194,6 +195,36 @@ const GenerateTableList = ({
     useEffect(() => {
         fetchModelData(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, filterParam]);
+
+
+    const handleSave = () => {
+        // Perform actions to save selectedColumns
+        console.log('Saving columns:', selectedColumns);
+    
+        // Reset state and hide settings
+        setSelectedColumns([]);
+        setShowSettingColumns(false);
+      };
+    
+      const handleCancel = () => {
+        // Reset state and hide settings
+        setSelectedColumns([]);
+        setShowSettingColumns(false);
+      };
+
+    const handleClickOutside = (event) => {
+        
+        setSelectedColumns([]);
+        setShowSettingColumns(false);
+    };
+    
+      useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+    
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+        };
+      }, [toggleSettingColumns]);
 
     
 
@@ -231,29 +262,51 @@ const GenerateTableList = ({
                                                         {modelName}
                                                     </h2>
                                                     <div onClick={() => toggleSettingColumns(modelName)} className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
-                                                        <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+                                                        <svg className="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
                                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
                                                         </svg>
                                                     </div>
                                                     </div>
-                                                    {selectedModel === modelName && (
-                                                        <div className="model-settings">
-                                                        <ul>
+                                                    {showSettingColumns && selectedModel === modelName && (
+                                                        <div className={`min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-12 right-1`} >
+                                                         <div className="overflow-y-scroll h-80">  
+
+                                                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                                                            <div className="mb-3 mr-3">
+                                                            {/* Input search */}
+                                                            <input
+                                                                type="text"
+                                                                placeholder="Search..."
+                                                                className="w-full p-2 border border-gray-300 rounded"
+                                                                // Add your search functionality here
+                                                            />
+                                                            </div>
                                                             {modelColumns.map((column) => (
-                                                            <li key={column.value}>
+                                                            <li key={column.value} style={{ display: 'flex', alignItems: 'center' }}>
                                                                 <input
                                                                     type="checkbox"
                                                                     id={column.value}
                                                                     name={column.value}
+                                                                    className="mr-2"
                                                                     // You can handle checkbox changes here if needed
                                                                 />
-                                                                <label htmlFor={column.value}>{column.label}</label>
+                                                                <label className="mt-1" htmlFor={column.value}>{column.label}</label>
                                                             </li>
                                                             ))}
                                                         </ul>
+                                                        </div>  
+                                                        <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
 
-                                                        <div>
-                                                            {/* Your buttons */}
+                                                        <div className="mt-5 flex justify-end">
+                                                        {/* Save button */}
+                                                        <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSave}>
+                                                            Save
+                                                        </button>
+                                                        
+                                                        {/* Cancel button */}
+                                                        <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancel}>
+                                                            Cancel
+                                                        </button>
                                                         </div>
                                                         </div>
                                                     )}
@@ -286,6 +339,8 @@ const GenerateTableList = ({
                                                         onSelectedRecordsChange={
                                                             setSelectedRecords
                                                         }
+                                                        style={{ zIndex: 1 }}
+
                                                     />
                                                 </div>
                                             );
