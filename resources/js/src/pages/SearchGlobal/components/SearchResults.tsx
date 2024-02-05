@@ -74,26 +74,12 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef,act
                     <LoadingSpinner/>
                 ):(
                     <>
-                        {/* {Object.entries(groupedResults).map(([modelLabelField, items], groupIndex) => { */}
-                        {/* // Dynamically prepare columns based on modelLabelField
-                        const columns = prepareColumns(modelLabelField);
-                        console.log(columns);
-                        // console.log(modelLabelField);
 
-                        // Render TableSection for each group */}
-                        {/* return ( */}
-                            {/* <React.Fragment key={groupIndex}> */}
-                           
-                            <GenerateTableList
-                            // tableColumns={columns}
-                            frontRoute="globalSearchFull"
-                            // title={modelLabelField}
-                            filterParam={query}
-
-                            />
-                            {/* </React.Fragment> */}
-                        {/* ); */}
-                        {/* })} */}
+                        <GenerateTableList
+                        frontRoute="globalSearchFull"
+                        filterParam={query}
+                        />
+                        
                         {(activeIndexRef.current >8  ? (
                             <div className="pb-44 pt-7 ">
                                 <div className="flex items-center justify-center mb-8">

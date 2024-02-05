@@ -24,7 +24,7 @@ const Index = () => {
         setPage(0);
         activeIndexRef.current=0;
         setSearchResults([]);
-        CallSearch();
+        // CallSearch();
     };
 
     const CallSearch = async () => {
@@ -128,7 +128,7 @@ const Index = () => {
 
             setSearchResults([]);
             activeIndexRef.current=0;
-            CallSearch();
+            // CallSearch();
         }
         else{
             if(query!=''){
@@ -144,8 +144,8 @@ const Index = () => {
     },[query,filters])
 
     useEffect(()=>{
-        if(query!='')
-            CallSearch();
+        // if(query!='')
+        //     CallSearch();
 
     },[page])
 

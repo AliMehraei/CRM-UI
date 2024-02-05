@@ -9,7 +9,7 @@ import api from "../../../config/api";
 import { useUserStatus } from "../../../config/authCheck";
 import LoadingSasCrm from "../../../components/LoadingSasCrm";
 import { accountColumns, callColumns, contactColumns, dealColumns, 
-    leadColumns, manufacturerColumns, taskColumns, vendorColumns 
+    leadColumns, manufacturerColumns, salesOrderColumns, taskColumns, vendorColumns 
 } from "./ItemInfo/ItemColumns";
 
 const GenerateTableList = ({
@@ -42,6 +42,8 @@ const GenerateTableList = ({
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [totalItems, setTotalItems] = useState(0);
+    const [showSettings, setShowSettings] = useState(false);
+    const [selectedColumns, setSelectedColumns] = useState([]);
 
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: "id",
@@ -115,25 +117,6 @@ const GenerateTableList = ({
         fetchModelData(page, pageSize, filters, { columnAccessor, direction });
     };
 
-    useEffect(() => {
-        const data = sortBy(items, sortStatus.columnAccessor);
-        const reversedData =
-            sortStatus.direction !== "asc" ? data.reverse() : data;
-        setInitialRecords(reversedData);
-    }, [items, sortStatus]);
-
-    useEffect(() => {
-        setPage(1);
-    }, [pageSize]);
-
-    useEffect(() => {
-        setRecords([...initialRecords.slice(0, pageSize)]);
-    }, [page, pageSize, initialRecords]);
-
-    useEffect(() => {
-        fetchModelData(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus, filterParam]);
-
     const prepareColumns = (modelLabelField: string): any[] => {
         switch (modelLabelField) {
             case 'Lead':
@@ -158,12 +141,40 @@ const GenerateTableList = ({
                 return vendorColumns;  
 
             case 'Call':
-                return callColumns;     
+                return callColumns;   
+            
+            case 'SalesOrder':
+                return salesOrderColumns;      
             default:
             // Fallback columns if modelLabelField doesn't match any case
             return [];
         }
-      };
+    };
+
+    const toggleSettingColumns = () => {
+        setShowSettings(!showSettings);
+    };
+
+    useEffect(() => {
+        const data = sortBy(items, sortStatus.columnAccessor);
+        const reversedData =
+            sortStatus.direction !== "asc" ? data.reverse() : data;
+        setInitialRecords(reversedData);
+    }, [items, sortStatus]);
+
+    useEffect(() => {
+        setPage(1);
+    }, [pageSize]);
+
+    useEffect(() => {
+        setRecords([...initialRecords.slice(0, pageSize)]);
+    }, [page, pageSize, initialRecords]);
+
+    useEffect(() => {
+        fetchModelData(page, pageSize, filters, sortStatus);
+    }, [page, pageSize, sortStatus, filterParam]);
+
+    
 
 
     return (
@@ -173,10 +184,7 @@ const GenerateTableList = ({
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
                 <div className={`${permissionName}-table`}>
-                    <div className="text-base mb-5">
-                        {title ? `${title}` : <div className=""></div>}
-                    </div>
-                    <div className="grid grid-cols-1 gap-6 mb-6">
+                        <div className="grid grid-cols-1 gap-6 mb-6">
                         <div className="panel col-span-12">
                             <div className="datatables pagination-padding">
                                 {loading ? (
@@ -196,11 +204,19 @@ const GenerateTableList = ({
 
                                             return (
                                                 <div key={index}>
+                                                    <div className="flex justify-between items-center p-4">
+
                                                     <h2 className="text-xl font-bold">
                                                         {modelName}
                                                     </h2>
+                                                    <div onClick={toggleSettingColumns} className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
+                                                        <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
+                                                        </svg>
+                                                    </div>
+                                                    </div>
                                                     <DataTable
-                                                        className={`${isDark} whitespace-nowrap table-hover mt-5 mb-5`}
+                                                        className={`${isDark} whitespace-nowrap table-hover mb-5`}
                                                         records={modelArray}
                                                         columns={columns}
                                                         highlightOnHover
