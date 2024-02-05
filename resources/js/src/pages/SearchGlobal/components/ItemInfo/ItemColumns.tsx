@@ -264,3 +264,31 @@ export const callColumns = [
 
     
 ];
+
+export const salesOrderColumns = [
+
+    {
+        accessor: 'owner',
+        title: 'Sales Order Owner',
+        sortable: false,
+        render: ({ owner }) => (
+            <div className="font-semibold">
+                {owner ? owner.first_name + ' ' + owner.last_name : 'No Owner'}
+            </div>
+        ),
+    },
+    
+    {
+        accessor: 'subject',
+        sortable: true,
+        render: ({ subject } : any) => <div className="font-semibold">{subject}</div>,
+    },
+
+    {
+        accessor: 'type',
+        sortable: true,
+        render: ({ type } : any) => <div className="font-semibold">{type}</div>,
+    },
+
+    
+];
