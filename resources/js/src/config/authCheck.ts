@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {getToken, removeToken} from './config';
 import api from './api';
 import { useNavigate } from 'react-router-dom';
+import {setToken} from "./config";
 
 type Permission = string;
 type FieldColumn = string;
@@ -68,6 +69,7 @@ interface UserStatus {
 const TOKEN_KEY = 'token';
 const USER_UNIFIED_ID = 'userUniqueIdentifier';
 const USER_DATA = 'userData';
+const FIELD_COLUMNS = 'userFieldColumns' ;
 export const useUserStatus = (): UserStatus => {
     const token = getToken(TOKEN_KEY);
     const userUnifiedId = getToken(USER_UNIFIED_ID);
@@ -151,6 +153,7 @@ export const useUserStatus = (): UserStatus => {
 
         const updateFieldColumn = ( userFieldColumns: FieldColumn[]) => {
                 setFieldColumns(userFieldColumns);
+                setToken(JSON.stringify(userFieldColumns) , FIELD_COLUMNS  );
         };  
         const handleApiError = (error: any) => {
             console.error('Error fetching user data and permissions:', error);
@@ -161,6 +164,7 @@ export const useUserStatus = (): UserStatus => {
             removeToken(TOKEN_KEY);
             removeToken(USER_UNIFIED_ID);
             removeToken(USER_DATA);
+            removeToken(FIELD_COLUMNS);
             setIsLoggedIn(false);
             setPermissions([]);
             setFieldColumns([]);
@@ -181,6 +185,7 @@ export const useUserStatus = (): UserStatus => {
         removeToken(TOKEN_KEY);
         removeToken(USER_UNIFIED_ID);
         removeToken(USER_DATA);
+        removeToken(FIELD_COLUMNS);
         setIsLoggedIn(false);
         setPermissions([]);
         setFieldColumns([]);
