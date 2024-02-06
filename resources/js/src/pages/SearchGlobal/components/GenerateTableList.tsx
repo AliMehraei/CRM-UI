@@ -218,7 +218,7 @@ const GenerateTableList = ({
 
         if (
             searchInput && searchInput.contains(event.target) ||
-            event.target.closest('.min-w-200') // Check if the click is inside the dropdown
+            event.target.closest('.setting-list-column') // Check if the click is inside the dropdown
         ) {
             return;
         }
@@ -277,7 +277,7 @@ const GenerateTableList = ({
                                                     </div>
                                                     </div>
                                                     {showSettingColumns && selectedModel === modelName && (
-                                                        <div className={`min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
+                                                        <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
                                                          <div className="overflow-y-scroll h-80">  
 
                                                         <ul style={{ listStyle: 'none', padding: 0 }}>
