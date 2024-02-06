@@ -203,12 +203,14 @@ const GenerateTableList = ({
         console.log('Saving columns:', selectedColumns);
     
         // Reset state and hide settings
+        setSearchColumns('');
         setSelectedColumns([]);
         setShowSettingColumns(false);
       };
     
       const handleCancel = () => {
         // Reset state and hide settings
+        setSearchColumns('');
         setSelectedColumns([]);
         setShowSettingColumns(false);
       };
@@ -224,6 +226,7 @@ const GenerateTableList = ({
             return;
         }
         
+        setSearchColumns('');
         setSelectedColumns([]);
         setShowSettingColumns(false);
     };
