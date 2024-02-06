@@ -213,6 +213,15 @@ const GenerateTableList = ({
       };
 
     const handleClickOutside = (event) => {
+
+        const searchInput = document.getElementById('searchInput'); // Add an id to your search input element
+
+        if (
+            searchInput && searchInput.contains(event.target) ||
+            event.target.closest('.min-w-200') // Check if the click is inside the dropdown
+        ) {
+            return;
+        }
         
         setSelectedColumns([]);
         setShowSettingColumns(false);
@@ -255,7 +264,7 @@ const GenerateTableList = ({
                                             const columns = prepareColumns(modelName);
 
                                             return (
-                                                <div key={index}>
+                                                <div className="relative" key={index}>
                                                     <div className="flex justify-between items-center p-4">
 
                                                     <h2 className="text-xl font-bold">
@@ -268,7 +277,7 @@ const GenerateTableList = ({
                                                     </div>
                                                     </div>
                                                     {showSettingColumns && selectedModel === modelName && (
-                                                        <div className={`min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-12 right-1`} >
+                                                        <div className={`min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
                                                          <div className="overflow-y-scroll h-80">  
 
                                                         <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -276,6 +285,7 @@ const GenerateTableList = ({
                                                             {/* Input search */}
                                                             <input
                                                                 type="text"
+                                                                id="search-column"
                                                                 placeholder="Search..."
                                                                 className="w-full p-2 border border-gray-300 rounded"
                                                                 // Add your search functionality here
