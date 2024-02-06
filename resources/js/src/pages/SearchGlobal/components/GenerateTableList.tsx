@@ -44,6 +44,7 @@ const GenerateTableList = ({
     const [totalItems, setTotalItems] = useState(0);
     const [selectedModel, setSelectedModel] = useState(null);
     const [showSettingColumns, setShowSettingColumns] = useState(false);
+    const [searchColumns, setSearchColumns] = useState('');
 
     const [selectedColumns, setSelectedColumns] = useState([]);
     interface ModelColumn {
@@ -287,11 +288,14 @@ const GenerateTableList = ({
                                                                 type="text"
                                                                 id="search-column"
                                                                 placeholder="Search..."
+                                                                value={searchColumns}
+                                                                onChange={(e) => setSearchColumns(e.target.value)}
                                                                 className="w-full p-2 border border-gray-300 rounded"
-                                                                // Add your search functionality here
                                                             />
                                                             </div>
-                                                            {modelColumns.map((column) => (
+                                                            {modelColumns
+                                                            .filter((column) => column.label.toLowerCase().includes(searchColumns.toLowerCase()))
+                                                            .map((column) => (
                                                             <li key={column.value} style={{ display: 'flex', alignItems: 'center' }}>
                                                                 <input
                                                                     type="checkbox"
