@@ -214,7 +214,7 @@ const GenerateTableList = ({
 
     const handleClickOutside = (event) => {
 
-        const searchInput = document.getElementById('searchInput'); // Add an id to your search input element
+        const searchInput = document.getElementById('search-column'); // Add an id to your search input element
 
         if (
             searchInput && searchInput.contains(event.target) ||
