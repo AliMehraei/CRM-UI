@@ -8,11 +8,9 @@ import { IRootState } from "../../../store";
 import api from "../../../config/api";
 import { useUserStatus } from "../../../config/authCheck";
 import LoadingSasCrm from "../../../components/LoadingSasCrm";
-import {
-    accountColumns, callColumns, contactColumns, dealColumns,
-    leadColumns, manufacturerColumns, salesOrderColumns, taskColumns, vendorColumns
+import { accountColumns, callColumns, contactColumns, dealColumns, 
+    leadColumns, manufacturerColumns, salesOrderColumns, taskColumns, vendorColumns 
 } from "./ItemInfo/ItemColumns";
-import { getToken } from "../../../config/config";
 
 const GenerateTableList = ({
     permissionName,
@@ -52,8 +50,8 @@ const GenerateTableList = ({
     interface ModelColumn {
         label: string;
         value: string;
-    }
-
+      }
+      
     const [modelColumns, setModelColumns] = useState<ModelColumn[]>([]);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
         columnAccessor: "id",
@@ -102,7 +100,7 @@ const GenerateTableList = ({
                 filters: filters,
             })
                 .then((res: any) => {
-
+                    
                     setItems(res.data);
                     setTotalItems(10);
                     setLoading(false);
@@ -132,53 +130,53 @@ const GenerateTableList = ({
     const prepareColumns = (modelLabelField: string): any[] => {
         switch (modelLabelField) {
             case 'Lead':
-                return leadColumns;
-
+                return leadColumns;  
+            
             case 'Account':
-                return accountColumns;
-
+                return accountColumns;   
+            
             case 'Contact':
-                return contactColumns;
-
+                return contactColumns;  
+                
             case 'Deal':
                 return dealColumns;
-
+                
             case 'Manufacturer':
                 return manufacturerColumns;
 
             case 'Task':
                 return taskColumns;
-
+            
             case 'Vendor':
-                return vendorColumns;
+                return vendorColumns;  
 
             case 'Call':
-                return callColumns;
-
+                return callColumns;   
+            
             case 'SalesOrder':
-                return salesOrderColumns;
+                return salesOrderColumns;      
             default:
-                // Fallback columns if modelLabelField doesn't match any case
-                return [];
+            // Fallback columns if modelLabelField doesn't match any case
+            return [];
         }
     };
 
     const toggleSettingColumns = async (modelName) => {
         try {
 
-            const data = { className: modelName };
+            const data = {className : modelName};
             const res = await api_instance.getColumnsForModels(data);
             if (res.status !== 200)
                 return;
-
-
+            
+                
             setModelColumns(res.data); // Assuming API response has a "columns" property
             setSelectedModel(modelName);
             setShowSettingColumns(!showSettingColumns);
-
-        } catch (error) {
+            
+          } catch (error) {
             console.error('Error fetching columns:', error);
-        }
+          }
     };
 
     useEffect(() => {
@@ -201,12 +199,12 @@ const GenerateTableList = ({
     }, [page, pageSize, sortStatus, filterParam]);
 
 
-    const handleSaveSelectedColumn = async () => {
+    const handleSaveSelectedColumn = async() => {
 
         try {
 
             if (!selectedColumns || selectedColumns.length === 0) {
-                showMessage('No columns selected.', "error");
+                showMessage('No columns selected.',"error");
                 return;
             }
             const data = {
@@ -216,29 +214,30 @@ const GenerateTableList = ({
             };
             const res = await api_instance.createFieldColumnsSearch(data);
 
-            if (res.status !== 200) {
-                showMessage(res.data.message, "error");
+        if (res.status !== 200)
+            {
+                showMessage(res.data.message,"error");
             }
 
-            showMessage(res.data.message, "success");
+            showMessage(res.data.message,"success");
 
-            // Reset state and hide settings
-            setSearchColumns('');
-            setSelectedColumns([]);
-            setShowSettingColumns(false);
+        // Reset state and hide settings
+        setSearchColumns('');
+        setSelectedColumns([]);
+        setShowSettingColumns(false);
 
         } catch (error) {
             showMessage(`Error create setting field columns.`, "error");
 
         }
-    };
-
-    const handleCancelSelectedColumn = () => {
+      };
+    
+      const handleCancelSelectedColumn = () => {
         // Reset state and hide settings
         setSearchColumns('');
         setSelectedColumns([]);
         setShowSettingColumns(false);
-    };
+      };
 
     const handleClickOutside = (event) => {
 
@@ -250,21 +249,21 @@ const GenerateTableList = ({
         ) {
             return;
         }
-
+        
         setSearchColumns('');
         setSelectedColumns([]);
         setShowSettingColumns(false);
     };
-
-    useEffect(() => {
+    
+      useEffect(() => {
         document.addEventListener('click', handleClickOutside);
-
+    
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+          document.removeEventListener('click', handleClickOutside);
         };
-    }, [toggleSettingColumns]);
+      }, [toggleSettingColumns]);
 
-
+    
 
 
     return (
@@ -274,7 +273,7 @@ const GenerateTableList = ({
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
                 <div className={`${permissionName}-table`}>
-                    <div className="grid grid-cols-1 gap-6 mb-6">
+                        <div className="grid grid-cols-1 gap-6 mb-6">
                         <div className="panel col-span-12">
                             <div className="datatables pagination-padding">
                                 {loading ? (
@@ -289,87 +288,75 @@ const GenerateTableList = ({
                                                 Object.keys(modelData)[0];
                                             const modelArray =
                                                 modelData[modelName];
-
+                                            
                                             const columns = prepareColumns(modelName);
 
                                             return (
                                                 <div className="relative" key={index}>
                                                     <div className="flex justify-between items-center p-4">
 
-                                                        <h2 className="text-xl font-bold">
-                                                            {modelName}
-                                                        </h2>
-                                                        <div onClick={() => toggleSettingColumns(modelName)} className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
-                                                            <svg className="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
-                                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1" />
-                                                            </svg>
-                                                        </div>
+                                                    <h2 className="text-xl font-bold">
+                                                        {modelName}
+                                                    </h2>
+                                                    <div onClick={() => toggleSettingColumns(modelName)} className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
+                                                        <svg className="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
+                                                        </svg>
+                                                    </div>
                                                     </div>
                                                     {showSettingColumns && selectedModel === modelName && (
-    <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
-        <div className="overflow-y-scroll h-80">
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-                <div className="mb-3 mr-3">
-                    {/* Input search */}
-                    <input
-                        type="text"
-                        id="search-column"
-                        placeholder="Search..."
-                        value={searchColumns}
-                        onChange={(e) => setSearchColumns(e.target.value)}
-                        className="w-full p-2 border border-gray-300 focus:ring-blue-200 focus:outline-none  rounded"
-                    />
-                </div>
-                {modelColumns
-                    .filter((column) => column.label.toLowerCase().includes(searchColumns.toLowerCase()))
-                    .map((column) => {
-                        let filteredUserFieldColumns = JSON.parse(getToken('userFieldColumns') ?? '[]');
-                        filteredUserFieldColumns = filteredUserFieldColumns.filter(entry => entry.model_type === "App\\Models\\" + selectedModel)
-                            .filter(entry => entry.type === "search");
+                                                        <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
+                                                         <div className="overflow-y-scroll h-80">  
 
-                        const isChecked = filteredUserFieldColumns
-                            .flatMap(entry => JSON.parse(entry.field_columns))
-                            .some(field => field.value === column.value);
-                        console.log('isChecked',isChecked);
-                        
-                        return (
-                            <li key={column.value} style={{ display: 'flex', alignItems: 'center' }}>
-                                <input
-                                    type="checkbox"
-                                    id={column.value}
-                                    name={column.value}
-                                    className="mr-2"
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedColumns([...selectedColumns, column.value]);
-                                        } else {
-                                            setSelectedColumns(selectedColumns.filter((selectedColumn) => selectedColumn !== column.value));
-                                        }
-                                    }}
-                                    checked={isChecked}
-                                />
-                                <label className="mt-1" htmlFor={column.value}>{column.label}</label>
-                            </li>
-                        );
-                    })}
-            </ul>
-        </div>
-        <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                                                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                                                            <div className="mb-3 mr-3">
+                                                            {/* Input search */}
+                                                            <input
+                                                                type="text"
+                                                                id="search-column"
+                                                                placeholder="Search..."
+                                                                value={searchColumns}
+                                                                onChange={(e) => setSearchColumns(e.target.value)}
+                                                                className="w-full p-2 border border-gray-300 focus:ring-blue-200 focus:outline-none  rounded"
+                                                            />
+                                                            </div>
+                                                            {modelColumns
+                                                            .filter((column) => column.label.toLowerCase().includes(searchColumns.toLowerCase()))
+                                                            .map((column) => (
+                                                            <li key={column.value} style={{ display: 'flex', alignItems: 'center' }}>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id={column.value}
+                                                                    name={column.value}
+                                                                    className="mr-2"
+                                                                    onChange={(e) => {
+                                                                        if (e.target.checked) {
+                                                                            setSelectedColumns([...selectedColumns, column.value]);
+                                                                        } else {
+                                                                            setSelectedColumns(selectedColumns.filter((selectedColumn) => selectedColumn !== column.value));
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                <label className="mt-1" htmlFor={column.value}>{column.label}</label>
+                                                            </li>
+                                                            ))}
+                                                        </ul>
+                                                        </div>  
+                                                        <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
 
-        <div className="mt-5 flex justify-end">
-            {/* Save button */}
-            <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
-                Save
-            </button>
-
-            {/* Cancel button */}
-            <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
-                Cancel
-            </button>
-        </div>
-    </div>
-)}
-
+                                                        <div className="mt-5 flex justify-end">
+                                                        {/* Save button */}
+                                                        <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
+                                                            Save
+                                                        </button>
+                                                        
+                                                        {/* Cancel button */}
+                                                        <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
+                                                            Cancel
+                                                        </button>
+                                                        </div>
+                                                        </div>
+                                                    )}
                                                     <DataTable
                                                         className={`${isDark} whitespace-nowrap table-hover mb-5`}
                                                         records={modelArray}

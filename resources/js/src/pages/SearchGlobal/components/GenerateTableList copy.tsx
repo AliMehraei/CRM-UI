@@ -306,70 +306,72 @@ const GenerateTableList = ({
                                                         </div>
                                                     </div>
                                                     {showSettingColumns && selectedModel === modelName && (
-    <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
-        <div className="overflow-y-scroll h-80">
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-                <div className="mb-3 mr-3">
-                    {/* Input search */}
-                    <input
-                        type="text"
-                        id="search-column"
-                        placeholder="Search..."
-                        value={searchColumns}
-                        onChange={(e) => setSearchColumns(e.target.value)}
-                        className="w-full p-2 border border-gray-300 focus:ring-blue-200 focus:outline-none  rounded"
-                    />
-                </div>
-                {modelColumns
-                    .filter((column) => column.label.toLowerCase().includes(searchColumns.toLowerCase()))
-                    .map((column) => {
-                        let filteredUserFieldColumns = JSON.parse(getToken('userFieldColumns') ?? '[]');
-                        filteredUserFieldColumns = filteredUserFieldColumns.filter(entry => entry.model_type === "App\\Models\\" + selectedModel)
-                            .filter(entry => entry.type === "search");
+                                                        <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`} >
+                                                            <div className="overflow-y-scroll h-80">
 
-                        const isChecked = filteredUserFieldColumns
-                            .flatMap(entry => JSON.parse(entry.field_columns))
-                            .some(field => field.value === column.value);
-                        console.log('isChecked',isChecked);
-                        
-                        return (
-                            <li key={column.value} style={{ display: 'flex', alignItems: 'center' }}>
-                                <input
-                                    type="checkbox"
-                                    id={column.value}
-                                    name={column.value}
-                                    className="mr-2"
-                                    onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedColumns([...selectedColumns, column.value]);
-                                        } else {
-                                            setSelectedColumns(selectedColumns.filter((selectedColumn) => selectedColumn !== column.value));
-                                        }
-                                    }}
-                                    checked={isChecked}
-                                />
-                                <label className="mt-1" htmlFor={column.value}>{column.label}</label>
-                            </li>
-                        );
-                    })}
-            </ul>
-        </div>
-        <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+                                                                <ul style={{ listStyle: 'none', padding: 0 }}>
+                                                                    <div className="mb-3 mr-3">
+                                                                        {/* Input search */}
+                                                                        <input
+                                                                            type="text"
+                                                                            id="search-column"
+                                                                            placeholder="Search..."
+                                                                            value={searchColumns}
+                                                                            onChange={(e) => setSearchColumns(e.target.value)}
+                                                                            className="w-full p-2 border border-gray-300 focus:ring-blue-200 focus:outline-none  rounded"
+                                                                        />
+                                                                    </div>
+                                                                    {modelColumns
+                                                                        .filter((column) => column.label.toLowerCase().includes(searchColumns.toLowerCase()))
+                                                                        .map((column) => {
+                                                                            let filteredUserFieldColumns = JSON.parse(getToken('userFieldColumns') ?? JSON.stringify([]));
+                                                                            filteredUserFieldColumns = filteredUserFieldColumns.filter(entry => entry.model_type === "App\\Models\\" + selectedModel)
+                                                                                .filter(entry => entry.type === "search");
 
-        <div className="mt-5 flex justify-end">
-            {/* Save button */}
-            <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
-                Save
-            </button>
+                                                                            const isChecked = filteredUserFieldColumns
+                                                                                .flatMap(entry => JSON.parse(entry.field_columns))
+                                                                                .some(field => field.value === column.value);
 
-            {/* Cancel button */}
-            <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
-                Cancel
-            </button>
-        </div>
-    </div>
-)}
 
+                                                                            return (
+                                                                                <li key={column.value} style={{ display: 'flex', alignItems: 'center' }}>
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        id={column.value}
+                                                                                        name={column.value}
+                                                                                        className="mr-2"
+                                                                                        onChange={(e) => {
+                                                                                            console.log('e.target.checked',e.target.checked,column.value);
+                                                                                            
+                                                                                            if (e.target.checked) {
+                                                                                                setSelectedColumns([...selectedColumns, column.value]);
+                                                                                            } else {
+                                                                                                setSelectedColumns(selectedColumns.filter((selectedColumn) => selectedColumn !== column.value));
+                                                                                            }
+                                                                                        }}
+                                                                                        checked={isChecked}
+                                                                                    />
+                                                                                    <label className="mt-1" htmlFor={column.value}>{column.label}</label>
+                                                                                </li>
+                                                                            );
+                                                                        })}
+                                                                </ul>
+                                                            </div>
+                                                            <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
+
+                                                            <div className="mt-5 flex justify-end">
+                                                                {/* Save button */}
+                                                                <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
+                                                                    Save
+                                                                </button>
+
+                                                                {/* Cancel button */}
+                                                                <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                     <DataTable
                                                         className={`${isDark} whitespace-nowrap table-hover mb-5`}
                                                         records={modelArray}
