@@ -324,7 +324,7 @@ const GenerateTableList = ({
                                                                     {modelColumns
                                                                         .filter((column) => column.label.toLowerCase().includes(searchColumns.toLowerCase()))
                                                                         .map((column) => {
-                                                                            let filteredUserFieldColumns = JSON.parse(getToken('userFieldColumns'));
+                                                                            let filteredUserFieldColumns = JSON.parse(getToken('userFieldColumns') ?? JSON.stringify([]));
                                                                             filteredUserFieldColumns = filteredUserFieldColumns.filter(entry => entry.model_type === "App\\Models\\" + selectedModel)
                                                                                 .filter(entry => entry.type === "search");
 
