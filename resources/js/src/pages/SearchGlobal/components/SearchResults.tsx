@@ -5,6 +5,7 @@ import Api from "../../../config/api";
 import TableSection from './TableSection';
 import { leadColumns } from './ItemInfo/ItemColumns';
 import GenerateTableList from './GenerateTableList';
+import FullScreenModal from './FullScreenModal';
 
 const SearchResults = ({query, results, page, setPage, loading,resultListRef,activeIndexRef}: any) => {
 
@@ -60,16 +61,17 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef,act
         });
     });
 
-
+    
     
 
 
 
     return (
+
         <div className="">
 
 
-            <div id="search-result-list" className=" bg-white overflow-auto" ref={resultListRef}>
+            <div id="search-result-list" className="h-full bg-white overflow-auto" ref={resultListRef}>
                 {(loading  ? (
                     <LoadingSpinner/>
                 ):(

@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
 import Api from "../../config/api";
+import FullScreenModal from './components/FullScreenModal';
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -165,26 +166,32 @@ const Index = () => {
         }
     };
 
+    const toggleModal = () => {
+
+        console.log("redirect");
+        
+    };
+
     return (
-        <div className="h-[calc(100vh_-_205px)]">
-            <div className="panel px-0 border-white-light dark:border-[#1b2e4b] h-full">
-                <div className={`personal-setting-table h-full`}>
-                    <div className="grid grid-cols-7 gap-6 h-full">
-                        <div className='col-span-1 h-full'>
-                            <Sidebar/>
-                        </div>
-                        <div className="panel col-span-6 border rounded-lg shadow-lg bg-white p-5 h-full">
+        // <FullScreenModal isOpen={true} onClose={toggleModal}>
+
+        <div className="">
+            {/* <div className="panel px-0 border-white-light dark:border-[#1b2e4b] h-full"> */}
+                <div className={`personal-setting-table`}>
+                    <div className="gap-6 w-full">
+                        {/* <div className="panel col-span-6 border rounded-lg shadow-lg w-full bg-white p-5 h-full"> */}
                             <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
                                        setFilters={setFilters}/>
                             <SearchResults query={query} results={searchResults} resultListRef={resultListRef}
                                            setPage={setPage} page={page} loading={loading} activeIndexRef={activeIndexRef}
 
                             />
-                        </div>
+                        {/* </div> */}
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </div>
+        // </FullScreenModal>
     );
 
 

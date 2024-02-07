@@ -46,7 +46,7 @@ const GenerateTableList = ({
     const [showSettingColumns, setShowSettingColumns] = useState(false);
     const [searchColumns, setSearchColumns] = useState('');
 
-    const [selectedColumns, setSelectedColumns] = useState([]);
+    const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
     interface ModelColumn {
         label: string;
         value: string;
@@ -65,6 +65,7 @@ const GenerateTableList = ({
             behavior: "smooth",
         });
     };
+
 
     const showMessage = (msg = "", type = "success") => {
         const toast: any = Swal.mixin({
@@ -198,17 +199,40 @@ const GenerateTableList = ({
     }, [page, pageSize, sortStatus, filterParam]);
 
 
-    const handleSave = () => {
-        // Perform actions to save selectedColumns
-        console.log('Saving columns:', selectedColumns);
-    
+    const handleSaveSelectedColumn = async() => {
+
+        try {
+
+            if (!selectedColumns || selectedColumns.length === 0) {
+                showMessage('No columns selected.',"error");
+                return;
+            }
+            const data = {
+                modelName: selectedModel,
+                selectedColumns: selectedColumns,
+                type: 'search',
+            };
+            const res = await api_instance.createFieldColumnsSearch(data);
+
+        if (res.status !== 200)
+            {
+                showMessage(res.data.message,"error");
+            }
+
+            showMessage(res.data.message,"success");
+
         // Reset state and hide settings
         setSearchColumns('');
         setSelectedColumns([]);
         setShowSettingColumns(false);
+
+        } catch (error) {
+            showMessage(`Error create setting field columns.`, "error");
+
+        }
       };
     
-      const handleCancel = () => {
+      const handleCancelSelectedColumn = () => {
         // Reset state and hide settings
         setSearchColumns('');
         setSelectedColumns([]);
@@ -293,7 +317,7 @@ const GenerateTableList = ({
                                                                 placeholder="Search..."
                                                                 value={searchColumns}
                                                                 onChange={(e) => setSearchColumns(e.target.value)}
-                                                                className="w-full p-2 border border-gray-300 rounded"
+                                                                className="w-full p-2 border border-gray-300 focus:ring-blue-200 focus:outline-none  rounded"
                                                             />
                                                             </div>
                                                             {modelColumns
@@ -305,7 +329,13 @@ const GenerateTableList = ({
                                                                     id={column.value}
                                                                     name={column.value}
                                                                     className="mr-2"
-                                                                    // You can handle checkbox changes here if needed
+                                                                    onChange={(e) => {
+                                                                        if (e.target.checked) {
+                                                                            setSelectedColumns([...selectedColumns, column.value]);
+                                                                        } else {
+                                                                            setSelectedColumns(selectedColumns.filter((selectedColumn) => selectedColumn !== column.value));
+                                                                        }
+                                                                    }}
                                                                 />
                                                                 <label className="mt-1" htmlFor={column.value}>{column.label}</label>
                                                             </li>
@@ -316,12 +346,12 @@ const GenerateTableList = ({
 
                                                         <div className="mt-5 flex justify-end">
                                                         {/* Save button */}
-                                                        <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSave}>
+                                                        <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
                                                             Save
                                                         </button>
                                                         
                                                         {/* Cancel button */}
-                                                        <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancel}>
+                                                        <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
                                                             Cancel
                                                         </button>
                                                         </div>

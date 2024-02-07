@@ -36,6 +36,10 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/field-columns/get-columns`, data);
     }
 
+    async createFieldColumnsSearch(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/field-columns/create-field-columns-search`, data);
+    }
+
 
     async searchProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data);
