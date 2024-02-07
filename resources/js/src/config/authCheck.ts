@@ -128,17 +128,11 @@ export const useUserStatus = (): UserStatus => {
                     const { fieldColumns: userFieldColumns, user: userDetails } = data.data;
                     if (userFieldColumns) {
                         updateFieldColumn(userFieldColumns);
-                    } else {
-                        setIsLoggedIn(false);
-                        handleLogout();
-                        navigate('/auth/login');
-                    }
-                } else {
-                    setIsLoggedIn(false);
-                    handleLogout();
-                }
+                    } 
+                } 
             } catch (error) {
                 handleApiError(error);
+                setIsLoading(false);
             } finally {
                 setIsLoading(false);
             }
