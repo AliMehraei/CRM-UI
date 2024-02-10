@@ -276,6 +276,7 @@ const GenerateTableList = ({
             document.removeEventListener("click", handleClickOutside);
         };
     }, [toggleSettingColumns]);
+    
 
     return (
         // (!hasPermission(`${(permissionName)}`) || loading) ? (
@@ -413,34 +414,14 @@ const GenerateTableList = ({
                                                                                                     "search"
                                                                                             );
 
-                                                                                    const isChecked =
-                                                                                        filteredUserFieldColumns.some(
-                                                                                            (
-                                                                                                entry
-                                                                                            ) => {
-                                                                                                const fieldColumns =
-                                                                                                    JSON.parse(
-                                                                                                        entry.field_columns
-                                                                                                    );
-                                                                                                return fieldColumns.some(
-                                                                                                    (
-                                                                                                        field
-                                                                                                    ) =>
-                                                                                                        field.value ===
-                                                                                                        column.value
-                                                                                                );
-                                                                                            }
-                                                                                        ) ||
-                                                                                        selectedColumns.includes(
-                                                                                            column.value
-                                                                                        );
-
-                                                                                    console.log(
-                                                                                        "isChecked for",
-                                                                                        column.label,
-                                                                                        "is",
-                                                                                        isChecked
-                                                                                    ); // Add this line
+                                                                                            const isChecked =
+                                                                                            filteredUserFieldColumns.some(entry => {
+                                                                                                const fieldColumns = JSON.parse(entry.field_columns);
+                                                                                                return fieldColumns.some(field => field.value === column.value);
+                                                                                            }) || selectedColumns.includes(column.value);
+                                                                                            
+                                                                                            
+                                                                                    
 
                                                                                     return (
                                                                                         <li
