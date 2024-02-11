@@ -134,37 +134,63 @@ const GenerateTableList = ({
     };
 
     const prepareColumns = (modelLabelField: string): any[] => {
+        let dynamicColumns: any[] = []; // Explicitly specify the type of dynamicColumns
+    
+
         switch (modelLabelField) {
             case "Lead":
-                return leadColumns;
+                dynamicColumns = leadColumns;
 
             case "Account":
-                return accountColumns;
+                dynamicColumns = accountColumns;
 
             case "Contact":
-                return contactColumns;
+                dynamicColumns = contactColumns;
 
             case "Deal":
-                return dealColumns;
+                dynamicColumns = dealColumns;
 
             case "Manufacturer":
-                return manufacturerColumns;
+                dynamicColumns = manufacturerColumns;
 
             case "Task":
-                return taskColumns;
+                dynamicColumns = taskColumns;
 
             case "Vendor":
-                return vendorColumns;
+                dynamicColumns = vendorColumns;
 
             case "Call":
-                return callColumns;
+                dynamicColumns = callColumns;
 
             case "SalesOrder":
-                return salesOrderColumns;
+                dynamicColumns = salesOrderColumns;
             default:
                 // Fallback columns if modelLabelField doesn't match any case
-                return [];
+                dynamicColumns = [];
         }
+        // Get additional columns from userFieldColumns
+        let userFieldColumns = JSON.parse(getToken("userFieldColumns") ?? "[]");
+
+        userFieldColumns = userFieldColumns
+            .filter((entry) => entry.model_type === "App\\Models\\" + selectedModel)
+            .filter((entry) => entry.type === "search");
+        // Extract additional columns for the current model
+        const additionalColumns = userFieldColumns
+        .flatMap(entry => JSON.parse(entry.field_columns))
+        .map(field => ({
+            accessor: field.value,
+            title: field.label,
+            sortable: true, 
+            render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => (
+                <div className="font-semibold">
+                    {field.relation_model ? relatedValue[field.relation_model.label_field] : fieldValue}
+                </div>
+            ),
+            }));
+        
+        
+        // Use additional columns if available, otherwise use default columns
+        return additionalColumns.length > 0 ? additionalColumns : dynamicColumns;
     };
 
     const toggleSettingColumns = async (modelName) => {
