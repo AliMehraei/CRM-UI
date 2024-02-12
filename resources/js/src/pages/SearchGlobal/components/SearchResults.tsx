@@ -7,7 +7,7 @@ import { leadColumns } from './ItemInfo/ItemColumns';
 import GenerateTableList from './GenerateTableList';
 import FullScreenModal from './FullScreenModal';
 
-const SearchResults = ({query, results, page, setPage, loading,resultListRef,activeIndexRef}: any) => {
+const SearchResults = ({query, results, page, setPage, loading,resultListRef,activeIndexRef,filters}: any) => {
 
     const [selectedItem, setSelectedItem] = useState({});
     const [itemPath, setItemPath] = useState('');
@@ -79,7 +79,8 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef,act
 
                         <GenerateTableList
                         frontRoute="globalSearchFull"
-                        filterParam={query}
+                        query={query}
+                        filters={filters}
                         />
                         
                         {(activeIndexRef.current >8  ? (

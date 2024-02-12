@@ -25,7 +25,8 @@ const GenerateTableList = ({
     permissionName,
     tableColumns,
     frontRoute,
-    filterParam,
+    query,
+    filters,
     title,
 }: any) => {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const GenerateTableList = ({
     const [optionsFilter, setOptionsFilter] = useState([]);
     const [selectedFields, setSelectedFields] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [filters, setFilters] = useState<any>([]);
+    // const [filters, setFilters] = useState<any>([]);
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
@@ -92,7 +93,7 @@ const GenerateTableList = ({
     const fetchModelData = async (
         page = 1,
         pageSize = PAGE_SIZES[0],
-        filters = [],
+        filters,
         sortStatus = {}
     ) => {
         setLoading(true);
@@ -103,7 +104,7 @@ const GenerateTableList = ({
         try {
             await api_instance[frontRoute]({
                 page: page,
-                search: filterParam,
+                search: query,
                 filters: filters,
             })
                 .then((res: any) => {
@@ -242,7 +243,7 @@ const GenerateTableList = ({
 
     useEffect(() => {
         fetchModelData(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus, filterParam]);
+    }, [page, pageSize, sortStatus, query]);
 
     const handleSaveSelectedColumn = async () => {
         try {
@@ -315,6 +316,25 @@ const GenerateTableList = ({
         setSelectedColumns([]);
         setShowSettingColumns(false);
     };
+
+    useEffect(()=>{
+        
+        if(page==0){
+
+            setItems([]);
+            fetchModelData(page, pageSize, filters, sortStatus);
+        }
+        else{
+            if(query!=''){
+                setPage(0);
+                setItems([]);
+                fetchModelData(page, pageSize, filters, sortStatus);
+            }
+        }
+
+
+
+    },[query,filters])
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside);
