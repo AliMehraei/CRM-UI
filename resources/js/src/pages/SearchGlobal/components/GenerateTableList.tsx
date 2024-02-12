@@ -109,7 +109,7 @@ const GenerateTableList = ({
             })
                 .then((res: any) => {
                     setItems(res.data);
-                    setTotalItems(10);
+                    // setTotalItems(10);
                     setLoading(false);
                 })
                 .catch((error: any) => {
@@ -320,12 +320,13 @@ const GenerateTableList = ({
     useEffect(()=>{
         
         if(page==0){
-
+            
             setItems([]);
             fetchModelData(page, pageSize, filters, sortStatus);
         }
         else{
             if(query!=''){
+
                 setPage(0);
                 setItems([]);
                 fetchModelData(page, pageSize, filters, sortStatus);
@@ -399,6 +400,10 @@ const GenerateTableList = ({
                                         <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
                                     </div>
                                 ) : (
+
+                                    items.length === 0 ? (
+                                        <div className="text-center text-lg">No matching record(s) found</div>
+                                    ) : (
                                     // Map through items and create a DataTable for each modelName
                                     items.map(
                                         (modelData: any, index: number) => {
@@ -420,11 +425,7 @@ const GenerateTableList = ({
                                                             {modelName}
                                                         </h2>
                                                         <div
-                                                            onClick={() =>
-                                                                toggleSettingColumns(
-                                                                    modelName
-                                                                )
-                                                            }
+                                                            onClick={() => toggleSettingColumns(modelName)}
                                                             className="bg-gray-200 p-1 mt-3 rounded cursor-pointer"
                                                         >
                                                             <svg
@@ -520,7 +521,9 @@ const GenerateTableList = ({
                                             );
                                         }
                                     )
+                                    )
                                 )}
+                                
                             </div>
                         </div>
                     </div>
