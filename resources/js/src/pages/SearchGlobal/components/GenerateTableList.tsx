@@ -181,11 +181,29 @@ const GenerateTableList = ({
             accessor: field.value,
             title: field.label,
             sortable: true, 
-            render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => (
-                <div className="font-semibold">
-                    {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : fieldValue}
-                </div>
-            ),
+            render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => {
+                let displayValue = fieldValue;
+            
+                const dateFields = ['created_at', 'updated_at'];
+            
+                if (dateFields.includes(field.value)) {
+                    const date = new Date(fieldValue); // Parse fieldValue into a Date object
+                    if (!isNaN(date.getTime())) { // Check if the parsed date is valid
+                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        const hours = date.getHours();
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        const ampm = hours >= 12 ? 'PM' : 'AM';
+                        displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                    }
+                }
+            
+                return (
+                    <div className="font-semibold">
+                        {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : displayValue}
+                    </div>
+                );
+            },
+            
             }));
         
         
