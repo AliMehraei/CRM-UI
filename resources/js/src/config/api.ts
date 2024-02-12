@@ -29,6 +29,18 @@ class api {
         return await _axios.post(`${API_URL_PRODUCT}/user-permissions`, data);
     }
 
+    async getUserSettingFieldColumns(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/field-columns/get-settings`, data);
+    }
+    async getColumnsForModels(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/field-columns/get-columns`, data);
+    }
+
+    async createFieldColumnsSearch(data: any = null) {
+        return await _axios.post(`${API_URL_PRODUCT}/field-columns/create-field-columns-search`, data);
+    }
+
+
     async searchProduct(data: any = null) {
         return await _axios.post(`${API_URL_PRODUCT}/product/search`, data);
     }
