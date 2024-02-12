@@ -908,92 +908,93 @@ const routes = [
   {
     path: '/search',
     element: <ListSearch />,
-    protected: false,
+    protected: true,
   },
 
   {
     path: '/search-global',
     element: <ListSearchGlobal />,
-    protected: false,
+    protected: true,
+    layout: 'blank',
   },
 
   {
     path: '/availability-vendor/list/:id',
     element: <BomExcessIndex />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/availability-vendor/import/:contactId',
     element: <BomExcessImport />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/availability-vendor/confirmation/:contactId/:id',
     element: <BomExcessConfirmation />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/availability-vendor/process/:contactId/:id',
     element: <BomExcessPreProcess />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/availability-vendor/complete/:contactId/:id',
     element: <BomExcessComplete />,
-    protected: false,
+    protected: true,
   },
 
 
   {
     path: '/bom/list/:id',
     element: <BomExcessIndex />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/bom/import/:contactId',
     element: <BomExcessImport />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/bom/confirmation/:contactId/:id',
     element: <BomExcessConfirmation />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/bom/process/:contactId/:id',
     element: <BomExcessPreProcess />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/bom/complete/:contactId/:id',
     element: <BomExcessComplete />,
-    protected: false,
+    protected: true,
   },
 
   {
     path: '/excess/list/:id',
     element: <BomExcessIndex />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/excess/import/:contactId',
     element: <BomExcessImport />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/excess/confirmation/:contactId/:id',
     element: <BomExcessConfirmation />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/excess/process/:contactId/:id',
     element: <BomExcessPreProcess />,
-    protected: false,
+    protected: true,
   },
   {
     path: '/excess/complete/:contactId/:id',
     element: <BomExcessComplete />,
-    protected: false,
+    protected: true,
   },
 
   {
