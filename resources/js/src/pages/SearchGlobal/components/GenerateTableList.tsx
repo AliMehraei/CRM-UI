@@ -19,7 +19,7 @@ import {
     taskColumns,
     vendorColumns,
 } from "./ItemInfo/ItemColumns";
-import { getToken } from "../../../config/config";
+import { getToken, setToken } from "../../../config/config";
 
 const GenerateTableList = ({
     permissionName,
@@ -233,33 +233,36 @@ const GenerateTableList = ({
                 return;
             }
 
-            let filteredUserFieldColumns = JSON.parse(
-                getToken("userFieldColumns") ?? "[]"
-            );
+            // let filteredUserFieldColumns = JSON.parse(
+            //     getToken("userFieldColumns") ?? "[]"
+            // );
 
-            filteredUserFieldColumns = filteredUserFieldColumns
-                .filter(
-                    (entry) =>
-                        entry.model_type === "App\\Models\\" + selectedModel
-                )
-                .filter((entry) => entry.type === "search");
+            // filteredUserFieldColumns = filteredUserFieldColumns
+            //     .filter(
+            //         (entry) =>
+            //             entry.model_type === "App\\Models\\" + selectedModel
+            //     )
+            //     .filter((entry) => entry.type === "search");
 
-            const allSelectedColumns = [
-                ...selectedColumns,
-                ...filteredUserFieldColumns
-                    .map((entry) => JSON.parse(entry.field_columns))
-                    .flatMap((field) => field.map((f) => f.value)),
-            ];
+            // const allSelectedColumns = [
+            //     ...selectedColumns,
+            //     ...filteredUserFieldColumns
+            //         .map((entry) => JSON.parse(entry.field_columns))
+            //         .flatMap((field) => field.map((f) => f.value)),
+            // ];
 
             const data = {
                 modelName: selectedModel,
-                selectedColumns: allSelectedColumns,
+                selectedColumns: selectedColumns,
                 type: "search",
             };
             const res = await api_instance.createFieldColumnsSearch(data);
 
             if (res.status !== 200) {
                 showMessage(res.data.message, "error");
+            }
+            else{
+                setToken(JSON.stringify(res.data.data) , "userFieldColumns" );
             }
 
             showMessage(res.data.message, "success");
@@ -397,7 +400,7 @@ const GenerateTableList = ({
                                                                     stroke="currentColor"
                                                                     strokeLinecap="round"
                                                                     strokeLinejoin="round"
-                                                                    stroke-width="2"
+                                                                    strokeWidth="2"
                                                                     d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"
                                                                 />
                                                             </svg>
