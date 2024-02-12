@@ -139,6 +139,8 @@ const PreviewCall = lazy(() => import('../pages/Call/Preview'));
 
 const ListSearch = lazy(() => import('../pages/Search/Index'));
 
+const ListSearchGlobal = lazy(() => import('../pages/SearchGlobal/Index'));
+
 const AdminAnalytic = lazy(() => import('../pages/Analytic/Admin/Index'));
 const AdminAnalyticSalesOrder = lazy(() => import('../pages/Analytic/Admin/Sales/Index'));
 const AdminAnalyticQuote = lazy(() => import('../pages/Analytic/Admin/Quote/Index'));
@@ -906,6 +908,12 @@ const routes = [
   {
     path: '/search',
     element: <ListSearch />,
+    protected: false,
+  },
+
+  {
+    path: '/search-global',
+    element: <ListSearchGlobal />,
     protected: false,
   },
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AsyncSelect from "react-select/async";
 import Api from "../../../config/api";
 import { modelRouteMap } from "../../Functions/CommonFunctions";
@@ -38,10 +38,10 @@ const SearchSection = () => {
     const loadOptions = (inputValue: any, callback: any) => {
         setText(inputValue);
         clearTimeout(timer);
+
         const fetchData = async () => {
             try {
                 const response = await api_instance.globalSearch(inputValue);
-                console.log(inputValue);
                 let data = Object.values(response.data);
                 data = data.flatMap((item: any) => {
                     const group = Object.keys(item)[0]; // Assuming each item has only one key
@@ -75,6 +75,15 @@ const SearchSection = () => {
 
     };
 
+    const handleSearchGlobal = (searchText) => {
+        // Custom logic to build your URL based on the searched text
+        const customUrl = `/search-global?text=${encodeURIComponent(searchText)}`;
+    
+        // Redirect to the custom URL
+        window.location.href = customUrl;
+        setText("");
+    };
+
     const SearchResultButton = ({ searchText }: any) => (
         <div className='bg-white items-center fixed' style={{top: '35px', width: '100%', right:'0px', zIndex: 1000 ,height:'40px', borderRadius :'5px' , border:'1px solid #ebebeb'}}>
             <div className="inline-flex justify-center items-center space-x-2 w-full pt-2">
@@ -93,11 +102,33 @@ const SearchSection = () => {
         </div>
     )
 
+    useEffect(() => {
+        const handleKeyPress = (e) => {
+            // Check if the pressed key is Enter (key code 13)
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                setSearch(false);
+                
+                handleSearchGlobal(text);
+            }
+        };
+
+        // Add event listener for key press
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            // Remove event listener on component unmount
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [text]);
+
     return (
         <>
             <form
                 className={`${search && '!block'} sm:relative absolute inset-x-0 sm:top-0 top-1/2 sm:translate-y-0 -translate-y-1/2 sm:mx-0 mx-4 z-10 sm:block hidden`}
-                onSubmit={() => setSearch(false)}
+                onSubmit={(e) => {
+                    setSearch(false);
+                }}
             >
                 <div className="relative">
                     <AsyncSelect
@@ -124,7 +155,7 @@ const SearchSection = () => {
                         name="global_search"
                         className="flex-1"
                         onMenuClose={() => {
-                            setText("")
+                            // setText("")
                         }}
                         menuPlacement="auto" // or "bottom" based on your preference
                         onChange={(e: any) => {
