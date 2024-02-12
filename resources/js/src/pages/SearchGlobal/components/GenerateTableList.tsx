@@ -172,7 +172,7 @@ const GenerateTableList = ({
         let userFieldColumns = JSON.parse(getToken("userFieldColumns") ?? "[]");
 
         userFieldColumns = userFieldColumns
-            .filter((entry) => entry.model_type === "App\\Models\\" + selectedModel)
+            .filter((entry) => entry.model_type === "App\\Models\\" + modelLabelField)
             .filter((entry) => entry.type === "search");
         // Extract additional columns for the current model
         const additionalColumns = userFieldColumns
