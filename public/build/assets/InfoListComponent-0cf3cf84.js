@@ -1,1 +1,0 @@
-import{j as e,b as r}from"./main-df5dc7ed.js";function i({data:a}){return e("div",{className:"px-4",children:e("div",{className:"space-y-1 mt-6 text-base text-gray-700",children:a.map((s,n)=>r("div",{children:[s.label,": ",e("strong",{children:s.value})]},n))})})}export{i as I};
