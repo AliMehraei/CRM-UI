@@ -183,7 +183,7 @@ const GenerateTableList = ({
             sortable: true, 
             render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => (
                 <div className="font-semibold">
-                    {field.relation_model ? relatedValue[field.relation_model.label_field] : fieldValue}
+                    {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : fieldValue}
                 </div>
             ),
             }));
