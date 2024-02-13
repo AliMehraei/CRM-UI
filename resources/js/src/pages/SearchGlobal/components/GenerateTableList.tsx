@@ -35,22 +35,15 @@ const GenerateTableList = ({
     const [checkLoading, setCheckLoading] = useState(true);
     const [emptyDataLoading, setEmptyDataLoading] = useState(false);
     const api_instance: any = new api();
-   
+
 
     const [items, setItems] = useState([]);
-   
-    const [page, setPage] = useState(1);
-    const PAGE_SIZES = [10,50,100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-
     const [initialRecords, setInitialRecords] = useState(sortBy(items, "id"));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
-    const [totalItems, setTotalItems] = useState(0);
     const [selectedModel, setSelectedModel] = useState(null);
     const [showSettingColumns, setShowSettingColumns] = useState(false);
     const [searchColumns, setSearchColumns] = useState("");
-    const settingColumnsRef = useRef<HTMLDivElement>(null);
 
 
     const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
@@ -60,7 +53,7 @@ const GenerateTableList = ({
     }
 
     const [modelColumns, setModelColumns] = useState<ModelColumn[]>([]);
-    
+
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -85,16 +78,14 @@ const GenerateTableList = ({
     };
 
     const fetchModelData = async (
-        page = 1,
-        pageSize = PAGE_SIZES[0],
         filters
     ) => {
         setLoading(true);
         setLoadingTable(true);
-        
+
         try {
             await api_instance[frontRoute]({
-                page: page,
+                page: 1,
                 search: query,
                 filters: filters,
             })
@@ -102,15 +93,15 @@ const GenerateTableList = ({
                     setItems(res.data);
                     // setTotalItems(10);
                     setLoading(false);
-                    if(res.data?.data?.length==0){
+                    if (res.data?.data?.length == 0) {
                         setEmptyDataLoading(true);
                         setLoadingTable(false);
                     }
-                    if(res.data?.length==0){
+                    if (res.data?.length == 0) {
                         setEmptyDataLoading(true);
                         setLoadingTable(false);
                     }
-                    else{
+                    else {
                         setEmptyDataLoading(false);
                     }
                 })
@@ -140,7 +131,7 @@ const GenerateTableList = ({
 
     const prepareColumns = (modelLabelField: string): any[] => {
         let dynamicColumns: any[] = []; // Explicitly specify the type of dynamicColumns
-    
+
 
         switch (modelLabelField) {
             case "Lead":
@@ -181,37 +172,37 @@ const GenerateTableList = ({
             .filter((entry) => entry.type === "search");
         // Extract additional columns for the current model
         const additionalColumns = userFieldColumns
-        .flatMap(entry => JSON.parse(entry.field_columns))
-        .map(field => ({
-            accessor: field.value,
-            title: field.label,
-            sortable: true, 
-            render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => {
-                let displayValue = fieldValue;
-            
-                const dateFields = ['created_at', 'updated_at'];
-            
-                if (dateFields.includes(field.value)) {
-                    const date = new Date(fieldValue); // Parse fieldValue into a Date object
-                    if (!isNaN(date.getTime())) { // Check if the parsed date is valid
-                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                        const hours = date.getHours();
-                        const minutes = String(date.getMinutes()).padStart(2, '0');
-                        const ampm = hours >= 12 ? 'PM' : 'AM';
-                        displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+            .flatMap(entry => JSON.parse(entry.field_columns))
+            .map(field => ({
+                accessor: field.value,
+                title: field.label,
+                sortable: true,
+                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => {
+                    let displayValue = fieldValue;
+
+                    const dateFields = ['created_at', 'updated_at'];
+
+                    if (dateFields.includes(field.value)) {
+                        const date = new Date(fieldValue); // Parse fieldValue into a Date object
+                        if (!isNaN(date.getTime())) { // Check if the parsed date is valid
+                            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                            const hours = date.getHours();
+                            const minutes = String(date.getMinutes()).padStart(2, '0');
+                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                            displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                        }
                     }
-                }
-            
-                return (
-                    <div className="font-semibold">
-                        {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : displayValue}
-                    </div>
-                );
-            },
-            
+
+                    return (
+                        <div className="font-semibold">
+                            {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : displayValue}
+                        </div>
+                    );
+                },
+
             }));
-        
-        
+
+
         // Use additional columns if available, otherwise use default columns
         return additionalColumns.length > 0 ? additionalColumns : dynamicColumns;
     };
@@ -223,25 +214,25 @@ const GenerateTableList = ({
             // console.log("showSettingColumns",showSettingColumns);
             // console.log("selectedModel",selectedModel);
             // console.log("modelName",modelName);
-            
-            if(!moduleAllColumns){
+
+            if (!moduleAllColumns) {
                 const data = { className: modelName };
                 const res = await api_instance.getColumnsForModels(data);
                 if (res.status !== 200) return;
 
-                setToken(res.data,`allColumns${modelName}`);
+                setToken(res.data, `allColumns${modelName}`);
                 setModelColumns(res.data); // Assuming API response has a "columns" property
                 setSelectedModel(modelName);
                 setShowSettingColumns(!showSettingColumns);
-            }else {
-                
-                setModelColumns(moduleAllColumns); 
+            } else {
+
+                setModelColumns(moduleAllColumns);
                 setSelectedModel(modelName);
                 setShowSettingColumns(!showSettingColumns);
 
             }
-            
-            
+
+
         } catch (error) {
             console.error("Error fetching columns:", error);
         }
@@ -253,29 +244,36 @@ const GenerateTableList = ({
         //     sortStatus.direction !== "asc" ? data.reverse() : data;
         setInitialRecords(items);
     }, [items]);
-    
 
-    
 
     useEffect(() => {
-        fetchModelData(page, pageSize, filters);
-    }, [ query]);
-    useEffect(()=>{
+        setLoading(true);
         setLoadingTable(true);
-        if(records.length > 0) {
+
+    }, []);
+
+    useEffect(() => {
+        setLoading(true);
+        setLoadingTable(true);
+        if (query != "")
+            fetchModelData(filters);
+    }, [query]);
+    useEffect(() => {
+        setLoadingTable(true);
+        if (records.length > 0) {
             // setTimeout(() => {
             setLoadingTable(false);
             //   }, 2000);
         }
-        if(initialRecords.length > 0) {
+        if (initialRecords.length > 0) {
             // setTimeout(() => {
             setLoadingTable(false);
             //   }, 2000);
         }
-        if(emptyDataLoading){
+        if (emptyDataLoading) {
             setLoadingTable(false);
-        }        
-    },[records,initialRecords,checkLoading,emptyDataLoading]);
+        }
+    }, [records, initialRecords, checkLoading, emptyDataLoading, items]);
     const handleSaveSelectedColumn = async () => {
         try {
             if (!selectedColumns || selectedColumns.length === 0) {
@@ -311,8 +309,8 @@ const GenerateTableList = ({
             if (res.status !== 200) {
                 showMessage(res.data.message, "error");
             }
-            else{
-                setToken(JSON.stringify(res.data.data) , "userFieldColumns" );
+            else {
+                setToken(JSON.stringify(res.data.data), "userFieldColumns");
             }
 
             showMessage(res.data.message, "success");
@@ -334,28 +332,28 @@ const GenerateTableList = ({
     };
 
     const handleClickOutside = (event) => {
-        
-            setShowSettingColumns(false);
-        
+
+        setShowSettingColumns(false);
+
     };
 
-    useEffect(()=>{
+    useEffect(() => {
 
         // setPage(0);
         // setItems([]);
-        fetchModelData(page, pageSize, filters);
+        fetchModelData(filters);
 
-    },[filters])
+    }, [filters])
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
-    
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [toggleSettingColumns]);
 
-    
+
     const handleCheckboxChange = useCallback((columnValue, checked) => {
         if (checked) {
             setSelectedColumns(prevSelectedColumns => [...prevSelectedColumns, columnValue]);
@@ -376,58 +374,58 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
 
-    
+
     return (
-        ( loading && loadingTable) ? (
+        (loading && loadingTable) ? (
             <LoadingSpinner />
         ) : (
-        <>
-            <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-                <div className={`${permissionName}-table`}>
-                    <div className="grid grid-cols-1 gap-6 mb-6">
-                        <div className="panel col-span-12">
-                            <div className="datatables pagination-padding">
-                                {loadingTable ? (
-                                     <LoadingSpinner />
-                                ) : (
-
-                                    items.length === 0 ? (
-                                        <div className="text-center text-lg">No matching record(s) found</div>
+            <>
+                <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
+                    <div className={`${permissionName}-table`}>
+                        <div className="grid grid-cols-1 gap-6 mb-6">
+                            <div className="panel col-span-12">
+                                <div className="datatables pagination-padding">
+                                    {loadingTable ? (
+                                        <LoadingSpinner />
                                     ) : (
-                                    // Map through items and create a DataTable for each modelName
-                                    items.map((modelData: any, index: number) => {
-                                            const modelName = Object.keys(modelData)[0];
-                                            const modelArray = modelData[modelName];
 
-                                            const columns = prepareColumns(modelName);
+                                        items.length === 0 ? (
+                                            <div className="text-center text-lg">No matching record(s) found</div>
+                                        ) : (
+                                            // Map through items and create a DataTable for each modelName
+                                            items.map((modelData: any, index: number) => {
+                                                const modelName = Object.keys(modelData)[0];
+                                                const modelArray = modelData[modelName];
 
-                                            // console.log("modelName",modelName);
-                                            // console.log("modelArray",modelArray);
-                                            // console.log("length",modelArray.length);
+                                                const columns = prepareColumns(modelName);
 
-                                            return <TableListModule 
-                                            columns={columns} modelArray={modelArray}
-                                            modelName={modelName} showSettingColumns={showSettingColumns} 
-                                            selectedModel={selectedModel} searchColumns={searchColumns}
-                                            handleCheckboxChange={handleCheckboxChange}
-                                            toggleSettingColumns={toggleSettingColumns} index={index}
-                                            setSelectedRecords={setSelectedRecords}
-                                            selectedRecords={selectedRecords} modelColumns={modelColumns} 
-                                            selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
-                                            handleCancelSelectedColumn={handleCancelSelectedColumn}
-                                            />
-                                           
-                                        }
-                                    )
-                                    )
-                                )}
-                                
+                                                // console.log("modelName",modelName);
+                                                // console.log("modelArray",modelArray);
+                                                // console.log("length",modelArray.length);
+
+                                                return <TableListModule
+                                                    columns={columns} modelArray={modelArray}
+                                                    modelName={modelName} showSettingColumns={showSettingColumns}
+                                                    selectedModel={selectedModel} searchColumns={searchColumns}
+                                                    handleCheckboxChange={handleCheckboxChange}
+                                                    toggleSettingColumns={toggleSettingColumns} index={index}
+                                                    setSelectedRecords={setSelectedRecords}
+                                                    selectedRecords={selectedRecords} modelColumns={modelColumns}
+                                                    selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
+                                                    handleCancelSelectedColumn={handleCancelSelectedColumn}
+                                                />
+
+                                            }
+                                            )
+                                        )
+                                    )}
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </>
 
         )
     );
