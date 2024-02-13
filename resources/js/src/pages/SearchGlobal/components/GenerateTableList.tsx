@@ -317,13 +317,13 @@ const GenerateTableList = ({
         setShowSettingColumns(false);
     };
 
-    // useEffect(()=>{
+    useEffect(()=>{
 
-    //     setPage(0);
-    //     setItems([]);
-    //     fetchModelData(page, pageSize, filters, sortStatus);
+        // setPage(0);
+        // setItems([]);
+        fetchModelData(page, pageSize, filters, sortStatus);
 
-    // },[filters])
+    },[filters])
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside);

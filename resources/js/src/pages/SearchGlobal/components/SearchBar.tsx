@@ -49,14 +49,14 @@ const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) =>
             <button
                 type="button"
                 onClick={handleFilterClick}
-                className="ml-4 px-4 py-2 bg-gray-800 text-gray-700 flex items-center"
+                className="ml-4 mr-2 px-3 py-2 rounded bg-gray-100 text-gray-300 hover:bg-gray-400  flex items-center"
             >
-                <svg className="w-4 h-4 me-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 me-2 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-1 text-white"
+                    className="h-5 w-5 mr-1 text-gray-700"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                 >
@@ -71,7 +71,7 @@ const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) =>
             <input
                 type="text"
                 placeholder={"Search everything"}
-                className="flex-grow  p-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="flex-grow p-2 rounded border border-gray-300  focus:outline-none focus:ring-2 focus:ring-blue-200"
                 defaultValue={query}
                 onKeyDown={handleKeyDown}
                 onChange={handleInputChange}
@@ -79,7 +79,7 @@ const SearchBar = ({setFilters, filters, setQuery, query, handleSearch}: any) =>
             <button
                 type="button"
                 onClick={handlePreviousPage}
-                className="ml-4 px-4 py-2 bg-gray-100 text-gray-700  hover:bg-gray-400 flex items-center"
+                className="ml-2 px-3 py-2 rounded bg-gray-100 text-gray-700  hover:bg-gray-400 flex items-center"
             >
                 {/* <svg
                     xmlns="http://www.w3.org/2000/svg"
