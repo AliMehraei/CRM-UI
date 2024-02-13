@@ -50,6 +50,8 @@ const GenerateTableList = ({
     const [selectedModel, setSelectedModel] = useState(null);
     const [showSettingColumns, setShowSettingColumns] = useState(false);
     const [searchColumns, setSearchColumns] = useState("");
+    const settingColumnsRef = useRef<HTMLDivElement>(null);
+
 
     const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
     interface ModelColumn {
@@ -223,13 +225,30 @@ const GenerateTableList = ({
 
     const toggleSettingColumns = async (modelName) => {
         try {
-            const data = { className: modelName };
-            const res = await api_instance.getColumnsForModels(data);
-            if (res.status !== 200) return;
+            const moduleAllColumns = getToken(`allColumns${modelName}`);
 
-            setModelColumns(res.data); // Assuming API response has a "columns" property
-            setSelectedModel(modelName);
-            setShowSettingColumns(!showSettingColumns);
+            // console.log("showSettingColumns",showSettingColumns);
+            // console.log("selectedModel",selectedModel);
+            // console.log("modelName",modelName);
+            
+            if(!moduleAllColumns){
+                const data = { className: modelName };
+                const res = await api_instance.getColumnsForModels(data);
+                if (res.status !== 200) return;
+
+                setToken(res.data,`allColumns${modelName}`);
+                setModelColumns(res.data); // Assuming API response has a "columns" property
+                setSelectedModel(modelName);
+                setShowSettingColumns(!showSettingColumns);
+            }else {
+                
+                setModelColumns(moduleAllColumns); 
+                setSelectedModel(modelName);
+                setShowSettingColumns(!showSettingColumns);
+
+            }
+            
+            
         } catch (error) {
             console.error("Error fetching columns:", error);
         }
@@ -329,23 +348,14 @@ const GenerateTableList = ({
     const handleCancelSelectedColumn = () => {
         // Reset state and hide settings
         setSearchColumns("");
-        setSelectedColumns([]);
+        // setSelectedColumns([]);
         setShowSettingColumns(false);
     };
 
     const handleClickOutside = (event) => {
-        const searchInput = document.getElementById("search-column"); // Add an id to your search input element
-
-        if (
-            (searchInput && searchInput.contains(event.target)) ||
-            event.target.closest(".setting-list-column") // Check if the click is inside the dropdown
-        ) {
-            return;
-        }
-
-        setSearchColumns("");
-        setSelectedColumns([]);
-        setShowSettingColumns(false);
+        
+            setShowSettingColumns(false);
+        
     };
 
     useEffect(()=>{
@@ -357,10 +367,10 @@ const GenerateTableList = ({
     },[filters])
 
     useEffect(() => {
-        document.addEventListener("click", handleClickOutside);
-
+        document.addEventListener("mousedown", handleClickOutside);
+    
         return () => {
-            document.removeEventListener("click", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [toggleSettingColumns]);
 
@@ -384,6 +394,8 @@ const GenerateTableList = ({
 
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
+
+    
     return (
         ( loading && loadingTable) ? (
             <LoadingSpinner />
