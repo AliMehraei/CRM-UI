@@ -31,7 +31,7 @@ const Index = () => {
 
         try {
             setLoading(true);
-            const results = await api_instance.globalSearchFull({
+            const results = await api_instance.globalSearchAdvance({
                 search: query,
                 filters: filters,
                 page: page

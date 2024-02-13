@@ -913,6 +913,14 @@ class api {
         // }
         return await _axios.post(`${API_URL_PRODUCT}/global-search-full`, data);
     }
+    async globalSearchAdvance(data: any) {
+        // data = {
+        //     search: text,
+        //     page: int,
+        //     filters: array
+        // }
+        return await _axios.post(`${API_URL_PRODUCT}/global-search-advance`, data);
+    }
 
     async getRelationModel(groupName: any, id: any) {
         return await _axios.get(`${API_URL_PRODUCT}/relation-model/${groupName}/${id}`);
