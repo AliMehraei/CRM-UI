@@ -103,8 +103,12 @@ const SearchSection = () => {
     )
 
     useEffect(() => {
+
+        const selectElement = document.querySelector('.custom-global-search') as HTMLSelectElement;
+        if (!selectElement) return;
+
         const handleKeyPress = (e) => {
-            // Check if the pressed key is Enter (key code 13)
+
             if (e.key === 'Enter') {
                 e.preventDefault();
                 setSearch(false);
@@ -114,11 +118,11 @@ const SearchSection = () => {
         };
 
         // Add event listener for key press
-        document.addEventListener('keydown', handleKeyPress);
+        selectElement.addEventListener('keydown', handleKeyPress);
 
         return () => {
             // Remove event listener on component unmount
-            document.removeEventListener('keydown', handleKeyPress);
+            selectElement.removeEventListener('keydown', handleKeyPress);
         };
     }, [text]);
 
@@ -153,7 +157,7 @@ const SearchSection = () => {
                         isMulti={false}
                         placeholder="Search..."
                         name="global_search"
-                        className="flex-1"
+                        className="flex-1 custom-global-search"
                         onMenuClose={() => {
                             // setText("")
                         }}
@@ -167,6 +171,7 @@ const SearchSection = () => {
                             navigate(entryPath);
 
                         }}
+                        
                     />
 
                 </div>

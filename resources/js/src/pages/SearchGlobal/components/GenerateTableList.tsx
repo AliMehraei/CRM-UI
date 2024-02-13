@@ -237,7 +237,7 @@ const GenerateTableList = ({
         setPage(1);
     }, [pageSize]);
 
-    useEffect(() => {
+    useEffect(() => {        
         setRecords([...initialRecords.slice(0, pageSize)]);
     }, [page, pageSize, initialRecords]);
 
@@ -317,25 +317,13 @@ const GenerateTableList = ({
         setShowSettingColumns(false);
     };
 
-    useEffect(()=>{
-        
-        if(page==0){
-            
-            setItems([]);
-            fetchModelData(page, pageSize, filters, sortStatus);
-        }
-        else{
-            if(query!=''){
+    // useEffect(()=>{
 
-                setPage(0);
-                setItems([]);
-                fetchModelData(page, pageSize, filters, sortStatus);
-            }
-        }
+    //     setPage(0);
+    //     setItems([]);
+    //     fetchModelData(page, pageSize, filters, sortStatus);
 
-
-
-    },[query,filters])
+    // },[filters])
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside);
@@ -415,6 +403,11 @@ const GenerateTableList = ({
                                             const columns =
                                                 prepareColumns(modelName);
 
+                                            console.log("modelName",modelName);
+                                            console.log("modelArray",modelArray);
+                                            console.log("length",modelArray.length);
+
+
                                             return (
                                                 <div
                                                     className="relative"
@@ -485,6 +478,8 @@ const GenerateTableList = ({
                                                             </div>
                                                         </div>
                                                     )}
+
+                                                    
 
                                                     <DataTable
                                                         className={`${isDark} whitespace-nowrap table-hover mb-5`}
