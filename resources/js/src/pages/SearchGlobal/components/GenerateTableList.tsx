@@ -393,15 +393,11 @@ const GenerateTableList = ({
                                         <div className="text-center text-lg">No matching record(s) found</div>
                                     ) : (
                                     // Map through items and create a DataTable for each modelName
-                                    items.map(
-                                        (modelData: any, index: number) => {
-                                            const modelName =
-                                                Object.keys(modelData)[0];
-                                            const modelArray =
-                                                modelData[modelName];
+                                    items.map((modelData: any, index: number) => {
+                                            const modelName = Object.keys(modelData)[0];
+                                            const modelArray = modelData[modelName];
 
-                                            const columns =
-                                                prepareColumns(modelName);
+                                            const columns = prepareColumns(modelName);
 
                                             console.log("modelName",modelName);
                                             console.log("modelArray",modelArray);
@@ -409,25 +405,14 @@ const GenerateTableList = ({
 
 
                                             return (
-                                                <div
-                                                    className="relative"
-                                                    key={index}
-                                                >
+                                                <div className="relative" key={index}>
                                                     <div className="flex justify-between items-center p-4">
                                                         <h2 className="text-xl font-bold">
                                                             {modelName}
                                                         </h2>
-                                                        <div
-                                                            onClick={() => toggleSettingColumns(modelName)}
-                                                            className="bg-gray-200 p-1 mt-3 rounded cursor-pointer"
-                                                        >
-                                                            <svg
-                                                                className="w-3 h-3 text-gray-800 dark:text-white"
-                                                                aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none"
-                                                                viewBox="0 0 14 8"
-                                                            >
+                                                        <div onClick={() => toggleSettingColumns(modelName)}
+                                                            className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
+                                                            <svg className="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
                                                                 <path
                                                                     stroke="currentColor"
                                                                     strokeLinecap="round"
@@ -486,30 +471,16 @@ const GenerateTableList = ({
                                                         records={modelArray}
                                                         columns={columns}
                                                         highlightOnHover
-                                                        totalRecords={
-                                                            modelArray.length
-                                                        }
-                                                        recordsPerPage={
-                                                            pageSize
-                                                        }
+                                                        totalRecords={modelArray.length}
+                                                        recordsPerPage={pageSize}
                                                         page={page}
                                                         onPageChange={setPage}
-                                                        recordsPerPageOptions={
-                                                            PAGE_SIZES
-                                                        }
-                                                        onRecordsPerPageChange={
-                                                            setPageSize
-                                                        }
+                                                        recordsPerPageOptions={PAGE_SIZES}
+                                                        onRecordsPerPageChange={setPageSize}
                                                         sortStatus={sortStatus}
-                                                        onSortStatusChange={
-                                                            handleSortChange
-                                                        }
-                                                        selectedRecords={
-                                                            selectedRecords
-                                                        }
-                                                        onSelectedRecordsChange={
-                                                            setSelectedRecords
-                                                        }
+                                                        onSortStatusChange={handleSortChange}
+                                                        selectedRecords={selectedRecords}
+                                                        onSelectedRecordsChange={setSelectedRecords}
                                                         style={{ zIndex: 1 }}
                                                     />
                                                 </div>
