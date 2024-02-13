@@ -21,6 +21,7 @@ import {
 } from "./ItemInfo/ItemColumns";
 import { getToken, setToken } from "../../../config/config";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import TableListModule from "./TableListModule";
 
 const GenerateTableList = ({
     permissionName,
@@ -29,14 +30,12 @@ const GenerateTableList = ({
     filters,
 }: any) => {
 
-    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
     const [checkLoading, setCheckLoading] = useState(true);
     const [emptyDataLoading, setEmptyDataLoading] = useState(false);
     const api_instance: any = new api();
-    const isDark =
-        useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
+   
 
     const [items, setItems] = useState([]);
    
@@ -110,6 +109,11 @@ const GenerateTableList = ({
                     setLoading(false);
                     if(res.data?.data?.length==0){
                         setEmptyDataLoading(true);
+                        setLoadingTable(false);
+                    }
+                    if(res.data?.length==0){
+                        setEmptyDataLoading(true);
+                        setLoadingTable(false);
                     }
                     else{
                         setEmptyDataLoading(false);
@@ -236,19 +240,26 @@ const GenerateTableList = ({
         const reversedData =
             sortStatus.direction !== "asc" ? data.reverse() : data;
         setInitialRecords(reversedData);
-    }, [items, sortStatus]);
-
+    }, [items]);
+    useEffect(() => {
+        const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
+        setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
+        setPage(1);
+    }, [sortStatus]);
     useEffect(() => {
         setPage(1);
     }, [pageSize]);
 
     useEffect(() => {        
-        setRecords([...initialRecords.slice(0, pageSize)]);
+        // setRecords([...initialRecords.slice(0, pageSize)]);
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize;
+        setRecords([...initialRecords.slice(from, to)]);
     }, [page, pageSize, initialRecords]);
 
     useEffect(() => {
         fetchModelData(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus, query]);
+    }, [ query]);
     useEffect(()=>{
         setLoadingTable(true);
         if(records.length > 0) {
@@ -374,7 +385,7 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
     return (
-        ( loading) ? (
+        ( loading && loadingTable) ? (
             <LoadingSpinner />
         ) : (
         <>
@@ -401,88 +412,18 @@ const GenerateTableList = ({
                                             // console.log("modelArray",modelArray);
                                             // console.log("length",modelArray.length);
 
-
-                                            return (
-                                                <div className="relative" key={index}>
-                                                    <div className="flex justify-between items-center p-4">
-                                                        <h2 className="text-xl font-bold">
-                                                            {modelName}
-                                                        </h2>
-                                                        <div onClick={() => toggleSettingColumns(modelName)}
-                                                            className="bg-gray-200 p-1 mt-3 rounded cursor-pointer">
-                                                            <svg className="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
-                                                                <path
-                                                                    stroke="currentColor"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                    strokeWidth="2"
-                                                                    d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"
-                                                                />
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                    {showSettingColumns && selectedModel === modelName && (
-                                                        <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`}>
-                                                            <div className="overflow-y-scroll h-80">
-                                                                <ul style={{ listStyle: "none", padding: 0 }}>
-                                                                    {/* Checkbox list */}
-                                                                    {modelColumns
-                                                                        .filter((column) => column.label.includes(searchColumns.toLowerCase()))
-                                                                        .map((column) => {
-                                                                            let isChecked = selectedColumns.includes(column.value);
-                                                                            return (
-                                                                                <li key={column.value} style={{ display: "flex", alignItems: "center" }}>
-                                                                                    <input
-                                                                                        type="checkbox"
-                                                                                        id={column.value}
-                                                                                        name={column.value}
-                                                                                        className="mr-2"
-                                                                                        onChange={(e) => handleCheckboxChange(column.value, e.target.checked)}
-                                                                                        checked={isChecked}
-                                                                                    />
-                                                                                    <label className="mt-1" htmlFor={column.value}>
-                                                                                        {column.label}
-                                                                                    </label>
-                                                                                </li>
-                                                                            );
-                                                                        })}
-                                                                </ul>
-                                                            </div>
-                                                            <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                                                            <div className="mt-5 flex justify-end">
-                                                                {/* Save button */}
-                                                                <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
-                                                                    Save
-                                                                </button>
-                                                                {/* Cancel button */}
-                                                                <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
-                                                                    Cancel
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    
-
-                                                    <DataTable
-                                                        className={`${isDark} whitespace-nowrap table-hover mb-5`}
-                                                        records={modelArray}
-                                                        columns={columns}
-                                                        highlightOnHover
-                                                        totalRecords={modelArray.length}
-                                                        recordsPerPage={pageSize}
-                                                        page={page}
-                                                        onPageChange={setPage}
-                                                        recordsPerPageOptions={PAGE_SIZES}
-                                                        onRecordsPerPageChange={setPageSize}
-                                                        sortStatus={sortStatus}
-                                                        onSortStatusChange={handleSortChange}
-                                                        selectedRecords={selectedRecords}
-                                                        onSelectedRecordsChange={setSelectedRecords}
-                                                        style={{ zIndex: 1 }}
-                                                    />
-                                                </div>
-                                            );
+                                            return <TableListModule 
+                                            columns={columns} modelArray={modelArray}
+                                            modelName={modelName} showSettingColumns={showSettingColumns} 
+                                            selectedModel={selectedModel} searchColumns={searchColumns}
+                                            handleCheckboxChange={handleCheckboxChange}
+                                            toggleSettingColumns={toggleSettingColumns} index={index}
+                                            handleSortChange={handleSortChange} setSelectedRecords={setSelectedRecords}
+                                            selectedRecords={selectedRecords} modelColumns={modelColumns} 
+                                            selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
+                                            handleCancelSelectedColumn={handleCancelSelectedColumn}
+                                            />
+                                           
                                         }
                                     )
                                     )
