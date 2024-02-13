@@ -75,15 +75,6 @@ const SearchSection = () => {
 
     };
 
-    const handleSearchGlobal = (searchText) => {
-        // Custom logic to build your URL based on the searched text
-        const customUrl = `/search-global?text=${encodeURIComponent(searchText)}`;
-    
-        // Redirect to the custom URL
-        window.location.href = customUrl;
-        setText("");
-    };
-
     const SearchResultButton = ({ searchText }: any) => (
         <div className='bg-white items-center fixed' style={{top: '35px', width: '100%', right:'0px', zIndex: 1000 ,height:'40px', borderRadius :'5px' , border:'1px solid #ebebeb'}}>
             <div className="inline-flex justify-center items-center space-x-2 w-full pt-2">
@@ -102,29 +93,20 @@ const SearchSection = () => {
         </div>
     )
 
-    useEffect(() => {
+    const handleSearchGlobal = (searchText) => {
+        // Custom logic to build your URL based on the searched text
+        const customUrl = `/search-global?text=${encodeURIComponent(searchText)}`;
+    
+        // Redirect to the custom URL
+        window.location.href = customUrl;
+        setText("");
+    };
 
-        const selectElement = document.querySelector('.custom-global-search') as HTMLSelectElement;
-        if (!selectElement) return;
-
-        const handleKeyPress = (e) => {
-
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setSearch(false);
-                
-                handleSearchGlobal(text);
-            }
-        };
-
-        // Add event listener for key press
-        selectElement.addEventListener('keydown', handleKeyPress);
-
-        return () => {
-            // Remove event listener on component unmount
-            selectElement.removeEventListener('keydown', handleKeyPress);
-        };
-    }, [text]);
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            handleSearchGlobal(text)
+        }
+    };
 
     return (
         <>
@@ -171,7 +153,7 @@ const SearchSection = () => {
                             navigate(entryPath);
 
                         }}
-                        
+                        onKeyDown={handleKeyDown}
                     />
 
                 </div>
