@@ -104,18 +104,14 @@ const SearchSection = () => {
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            // No need to call handleSearchGlobal here
-            // We will use useEffect to trigger it after text state is updated
             event.preventDefault(); // Prevent default behavior of form submission
+            const searchText = text.trim(); // Get the current value of the input field from state
+            if (searchText !== '') {
+                handleSearchGlobal(searchText); // Call handleSearchGlobal with the current value
+            }
         }
     };
 
-    useEffect(() => {
-        // Call handleSearchGlobal whenever text state is updated
-        if (text.trim() !== '') {
-            handleSearchGlobal(text);
-        }
-    }, [text]);
 
     return (
         <>
