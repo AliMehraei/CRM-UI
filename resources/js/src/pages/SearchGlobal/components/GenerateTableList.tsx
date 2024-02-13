@@ -60,10 +60,7 @@ const GenerateTableList = ({
     }
 
     const [modelColumns, setModelColumns] = useState<ModelColumn[]>([]);
-    const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: "id",
-        direction: "asc",
-    });
+    
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -90,15 +87,11 @@ const GenerateTableList = ({
     const fetchModelData = async (
         page = 1,
         pageSize = PAGE_SIZES[0],
-        filters,
-        sortStatus = {}
+        filters
     ) => {
         setLoading(true);
         setLoadingTable(true);
-        const {
-            columnAccessor: sortField = "",
-            direction: sortDirection = "",
-        }: any = sortStatus;
+        
         try {
             await api_instance[frontRoute]({
                 page: page,
@@ -138,12 +131,12 @@ const GenerateTableList = ({
         }
     };
 
-    const handleSortChange = (sortStatus: any) => {
-        const { columnAccessor, direction = "asc" } = sortStatus;
-        setSortStatus({ columnAccessor, direction });
-        setPage(1);
-        fetchModelData(page, pageSize, filters, { columnAccessor, direction });
-    };
+    // const handleSortChange = (sortStatus: any) => {
+    //     const { columnAccessor, direction = "asc" } = sortStatus;
+    //     setSortStatus({ columnAccessor, direction });
+    //     setPage(1);
+    //     fetchModelData(page, pageSize, filters, { columnAccessor, direction });
+    // };
 
     const prepareColumns = (modelLabelField: string): any[] => {
         let dynamicColumns: any[] = []; // Explicitly specify the type of dynamicColumns
@@ -255,29 +248,17 @@ const GenerateTableList = ({
     };
 
     useEffect(() => {
-        const data = sortBy(items, sortStatus.columnAccessor);
-        const reversedData =
-            sortStatus.direction !== "asc" ? data.reverse() : data;
-        setInitialRecords(reversedData);
+        // const data = sortBy(items, sortStatus.columnAccessor);
+        // const reversedData =
+        //     sortStatus.direction !== "asc" ? data.reverse() : data;
+        setInitialRecords(items);
     }, [items]);
-    useEffect(() => {
-        const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
-        setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
-        setPage(1);
-    }, [sortStatus]);
-    useEffect(() => {
-        setPage(1);
-    }, [pageSize]);
+    
 
-    useEffect(() => {        
-        // setRecords([...initialRecords.slice(0, pageSize)]);
-        const from = (page - 1) * pageSize;
-        const to = from + pageSize;
-        setRecords([...initialRecords.slice(from, to)]);
-    }, [page, pageSize, initialRecords]);
+    
 
     useEffect(() => {
-        fetchModelData(page, pageSize, filters, sortStatus);
+        fetchModelData(page, pageSize, filters);
     }, [ query]);
     useEffect(()=>{
         setLoadingTable(true);
@@ -362,7 +343,7 @@ const GenerateTableList = ({
 
         // setPage(0);
         // setItems([]);
-        fetchModelData(page, pageSize, filters, sortStatus);
+        fetchModelData(page, pageSize, filters);
 
     },[filters])
 
@@ -430,7 +411,7 @@ const GenerateTableList = ({
                                             selectedModel={selectedModel} searchColumns={searchColumns}
                                             handleCheckboxChange={handleCheckboxChange}
                                             toggleSettingColumns={toggleSettingColumns} index={index}
-                                            handleSortChange={handleSortChange} setSelectedRecords={setSelectedRecords}
+                                            setSelectedRecords={setSelectedRecords}
                                             selectedRecords={selectedRecords} modelColumns={modelColumns} 
                                             selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
                                             handleCancelSelectedColumn={handleCancelSelectedColumn}

@@ -26,18 +26,52 @@ const TableListModule = ({  columns, modelArray,handleSaveSelectedColumn,
     modelName, showSettingColumns,modelColumns,
     selectedModel, searchColumns,selectedColumns,
     handleCheckboxChange,toggleSettingColumns,index,
-    handleSortChange,setSelectedRecords,selectedRecords,handleCancelSelectedColumn,
+    setSelectedRecords,selectedRecords,handleCancelSelectedColumn,
 }: any) => {
         const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
         const [page, setPage] = useState(1);
         const PAGE_SIZES = [10,50,100];
         const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-
+        const [items, setItems] = useState([]);
+        const [initialRecords, setInitialRecords] = useState(sortBy(items, "id"));
+        const [records, setRecords] = useState(initialRecords);
         const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
             columnAccessor: "id",
             direction: "asc",
         });
+
+
+
+
+        useEffect(() => {
+            const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
+            setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
+            setPage(1);
+        }, [sortStatus]);
+        useEffect(() => {
+            setPage(1);
+        }, [pageSize]);
+
+        useEffect(() => {
+            const data = sortBy(items, sortStatus.columnAccessor);
+            const reversedData =
+                sortStatus.direction !== "asc" ? data.reverse() : data;
+            setInitialRecords(reversedData);
+        }, [items]);
+        useEffect(() => {        
+            // setRecords([...initialRecords.slice(0, pageSize)]);
+            const from = (page - 1) * pageSize;
+            const to = from + pageSize;
+            setRecords([...initialRecords.slice(from, to)]);
+        }, [page, pageSize, initialRecords]);
+
+
+        const handleSortChange = (sortStatus: any) => {
+            const { columnAccessor, direction = "asc" } = sortStatus;
+            setSortStatus({ columnAccessor, direction });
+            setPage(1);
+        };
     return (
         <>
            
