@@ -20,32 +20,28 @@ import {
     vendorColumns,
 } from "./ItemInfo/ItemColumns";
 import { getToken, setToken } from "../../../config/config";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const GenerateTableList = ({
     permissionName,
-    tableColumns,
     frontRoute,
     query,
     filters,
-    title,
 }: any) => {
-    const dispatch = useDispatch();
-    const filterState = useSelector((state: any) => state.filters);
 
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(true);
-    const [resetFilter, setResetFilter] = useState(false);
+    const [loadingTable, setLoadingTable] = useState(true);
+    const [checkLoading, setCheckLoading] = useState(true);
+    const [emptyDataLoading, setEmptyDataLoading] = useState(false);
     const api_instance: any = new api();
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
 
     const [items, setItems] = useState([]);
-    const [optionsFilter, setOptionsFilter] = useState([]);
-    const [selectedFields, setSelectedFields] = useState<any>([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    // const [filters, setFilters] = useState<any>([]);
+   
     const [page, setPage] = useState(1);
-    const PAGE_SIZES = [50, 100];
+    const PAGE_SIZES = [10,50,100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
     const [initialRecords, setInitialRecords] = useState(sortBy(items, "id"));
@@ -97,6 +93,7 @@ const GenerateTableList = ({
         sortStatus = {}
     ) => {
         setLoading(true);
+        setLoadingTable(true);
         const {
             columnAccessor: sortField = "",
             direction: sortDirection = "",
@@ -111,10 +108,17 @@ const GenerateTableList = ({
                     setItems(res.data);
                     // setTotalItems(10);
                     setLoading(false);
+                    if(res.data?.data?.length==0){
+                        setEmptyDataLoading(true);
+                    }
+                    else{
+                        setEmptyDataLoading(false);
+                    }
                 })
                 .catch((error: any) => {
                     console.error("Error fetching data: ", error);
                     setLoading(false);
+                    setCheckLoading(!checkLoading);
                     showMessage(
                         `Error fetching  ${permissionName} data.`,
                         "error"
@@ -124,6 +128,7 @@ const GenerateTableList = ({
             showMessage(`Error fetching ${permissionName} data.`, "error");
             console.error("Error fetching data: ", error);
             setLoading(false);
+            setCheckLoading(!checkLoading);
         }
     };
 
@@ -244,7 +249,22 @@ const GenerateTableList = ({
     useEffect(() => {
         fetchModelData(page, pageSize, filters, sortStatus);
     }, [page, pageSize, sortStatus, query]);
-
+    useEffect(()=>{
+        setLoadingTable(true);
+        if(records.length > 0) {
+            // setTimeout(() => {
+            setLoadingTable(false);
+            //   }, 2000);
+        }
+        if(initialRecords.length > 0) {
+            // setTimeout(() => {
+            setLoadingTable(false);
+            //   }, 2000);
+        }
+        if(emptyDataLoading){
+            setLoadingTable(false);
+        }        
+    },[records,initialRecords,checkLoading,emptyDataLoading]);
     const handleSaveSelectedColumn = async () => {
         try {
             if (!selectedColumns || selectedColumns.length === 0) {
@@ -333,26 +353,7 @@ const GenerateTableList = ({
         };
     }, [toggleSettingColumns]);
 
-    const Checkbox = React.memo(({ column, isChecked, handleCheckboxChange }: any) => {
-        return (
-            <li
-                key={column.value}
-                style={{ display: "flex", alignItems: "center" }}
-            >
-                <input
-                    type="checkbox"
-                    id={column.value}
-                    name={column.value}
-                    className="mr-2"
-                    onChange={handleCheckboxChange}
-                    checked={isChecked}
-                />
-                <label className="mt-1" htmlFor={column.value}>
-                    {column.label}
-                </label>
-            </li>
-        );
-    });
+    
     const handleCheckboxChange = useCallback((columnValue, checked) => {
         if (checked) {
             setSelectedColumns(prevSelectedColumns => [...prevSelectedColumns, columnValue]);
@@ -361,7 +362,6 @@ const GenerateTableList = ({
         }
     }, []);
     useEffect(() => {
-        // Set filteredUserFieldColumns into selectedColumns
         const filteredUserFieldColumns = JSON.parse(getToken("userFieldColumns") ?? "[]")
             .filter(entry => entry.model_type === "App\\Models\\" + selectedModel && entry.type === "search");
 
@@ -374,19 +374,17 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
     return (
-        // (!hasPermission(`${(permissionName)}`) || loading) ? (
-        //     <LoadingSasCrm />
-        // ) : (
+        ( loading) ? (
+            <LoadingSpinner />
+        ) : (
         <>
             <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
                 <div className={`${permissionName}-table`}>
                     <div className="grid grid-cols-1 gap-6 mb-6">
                         <div className="panel col-span-12">
                             <div className="datatables pagination-padding">
-                                {loading ? (
-                                    <div className="flex justify-center">
-                                        <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
-                                    </div>
+                                {loadingTable ? (
+                                     <LoadingSpinner />
                                 ) : (
 
                                     items.length === 0 ? (
@@ -399,9 +397,9 @@ const GenerateTableList = ({
 
                                             const columns = prepareColumns(modelName);
 
-                                            console.log("modelName",modelName);
-                                            console.log("modelArray",modelArray);
-                                            console.log("length",modelArray.length);
+                                            // console.log("modelName",modelName);
+                                            // console.log("modelArray",modelArray);
+                                            // console.log("length",modelArray.length);
 
 
                                             return (
@@ -497,7 +495,7 @@ const GenerateTableList = ({
             </div>
         </>
 
-        // )
+        )
     );
 };
 

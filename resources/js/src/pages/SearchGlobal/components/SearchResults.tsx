@@ -83,16 +83,7 @@ const SearchResults = ({query, results, page, setPage, loading,resultListRef,act
                         filters={filters}
                         />
                         
-                        {(activeIndexRef.current >8  ? (
-                            <div className="pb-44 pt-7 ">
-                                <div className="flex items-center justify-center mb-8">
-                                    <h4 className="text-lg font-semibold">Scroll Down For Load More Data</h4>
-                                </div>
-
-                            </div>
-                        ) : (
-                            <></>
-                        ))}
+              
 
                     </>
                 ))}
