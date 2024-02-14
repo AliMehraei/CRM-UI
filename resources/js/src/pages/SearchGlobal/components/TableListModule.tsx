@@ -26,7 +26,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     modelName, showSettingColumns, modelColumns,
     selectedModel, searchColumns, selectedColumns,
     handleCheckboxChange, toggleSettingColumns, index,
-    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,
+    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setShowSettingColumns
 }: any) => {
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
@@ -110,6 +110,8 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                                     listStyle: "none",
                                     padding: 0,
                                 }}
+
+                                onMouseLeave={() => setShowSettingColumns(false)}
                             >
                                 {/* Checkbox list */}
                                 {modelColumns

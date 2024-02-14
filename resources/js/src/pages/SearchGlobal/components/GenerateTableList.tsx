@@ -328,12 +328,6 @@ const GenerateTableList = ({
         setShowSettingColumns(false);
     };
 
-    const handleClickOutside = (event) => {
-
-        setShowSettingColumns(false);
-
-    };
-
     useEffect(() => {
 
         // setPage(0);
@@ -342,14 +336,6 @@ const GenerateTableList = ({
         fetchModelData(filters);
 
     }, [filters])
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [toggleSettingColumns]);
 
 
     const handleCheckboxChange = useCallback((columnValue, checked) => {
@@ -405,6 +391,7 @@ const GenerateTableList = ({
                                                     selectedRecords={selectedRecords} modelColumns={modelColumns}
                                                     selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
                                                     handleCancelSelectedColumn={handleCancelSelectedColumn}
+                                                    setShowSettingColumns={setShowSettingColumns}
                                                 />
 
                                             }
