@@ -120,7 +120,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 {showSettingColumns && selectedModel === modelName && (
                     <div
                         className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`}
-                        onMouseLeave={() => setShowSettingColumns(false)}
+                        // onMouseLeave={() => setShowSettingColumns(false)}
                     >
                         <div className="overflow-y-scroll h-80">
                             <ul
