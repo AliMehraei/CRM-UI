@@ -28,22 +28,19 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         columnAccessor: "id",
         direction: "asc",
     });
-    const [hoveredRow, setHoveredRow] = useState(null);
+    const [hoveredRow, setHoveredRow] = useState<number | null>(null);
     const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const api_instance: any = new api();
 
+    
 
-
-
-
-    const handleMouseEnter = (index) => {
-        setHoveredRow(index);
+    const handleMouseEnter = (id: number) => {
+        setHoveredRow(id);
     };
 
     const handleMouseLeave = () => {
         setHoveredRow(null);
     };
-
     
     const handleEdit = (id) => {
     };
@@ -268,13 +265,14 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                         render: ({ id }: any) => (
                             <>
                                 <div className="flex gap-4 items-center w-max mx-auto">
-                                    {hasPermission(`update-${formattedModelName(modelName)}`) && (
-                                        <NavLink to={`/${modelName}/edit/${id}`}
+                                    {hoveredRow === id && hasPermission(`update-${formattedModelName(modelName)}`) && (
+                                        //TODO: route for some module is different
+                                        <NavLink to={`/${modelName.toLowerCase()}/edit/${id}`} 
                                             className="flex hover:text-info">
                                             <EditIcon />
                                         </NavLink>
                                     )}
-                                    {hasPermission(`delete-${formattedModelName(modelName)}`) && (
+                                    {hoveredRow === id && hasPermission(`delete-${formattedModelName(modelName)}`) && (
                                         <button
                                             type="button"
                                             className="flex hover:text-danger"
@@ -300,27 +298,18 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                     selectedRecords={selectedRecords}
                     onSelectedRecordsChange={setSelectedRecords}
                     style={{ zIndex: 1 }} 
+                    onRowClick={(record) => {
+                        setHoveredRow(record.id)}}
                 />
-                     {records.map((row, index) => (
-                        <tr
-                            key={row.id} // Assuming each row has a unique id
-                            onMouseEnter={() => handleMouseEnter(index)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            {/* Render your cells here */}
-                            {columns.map(column => (
-                                <td key={column.id}> {row[column.id]} </td>
-                            ))}
-                            {/* Conditional rendering of action buttons */}
-                            {hoveredRow === index && (
-                                <td>
-                                    {/* Action buttons go here */}
-                                    <button onClick={() => handleEdit(row.id)}>Edit</button>
-                                    <button onClick={() => handleDelete(row.id)}>Delete</button>
-                                </td>
-                            )}
-                        </tr>
-                    ))}
+                    {records.map((record, index) => (
+                    <tr
+                        key={index}
+                        onMouseEnter={() => handleMouseEnter(record.id)}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        {/* Render your table cells here */}
+                    </tr>
+                ))} 
             </div>
 
 
