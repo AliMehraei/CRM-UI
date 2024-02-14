@@ -33,7 +33,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(modelArray);
     const [initialRecords, setInitialRecords] = useState(sortBy(items, "id"));
     const [records, setRecords] = useState(initialRecords);
     const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
@@ -63,6 +63,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         // setRecords([...initialRecords.slice(0, pageSize)]);
         const from = (page - 1) * pageSize;
         const to = from + pageSize;
+
         setRecords([...initialRecords.slice(from, to)]);
     }, [page, pageSize, initialRecords]);
 
@@ -180,10 +181,10 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
 
                 <DataTable
                     className={`${isDark} whitespace-nowrap table-hover mb-5`}
-                    records={modelArray}
+                    records={records}
                     columns={columns}
                     highlightOnHover
-                    totalRecords={modelArray.length}
+                    totalRecords={initialRecords.length}
                     recordsPerPage={pageSize}
                     page={page}
                     onPageChange={setPage}

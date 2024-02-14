@@ -399,10 +399,6 @@ const GenerateTableList = ({
 
                                                 const columns = prepareColumns(modelName);
 
-                                                // console.log("modelName",modelName);
-                                                // console.log("modelArray",modelArray);
-                                                // console.log("length",modelArray.length);
-
                                                 return <TableListModule
                                                     columns={columns} modelArray={modelArray}
                                                     modelName={modelName} showSettingColumns={showSettingColumns}
