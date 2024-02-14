@@ -40,9 +40,26 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         columnAccessor: "id",
         direction: "asc",
     });
+    const [hoveredRow, setHoveredRow] = useState(null);
 
 
 
+
+
+    const handleMouseEnter = (index) => {
+        setHoveredRow(index);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredRow(null);
+    };
+
+    
+    const handleEdit = (id) => {
+    };
+
+    const handleDelete = (id) => {
+    };
 
     useEffect(() => {
         const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
@@ -196,8 +213,28 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                     onSortStatusChange={handleSortChange}
                     selectedRecords={selectedRecords}
                     onSelectedRecordsChange={setSelectedRecords}
-                    style={{ zIndex: 1 }}
+                    style={{ zIndex: 1 }} 
                 />
+                     {records.map((row, index) => (
+                        <tr
+                            key={row.id} // Assuming each row has a unique id
+                            onMouseEnter={() => handleMouseEnter(index)}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            {/* Render your cells here */}
+                            {columns.map(column => (
+                                <td key={column.id}> {row[column.id]} </td>
+                            ))}
+                            {/* Conditional rendering of action buttons */}
+                            {hoveredRow === index && (
+                                <td>
+                                    {/* Action buttons go here */}
+                                    <button onClick={() => handleEdit(row.id)}>Edit</button>
+                                    <button onClick={() => handleDelete(row.id)}>Delete</button>
+                                </td>
+                            )}
+                        </tr>
+                    ))}
             </div>
 
 
