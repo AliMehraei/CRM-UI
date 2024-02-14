@@ -340,10 +340,10 @@ const GenerateTableList = ({
     };
 
     useEffect(() => {
-
         // setPage(0);
         // setItems([]);
-        fetchModelData(filters);
+        if(query !="")
+            fetchModelData(filters);
 
     }, [filters])
 
