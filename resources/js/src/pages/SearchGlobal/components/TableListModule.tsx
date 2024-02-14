@@ -134,6 +134,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         const to = from + pageSize;
 
         setRecords([...initialRecords.slice(from, to)]);
+        
     }, [page, pageSize, initialRecords]);
 
 
@@ -261,14 +262,18 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                         render: ({ id }: any) => (
                             <>
                                 <div className="flex gap-4 items-center w-max mx-auto">
-                                    {hoveredRow === id && hasPermission(`update-${formattedModelName(modelName)}`) && (
+                                    {
+                                    // hoveredRow === id && 
+                                    hasPermission(`update-${formattedModelName(modelName)}`) && (
                                         //TODO: route for some module is different
                                         <NavLink to={`/${modelName.toLowerCase()}/edit/${id}`} 
                                             className="flex hover:text-info">
                                             <EditIcon />
                                         </NavLink>
                                     )}
-                                    {hoveredRow === id && hasPermission(`delete-${formattedModelName(modelName)}`) && (
+                                    {
+                                    // hoveredRow === id && 
+                                    hasPermission(`delete-${formattedModelName(modelName)}`) && (
                                         <button
                                             type="button"
                                             className="flex hover:text-danger"
@@ -294,8 +299,8 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                     selectedRecords={selectedRecords}
                     onSelectedRecordsChange={setSelectedRecords}
                     style={{ zIndex: 1 }} 
-                    onRowClick={(record) => {
-                        setHoveredRow(record.id)}}
+                    // onRowClick={(record) => {
+                    //     setHoveredRow(record.id)}}
                 />
                     
                 
