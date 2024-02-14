@@ -212,11 +212,26 @@ const GenerateTableList = ({
                         }
                         
                     } else {
-                        content = (
-                            <div className="font-semibold">
-                                {displayValue}
-                            </div>
-                        );
+                        const columnLink = ['full_name','name', 'subject','availability_name','excess_name','account_name','vendor_name','rfq_name'
+                        ,'product_name','deal_name','vendor_rfq_name'
+                    ];
+                        if(columnLink.includes(field.value)){
+                            // const truncatedSubject = displayValue.slice(0, 20); // Assuming you want to truncate the subject to 20 characters
+
+                            content = (
+                                <NavLink target="_blank" to={`/${modelLabelField}/edit/${id}`}>
+                                    <div className="text-primary underline hover:no-underline font-semibold">{`${displayValue}`}</div>
+                                </NavLink>
+                            );
+                        }
+                        else{
+                            content = (
+                                <div className="font-semibold">
+                                    {displayValue}
+                                </div>
+                            );
+                        }
+                        
                     }
                 
                     return content;
