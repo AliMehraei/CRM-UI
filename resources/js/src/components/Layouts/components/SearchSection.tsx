@@ -75,15 +75,6 @@ const SearchSection = () => {
 
     };
 
-    const handleSearchGlobal = (searchText) => {
-        // Custom logic to build your URL based on the searched text
-        const customUrl = `/search-global?text=${encodeURIComponent(searchText)}`;
-    
-        // Redirect to the custom URL
-        window.location.href = customUrl;
-        setText("");
-    };
-
     const SearchResultButton = ({ searchText }: any) => (
         <div className='bg-white items-center fixed' style={{top: '35px', width: '100%', right:'0px', zIndex: 1000 ,height:'40px', borderRadius :'5px' , border:'1px solid #ebebeb'}}>
             <div className="inline-flex justify-center items-center space-x-2 w-full pt-2">
@@ -102,25 +93,25 @@ const SearchSection = () => {
         </div>
     )
 
-    useEffect(() => {
-        const handleKeyPress = (e) => {
-            // Check if the pressed key is Enter (key code 13)
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                setSearch(false);
-                
-                handleSearchGlobal(text);
+    const handleSearchGlobal = (searchText) => {
+        // Custom logic to build your URL based on the searched text
+        const customUrl = `/search-global?text=${encodeURIComponent(searchText)}`;
+    
+        // Redirect to the custom URL
+        window.location.href = customUrl;
+        setText("");
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default behavior of form submission
+            const searchText = text.trim(); // Get the current value of the input field from state
+            if (searchText !== '') {
+                handleSearchGlobal(searchText); // Call handleSearchGlobal with the current value
             }
-        };
+        }
+    };
 
-        // Add event listener for key press
-        document.addEventListener('keydown', handleKeyPress);
-
-        return () => {
-            // Remove event listener on component unmount
-            document.removeEventListener('keydown', handleKeyPress);
-        };
-    }, [text]);
 
     return (
         <>
@@ -153,7 +144,7 @@ const SearchSection = () => {
                         isMulti={false}
                         placeholder="Search..."
                         name="global_search"
-                        className="flex-1"
+                        className="flex-1 custom-global-search"
                         onMenuClose={() => {
                             // setText("")
                         }}
@@ -167,6 +158,7 @@ const SearchSection = () => {
                             navigate(entryPath);
 
                         }}
+                        onKeyDown={handleKeyDown}
                     />
 
                 </div>

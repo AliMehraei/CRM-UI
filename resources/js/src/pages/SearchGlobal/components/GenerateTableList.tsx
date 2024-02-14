@@ -20,40 +20,31 @@ import {
     vendorColumns,
 } from "./ItemInfo/ItemColumns";
 import { getToken, setToken } from "../../../config/config";
+import LoadingSpinner from "../../../components/LoadingSpinner";
+import TableListModule from "./TableListModule";
 
 const GenerateTableList = ({
     permissionName,
-    tableColumns,
     frontRoute,
-    filterParam,
-    title,
+    query,
+    filters,
 }: any) => {
-    const dispatch = useDispatch();
-    const filterState = useSelector((state: any) => state.filters);
 
-    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
     const [loading, setLoading] = useState(true);
-    const [resetFilter, setResetFilter] = useState(false);
+    const [loadingTable, setLoadingTable] = useState(true);
+    const [checkLoading, setCheckLoading] = useState(true);
+    const [emptyDataLoading, setEmptyDataLoading] = useState(false);
     const api_instance: any = new api();
-    const isDark =
-        useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
+
 
     const [items, setItems] = useState([]);
-    const [optionsFilter, setOptionsFilter] = useState([]);
-    const [selectedFields, setSelectedFields] = useState<any>([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filters, setFilters] = useState<any>([]);
-    const [page, setPage] = useState(1);
-    const PAGE_SIZES = [50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-
     const [initialRecords, setInitialRecords] = useState(sortBy(items, "id"));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
-    const [totalItems, setTotalItems] = useState(0);
     const [selectedModel, setSelectedModel] = useState(null);
     const [showSettingColumns, setShowSettingColumns] = useState(false);
     const [searchColumns, setSearchColumns] = useState("");
+
 
     const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
     interface ModelColumn {
@@ -62,10 +53,7 @@ const GenerateTableList = ({
     }
 
     const [modelColumns, setModelColumns] = useState<ModelColumn[]>([]);
-    const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-        columnAccessor: "id",
-        direction: "asc",
-    });
+
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -90,30 +78,39 @@ const GenerateTableList = ({
     };
 
     const fetchModelData = async (
-        page = 1,
-        pageSize = PAGE_SIZES[0],
-        filters = [],
-        sortStatus = {}
+        filters
     ) => {
+        if(query =="")
+            return null;
         setLoading(true);
-        const {
-            columnAccessor: sortField = "",
-            direction: sortDirection = "",
-        }: any = sortStatus;
+        setLoadingTable(true);
+
         try {
             await api_instance[frontRoute]({
-                page: page,
-                search: filterParam,
+                page: 1,
+                search: query,
                 filters: filters,
             })
                 .then((res: any) => {
                     setItems(res.data);
-                    setTotalItems(10);
+                    // setTotalItems(10);
                     setLoading(false);
+                    if (res.data?.data?.length == 0) {
+                        setEmptyDataLoading(true);
+                        setLoadingTable(false);
+                    }
+                    if (res.data?.length == 0) {
+                        setEmptyDataLoading(true);
+                        setLoadingTable(false);
+                    }
+                    else {
+                        setEmptyDataLoading(false);
+                    }
                 })
                 .catch((error: any) => {
                     console.error("Error fetching data: ", error);
                     setLoading(false);
+                    setCheckLoading(!checkLoading);
                     showMessage(
                         `Error fetching  ${permissionName} data.`,
                         "error"
@@ -123,19 +120,20 @@ const GenerateTableList = ({
             showMessage(`Error fetching ${permissionName} data.`, "error");
             console.error("Error fetching data: ", error);
             setLoading(false);
+            setCheckLoading(!checkLoading);
         }
     };
 
-    const handleSortChange = (sortStatus: any) => {
-        const { columnAccessor, direction = "asc" } = sortStatus;
-        setSortStatus({ columnAccessor, direction });
-        setPage(1);
-        fetchModelData(page, pageSize, filters, { columnAccessor, direction });
-    };
+    // const handleSortChange = (sortStatus: any) => {
+    //     const { columnAccessor, direction = "asc" } = sortStatus;
+    //     setSortStatus({ columnAccessor, direction });
+    //     setPage(1);
+    //     fetchModelData(page, pageSize, filters, { columnAccessor, direction });
+    // };
 
     const prepareColumns = (modelLabelField: string): any[] => {
         let dynamicColumns: any[] = []; // Explicitly specify the type of dynamicColumns
-    
+
 
         switch (modelLabelField) {
             case "Lead":
@@ -176,74 +174,103 @@ const GenerateTableList = ({
             .filter((entry) => entry.type === "search");
         // Extract additional columns for the current model
         const additionalColumns = userFieldColumns
-        .flatMap(entry => JSON.parse(entry.field_columns))
-        .map(field => ({
-            accessor: field.value,
-            title: field.label,
-            sortable: true, 
-            render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => {
-                let displayValue = fieldValue;
-            
-                const dateFields = ['created_at', 'updated_at'];
-            
-                if (dateFields.includes(field.value)) {
-                    const date = new Date(fieldValue); // Parse fieldValue into a Date object
-                    if (!isNaN(date.getTime())) { // Check if the parsed date is valid
-                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                        const hours = date.getHours();
-                        const minutes = String(date.getMinutes()).padStart(2, '0');
-                        const ampm = hours >= 12 ? 'PM' : 'AM';
-                        displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+            .flatMap(entry => JSON.parse(entry.field_columns))
+            .map(field => ({
+                accessor: field.value,
+                title: field.label,
+                sortable: true,
+                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => {
+                    let displayValue = fieldValue;
+
+                    const dateFields = ['created_at', 'updated_at'];
+
+                    if (dateFields.includes(field.value)) {
+                        const date = new Date(fieldValue); // Parse fieldValue into a Date object
+                        if (!isNaN(date.getTime())) { // Check if the parsed date is valid
+                            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                            const hours = date.getHours();
+                            const minutes = String(date.getMinutes()).padStart(2, '0');
+                            const ampm = hours >= 12 ? 'PM' : 'AM';
+                            displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
+                        }
                     }
-                }
-            
-                return (
-                    <div className="font-semibold">
-                        {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : displayValue}
-                    </div>
-                );
-            },
-            
+
+                    return (
+                        <div className="font-semibold">
+                            {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : displayValue}
+                        </div>
+                    );
+                },
+
             }));
-        
-        
+
+
         // Use additional columns if available, otherwise use default columns
         return additionalColumns.length > 0 ? additionalColumns : dynamicColumns;
     };
 
     const toggleSettingColumns = async (modelName) => {
         try {
-            const data = { className: modelName };
-            const res = await api_instance.getColumnsForModels(data);
-            if (res.status !== 200) return;
+            const moduleAllColumns = getToken(`allColumns${modelName}`);
 
-            setModelColumns(res.data); // Assuming API response has a "columns" property
-            setSelectedModel(modelName);
-            setShowSettingColumns(!showSettingColumns);
+            // console.log("showSettingColumns",showSettingColumns);
+            // console.log("selectedModel",selectedModel);
+            // console.log("modelName",modelName);
+
+            if (!moduleAllColumns) {
+                const data = { className: modelName };
+                const res = await api_instance.getColumnsForModels(data);
+                if (res.status !== 200) return;
+
+                setToken(res.data, `allColumns${modelName}`);
+                setModelColumns(res.data); // Assuming API response has a "columns" property
+                setSelectedModel(modelName);
+                setShowSettingColumns(!showSettingColumns);
+            } else {
+
+                setModelColumns(moduleAllColumns);
+                setSelectedModel(modelName);
+                setShowSettingColumns(!showSettingColumns);
+
+            }
+
+
         } catch (error) {
             console.error("Error fetching columns:", error);
         }
     };
 
     useEffect(() => {
-        const data = sortBy(items, sortStatus.columnAccessor);
-        const reversedData =
-            sortStatus.direction !== "asc" ? data.reverse() : data;
-        setInitialRecords(reversedData);
-    }, [items, sortStatus]);
+        // const data = sortBy(items, sortStatus.columnAccessor);
+        // const reversedData =
+        //     sortStatus.direction !== "asc" ? data.reverse() : data;
+        setInitialRecords(items);
+    }, [items]);
+
+
+    
 
     useEffect(() => {
-        setPage(1);
-    }, [pageSize]);
-
+       
+        fetchModelData(filters);
+       
+    }, [query]);
     useEffect(() => {
-        setRecords([...initialRecords.slice(0, pageSize)]);
-    }, [page, pageSize, initialRecords]);
-
-    useEffect(() => {
-        fetchModelData(page, pageSize, filters, sortStatus);
-    }, [page, pageSize, sortStatus, filterParam]);
-
+        setLoadingTable(true);
+        if (records.length > 0) {
+            // setTimeout(() => {
+            setLoadingTable(false);
+            //   }, 2000);
+        }
+        if (initialRecords.length > 0) {
+            // setTimeout(() => {
+            setLoadingTable(false);
+            //   }, 2000);
+        }
+        if (emptyDataLoading) {
+            setLoadingTable(false);
+        }
+    }, [records, initialRecords, checkLoading, emptyDataLoading, items]);
     const handleSaveSelectedColumn = async () => {
         try {
             if (!selectedColumns || selectedColumns.length === 0) {
@@ -279,8 +306,8 @@ const GenerateTableList = ({
             if (res.status !== 200) {
                 showMessage(res.data.message, "error");
             }
-            else{
-                setToken(JSON.stringify(res.data.data) , "userFieldColumns" );
+            else {
+                setToken(JSON.stringify(res.data.data), "userFieldColumns");
             }
 
             showMessage(res.data.message, "success");
@@ -297,53 +324,34 @@ const GenerateTableList = ({
     const handleCancelSelectedColumn = () => {
         // Reset state and hide settings
         setSearchColumns("");
-        setSelectedColumns([]);
+        // setSelectedColumns([]);
         setShowSettingColumns(false);
     };
 
     const handleClickOutside = (event) => {
-        const searchInput = document.getElementById("search-column"); // Add an id to your search input element
 
-        if (
-            (searchInput && searchInput.contains(event.target)) ||
-            event.target.closest(".setting-list-column") // Check if the click is inside the dropdown
-        ) {
-            return;
-        }
-
-        setSearchColumns("");
-        setSelectedColumns([]);
         setShowSettingColumns(false);
+
     };
 
     useEffect(() => {
-        document.addEventListener("click", handleClickOutside);
+
+        // setPage(0);
+        // setItems([]);
+        
+        fetchModelData(filters);
+
+    }, [filters])
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener("click", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [toggleSettingColumns]);
 
-    const Checkbox = React.memo(({ column, isChecked, handleCheckboxChange }: any) => {
-        return (
-            <li
-                key={column.value}
-                style={{ display: "flex", alignItems: "center" }}
-            >
-                <input
-                    type="checkbox"
-                    id={column.value}
-                    name={column.value}
-                    className="mr-2"
-                    onChange={handleCheckboxChange}
-                    checked={isChecked}
-                />
-                <label className="mt-1" htmlFor={column.value}>
-                    {column.label}
-                </label>
-            </li>
-        );
-    });
+
     const handleCheckboxChange = useCallback((columnValue, checked) => {
         if (checked) {
             setSelectedColumns(prevSelectedColumns => [...prevSelectedColumns, columnValue]);
@@ -352,7 +360,6 @@ const GenerateTableList = ({
         }
     }, []);
     useEffect(() => {
-        // Set filteredUserFieldColumns into selectedColumns
         const filteredUserFieldColumns = JSON.parse(getToken("userFieldColumns") ?? "[]")
             .filter(entry => entry.model_type === "App\\Models\\" + selectedModel && entry.type === "search");
 
@@ -364,151 +371,55 @@ const GenerateTableList = ({
 
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
+
+
     return (
-        // (!hasPermission(`${(permissionName)}`) || loading) ? (
-        //     <LoadingSasCrm />
-        // ) : (
-        <>
-            <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
-                <div className={`${permissionName}-table`}>
-                    <div className="grid grid-cols-1 gap-6 mb-6">
-                        <div className="panel col-span-12">
-                            <div className="datatables pagination-padding">
-                                {loading ? (
-                                    <div className="flex justify-center">
-                                        <span className="animate-spin border-4 my-4 border-success border-l-transparent rounded-full w-12 h-12 inline-block align-middle m-auto mb-10"></span>
-                                    </div>
-                                ) : (
-                                    // Map through items and create a DataTable for each modelName
-                                    items.map(
-                                        (modelData: any, index: number) => {
-                                            const modelName =
-                                                Object.keys(modelData)[0];
-                                            const modelArray =
-                                                modelData[modelName];
+        (loading && loadingTable) ? (
+            <LoadingSpinner />
+        ) : (
+            <>
+                <div className="panel px-0 border-white-light dark:border-[#1b2e4b]">
+                    <div className={`${permissionName}-table`}>
+                        <div className="grid grid-cols-1 gap-6 mb-6">
+                            <div className="panel col-span-12">
+                                <div className="datatables pagination-padding">
+                                   
 
-                                            const columns =
-                                                prepareColumns(modelName);
+                                        {(items.length === 0 ? (
+                                            <div className="text-center text-lg">No matching record(s) found</div>
+                                        ) : (
+                                            // Map through items and create a DataTable for each modelName
+                                            items.map((modelData: any, index: number) => {
+                                                const modelName = Object.keys(modelData)[0];
+                                                const modelArray = modelData[modelName];
 
-                                            return (
-                                                <div
-                                                    className="relative"
-                                                    key={index}
-                                                >
-                                                    <div className="flex justify-between items-center p-4">
-                                                        <h2 className="text-xl font-bold">
-                                                            {modelName}
-                                                        </h2>
-                                                        <div
-                                                            onClick={() =>
-                                                                toggleSettingColumns(
-                                                                    modelName
-                                                                )
-                                                            }
-                                                            className="bg-gray-200 p-1 mt-3 rounded cursor-pointer"
-                                                        >
-                                                            <svg
-                                                                className="w-3 h-3 text-gray-800 dark:text-white"
-                                                                aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none"
-                                                                viewBox="0 0 14 8"
-                                                            >
-                                                                <path
-                                                                    stroke="currentColor"
-                                                                    strokeLinecap="round"
-                                                                    strokeLinejoin="round"
-                                                                    strokeWidth="2"
-                                                                    d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"
-                                                                />
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                    {showSettingColumns && selectedModel === modelName && (
-                                                        <div className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`}>
-                                                            <div className="overflow-y-scroll h-80">
-                                                                <ul style={{ listStyle: "none", padding: 0 }}>
-                                                                    {/* Checkbox list */}
-                                                                    {modelColumns
-                                                                        .filter((column) => column.label.includes(searchColumns.toLowerCase()))
-                                                                        .map((column) => {
-                                                                            let isChecked = selectedColumns.includes(column.value);
-                                                                            return (
-                                                                                <li key={column.value} style={{ display: "flex", alignItems: "center" }}>
-                                                                                    <input
-                                                                                        type="checkbox"
-                                                                                        id={column.value}
-                                                                                        name={column.value}
-                                                                                        className="mr-2"
-                                                                                        onChange={(e) => handleCheckboxChange(column.value, e.target.checked)}
-                                                                                        checked={isChecked}
-                                                                                    />
-                                                                                    <label className="mt-1" htmlFor={column.value}>
-                                                                                        {column.label}
-                                                                                    </label>
-                                                                                </li>
-                                                                            );
-                                                                        })}
-                                                                </ul>
-                                                            </div>
-                                                            <hr className="border-white-light dark:border-[#1b2e4b] my-6" />
-                                                            <div className="mt-5 flex justify-end">
-                                                                {/* Save button */}
-                                                                <button className="ml-4 inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSaveSelectedColumn}>
-                                                                    Save
-                                                                </button>
-                                                                {/* Cancel button */}
-                                                                <button className="ml-4 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" onClick={handleCancelSelectedColumn}>
-                                                                    Cancel
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    )}
+                                                const columns = prepareColumns(modelName);
 
-                                                    <DataTable
-                                                        className={`${isDark} whitespace-nowrap table-hover mb-5`}
-                                                        records={modelArray}
-                                                        columns={columns}
-                                                        highlightOnHover
-                                                        totalRecords={
-                                                            modelArray.length
-                                                        }
-                                                        recordsPerPage={
-                                                            pageSize
-                                                        }
-                                                        page={page}
-                                                        onPageChange={setPage}
-                                                        recordsPerPageOptions={
-                                                            PAGE_SIZES
-                                                        }
-                                                        onRecordsPerPageChange={
-                                                            setPageSize
-                                                        }
-                                                        sortStatus={sortStatus}
-                                                        onSortStatusChange={
-                                                            handleSortChange
-                                                        }
-                                                        selectedRecords={
-                                                            selectedRecords
-                                                        }
-                                                        onSelectedRecordsChange={
-                                                            setSelectedRecords
-                                                        }
-                                                        style={{ zIndex: 1 }}
-                                                    />
-                                                </div>
-                                            );
-                                        }
-                                    )
-                                )}
+                                                return <TableListModule
+                                                    columns={columns} modelArray={modelArray}
+                                                    modelName={modelName} showSettingColumns={showSettingColumns}
+                                                    selectedModel={selectedModel} searchColumns={searchColumns}
+                                                    handleCheckboxChange={handleCheckboxChange}
+                                                    toggleSettingColumns={toggleSettingColumns} index={index}
+                                                    setSelectedRecords={setSelectedRecords}
+                                                    selectedRecords={selectedRecords} modelColumns={modelColumns}
+                                                    selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
+                                                    handleCancelSelectedColumn={handleCancelSelectedColumn}
+                                                />
+
+                                            }
+                                            )
+                                        )
+                                        )}
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </>
 
-        // )
+        )
     );
 };
 

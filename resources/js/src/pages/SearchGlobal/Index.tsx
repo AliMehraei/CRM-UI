@@ -183,7 +183,7 @@ const Index = () => {
                             <SearchBar handleSearch={handleSearch} setQuery={setQuery} query={query} filters={filters}
                                        setFilters={setFilters}/>
                             <SearchResults query={query} results={searchResults} resultListRef={resultListRef}
-                                           setPage={setPage} page={page} loading={loading} activeIndexRef={activeIndexRef}
+                                           setPage={setPage} page={page} loading={loading} activeIndexRef={activeIndexRef} filters={filters}
 
                             />
                         {/* </div> */}
