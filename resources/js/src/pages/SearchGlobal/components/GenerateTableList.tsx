@@ -80,6 +80,8 @@ const GenerateTableList = ({
     const fetchModelData = async (
         filters
     ) => {
+        if(query =="")
+            return null;
         setLoading(true);
         setLoadingTable(true);
 
@@ -246,19 +248,12 @@ const GenerateTableList = ({
     }, [items]);
 
 
-    useEffect(() => {
-        setLoading(true);
-        setLoadingTable(true);
-
-    }, []);
+    
 
     useEffect(() => {
-        setLoading(true);
-        setLoadingTable(true);
-        if (query != "")
-        {
-            fetchModelData(filters);
-        }
+       
+        fetchModelData(filters);
+       
     }, [query]);
     useEffect(() => {
         setLoadingTable(true);
@@ -340,10 +335,11 @@ const GenerateTableList = ({
     };
 
     useEffect(() => {
+
         // setPage(0);
         // setItems([]);
-        if(query !="")
-            fetchModelData(filters);
+        
+        fetchModelData(filters);
 
     }, [filters])
 
