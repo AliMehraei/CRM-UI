@@ -198,11 +198,19 @@ const GenerateTableList = ({
                 
                     if (field.relation_model) {
                         const truncatedSubject = relatedValue?.[field.relation_model?.label_field].slice(0, 20); // Assuming you want to truncate the subject to 20 characters
-                        content = (
-                            <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${id}`}>
-                                <div className="text-primary underline hover:no-underline font-semibold">{`#${truncatedSubject}`}</div>
-                            </NavLink>
-                        );
+                        if (field.relation_model?.model=="owner"){
+                            content = (
+                                    <div className="font-semibold">{`${truncatedSubject}`}</div>
+                            );
+                        }
+                        else{
+                            content = (
+                                <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${id}`}>
+                                    <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
+                                </NavLink>
+                            );
+                        }
+                        
                     } else {
                         content = (
                             <div className="font-semibold">
