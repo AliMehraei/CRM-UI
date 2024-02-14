@@ -256,7 +256,9 @@ const GenerateTableList = ({
         setLoading(true);
         setLoadingTable(true);
         if (query != "")
+        {
             fetchModelData(filters);
+        }
     }, [query]);
     useEffect(() => {
         setLoadingTable(true);
@@ -385,11 +387,9 @@ const GenerateTableList = ({
                         <div className="grid grid-cols-1 gap-6 mb-6">
                             <div className="panel col-span-12">
                                 <div className="datatables pagination-padding">
-                                    {loadingTable ? (
-                                        <LoadingSpinner />
-                                    ) : (
+                                   
 
-                                        items.length === 0 ? (
+                                        {(items.length === 0 ? (
                                             <div className="text-center text-lg">No matching record(s) found</div>
                                         ) : (
                                             // Map through items and create a DataTable for each modelName
@@ -418,7 +418,7 @@ const GenerateTableList = ({
                                             }
                                             )
                                         )
-                                    )}
+                                        )}
 
                                 </div>
                             </div>
