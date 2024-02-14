@@ -412,6 +412,7 @@ const GenerateTableList = ({
                                                     selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
                                                     handleCancelSelectedColumn={handleCancelSelectedColumn}
                                                     setShowSettingColumns={setShowSettingColumns}
+                                                    setLoadingTable={setLoadingTable}
                                                 />
 
                                             }
