@@ -44,6 +44,7 @@ const GenerateTableList = ({
     const [selectedModel, setSelectedModel] = useState(null);
     const [showSettingColumns, setShowSettingColumns] = useState(false);
     const [searchColumns, setSearchColumns] = useState("");
+    const [reload, setReload] = useState(false);
 
 
     const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
@@ -393,6 +394,9 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
 
+    useEffect(() => {        
+        fetchModelData(filters);
+    }, [reload]);
 
     return (
         (loading && loadingTable) ? (
@@ -428,6 +432,8 @@ const GenerateTableList = ({
                                                     handleCancelSelectedColumn={handleCancelSelectedColumn}
                                                     setShowSettingColumns={setShowSettingColumns}
                                                     setLoadingTable={setLoadingTable}
+                                                    setReload={setReload}
+                                                    reload={reload}
                                                 />
 
                                             }

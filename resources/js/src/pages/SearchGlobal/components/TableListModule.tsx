@@ -14,7 +14,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     modelName, showSettingColumns, modelColumns,
     selectedModel, searchColumns, selectedColumns,
     handleCheckboxChange, toggleSettingColumns, index,
-    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setShowSettingColumns,setLoadingTable
+    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setShowSettingColumns,setLoadingTable,setReload, reload
 }: any) => {
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
@@ -42,11 +42,6 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         setHoveredRow(null);
     };
     
-    const handleEdit = (id) => {
-    };
-
-    const handleDelete = (id) => {
-    };
 
     const deleteRow = (id: any = null) => {
         Swal.fire({
@@ -102,6 +97,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 .then((res: any) => {
                     const result = res.data;
                     if (result.status) {
+                        setReload(!reload);
                         // applyFilters(filterOptionRef.current); TODO
                     } else {
                         showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
@@ -301,15 +297,8 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                     onRowClick={(record) => {
                         setHoveredRow(record.id)}}
                 />
-                    {records.map((record, index) => (
-                    <tr
-                        key={index}
-                        onMouseEnter={() => handleMouseEnter(record.id)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        {/* Render your table cells here */}
-                    </tr>
-                ))} 
+                    
+                
             </div>
 
 
