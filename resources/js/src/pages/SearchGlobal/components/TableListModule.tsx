@@ -7,26 +7,14 @@ import Swal from "sweetalert2";
 import { IRootState } from "../../../store";
 import api from "../../../config/api";
 import { useUserStatus } from "../../../config/authCheck";
-import LoadingSasCrm from "../../../components/LoadingSasCrm";
-import {
-    accountColumns,
-    callColumns,
-    contactColumns,
-    dealColumns,
-    leadColumns,
-    manufacturerColumns,
-    salesOrderColumns,
-    taskColumns,
-    vendorColumns,
-} from "./ItemInfo/ItemColumns";
-import { getToken, setToken } from "../../../config/config";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import { DeleteIcon, EditIcon } from "../../../components/FormFields/CommonIcons";
+import { findApiToCall, formattedModelName, upFirstLetter } from "../../../components/Functions/CommonFunctions";
 
 const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     modelName, showSettingColumns, modelColumns,
     selectedModel, searchColumns, selectedColumns,
     handleCheckboxChange, toggleSettingColumns, index,
-    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setShowSettingColumns
+    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setShowSettingColumns,setLoadingTable
 }: any) => {
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
@@ -41,6 +29,8 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         direction: "asc",
     });
     const [hoveredRow, setHoveredRow] = useState(null);
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
+    const api_instance: any = new api();
 
 
 
@@ -59,6 +49,75 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     };
 
     const handleDelete = (id) => {
+    };
+
+    const deleteRow = (id: any = null) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            padding: '2em',
+            customClass: 'sweet-alerts',
+        }).then((result) => {
+            if (result.value) {
+                if (id) {
+                    deleteSingleRow(id);
+                    setSelectedRecords([]);
+                } else {
+                    let selectedRows = selectedRecords || [];
+                    const ids = selectedRows.map((d: any) => d.id);
+                    ids.forEach((rowId: any) => deleteSingleRow(rowId));
+                    setSelectedRecords([]);
+                    setPage(1);
+                }
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Row has been deleted.',
+                    icon: 'success',
+                    customClass: 'sweet-alerts'
+                });
+            }
+        });
+    };
+
+    const showMessage = (msg = '', type = 'success') => {
+        const toast: any = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+            customClass: { container: 'toast' },
+        });
+        toast.fire({
+            icon: type,
+            title: msg,
+            padding: '10px 20px',
+        });
+    };
+
+    const deleteSingleRow = async (rowId: number) => {
+        try {
+            // setLoading(true);
+            setLoadingTable(true);
+            findApiToCall(`deleteSingle${upFirstLetter(modelName)}`).call(api_instance, rowId)
+                .then((res: any) => {
+                    const result = res.data;
+                    if (result.status) {
+                        // applyFilters(filterOptionRef.current); TODO
+                    } else {
+                        showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
+                        console.error(`Error deleting the ${modelName} : `, result.message);
+                    }
+                });
+            // setLoading(false);
+        } catch (error) {
+            showMessage('Error making delete request', 'error');
+            console.error('Error making delete request', error);
+            // setLoading(false);
+            setLoadingTable(false);
+        }
     };
 
     useEffect(() => {
@@ -201,7 +260,34 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 <DataTable
                     className={`${isDark} whitespace-nowrap table-hover mb-5`}
                     records={records}
-                    columns={columns}
+                    columns={[...columns, {
+                        accessor: 'action',
+                        title: 'Actions',
+                        sortable: false,
+                        textAlignment: 'center',
+                        render: ({ id }: any) => (
+                            <>
+                                <div className="flex gap-4 items-center w-max mx-auto">
+                                    {hasPermission(`update-${formattedModelName(modelName)}`) && (
+                                        <NavLink to={`/${modelName}/edit/${id}`}
+                                            className="flex hover:text-info">
+                                            <EditIcon />
+                                        </NavLink>
+                                    )}
+                                    {hasPermission(`delete-${formattedModelName(modelName)}`) && (
+                                        <button
+                                            type="button"
+                                            className="flex hover:text-danger"
+                                            onClick={() => deleteRow(id)}
+                                        >
+                                            <DeleteIcon />
+                                        </button>
+                                    )}
+                                    
+                                </div>
+                            </>
+                        ),
+                    }]}
                     highlightOnHover
                     totalRecords={initialRecords.length}
                     recordsPerPage={pageSize}
