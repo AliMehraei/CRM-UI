@@ -81,7 +81,7 @@ const GenerateTableList = ({
     const fetchModelData = async (
         filters
     ) => {
-        if(query =="")
+        if (query == "")
             return null;
         setLoading(true);
         setLoadingTable(true);
@@ -180,12 +180,12 @@ const GenerateTableList = ({
                 accessor: field.value,
                 title: field.label,
                 sortable: true,
-                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue,[field.relation_model ? 'owner' : '']: owner, id }) => {
+                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue, [field.relation_model ? 'owner' : '']: owner, id }) => {
                     let displayValue = fieldValue;
                     let content;
-                
+
                     const dateFields = ['created_at', 'updated_at'];
-                
+                    //covert date formatter
                     if (dateFields.includes(field.value)) {
                         const date = new Date(fieldValue); // Parse fieldValue into a Date object
                         if (!isNaN(date.getTime())) { // Check if the parsed date is valid
@@ -196,48 +196,102 @@ const GenerateTableList = ({
                             displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
                         }
                     }
-                
+                    //show relation 
                     if (field.relation_model) {
                         const labelField = relatedValue?.[field.relation_model?.label_field];
-                        const truncatedSubject = labelField ? labelField.slice(0, 20) : '';                        
-                        const modelUser = ['owner','pmUser','approvedBy','modifier','creator','convertedBy','modifiedBy','createdBy','sales_person'];
+                        const truncatedSubject = labelField ? labelField.slice(0, 20) : '';
+                        const modelUser = ['owner', 'pmUser', 'approvedBy', 'modifier', 'creator', 'convertedBy', 'modifiedBy', 'createdBy', 'sales_person'];
 
-                        if (modelUser.includes(field.relation_model?.model)){
+                        if (modelUser.includes(field.relation_model?.model)) {
                             content = (
-                                    <div className="font-semibold">{`${owner?.[field.relation_model?.label_field]}`}</div>
+                                <div className="font-semibold">{`${owner?.[field.relation_model?.label_field]}`}</div>
                             );
                         }
-                        else{
+                        else {
                             content = (
                                 <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${fieldValue}`}>
                                     <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
                                 </NavLink>
                             );
                         }
-                        
-                    } else {
-                        const columnLink = ['full_name','name', 'subject','availability_name','excess_name','account_name','vendor_name','rfq_name'
-                        ,'product_name','deal_name','vendor_rfq_name'
-                    ];
-                        if(columnLink.includes(field.value)){
-                            // const truncatedSubject = displayValue.slice(0, 20); // Assuming you want to truncate the subject to 20 characters
 
+                    } else {
+                        const columnLink = ['full_name', 'name', 'subject', 'availability_name', 'excess_name', 'account_name', 'vendor_name', 'rfq_name'
+                            , 'product_name', 'deal_name', 'vendor_rfq_name'
+                        ];
+                        //show base filed for each module and link to module
+                        if (columnLink.includes(field.value)) {
+                            // const truncatedSubject = displayValue.slice(0, 20); // Assuming you want to truncate the subject to 20 characters
+                            const truncatedSubject = displayValue ? displayValue.slice(0, 20) : '';
                             content = (
                                 <NavLink target="_blank" to={`/${modelLabelField}/edit/${id}`}>
-                                    <div className="text-primary underline hover:no-underline font-semibold">{`${displayValue}`}</div>
+                                    <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
                                 </NavLink>
                             );
                         }
-                        else{
-                            content = (
-                                <div className="font-semibold">
-                                    {displayValue}
-                                </div>
-                            );
+                        else {
+                            const columnLink = [
+                                'userable_id', 'moduleable_id', 'callable_id', 'relatable_id'
+                            ];
+                            //relation for call and task
+                            if (columnLink.includes(field.value)) {
+
+                                const moduleableType = [
+                                    { value: "App\\Models\\Account", label: "Account", model: 'account', labelFelid: 'account_name' },
+                                    { value: "App\\Models\\Vendor", label: "Vendor", model: 'vendor', labelFelid: 'vendor_name' },
+                                    { value: "App\\Models\\Quote", label: "Quote", model: 'quote', labelFelid: 'subject' },
+                                    { value: "App\\Models\\Rfq", label: "Rfq", model: 'rfq', labelFelid: 'rfq_name' },
+                                    { value: "App\\Models\\Excess", label: "Excess", model: 'excess', labelFelid: 'excess_name' },
+                                    { value: "App\\Models\\Availability", label: "Availability", model: 'availability', labelFelid: 'availability_name' },
+                                    { value: "App\\Models\\Product", label: "Product", model: 'product', labelFelid: 'product_name' },
+                                    { value: "App\\Models\\Manufacturer", label: "Manufacturer", model: 'manufacturer', labelFelid: 'name' },
+                                    { value: "App\\Models\\Deal", label: "Deals", model: 'deals', labelFelid: 'deal_name' },
+                                    { value: "App\\Models\\SalesOrder", label: "Sales Order", model: 'salesOrder', labelFelid: 'subject' },
+                                    { value: "App\\Models\\PurchaseOrder", label: "Purchase Order", model: 'purchaseOrder', labelFelid: 'subject' },
+                                    { value: "App\\Models\\Invoice", label: "Invoice", model: 'invoice', labelFelid: 'subject' },
+                                    { value: "App\\Models\\VendorRfq", label: "Vendor Rfq", model: 'vendorRfq', labelFelid: 'vendor_rfq_name' },
+                                    { value: "App\\Models\\Lead", label: "Lead", model: 'vendorRfq', labelFelid: 'full_name' },
+                                    { value: "App\\Models\\Contact", label: "Contact", model: 'vendorRfq', labelFelid: 'full_name' },
+                                ];
+                                let modelType = '';
+                                switch (field.value) {
+                                    case 'userable_id':
+                                        modelType = 'userable_type';
+                                        break;
+                                    case 'moduleable_id':
+                                        modelType = 'moduleable_type';
+                                        break;
+                                    case 'callable_id':
+                                        modelType = 'callable_type';
+                                        break;
+                                    case 'relatable_id':
+                                        modelType = 'relatable_type';
+                                        break;
+
+                                }
+                                let modelTypeSelected=moduleableType
+                                .filter((entry) => entry.value === "App\\Models\\" + [modelType]);
+                                modelType=modelTypeSelected.model;
+                                console.log('modelType',modelType);
+                                
+                                const truncatedSubject = [modelTypeSelected.labelFelid] ? [modelType]?.[modelTypeSelected.labelFelid] : '';
+                                content = (
+                                    <NavLink target="_blank" to={`/${modelType}/edit/${[field.value]}`}>
+                                        <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
+                                    </NavLink>
+                                );
+                            } else {
+                                content = (
+                                    <div className="font-semibold">
+                                        {displayValue}
+                                    </div>
+                                );
+                            }
+
                         }
-                        
+
                     }
-                
+
                     return content;
                 },
 
@@ -287,12 +341,12 @@ const GenerateTableList = ({
     }, [items]);
 
 
-    
+
 
     useEffect(() => {
-       
+
         fetchModelData(filters);
-       
+
     }, [query]);
     useEffect(() => {
         setLoadingTable(true);
@@ -371,7 +425,7 @@ const GenerateTableList = ({
 
         // setPage(0);
         // setItems([]);
-        
+
         fetchModelData(filters);
 
     }, [filters])
@@ -397,7 +451,7 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
 
-    
+
 
     return (
         (loading && loadingTable) ? (
@@ -409,36 +463,36 @@ const GenerateTableList = ({
                         <div className="grid grid-cols-1 gap-6 mb-6">
                             <div className="panel col-span-12">
                                 <div className="datatables pagination-padding">
-                                   
 
-                                        {(items.length === 0 ? (
-                                            <div className="text-center text-lg">No matching record(s) found</div>
-                                        ) : (
-                                            // Map through items and create a DataTable for each modelName
-                                            items.map((modelData: any, index: number) => {
-                                                const modelName = Object.keys(modelData)[0];
-                                                const modelArray = modelData[modelName];
 
-                                                const columns = prepareColumns(modelName);
+                                    {(items.length === 0 ? (
+                                        <div className="text-center text-lg">No matching record(s) found</div>
+                                    ) : (
+                                        // Map through items and create a DataTable for each modelName
+                                        items.map((modelData: any, index: number) => {
+                                            const modelName = Object.keys(modelData)[0];
+                                            const modelArray = modelData[modelName];
 
-                                                return <TableListModule key={`${modelName}-${index}`}
-                                                    columns={columns} modelArray={modelArray}
-                                                    modelName={modelName} showSettingColumns={showSettingColumns}
-                                                    selectedModel={selectedModel} searchColumns={searchColumns}
-                                                    handleCheckboxChange={handleCheckboxChange}
-                                                    toggleSettingColumns={toggleSettingColumns} index={index}
-                                                    setSelectedRecords={setSelectedRecords}
-                                                    selectedRecords={selectedRecords} modelColumns={modelColumns}
-                                                    selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
-                                                    handleCancelSelectedColumn={handleCancelSelectedColumn}
-                                                    setLoadingTable={setLoadingTable}
-                                                    
-                                                />
+                                            const columns = prepareColumns(modelName);
 
-                                            }
-                                            )
+                                            return <TableListModule key={`${modelName}-${index}`}
+                                                columns={columns} modelArray={modelArray}
+                                                modelName={modelName} showSettingColumns={showSettingColumns}
+                                                selectedModel={selectedModel} searchColumns={searchColumns}
+                                                handleCheckboxChange={handleCheckboxChange}
+                                                toggleSettingColumns={toggleSettingColumns} index={index}
+                                                setSelectedRecords={setSelectedRecords}
+                                                selectedRecords={selectedRecords} modelColumns={modelColumns}
+                                                selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
+                                                handleCancelSelectedColumn={handleCancelSelectedColumn}
+                                                setLoadingTable={setLoadingTable}
+
+                                            />
+
+                                        }
                                         )
-                                        )}
+                                    )
+                                    )}
 
                                 </div>
                             </div>
