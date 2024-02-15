@@ -198,7 +198,8 @@ const GenerateTableList = ({
                     }
                 
                     if (field.relation_model) {
-                        const truncatedSubject = relatedValue?.[field.relation_model?.label_field].slice(0, 20); // Assuming you want to truncate the subject to 20 characters
+                        const truncatedSubject = relatedValue?.[field.relation_model?.label_field]; // Assuming you want to truncate the subject to 20 characters
+                        // .slice(0, 20)
                         const modelUser = ['owner','pmUser','approvedBy','modifier','creator','convertedBy','modifiedBy','createdBy','sales_person'];
                         if (modelUser.includes(field.relation_model?.model)){
                             content = (
