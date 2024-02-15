@@ -14,7 +14,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     modelName, showSettingColumns, modelColumns,
     selectedModel, searchColumns, selectedColumns,
     handleCheckboxChange, toggleSettingColumns, index,
-    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setShowSettingColumns,setLoadingTable,setReload, reload
+    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setLoadingTable
 }: any) => {
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
@@ -97,7 +97,10 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 .then((res: any) => {
                     const result = res.data;
                     if (result.status) {
-                        setReload(!reload);
+                        setRecords(items.filter((user) => user.id !== rowId));
+                        setInitialRecords(items.filter((user) => user.id !== rowId));
+                        setItems(items.filter((user) => user.id !== rowId));
+                        setSelectedRecords([]);
                         // applyFilters(filterOptionRef.current); TODO
                     } else {
                         showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
