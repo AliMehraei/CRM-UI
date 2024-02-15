@@ -259,14 +259,25 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                         title: 'Actions',
                         sortable: false,
                         textAlignment: 'center',
-                        render: ({ id }: any) => (
+                        render: ({ id }: any) => {
+                            const prefix =
+                            modelName === "SalesOrder"
+                                ? "sales"
+                                : modelName === "PurchaseOrder"
+                                ? "purchase"
+                                : modelName === "VendorRfq"
+                                ? "vendor_rfq"
+                                : modelName.toLowerCase();
+
+                            return (    
                             <>
                                 <div className="flex gap-4 items-center w-max mx-auto">
                                     {
+                                      
                                     // hoveredRow === id && 
                                     hasPermission(`update-${formattedModelName(modelName)}`) && (
-                                        //TODO: route for some module is different
-                                        <NavLink to={`/${modelName.toLowerCase()}/edit/${id}`} 
+                                        
+                                        <NavLink to={`/${prefix}/edit/${id}`} 
                                             className="flex hover:text-info">
                                             <EditIcon />
                                         </NavLink>
@@ -285,7 +296,8 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                                     
                                 </div>
                             </>
-                        ),
+                         );
+                        },
                     }]}
                     highlightOnHover
                     totalRecords={initialRecords.length}
