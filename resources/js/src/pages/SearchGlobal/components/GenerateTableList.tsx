@@ -44,6 +44,7 @@ const GenerateTableList = ({
     const [selectedModel, setSelectedModel] = useState(null);
     const [showSettingColumns, setShowSettingColumns] = useState(false);
     const [searchColumns, setSearchColumns] = useState("");
+    const [reload, setReload] = useState(false);
 
 
     const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
@@ -179,11 +180,12 @@ const GenerateTableList = ({
                 accessor: field.value,
                 title: field.label,
                 sortable: true,
-                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue }) => {
+                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue,[field.relation_model ? 'owner' : '']: owner, id }) => {
                     let displayValue = fieldValue;
-
+                    let content;
+                
                     const dateFields = ['created_at', 'updated_at'];
-
+                
                     if (dateFields.includes(field.value)) {
                         const date = new Date(fieldValue); // Parse fieldValue into a Date object
                         if (!isNaN(date.getTime())) { // Check if the parsed date is valid
@@ -194,12 +196,47 @@ const GenerateTableList = ({
                             displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
                         }
                     }
+                
+                    if (field.relation_model) {
+                        const truncatedSubject = relatedValue?.[field.relation_model?.label_field].slice(0, 20); // Assuming you want to truncate the subject to 20 characters
+                        const modelUser = ['owner','pmUser','approvedBy','modifier','creator','convertedBy','modifiedBy','createdBy','sales_person'];
+                        if (modelUser.includes(field.relation_model?.model)){
+                            content = (
+                                    <div className="font-semibold">{`${owner?.[field.relation_model?.label_field]}`}</div>
+                            );
+                        }
+                        else{
+                            content = (
+                                <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${fieldValue}`}>
+                                    <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
+                                </NavLink>
+                            );
+                        }
+                        
+                    } else {
+                        const columnLink = ['full_name','name', 'subject','availability_name','excess_name','account_name','vendor_name','rfq_name'
+                        ,'product_name','deal_name','vendor_rfq_name'
+                    ];
+                        if(columnLink.includes(field.value)){
+                            // const truncatedSubject = displayValue.slice(0, 20); // Assuming you want to truncate the subject to 20 characters
 
-                    return (
-                        <div className="font-semibold">
-                            {field.relation_model ? relatedValue?.[field.relation_model?.label_field] : displayValue}
-                        </div>
-                    );
+                            content = (
+                                <NavLink target="_blank" to={`/${modelLabelField}/edit/${id}`}>
+                                    <div className="text-primary underline hover:no-underline font-semibold">{`${displayValue}`}</div>
+                                </NavLink>
+                            );
+                        }
+                        else{
+                            content = (
+                                <div className="font-semibold">
+                                    {displayValue}
+                                </div>
+                            );
+                        }
+                        
+                    }
+                
+                    return content;
                 },
 
             }));
@@ -328,12 +365,6 @@ const GenerateTableList = ({
         setShowSettingColumns(false);
     };
 
-    const handleClickOutside = (event) => {
-
-        setShowSettingColumns(false);
-
-    };
-
     useEffect(() => {
 
         // setPage(0);
@@ -342,14 +373,6 @@ const GenerateTableList = ({
         fetchModelData(filters);
 
     }, [filters])
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [toggleSettingColumns]);
 
 
     const handleCheckboxChange = useCallback((columnValue, checked) => {
@@ -372,6 +395,7 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
 
+    
 
     return (
         (loading && loadingTable) ? (
@@ -405,6 +429,8 @@ const GenerateTableList = ({
                                                     selectedRecords={selectedRecords} modelColumns={modelColumns}
                                                     selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
                                                     handleCancelSelectedColumn={handleCancelSelectedColumn}
+                                                    setLoadingTable={setLoadingTable}
+                                                    
                                                 />
 
                                             }

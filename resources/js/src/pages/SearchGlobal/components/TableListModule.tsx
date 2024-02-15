@@ -7,26 +7,14 @@ import Swal from "sweetalert2";
 import { IRootState } from "../../../store";
 import api from "../../../config/api";
 import { useUserStatus } from "../../../config/authCheck";
-import LoadingSasCrm from "../../../components/LoadingSasCrm";
-import {
-    accountColumns,
-    callColumns,
-    contactColumns,
-    dealColumns,
-    leadColumns,
-    manufacturerColumns,
-    salesOrderColumns,
-    taskColumns,
-    vendorColumns,
-} from "./ItemInfo/ItemColumns";
-import { getToken, setToken } from "../../../config/config";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import { DeleteIcon, EditIcon } from "../../../components/FormFields/CommonIcons";
+import { findApiToCall, formattedModelName, upFirstLetter } from "../../../components/Functions/CommonFunctions";
 
 const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
     modelName, showSettingColumns, modelColumns,
     selectedModel, searchColumns, selectedColumns,
     handleCheckboxChange, toggleSettingColumns, index,
-    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,
+    setSelectedRecords, selectedRecords, handleCancelSelectedColumn,setLoadingTable
 }: any) => {
     const isDark =
         useSelector((state: IRootState) => state.themeConfig.theme) === "dark";
@@ -40,9 +28,93 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         columnAccessor: "id",
         direction: "asc",
     });
+    const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+    const { hasPermission, isLoading, isLoggedIn } = useUserStatus();
+    const api_instance: any = new api();
 
+    
 
+    const handleMouseEnter = (id: number) => {
+        setHoveredRow(id);
+    };
 
+    const handleMouseLeave = () => {
+        setHoveredRow(null);
+    };
+    
+
+    const deleteRow = (id: any = null) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            padding: '2em',
+            customClass: 'sweet-alerts',
+        }).then((result) => {
+            if (result.value) {
+                if (id) {
+                    deleteSingleRow(id);
+                    setSelectedRecords([]);
+                } else {
+                    let selectedRows = selectedRecords || [];
+                    const ids = selectedRows.map((d: any) => d.id);
+                    ids.forEach((rowId: any) => deleteSingleRow(rowId));
+                    setSelectedRecords([]);
+                    setPage(1);
+                }
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Row has been deleted.',
+                    icon: 'success',
+                    customClass: 'sweet-alerts'
+                });
+            }
+        });
+    };
+
+    const showMessage = (msg = '', type = 'success') => {
+        const toast: any = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+            customClass: { container: 'toast' },
+        });
+        toast.fire({
+            icon: type,
+            title: msg,
+            padding: '10px 20px',
+        });
+    };
+
+    const deleteSingleRow = async (rowId: number) => {
+        try {
+            // setLoading(true);
+            setLoadingTable(true);
+            findApiToCall(`deleteSingle${upFirstLetter(modelName)}`).call(api_instance, rowId)
+                .then((res: any) => {
+                    const result = res.data;
+                    if (result.status) {
+                        setRecords(items.filter((user) => user.id !== rowId));
+                        setInitialRecords(items.filter((user) => user.id !== rowId));
+                        setItems(items.filter((user) => user.id !== rowId));
+                        setSelectedRecords([]);
+                        // applyFilters(filterOptionRef.current); TODO
+                    } else {
+                        showMessage(`Error deleting the ${modelName}: ` + result.message, 'error');
+                        console.error(`Error deleting the ${modelName} : `, result.message);
+                    }
+                });
+            // setLoading(false);
+        } catch (error) {
+            showMessage('Error making delete request', 'error');
+            console.error('Error making delete request', error);
+            // setLoading(false);
+            setLoadingTable(false);
+        }
+    };
 
     useEffect(() => {
         const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
@@ -65,6 +137,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
         const to = from + pageSize;
 
         setRecords([...initialRecords.slice(from, to)]);
+        
     }, [page, pageSize, initialRecords]);
 
 
@@ -103,6 +176,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 {showSettingColumns && selectedModel === modelName && (
                     <div
                         className={`setting-list-column min-w-200 ${isDark} whitespace-nowrap table-hover w-1/5 h-auto p-5 bg-white border border-gray-300 shadow-md rounded absolute z-50 top-5 right-1`}
+                        // onMouseLeave={() => setShowSettingColumns(false)}
                     >
                         <div className="overflow-y-scroll h-80">
                             <ul
@@ -110,6 +184,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                                     listStyle: "none",
                                     padding: 0,
                                 }}
+
                             >
                                 {/* Checkbox list */}
                                 {modelColumns
@@ -182,7 +257,51 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 <DataTable
                     className={`${isDark} whitespace-nowrap table-hover mb-5`}
                     records={records}
-                    columns={columns}
+                    columns={[...columns, {
+                        accessor: 'action',
+                        title: 'Actions',
+                        sortable: false,
+                        textAlignment: 'center',
+                        render: ({ id }: any) => {
+                            const prefix =
+                            modelName === "SalesOrder"
+                                ? "sales"
+                                : modelName === "PurchaseOrder"
+                                ? "purchase"
+                                : modelName === "VendorRfq"
+                                ? "vendor_rfq"
+                                : modelName.toLowerCase();
+
+                            return (    
+                            <>
+                                <div className="flex gap-4 items-center w-max mx-auto">
+                                    {
+                                      
+                                    // hoveredRow === id && 
+                                    hasPermission(`update-${formattedModelName(modelName)}`) && (
+                                        
+                                        <NavLink to={`/${prefix}/edit/${id}`} 
+                                            className="flex hover:text-info">
+                                            <EditIcon />
+                                        </NavLink>
+                                    )}
+                                    {
+                                    // hoveredRow === id && 
+                                    hasPermission(`delete-${formattedModelName(modelName)}`) && (
+                                        <button
+                                            type="button"
+                                            className="flex hover:text-danger"
+                                            onClick={() => deleteRow(id)}
+                                        >
+                                            <DeleteIcon />
+                                        </button>
+                                    )}
+                                    
+                                </div>
+                            </>
+                         );
+                        },
+                    }]}
                     highlightOnHover
                     totalRecords={initialRecords.length}
                     recordsPerPage={pageSize}
@@ -194,8 +313,12 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                     onSortStatusChange={handleSortChange}
                     selectedRecords={selectedRecords}
                     onSelectedRecordsChange={setSelectedRecords}
-                    style={{ zIndex: 1 }}
+                    style={{ zIndex: 1 }} 
+                    // onRowClick={(record) => {
+                    //     setHoveredRow(record.id)}}
                 />
+                    
+                
             </div>
 
 
