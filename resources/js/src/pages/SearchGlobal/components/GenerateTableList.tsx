@@ -180,7 +180,20 @@ const GenerateTableList = ({
                 accessor: field.value,
                 title: field.label,
                 sortable: true,
-                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue, [field.relation_model ? 'owner' : '']: owner, id }) => {
+                render: ({ [field.value]: fieldValue,
+                     [field.relation_model ? field.relation_model.model : '']: relatedValue, 
+                     [field.relation_model ? 'owner' : '']: owner,
+                      id,
+                      [field.value=='userable_id' ? 'userable_type' : '']: userableType,
+                      [field.value=='moduleable_id' ? 'moduleable_type' : '']: moduleableType,
+                      [field.value=='callable_id' ? 'callable_type' : '']: callableType,
+                      [field.value=='relatable_id' ? 'relatable_type' : '']: relatableType,
+
+                      [field.value=='userable_id' ? 'userable' : '']: userable,
+                      [field.value=='moduleable_id' ? 'moduleable' : '']: moduleable,
+                      [field.value=='callable_id' ? 'callable' : '']: callable,
+                      [field.value=='relatable_id' ? 'relatable' : '']: relatable,
+                    }) => {
                     let displayValue = fieldValue;
                     let content;
 
@@ -236,7 +249,7 @@ const GenerateTableList = ({
                             //relation for call and task
                             if (columnLink.includes(field.value)) {
 
-                                const moduleableType = [
+                                const moduleableList = [
                                     { value: "App\\Models\\Account", label: "Account", model: 'account', labelFelid: 'account_name' },
                                     { value: "App\\Models\\Vendor", label: "Vendor", model: 'vendor', labelFelid: 'vendor_name' },
                                     { value: "App\\Models\\Quote", label: "Quote", model: 'quote', labelFelid: 'subject' },
@@ -254,30 +267,41 @@ const GenerateTableList = ({
                                     { value: "App\\Models\\Contact", label: "Contact", model: 'vendorRfq', labelFelid: 'full_name' },
                                 ];
                                 let modelType = '';
+                                let modelTypeSelected;
+                                let relationFiled;
                                 switch (field.value) {
                                     case 'userable_id':
                                         modelType = 'userable_type';
+                                        modelTypeSelected=moduleableList
+                                        .filter((entry) => entry.value === userableType)[0];
+                                        relationFiled=userable;
                                         break;
                                     case 'moduleable_id':
                                         modelType = 'moduleable_type';
+                                        modelTypeSelected=moduleableList
+                                            .filter((entry) => entry.value === moduleableType)[0];
+                                        relationFiled=moduleable;
                                         break;
                                     case 'callable_id':
                                         modelType = 'callable_type';
+                                        modelTypeSelected=moduleableList
+                                            .filter((entry) => entry.value === callableType)[0];
+                                        relationFiled=callable;
                                         break;
                                     case 'relatable_id':
                                         modelType = 'relatable_type';
+                                        modelTypeSelected=moduleableList
+                                            .filter((entry) => entry.value === relatableType)[0];
+                                        relationFiled=relatable;
                                         break;
 
                                 }
-                                let modelTypeSelected=moduleableType
-                                .filter((entry) => entry.value === "App\\Models\\" + [modelType]);
-                                modelType=modelTypeSelected.model;
-                                console.log('modelType',modelType);
                                 
-                                const truncatedSubject = [modelTypeSelected.labelFelid] ? [modelType]?.[modelTypeSelected.labelFelid] : '';
+                                modelType=modelTypeSelected.model;
+                                
                                 content = (
-                                    <NavLink target="_blank" to={`/${modelType}/edit/${[field.value]}`}>
-                                        <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
+                                    <NavLink target="_blank" to={`/${modelType}/edit/${displayValue}`}>
+                                        <div className="text-primary underline hover:no-underline font-semibold">{relationFiled?.[modelTypeSelected.labelFelid]}</div>
                                     </NavLink>
                                 );
                             } else {
