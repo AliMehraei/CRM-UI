@@ -257,11 +257,11 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                 <DataTable
                     className={`${isDark} whitespace-nowrap table-hover mb-5`}
                     records={records}
-                    columns={[...columns, {
-                        accessor: 'action',
-                        title: 'Actions',
+                    rowClassName='group'
+                    columns={[{
+                        title: '',
                         sortable: false,
-                        textAlignment: 'center',
+                        textAlignment: 'right',
                         render: ({ id }: any) => {
                             const prefix =
                             modelName === "SalesOrder"
@@ -274,7 +274,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
 
                             return (    
                             <>
-                                <div className="flex gap-4 items-center w-max mx-auto">
+                                <div className="flex opacity-0 invisible gap-4 items-center w-max mx-auto group-hover:visible group-hover:opacity-100">
                                     {
                                       
                                     // hoveredRow === id && 
@@ -301,7 +301,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                             </>
                          );
                         },
-                    }]}
+                    },...columns]}
                     highlightOnHover
                     totalRecords={initialRecords.length}
                     recordsPerPage={pageSize}

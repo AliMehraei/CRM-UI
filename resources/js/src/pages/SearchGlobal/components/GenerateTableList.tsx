@@ -209,7 +209,7 @@ const GenerateTableList = ({
                         }
                         else {
                             content = (
-                                <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${fieldValue}`}>
+                                <NavLink target="_blank" to={`/${field.relation_model?.model}/preview/${fieldValue}`}>
                                     <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
                                 </NavLink>
                             );
