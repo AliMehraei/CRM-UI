@@ -180,7 +180,7 @@ const GenerateTableList = ({
                 accessor: field.value,
                 title: field.label,
                 sortable: true,
-                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue, id }) => {
+                render: ({ [field.value]: fieldValue, [field.relation_model ? field.relation_model.model : '']: relatedValue,[field.relation_model ? 'owner' : '']: owner, id }) => {
                     let displayValue = fieldValue;
                     let content;
                 
@@ -199,14 +199,15 @@ const GenerateTableList = ({
                 
                     if (field.relation_model) {
                         const truncatedSubject = relatedValue?.[field.relation_model?.label_field].slice(0, 20); // Assuming you want to truncate the subject to 20 characters
-                        if (field.relation_model?.model=="owner"){
+                        const modelUser = ['owner','pmUser','approvedBy','modifier','creator','convertedBy','modifiedBy','createdBy','sales_person'];
+                        if (modelUser.includes(field.relation_model?.model)){
                             content = (
-                                    <div className="font-semibold">{`${truncatedSubject}`}</div>
+                                    <div className="font-semibold">{`${owner?.[field.relation_model?.label_field]}`}</div>
                             );
                         }
                         else{
                             content = (
-                                <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${id}`}>
+                                <NavLink target="_blank" to={`/${field.relation_model?.model}/edit/${fieldValue}`}>
                                     <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
                                 </NavLink>
                             );
@@ -394,9 +395,7 @@ const GenerateTableList = ({
         setSelectedColumns(selectedColumnValues);
     }, [selectedModel]); // Add dependencies as needed
 
-    useEffect(() => {        
-        fetchModelData(filters);
-    }, [reload]);
+    
 
     return (
         (loading && loadingTable) ? (
@@ -430,10 +429,8 @@ const GenerateTableList = ({
                                                     selectedRecords={selectedRecords} modelColumns={modelColumns}
                                                     selectedColumns={selectedColumns} handleSaveSelectedColumn={handleSaveSelectedColumn}
                                                     handleCancelSelectedColumn={handleCancelSelectedColumn}
-                                                    setShowSettingColumns={setShowSettingColumns}
                                                     setLoadingTable={setLoadingTable}
-                                                    setReload={setReload}
-                                                    reload={reload}
+                                                    
                                                 />
 
                                             }
