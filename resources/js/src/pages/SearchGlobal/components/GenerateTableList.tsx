@@ -181,8 +181,8 @@ const GenerateTableList = ({
                 title: field.label,
                 sortable: true,
                 render: ({ [field.value]: fieldValue,
-                     [field.relation_model ? field.relation_model.model : '']: relatedValue, 
-                     [field.relation_model ? 'owner' : '']: owner,
+                     [field?.relation_model ? field?.relation_model?.model : '']: relatedValue, 
+                     [field?.relation_model ? 'owner' : '']: owner,
                       id,
                       [field.value=='userable_id' ? 'userable_type' : '']: userableType,
                       [field.value=='moduleable_id' ? 'moduleable_type' : '']: moduleableType,
@@ -210,7 +210,7 @@ const GenerateTableList = ({
                         }
                     }
                     //show relation 
-                    if (field.relation_model) {
+                    if (field?.relation_model) {
                         const labelField = relatedValue?.[field.relation_model?.label_field];
                         const truncatedSubject = labelField ? labelField.slice(0, 20) : '';
                         const modelUser = ['owner', 'pmUser', 'approvedBy', 'modifier', 'creator', 'convertedBy', 'modifiedBy', 'createdBy', 'sales_person'];
@@ -262,9 +262,9 @@ const GenerateTableList = ({
                                     { value: "App\\Models\\SalesOrder", label: "Sales Order", model: 'salesOrder', labelFelid: 'subject' },
                                     { value: "App\\Models\\PurchaseOrder", label: "Purchase Order", model: 'purchaseOrder', labelFelid: 'subject' },
                                     { value: "App\\Models\\Invoice", label: "Invoice", model: 'invoice', labelFelid: 'subject' },
-                                    { value: "App\\Models\\VendorRfq", label: "Vendor Rfq", model: 'vendorRfq', labelFelid: 'vendor_rfq_name' },
-                                    { value: "App\\Models\\Lead", label: "Lead", model: 'vendorRfq', labelFelid: 'full_name' },
-                                    { value: "App\\Models\\Contact", label: "Contact", model: 'vendorRfq', labelFelid: 'full_name' },
+                                    { value: "App\\Models\\VendorRfq", label: "Vendor Rfq", model: 'vendor_rfq', labelFelid: 'vendor_rfq_name' },
+                                    { value: "App\\Models\\Lead", label: "Lead", model: 'lead', labelFelid: 'full_name' },
+                                    { value: "App\\Models\\Contact", label: "Contact", model: 'contact', labelFelid: 'full_name' },
                                 ];
                                 let modelType = '';
                                 let modelTypeSelected;
@@ -297,17 +297,18 @@ const GenerateTableList = ({
 
                                 }
                                 
-                                modelType=modelTypeSelected.model;
+                                modelType=modelTypeSelected?.model;
+                                // console.log(relationFiled,userable,relationFiled?.[modelTypeSelected.labelFelid]);
                                 
                                 content = (
                                     <NavLink target="_blank" to={`/${modelType}/edit/${displayValue}`}>
-                                        <div className="text-primary underline hover:no-underline font-semibold">{relationFiled?.[modelTypeSelected.labelFelid]}</div>
+                                        <div className="text-primary underline hover:no-underline font-semibold">{`${relationFiled?.[modelTypeSelected?.labelFelid]}`}</div>
                                     </NavLink>
                                 );
                             } else {
                                 content = (
                                     <div className="font-semibold">
-                                        {displayValue}
+                                        {`${displayValue}`}
                                     </div>
                                 );
                             }
@@ -431,7 +432,7 @@ const GenerateTableList = ({
 
             // Reset state and hide settings
             setSearchColumns("");
-            setSelectedColumns([]);
+            // setSelectedColumns([]);
             setShowSettingColumns(false);
         } catch (error) {
             showMessage(`Error create setting field columns.`, "error");
