@@ -311,8 +311,7 @@ const TableListModule = ({ columns, modelArray, handleSaveSelectedColumn,
                     onRecordsPerPageChange={setPageSize}
                     sortStatus={sortStatus}
                     onSortStatusChange={handleSortChange}
-                    selectedRecords={selectedRecords}
-                    onSelectedRecordsChange={setSelectedRecords}
+                  
                     style={{ zIndex: 1 }} 
                     // onRowClick={(record) => {
                     //     setHoveredRow(record.id)}}
