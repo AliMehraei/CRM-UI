@@ -181,7 +181,7 @@ const GenerateTableList = ({
                 title: field.label,
                 sortable: true,
                 render: ({ [field.value]: fieldValue,
-                     [field?.relation_model ? field?.relation_model?.model : '']: relatedValue, 
+                     [field?.relation_model ? field?.relation_model?.model : '']: relatedValue,
                      [field?.relation_model ? 'owner' : '']: owner,
                       id,
                       [field.value=='userable_id' ? 'userable_type' : '']: userableType,
@@ -209,7 +209,7 @@ const GenerateTableList = ({
                             displayValue = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${hours % 12 || 12}:${minutes} ${ampm}`;
                         }
                     }
-                    //show relation 
+                    //show relation
                     if (field?.relation_model) {
                         const labelField = relatedValue?.[field.relation_model?.label_field];
                         const truncatedSubject = labelField ? labelField.slice(0, 20) : '';
@@ -237,7 +237,7 @@ const GenerateTableList = ({
                             // const truncatedSubject = displayValue.slice(0, 20); // Assuming you want to truncate the subject to 20 characters
                             const truncatedSubject = displayValue ? displayValue.slice(0, 20) : '';
                             content = (
-                                <NavLink target="_blank" to={`/${modelLabelField}/edit/${id}`}>
+                                <NavLink target="_blank" to={`/${modelLabelField}/preview/${id}`}>
                                     <div className="text-primary underline hover:no-underline font-semibold">{`${truncatedSubject}`}</div>
                                 </NavLink>
                             );
@@ -296,12 +296,12 @@ const GenerateTableList = ({
                                         break;
 
                                 }
-                                
+
                                 modelType=modelTypeSelected?.model;
                                 // console.log(relationFiled,userable,relationFiled?.[modelTypeSelected.labelFelid]);
-                                
+
                                 content = (
-                                    <NavLink target="_blank" to={`/${modelType}/edit/${displayValue}`}>
+                                    <NavLink target="_blank" to={`/${modelType}/preview/${displayValue}`}>
                                         <div className="text-primary underline hover:no-underline font-semibold">{`${relationFiled?.[modelTypeSelected?.labelFelid]}`}</div>
                                     </NavLink>
                                 );
